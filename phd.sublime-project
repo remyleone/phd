@@ -1,0 +1,10 @@
+{
+	"folders":
+	[
+		{
+			"path": "/home/sieben/Dropbox/workspace/phd",
+			"file_exclude_patterns": [
+			"*.pptx", "*.potx", "*.aux", "*.out", "*.toc", "*.bbl", "*.fls", "*.lof", "*.lot", "*.log", "*.lol", "*.blg", "*.brg", "*.brf", "*.fdb_latexmk"]
+		}
+	]
+}

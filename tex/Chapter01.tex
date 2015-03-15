@@ -1,0 +1,61 @@
+% Chapter 1
+
+\chapter{Introduction} % Chapter title
+\label{ch:introduction} % For referencing the chapter elsewhere, use \autoref{ch:introduction} 
+
+%----------------------------------------------------------------------------------------
+
+This template for \LaTeX\ has two goals:
+\begin{enumerate}
+\item Provide students with an easy-to-use template for their Master's or PhD thesis (though it might also be used by other types of authors for reports, books, etc.).
+%\item Provide a classic, high-quality typographic style that is inspired by \citeauthor{bringhurst:2002}'s ``\emph{The Elements of Typographic Style}'' \citep{bringhurst:2002}.
+\marginpar{\myTitle \myVersion}
+\end{enumerate}
+
+The bundle is configured to run with a \emph{full} MiK\TeX\ or \TeX Live installation right away and, therefore, it uses only freely available fonts.
+
+People interested only in the nice style and not the whole bundle can now use the style stand-alone via the file \texttt{classicthesis.sty}. This works now also with ``plain'' \LaTeX.
+
+As of version 3.0, \texttt{classicthesis} can also be easily used with \mLyX\footnote{\url{http://www.lyx.org}} thanks to Nicholas Mariette and Ivo Pletikosi\'c. The \mLyX\ version of this manual will contain more information on the details.
+
+This should enable anyone with a basic knowledge of \LaTeXe\ or \mLyX\ to produce beautiful documents without too much effort. In the end, this is my overall goal: more beautiful documents, especially theses, as I am tired of seeing so many ugly ones.
+
+If you like the style then I would appreciate a postcard:
+\begin{center}
+Andre Miede \\
+Detmolder Strasse 32 \\
+31737 Rinteln \\
+Germany
+\end{center}
+
+	
+%----------------------------------------------------------------------------------------
+
+\section{Customization}\label{sec:custom}
+
+The first customization you are about to make is to alter the document title, author name, and other thesis details. In order to do this, replace the data in the following lines of \texttt{classicthesis-config.tex:}\marginpar{Modifications in \texttt{classic\-thesis-config.tex}
+}
+
+\begin{lstlisting}[frame=lt]
+\newcommand{\myTitle}{A Classic Thesis Style\xspace}
+\newcommand{\mySubtitle}{An Homage to ...\xspace}
+\newcommand{\myDegree}{Doktor-Ingenieur (Dr.-Ing.)\xspace}
+\end{lstlisting}
+
+Further customization can be made in \texttt{classicthesis-config.tex} by choosing the options to \texttt{classicthesis.sty} (see~\autoref{sec:options}) in a line that looks like this:
+
+\begin{lstlisting}[frame=lt]
+\PassOptionsToPackage{eulerchapternumbers,listings,drafting, pdfspacing, subfig,beramono,eulermath,parts}{classicthesis}
+
+\end{lstlisting}
+
+If you want to use backreferences from your citations to the pages they were cited on, change the following line from:
+\begin{lstlisting}[breaklines=false,frame=lt]
+\setboolean{enable-backrefs}{false}
+\end{lstlisting}
+to
+\begin{lstlisting}[breaklines=false,frame=lt]
+\setboolean{enable-backrefs}{true}
+\end{lstlisting}
+
+%----------------------------------------------------------------------------------------
