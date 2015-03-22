@@ -1,82 +1,45 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Classicthesis Typographic Thesis
-% LaTeX Template
-% Version 1.3 (15/2/14)
-%
-% This template has been downloaded from:
-% http://www.LaTeXTemplates.com
-%
-% Original author:
-% André Miede (http://www.miede.de)
-%
-% License:
-% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
-%
-% General Tips:
-% 1) Make sure to edit the classicthesis-config.file
-% 2) New enumeration (A., B., C., etc in small caps): \begin{aenumerate} \end{aenumerate}
-% 3) For margin notes: \marginpar or \graffito{}
-% 4) Do not use bold fonts in this style, it is designed around them
-% 5) Use tables as in the examples
-% 6) See classicthesis-preamble.sty for useful commands
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 %----------------------------------------------------------------------------------------
 %	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %----------------------------------------------------------------------------------------
 
-\documentclass[
-		twoside,openright,titlepage,numbers=noenddot,headinclude,%1headlines,
-                footinclude=true,cleardoublepage=empty,
-                BCOR=5mm,paper=a4,fontsize=11pt, % Binding correction, paper type and font size
-                ngerman,american, % Languages
-                ]{scrreprt} 
+\documentclass[a4paper, oneside]{book} 
                 
 % Includes the file which contains all the document configurations and packages - make sure to edit this file
-\input{tex/config}
+\input{tex/_specials/config}
 
 \begin{document}
 
-\frenchspacing % Reduces space after periods to make text more compact
+% \frenchspacing % Reduces space after periods to make text more compact
 
-\raggedbottom % Makes all pages the height of the text on that page
-
-%\selectlanguage{francais} % Select your default language - e.g. american or ngerman
+% \raggedbottom % Makes all pages the height of the text on that page
 
 %\renewcommand*{\bibname}{new name} % Uncomment to change the name of the bibliography
 %\setbibpreamble{} % Uncomment to include a preamble to the bibliography - some text before the reference list starts
 
 \pagenumbering{roman} % Roman page numbering prior to the start of the thesis content (i, ii, iii, etc)
 
-\pagestyle{plain} % Suppress headers for the pre-content pages
+% \pagestyle{plain} % Suppress headers for the pre-content pages
 
 %----------------------------------------------------------------------------------------
 %	PRE-CONTENT THESIS PAGES
 %----------------------------------------------------------------------------------------
 
-\include{tex/TPT_Premiere}
+\include{tex/_specials/tpt_premiere}
+\include{tex/_specials/titleback} % Back of the title page
 
-\include{tex/Titleback} % Back of the title page
+\cleardoublepage\include{tex/_specials/dedication} % Dedication page
+\cleardoublepage\include{tex/abstract} % Abstract page
+\cleardoublepage\include{tex/_specials/publication} % Publications from the thesis page
+\cleardoublepage\include{tex/_specials/acknowledgments} % Acknowledgements page
 
-\cleardoublepage\include{tex/Dedication} % Dedication page
+% %\pagestyle{scrheadings} % Show chapter titles as headings
 
-%\cleardoublepage\include{tex/Foreword} % Uncomment and create a Foreword.tex to include a foreword
-
-\cleardoublepage\include{tex/Abstract} % Abstract page
-
-\cleardoublepage\include{tex/Publication} % Publications from the thesis page
-
-\cleardoublepage\include{tex/Acknowledgments} % Acknowledgements page
-
-\pagestyle{scrheadings} % Show chapter titles as headings
-
-\cleardoublepage\include{tex/Contents} % Contents, list of figures/tables/listings and acronyms
+\cleardoublepage\include{tex/_specials/contents} % Contents, list of figures/tables/listings and acronyms
 
 \cleardoublepage
 
 \pagenumbering{arabic} % Arabic page numbering for thesis content (1, 2, 3, etc)
-%\setcounter{page}{90} % Uncomment to manually start the page counter at an arbitrary value (for example if you wish to count the pre-content pages in the page count)
+\pagestyle{fancy} % Use fancy header
 
 \cleardoublepage % Avoids problems with pdfbookmark
 
@@ -84,33 +47,13 @@
 %	THESIS CONTENT 
 %----------------------------------------------------------------------------------------
 
-\ctparttext{You can put some informational part preamble text here. Illo
-  principalmente su nos. Non message \emph{occidental} angloromanic da. Debitas
-  effortio simplificate sia se, auxiliar summarios da que, se avantiate
-  publicationes via. Pan in terra summarios, capital interlingua se que. Al via
-multo esser specimen, campo responder que da. Le usate medical addresses pro,
-europa origine sanctificate nos se.} % Text on the Part 1 page describing  the
-
-\part{Some Kind of Manual} % First part of the thesis
-
-\include{tex/Chapter01} % Chapter 1
-
-\include{tex/intro}
+\input{tex/intro}
+\input{tex/cache}
+\input{tex/estimators}
+\input{tex/automation}
+\input{tex/conclusion}
 
 \cleardoublepage % Empty page before the start of the next part
-
-%------------------------------------------------
-
-\ctparttext{You can put some informational part preamble text here. Illo
-principalmente su nos. Non message \emph{occidental} angloromanic da. Debitas
-effortio simplificate sia se, auxiliar summarios da que, se avantiate
-publicationes via. Pan in terra summarios, capital interlingua se que. Al via
-multo esser specimen, campo responder que da. Le usate medical addresses pro,
-europa origine sanctificate nos se.}
-
-\part{The Showcase} % Second part of the thesis
-
-\include{tex/Chapter02} % Chapter 2
 
 %----------------------------------------------------------------------------------------
 %	THESIS CONTENT - APPENDICES
@@ -127,13 +70,10 @@ europa origine sanctificate nos se.}
 %	POST-CONTENT THESIS PAGES
 %----------------------------------------------------------------------------------------
 
-\cleardoublepage\include{tex/Bibliography} % Bibliography
-
-\cleardoublepage\include{tex/Colophon} % Colophon
-
-
-\cleardoublepage\include{tex/TPT_Quatrieme}
-% \cleardoublepage\include{tex/Declaration} % Declaration
+\cleardoublepage\include{tex/_specials/bibliography} % Bibliography
+\cleardoublepage\include{tex/_specials/colophon} % Colophon
+\cleardoublepage\include{tex/_specials/tpt_quatrieme}
+% \cleardoublepage\include{tex/_specials/declaration} % Declaration
 
 %----------------------------------------------------------------------------------------
 

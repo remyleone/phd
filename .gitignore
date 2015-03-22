@@ -271,3 +271,5 @@ sftp-config.json
 Session.vim
 .netrwhist
 *~
+
+*.mtc*
