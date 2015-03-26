@@ -1,10 +1,33 @@
 {
-	"folders":
-	[
-		{
-			"path": "/home/sieben/Dropbox/workspace/phd",
-			"file_exclude_patterns": [
-			"*.pptx", "*.potx", "*.aux", "*.out", "*.toc", "*.bbl", "*.fls", "*.lof", "*.lot", "*.log", "*.lol", "*.blg", "*.brg", "*.brf", "*.fdb_latexmk"]
-		}
-	]
+  "folders": [
+    {
+      "path": "/home/sieben/Dropbox/workspace/phd",
+      "folder_exclude_patterns": [
+        "img"
+      ],
+      "file_exclude_patterns": [
+        "*.pptx",
+        "*.potx",
+        "*.aux",
+        "*.out",
+        "*.toc",
+        "*.bbl",
+        "*.fls",
+        "*.lof",
+        "*.lot",
+        "*.log",
+        "*.lol",
+        "*.blg",
+        "*.brg",
+        "*.brf",
+        "*.pdf",
+        "*.bcf",
+        "*.maf",
+        "*.run.xml",
+        "*.sublime-workspace",
+        "*.mtc*",
+        "*.fdb_latexmk"
+      ]
+    }
+  ]
 }

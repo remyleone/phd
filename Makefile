@@ -7,6 +7,9 @@ LT_LANG=en-US
 all:
 	latexmk main.tex
 
+travis:
+	pdflatex main.tex
+
 clean:
 	latexmk -C
 
