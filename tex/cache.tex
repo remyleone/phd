@@ -26,6 +26,36 @@
 
 % section experiments (end)
 
+\section{Performance Measurements} % (fold)
+\label{sec:performance_measurements}
+
+\subsection{Reactivity to network changes} % (fold)
+\label{sub:reactivity_to_network_changes}
+
+\begin{itemize}
+	\item Combien de temps me faut il pour me rendre compte qu'un noeud est indisponible ?
+	\item Combien de temps me faut il pour détecter une panne ?
+	\item Comment les durée de cache s'adaptent a un changement de réseau ?
+	\item Quel est le délai pour détecter un gros problème dans le réseau et adapter le niveau de requêtes histoire de calmer le jeu?
+	\item Quel est le délai entre un changement dans le réseau significatif et un recalcul des temps de caches.
+	\item Est ce que l'on peut avoir des phénomènes d'oscillation du système ? Typiquement des requêtes qui passent puis ne passent plus à la même fréquence. Comment lutter contre ce problème s'il existe?
+	\item L'impact de la topologie se présente de manière évidente dans le calcul du temps de cache.
+
+	\item est ce que ce système dans le cas ou il se plante bloque des utilisateurs comme 
+	un ascenseur ou bien c'est plutôt un escalier de tel sorte qu'il ne bloque pas les utilisateurs d'en trouver un autre si il se plante.
+
+	\item La fonction économique que l'on va utiliser peut être modifié selon différents critères. Par exemple on peut avoir une répartition des poids différentes selon qu'un noeud a plus ou moins de voisins. Une autre approche consiste a prendre en compte la répartition des popularités des requêtes envoyées.
+
+	\item Est ce que ça fonctionne avec des topologies aléatoires ? Changeante (Ajout ou perte de noeuds)?
+
+	\item Est ce que le modèle continue de fonctionner dans le cas ou on a plusieurs routeurs de bordure.	
+
+\end{itemize}
+
+% subsection reactivity_to_network_changes (end)
+
+% section performance_measurements (end)
+
 \section{Conclusion} % (fold)
 \label{sec:cache_conclusion}
 

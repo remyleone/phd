@@ -17,6 +17,28 @@
 
 \lipsum
 
+\begin{itemize}
+
+    \item On envoit la liste des voisins en utilisant une combine avec des
+      filtres de bloom. Peu importe si les filtres de bloom sont vraiment
+      implémentés dans le réseau. Ce qui compte c'est de voir si la gateway
+      serait capable de les retrouver si elle venait à recevoir un message de
+      ce type.
+
+      On gère les voisins en utilisant des filtres de bloom pour envoyer la
+      liste des voisins. Si un noeud fait partie des voisins du noeud A alors
+      on calcule le hash de son adresse IPv6 puis on l'ajoute dans le filtre
+      de bloom. Une fois que la gateway récupère l'information elle est en
+      mesure de tester vis a vis de tous les noeuds qu'elle connait de savoir
+      si ils interagissent ou pas avec une certaine probabibilité.
+
+      Comment s'assurer que l'on a un envoi de message efficace ?
+
+      \item Comment ça se passe quand on est en TDMA façon Tisch par rapport
+      a une utilisation façon CSMA quand on est dans Contiki MAC?
+
+\end{itemize}
+
 % section network_model (end)
 
 \section{Experiments} % (fold)
@@ -25,6 +47,35 @@
 \lipsum
 
 % section experiments (end)
+
+\section{Performance Measurements} % (fold)
+\label{sec:performance_measurements}
+
+\begin{itemize}
+	\item Combien de temps me faut il pour me rendre compte qu'un noeud est indisponible ?
+	\item Combien de temps me faut il pour détecter une panne ?
+	\item Comment trouver les fréquences d'envoi de messages de monitoring optimaux?
+	\item Quel est l'impact réel de l'inférence ? Quel place pour la déduction ? Comment mesurer la performance d'une méthode de déduction ?
+	\item Quel est le délai pour confirmer qu'une estimation est correct ou incorrect ?
+	\item Quel est le délai pour corriger une erreur ?
+	\item Quel est le délai pour détecter un gros problème dans le réseau ?
+	\item Est ce que l'on peut avoir des phénomènes d'oscillation du système ? Une estimation
+	du durée de vie qui n'est pas bonne, entraine une série de mécanisme de qualité de service qui amène une estimation a être différente puis se rendre compte que la configuration d'avant était meilleure et fournir des estimations fauisses encore ? En gros des phénomènes de larsen.
+	\item Quelles sont les topologies significativement difficiles à estimer ? Est ce qu'il y a une corrélation entre topologie et estimations ?
+
+	\item est ce que ce système dans le cas ou il se plante bloque des utilisateurs comme 
+	un ascenseur ou bien c'est plutôt un escalier de tel sorte qu'il ne bloque pas les utilisateurs d'en trouver un autre si il se plante.
+
+	\item Est ce que le nombre de messages de recalibrations peut changer selon la profondeur a laquelle on se trouve dans l'arbre ? ou bien selon le nombre de voisins ?
+
+	\item Comment on peut faire en sorte de ne pas avoir des messages de supervision prioritaires ? Une bonne combine pourrait être de faire du piggy backing sur les messages de routages/messages applicatifs. Si c'est ce que l'on fait on doit fournir des quantités de bits disponibles pour être remplis avec de l'information. Est ce que la fréquence d'envoi est suffisante pour assurer une estimation suffisante ?
+
+	\item Est ce que ça fonctionne avec des topologies aléatoires ? Changeante (Ajout ou perte de noeuds)?
+
+\end{itemize}
+
+
+% section performance_measurements (end)
 
 \section{Conclusion} % (fold)
 \label{sec:estimators_conclusion}

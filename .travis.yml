@@ -1,26 +1,10 @@
-# We use haskell to have pandoc dependencies fetched more quickly
-language: haskell
-
-install:
-  # Some fonts that I really like.
-  - sudo apt-get install ttf-sil-gentium ttf-sil-gentium-basic
-  - sudo apt-get install texlive-fonts-extra
-  - sudo apt-get install texlive-fonts-recommended
-
-  # Latex packages
-  - sudo apt-get install texlive-xetex texlive-latex-recommended texlive-latex-extra
-
-  # Conversion tools
-  - sudo apt-get install pandoc # Useful to convert to a DOCX document
-
-  # Automation tools
-  - sudo apt-get install latexmk
-
-  # Spelling checking. Yes it needs Java I know. Feel free to send me lighter alternatives
-  - sudo apt-get install openjdk-7-jdk
+addons:
+  apt_packages:
+  - latexmk
+  - texlive-full
 
 script:
-  - make
+  - make 
   # - make fetch_grammar_check
   # - make grammar_check
   # - make word
