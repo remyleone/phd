@@ -1,44 +1,123 @@
 \chapter{Network Model} % (fold)
 \label{cha:network_model}
 
-\section{Network Stack} % (fold)
-\label{sec:network_stack}
+\section{Introduction} % (fold)
+\label{sec:introduction}
 
-\subsection{Physical Layer} % (fold)
-\label{sub:physical_layer}
+% section introduction (end)
 
-\lipsum
+\subsection{Temps de vie} % (fold)
+\label{sub:temps_de_vie}
+
+% subsection temps_de_vie (end)
+\begin{itemize}
+	\item Il faut parler des différentes définitions
+	
+	\item Notre partie pris est de considérer que les noeuds sont des composants
+	d'un système mais que la perte d'un noeud ne signifie pas forcement la mort de toute
+	l'application. Les alertes et la maintenance se font en fonction de chaque situation
+	mais il n'y a pas un seul scénario général.
+
+\end{itemize}
+
+% section lifetime (end)
+
+% \section{Network Stack} % (fold)
+% \label{sec:network_stack}
+
+% \subsection{Physical Layer} % (fold)
+% \label{sub:physical_layer}
+
+% \lipsum
 
 % subsection physical_layer (end)
 
-\subsection{MAC Layer} % (fold)
-\label{sub:mac_layer}
+\section{MAC Layer} % (fold)
+\label{sec:mac_layer}
 
 \lipsum
+
+\subsection{CSMA} % (fold)
+\label{sub:csma}
+
+ContikiMAC
+
+% subsection csma (end)
+
+\subsection{TDMA} % (fold)
+\label{sub:tdma}
+
+Tisch
+
+% subsection tdma (end)
 
 % subsection mac_layer (end)
 
-\subsection{Routing Layer} % (fold)
-\label{sub:routing_layer}
+\section{Network Layer} % (fold)
+\label{sec:network_layer}
+
+\subsection{6lowpan} % (fold)
+\label{sub:6lowpan}
 
 \lipsum
 
-% subsection routing_layer (end)
+% subsection 6lowpan (end)
 
-\subsection{Application Layer} % (fold)
-\label{sub:application_layer}
+% section network_layer (end)
+
+\section{Routing Layer} % (fold)
+\label{sec:routing_layer}
+
+\subsection{RPL} % (fold)
+\label{sub:rpl}
+
+% subsection rpl (end)
+
+\subsection{Other routing protocols} % (fold)
+\label{sub:other_routing_protocols}
+
+% subsection other_routing_protocols (end)
+
+% section routing_layer (end)
+
+\section{Application Layer} % (fold)
+\label{sec:application_layer}
 
 \lipsum
+
+\subsection{CoAP} % (fold)
+\label{sub:coap}
+
+\lipsum
+
+% subsection coap (end)
+
+\subsection{MQTT} % (fold)
+\label{sub:mqtt}
+
+\lipsum
+
+% subsection mqtt (end)
 
 % subsection application_layer (end)
 
-% section network_stack (end)
+\section{Fonctions d'une passerelle} % (fold)
+\label{sec:fonctions_d_une_passerelle}
 
-\section{Lifetime} % (fold)
-\label{sec:lifetime}
+\subsection{Traduction de protocoles} % (fold)
+\label{sub:traduction_de_protocoles}
 
 \lipsum
 
-% section lifetime (end)
+% subsection traduction_de_protocoles (end)
+
+\subsection{Connexions multiples} % (fold)
+\label{sub:connexions_multiples}
+
+Multihoming
+
+% subsection connexions_multiples (end)
+
+% section fonctions_d_une_passerelle (end)
 
 % chapter network_model (end)
