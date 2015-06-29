@@ -1,8 +1,8 @@
-LT_DL=https://languagetool.org/download/LanguageTool-2.8.zip
+LT_DL=https://languagetool.org/download/LanguageTool-2.9.zip
 LT_FOLDER=~/lt
-LT=~/lt/LanguageTool-2.8/languagetool-commandline.jar
+LT=~/lt/LanguageTool-2.9/languagetool-commandline.jar
 LT_IGNORE=WHITESPACE_RULE,COMMA_PARENTHESIS_WHITESPACE,EN_UNPAIRED_BRACKETS
-LT_LANG=en-US
+LT_LANG=fr
 
 all:
 	latexmk main.tex
