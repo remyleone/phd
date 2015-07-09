@@ -5,7 +5,7 @@ this code is managed though git and tested on travis-ci.
 
 ## Code Status
 
-[![Build Status](https://travis-ci.org/sieben/sieben.svg?branch=master)](https://travis-ci.org/sieben/phd)
+![Build Status](https://api.travis-ci.com/sieben/phd.svg?token=MptuivNtDqJAT7p4miJw)
 
 TL;DR: There are several tools to help you make good LaTeX. This repo can be used as a template for a PhD thesis. 
 Especially for [Edite](https://edite-de-paris.fr) students.
@@ -19,9 +19,9 @@ you detect old commands and deprecated LaTeX code.
 
 Simply put the following lines in your code:
 
-{% highlight latex %}
+``` latex
 \usepackage[l2tabu, orthodox]{nag}
-{% endhighlight %}
+```
 
 ### latexmk
 
@@ -30,12 +30,12 @@ tool to never have to worry anymore about how many time you have to compile to
 get your bibliography right. A latemkrc is the file you will put inside the
 project that will help bootstrap latexmk. Here's mine:
 
-{% highlight perl %}
+``` perl
 $pdf_mode = "1";
 $pdflatex = "pdflatex";
 $makeindex = "splitindex";
 $makeindex = "makeindex;splitindex;";
-{% endhighlight %}
+```
 
 ## Spelling help
 
@@ -85,7 +85,7 @@ I like to have a modular project. Therefore, I use the following layout:
 
 A main.tex document that import all other using similar snippets:
 
-{% highlight latex %}
+``` latex
 \begin{document}
 
 \maketitle
@@ -97,7 +97,7 @@ A main.tex document that import all other using similar snippets:
 \input{tex/conclusion}
 
 \end{document}
-{% endhighlight %}
+```
 
 Organizing code this way is handy because I only have small files that I can
 easily get on one screen, share in an email or simply read in one sight. If my
@@ -114,7 +114,7 @@ document.
 Of course, you don't want to type commands all the time. Therefore you put
 them in a makefile like this one:
 
-{% highlight Makefile %}
+``` makefile
 LT_DL=https://languagetool.org/download/LanguageTool-2.8.zip
 LT_FOLDER=~/lt
 LT=~/lt/LanguageTool-2.8/languagetool-commandline.jar
@@ -131,7 +131,7 @@ grammar_check:
 fetch_grammar_check:
         wget $(LT_DL) -O $(LT_FOLDER).zip
         unzip $(LT_FOLDER).zip -d $(LT_FOLDER)
-{% endhighlight %}
+``` 
 
 ## Thanks do you have a nice bundle with all those tools?
 
