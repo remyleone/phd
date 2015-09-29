@@ -2,12 +2,10 @@ addons:
   apt_packages:
   - latexmk
   - texlive-full
+  - python-pygments
 
 script:
-  - make 
-  # - make fetch_grammar_check
-  # - make grammar_check
-  # - make word
+  - make
 
 notifications:
   email: false
