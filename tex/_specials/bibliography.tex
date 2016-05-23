@@ -9,6 +9,12 @@
 %\addtocontents{toc}{\protect\vspace{\beforebibskip}} % Place the bibliography slightly below the rest of the document content in the table of contents
 %\addcontentsline{toc}{chapter}{\tocEntry{\bibname}}
 
-%\printbibliography
-% \printbibliography[keyword={automation},title={Related publications}]
-% \printbibliography[keyword={automation},title={Related publications}]
+%\fancypagestyle{plain}{
+%		\fancyhead{}
+%        \fancyfoot[C]{\thepage}%
+%		\renewcommand{\headrulewidth}{0pt}
+%}%
+\bibliographystyle{plain}%
+\addcontentsline{toc}{chapter}{Bibliographie}%
+%\bibliography{../../Bibliographie/biblio_votes/biblio_votes}
+\bibliography{main}

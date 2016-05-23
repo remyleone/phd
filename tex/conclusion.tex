@@ -1,8 +1,111 @@
 %!TEX root = ../main.tex
+% !TeX spellcheck = fr_FR
 
-\chapter{Conclusion} % (fold)
-\label{cha:conclusion}
+\chapter{Conclusion et perspectives}
+\label{conclusion}
 
-\lipsum
+\section{Passerelle avancée pour les \ac{LLN}s}
 
-% chapter conclusion (end)
+Cette thèse a présenté comment la passerelle qui est utilisée pour connecter un \ac{LLN} à un réseau classique peut héberger des services pouvant optimiser de manière transparente l'utilisation des ressources d'un \ac{LLN}.
+Le chapitre~\ref{gw} a permis de montrer comment la passerelle du fait de sa position peut avoir accès à une grande quantité d'informations concernant le \ac{LLN}.
+À partir de ces informations, plusieurs mécanismes permettant l'optimisation des ressources des \ac{LLN}s ont été proposés:
+
+\begin{figure}[ht]
+  \centering
+  \pgfdeclarelayer{supervision}
+  \pgfdeclarelayer{lln}
+  \pgfdeclarelayer{proxy}
+  \pgfsetlayers{supervision,lln,proxy,main}
+  \input{tex/schema_gw}
+  \caption{Schéma de la passerelle proposée}
+  \label{conclusion:schema}
+\end{figure}
+
+La Figure~\ref{conclusion:schema} illustre les contributions proposées dans cette thèse pouvant être déployées à la passerelle.
+Ces contributions sont détaillées ci-après.
+
+\subsection{Supervision}
+
+Le chapitre~\ref{supervision} a proposé une méthode de mesure implicite de l'utilisation de la radio en s'appuyant d'une part sur le trafic observé par le routeur de bordure et d'autre part sur la topologie de routage obtenue de manière opportuniste.
+En combinant ces observations avec une modélisation de la couche basse, il est possible d'avoir une estimation passive et transparente de l'utilisation de la radio pour tous les nœuds présents dans le \ac{LLN}.
+
+La précision de cette estimation a été évaluée et a permis de conclure que la connaissance de la topologie améliorait grandement la précision de telles estimations.
+D'autre part, la validation expérimentale a permis de conclure que les phénomènes non prévisibles par la passerelle tels que les pertes de paquets ou les envois multiples d'un paquet par la couche MAC avaient une réelle influence.
+Ainsi la prévision à partir du trafic routé seul n'était pas suffisante pour avoir une vision de l'utilisation de la radio des nœuds d'un \ac{LLN} sans le solliciter.
+
+\subsection{Mise en cache des réponses}
+
+Le chapitre~\ref{cache} a proposé un mécanisme permettant d'optimiser l'utilisation des ressources d'un \ac{LLN} en configurant un cache applicatif s’exécutant sur la passerelle afin de ne laisser passer qu'une quantité admissible de trafic vers le \ac{LLN}.
+Ce mécanisme repose d'une part sur un \ac{RPC} dont le but est de garder en cache les réponses aux requêtes visant un nœud du \ac{LLN} et d'autre part sur une optimisation multi-objectifs capable de trouver des temps de vie en cache acceptables pour ces réponses.
+Les temps de vie pour chacune des réponses sont déterminés en prenant en compte à la fois les demandes des utilisateurs qui veulent avoir un contenu aussi récent que possible et d'autre part des nœuds du \ac{LLN} qui veulent économiser leurs ressources en servant aussi peu de requêtes que possible.
+
+La validation expérimentale a permis de confirmer que le mécanisme d'optimisation multi-objectif produit le meilleur compromis entre des temps de vie acceptables et la satisfaction des utilisateurs. 
+D'autre part, le \ac{RPCA} peut être utilisé pour augmenter la durée de vie d'un \ac{LLN}.
+
+\subsection{Reproductibilité des expériences}
+
+Le chapitre~\ref{makesense} a proposé Makesense: un framework permettant d'effectuer ces expériences de manière reproductible afin de garantir d'une part leur automatisation et d'autre part l'intégration de la documentation et du code dans un seul format cohérent.
+Makesense permet de garantir qu'une expérience est reproductible en transformant le notebook contenant l'expérience vers un programme qui une fois exécuté fournit le résultat d'une expérience.
+Makesense est diffusée sous licence libre~\footnote{\href{https://github.com/sieben/makesense}{https://github.com/sieben/makesense}} et les outils qu'il intègre peuvent être réutilisés dans des contextes variés.
+
+\section{Ouvertures}
+
+Les contributions proposées dans cette thèse peuvent être étendues dans plusieurs directions qui sont détaillées ici:
+
+\subsection{Mesure passive}
+
+La précision de la supervision passive est liée à la fois à la précision de la modélisation de la couche MAC et d'autre part à l'utilisation de la radio que la passerelle peut inférer.
+Une piste d'amélioration de la supervision passive consisterait à l'appliquer dans des scénarios où les couches \ac{MAC} et les conditions de trafic seraient beaucoup plus déterministes et donc plus facilement prévisibles.
+
+Une autre piste d'amélioration se trouve au niveau de l'inférence de l'impact d'un paquet sur le \ac{LLN}.
+La supervision passive proposée n'utilise que les entêtes source et destination pour comptabiliser une activité en se concentrant seulement sur son routage.
+Cependant des corrélations plus fines mettant en jeu une connaissance approfondie des protocoles et la corrélation de plusieurs paquets reçus (notamment les paquets de routage) permettraient d'avoir une connaissance plus fine des paquets qui ont été transmis dans le \ac{LLN} mais que la passerelle ne peut observer.
+Cependant cette tâche est complexe, car les implémentations ne respectent pas toujours les spécifications ainsi l'observation d'un paquet peut avoir différentes interprétations selon l'implémentation mise en jeu.
+
+\subsection{\acl{RPCA}}
+
+Le rôle d'un \ac{RPCA} consiste à adapter les temps de vie des réponses des requêtes applicatives afin de satisfaire au mieux à la fois les nœuds du \ac{LLN} et les utilisateurs.
+L'heuristique employée dans cette thèse est basée sur des algorithmes génétiques, cependant il est possible que des heuristiques plus efficaces puissent être utilisées pour trouver les temps de vie.
+Il est à noter que les heuristiques employées pour trouver ces temps de vie peuvent être très complexes notamment dans le cas où la modélisation de la durée de vie met en jeu un grand nombre d'éléments.
+Un comparatif des différentes heuristiques possibles pourrait permettre de trouver en fonction de la modélisation du problème l'heuristique la plus adaptée.
+Cependant cette tâche est complexe en raison de la variété des heuristiques disponibles dans la littérature et de la difficulté de les configurer efficacement.
+
+Une autre contribution possible serait d'avoir une modélisation de la satisfaction des utilisateurs tenant compte de la popularité d'une \ac{URI} plutôt que des temps de vie en cache qui lui sont appliqués.
+Cette approche pourrait permettre d'avoir des gestions beaucoup plus dynamiques de la qualité de service ressentie par les utilisateurs.
+Cependant mettre une ``valeur'' sur une \ac{URI} ouvre la voie à des modélisations complexes pouvant par exemple se ramener à des problèmes de sac-à-dos multi-objectifs qui peuvent être difficiles à résoudre efficacement dans un cas général avec un grand nombre d'\ac{URI}.
+
+\subsection{Reproductibilité en simulations et expérimentations}
+
+L'une des contributions les plus souhaitables pour Makesense serait de disposer d'une gestion des ``snapshot'' permettant d'avoir un instantané d'une simulation ou d'une expérience en cours.
+Cependant bien que ce type de fonctionnalité soit possible dans le cas de simulateur ou d'émulateur, il est difficile à obtenir sur des nœuds réels car l'état exact d'un système embarqué est difficile à obtenir dans le cas général.
+
+D'autre part, une expérience sur les \ac{LLN}s met également en jeu de nombreux processus concurrents (agrégation des données, injection de trafic, etc.) or la gestion de ces processus et de leur cycle de vie est parfois complexe rendant cette abstraction délicate.
+Une autre piste de contribution serait une gestion de haut niveau du cycle de vie de ces processus afin de garantir un niveau de fiabilité suffisant au cours de l'expérience.
+
+\section{Usages potentiels}
+
+Les contributions présentées dans cette thèse sont applicables dans plusieurs champs à la fois en recherche et en développement industriels:
+
+\subsection{Recherche reproductible}
+
+Les contributions présentées par Makesense peuvent être mises à profit pour diffuser plus largement des expériences mettant en jeu des \ac{LLN}.
+Une première piste d'application serait la constitution de supports pédagogiques interactifs pour permettre de diffuser des expériences mettant en jeu des \ac{LLN} simulés, d'observer leur comportement puis d'effectuer les mêmes expériences sur des nœuds réels.
+L'utilisation de support permettrait de raccourcir le temps nécessaire pour exécuter une expérience sur différents supports: nœuds émulés pour démarrer, puis transition vers des nœuds physiques pour confirmer des premiers résultats obtenus et enfin exécuter une expérience à large échelle.
+
+D'autre part, Makesense peut également être utilisé lors de recherches sur les \ac{LLN} pour gérer efficacement à la fois l'obtention des données, leur visualisation et la documentation d'un protocole expérimental.
+Documenter des expériences ou des démonstrations avec Makesense permettrait de pouvoir les ré-exécuter plus facilement et de garantir un suivi de leur fiabilité au cours du temps grâce à l'intégration continue.
+
+\subsection{Supervision passive}
+
+La mesure implicite présentée dans cette thèse peut être utilisée par des solutions de supervision intégrée à destination des \ac{LLN}.
+Par exemple, cette solution de supervision permettrait de voir dans son interface de contrôle des estimations de trafic réseau et de la consommation énergétique estimée.
+L'avantage de la supervision passive est de garantir que quelque soit la configuration des nœuds, une estimation minimale de l'utilisation de la radio soit toujours disponible.
+
+\subsection{\ac{RPC} dans un contexte industriel}
+
+Le \ac{RPCA} présenté dans cette thèse peut être utilisé sur un reverse-proxy situé devant de multiples serveurs applicatifs fonctionnant dans un \ac{LLN}.
+Les \ac{RPC} disposent le plus souvent d'un système de modules afin d'ajouter des fonctionnalités en fonction des déploiements.
+Le \ac{RPCA} présenté ici pourrait être diffusé sous la forme de modules pour les \ac{RPC} les plus utilisés dans l'industrie afin que les temps de vie puissent être gérés dynamiquement et permettrait ainsi de réguler la quantité de requêtes gérée par le \ac{LLN} en fonction de son état.
+Le \ac{RPCA} présenté dans cette thèse a d'ailleurs été utilisé lors du projet européen Calipso afin de faire la démonstration de l'utilité des \ac{LLN} basés sur IP pour construire l'Internet des objets à venir dans les années futures.
+
+% Dernier mot de la thèse c'est futur.

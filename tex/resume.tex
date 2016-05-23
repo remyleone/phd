@@ -1,0 +1,72 @@
+% !TEX root = ../main.tex
+% !TeX spellcheck = fr_FR
+
+\pdfbookmark[1]{Résumé}{Résumé} % Bookmark name visible in a PDF viewer
+
+\begingroup
+\let\clearpage\relax
+\let\cleardoublepage\relax
+\let\cleardoublepage\relax
+
+\chapter*{Résumé} % Abstract name
+
+% Abstract
+
+\acresetall
+
+\newcommand{\resumefr}{
+
+% Les \ac{LLN}s sont des réseaux contraints par leurs ressources typiquement utilisés dans des scénarios d'automatisation de bâtiments.
+
+% Grâce à sa situation à la jointure entre le monde contraint et conventionnel, cette passerelle est à un endroit clé pour accueillir des fonctionnalités réseaux avancées.
+% Cette thèse propose trois contributions autour de ces problématiques de fonctionnalités réseau avancées et des méthodes de recherche qui les accompagnent.
+
+% Cache
+
+% Nous proposons un mécanisme de cache adaptatif permettant d'adapter le temps de vie des ressources dans le cache en fonction du trafic entrant et de l'état des nœuds.
+% Les mécanismes de reverse proxy cache sont utilisés pour accélérer le traitement des requêtes en répondant aux requêtes entrantes à la place des nœuds concernés.
+% Cet aspect peut être étendu en faisant varier les temps de vie des ressources afin de réguler les requêtes touchant le réseau contraint en fonction des ses capacités.
+% Les configurations optimales de temps de validité répondent à des optimisations multi-objectifs.
+% Nous proposons une méthode basée sur des algorithmes génétiques pour trouver le front de Pareto des points optimaux de configuration des temps de validité.
+
+% Supervision active et passive
+
+% Nous proposons un mécanisme d'inférence de supervision du trafic réseau dans le réseau contraint par observation du trafic réseau observé au niveau de la passerelle.
+% Les mécanismes de supervision sont utilisés pour contrôler l'état d'un réseau.
+% L'approche courante consiste à envoyer des requêtes régulièrement afin de connaître l'état d'un nœud.
+% Cette approche est coûteuse à l'échelle de nœuds contraints et doit être limitée. 
+% En utilisant le trafic réseau observés à la passerelle comme base d'un modèle, il est possible de réduire le nombre de messages explicites afin de réduire l'impact de la supervision sur le réseau contraint.
+
+% Makesense
+
+% Enfin, nous proposons Makesense, une méthodologie couplée à un écosystème d'outils permettant de créer une chaîne d'expériences sur banc de test et simulations à partir d'une description unique.
+% Nous pouvons combiner phase de développement rapide avec des simulations puis déployer le même code sur nœuds réels afin d'avoir des tests réalistes et une analyse de résultats communes à ces deux phases. 
+% Enfin, la méthodologie de développement associée permet d'assurer la répétabilité des expériences.
+
+Les réseaux de capteurs (aussi appelés \ac{LLN}s en anglais) sont des réseaux contraints composés de nœuds ayant de faibles ressources (mémoire, CPU, batterie).
+Leur utilisation est croissante dans le contexte de l'\ac{IoT} afin d'obtenir des mesures en temps réel de l'environnement dans lequel ils sont déployés.
+Ils sont de nature très hétérogène et utilisés dans des contextes variés comme la domotique ou les villes intelligentes.
+Pour se connecter nativement à l'Internet, un \ac{LLN} utilise une passerelle, qui du fait de sa position a une vue précise du \ac{LLN} et des informations qui y rentrent et en sortent.
+Le but de cette thèse est d'exposer comment des fonctionnalités peuvent être ajoutées à la passerelle d'un \ac{LLN} dans le but d'optimiser l'utilisation des ressources limitées du \ac{LLN} et d'améliorer la connaissance de son état de fonctionnement.
+
+La première contribution de cette thèse propose de déterminer les temps de validité de ressource optimaux à utiliser au sein d'un cache applicatif. 
+L'utilisation d'un cache applicatif permet d'accélérer le traitement des requêtes et de réduire la charge d'un \ac{LLN} dans le but d'augmenter sa durée de vie.
+Déterminer le temps de validité d'une réponse pour chaque ressource doit tenir compte de multiples paramètres et la littérature n'offre pas de méthodes explicites pour déterminer des temps de validité efficaces pour une configuration donnée.
+Une modélisation du problème donnée sous la forme d'une optimisation multi-objectifs permettra de fournir un ensemble de solutions admissibles optimales.
+
+La seconde contribution de cette thèse est une méthode de mesure implicite de l'utilisation de la radio des nœuds d'un \ac{LLN} permettant d'inférer leur consommation énergétique.
+Pour s'assurer que le fonctionnement d'une application est correct, un administrateur d'un \ac{LLN} a besoin de connaître l'état des nœuds dont dépend son application tout en dépensant aussi peu d'énergie que possible pour obtenir cette information.
+Mesurer explicitement ces informations n'est pas toujours possible et même quand c'est le cas, il est coûteux de le demander à chaque nœud dans un réseau de grande taille.
+En mesurant la quantité de données échangées avec un nœud et connaissant la consommation énergétique nominale de la radio nous montrons que la passerelle peut estimer l'énergie consommée par le nœud sans avoir à utiliser des messages de contrôle coûteux en terme de bande passante et de consommation énergétique.
+Les limites de cette approche seront également décrites et une correction des biais sera proposée lorsque des mesures explicites sont possibles.
+
+Afin de documenter et exécuter de manière reproductible nos expériences nous avons construit un framework d'expérience reproductible appelé Makesense permettant de documenter, d'exécuter et d'analyser l'ensemble d'une expérience effectuée sur un \ac{LLN}.
+Effectuer une expérience avec des \ac{LLN}s met en jeu de nombreux logiciels et des procédures qui sont longues et fastidieuses lorsqu'elles sont réalisées manuellement ce qui rend une expérience difficile à reprendre surtout si elle n'est pas ré-effectuée par la ou les mêmes personnes.
+Fonctionnant à la fois en simulation et sur nœuds réels, Makesense permet d'obtenir un framework d'expériences reproductibles tout en utilisant des outils classiques et largement utilisés par la communauté scientifique.
+}
+
+\resumefr
+
+\endgroup
+
+\vfill

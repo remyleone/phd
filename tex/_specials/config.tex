@@ -6,7 +6,10 @@
 %	Each of the commands can be cited anywhere in the thesis
 %----------------------------------------------------------------------------------------
 
-\newcommand{\myTitle}{Smart gateway for Low-Power Lossy Networks\xspace}
+\usepackage[utf8]{inputenc} 
+
+
+\newcommand{\myTitle}{Passerelle intelligente pour réseaux de capteurs sans fil contraints\xspace}
 \newcommand{\mySubtitle}{A PhD thesis\xspace}
 \DeclareRobustCommand{\myName}{Remy Leone\xspace}
 
@@ -15,6 +18,12 @@
 \newcommand{\Claude}{Dr. Claude CHAUDET\xspace}
 \newcommand{\Vania}{Dr. Vania CONAN\xspace}
 \newcommand{\JeanLouis}{Dr. Jean Louis ROUGIER\xspace}
+\newcommand{\Duda}{Pr. Andrzej DUDA\xspace}
+\newcommand{\Nathalie}{Dr. Nathalie MITTON\xspace}
+\newcommand{\Simon}{Dr. Simon DUQUENNOY\xspace}
+\newcommand{\Fabrice}{Dr. Fabrice THEOLEYRE\xspace}
+\newcommand{\Thomas}{Dr. Thomas WATTEYNE\xspace}
+\newcommand{\Marcelo}{Dr. Marcelo DIAS DE AMORIM}
 
 \newcommand{\myFaculty}{INFRES\xspace}
 \newcommand{\myDepartment}{Network and Computer Science Department\xspace}
@@ -26,6 +35,7 @@
 %	USEFUL COMMANDS
 %----------------------------------------------------------------------------------------
 
+\newcommand{\ieee}{IEEE 802.15.4}
 \newcommand{\ie}{i.\,e.}
 \newcommand{\Ie}{I.\,e.}
 \newcommand{\eg}{e.\,g.}
@@ -38,29 +48,44 @@
 %	PACKAGES
 %----------------------------------------------------------------------------------------
 
-%\usepackage[francais]{babel}
+\usepackage[dvipsnames]{xcolor}
+
+\usepackage[francais]{babel}
 \usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template 
-\usepackage[utf8]{inputenc} 
-\usepackage[fleqn]{amsmath} % Math environments and more by the AMS 
+\usepackage{amsmath} % Math environments and more by the AMS 
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{bytefield}
+\newcommand{\colorbitbox}[3]{%
+\rlap{\bitbox{#2}{\color{#1}\rule{\width}{\height}}}%
+\bitbox{#2}{#3}}
+
+\newcommand{\intervalleoo}[2]{\mathopen{]}#1\,;#2\mathclose{[}} 
+\newcommand{\intervalleff}[2]{\mathopen{[}#1\,;#2\mathclose{]}} 
+\newcommand{\intervalleof}[2]{\mathopen{]}#1\,;#2\mathclose{]}} 
+\newcommand{\intervallefo}[2]{\mathopen{[}#1\,;#2\mathclose{[}} 
+\newcommand{\intervalle}[2]{\mathopen{(}#1\,;#2\mathclose{)}}
+
 \usepackage{xspace} % To get the spacing after macros right
 \usepackage{mparhack} % To get marginpar right
 \usepackage{fixltx2e} % Fixes some LaTeX stuff 
 
-\PassOptionsToPackage{smaller}{acronym} % Include printonlyused in the first bracket to only show acronyms used in the text
+% Documentation http://mirrors.ircam.fr/pub/CTAN/macros/latex/contrib/acronym/acronym.pdf
 \usepackage{acronym} % nice macros for handling all acronyms in the thesis
-
-%------------------------------------------------
-
-%\renewcommand*{\acsfont}[1]{\textssc{#1}} % For MinionPro
-\renewcommand{\bflabel}[1]{{#1}\hfill} % Fix the list of acronyms
+% \renewcommand{\bflabel}[1]{{#1}\hfill} % Fix the list of acronyms
 
 
-\usepackage[backend=biber,style=alphabetic,sorting=ynt]{biblatex}
-\addbibresource{main.bib}
+% \usepackage[backend=biber,style=alphabetic,sorting=ynt]{biblatex}
+% \usepackage{cite}
+
 \usepackage[pdftex]{graphicx} 
 \usepackage{epstopdf}
 
+% Documentation http://mirrors.ircam.fr/pub/CTAN/macros/latex/contrib/nag/nag.pdf
 \usepackage[l2tabu, orthodox]{nag} % Static Analysis of LaTeX source code
+
+% Code snippets
+\usepackage{minted}
 
 %------------------------------------------------
 % Telecom Paris Tech
@@ -95,59 +120,8 @@
 \newcommand{\myfloatalign}{\centering} % To be used with each float for alignment
 \usepackage{caption}
 \captionsetup{format=hang,font=small}
-\usepackage{subfig}  
+\usepackage{subcaption}
 
-%----------------------------------------------------------------------------------------
-%	CODE LISTINGS SETUP
-%----------------------------------------------------------------------------------------
-
-\usepackage{listings} 
-%\lstset{emph={trueIndex,root},emphstyle=\color{BlueViolet}}%\underbar} % for special keywords
-\lstset{language=[LaTeX]Tex, % Specify the language for listings here
-% keywordstyle=\color{Blue}, % Add \bfseries for bold
-basicstyle=\small\ttfamily, % Makes listings a smaller font size and a different font
-%identifierstyle=\color{NavyBlue}, % Color of text inside brackets
-commentstyle=\color{Green}\ttfamily, % Color of comments
-stringstyle=\rmfamily, % Font type to use for strings
-numbers=left, % Change left to none to remove line numbers
-numberstyle=\scriptsize, % Font size of the line numbers
-stepnumber=5, % Increment of line numbers
-numbersep=8pt, % Distance of line numbers from code listing
-showstringspaces=false, % Sets whether spaces in strings should appear underlined
-breaklines=true, % Force the code to stay in the confines of the listing box
-%frameround=ftff, % Uncomment for rounded frame
-frame=single, % Frame border - none/leftline/topline/bottomline/lines/single/shadowbox/L
-belowcaptionskip=.75\baselineskip % Space after the "Listing #: Desciption" text and the listing box
-}
-
-%----------------------------------------------------------------------------------------
-%	HYPERREFERENCES
-%----------------------------------------------------------------------------------------
-
-\PassOptionsToPackage{pdftex,hyperfootnotes=false,pdfpagelabels}{hyperref}
-\usepackage{hyperref}  % backref linktocpage pagebackref
-\pdfcompresslevel=9
-\pdfadjustspacing=1
-
-\hypersetup{
-% Uncomment the line below to remove all links (to references, figures, tables, etc)
-%draft, 
-colorlinks=true, linktocpage=true, pdfstartpage=3, pdfstartview=FitV,
-% Uncomment the line below if you want to have black links (e.g. for printing black and white)
-%colorlinks=false, linktocpage=false, pdfborder={0 0 0}, pdfstartpage=3, pdfstartview=FitV, 
-breaklinks=true, pdfpagemode=UseNone, pageanchor=true, pdfpagemode=UseOutlines,
-plainpages=false, bookmarksnumbered, bookmarksopen=true, bookmarksopenlevel=1,
-hypertexnames=true, pdfhighlight=/O, urlcolor=webbrown, %linkcolor=RoyalBlue, citecolor=webgreen,
-%------------------------------------------------
-% PDF file meta-information
-pdftitle={\myTitle},
-pdfauthor={\textcopyright\ \myName, \myUni, \myFaculty},
-pdfsubject={},
-pdfkeywords={},
-pdfcreator={pdfLaTeX},
-pdfproducer={LaTeX with hyperref}
-%------------------------------------------------
-}   
 
 %----------------------------------------------------------------------------------------
 %	BACKREFERENCES
@@ -185,11 +159,121 @@ pdfproducer={LaTeX with hyperref}
 \usepackage[bitstream-charter]{mathdesign} % Font
 \usepackage[Lenny]{fncychap} % Nice chapter headings Other choices : Sonny, Lenny, Glenn, Conny, Rejne, Bjarne
 
+% DEBUG des subsubsection
+
 \usepackage{minitoc} % Mini table of contents
+\mtcselectlanguage{french} % Mini table of contents in French
+
 \usepackage{epigraph} % This is to insert the nice quote at the beginning of the chapter 
 
 %------------------------------------------------
 % Page headers fancy style  
 %------------------------------------------------
 
+% TODO: Faire un joli header
 \usepackage{fancyhdr}
+
+
+\usepackage{tikz}
+\usetikzlibrary{
+  arrows,
+  automata,
+  backgrounds,
+  calc,
+  decorations.pathreplacing,
+  fit,
+  petri,
+  positioning,
+  shadows,
+  shapes
+}
+\usepackage{tikz-timing}[2014/10/29]
+\usetikztiminglibrary[rising arrows]{clockarrows}
+\usepackage{xparse}
+
+
+\definecolor{OliveGreen}{rgb}{0,0.6,0}
+
+\usepackage{pifont}
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+\newcommand{\ok}{\raisebox{-1mm}{\textcolor{OliveGreen}{\Large$\checkmark$}}}
+\newcommand{\bad}{\raisebox{-1mm}{\textcolor{red}{\Large\xmark}}}
+
+
+\usepackage{titlesec}
+
+\setcounter{secnumdepth}{4}
+
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+
+% Acronym package: Full name after each section / chapter
+\usepackage{etoolbox}
+%\preto\section\acresetall
+
+% Commandes pour le cache et la supervision
+
+\newcommand{\tx}{\textrm{Tx}}
+\newcommand{\rx}{\textrm{Rx}}
+\newcommand{\listen}{\mathcal{L}}
+\newcommand{\sleep}{\mathcal{S}}
+\newcommand{\req}{r}
+\newcommand{\ans}{a}
+\newcommand{\ack}{\textrm{ACK}}
+\newcommand{\racine}{root}
+\newcommand{\router}{router}
+\newcommand{\server}{server}
+\newcommand{\act}{A}
+\newcommand{\cycle}{C}
+\newcommand{\txtx}{\tx \to \tx}
+\newcommand{\txrx}{\tx \to \rx}
+\newcommand{\rxtx}{\rx \to \tx}
+\newcommand{\rxrx}{\rx \to \rx}
+\newcommand{\detect}{d}
+\newcommand{\pkt}{p}
+\newcommand{\cmin}{c_{min}}
+\newcommand{\cmax}{c_{max}}
+\newcommand{\copt}{c^*}
+
+
+%----------------------------------------------------------------------------------------
+% HYPERREFERENCES Should be the last package imported
+%----------------------------------------------------------------------------------------
+
+\PassOptionsToPackage{pdftex,hyperfootnotes=false,pdfpagelabels}{hyperref}
+\usepackage{hyperref}  % backref linktocpage pagebackref
+\pdfcompresslevel=9
+\pdfadjustspacing=1
+
+\hypersetup{
+hypertexnames, % default is true since a long time
+% Uncomment the line below to remove all links (to references, figures, tables, etc)
+%draft, 
+colorlinks=false, 
+% linktocpage=true, 
+pdfstartview=FitV,
+% % Uncomment the line below if you want to have black links (e.g. for printing black and white)
+% %colorlinks=false, linktocpage=false, pdfborder={0 0 0},
+pdfstartview=FitV, 
+% breaklinks=true, 
+% pdfpagemode=UseOutlines,
+% plainpages=false, 
+% bookmarksnumbered, 
+bookmarksopen=true,
+% %urlcolor=webbrown, 
+ linkcolor=RoyalBlue,
+ citecolor=webgreen,
+%------------------------------------------------
+% PDF file meta-information
+pdftitle={\myTitle},
+pdfauthor={\textcopyright\ \myName, \myUni, \myFaculty},
+pdfsubject={Passerelles pour réseaux contraints},
+pdfkeywords={LLN, Low-Power and Lossy Networks, Wireless Sensors Networks},
+pdfcreator={pdfLaTeX},
+pdfproducer={LaTeX with hyperref}
+% ------------------------------------------------
+}

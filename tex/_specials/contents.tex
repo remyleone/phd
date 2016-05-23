@@ -4,7 +4,7 @@
 
 \pdfbookmark[1]{\contentsname}{tableofcontents} % Bookmark name visible in a PDF viewer
 
-\setcounter{tocdepth}{2} % Depth of sections to include in the table of contents - currently up to subsections
+\setcounter{tocdepth}{3} % Depth of sections to include in the table of contents - currently up to subsections
 
 \setcounter{secnumdepth}{3} % Depth of sections to number in the text itself - currently up to subsubsections
 
@@ -15,8 +15,6 @@
 %\automark[section]{chapter}
 %\renewcommand{\chaptermark}[1]{\markboth{\spacedlowsmallcaps{#1}}{\spacedlowsmallcaps{#1}}}
 %\renewcommand{\sectionmark}[1]{\markright{\thesection\enspace\spacedlowsmallcaps{#1}}}
-
-
 
 \clearpage
 
@@ -37,6 +35,74 @@
 
 \vspace*{8ex}
 \newpage
+
+%----------------------------------------------------------------------------------------
+%	List of Figures
+%----------------------------------------------------------------------------------------
+
+\refstepcounter{dummy}
+%\addcontentsline{toc}{chapter}{\listfigurename} % Uncomment if you would like the list of figures to appear in the table of contents
+\pdfbookmark[1]{Liste des publications}{lop} % Bookmark name visible in a PDF viewer
+
+\section*{Liste des publications}
+
+\begin{itemize}
+  \item Rémy Leone, Paolo Medagliani et Jérémie Leguay.
+    \newblock {Optimizing QoS in Wireless Sensors Networks using a Caching Platform}.
+    \newblock {\em {Sensornets 2013}}, page~56, Barcelone, Espagne, Février 2013.
+
+  \item Rémy Leone, Paolo Medagliani et Jérémie Leguay.
+    \newblock {Optimisation de la qualité de service par l'utilisation de mémoire cache}
+    \newblock 15{\`e}mes Rencontres Francophones sur les Aspects Algorithmiques des T{\'e}l{\'e}communications
+
+  \item  Rémy Léone, Jérémie Leguay, Paolo Medagliani, Claude Chaudet.
+    \newblock {Tee: Traffic-based energy estimators for duty-cycled Wireless Sensor Networks}.
+    \newblock {\em {IEEE International Conference on Communication (ICC)}}, page~6749-6754, Londres, 2015.
+
+  \item R{\'e}my Leone, Jeremie Leguay, Paolo Medagliani, Claude Chaudet, et~al.
+\newblock Makesense: Managing reproducible wsns experiments.
+\newblock {\em Fifth Workshop on Real-World Wireless Sensor Networks}, 2013.
+
+  \item R{\'e}my L{\'e}one, J{\'e}r{\'e}mie Leguay, Paolo Medagliani, and Claude
+  Chaudet.
+\newblock Demo abstract: Makesense—managing reproducible wsns experiments.
+\newblock In {\em Real-World Wireless Sensor Networks}, pages 65--71. Springer,
+  2014.
+
+  \item R{\'e}my L{\'e}one, J{\'e}r{\'e}mie Leguay, Paolo Medagliani, and Claude
+  Chaudet.
+\newblock Demo Abstract: Automating WSN experiments and simulations.
+\newblock In {\em EWSN}, 2015.
+
+	\item Fadwa Boubekeur, L{\'e}lia Blin, Remy Leone, and Paolo Medagliani.
+\newblock Bounding degrees on rpl.
+\newblock In {\em Proceedings of the 11th ACM Symposium on QoS and Security for
+  Wireless and Mobile Networks}, pages 123--130. ACM, 2015.
+
+\end{itemize}
+
+\section*{Journaux}
+
+\begin{itemize}
+  \item Simone Cirani, Luca Davoli, Gianluigi Ferrari, R{\'e}my L{\'e}one, Paolo
+  Medagliani, Marco Picone, and Luca Veltri.
+\newblock A scalable and self-configuring architecture for service discovery in
+  the internet of things.
+  \newblock 2014.
+\end{itemize}
+
+\section*{Invitations}
+
+\begin{itemize}
+    \item Invitation au colloque R4: Retour d'expéRiences sur la Recherche Reproductible.
+  \newblock Le Studium - Centre International Universitaire pour la Recherche - Orléans
+  \newblock 3 et 4 Décembre 2015 
+
+\end{itemize}
+
+\vspace*{8ex}
+\newpage
+
 
 %----------------------------------------------------------------------------------------
 %	List of Tables
@@ -64,25 +130,4 @@
 % \vspace*{8ex}
 % \newpage
        
-%----------------------------------------------------------------------------------------
-%	Acronyms
-%----------------------------------------------------------------------------------------
-
-\refstepcounter{dummy}
-%\addcontentsline{toc}{chapter}{Acronyms} % Uncomment if you would like the acronyms to appear in the table of contents
-\pdfbookmark[1]{Acronyms}{acronyms} % Bookmark name visible in a PDF viewer
-
-%\markboth{\spacedlowsmallcaps{Acronyms}}{\spacedlowsmallcaps{Acronyms}}
-
-
-% USE \ac{my_acronym} to have it reference.
-
-\chapter*{Acronyms}
-
-\begin{acronym}[UML]
-\acro{DRY}{Don't Repeat Yourself}
-\acro{API}{Application Programming Interface}
-\acro{UML}{Unified Modeling Language}
-\end{acronym}  
-
 \endgroup

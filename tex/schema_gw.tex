@@ -1,0 +1,169 @@
+\begin{tikzpicture}
+
+  % définition des styles
+  \tikzstyle{visible}=[draw, fill=blue!50]
+  \tikzstyle{hidden}=[ draw, fill=gray!20]
+  \tikzstyle{router}=[circle, draw, fill=orange!50,text=black]
+  \tikzstyle{child}=[circle, draw, fill=yellow!50,text=black]
+  \tikzstyle{root}=[circle, draw, fill=red!50,text=black]
+
+
+
+  % Réseau contraint
+  \node[root] (1) at (-4, 0) {};
+  \node[router] (2) at (-5, 1) {};
+  \node[child] (3) at (-5, -1) {};
+  \node[child] (4) at (-6, 2) {};
+  \node[child] (5) at (-6, 0) {};
+
+  % les nœuds
+  \node[draw, right=2cm of 1] (lbr) {\ac{LBR}};
+  \node[draw, right=of lbr] (rpca) {\ac{RPCA}};
+  \node[draw, above=of lbr] (supervision) {Supervision passive};
+
+  % \node[cloud, cloud puffs = 10, minimum width = 4cm, draw, fill = gray!10] (cloud) at (5,0) {Réseau local};
+  \node[draw, right=of rpca] (cloud) {Réseau local};
+
+  \node [fit=(1) (2) (3) (4) (5), rounded corners, draw=black!50] (lln) {};
+  \node [fit=(lbr) (rpca), rounded corners, dashed] (gw) {};
+  \node [below=.3 cm of lln] {LLN};
+  \node [below=.3 cm of gw] {Passerelle};
+
+  \node [fit=(lbr) (rpca) (supervision), rounded corners, draw=black!50] (gw) {};
+
+\path
+
+  % Réseau contraint
+  (lbr.west) edge[<->, very thick, ForestGreen] (1)
+  (1) edge[<->, very thick, bend left=20, ForestGreen] (2)
+  (1) edge[<->, very thick, bend left=20, ForestGreen] (3)
+  (2) edge[<->, very thick, bend left=20, ForestGreen] (4)
+  (2) edge[<->, very thick, bend left=20, ForestGreen] (5)
+
+  (1) edge[<->, very thick, dashed, bend right=20, Sepia] (2)
+  (1) edge[<->, very thick, dashed, bend right=20, Sepia] (3)
+  (2) edge[<->, very thick, dashed, bend right=20, Sepia] (4)
+  (2) edge[<->, very thick, dashed, bend right=20, Sepia] (5)
+
+
+  % Réseau conventionnel
+  (rpca.west) edge[<->, very thick, ForestGreen] (lbr.east)
+  (rpca.east) edge[<->, very thick, Cyan] (cloud)
+  (lbr.north) edge [->, very thick, ForestGreen] (supervision.south)
+  % (lbr) edge [->, dashed, out=270, in=270] (rpca.south)
+  ;
+
+\end{tikzpicture}
+
+  % \begin{tikzpicture}[decoration={brace}]
+
+  %   % Reverse proxy
+  %   \begin{pgfonlayer}{proxy}
+  %     \node[] (rpca) {
+  %       \begin{tikzpicture}
+  %         \node[draw] (proxy) {Reverse proxy/Cache};
+  %         \node[draw, right=of proxy] (adapt) {Mécanisme d'adaptation};
+
+  %         \path
+  %         (proxy) edge[->, bend left=30, very thick] node[above] (topo) {Topologie, Trafic entrant} (adapt)
+  %         (adapt) edge[->, bend left=30, very thick] node[below] (cache) {Temps de cache optimaux} (proxy)
+  %         ;
+
+
+  %         \node [fill=red!30, fit=(proxy) (adapt) (topo) (cache), rounded corners, draw=black!50]  {};
+
+  %         \node[draw] (proxy2) {Reverse Proxy Cache};
+  %         \node[draw, right=of proxy] (adapt) {Mécanisme d'adaptation};
+
+  %         \path
+  %         (proxy) edge[->, bend left=30, very thick] node[above] (topo) {Topologie, Trafic entrant} (adapt)
+  %         (adapt) edge[->, bend left=30, very thick] node[below] (cache) {Temps de cache optimaux} (proxy)
+  %         ;          
+  %       \end{tikzpicture}
+  %     };
+  %   \end{pgfonlayer}
+
+  %   % Cloud
+  %   \node[cloud, cloud puffs = 10, minimum width = 7cm, draw, above=3cm of proxy, fill = gray!10] (cloud) {Réseau local};
+  %   % \node[draw, above=3cm of proxy, fill = gray!10] (cloud) {Réseau};
+
+
+
+  %   % LLN Border Router + LLN
+  %   \begin{pgfonlayer}{lln}
+
+  %     \node[draw, fill=green!30, below=5cm of proxy,](llnBorder) {
+  %       \begin{tikzpicture}
+  %         \tikzstyle{router}=[circle, draw, fill=orange!50,text=black]
+  %         \tikzstyle{child}=[circle, draw,fill=yellow!50,text=black]
+  %         \node[draw] (lbr) {Routeur de bordure}
+  %         child {node[router]{}
+  %           child {node[child]{}}
+  %           child {node[child]{}}
+  %         }
+  %         child {node[router]{}
+  %           child {node[child]{}}
+  %           child {node[child]{}}
+  %         };
+  %       \end{tikzpicture}
+  %     };  
+
+  %   \end{pgfonlayer}
+
+  %   % Supervision passive
+  %   \begin{pgfonlayer}{supervision}
+
+  %     \node [fill=yellow!30, above right=.5cm of llnBorder.north, rounded corners, draw=black!50] (supervision) {
+  %       \begin{tikzpicture}
+
+  %         \node[above right=.1cm of llnBorder.north]
+  %         (eye) {\includegraphics[scale=.5,angle=30]{img/eye.pdf}};
+
+
+  %         \node[draw, right=.1cm of eye.east] (trafic) {Trafic};
+  %         \node[draw, right=of trafic] (topo) {Topologie connue?};
+  %         \node[draw, below right=.5cm of topo, text width=2.2cm,align=center] (star) {Estimation ``étoilée''};
+  %         \node[draw, above right=.5cm of topo, text width=2.2cm,align=center] (mesh) {Estimation ``maillée''};
+          
+  %         % \node[draw, below=of trafic] (active) {Supervision active};
+
+  %         \path
+  %         (trafic) edge[very thick, ->] (topo)
+  %         (topo) edge[very thick, ->,] node[above, left] {Non} (star.west)
+  %         (topo) edge[very thick, ->,] node[below, left] {Oui} (mesh.west)
+  %         % (trafic.east) edge[very thick, ->, bend right=30, dashed] node[below] {Topologie} (estimateur.west)
+  %         % (active.east) edge[->, bend right=30] node[right=.3cm, text width=3cm] {Corrige le biais d'estimation} (estimateur.south west)
+  %         ;
+
+  %         % \draw[<->, >=latex, very thick] (active.west) to[out=180,in=90] (llnBorder.north);
+
+  %       \end{tikzpicture}
+  %     };
+  %   \end{pgfonlayer}
+
+  %   % Summary
+  %   \node [fit=(supervision) (rpca) (lbr) (topo) (cache) (proxy), rounded corners, draw=black!50, very thick,dashed] (completeGateway) {};
+
+  %   % Trafic
+  %   \path
+  %   (rpca) edge[>=latex, <->, line width=5pt] node[left] {HTTP} (cloud)
+  %   (rpca) edge[>=latex, <->, line width=2pt] node[left] {CoAP} (llnBorder);
+
+  %   % Brackets
+
+  %   \tikzstyle{bracket}=[decorate,decoration={brace,amplitude=10pt,mirror,raise=4pt},line width=3pt]
+
+  %   % \draw [bracket] 
+  %   % ([yshift=-1cm]cloud.south east) -- ([yshift=1cm]cloud.north east) node [black,midway,xshift=2.3cm] {Réseau conventionnel};
+
+  %   \draw [bracket]
+  %   ([yshift=-5pt]completeGateway.south east) -- ([yshift=5pt]completeGateway.north east) node [black,midway,xshift=1.5cm] {Passerelle};
+
+
+  %   \draw [bracket] 
+  %   ([yshift=-5pt]rpca.south east) -- ([yshift=5pt]rpca.north east) node [black,midway,xshift=3cm] {Reverse Proxy Cache Adaptatif};
+
+  %   \draw [bracket] 
+  %   ([yshift=-5pt]llnBorder.south east) -- ([yshift=5pt]llnBorder.north east) node [black,midway,xshift=1cm] (llnBracket) {LLN};
+
+  % \end{tikzpicture}

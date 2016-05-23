@@ -1,0 +1,10 @@
+% Le modèle d'échange de message en \ac{CoAP} est basé sur l'échange de messages \ac{UDP} binaires avec une entête fixe de 4 octets et des options densément encodées.
+% Ainsi toutes les informations relatives à la requête comme une \ac{URI} ou bien le type de message est transmis comme une option.
+% La fiabilité des transmissions n'étant pas assuré par le protocole de transport, c'est à \ac{CoAP} qu'il revient d'effectuer cette tâche.
+% Le mécanisme de fiabilité des messages en \ac{CoAP} est obtenu en indiquant qu'un message est \ac{CON} par une option.
+% Un message \ac{CON} est transmis avec une échéance par défaut et un temps d'attente exponentiel entre chaque tentative de re-transmission jusqu'à ce que le destinataire du message envoie une réponse \ac{ACK} avec le même identifiant de message.
+% Quand un destinataire n'est pas capable de traiter un message \ac{CON} il envoie une réponse \ac{RST} au lieu d'un \ac{ACK}.
+% Si la fiabilité n'est pas désirée comme dans le cas de mesures individuelles, il est possible d'envoyer cette réponse comme un \ac{NON}.
+% Elle ne sera pas acquittée mais aura un identifiant afin de détecter les doublons.
+% Si la réponse à un \ac{NON} n'est pas possible, un paquet \ac{RST} est envoyé en réponse
+% Ainsi par ce mécanisme, \ac{CoAP} permet d'avoir une fiabilité tout en gardant un protocole de transport comme \ac{UDP}, \ac{CoAP} est donc adapté aux conditions des \ac{LLN}s.

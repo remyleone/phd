@@ -2,19 +2,19 @@
 %	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %----------------------------------------------------------------------------------------
 
-\documentclass[a4paper, oneside]{report} 
+\documentclass[a4paper, reqno]{book} 
                 
-% Includes the file which contains all the document configurations and packages - make sure to edit this file
+% inputs the file which contains all the document configurations and packages - make sure to edit this file
 \input{tex/_specials/config}
 
 \begin{document}
 
-% \frenchspacing % Reduces space after periods to make text more compact
+\frenchspacing % Reduces space after periods to make text more compact
 
 % \raggedbottom % Makes all pages the height of the text on that page
 
 %\renewcommand*{\bibname}{new name} % Uncomment to change the name of the bibliography
-%\setbibpreamble{} % Uncomment to include a preamble to the bibliography - some text before the reference list starts
+%\setbibpreamble{} % Uncomment to input a preamble to the bibliography - some text before the reference list starts
 
 \pagenumbering{roman} % Roman page numbering prior to the start of the thesis content (i, ii, iii, etc)
 
@@ -24,22 +24,29 @@
 %	PRE-CONTENT THESIS PAGES
 %----------------------------------------------------------------------------------------
 
-\include{tex/_specials/tpt_premiere}
-\include{tex/_specials/titleback} % Back of the title page
+\input{tex/_specials/tpt_premiere}
+% \input{tex/_specials/titleback} % Back of the title page
 
-\cleardoublepage\include{tex/_specials/dedication} % Dedication page
-\cleardoublepage\include{tex/abstract} % Abstract page
-\cleardoublepage\include{tex/_specials/publication} % Publications from the thesis page
-\cleardoublepage\include{tex/_specials/acknowledgments} % Acknowledgements page
+\cleardoublepage\input{tex/_specials/dedication} % Dedication page
+\cleardoublepage\input{tex/abstract} % Abstract page
+\cleardoublepage\input{tex/resume} % Resume page
+\cleardoublepage\input{tex/_specials/publication} % Publications from the thesis page
+\cleardoublepage\input{tex/_specials/acknowledgments} % Acknowledgements page
 
 % %\pagestyle{scrheadings} % Show chapter titles as headings
 
-\cleardoublepage\include{tex/_specials/contents} % Contents, list of figures/tables/listings and acronyms
+\cleardoublepage\input{tex/_specials/contents} % Contents, list of figures/tables/listings and acronyms
 
 \cleardoublepage
 
 \pagenumbering{arabic} % Arabic page numbering for thesis content (1, 2, 3, etc)
 \pagestyle{fancy} % Use fancy header
+\fancyhead[C]{}
+\fancyhead[L]{}
+\fancyhead[R]{}
+\fancyfoot[C]{\thepage}
+\fancyfoot[L]{}
+\fancyfoot[R]{}
 
 \cleardoublepage % Avoids problems with pdfbookmark
 
@@ -48,9 +55,9 @@
 %----------------------------------------------------------------------------------------
 
 \input{tex/intro}
-\input{tex/model}
+\input{tex/gw}
+\input{tex/supervision}
 \input{tex/cache}
-\input{tex/estimators}
 \input{tex/automation}
 \input{tex/conclusion}
 
@@ -60,21 +67,22 @@
 %	THESIS CONTENT - APPENDICES
 %----------------------------------------------------------------------------------------
 
-% \appendix
+\appendix
+
+% \input{snippets/snippets}
+\input{tex/annexes/collaborations}
 
 % \part{Appendix} % New part of the thesis for the appendix
-
-% \include{tex/Chapter0A} % Appendix A
-%\include{tex/Chapter0B} % Appendix B - empty template
 
 %----------------------------------------------------------------------------------------
 %	POST-CONTENT THESIS PAGES
 %----------------------------------------------------------------------------------------
 
-\cleardoublepage\include{tex/_specials/bibliography} % Bibliography
-\cleardoublepage\include{tex/_specials/colophon} % Colophon
-\cleardoublepage\include{tex/_specials/tpt_quatrieme}
-% \cleardoublepage\include{tex/_specials/declaration} % Declaration
+\cleardoublepage\input{tex/_specials/accronyms}
+\cleardoublepage\input{tex/_specials/bibliography} % Bibliography
+% \cleardoublepage\input{tex/_specials/colophon} % Colophon
+\cleardoublepage\input{tex/_specials/tpt_quatrieme}
+% \cleardoublepage\input{tex/_specials/declaration} % Declaration
 
 %----------------------------------------------------------------------------------------
 

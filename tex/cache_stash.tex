@@ -1,0 +1,51 @@
+
+\subsubsection{Consommation de la racine du \ac{DODAG}}
+
+Dans le cas d'une racine, la puissance consommée pour transmettre à un nœud générique $i$ et recevoir sa réponse peut être exprimée par:
+
+\begin{align}
+  \Omega_{\racine, \tx} &= \frac{P_\tx T_{\req, \txtx} + P_\rx T_{\req, \txrx}}{r} 
+  \label{contikimac:eq:racine_tx} \\
+  \Omega_{\racine, \rx} &= \frac{P_\rx T_{\ans, \rxrx} + P_\tx T_{\ans, \rxtx}}{r} 
+  \label{contikimac:eq:racine_rx}
+\end{align}
+
+Puisque la racine transmet à chacun de ses enfants, la puissance consommée pour transmettre à tous les nœuds et recevoir peut être exprimée par:
+
+\begin{align}
+  \Omega_{\racine, \tx } &= \sum_{i=1}^{N}\Omega_{\racine, \tx } 
+    \label{contikimac:eq:root_tx} \\
+    \Omega_{\racine, \rx } &= \sum_{i=1}^{N}\Omega_{\racine, \rx } 
+    \label{contikimac:eq:root_rx}
+\end{align}
+
+
+\begin{align}
+  \Omega_\sleep  &= \dfrac{T_\sleep P_\sleep}{T_\cycle} - \Gamma_\tx - \Gamma_\rx
+  \label{contikimac:eq:omega_sleep} \\
+  \Gamma_\tx &= \Omega_\sleep
+  \frac{1}{T_\cycle}
+  \left( \dfrac{3+\lfloor\frac{T_{\sleep_i}-T_\pkt}{T_\pkt}\rfloor}{2}(T_\pkt + T_\detect) + T_\ack \right)
+  \label{contikimac:eq:gamma_tx}  \\
+  \Gamma_\rx &= \Omega_\sleep
+  \frac{1}{T_\cycle}
+    \left( \frac{3 T_\pkt}{2} + T_\pkt + T_\ack \right)
+    \label{contikimac:eq:gamma_rx}
+\end{align}
+
+où $P_\sleep$ est la puissance durant l'état de sommeil, $\Gamma_\tx$ et $\Gamma_\rx$ sont deux termes correctifs.
+
+En temps normal, soit, un nœud fait une écoute du canal, soit transmet ou reçoit un paquet soit dort.
+$\Gamma_\tx$ et $\Gamma_\rx$ sont utilisés pour raffiner la puissance consommée durant la phase de sommeil.
+Les périodes de sommeils chevauchent celles de transmissions ou réceptions sur des temps courts ainsi sans ces termes la puissance consommée sera surestimée.
+
+Le terme $\Gamma_\tx$ tient du fait que durant les opérations de transmissions comme les phases de
+(i) strobbing d'un paquet sur une phase $T_\sleep$,
+(ii) la transmission standard d'un paquet et
+(iii) la réception d'un acquittement, un nœud serait normalement en sommeil.
+
+Ainsi le facteur correctif $\Gamma_\tx$ est nécessaire puisque autrement l'énergie consommée par un nœud avec ce modèle serait surestimée car réception et transmission se chevaucherait avec les opérations de sommeil normales sur une période.
+Des considérations similaires peuvent être dressées pour le terme $\Gamma_\rx$. Quand un nœud attends un acquittement pour transmettre un paquet \ac{ACK}, pour recevoir le préambule et le paquet, le nœud serait normalement en état de sommeil.
+
+Lors du traitement de la requête, la phase de réception d'une trame entraîne d'une part l'utilisation de la radio en réception pendant $T_{\rxrx}$ mais d'autre part l'utilisation de la radio en transmission pour transmettre une réponse $T_{\rxtx}$.
+% De même, la phase de transmission de la réponse entraîne  l'utilisation de la radio en transmission pendant $T_{\txtx}$ et en réception pendant $T_{\txrx}$.

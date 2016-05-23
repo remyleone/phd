@@ -1,0 +1,21 @@
+% En outre, la couche physique de \ieee{} prends 25 octets et laisse 102 pour les couches supérieures (elle n'en laisse que 81 dans le cas où des options de sécurité sont actives).
+% Si on laisse IPv6 tel quel, 40 octets sont pris n'en laissant que 41 pour les couches supérieurs. \ac{UDP} qui est un protocole de transport classique en prends 4 à 8 octets ne laissant que 33 octets pour les couches applicatives soit une efficacité modeste de 26 \%.
+% Ainsi des mécanismes de compressions des entêtes sont requis afin d'offrir les mêmes fonctionnalités d'adressage tout en laissant plus de place pour les messages applicatifs.
+
+% 4 entêtes sont définies: L'entête d’expédition, l'entête de compression IPv6, l'entête de fragmentation et l'entête de réseau maillé (par défaut, seul les deux premiers sont utilisés).
+% Au début de chaque entête se trouve un identifiant qui indique son format.
+
+% \subsection{Gestion des voisins}
+
+% Dans les réseaux IPv6 classiques, les nœuds et les routeurs se découvrent en utilisant \ac{NDP}.
+% Ce protocole permet d'apprendre les préfixes et les paramètres de configuration liés à la configuration des adresses; de trouver les routeurs dans le voisinage; vérifier qu'un voisin est toujours joignable et de détecter les doublons (\ac{DAD}).
+
+% Bien que proposés pour les \ac{LLN}s, ce protocole est encore trop couteux~\cite{shelby20116lowpan}.
+% Il utilise du multicast pour échanger les informations et a pour hypothèse d'avoir des routeurs et des nœuds toujours actifs et pouvant répondre à n'importe quel moment à une requête.
+% Pour s'adapter aux contraintes des \ac{LLN}s, il faut éviter le multicast, tenir compte des cycles de veilles faibles causant des périodes de sommeil importantes et les problématiques du multi sauts.
+
+% Le neighbor discovery optimization for low power and lossy networks~\cite{rfc6775} propose d'optimiser \ac{NDP} dans le cas des \ac{LLN}s.
+% Le mécanisme de résolution d'adresses (basé sur des paquets multicast entre les hôtes) est remplacé par un mécanisme de déclaration d'addresse.
+% Ainsi, certains paquets multicast associés aux configurations d'adresse des nœuds ont été remplacés par des paquets unicast.
+% Ainsi, la demande de routeur est initiée par l'hôte ce qui élimine le besoin d'annonce périodique de la part du routeur.
+% De cette façon, les \ac{NDP} pour \ac{6LoWPAN} sont plus adaptés au \ac{LLN}s multi-sauts et ces mécanismes sont indépendant du protocole de routage choisis.
