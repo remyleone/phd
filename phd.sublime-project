@@ -3,30 +3,32 @@
     {
       "path": "/home/sieben/Dropbox/workspace/phd",
       "folder_exclude_patterns": [
-        "img"
+        "img", "agraf", "_minted-main"
       ],
       "file_exclude_patterns": [
-        "*.pptx",
-        "*.potx",
         "*.aux",
-        "*.out",
-        "*.toc",
         "*.bbl",
+        "*.bcf",
+        "*.blg",
+        "*.brf",
+        "*.brg",
+        "*.fdb_latexmk",
         "*.fls",
         "*.lof",
-        "*.lot",
         "*.log",
         "*.lol",
-        "*.blg",
-        "*.brg",
-        "*.brf",
-        "*.pdf",
-        "*.bcf",
+        "*.lot",
         "*.maf",
-        "*.run.xml",
-        "*.sublime-workspace",
         "*.mtc*",
-        "*.fdb_latexmk"
+        "*.nav",
+        "*.out",
+        "*.pdf",
+        "*.potx",
+        "*.pptx",
+        "*.run.xml",
+        "*.snm",
+        "*.sublime-workspace",
+        "*.toc"
       ]
     }
   ]
