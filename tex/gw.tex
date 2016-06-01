@@ -91,11 +91,13 @@ Les technologies sans-fils de portée courte sont nombreuses, et seules les plus
 \paragraph{Wi-Fi}
 
 Le Wi-Fi facilite l'utilisation d'Internet sur un grand nombre de périphériques mobiles en proposant un accès natif à un réseau IP avec des débits importants~\cite{lee2010mobile}.
+Il peut fournir des topologie maillée en fonctionnant de manière ad-hoc ou bien des topologie en étoile avec un point d'accès en mode infrastructure.
 
-Cependant, une puce Wi-Fi est coûteuse, d'une part par sa puce radio qui est coûteuse à fabriquer et d'autre part par sa consommation d'énergie~\cite{wifiCritic}.
-En outre, son débit est très souvent surdimensionné par rapport aux besoins des nœuds.
+Le mode la plus économe en énergie du Wi-Fi nommée \ac{PSM} permet de former un réseau entre un point d'accès et des stations à portée radio consommant peu d'énergie~\cite{anastasi2008802,tozlu2011feasibility}.
+Cependant ce mode de fonctionnement impose d'utiliser le Wi-Fi en mode infrastructure avec une topologie en étoile ce qui limite la portée du réseau.
 
-De nouvelles technologies sans-fil ont donc ont été conçues afin de transporter des messages à des débits plus modeste tout en consommant moins d'énergie et en restant sur les bandes \ac{ISM}.
+D'autre part, Wi-Fi n'est pas la technologie la plus compétitive pour les \ac{LLN} car une puce Wi-Fi est coûteuse à fabriquer et offre un débit souvent surdimensionné par rapport aux besoins des nœuds~\cite{wifiCritic}.
+Ainsi, de nouvelles technologies sans-fil ont donc ont été conçues afin de transporter des messages à des débits plus modestes tout en consommant moins d'énergie et en restant sur les bandes \ac{ISM}.
 
 \paragraph{Z-wave}
 
@@ -164,7 +166,7 @@ Au vu de cette répartition des rôles dans un \ac{LLN}, il y a essentiellement 
 
 La plus simple consiste en un \ac{LLN} connecté de manière ad hoc.
 Les nœuds hôtes envoient des informations que les nœuds routeurs relaient vers leurs destinations.
-Ce type de déploiement est par exemple utilisé dans des déploiements sur des terrains sans connectivité avec un autre réseau~\cite{werner2006deploying}.
+Ce type de déploiement est par exemple utilisé dans des terrains sans connectivité avec un autre réseau~\cite{werner2006deploying}.
 
 Le second type de déploiement utilise une passerelle pour assurer le rôle de routeur de bordure entre le \ac{LLN} et un réseau local.
 Ce type de déploiement peut par exemple se retrouver dans un scénario domotique dans lequel tous les équipements communiquent vers la même passerelle.
@@ -263,7 +265,7 @@ Ainsi la passerelle doit disposer d'un plan d'adressage qui permet d'atteindre c
   \end{tikzpicture}
 
   \caption{Architecture réseau des \ac{LLN}s}
-  \label{gw:fig:arch_6lowpan}  
+  \label{gw:fig:arch_6lowpan}
 \end{figure}
 
 \subsubsection{IPv4}
@@ -390,7 +392,7 @@ Le protocole de routage doit maintenir ces routes qui doivent refléter la topol
 Dans ce genre de situation, les messages de routage permettent aux différents équipements de corriger leur table de routage.
 Une telle correction, appelée convergence, peut prendre quelques (milli)secondes.
 Cependant, rien ne garantit l'ordre dans lequel chaque routeur corrigera sa table de commutation, ni même que toutes les destinations seront joignables pendant que le réseau converge de nouveau.
-Il arrive parfois que les paquets soient propagés de nouveau de manière incohérente et que des paquets soient propagés le long d'un cycle arbitraire sans jamais atteindre leur destination. 
+Il arrive parfois que les paquets soient propagés de nouveau de manière incohérente et que des paquets soient propagés le long d'un cycle arbitraire sans jamais atteindre leur destination.
 On parle alors de boucle de routage.
 
 Dans un réseau classique, une boucle de routage se traduit généralement par une saturation des interfaces mises en jeu dans la boucle (puisque les paquets s'accumulent dans la boucle), ce qui induit de la gigue sur les autres paquets amenés à traverser ces interfaces.
@@ -466,7 +468,7 @@ Il existe deux modalités de réactivité pour le routage: le routage réactif e
 
 Les protocoles de routages réactifs stockent peu ou pas d'information de routage, ils découvrent dynamiquement les routes lorsqu'elles sont demandées.
 Un processus de découverte de route est alors exécuté lorsqu'un routeur reçoit un paquet à router avec une destination qu'il ne connaît pas.
-Ces protocoles sont notamment utilisés dans des réseaux très dynamiques, parmi ces protocoles on peut citer  \ac{AODV}~\cite{rfc3561}, avec dans le cas des \ac{LLN} le protocole de routage utilisé par Zigbee qui est dérivé d'\ac{AODV} ou plus récemment Load-ng~\cite{LoadNg-draft}. 
+Ces protocoles sont notamment utilisés dans des réseaux très dynamiques, parmi ces protocoles on peut citer  \ac{AODV}~\cite{rfc3561}, avec dans le cas des \ac{LLN} le protocole de routage utilisé par Zigbee qui est dérivé d'\ac{AODV} ou plus récemment Load-ng~\cite{LoadNg-draft}.
 
 L'avantage de cette approche est que la signalisation de routage n’apparaît que quand elle est demandée, ce qui est utile dans des cas de réseaux ad hoc où la topologie change fréquemment et où les communications sont essentiellement \ac{P2P}.
 Cependant, cette approche est coûteuse dans les cas où la topologie change peu.
@@ -477,7 +479,7 @@ De plus, il est souhaitable a des fins de supervision d'avoir une vue aussi réc
 Un protocole de routage proactif construit les routes nécessaires sur chaque nœud avant que les routes soient demandées.
 Ainsi ces protocoles préparent proactivement toutes les routes possibles ou probables vers une destination.
 La plupart des protocoles utilisés dans le routage inter-domaine ou intra-domaine utilisent un protocole proactif quand la topologie est stable.
-D'autres exemples peuvent être trouvés par exemple dans des cas plus dynamiques comme \ac{OLSR}~\cite{rfc3626}. 
+D'autres exemples peuvent être trouvés par exemple dans des cas plus dynamiques comme \ac{OLSR}~\cite{rfc3626}.
 
 L'avantage de cette approche est que les routes sont immédiatement disponibles quand elles sont nécessaires, cependant cette disponibilité se paye par un coût de signalisation important notamment quand la topologie change fréquemment.
 
@@ -728,8 +730,8 @@ Ces aspects sont activement étudiés aujourd'hui et accentue la nécessité d'a
 \path
 
   % Réseau contraint
-  (gw.west) edge[<-, cyan, thick, bend left=20] node [below] {CoAP 2.05} (1) 
-  (gw.west) edge[->, olive, thick, bend right=20] node [above] {CoAP GET} (1) 
+  (gw.west) edge[<-, cyan, thick, bend left=20] node [below] {CoAP 2.05} (1)
+  (gw.west) edge[->, olive, thick, bend right=20] node [above] {CoAP GET} (1)
   (1) edge[<->] (2)
   (1) edge[<->] (3)
   (2) edge[<->] (4)
@@ -744,9 +746,9 @@ Ces aspects sont activement étudiés aujourd'hui et accentue la nécessité d'a
   ;
 
   \end{tikzpicture}
-  
+
   \caption{Architecture d'un \acf{RPC}}
-  
+
   \label{gw:fig:rpc}
 \end{figure}
 
@@ -805,7 +807,7 @@ Ainsi l'administrateur dispose d'une interface qui peut être une visualisation 
 
 \subsection{Problématiques de la supervision pour les \ac{LLN}s}
 
-Les remontées périodiques d'informations permettent d'obtenir un état sur chaque nœud physique afin de pouvoir l'interpréter. 
+Les remontées périodiques d'informations permettent d'obtenir un état sur chaque nœud physique afin de pouvoir l'interpréter.
 Cependant, ce coût de supervision impacte les réserves d'énergie des nœuds et devrait être réduit autant que possible tout en permettant un niveau minimum de fiabilité sur le déploiement.
 Ainsi les problématiques de déploiements des \ac{LLN}s doivent réaliser un compromis entre consommation des ressources et informations gagnées.
 
