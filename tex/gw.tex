@@ -666,7 +666,7 @@ La fonctionnalité de traduction n'est pas suffisante pour fournir un service ef
 En effet, les nœuds capteurs étant contraints ils ne peuvent recevoir qu'une quantité limitée de trafic.
 De plus, s'ils sont accessibles depuis un réseau public, il est nécessaire de contrôler finement le trafic reçu afin d'éviter par exemple des attaques par déni de service ou de sommeil~\cite{wessels2001web,raymond2008denial}.
 
-Un proxy inversé (``reverse proxy'' en anglais)~\cite{reese2008nginx} est un serveur qui se pose entre des requêtes provenant de l'extérieur et des services à protéger comme représenté sur la Figure~\ref{gw:fig:rpc}.
+Un proxy inversé (``reverse proxy'' en anglais et désigné par \ac{RPC} dans le reste de cette thèse)~\cite{reese2008nginx} est un serveur qui se pose entre des requêtes provenant de l'extérieur et des services à protéger comme représenté sur la Figure~\ref{gw:fig:rpc}.
 Le proxy inversé intercepte l'ensemble des requêtes à destination des nœuds et peut les modifier, les faire passer ou renvoyer des codes d'erreurs.
 
 Le proxy inversé se pose en intermédiaire permettant un gain en termes de fonctionnalité  appréciable, car un administrateur peut configurer le proxy inversé pour gérer le trafic applicatif reçu par les nœuds au lieu de le configurer individuellement sur chaque nœud.
@@ -744,7 +744,7 @@ Ces aspects sont activement étudiés aujourd'hui et accentue la nécessité d'a
 
   \end{tikzpicture}
   
-  \caption{Architecture d'un \ac{RPC}}
+  \caption{Architecture d'un \acf{RPC}}
   
   \label{gw:fig:rpc}
 \end{figure}
@@ -913,7 +913,7 @@ Comme vu dans la section~\ref{gw:supervision}, la supervision est un aspect crit
 Les approches actuelles reposent essentiellement sur des envois systématiques d'information de supervision qui induisent une charge croissante à mesure que le \ac{LLN} grandit, notamment si la fréquence d'émission de ces messages est élevée.
 Le chapitre~\ref{supervision} montre comment fournir un mécanisme de mesure implicite de la consommation énergétique d'un nœud en inférant l'utilisation de sa radio à partir du trafic réseau rentrant et sortant du \ac{LLN} et de la topologie de routage.
 
-Comme vu dans la sous-section~\ref{gw:rpc}, les \acl{RPC} permettent de réduire le trafic applicatif reçu par les nœuds capteurs en répondant à la place des nœuds du \ac{LLN}.
+Comme vu dans la sous-section~\ref{gw:rpc}, les \acf{RPC} permettent de réduire le trafic applicatif reçu par les nœuds capteurs en répondant à la place des nœuds du \ac{LLN}.
 Pour cela, le \acl{RPC} garde en mémoire pour un certain temps de validité les réponses des requêtes visant les nœuds.
 Les approches actuelles ne modulent pas ce temps de validité en fonction des objectifs de durée de vie du réseau.
 Le chapitre~\ref{cache} montre comment adapter les temps de validité utilisés par le \ac{RPC} afin d'adapter la quantité de trafic admise dans le \ac{LLN}.
