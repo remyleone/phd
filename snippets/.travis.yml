@@ -1,0 +1,37 @@
+language: python
+
+# Mise en place de l'environnement
+install:
+    # La compilation des sources de la suite python peut être un
+    # peu longue. Il est commode d'utiliser des paquets binaires afin
+    # d'avoir un build rapide
+  - "sudo apt-get -qq install ipython"
+  - "sudo apt-get -qq install python-matplotlib"
+  - "sudo apt-get -qq install fabric"
+  - "sudo apt-get -qq install python-pandas"
+  - "sudo apt-get -qq install python-networkx"
+  - "sudo apt-get -qq install python-numpy"
+  - "sudo apt-get -qq install python-jinja2"
+  - "sudo apt-get -qq install python-scipy"
+
+  # Récupération des sources de contiki et des compilateurs nécessaires
+  - "git clone --recursive git://github.com/contiki-os/contiki"
+  - sudo apt-get -qq update
+  - sudo apt-get -qq install lib32z1
+  - wget http://simonduq.github.io/resources/mspgcc-4.7.2-compiled.tar.bz2 &&
+    tar xjf mspgcc*.tar.bz2 -C /tmp/ &&
+    sudo cp -f -r /tmp/msp430/* /usr/local/ &&
+    rm -rf /tmp/msp430 mspgcc*.tar.bz2 &&
+    msp430-gcc --version
+
+    # Utile pour analyser les traces PCAP
+  - "sudo apt-get install tshark"
+
+# Execution. Si ces commandes renvoient 0 
+# le test est considéré comme un succès
+script:
+  - pip install -r requirements.txt
+  # Conversion du notebook vers un script executable
+  - "ipython nbconvert --to=python demo.ipynb"
+  # Execution du script
+  - python demo.py

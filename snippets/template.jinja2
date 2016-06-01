@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simconf>
+  <simulation>
+    <title>{{ title }}</title>
+    <randomseed>{{ random_seed }}</randomseed>
+    <radiomedium>
+      org.contikios.cooja.radiomediums.UDGM
+      <transmitting_range>{{ transmitting_range }}</transmitting_range>
+      <interference_range>{{ interference_range }}</interference_range>
+      <success_ratio_tx>{{ success_ratio_tx }}</success_ratio_tx>
+      <success_ratio_rx>{{ success_ratio_rx }}</success_ratio_rx>
+    </radiomedium>
+    {% for mote_type in mote_types %}
+    <motetype>
+      org.contikios.cooja.mspmote.WismoteMoteType
+      <identifier>{{ mote_type.name }}</identifier>
+      <firmware EXPORT="copy">{{ mote_type.firmware }}</firmware>
+    </motetype>
+    {% endfor %}
+    {% for mote in motes %}
+    <mote>
+      <interface_config>
+        org.contikios.cooja.interfaces.Position
+        <x>{{ mote.x }}</x>
+        <y>{{ mote.y }}</y>
+        <z>{{ mote.z }}</z>
+      </interface_config>
+      <interface_config>
+        org.contikios.cooja.mspmote.interfaces.MspMoteID
+        <id>{{ mote.mote_id }}</id>
+      </interface_config>
+      <motetype_identifier>{{ mote.mote_type }}</motetype_identifier>
+    </mote>
+    {% endfor %}
+  </simulation>
+  <plugin>
+    org.contikios.cooja.plugins.ScriptRunner
+    <plugin_config>
+      <script>
+      {{ script }}
+      </script>
+    </plugin_config>
+  </plugin>
+</simconf>

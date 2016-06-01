@@ -1,0 +1,117 @@
+\chapter{Extraits de code source utilisés par Makesense}
+\label{code}
+
+\section{Approvisionnement d'une expérience par l'utilisation de gabarit}
+\label{code:templating}
+
+Les gabarits sont des fichiers qui sont utilisés comme modèle pour produire d'autres fichiers.
+L'objectif de l'utilisation de gabarit est de pouvoir générer de manière expressive des fichiers arbitrairement complexes et imbriqués qui vont être dynamiquement rendu.
+
+Les fichiers sont produits en utilisant un moteur de rendu qui va fabriquer un nouveau fichier en injectant des variables données aux emplacements annoncées par des balises propres au langage de gabarit.
+Un gabarit de fichier de configuration du simulateur COOJA utilisant le format du moteur de gabarit Jinja2 est ici présenté~:
+
+\inputminted{django}{snippets/template.jinja2}
+
+Ce gabarit permet d'utiliser par exemple les variables \texttt{title} ou bien \texttt{random\_seed} pour insérer du contenu.
+Des mécanismes de boucles sont également disponibles afin de répéter un schéma de texte plusieurs fois.
+
+L'utilisation d'un moteur de rendu se fait simplement en passant les variables par un simple appel de fonction (ici la méthode \texttt{render} de l'objet \texttt{main\_csc\_template}.
+Ainsi générer un fichier de configuration peut être fait de manière expressive pour un grand nombre de nœuds.
+
+\inputminted{python}{snippets/jinja2.py}
+
+\section{Déploiement} % (fold)
+\label{code:deploiement}
+
+% \inputminted{python}{snippets/fabric.py}
+
+% Fabric \cite{fabric} est une bibliothèque permettant de transmettre et d’exécuter des programmes sur des serveurs distants. 
+% Depuis la ligne de commande, il va être possible de lancer différentes fonctions codées en Python. 
+
+\section{Exécution}
+\label{code:run}
+
+\inputminted{python}{snippets/run.py}
+
+Automatiser le lancement des processus nécessaire à l'exécution d'une expérience permet d'être sur de ne pas en oublier, de les lancer dans l'ordre et de les contrôler avec une grande flexibilité.
+Dans la section de code présentée, chaque processus est lancé dans un ordre précis puis une fois que la simulation est terminée, les autres processus vont être terminés les uns après les autres.
+
+\section{Mise en forme des résultats}
+\label{code:parsing}
+
+\inputminted{python}{snippets/parsing.py}
+
+Au vu des volumétries mises en jeu lors de nos expériences nous avons préféré rester sur des solutions de traitements sur des fichiers \ac{CSV} pour leur facilité d'utilisation.
+
+Afin d'avoir un traitement des données aisé, il est préférable de se ramener à des formats de fichiers textuels tel que le CSV. 
+Ici, tshark est utilisé comme intermédiaire pour traduire un format binaire et extraire les informations les plus essentielles vers du texte.
+
+Il est à noté que dès que cette transformation a été faite une fois, elle n'est jamais effectuée. 
+En effet, le fait d'avoir sauvegardé les données dans un format intermédiaire permet de ne travailler qu'avec le CSV et de ne plus jamais avoir à faire une extraction d'information coûteuse et redondante. 
+
+\section{Analyse} % (fold)
+\label{code:analyse}
+
+\inputminted{python}{snippets/pandas.py}
+
+\subsection{Filtrage}
+
+Nous obtenons ainsi en une ligne de code, un graphe représentant l'histogramme du nombre de paquets.
+
+% Transformation triviales
+Certaines transformations peuvent être triviales comme des conversions d'unités et des normalisations de valeurs. 
+D'autres peuvent être la transformation des adresses \ac{MAC} vers des identifiants plus facilement compréhensibles, dépendant de l'expérience permettant de faire une cartographie géographique des événements dans le réseau.
+Enfin, dans le cas de système très contraints où chaque octet de mémoire compte, des sorties textes compactes sont remplacées vers des noms plus détaillés ce qui facilite leur manipulation par un humain.
+% Classification
+Dans le cas d'un trafic réseau, il est nécessaire de pouvoir classifier chaque paquet transmis selon une série de critères qui vont permettre dans la prochaine phase d'analyse d'effectuer des traitements quantifiés.
+Le fichier \ac{PCAP} obtenu précédemment contient toutes ces informations cependant ce format est binaire et n'est pas facilement exploitable sans des outils spécifiques.
+Ainsi la phase de transformation d'un \ac{PCAP} consiste à le disséquer pour extraire les informations pertinentes de chaque paquet (source, destination, protocole,\ldots) puis d'envoyer ces informations sous la forme de données tabulées vers un fichier.
+% Mise en forme
+Une fois que toutes les transformations sont faites, des fichiers de données, dans un format standardisé comme \ac{CSV} sont disponibles pour être ensuite analysé en détail.
+
+% section analyse (end)
+
+\subsection{Fonctions agrégées}
+
+Nous avons aussi géré l'analyse de données tabulaires telles que celles obtenues en analysant les paquets émis au cours de l'expérience.
+Pour cela nous avons utilisé Pandas \cite{mckinney-proc-scipy-2010} qui est une bibliothèque Python permettant la manipulation et l'analyse des données tabulaires et de séries temporelles.
+Cette bibliothèque permet la visualisation directe dans le notebook de grande quantité de données rangées en tableau et indexées.
+
+En plus de la visualisation instantanée, Pandas permet aussi afin de raffiner encore plus une analyse en chaînant les traitements les uns derrière les autres.
+
+\subsection{Traitements en masse}
+
+L'analyse de résultat et la production de courbes peuvent être obtenus de manière ad-hoc en utilisant des outils de filtres (grep, awk, sed) sur les fichiers en entrées et des outils de graphes (gnuplot, tableur) pour produire les courbes.
+Ces méthodes peuvent fonctionner dans des cas très simples, mais n'ont pas le même niveau de concision et d'expressivité dès qu'il s'agit de grouper ou d'effectuer des agrégations complexes sur plusieurs champs~\cite{racine2006gnuplot, williams2003gnuplot}.
+
+\section{Présentation} % (fold)
+\label{code:presentation}
+
+\inputminted{python}{snippets/matplotlib.py}
+
+L'intérêt d'utiliser ce genre de bibliothèque au lieu d'une solution ad-hoc telle que Gnuplot \cite{Gnuplot_4.4} vient du simple fait qu'elle peut être intégré directement à la suite des analyses et  traitements effectués sur les données de l'expérience. 
+L'intégration est d'ores et déjà fournie à mesure que l'on travaille sur le notebook et les graphes peuvent être générés à la demande.
+
+\section{Intégration continue (Travis-ci)} % (fold)
+\label{code:ci}
+
+\inputminted{yaml}{snippets/.travis.yml}
+
+L'utilisation de Travis-ci peut être justifié par le fait qu'un tiers à priori non lié à une organisation ou un organisme de recherche peut être de bonne foi quant au caractère reproductible. 
+L'intégration continue garantis que l'expérience pourra être reproduite.
+Un point important de cette configuration est que les logiciels sont spécifiés avec une version (requierements.txt).
+Ainsi, au cas où la bibliothèque viendrait à ne plus être maintenue ou comporterait des changements d'interfaces, il serait toujours possible de retrouver d'anciennes versions et reproduire l'expérience avant de la faire migrer vers de nouvelles versions.
+
+
+Les fonctionnalités offertes par Travis-CI ont été réduites au cours de la rédaction de ce manuscrit invalidant une partie des décisions prises au départ pour les expériences nécessitant des interfaces virtuelles et l'injection de trafic venant de l'extérieur.
+
+Ainsi nos expériences sont complètement documentée mais certaines parties ne peuvent plus être rejouées aujourd'hui dans des scénarios spécifiques.
+
+Une migration vers des serveurs auto-hébergés~\cite{smart2011jenkins} permettant un contrôle total sur l'expérience sont une réponse aux limitations des solutions hébergées.
+
+Nous avons utilisé Travis-ci~\cite{travis} comme serveur d'intégration continue en raison de la disponibilité de configurations pour l'environnement Contiki~\cite{contiki_travis} et de son intégration à Github qui héberge nos notebooks et propose un rendu direct en ligne.
+Travis-ci étant une structure indépendante et ouverte, elle constitue un bon gage sur le fait que n'importe qui pourrait refaire l'expérience et s'assurer de nos résultats. 
+Ainsi nous avons pu construire une démonstration présentant les différentes étapes présentées dans ce chapitre et les avons exécutées sur leurs serveurs. 
+
+Ainsi, l'utilisation d'un testbed privé peut être une solution efficace pour effectuer régulièrement des tests d'intégration sur nœuds réels.
+Une autre solution consiste à déployer des taches d'intégration dans des périodes creuses d'utilisation des testbed publics tels que la nuit ou les week-ends.
