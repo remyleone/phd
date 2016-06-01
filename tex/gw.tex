@@ -52,7 +52,7 @@ Les accès de type cellulaire permettent de fournir un accès Internet a un gran
 Cependant ils ne sont pas adaptés au cas des \ac{LLN}s, d'une part en raison du prix de fabrication des composants radios dont ils ont besoin, du coût de l'accès (licence, abonnement auprès d'un opérateur) et d'autre part par la consommation énergétique qu'ils induisent.
 Ainsi des technologies plus adaptées aux \ac{LLN}s sont requises pour offrir des accès longues portées.
 
-Les technologies dites \ac{LPWAN} permettent de transmettre un volume de trafic faible~\footnote{Environ 200 octets (typique) à 5000 octets (maximum) émis par jour avec une charge applicative utile de l'ordre de 12 octets} sur des distances longues~\footnote{5 à 40 kilomètres en champ libre} à un faible débit~\footnote{Débit de 10 à 1 kbit/s en fonction de la technologie radio}~\cite{xiong2015low}.
+Les technologies dites \ac{LPWAN} permettent de transmettre un volume de trafic faible~\footnote{Environ 200 octets (typique) à 5000 octets (maximum) émis par jour avec une charge applicative utile de l'ordre de 12 octets} sur des distances longues~\footnote{5 à 40 kilomètres en champ libre} à un faible débit~\footnote{Débit de 0.250 à 11 kbit/s en fonction de la technologie radio}~\cite{xiong2015low}.
 
 Ces technologies offrent un jeu de compromis clair~: peu de débit, une grande portée, une bonne pénétration~\footnote{Important pour des objets situés dans des caves comme des compteurs électriques.}, un coût de composant radio faible~\footnote{Moins de 2 dollars} et qui consomme très peu d'énergie.
 
@@ -110,7 +110,7 @@ Cependant Z-wave ne permettent pas de passer simplement à l'échelle~\footnote{
 
 \ac{BLE} est une spécification complète de l'ensemble de la pile protocolaire des couches basses jusqu'à l'applicatif visant les \ac{PAN} et qui permet de connecter des objets dans une topologie en étoile sur des portées d'une dizaine de mètres.
 
-Typiquement utilisée pour des appareils personnels (montre et bracelet connectés, accessoires de sport), cette spécification dispose de beaucoup d'atouts: un débit important (1Mo/s) permettant de passer peu de temps à émettre, des entêtes réduits, une grande efficacité spectrale et un schéma de saut de fréquence pour éviter les canaux chargés typiques des bandes \ac{ISM}.
+Typiquement utilisée pour des appareils personnels (montre et bracelet connectés, accessoires de sport), cette spécification dispose de beaucoup d'atouts: un débit important (1 Mbit/s) permettant de passer peu de temps à émettre, des entêtes réduits, une grande efficacité spectrale et un schéma de saut de fréquence pour éviter les canaux chargés typiques des bandes \ac{ISM}.
 
 Cependant les portées de transmissions sont encore trop limitées et le support des réseaux maillés avec cette technologie n'est pas encore standardisé~\cite{bleCritic}.
 
@@ -131,15 +131,15 @@ De plus, des techniques basées sur des sauts de fréquences sont intégrées da
 \hline
 Protocole & Saut de fréquence & Débit & Topologie & Pile complète \\
 \hline
-LPWAN & Non & 100 à 1200 bps & Étoile & Non \\
+LPWAN & Non & 0.250 à 11 kbit/s & Étoile & Non \\
 \hline
-Wi-Fi & Non & 248 Mbps & Étoile, Maillé & Non \\
+Wi-Fi (PSM) & Non & 11 Mbit/s & Étoile, Maillé & Non \\
 \hline
-Z-wave & Non & 9.6, 40, 100 kbps & Étoile, Maillé &  Oui \\
+Z-wave & Non & 9.6, 40, 100 kbit/s & Étoile, Maillé &  Oui \\
 \hline
-\ac{BLE} & Oui & 250 kbps & Étoile & Oui \\
+\ac{BLE} & Oui & 1 Mbit/s & Étoile & Oui \\
 \hline
-\ieee{} & Possible & 250 kbps & Étoile, Maillé & Non \\
+\ieee{} & Possible & 250 kbit/s & Étoile, Maillé & Non \\
 \hline
 \end{tabular}
 \caption{Récapitulatif des protocoles sans-fil}
