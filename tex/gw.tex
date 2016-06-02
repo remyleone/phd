@@ -488,8 +488,8 @@ L'avantage de cette approche est que les routes sont immédiatement disponibles 
 \ac{ROLL} a construit \ac{RPL}~\cite{rfc6550} afin de fournir un protocole de routage disposant des fonctionnalités nécessaires et adaptés aux contraintes spécifiques des \ac{LLN}s spécifiées dans leur cahier des charges~\cite{draft-ietf-roll-protocols-survey-07}.
 
 \ac{RPL} est un protocole de routage proactif à vecteur de distance dédié aux \ac{LLN}s.
-Il construit et maintient une topologie de réseau sous forme d’un graphe acyclique dirigé vers une destination (\ac{DODAG} en anglais) ayant comme racine une ou plusieurs passerelles.
-Les données transmises par les nœuds du réseau seront transmises par les liens du \ac{DAG}.
+Il construit et maintient une topologie de réseau sous forme d’un graphe acyclique dirigé vers une destination (\ac{DODAG} en anglais) ayant comme racine une ou plusieurs routeur de bordure (\ac{LBR} en anglais).
+Les paquets transmis par les nœuds sont transmis par les liens du \ac{DAG}.
 \ac{RPL} permet le trafic \ac{MP2P} (trafic montant), \ac{P2MP} (trafic descendant) et le trafic \ac{P2P} (trafic entre nœuds).
 
 Ce protocole de routage est standardisé, largement diffusé et est aujourd'hui considéré comme le protocole de routage standard des réseaux \ac{LLN}s.
@@ -505,10 +505,10 @@ Ainsi il est le protocole de routage de référence utilisé dans cette thèse.
 \end{figure}
 
 \ac{RPL} construit un graphe de routage entre les nœuds du \ac{LLN} et le routeur de bordure comme illustré sur la Figure~\ref{gw:fig:rpl_architecture}.
-Le routage effectué par \ac{RPL} n'est valide qu'au sein du \ac{LLN} et s'arrête donc au \ac{LBR}.
+Le routage effectué par \ac{RPL} n'est valide qu'au sein du \ac{LLN} et s'arrête donc aux \ac{LBR}s.
 Cette topologie est maintenue en utilisant aussi peu de messages de signalisation que possible.
 Une fois construite, le protocole de routage maintient des routes montantes (\ac{MP2P} ou ``upstream'' en anglais) et descendantes (\ac{P2MP} ou ``downstream'' en anglais) et procède au routage des paquets IPv6.
-La coordination du graphe de routage ainsi que la gestion du trafic doit être faite dans un lieu centralisé.
+% La coordination du graphe de routage ainsi que la gestion du trafic doit être faite dans un lieu centralisé.
 La passerelle peut assurer cette fonctionnalité de routeur de bordure en raison de ses ressources physiques et de sa position de racine.
 
 
@@ -541,18 +541,19 @@ Lorsque le routage descendant est stocké, des tables de routages intermédiaire
 
 \subsubsection{Maintenance du routage}
 
-Les nœuds exécutant \ac{RPL} échangent des informations de signalisation pour mettre à jour le \ac{DODAG} et mettre à jour de manière proactive la topologie de routage.
+Les nœuds exécutant \ac{RPL} échangent des informations de signalisation pour mettre à jour le \ac{DODAG} et ainsi mettre à jour de manière proactive la topologie de routage.
 Il existe plusieurs types de messages de signalisation, celui utilisé pour construire le \ac{DODAG} est un \ac{DIO}.
-Tous les nœuds dans le réseau envoient régulièrement des \ac{DIO} afin d'indiquer leur rang à leur voisin.
+Tous les nœuds dans le réseau envoient régulièrement des \ac{DIO} afin d'indiquer leur rang à leurs voisins.
 
-\ac{RPL} peut détecter et réparer les boucles lorsque du trafic est envoyé dans le réseau et qu'une incohérence est détectée.
-Par exemple, si un routeur reçoit un paquet ``descendant'' et qu'il doit l'envoyer à un nœud avec un rang plus faible ou un paquet ``montant'' et qu'il doit l'envoyer à un nœud avec un rang plus élevé alors une incohérence est détectée et une réparation locale est déclenchée.
+Dans un \ac{LLN}, le trafic de routage et de données est limité, ainsi il est nécessaire de détecter aussi rapidement que possible les inconsistances de routage pour les corriger et éviter d'attendre un paquet de signalisation pour lancer une procédure de réparation.
+Pour cela, un routeur \ac{RPL} insert une option (nommée \ac{RPL} Option~\cite{rfc6553}) dans l'entête de chaque paquet de donnée afin de détecter les éventuelles inconsistances et lancer des réparations ciblées ou globales le cas échéant.  
+Par exemple, si un routeur reçoit un paquet ``descendant'' et qu'il doit l'envoyer à un nœud avec un rang plus faible ou un paquet ``montant'' et qu'il doit l'envoyer à un nœud avec un rang plus élevé alors une inconsistante est détectée et une réparation est déclenchée.
 
 La transmission des paquets est suspendue tant que le \ac{DODAG} n'est pas remis dans un état admissible ce qui peut occasionner des délais et des surcharges des mémoires tampons.
 
 \paragraph{Limitation de trafic de routage (Trickle)}
 
-\ac{RPL} utilise un mécanisme de timer adaptatif appelé  ``Trickle'' (goutte à goutte) afin de contrôler le débit d’émission des messages de signalisation (\ac{DIO}).
+\ac{RPL} utilise un mécanisme de timer adaptatif appelé  ``Trickle'' (goutte à goutte) afin de contrôler le débit d’émission des messages de signalisation (\ac{DIO}) de manière proactive.
 Trickle double l’intervalle séparant deux émissions successives de messages de contrôle à chaque fois que le réseau est cohérent, et ce jusqu’à une valeur maximale.
 Ainsi le trafic \ac{RPL} diminue dans le réseau lorsqu'il est stable et que la topologie change peu.
 Quand une incohérence est détectée, le timer est réinitialisé à sa valeur minimale et les mécanismes de réparation sont lancés.
