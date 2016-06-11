@@ -176,13 +176,9 @@ Ce type de déploiement peut être pertinent dans le cas où les nœuds capteurs
 
 Toutes ces architectures requièrent un adressage de chaque nœud afin de pouvoir garantir des communications en unicast qui sont importantes pour économiser de l'énergie et du débit par rapport à des communications broadcast.
 
-% \ieee{} fournit un plan d'adressage pour chaque nœud du \ac{LLN}, cependant ces adresses ne sont pas utilisables à l'extérieur de ce réseau.
-% Ainsi un utilisateur voulant mettre l'ensemble de ses équipements (capteurs, machines classiques) sur le même plan d'adressage afin de simplifier sa gestion ne peut le faire avec cette solution.
-% Une passerelle est donc requise pour faire une éventuelle traduction entre l'adressage du réseau standard et les \ac{LLN}s.
-
-Afin de limiter la consommation d'énergie, la passerelle doit pouvoir contacter les nœuds d'un \ac{LLN} individuellement, car parler systématiquement à l'ensemble des nœuds serait coûteux pour un grand réseau et ne permettrait aucun mécanisme d'authentification.
-
-Ainsi la passerelle doit disposer d'un plan d'adressage qui permet d'atteindre chaque nœud d'un \ac{LLN}.
+\ieee{} fournit un identifiant (nommé \ac{EUI} en anglais) pour chaque nœud du \ac{LLN} qui est sous la forme d'un \ac{EUI}-64 dans sa version ``longue'' et qui est fournie par le constructeur.
+Un identifiant plus compact \ac{EUI}-16 peut être construit à partir du précédent pour réduire la place occupée par ces adresses dans les entêtes.
+Les protocoles basés sur \ieee{} utilisent ces identifiants pour construire un plan d'adressage et une passerelle est requise pour faire une éventuelle traduction entre l'adressage du réseau standard et celui utilisé dans un \ac{LLN}.
 
 \begin{figure}[ht]
   \centering
