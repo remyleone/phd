@@ -110,6 +110,11 @@ Dans~\cite{Hu:2007tb}, les auteurs étendent cette idée en modélisant l'énerg
 Dans~\cite{Chan:2009hl}, les auteurs construisent une carte de l'énergie et changent la structure de surveillance régulièrement pour redistribuer le coût de cette surveillance de façon équitable à travers le réseau.
 Si l'idée de construire une carte de l'énergie du réseau est étroitement liée à la mesure efficace, toutes les méthodes mentionnées ci-dessus reposent fortement sur des rapports  explicites et continus des nœuds et nécessitent donc une approche active alors que l'objectif de ce chapitre est d'apporter une méthode aussi passive que possible.
 
+D'autre part, l'observation passive du trafic réseau est une pratique courante qui permet de mesurer ses principales propriétés sous la forme de flots réseau~\cite{rfc7799}.
+Ces flots sont spécifiés par différents protocoles tels qu'IPFIX~\cite{rfc7011} ou sFlow~\cite{phaal2001inmon} et sont envoyés vers un collecteur qui sera ensuite interrogé par un logiciel d'analyse afin de diagnostiquer des problèmes (par exemple des congestions) ou de fournir des estimations de la quantité de flux traitée afin de procéder par exemple à une facturation.
+Bien qu'utilisées dans les réseaux classiques, ces techniques d'observations passives et d'analyses de flots ne sont le plus souvent pas disponibles sur les routeurs de bordure destinés aux \ac{LLN}s.
+L'approche proposée dans ce chapitre s'inspire de cette méthodologie et propose d'utiliser ces observations de trafic pour en déduire des informations sur les nœuds du \ac{LLN}.
+
 \section{Mesure de l'utilisation de la radio implicite et passive}
 \label{supervision:model}
 
