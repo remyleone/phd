@@ -23,17 +23,17 @@ Gateways are used to provide a connectivity between such networks and standard I
 Due to its key location, the gateway has an accurate knowledge of information coming in and out of the \ac{LLN}.
 This thesis offers three contributions dealing with optimization of resources and enhancing knowledge about its behavior.
 
-The first contribution of this thesis offers to determine the validity time of a response used within an applicative cache.
-Caches speed up request treatment and reduce the load over a \ac{LLN} to increase its lifetime.
-Finding validity time for each request response must take into account multiple parameters and related works don't provide explicit methods to find the right time for a given configuration.
-We propose a method based on multi-objective optimization model to find the set of solution that are acceptable for our problem.
-
-Second we offer a method to implicitly measure node radio usage in order to infer their energy consumption.
+The first contribution of this thesis is a method to implicitly measure node radio usage in order to infer their energy consumption.
 \ac{LLN}'s administrators need to know the state of the node which are relied upon for a given application to insure that it behaves correctly. But it needs to get the required information by spending as little as possible to get them.
-Explicit measurements of those information aren't always available and even so, they are costly in large scale \ac{LLN}s
+Explicit measurements of those information aren't always available and even so, they are costly in large scale \ac{LLN}s.
 By monitoring the quantity of data exchanged with a device and knowing its nominal power consumption, we show that a gateway can estimate the state of the device's battery.
 It thus becomes possible to have an idea of the lifetime of each device without sending control messages costly in terms of power and bandwidth.
 Limit of this approach will be also described and a bias correction method will be offered when explicit measurements are possible.
+
+Second we offer to determine the validity time of a response used within an applicative cache.
+Caches speed up request treatment and reduce the load over a \ac{LLN} to increase its lifetime.
+Finding validity time for each request response must take into account multiple parameters and related works don't provide explicit methods to find the right time for a given configuration.
+We propose a method based on multi-objective optimization model to find the set of solution that are acceptable for our problem.
 
 Finally, we needed a way to have reproducible experiment for each of our experiment. Therefore we provide Makesense, a framework that can document, execute and analyze a complete \ac{LLN} experiment on simulation or real nodes from a unique description.
 We can combine fast development phases with many iterations then deploy the same code on real nodes and this performs realistic tests.
