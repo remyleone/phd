@@ -6,9 +6,17 @@
 
 \section{Passerelle avancée pour les \ac{LLN}s}
 
+L'augmentation du nombre d'appareils connectés est continue et apporte de nouveaux défis pour l'intégration de ces sources de données dans les réseaux classiques existants.
+En raison de leur hétérogénéité, les nœuds des \ac{LLN}s peuvent utiliser des technologies de communications différentes pour apporter une solution de connectivité efficace en fonction de leur environnement.
+La cohabitation de ces technologies semble inévitable car elles sont caractérisées par des compromis différents (bande passante, portée, consommation énergétique).
+Cette hétérogénéité des standards et des protocoles implique l'utilisation de solutions d'interconnexion qui sont le plus souvent bâties autour du protocole IPv6 et d'une passerelle se trouvant à la bordure de ces réseaux.
+Cette passerelle dispose de plusieurs radios lui permettant de communiquer physiquement mais aussi d'héberger des services supplémentaires par des fonctionnalités logicielles ou virtualisées en raison de ses ressources matérielles plus importantes.
+Ces services peuvent mitiger les problèmes d'interopérabilité car ils peuvent ajouter de manière logicielle du support de protocoles et de services tiers afin d'offrir de l'interopérabilité et de la découverte de services.
+Ainsi la passerelle peut devenir une plateforme sur laquelle de multiples services spécifiques aux \ac{LLN}s peuvent être instanciés afin de notamment améliorer leurs performances ou leur fiabilité.
+
 Cette thèse a présenté comment la passerelle qui est utilisée pour connecter un \ac{LLN} à un réseau classique peut héberger des services pouvant optimiser de manière transparente l'utilisation des ressources d'un \ac{LLN}.
 Le chapitre~\ref{gw} a permis de montrer comment la passerelle du fait de sa position peut avoir accès à une grande quantité d'informations concernant le \ac{LLN}.
-À partir de ces informations, plusieurs mécanismes permettant l'optimisation des ressources des \ac{LLN}s ont été proposés:
+À partir de ces informations, plusieurs mécanismes permettant l'optimisation des ressources des \ac{LLN}s ont étés proposés:
 
 \begin{figure}[ht]
   \centering
@@ -54,6 +62,9 @@ Les contributions proposées dans cette thèse peuvent être étendues dans plus
 
 \subsection{Mesure passive}
 
+En raison de leur hétérogénéité et de leurs ressources limitées, il est difficile de trouver des mécanismes de supervision généralistes fonctionnant sur tous les \ac{LLN}s.
+L'ajout de mesures passives basées sur l'interprétation des flots réseau est un service qui peut être hébergée au niveau de la passerelle pour fournir des estimations minimales de consommation énergétique.
+
 La précision de la supervision passive est liée à la fois à la précision de la modélisation de la couche MAC et d'autre part à l'utilisation de la radio que la passerelle peut inférer.
 Une piste d'amélioration de la supervision passive consisterait à l'appliquer dans des scénarios où les couches \ac{MAC} et les conditions de trafic seraient beaucoup plus déterministes et donc plus facilement prévisibles.
 
@@ -63,6 +74,9 @@ Cependant des corrélations plus fines mettant en jeu une connaissance approfond
 Cependant cette tâche est complexe, car les implémentations ne respectent pas toujours les spécifications ainsi l'observation d'un paquet peut avoir différentes interprétations selon l'implémentation mise en jeu.
 
 \subsection{\acl{RPCA}}
+
+Contrôler et mesurer une métrique est une nécessité pour ensuite agir et prendre des décisions sur le fonctionnement du réseau.
+La régulation des requêtes entrantes sur un \ac{LLN} est un service qui peut être instancié au niveau de la passerelle qui permet d'une part de réguler la quantité de trafic applicatif mais également d'offrir un service d'accélération du traitement des requêtes.
 
 Le rôle d'un \ac{RPCA} consiste à adapter les temps de vie des réponses des requêtes applicatives afin de satisfaire au mieux à la fois les nœuds du \ac{LLN} et les utilisateurs.
 L'heuristique employée dans cette thèse est basée sur des algorithmes génétiques, cependant il est possible que des heuristiques plus efficaces puissent être utilisées pour trouver les temps de vie.
