@@ -18,7 +18,7 @@
     \item Mesure le système
   \end{itemize}
 \end{alertblock}
-  
+
   \pnote{
     - Nombreux produits disponibles dans l'Industrie
     - Nécessité pour prendre des décisions sur l'état d'un système
@@ -29,15 +29,15 @@
 \begin{frame}{État de l'art}
   \begin{block}{Supervision active}
     \begin{itemize}
-      \item Envoi de statut périodique de la part des noeuds (``health report'', SNMP)
+      \item Envoi de statut périodique de la part des nœuds (``health report'', SNMP)
       \item Sondes tierces
     \end{itemize}
   \end{block}
 
   \begin{block}{Limitations}
     \begin{itemize}
-      \item Oblige les noeuds à avoir un module spécifique qui envoit ces données
-      \item Pour les sondes tierces elles ont également besoin d'etre sondée
+      \item Oblige les nœuds à avoir un agent actif spécifique
+      \item Pour les sondes tierces elles ont également besoin d’être sondée
       \item Trafic supplémentaire
     \end{itemize}
   \end{block}
@@ -46,13 +46,13 @@
     Avec SNMP tu peux avoir un modèle client serveur mais aussi des traps pour l'envoi de notifications.
   }
   \pnote{
-    Par contre le protocole SNMP peut etre lourd à implémenter (support des MIB Management Information Base pas forcément exhaustif, plusieurs versions du protocole (3 version), dans la troisième qui est sécurisée: pas de négociation de chiffrement =>Doit connaitre à l'avance le chiffreur utilisé)
+    Par contre le protocole SNMP peut être lourd à implémenter (support des MIB Management Information Base pas forcément exhaustif, plusieurs versions du protocole (3 version), dans la troisième qui est sécurisée: pas de négociation de chiffrement =>Doit connaître à l'avance le chiffreur utilisé)
   }
   \pnote{
-    - Des noeuds venant de deux vendeurs différents vont pas forcément etre supervisés de la meme manière
+    - Des nœuds venant de deux vendeurs différents vont pas forcément être supervisés de la même manière
   }
   \pnote{
-    - Pas toujours possible de déployer un agent actif sur chaque noeud (plateforme fermée, manque de ressources)
+    - Pas toujours possible de déployer un agent actif sur chaque nœud (plateforme fermée, manque de ressources)
   }
 
 \end{frame}
@@ -67,17 +67,17 @@
     \end{itemize}
   \end{block}
 
-  \begin{block}{Solutions de supervision classiques}
+  \begin{block}{Solutions classiques de supervision}
     \begin{itemize}
       \item Supervision active parfois indisponible
-      \item Consommatrice d'énergie \& inefficace avec des noeuds souvent en sommeil
+      \item Consommatrice d'énergie \& inefficace avec des nœuds souvent en sommeil
     \end{itemize}
   \end{block}
 
   \begin{alertblock}{Contribution}
     \begin{itemize}
       \item Supervision passive de la consommation énergétique à la passerelle
-      \item Utilisation de la topologie réseau pour inférer le cout des retransmissions
+      \item Utilisation de la topologie réseau pour inférer le coût des retransmissions
       \item Correction de cette estimation avec de la supervision active quand c'est possible
     \end{itemize}
   \end{alertblock}
@@ -98,7 +98,7 @@
       \item Elles ne sont donc utiles que s'il existe déjà des paquets intéressants.
       \item Exemple: sFlow, netflow, IPFIX.
     \end{itemize}
-    
+
   \end{block}
 
   \pnote{
@@ -118,7 +118,7 @@
   \end{block}
 \end{frame}
 
-\begin{frame}{Modélisation des transmission}
+\begin{frame}{Modélisation des transmissions}
   \begin{figure}
     \input{figures/impact_transmission}
   \end{figure}
@@ -161,7 +161,7 @@
     - noir: Trame de données/ack transmis et reçue
   }
   \pnote{
-    $T_\detect$ est le temps que le transmetteur va passer en écoute juste après une tentative de transmission pour détecter son éventuel succès par un acquittement d'un récepteur juste après l'envoi d'une trame de donnée.    
+    $T_\detect$ est le temps que le transmetteur va passer en écoute juste après une tentative de transmission pour détecter son éventuel succès par un acquittement d'un récepteur juste après l'envoi d'une trame de donnée.
   }
   \pnote{
     ti: the interval between each packet transmission. (0.4 ms)
@@ -173,7 +173,7 @@
     tc: the interval between each CCA.
   }
   \pnote{
-    ta: the time between receiving a packet and sending the acknowledgment packet. 
+    ta: the time between receiving a packet and sending the acknowledgment packet.
   }
   \pnote{
     td: the time required for successfully detecting an acknowledgment from the receiver. (0.16 ms)
@@ -221,7 +221,7 @@
     \subfloat[Évolution au cours du temps]{
         \includegraphics[width=0.5\textwidth]{figures/repartition_protocol.pdf}}
     \caption{Analyse des protocoles}
-    \end{figure}  
+    \end{figure}
 \end{frame}
 
 \begin{frame}{Validation expérimentale}
@@ -232,7 +232,7 @@
     \subfloat[Strobbing par profondeur]{
         \includegraphics[width=0.5\textwidth]{figures/strobes_depth.pdf}}
     \caption{Impact de la profondeur}
-    \end{figure}  
+    \end{figure}
 \end{frame}
 
 \begin{frame}{Validation expérimentale}
@@ -247,7 +247,7 @@
     \subfloat[Estimation ``maillée'' \label{fig:2}]{
         \includegraphics[width=0.5\textwidth]{figures/global_route.pdf}}
     \caption{$\delta$ final par profondeur}
-    \end{figure}  
+    \end{figure}
 
   \pnote{
     - Remarque de Nathalie: On néglige les ACK. Notre modèle est perfectible.
@@ -256,7 +256,7 @@
 
 \end{frame}
 
-\begin{frame}{Recalibration périodique}
+\begin{frame}{Mesure active périodique}
   \begin{block}{Objectifs}
     \begin{itemize}
       \item Apprendre le biais de l'estimation passive
@@ -271,9 +271,9 @@
   \end{alertblock}
   \begin{block}{Topologie expérimentale}
     \begin{itemize}
-      \item 21 noeuds
+      \item 21 nœuds
       \item $\alpha = 0.25$
-      \item Recalibration toutes les 25 secondes
+      \item Mesure active toutes les 25 secondes
     \end{itemize}
   \end{block}
   \pnote{
@@ -327,5 +327,5 @@
 \begin{frame}{Publication}
     Rémy Léone, Jérémie Leguay, Paolo Medagliani, Claude Chaudet.
     \newblock {Tee: Traffic-based energy estimators for duty-cycled Wireless Sensor Networks}.
-    \newblock {\em {IEEE International Conference on Communication (ICC)}}, page~6749-6754, Londres, 2015.  
+    \newblock {\em {IEEE International Conference on Communication (ICC)}}, page~6749-6754, Londres, 2015.
 \end{frame}
