@@ -29,7 +29,7 @@
 \begin{frame}{État de l'art}
   \begin{block}{Supervision active}
     \begin{itemize}
-      \item Envoi de statut périodique de la part des noeuds (``health report'')
+      \item Envoi de statut périodique de la part des noeuds (``health report'', SNMP)
       \item Sondes tierces
     \end{itemize}
   \end{block}
@@ -42,6 +42,12 @@
     \end{itemize}
   \end{block}
 
+  \pnote{
+    Avec SNMP tu peux avoir un modèle client serveur mais aussi des traps pour l'envoi de notifications.
+  }
+  \pnote{
+    Par contre le protocole SNMP peut etre lourd à implémenter (support des MIB Management Information Base pas forcément exhaustif, plusieurs versions du protocole (3 version), dans la troisième qui est sécurisée: pas de négociation de chiffrement =>Doit connaitre à l'avance le chiffreur utilisé)
+  }
   \pnote{
     - Des noeuds venant de deux vendeurs différents vont pas forcément etre supervisés de la meme manière
   }
