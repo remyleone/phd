@@ -1,0 +1,20 @@
+\begin{tikzpicture}[->,>=latex,shorten >=1pt,auto,
+  thick,main node/.style={fill=blue!20,draw}]
+
+  \node[main node] (sim) {\begin{tabular}{c}Simulation\end{tabular}};
+  \node[main node, right=of sim] (emu) {\begin{tabular}{c}Emulation\end{tabular}};
+  \node[main node, right=of emu] (iotlab) {\begin{tabular}{c}Testbed\end{tabular}};
+  \node[main node, right=of iotlab] (final) {\begin{tabular}{c}Déploiement\end{tabular}};
+
+  \path
+    (sim) edge[] (emu)
+    % (emu) edge [bend left=10] node[below] {Modèle} (sim)
+
+    (emu) edge[] (iotlab)
+    % (iotlab) edge [bend left=10] node[below] {Prototype} (emu)
+
+    (iotlab) edge[] (final)
+    % (final) edge [bend left=10] node[below] {Finalisation} (iotlab)
+
+;
+\end{tikzpicture}

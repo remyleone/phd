@@ -1,0 +1,44 @@
+  \begin{tikzpicture}
+  \tikzstyle{router}=[circle, draw, fill=orange!50,text=black]
+  \tikzstyle{child}=[circle, draw, fill=yellow!50,text=black]
+  \tikzstyle{root}=[circle, draw, fill=red!50,text=black]
+  \tikzstyle{source}=[circle, draw, fill=green!50,text=black]
+  \tikzstyle{idle}=[circle, draw, text=black]
+
+  \node[idle] (00) at (0,0) {I};
+  \node[child] (10) at (1,0) {O};
+  \node[router] (20) at (2,0) {R};
+  \node[router] (30) at (3,0) {R};
+  \node[source] (40) at (4,0) {A};
+
+  \node[idle] (01) at (0,1) {I};
+  \node[idle] (11) at (1,1) {I};
+  \node[root] (21) at (2,1) {B};
+  \node[child] (31) at (3,1) {O};
+  \node[child] (41) at (4,1) {O};
+
+  \path
+  % Radio link
+  (00.east) edge[dashed] (10.west)
+  (10.east) edge[dashed] (20.west)
+  (20.east) edge[dashed] (30.west)
+  (30.east) edge[dashed] (40.west)
+
+  (01.east) edge[dashed] (11.west)
+  (11.east) edge[dashed] (21.west)
+  (21.east) edge[dashed] (31.west)
+  (31.east) edge[dashed] (41.west)
+
+  (00.north) edge[dashed] (01.south)
+  (10.north) edge[dashed] (11.south)
+  (20.north) edge[dashed] (21.south)
+  (30.north) edge[dashed] (31.south)
+  (40.north) edge[dashed] (41.south)
+
+  % Route link
+  (40.west) edge[->, very thick] (30.east)
+  (30.west) edge[->, very thick] (20.east)
+  (20.north) edge[->, very thick] (21.south)
+  ;
+
+  \end{tikzpicture}

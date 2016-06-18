@@ -1,0 +1,148 @@
+[notes]
+### 4
+ - Système embarqué existent depuis longtemps c'est quoi la différence ? => Approche systématique pour chaque objet car les couts sont faibles. => Avec des batteries standards le système peut tenir suffisamment longtemps 
+ - L'interconnexion avec des systèmes existant est aussi clé. 
+ - Les objets sont des sources d'informations et d'actions en temps réel. 
+### 5
+ - Mote sur support USB avec une source d'énergie pour en faire un système embarqué. 
+ - Interconnexion en réseau 
+ - Applications simples de relevés ou d'actionneurs 
+### 6
+ - Testbed où on teste les protocoles sur des plateformes matérielles diverses 
+ - Déploiement simplifié permettant un passage à l'échelle plus simple. 
+### 7
+ Insister sur le fait que les applications sont très diverses et toujours orientées vers un service pour justifier de manière tangible un investissement. 
+### 8
+ - Quand ces systèmes ne sont pas autonomes il faut une interconnexion on appelle cela une passerelle. 
+### 9
+ - L'hétérogéneité provient de la profusion des acteurs et du faible cout d'entrée dans les marchés 
+ - Dire que les progrès technologiques visent à rendre les composants moins chers au lieu de performants 
+ - En raison de la variété des standards il faut des systèmes qui s'autoconfigure autant que possible pour faciliter l'accès. 
+ - La gestion du cycle de vie (authentification, mises à jour, facturation) doivent etre automatisées autant que possibles autrement elles seront jamais faites cependant la bande passante peut etre critique. 
+### 10
+ - Faible puissance d'emission 
+ - Liens assez mauvais et bruité 
+ - Mentionner les problèmes de multi-path fading 
+### 12
+ - Position clé à mi chemin entre le monde contraint et le monde non contraint. Plus facile d'y accéder qu'au noeuds contraints. 
+ Plus ressources car doit par exemple fournir une connectivité permanente par réseaux cellulaires, Ethernet. Services supplémentaires: Pare-feux, sauvegarde des données collectées, mises à jour firmware, synchronisation d'horloge, routeur de sortie, etc. 
+ - Comment ajouter des fonctionnalités utiles et transparentes pour les noeuds ? 
+### 15
+ - Propos général : les protocoles classiques sont adaptés aux réseaux de capteurs pour en faire des membres à part entières de l'Internet. 
+ - IEEE 802.15.4: Couche Physique et MAC; topo maillé/étoilée; Faible cout 
+ - 6LoWPAN: Compression IPv6 
+ - RPL: Produit les routes montantes et descendantes; 
+ - CoAP: Couche applicative; REST; UDP 
+### 17
+ - Certaines requetes ont un plus fort impact que d'autres 
+ - Toute les requetes supplémentaires s'additionnent du coup il faut des services aussi transparents que possibles 
+### 18
+ Reverse proxy: Intermédiaire que l'on contacte et qui va contacter d'autres serveurs. 
+ Concept de cache: Invalidation 
+### 19
+ - Avoir une idée de trafic permet de dimensionner son réseau correctement (couverture, routeur intermédiaire) Ce qui apporte des gains de fiabilité et aide aux diagnostiques de problèmes. 
+ - Suivi de la disponibilité matérielle (un noeud mort) ou fonctionnelle (tout un étage est mort) 
+ - Prévoir l'évolution de métriques pour faire des interventions: Niveau de batterie, carte sd saturée 
+---
+ - Accorder les demandes des utilisateurs. Les rythmes de requetes importantes. 
+ - Servir une réponse depuis la passerelle va plus vite que depuis les noeuds 
+### 20
+ Comment ajouter des services dans le dernier noeud non contraints qui est à la bordure du réseau standard ? 
+ - Dire que l'on a d'autres contributions mais que cette présentation se concentre sur celles présentées pour la passerelle. 
+### 22
+ - Nombreux produits disponibles dans l'Industrie - Nécessité pour prendre des décisions sur l'état d'un système 
+### 23
+ - Des noeuds venant de deux vendeurs différents vont pas forcément etre supervisés de la meme manière 
+ - Pas toujours possible de déployer un agent actif sur chaque noeud (plateforme fermée, manque de ressources) 
+### 25
+ - Le passif n'en créent pas et n'en modifient pas (rfc 7799) 
+### 28
+ - En blue: La fenetre de réception 
+ - blanc: Trame de données/ack transmises mais non reçue 
+ - noir: Trame de données/ack transmis et reçue 
+ $T_\detect $ est le temps que le transmetteur va passer en écoute juste après une tentative de transmission pour détecter son éventuel succès par un acquittement d'un récepteur juste après l'envoi d'une trame de donnée. 
+ ti: the interval between each packet transmission. (0.4 ms) 
+ tr: the time required for a stable RSSI, needed for a stable CCA indication. 
+ tc: the interval between each CCA. 
+ ta: the time between receiving a packet and sending the acknowledgment packet. 
+ td: the time required for successfully detecting an acknowledgment from the receiver. (0.16 ms) 
+ ts, the transmission time of the shortest packet, must be larger than tr + tc + tr (0.884 ms) 
+### 29
+ - Une trame longue est détectée plus facilement car elle a plus de chance de tomber entre deux réveils d'un destinataire 
+### 33
+ - Remarque de Nathalie: On néglige les ACK. Notre modèle est perfectible. Cependant les ack prennent peu de temps à transmettre et ne suffirai probablement pas à rattraper le retard. 
+### 34
+ Meme condition de trafic - Cooja/powertracker - 200 secondes 
+ alpha faible va privilégier les tendances de fond 
+### 37
+ - La supervision passive bien qu'imprécise fournit une quantité minimale d'information 
+ - La fiabilité des couches basses est essentielle pour construire des modèles fiables 
+### 42
+ - L'algorithme génétique est généraliste il fonctionne quelque soit la définition des contraintes 
+ - Il repose sur un grand nombre de paramètre mais peut fonctionner efficacement avec une configuration par défaut. 
+### 46
+ Ce cas correspond à un nœud qui transmet quand le récepteur s'allume et ne transmet donc qu'une seule fois son paquet. 
+ - Le récepteur se réveille juste avant le début de l'émission et ne l'écoute donc qu'une seule fois $T_{\pkt , \rxrx } = T_\pkt $. 
+### 47
+ Le pire cas de transmission se produit quand le récepteur vient de s'endormir alors que le transmetteur veut commencer à envoyer sa trame. Le transmetteur va envoyer la trame tous les $T_\pkt + T_\detect $ jusqu'à ce que le récepteur soit éveillé au début d'une transmission. À chaque tentative, le transmetteur va écouter le canal pendant $T_\detect $ pour détecter un éventuel acquittement. Ainsi il va effectuer $\lceil \frac {T_\sleep }{T_\pkt + T_\detect }\rceil $ transmissions sans succès puis quand le récepteur se réveille, il devra transmettre encore une fois pour que la trame soit finalement reçue et acquittée. 
+ - Le récepteur se réveille juste après le début de la transmission ainsi le nœud rate la première et doit en avoir une seconde pour recevoir correctement la trame. Ainsi dans le pire cas $T_{\pkt , \rxrx } = 2T_\pkt $. 
+### 48
+ - Les deux cas sont équiprobables 
+### 54
+ - Nombre de requete traitée: 50 
+ - 10 runs par configuration pour les intervalles de confiance 
+ - 12 noeuds dans le réseau 
+### 55
+ - Chaque point solution est un C contenant l'ensemble des c_u. 
+ - Approximation du front de pareto 
+ - Les poins C_min et C_max => bornes 
+ - C_min garantie une fraîcheur aussi élevée que possible, mais raccourcit la durée de vie alors que 
+ - C_max garantie une durée de vie aussi longue que possible mais avec des fraicheur faibles. 
+ Une valeur haute de $c_u$ sera utilisée pour des nœuds ayant peu d'énergie. 
+ Par contre, une valeur $c_u$ petite sera pour des informations devant être aussi récentes que possible. 
+### 56
+ - Tous les c_u et \lambda _u sont égaux entre eux (Simplification visuelle) 
+ - Plus $c_u$ est grand par rapport à $T_u = \frac {1}{\lambda _u}$, plus le cache est efficace, car la probabilité que la requête soit servie par le \ac {RPCA} augmente épargnant ainsi aux nœuds du \ac {LLN} de les traiter. 
+ - Quand $c_u$ est petit devant $T_u = \frac {1}{\lambda _u}$, la fréquence de requête est plus faible que le temps de vie dans le cache. Le cache est ici inefficace, car une réponse n'y vit pas assez longtemps pour être susceptible d'être utilisée. 
+### 57
+ - Un cache hit elevé implique une réduction de l'utilisation des ressources et donc une durée de vie plus élevée 
+### 62
+ - Mentionner la différence entre un système mono-utilisation (thermostat) vs. un sytème globalement intégré (Amazon Echo / SCADA). 
+ - Les protocoles visent différents usages et contraintes il est plus rentable d'avoir des systèmes généralistes que outils en silo. 
+ - On fournit autant de services généralistes que l'on peut avant d'aller vers le particulier. 
+---
+ - L'utilisation de testbed permet de se lancer facilement et développer de nouveaux services 
+- L'intégration est difficile car de nombreuses pannes peuvent arriver
+ - Une couverture de test systématique peut aider à mitiger ces risques 
+ - Démonstration de l'automatisation. 
+### 64
+ - Remerciements 
+### 77
+ Partie la plus liée au problème. les autres points sont assez communs d'un probleme multi-objectifs à l'autre 
+ Utilisation des valeurs extremes pour simplifier les calculs 
+ Aucune hypothèse n'est faite sur cette fonction (convexité, continuité, etc.) 
+### 78
+ - Paramètre recommandée 
+### 79
+ - Paramètres recommandée par Sean Luke. Essentials of Metaheuristics. 
+ - A permis d'obtenir des résultats. 
+ - Principal concurrence avec un point simple mais si les allèles ne sont pas mises au hasard les premières sont souvent plus sélectionnées que les autres. 
+### 83
+ - Les simulations ignorent beaucoup d'effets réels - L'émulation est un niveau plus proche du matériel Déploiement facile car on utilise le même binaire. - Les testbeds sont plus axés sur des déploiements concrets mais l'orchestration est difficile. - Conditions réelles => Tous les imprévus peuvent arriver. 
+### 84
+Documente tous le process
+Facilite la mise en place de l'environnement
+### 85
+ Évite de partager un seul gros script illisible et qui nécessite de faire une execution supplémentaire chaque fois que l'on change un paramètre. 
+ Evite par exemple d'avoir deux chemins d'executions séparés pour les cas de simulations et les cas de déploiements sur testbed. 
+ - Insister sur l'idée de cycle et d'intégration continue. 
+ - Réduire le cout de tester une nouvelle idée en partant d'un déploiement réussi et en itérant par dessus. 
+ - Résultats pris sur IoT-lab Grenoble. 
+ - RPL UDP deux client et un serveur. 
+ L'objectif de cette phase est de distinguer le décodage d'une information et son interprétation 
+ Le décodage ça transforme des données inintelligibles (binaires) vers du texte 
+ L'interprétation se base sur des quantités qualitatives ou quantitatives pour donner une conclusion 
+ - L'objectif est de réduire le cout de la mise en place et du partage. 
+ - Mentionner qu'il faut qu'elle devienne un critère pour les publications autrement elle ne sera pas appliquée. 
+ - Pas de mesures de download sur github (Tache difficile) 
+ - Notebook utilisé largement: Makesense est une application de ce concept. 

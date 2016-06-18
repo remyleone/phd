@@ -1,0 +1,118 @@
+\documentclass{beamer}
+\usepackage{etex}
+\usepackage{subfig}
+
+\usepackage[utf8]{inputenc}
+\usepackage[absolute,overlay]{textpos}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{amsmath} % Math environments and more by the AMS 
+\usepackage{mathtools}
+
+% \usepackage[dvipsnames]{xcolor}
+
+\input{config_tpt}
+
+%remove navigation symbols
+\setbeamertemplate{navigation symbols}{}
+
+% To show the outline at the beginning of each section
+\AtBeginSection[]{
+  \begin{frame}
+    \frametitle{Outline}
+    %\begin{center}{\LARGE Outline }\end{center}
+    \tableofcontents[currentsection,hideothersubsections]
+  \end{frame}
+}
+
+%\newcommand{\LinkToMethodo}{
+%\begin{textblock}{25}(102,89)
+%  \hyperlink{METHODO}{\beamergotobutton{Back to methodology}}
+% \end{textblock}
+%}
+
+\newcommand{\mytilde}{\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}}
+
+\newcommand{\tikzgrid}{
+  \begin{pgfonlayer}{background}
+    \draw[gray!50]
+    (current bounding box.south west)
+    grid[step=.2] (current bounding box.north east);
+    \draw[red!50]
+    (current bounding box.south west)
+    grid (current bounding box.north east);
+  \end{pgfonlayer}
+}
+
+\newcommand*{\ExtractCoordinate}[3]{\path (#1); \pgfgetlastxy{#2}{#3};}%
+
+\newdimen\tlx
+\newdimen\tlx
+\newdimen\brx
+\newdimen\bry
+
+%% To FILL to customize presentation with the TPT style
+
+\newcommand{\theTitle}{Passerelle intelligente pour réseaux de capteurs sans fil contraints}
+\newcommand{\theAuthors}{Rémy Leone, remy.leone@telecom-paristech.fr}
+\newcommand{\theConferenceAndPlace}{INFRES, Thales Communications \& Security, LINCS}
+\newcommand{\theDate}{\today}
+
+\newcommand{\ieee}{IEEE 802.15.4}
+
+% Commandes pour le cache et la supervision
+
+\newcommand{\tx}{\textrm{Tx}}
+\newcommand{\rx}{\textrm{Rx}}
+\newcommand{\listen}{\mathcal{L}}
+\newcommand{\sleep}{\mathcal{S}}
+\newcommand{\req}{r}
+\newcommand{\ans}{a}
+\newcommand{\ack}{\textrm{ACK}}
+\newcommand{\racine}{root}
+\newcommand{\router}{router}
+\newcommand{\server}{server}
+\newcommand{\act}{A}
+\newcommand{\cycle}{C}
+\newcommand{\txtx}{\tx \to \tx}
+\newcommand{\txrx}{\tx \to \rx}
+\newcommand{\rxtx}{\rx \to \tx}
+\newcommand{\rxrx}{\rx \to \rx}
+\newcommand{\detect}{d}
+\newcommand{\pkt}{p}
+\newcommand{\cmin}{c_{min}}
+\newcommand{\cmax}{c_{max}}
+\newcommand{\copt}{c^*}
+
+
+\defbeamertemplate*{headline}{}
+{%
+  \begin{beamercolorbox}{section in head/foot}
+    \insertsectionnavigationhorizontal{\paperwidth}{}{}
+  \end{beamercolorbox}%
+ }
+
+\usepackage{pdfpcnotes}
+
+\begin{document}
+
+\makeFirstFrame
+
+\frame{
+  \frametitle{Sommaire}
+  \tableofcontents
+}
+
+\setbeamertemplate{blocks}[rounded][shadow=true]
+
+\input{tex/intro}
+\input{tex/gw}
+\input{tex/supervision}
+\input{tex/cache}
+\input{tex/conclusion}
+
+\input{tex/annexe_supervision}
+\input{tex/annexe_cache}
+\input{tex/automation}
+
+\end{document}

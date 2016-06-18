@@ -1,0 +1,22 @@
+\begin{figure}[ht]
+  \centering
+  \begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto]
+   \node[draw, circle] (R) {$R_n$};
+   \node[draw, circle] (right) [right=5cm of R] {$N_{n+1}$};
+   \node[draw, circle] (left) [left=5cm of R] {$N_{n-1}$};
+ 
+  \path[->]
+    (left)  edge [bend right=70, thick, olive]   node  [below, black]   {(1) $\req$}   (R)
+    (R)  edge [bend left, thick, dashed,thick, olive]   node  [below, black]   {(2) $\ack_r$}   (left)
+     (R)  edge [bend right=70, thick,cyan]   node  [above, black]   {(7) $\ans$}   (left)
+    (left)  edge [bend left, dashed, thick,cyan]   node  [above, black]   {(8) $\ack_a$}   (R)
+    
+    (R)  edge [bend right=70, thick,olive]   node  [below, black]   {(3) $\req$}   (right)
+    (right)  edge [bend left, dashed, thick,olive]   node  [black]   {(4) $\ack_r$}   (R)
+    (right)  edge [bend right=70, thick,cyan]   node  [above, black]   {(5) $\ans$}   (R)
+    (R)  edge [bend left, dashed, thick,cyan]   node  [above, black]   {(6) $\ack_a$}   (right)
+  ;
+  \end{tikzpicture}
+  \caption{Schéma de transmission d'un paquet par routeur}
+  \label{contikimac:fig:router}
+\end{figure}

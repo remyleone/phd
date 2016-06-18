@@ -1,0 +1,357 @@
+\section{Cache adaptatif} % (fold)
+\label{sec:cache_adaptatif}
+
+\begin{frame}{Architecture: Proxy inverse}
+  \begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{figures/schema_rpc_slides.pdf}
+  \end{figure}
+\end{frame}
+
+\begin{frame}\frametitle{Contexte}
+
+  \begin{block}{Reverse Proxy Cache}
+    \begin{itemize}
+      \item Intercepte les requêtes entrantes
+      \item Chaque réponse a un temps de validité en cache
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Etat de l'art sur les caches en IoT}
+    \begin{itemize}
+      \item Fonctionnalités de traduction de protocoles
+      \item Cache répartis au niveau des noeuds
+    \end{itemize}
+  \end{block}
+
+\end{frame}
+
+\begin{frame}\frametitle{Contribution}
+
+  \begin{block}{Contraintes}
+    \begin{itemize}
+      \item Les noeuds veulent répondre au moins de requêtes possibles
+      \item Les utilisateurs veulent les réponses les plus récentes possibles
+    \end{itemize}
+  \end{block}
+
+  \begin{alertblock}{Modèle de résolution}
+    \begin{itemize}
+      \item Fournir les temps de validité optimaux pour les ressources en cache afin d'avoir le meilleur temps de validité possible
+      \item Utilisation d'algorithme génétique (NSGA-II) pour la résolution d'un problème multi-objectifs (Satisfaction ou Durée de vie)
+    \end{itemize}
+  \end{alertblock}
+
+  \pnote{
+    - L'algorithme génétique est généraliste il fonctionne quelque soit la définition des contraintes
+  }
+  \pnote{
+    - Il repose sur un grand nombre de paramètre mais peut fonctionner efficacement avec une configuration par défaut.
+  }
+\end{frame}
+
+\begin{frame}{Architecture de RPCA}
+  \begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{figures/schema_rpca_slides.pdf}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Modélisation du problème}
+
+  \begin{block}{Contrainte sur la durée des validité}
+    \[ c_{min}(u) \leq c_u \leq c_{max}(u)\]
+  \end{block}
+  \begin{block}{Satisfaction utilisateur}
+    $$\forall u, \gamma_u = \dfrac{\cmax(u) - c_u}{\cmax(u) - \cmin(u)}$$
+  \end{block}
+
+  \begin{alertblock}{Modèle de durée de vie}
+    \begin{align}
+      E_r(T) &= E_0 - \int_0^T P(t) \mathrm{d}t\\
+      % \int_0^T P(t) \mathrm{d}t &= \int_0^T P_{\sleep} \alpha_{\sleep}(t) \mathrm{d}t + \int_0^T P_{\listen} \alpha_{\listen}(t) \mathrm{d}t + \int_0^T P_{\tx} \alpha_{\tx}(t) \mathrm{d}t + \int_0^T P_{\rx} \alpha_{\rx}(t) \mathrm{d}t\\
+      \int_0^T P(t) \mathrm{d}t &= \alpha_{\sleep} P_{\sleep} + \alpha_{\listen} P_{\listen} + \alpha_{\tx} P_{\tx} + \alpha_{\rx} P_{\rx}
+    \end{align}
+  \end{alertblock}
+
+\end{frame}
+
+\begin{frame}{ContikiMAC}
+  \begin{figure}
+    \centering
+    \includegraphics{figures/contikimac.png}
+  \end{figure}
+  \begin{block}{Notation}
+    \begin{description}
+      \item[$T_{\pkt}$] Temps pour émettre un paquet
+      \item[$T_{\ack}$] Temps pour émettre un acquittement
+      \item[$T_{\sleep}$] Temps de sommeil dans un cycle
+      \item[$T_{\detect}$] Temps pour détecter l'arrivée d'un paquet d'acquittement
+      \item[$T_{\cycle}$] Temps d'un cycle complet
+    \end{description}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Cas favorable}
+
+  \begin{block}{Transmission}
+    \begin{align}
+      T_{\pkt, \txtx} &= T_{\pkt}\\
+      T_{\pkt, \txrx} &= T_{\ack}
+    \end{align}
+  \end{block}
+
+  \begin{block}{Réception}
+    \begin{align}
+      T_{\pkt, \rxrx} &= T_{\pkt}\\
+      T_{\pkt, \rxtx} &= T_{\ack}
+    \end{align}
+  \end{block}
+
+  \pnote{
+    Ce cas correspond à un nœud qui transmet quand le récepteur s'allume et ne transmet donc qu'une seule fois son paquet.
+  }
+
+  \pnote{
+    - Le récepteur se réveille juste avant le début de l'émission et ne l'écoute donc qu'une seule fois $T_{\pkt, \rxrx} = T_\pkt$.
+  }
+
+\end{frame}
+
+\begin{frame}{Cas défavorable}
+  \begin{block}{Transmission}
+    \begin{align}
+      T_{\pkt, \txtx} &= T_{\pkt} + \left \lceil \frac{T_{\sleep}}{T_{\pkt} + T_{\detect}}\right\rceil T_{\pkt}\\
+      T_{\pkt, \txrx} &= \left \lceil \frac{T_{\sleep}}{T_{\pkt} + T_{\detect}}\right \rceil T_{\detect} + T_{\ack}
+    \end{align}    
+  \end{block}
+
+  \begin{block}{Réception}
+    \begin{align}
+      T_{\pkt, \rxrx} &= 2T_{\pkt}\\
+      T_{\pkt, \rxtx} &= T_{\ack}
+    \end{align}
+  \end{block}  
+
+  \pnote{
+    Le pire cas de transmission se produit quand le récepteur vient de s'endormir alors que le transmetteur veut commencer à envoyer sa trame.
+    Le transmetteur va envoyer la trame tous les $T_\pkt + T_\detect$ jusqu'à ce que le récepteur soit éveillé au début d'une transmission.
+    À chaque tentative, le transmetteur va écouter le canal pendant $T_\detect$ pour détecter un éventuel acquittement.
+    Ainsi il va effectuer $\lceil \frac{T_\sleep}{T_\pkt + T_\detect}\rceil$ transmissions sans succès puis quand le récepteur se réveille, il devra transmettre encore une fois pour que la trame soit  finalement reçue et acquittée.
+  }
+
+  \pnote{
+    - Le récepteur se réveille juste après le début de la transmission ainsi le nœud rate la première et doit en avoir une seconde pour recevoir correctement la trame. Ainsi dans le pire cas $T_{\pkt, \rxrx} = 2T_\pkt$.
+  }
+
+\end{frame}
+
+\begin{frame}{Cas moyen}
+    \begin{alertblock}{Transmission}
+    \begin{align}
+%       % T_{\pkt, \txtx} &= \dfrac{2 + \lceil \frac{T_\sleep - (T_\pkt + T_\detect)}{T_\pkt + T_\detect}\rceil}{2} T_\pkt
+      T_{\pkt, \txtx} &=  \frac{T_{\pkt}}{2} \left\lceil \frac{T_{\sleep}}{T_{\pkt} + T_{\detect}}\right\rceil + T_{\pkt} \\
+%       % T_{\pkt, \txrx} &= \dfrac{2 + \lceil \frac{T_\sleep - (T_\pkt + T_\detect)}{T_\pkt + T_\detect}\rceil}{2} T_\detect + T_\ack
+      T_{\pkt, \txrx} &= \frac{T_{\detect}}{2} \left \lceil \dfrac{T_{\sleep}}{T_{\pkt} + T_{\detect}} \right \rceil + T_{\ack}
+    \end{align}
+  \end{alertblock}
+
+  \begin{alertblock}{Réception}
+    \begin{align*}
+      T_{\pkt, \rxrx} &= \frac{3 T_{\pkt}}{2}\\
+      T_{\pkt, \rxtx} &= T_{\ack}
+    \end{align*}
+  \end{alertblock}
+
+  \pnote{
+    - Les deux cas sont équiprobables
+  }
+\end{frame}
+
+\begin{frame}{Consommation des noeuds serveurs}
+
+  \begin{alertblock}{Consommation des noeuds serveurs}
+    \begin{align}
+      \alpha_{\server, \tx} &= \frac{T_{\req, \rxtx} + T_{\ans, \txtx}}{r_i} 
+      \label{contikimac:eq:coap_tx} \\
+      \alpha_{\server, \rx} &= \frac{T_{\req, \rxrx} + T_{\ans, \txrx}}{r_i}
+      \label{contikimac:eq:coap_rx}
+    \end{align}  
+  \end{alertblock}
+  
+\end{frame}
+
+\begin{frame}{Consommation des noeuds routeurs}
+  \begin{figure}
+    \centering
+    \includegraphics[scale=1]{figures/conso_routeur_slides.pdf}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Consommation des noeuds routeurs}
+  \begin{block}{Charge pour les routeurs}
+    \begin{align}
+      T_{\router, \tx} &= T_{\req, \txtx} + T_{\req, \rxtx} + T_{\ans, \txtx} + T_{\ans, \rxtx}\\
+      T_{\router, \rx} &= T_{\req, \rxrx} + T_{\req, \txrx} + T_{\ans, \rxrx} + T_{\ans, \txrx}
+    \end{align}
+  \end{block}
+  \begin{alertblock}{$\alpha_{\router, \tx}$ et $\alpha_{\router, \rx}$}
+    \begin{align}
+      \alpha_{\router, \tx} &= \sum_{j \in m_i} \frac{T_{\router, \tx, j}}{r_j}
+      \label{contikimac:eq:router_tx}\\
+      \alpha_{\router, \rx} &= \sum_{j \in m_i} \frac{T_{\router, \rx, j}}{r_j}
+      \label{contikimac:eq:router_rx}
+    \end{align}
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}{Consommation en phase d'écoute et de sommeil}
+  \begin{alertblock}{Phase d'écoute}
+    \begin{align}
+      \alpha_{\listen} &= \frac{T_{\act}}{T_{\cycle}}(1 - \alpha_{\tx} - \alpha_{\rx})
+    \end{align}
+  \end{alertblock}
+  \begin{alertblock}{Phase de sommeil}
+    \begin{align}
+      \alpha_{\sleep} &= \frac{T_{\cycle} - T_{\act}}{T_{\cycle}}(1 - \alpha_{\tx} - \alpha_{\rx})
+    \end{align}
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}{Algorithme génétique}
+  \begin{figure}
+    \centering
+    \includegraphics[scale=.5]{../img/algo_genetique.pdf}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Validation expérimentale}
+  \begin{block}{Condition de trafic}
+    \begin{itemize}
+      \item Trafic poissonien en entrée
+      \item Traduction HTTP / CoAP
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Résolution multi-objective}
+    \begin{itemize}
+      \item Configuration NSGA-II par défaut
+      \item Executé en offline puis déployée
+    \end{itemize}
+  \end{block}
+
+  \pnote{
+    - Nombre de requete traitée: 50
+  }
+  \pnote{
+    - 10 runs par configuration pour les intervalles de confiance
+  }
+  \pnote{
+    - 12 noeuds dans le réseau
+  }
+\end{frame}
+
+\begin{frame}\frametitle{Front de Pareto}
+
+  \begin{figure}[tb]
+    \centering
+    \includegraphics[width=\textwidth]{../img/pareto.pdf}
+  \end{figure}
+
+  \pnote{
+    - Chaque point solution est un C contenant l'ensemble des c_u.
+  }
+  \pnote{
+    - Approximation du front de pareto
+  }
+  \pnote{
+    - Les poins C_min et C_max => bornes
+  }
+  \pnote{
+    - C_min garantie une fraîcheur aussi élevée que possible, mais raccourcit la durée de vie alors que 
+  }
+  \pnote{
+    - C_max garantie une durée de vie aussi longue que possible mais avec des fraicheur faibles.
+  }
+  \pnote{
+    Une valeur haute de $c_u$ sera utilisée pour des nœuds ayant peu d'énergie.
+  }
+  \pnote{  
+    Par contre, une valeur $c_u$ petite sera pour des informations devant être aussi récentes que possible.
+  }
+\end{frame}
+
+\begin{frame}{Cache hit ratio}
+  
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=.75\textwidth]{figures/new_cachinghit.pdf}
+  \end{figure}
+  
+  \pnote{
+    - Tous les c_u et \lambda_u sont égaux entre eux (Simplification visuelle)
+  }
+  \pnote{
+    - Plus $c_u$ est grand par rapport à $T_u = \frac{1}{\lambda_u}$, plus le cache est efficace, car la probabilité que la requête soit servie par le \ac{RPCA} augmente épargnant ainsi aux nœuds du \ac{LLN} de les traiter.
+  }
+  \pnote{
+    - Quand $c_u$ est petit devant $T_u = \frac{1}{\lambda_u}$, la fréquence de requête est plus faible que le temps de vie dans le cache.
+  Le cache est ici inefficace, car une réponse n'y vit pas assez longtemps pour être susceptible d'être utilisée.
+  }
+\end{frame}
+
+\begin{frame}\frametitle{Résultats: Durée de vie}
+
+  \begin{block}{Définition}
+    Le réseau est considéré comme mort au premier noeud mort.
+  \end{block}
+
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.75\textwidth]{figures/lifetime.pdf}
+  \end{figure}
+
+  \pnote{
+    - Un cache hit elevé implique une réduction de l'utilisation des ressources et donc une durée de vie plus élevée
+  }
+
+\end{frame}
+
+\begin{frame}\frametitle{Conclusion}
+
+  \begin{alertblock}{Dimenssionnement des temps de vie}
+
+    \begin{itemize}
+
+      \item Réguler la quantité de requêtes que l'on fait passer est un bon moyen de gérer la charge d'un réseau requêtes/réponse
+
+      \item Dans un modèle d'hypothèses simples on peut avoir des estimations rapides de la durée de vie d'un réseau
+
+      \item L'efficacité d'un cache n'est pas seulement liée au temps de vie d'une requête, mais également à son adéquation avec le trafic qu'il reçoit et les contraintes de l'application.
+
+    \end{itemize}
+
+  \end{alertblock}
+
+  \begin{block}{Améliorations possibles}
+    \begin{itemize}
+      \item Méthodes convexes pour la résolution
+      \item Différentes mesures de statisfaction
+      \item Prise en compte du délai de réponse
+    \end{itemize}
+  \end{block}
+
+\end{frame}
+
+\begin{frame}{Publications}
+  \begin{itemize}
+    \item Rémy Leone, Paolo Medagliani et Jérémie Leguay.
+      \newblock {Optimizing QoS in Wireless Sensors Networks using a Caching Platform}.
+      \newblock {\em {Sensornets 2013}}, page~56, Barcelone, Espagne, Février 2013.
+
+    \item Rémy Leone, Paolo Medagliani et Jérémie Leguay.
+      \newblock {Optimisation de la qualité de service par l'utilisation de mémoire cache}
+      \newblock 15{\`e}mes Rencontres Francophones sur les Aspects Algorithmiques des T{\'e}l{\'e}communications
+
+  \end{itemize}
+\end{frame}

@@ -1,0 +1,325 @@
+\section{Mesure implicite} % (fold)
+\label{sec:supervision_active_&_passive}
+
+\begin{frame}{Introduction}
+
+\begin{block}{Supervision}
+  \begin{itemize}
+    \item Collecte de données
+    \item Interprétation des données
+    \item Prise de décisions
+  \end{itemize}
+\end{block}
+
+\begin{alertblock}{Objectifs}
+  \begin{itemize}
+    \item Diagnostiquer les pannes
+    \item Anticiper les problèmes
+    \item Mesure le système
+  \end{itemize}
+\end{alertblock}
+  
+  \pnote{
+    - Nombreux produits disponibles dans l'Industrie
+    - Nécessité pour prendre des décisions sur l'état d'un système
+  }
+
+\end{frame}
+
+\begin{frame}{État de l'art}
+  \begin{block}{Supervision active}
+    \begin{itemize}
+      \item Envoi de statut périodique de la part des noeuds (``health report'')
+      \item Sondes tierces
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Limitations}
+    \begin{itemize}
+      \item Oblige les noeuds à avoir un module spécifique qui envoit ces données
+      \item Pour les sondes tierces elles ont également besoin d'etre sondée
+      \item Trafic supplémentaire
+    \end{itemize}
+  \end{block}
+
+  \pnote{
+    - Des noeuds venant de deux vendeurs différents vont pas forcément etre supervisés de la meme manière
+  }
+  \pnote{
+    - Pas toujours possible de déployer un agent actif sur chaque noeud (plateforme fermée, manque de ressources)
+  }
+
+\end{frame}
+
+\begin{frame}\frametitle{Problématiques et contributions}
+
+  \begin{block}{Buts}
+    \begin{itemize}
+      \item Produire une estimation de l'utilisation de la radio
+      \item La radio est la principale consommatrice d'énergie
+      \item Avoir une vue du trafic réseau et identifier les points chauds
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Solutions de supervision classiques}
+    \begin{itemize}
+      \item Supervision active parfois indisponible
+      \item Consommatrice d'énergie \& inefficace avec des noeuds souvent en sommeil
+    \end{itemize}
+  \end{block}
+
+  \begin{alertblock}{Contribution}
+    \begin{itemize}
+      \item Supervision passive de la consommation énergétique à la passerelle
+      \item Utilisation de la topologie réseau pour inférer le cout des retransmissions
+      \item Correction de cette estimation avec de la supervision active quand c'est possible
+    \end{itemize}
+  \end{alertblock}
+
+\end{frame}
+
+\begin{frame}{Mesures implicites}
+  \begin{block}{Définitions}
+    \begin{itemize}
+      \item Une mesure active nécessite un envoi de paquets dédiés à cette mesure.
+      \item Une mesure passive ne dépend que des paquets qui seraient envoyés de toute façon, même si la mesure n'avait pas lieu.
+    \end{itemize}
+  \end{block}
+  \begin{block}{Propriétés des mesures passives}
+    \begin{itemize}
+      \item Elles sont fondées sur l'observation de paquets non modifiés et non perturbés.
+      \item Une méthode passive ne laisse aucune trace sur le réseau.
+      \item Elles ne sont donc utiles que s'il existe déjà des paquets intéressants.
+      \item Exemple: sFlow, netflow, IPFIX.
+    \end{itemize}
+    
+  \end{block}
+
+  \pnote{
+    - Le passif n'en créent pas et n'en modifient pas (rfc 7799)
+  }
+\end{frame}
+
+\begin{frame}{Architecture de mesure implicite}
+  \begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{figures/schema_supervision_slides.pdf}
+  \end{figure}
+  \begin{block}{Modèle}
+    \begin{itemize}
+      \item Modélisation de la couche MAC
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Modélisation des transmission}
+  \begin{figure}
+    \input{figures/impact_transmission}
+  \end{figure}
+  \begin{block}{Estimation ``étoilée''}
+    \begin{itemize}
+      \item Source et destination
+    \end{itemize}
+  \end{block}
+  \begin{block}{Estimation ``maillée''}
+    \begin{itemize}
+      \item Route complète
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+
+\begin{frame}{\ieee{} \& ContikiMAC}
+  \begin{block}{\ieee{}}
+    $T_p = \frac{\mathcal{L}(f)}{R} \ceil[\Big]{\frac{\mathcal{L}(p)}{L}}$
+  \end{block}
+
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=.5\textwidth]{figures/contikimac.png}
+    \caption{Schéma d'endormissement dans ContikiMAC}
+  \end{figure}
+
+  \begin{block}{Facteur de ``strobbing''}
+    $N_{\textrm{receiver}} = 1.5$
+  \end{block}
+
+  \pnote{
+    - En blue: La fenetre de réception
+  }
+  \pnote{
+    - blanc: Trame de données/ack transmises mais non reçue
+  }
+  \pnote{
+    - noir: Trame de données/ack transmis et reçue
+  }
+  \pnote{
+    $T_\detect$ est le temps que le transmetteur va passer en écoute juste après une tentative de transmission pour détecter son éventuel succès par un acquittement d'un récepteur juste après l'envoi d'une trame de donnée.    
+  }
+  \pnote{
+    ti: the interval between each packet transmission. (0.4 ms)
+  }
+  \pnote{
+    tr: the time required for a stable RSSI, needed for a stable CCA indication.
+  }
+  \pnote{
+    tc: the interval between each CCA.
+  }
+  \pnote{
+    ta: the time between receiving a packet and sending the acknowledgment packet. 
+  }
+  \pnote{
+    td: the time required for successfully detecting an acknowledgment from the receiver. (0.16 ms)
+  }
+  \pnote{
+    ts, the transmission time of the shortest packet, must be larger than tr + tc + tr (0.884 ms)
+  }
+\end{frame}
+
+\begin{frame}{Strobbing moyen $N_{\textrm{sender}}$}
+  \begin{block}{Conditions expérimentales}
+    \begin{itemize}
+      \item Topologie binaire
+      \item Rime stack (\ieee{} et ContikiMAC)
+    \end{itemize}
+  \end{block}
+  \begin{figure}
+    \includegraphics[width=.8\textwidth]{figures/average_strobbing.pdf}
+  \end{figure}
+  \pnote{
+    - Une trame longue est détectée plus facilement car elle a plus de chance de tomber entre deux réveils d'un destinataire
+  }
+\end{frame}
+
+\begin{frame}{Validation expérimentale}
+  \begin{block}{Hypothèses}
+    \begin{itemize}
+      \item Contiki/COOJA/Powertracker
+      \item 200 secondes
+      \item 1 paquet/s (69 octets sur le médium)
+      \item $N_{\textrm{sender}} = 3.76$
+    \end{itemize}
+  \end{block}
+  \begin{figure}
+    \centering
+    \input{figures/topologie_chaine}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Validation expérimentale}
+    \begin{figure}
+    \centering
+    \subfloat[Répartition par profondeur]{
+        \includegraphics[width=0.5\textwidth]{figures/protocol_repartition_depth.pdf}}
+    \subfloat[Évolution au cours du temps]{
+        \includegraphics[width=0.5\textwidth]{figures/repartition_protocol.pdf}}
+    \caption{Analyse des protocoles}
+    \end{figure}  
+\end{frame}
+
+\begin{frame}{Validation expérimentale}
+    \begin{figure}
+    \centering
+    \subfloat[Packet Delivery Ratio (PDR)]{
+        \includegraphics[width=0.5\textwidth]{figures/pdr_depth.pdf}}
+    \subfloat[Strobbing par profondeur]{
+        \includegraphics[width=0.5\textwidth]{figures/strobes_depth.pdf}}
+    \caption{Impact de la profondeur}
+    \end{figure}  
+\end{frame}
+
+\begin{frame}{Validation expérimentale}
+    \begin{block}{Précision}
+      $$\delta = \frac{\widehat{X}}{X}$$
+    \end{block}
+
+    \begin{figure}
+    \centering
+    \subfloat[Estimation ``étoilée'' \label{fig:1}]{
+        \includegraphics[width=0.5\textwidth]{figures/global_noinfo.pdf}}
+    \subfloat[Estimation ``maillée'' \label{fig:2}]{
+        \includegraphics[width=0.5\textwidth]{figures/global_route.pdf}}
+    \caption{$\delta$ final par profondeur}
+    \end{figure}  
+
+  \pnote{
+    - Remarque de Nathalie: On néglige les ACK. Notre modèle est perfectible.
+    Cependant les ack prennent peu de temps à transmettre et ne suffirai probablement pas à rattraper le retard.
+  }
+
+\end{frame}
+
+\begin{frame}{Recalibration périodique}
+  \begin{block}{Objectifs}
+    \begin{itemize}
+      \item Apprendre le biais de l'estimation passive
+    \end{itemize}
+  \end{block}
+  \begin{alertblock}{Modèle correctif}
+    \begin{align}
+      \widehat{X}(t) &= X(t_r) + \epsilon(t_r)\frac{t - t_r}{T}\\
+      \epsilon(t_r) &= \alpha (X(t_r) - \widehat{X}(t_r)) + (1 - \alpha)\epsilon(t_{r-1})
+      \label{supervision:eqn:bias}
+    \end{align}
+  \end{alertblock}
+  \begin{block}{Topologie expérimentale}
+    \begin{itemize}
+      \item 21 noeuds
+      \item $\alpha = 0.25$
+      \item Recalibration toutes les 25 secondes
+    \end{itemize}
+  \end{block}
+  \pnote{
+    Meme condition de trafic - Cooja/powertracker - 200 secondes
+  }
+  \pnote{
+    alpha faible va privilégier les tendances de fond
+  }
+\end{frame}
+
+\begin{frame}\frametitle{Evolution de l'erreur d'estimation}
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{figures/ratio_recalibration_global.pdf}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Intervalle de recalibration}
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{figures/ratio_recalibration.pdf}
+  \end{figure}
+\end{frame}
+
+\begin{frame}\frametitle{Conclusion}
+
+  \begin{block}{Supervision}
+      \begin{itemize}
+        \item La connaissance de la topologie améliore la précision
+        \item Calibration par strobbing validée mais insuffisante
+        \item Recalibrations nécessaires pour cette configuration
+      \end{itemize}
+  \end{block}
+
+  \begin{block}{Ouvertures}
+    \begin{itemize}
+      \item Couche MAC plus fiable et déterministe (TSCH)
+      \item Différentes topologies
+    \end{itemize}
+  \end{block}
+
+  \pnote{
+    - La supervision passive bien qu'imprécise fournit une quantité minimale d'information
+  }
+  \pnote{
+    - La fiabilité des couches basses est essentielle pour construire des modèles fiables
+  }
+
+\end{frame}
+
+\begin{frame}{Publication}
+    Rémy Léone, Jérémie Leguay, Paolo Medagliani, Claude Chaudet.
+    \newblock {Tee: Traffic-based energy estimators for duty-cycled Wireless Sensor Networks}.
+    \newblock {\em {IEEE International Conference on Communication (ICC)}}, page~6749-6754, Londres, 2015.  
+\end{frame}

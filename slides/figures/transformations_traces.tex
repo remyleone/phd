@@ -1,0 +1,21 @@
+\begin{tikzpicture}[->,>=latex,shorten >=1pt, thick,main node/.style={fill=blue!20,draw}]
+
+  \node[main node] (parse) {\begin{tabular}{c}Mise en forme\end{tabular}};
+
+  \node[main node, below left=of parse] (pcap) {\begin{tabular}{c}PCAP\end{tabular}};
+  \node[main node, above left=of parse] (logs) {\begin{tabular}{c}Logs\end{tabular}};
+
+  \node[main node, right=of parse] (good_data) {\begin{tabular}{c}Données mises en forme\end{tabular}};
+  \node[main node, above=of good_data] (analysis) {\begin{tabular}{c}Analyse des données\end{tabular}};
+
+  \node[main node, below=of good_data] (csv) {\begin{tabular}{c}Export vers CSV\end{tabular}};
+
+  \path
+       (pcap) edge[->] (parse.south west) 
+       (logs) edge[->] (parse.north west) 
+       (parse) edge[->] (good_data) 
+       (good_data)  edge[->] (analysis)
+       (good_data) edge[->] (csv) 
+  ;
+
+\end{tikzpicture}

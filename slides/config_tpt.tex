@@ -1,0 +1,143 @@
+% *** TPT STYLE ***
+
+\definecolor{colorframetitle}{RGB}{191,18,56} % Title of frames
+\definecolor{redbox}{RGB}{191,18,56} %
+\definecolor{blackbox}{RGB}{0,0,0} %
+\definecolor{brownbox}{RGB}{128,99,90} %
+
+\setlength{\TPHorizModule}{1mm}
+\setlength{\TPVertModule}{1mm}
+
+\usepackage{tikz}
+\usetikzlibrary{
+  arrows,
+automata,
+backgrounds,
+calc,
+decorations.pathreplacing,
+fit,
+petri,
+positioning,
+shadows,
+shapes,
+snakes,
+}
+
+
+\usepackage{scalefnt}
+
+\newcommand{\tikzmark}[1]{\tikz[overlay,remember picture] \node (#1) {};}
+
+\tikzstyle{mybox} = [draw=redbox, fill=redbox!20, very thick,
+rectangle, rounded corners, inner sep=10pt, inner ysep=20pt]
+\tikzstyle{fancytitle} =[fill=redbox, text=white, rectangle]
+
+
+\newcommand{\MyLogo}{
+  %\begin{textblock}{14}(117.2,0.7)
+  \begin{textblock}{14}(117.8,86)
+    \includegraphics[width=1cm]{figures/tpt}
+  \end{textblock}
+}
+
+    \usepackage{beamerthemesplit}
+
+    \setbeamercolor{itemize item}{fg=redbox}
+    \setbeamercolor{structure}{fg=redbox, bg=red}
+    \setbeamercolor{block title}{bg=brownbox,fg=white}
+    \setbeamercolor{block title alerted}{bg=redbox,fg=white}
+    \setbeamercolor{block body alerted}{bg=brownbox!0,fg=black}
+    \setbeamercolor{block title example}{bg=black, fg=white}
+    \setbeamercolor{palette primary}{fg=black,bg=white} % changed this
+    \setbeamercolor{palette secondary}{use=structure,fg=structure.fg!100!white} % changed this
+    \setbeamercolor{palette tertiary}{use=structure,fg=structure.fg!100!white} % changed this
+    \setbeamercolor*{palette quaternary}{fg=black,bg=white} % outline on top left
+    \setbeamercolor{background canvas}{bg=white, fg=black}
+    \setbeamercolor{frametitle}{fg=colorframetitle}
+
+
+    % First  frame
+    \newcommand{\RectanglesOfMainSlide}{%
+      \raisebox{0mm}[0pt][0pt]{%
+        \begin{pgfpicture}{0mm}{0mm}{0mm}{0mm}
+          \pgfsetlinewidth{5mm}
+          \color{redbox}
+          \pgfline{\pgfpoint{-4mm}{-12mm}}{\pgfpoint{24mm}{-12mm}}
+          \color{blackbox}
+          \pgfline{\pgfpoint{24mm}{-12mm}}{\pgfpoint{52mm}{-12mm}}
+          \color{brownbox}
+          \pgfline{\pgfpoint{52mm}{-12mm}}{\pgfpoint{80mm}{-12mm}}
+        \end{pgfpicture}}}
+
+    \newcommand{\makeFirstFrame}{
+      \setbeamertemplate{footline}{}
+    \frame[plain]{
+      \begin{columns}[c]
+        \column{3cm}
+        \vspace{-2cm}\\
+        \includegraphics[width=2.5cm]{figures/tpt}
+        \\Institut\\ Mines-Telecom
+        \column{7cm}
+        \vspace{1cm}\\
+        \LARGE{\textbf{\theTitle}}\\
+        \vspace{0.5cm}
+        \normalsize{\theAuthors}\\
+        \vspace{0.5cm}
+        \normalsize{\theConferenceAndPlace}\\
+        \vspace{-1cm}
+        \RectanglesOfMainSlide
+      \end{columns}
+    }
+    \activateFootline
+  }
+
+
+  % Frames decoration
+
+    \newcommand{\RectanglesBeforeTitle}{%
+      \raisebox{0mm}[0pt][0pt]{%
+        \begin{pgfpicture}{0mm}{0mm}{0mm}{0mm}
+          \pgfsetlinewidth{5mm}
+          \color{redbox}
+          \pgfline{\pgfpoint{-2mm}{2.2mm}}{\pgfpoint{4mm}{2.2mm}}
+          \color{blackbox}
+          \pgfline{\pgfpoint{4mm}{2.2mm}}{\pgfpoint{10mm}{2.2mm}}
+          \color{brownbox}
+          \pgfline{\pgfpoint{10mm}{2.2mm}}{\pgfpoint{16mm}{2.2mm}}
+        \end{pgfpicture}}}
+
+\setbeamertemplate{frametitle}{
+  \begin{columns}[t]
+    \column{16mm}
+    \RectanglesBeforeTitle
+    \column{10.7cm}
+    \strut\textbf{\insertframetitle}\strut
+  \end{columns}
+}
+
+% Foot line
+
+\newcommand{\Ffootline}{
+  \MyLogo
+  \begin{tikzpicture}
+    \fill [color=white, fill=redbox] (-1, -0.05) rectangle (1, 0.30);
+    \node[white, right] (note1) at (-1, 0.10) {\insertframenumber/\inserttotalframenumber};
+    % \node[white, left] (note1bis) at (0.98, 0.10) {\theDate};
+    \fill [color=white, fill=blackbox] (1.05, -0.05) rectangle (4.5, 0.30);
+    \node[white, align=center] (note2) at (2.77, 0.12) {Institut Mines-Telecom};
+    \fill [color=red, fill=brownbox] (4.55, -0.05) rectangle (10.75, 0.30);
+    \node[white, align = center] (note3) at (7.65, 0.10) {\theTitle};
+
+    %\node[white] (note3) at (7.5, 0.10) {\theTitle};
+  \end{tikzpicture}
+}
+
+\newcommand{\activateFootline}{
+  \setbeamertemplate{footline}{
+    \usebeamerfont{structure}
+    \Ffootline
+  }
+}
+
+
+% *** END OF TPT STYLE ***

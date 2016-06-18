@@ -1,0 +1,93 @@
+  \documentclass[crop,tikz]{standalone}% 'crop' is the default for v1.0, before it was 'preview'
+%\usetikzlibrary{...}% tikz package already loaded by 'tikz' option
+\usepackage[utf8]{inputenc}
+
+\usepackage{tikz}
+\usetikzlibrary{
+  arrows,
+automata,
+backgrounds,
+calc,
+decorations.pathreplacing,
+fit,
+petri,
+positioning,
+shadows,
+shapes,
+snakes,
+}
+
+\newcommand{\ieee}{IEEE 802.15.4}
+
+
+\begin{document}
+
+\begin{tikzpicture}
+    \tikzstyle{block} =[draw, fill=white,rectangle, minimum width={width("\ieee{}")+2pt}, minimum height=.75cm, font=\small]
+
+      \node [fill=yellow!30, draw=black!50] (llnNode) {
+        \begin{tikzpicture}
+
+          \node[block] (ieee802154) {\ieee{}};
+          \node[block, above=0 of ieee802154] (lowpan) {6LoWPAN};
+          \node[block, above=0 of lowpan](udp){UDP};
+          \node[block, above=0 of udp](coap){CoAP};
+
+        \end{tikzpicture}
+      };
+      \node [above=0.3cm of llnNode] {Hôte};
+
+      \node [fill=orange!30, draw=black!50, right=.3cm of llnNode] (llnRouter) {
+        \begin{tikzpicture}
+
+          \node[block] (ieee802154) {\ieee{}};
+          \node[block, above=0 of ieee802154] (lowpan) {6LoWPAN};
+          \node[block, above=0 of lowpan](udp){UDP};
+          \node[block, above=0 of udp](coap){CoAP};
+
+        \end{tikzpicture}
+      };
+      \node [above=0.3cm of llnRouter] {Hôte et Routeur};
+
+      \node [fill=red!30, draw=black!50, right=.3cm of llnRouter] (llnGateway) {
+        \begin{tikzpicture}
+
+          \node[block] (ieee802154) {\ieee{}};
+          \node[block, above=0 of ieee802154] (lowpan) {6LoWPAN};
+          \node[block, above=0 of lowpan](udp){UDP};
+          \node[block, above=0 of udp](coap){CoAP};
+
+          \node[block,right=of ieee802154] (ethernet) {Ethernet/Wifi};
+          \node[block,above=0 of ethernet](ip){IPv4/IPv6};
+          \node[block,above=0 of ip](tcp){TCP};
+          \node[block,above=0 of tcp](http){HTTP};
+
+          \path
+          (lowpan) edge[>=latex, <->, ultra thick] (ip)
+          (coap) edge[>=latex, <->, ultra thick]  (http)
+          ;
+
+
+        \end{tikzpicture}
+      };
+      \node [above=0.3cm of llnGateway] {Passerelle \& Reverse proxy};
+
+      \node [fill=green!30, draw=black!50, right=.3cm of llnGateway] (server) {
+        \begin{tikzpicture}
+
+            \node[block] (ethernet) {Ethernet/Wifi};
+            \node[block,above=0 of ethernet](ip){IPv4/IPv6};
+            \node[block,above=0 of ip](tcp){TCP};
+            \node[block,above=0 of tcp](http){HTTP};
+
+        \end{tikzpicture}
+      };
+      \node [above=0.3cm of server] {Hôte};
+
+      \path
+      ([yshift=-5pt]llnNode.south west) edge[>=latex, <->, ultra thick] node[below] {6LoWPAN} ([yshift=-5pt]llnGateway.south)
+      ([yshift=-5pt]llnGateway.south) edge[>=latex, <->, ultra thick] node[below] {IP} ([yshift=-5pt]server.south east)
+      ;
+
+  \end{tikzpicture}
+\end{document}

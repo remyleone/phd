@@ -1,0 +1,27 @@
+  \begin{tikzpicture}
+
+  % définition des styles
+  \tikzstyle{child}=[circle, draw, fill=yellow!50,text=black]
+  \tikzstyle{router}=[circle, draw, fill=orange!50,text=black]
+  \tikzstyle{root}=[circle, draw, fill=red!50,text=black]
+
+  % Réseau contraint
+  \node[root] (root) {G};
+  \node[router, left=of root] (1) {1};
+  \node[router, left=of 1] (2) {2};
+  \node[router, left=of 2] (3)  {3};
+  \node[router, left=of 3] (4) {4};
+  \node[router, left=of 4] (5) {5};
+  \node[child, left=of 5] (6) {6};
+
+\path
+
+  (6.east) edge[->, thin] (5.west)
+  (5.east) edge[->, thin] (4.west)
+  (4.east) edge[->, semithick] (3.west)
+  (3.east) edge[->, thick] (2.west)
+  (2.east) edge[->, very thick] (1.west)
+  (1.east) edge[->, ultra thick] (root.west)
+  ;
+
+  \end{tikzpicture}

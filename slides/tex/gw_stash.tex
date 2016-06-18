@@ -1,0 +1,143 @@
+% IEEE 802.15.4
+
+\begin{frame}{Couches basses}
+
+  \begin{block}{Objectifs}
+    \begin{itemize}
+      \item Fournir une abstraction du médium de communication
+      \item Fournir des topologies de communications
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Différents compromis}
+    \begin{itemize}
+      \item Long Range / Short Range
+      \item Topologie étoilée / maillée / cluster
+      \item Verticalement intégrée ou non
+    \end{itemize}
+  \end{block}
+
+  \pnote{
+    ---
+    Il existe beaucoup de technologies standardisées ou non.
+    Parler un peu de Zigbee, Z-wave, le bluetooth low energy.
+    Dans un autre domaine Sigfox et Lora alliance
+    ---
+  }
+\end{frame}
+
+\begin{frame}{IEEE 802.15.4}
+
+  \begin{block}{Points essentiels}
+    \begin{itemize}
+      \item Bande ISM
+      \item Accès courte portée (10 - 50 mètres)
+      \item Topologie étoilée, maillée
+      \item 250 kb/s - 127 octets de charge utile
+      \item Chaque noeud est identifié (EUI-64/EUI-16)
+      \item Utilisée par d'autres standards (Zigbee, Thread)
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Role de la passerelle}
+    \begin{itemize}
+      \item Coordinateur Personnal Area Network
+      \item Fournit les identifiants courts
+    \end{itemize}
+  \end{block}
+
+  \pnote{    
+      - Justifications:
+      - Faible cout de la radio et de la consommation
+      - Utilisation de la bande ISM libre de droit (par contre la bande est chargée)
+      - Full Function Device (peuvent communiquer entre eux) / Reduced Function Device (doit communiquer avec un FFD)
+      - Utilisé par de nombreux autres standards (littérature abondante)
+      - Mécanisme d'acquittement 
+      - Comme la portée est limitée on va construire un réseau multi-sauts par dessus
+      - Progrès récent pour faire du channel hopping (TSCH) et mitiger les problèmes de pertes
+      ---
+      - Le PAN fournit les identifiants courts pour prendre 16 bits au lieu de 64 dans chaque trame.
+  }
+\end{frame}
+
+% 6LoWPAN
+
+\begin{frame}{Couche Réseau}
+  \begin{block}{Objectifs}
+    \begin{itemize}
+      \item Plan d'adressage
+      \item Interconnexion avec l'existant
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Contraintes}
+    \begin{itemize}
+      \item IPv6 non applicable directement
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Role de la passerelle a cette couche}
+    \begin{itemize}
+      \item LBR
+      \item Encapsulation / Compression
+      \item Enregistrement des adresses
+    \end{itemize}
+  \end{block}
+
+  \pnote{
+    IPv6 définit une charge minimale supérieur à celle suportée par 15.4
+  }
+
+\end{frame}
+
+% RPL
+
+\begin{frame}{Routage dans les LLNs}
+  \begin{block}{Contraintes}
+    
+  \end{block}
+\end{frame}
+
+\begin{frame}{RPL}
+  \begin{block}{Point essentiels}
+    \begin{itemize}
+      \item Routage proactif
+      \item Routes montantes / Routes descendantes
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Role de la passerelle}
+    \begin{itemize}
+      \item Topologie de routage accessible dans certaines configurations
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+% CoAP
+
+\begin{frame}{Couche applicative}
+  \begin{block}{Objectifs}
+    \begin{itemize}
+      \item Contient les messages applicatifs
+      \item Communication M2M
+    \end{itemize}
+  \end{block}
+
+  \pnote{
+
+  }
+\end{frame}
+
+\begin{frame}{CoAP}
+  \begin{block}{Points essentiels}
+    \begin{itemize}
+      \item Sans connexion (UDP)
+      \item Architecture REST
+    \end{itemize}
+  \end{block}
+  \begin{block}{Role de la passerelle}
+    \begin{itemize}
+      \item Mécanisme de proxy-inverse
+    \end{itemize}
+  \end{block}
+\end{frame}
