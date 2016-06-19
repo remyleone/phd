@@ -37,8 +37,9 @@
 
   \begin{alertblock}{Modèle de résolution}
     \begin{itemize}
-      \item Fournir les temps de validité optimaux pour les ressources en cache afin d'avoir le meilleur temps de validité possible
-      \item Utilisation d'algorithme génétique (NSGA-II) pour la résolution d'un problème multi-objectifs (Satisfaction ou Durée de vie)
+      \item Utilisation d'algorithme génétique pour la résolution d'un problème multi-objectifs (Satisfaction ou Durée de vie)
+      \item Front de Pareto $\to$ approximation des solutions optimales
+      \item Fournir les temps de validité optimaux pour les réponses en cache par rapport à une dégradation de qualité de service donnée
     \end{itemize}
   \end{alertblock}
 
@@ -50,11 +51,39 @@
   }
 \end{frame}
 
-\begin{frame}{Architecture de RPCA}
+\begin{frame}{Architecture du proxy inverse adaptatif}
   \begin{figure}
     \centering
-    \includegraphics[width=\textwidth]{figures/schema_rpca_slides.pdf}
+    \includegraphics[width=.8\textwidth]{figures/schema_rpca_slides.pdf}
   \end{figure}
+
+  \begin{block}{RPCA}
+     \begin{description}
+       \item[$r_u$] Temps moyen entre requête entrant dans le LLN
+       \item[$T_u$] Temps moyen entre requête venues des utilisateurs
+       \item[$\mathcal{C}$] Ensemble des temps de validité en cache
+       \item[$\mathcal{T}$] Topologie du LLN
+       \item[$\mathcal{L}$] Objectif de durée de vie du LLN
+     \end{description}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Modèle de cache}
+  \begin{block}{Hypothèses}
+    \begin{description}
+      \item[$\lambda_u$] Constante du trafic de poisson par URI
+      \item[$m_u$] Ratio de requête passantes vers les nœuds capteurs (miss ratio)
+      \item[$h_u$] Ratio de requête traitées par le cache (hit ratio)
+    \end{description}
+  \end{block}
+  \begin{alertblock}{Modèle de cache}
+    \begin{align}
+      m_u &= \frac{1}{1 + \lambda_u c_u}
+      \label{cache:eq:cache_miss}\\
+      h_u &= 1 - m_u = \frac{\lambda_u c_u}{1 + \lambda_u c_u}
+      \label{cache:eq:cache_hit}
+    \end{align}
+  \end{alertblock}
 \end{frame}
 
 \begin{frame}{Modélisation du problème}
@@ -123,7 +152,7 @@
     \begin{align}
       T_{\pkt, \txtx} &= T_{\pkt} + \left \lceil \frac{T_{\sleep}}{T_{\pkt} + T_{\detect}}\right\rceil T_{\pkt}\\
       T_{\pkt, \txrx} &= \left \lceil \frac{T_{\sleep}}{T_{\pkt} + T_{\detect}}\right \rceil T_{\detect} + T_{\ack}
-    \end{align}    
+    \end{align}
   \end{block}
 
   \begin{block}{Réception}
@@ -131,7 +160,7 @@
       T_{\pkt, \rxrx} &= 2T_{\pkt}\\
       T_{\pkt, \rxtx} &= T_{\ack}
     \end{align}
-  \end{block}  
+  \end{block}
 
   \pnote{
     Le pire cas de transmission se produit quand le récepteur vient de s'endormir alors que le transmetteur veut commencer à envoyer sa trame.
@@ -172,13 +201,13 @@
 
   \begin{alertblock}{Consommation des nœuds serveurs}
     \begin{align}
-      \alpha_{\server, \tx} &= \frac{T_{\req, \rxtx} + T_{\ans, \txtx}}{r_i} 
+      \alpha_{\server, \tx} &= \frac{T_{\req, \rxtx} + T_{\ans, \txtx}}{r_i}
       \label{contikimac:eq:coap_tx} \\
       \alpha_{\server, \rx} &= \frac{T_{\req, \rxrx} + T_{\ans, \txrx}}{r_i}
       \label{contikimac:eq:coap_rx}
-    \end{align}  
+    \end{align}
   \end{alertblock}
-  
+
 \end{frame}
 
 \begin{frame}{Consommation des nœuds routeurs}
@@ -254,8 +283,15 @@
 
   \begin{figure}[tb]
     \centering
-    \includegraphics[width=\textwidth]{../img/pareto.pdf}
+    \includegraphics[width=0.75\textwidth]{../img/pareto.pdf}
   \end{figure}
+
+  \begin{block}{Grandeurs}
+    \begin{description}
+      \item[$\Gamma$] Satisfaction utilisateur générale
+      \item[$\mathcal{L}$] Durée de vie du réseau (en jours)
+    \end{description}
+  \end{block}
 
   \pnote{
     - Chaque point solution est un C contenant l'ensemble des c_u.
@@ -267,7 +303,7 @@
     - Les poins C_min et C_max => bornes
   }
   \pnote{
-    - C_min garantie une fraîcheur aussi élevée que possible, mais raccourcit la durée de vie alors que 
+    - C_min garantie une fraîcheur aussi élevée que possible, mais raccourcit la durée de vie alors que
   }
   \pnote{
     - C_max garantie une durée de vie aussi longue que possible mais avec des fraicheur faibles.
@@ -275,18 +311,26 @@
   \pnote{
     Une valeur haute de $c_u$ sera utilisée pour des nœuds ayant peu d'énergie.
   }
-  \pnote{  
+  \pnote{
     Par contre, une valeur $c_u$ petite sera pour des informations devant être aussi récentes que possible.
   }
 \end{frame}
 
 \begin{frame}{Cache hit ratio}
-  
+
   \begin{figure}[ht]
     \centering
-    \includegraphics[width=.75\textwidth]{figures/new_cachinghit.pdf}
+    \includegraphics[width=.7\textwidth]{figures/new_cachinghit.pdf}
   \end{figure}
-  
+
+  \begin{block}{Grandeurs}
+    \begin{description}
+      \item[$c_u$] Temps de validité en cache
+      \item[$h_u$] Ratio de requêtes traitées par le cache (hit ratio)
+    \end{description}
+  \end{block}
+
+
   \pnote{
     - Tous les c_u et \lambda_u sont égaux entre eux (Simplification visuelle)
   }
