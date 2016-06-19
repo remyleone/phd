@@ -12,7 +12,7 @@
     \centering
     \includegraphics[width=\textwidth]{figures/network_stack_slides.pdf}
   \end{figure}
-  
+
   \pnote{
     - Propos général : les protocoles classiques sont adaptés aux réseaux de capteurs pour en faire des membres à part entières de l'Internet.
   }
@@ -26,7 +26,7 @@
   \pnote{
     - RPL: Produit les routes montantes et descendantes;
   }
-  \pnote{  
+  \pnote{
     - CoAP: Couche applicative; REST; UDP
   }
 \end{frame}
@@ -56,44 +56,12 @@
   \end{alertblock}
 \end{frame}
 
-\begin{frame}{Impact du trafic dans un réseau multi-sauts}
-  \begin{figure}
-    \input{figures/impact_transmission}
-  \end{figure}
-  \begin{block}{Objectifs}
-    \begin{itemize}
-      \item Calculer l'impact du trafic en fonction de la topologie
-      \item Agir de manière aussi transparente que possible
-      \item Réguler le trafic si possible
-    \end{itemize}
-  \end{block}
-  \pnote{
-    - Certaines requetes ont un plus fort impact que d'autres
-  }
-  \pnote{
-    - Toute les requetes supplémentaires s'additionnent du coup il faut des services aussi transparents que possibles
-  }
-\end{frame}
-
-\begin{frame}{Reverse proxy}
-  \begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{figures/schema_rpc_slides}
-  \end{figure}
-  \pnote{
-    Reverse proxy: Intermédiaire que l'on contacte et qui va contacter d'autres serveurs.
-  }
-  \pnote{
-    Concept de cache: Invalidation
-  }
-\end{frame}
-
 \begin{frame}{Problématiques}
-  
+
   \begin{block}{Prévision de l'impact du trafic}
     \begin{itemize}
       \item Provisionnement du réseau
-      \item Surveillance matérielle et fonctionnelle continue 
+      \item Surveillance matérielle et fonctionnelle continue
       \item Anticipation des pannes
     \end{itemize}
   \end{block}
