@@ -86,16 +86,22 @@
   \end{alertblock}
 \end{frame}
 
-\begin{frame}{Modélisation du problème}
+\begin{frame}{Satisfaction des utilisateurs}
 
-  \begin{block}{Contrainte sur la durée des validité}
-    \[ c_{min}(u) \leq c_u \leq c_{max}(u)\]
-  \end{block}
-  \begin{block}{Satisfaction utilisateur}
-    $$\forall u, \gamma_u = \dfrac{\cmax(u) - c_u}{\cmax(u) - \cmin(u)}$$
-  \end{block}
+  \begin{figure}
+    \centering
+    \includegraphics[width=.7\textwidth]{figures/satisfaction_utilisateur.pdf}
+  \end{figure}
 
-  \begin{alertblock}{Modèle de durée de vie}
+  \begin{description}
+    \item[Contrainte sur la durée des validité:] $c_{min}(u) \leq c_u \leq c_{max}(u)$
+    \item[Satisfaction utilisateur:] $\forall u, \gamma_u = \dfrac{\cmax(u) - c_u}{\cmax(u) - \cmin(u)}$
+  \end{description}
+
+\end{frame}
+
+\begin{frame}{Modèle de durée de vie}
+    \begin{alertblock}{Modèle de durée de vie}
     \begin{align}
       E_r(T) &= E_0 - \int_0^T P(t) \mathrm{d}t\\
       % \int_0^T P(t) \mathrm{d}t &= \int_0^T P_{\sleep} \alpha_{\sleep}(t) \mathrm{d}t + \int_0^T P_{\listen} \alpha_{\listen}(t) \mathrm{d}t + \int_0^T P_{\tx} \alpha_{\tx}(t) \mathrm{d}t + \int_0^T P_{\rx} \alpha_{\rx}(t) \mathrm{d}t\\
