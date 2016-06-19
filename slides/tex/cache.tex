@@ -255,16 +255,17 @@
 \end{frame}
 
 \begin{frame}{Validation expérimentale}
-  \begin{block}{Condition de trafic}
+  \begin{figure}
+    \centering
+    \includegraphics[scale=.7]{figures/topology_cache_slides.pdf}
+  \end{figure}
+
+  \begin{block}{Hypothèses}
     \begin{itemize}
       \item Trafic poissonien stationnaire en entrée
-      \item Traduction HTTP / CoAP
-    \end{itemize}
-  \end{block}
-
-  \begin{block}{Résolution multi-objective}
-    \begin{itemize}
-      \item Exécutée puis déployée
+      \item Résolution multi-objective exécutée puis déployée
+      \item 50 requêtes par nœuds
+      \item Contiki / COOJA / Californium / NSGA-II
     \end{itemize}
   \end{block}
 
@@ -286,7 +287,7 @@
     \includegraphics[width=0.75\textwidth]{../img/pareto.pdf}
   \end{figure}
 
-  \begin{block}{Grandeurs}
+  \begin{block}{Variables utilisées}
     \begin{description}
       \item[$\Gamma$] Satisfaction utilisateur générale
       \item[$\mathcal{L}$] Durée de vie du réseau (en jours)
@@ -323,7 +324,7 @@
     \includegraphics[width=.7\textwidth]{figures/new_cachinghit.pdf}
   \end{figure}
 
-  \begin{block}{Grandeurs}
+  \begin{block}{Variables utilisées}
     \begin{description}
       \item[$c_u$] Temps de validité en cache
       \item[$h_u$] Ratio de requêtes traitées par le cache (hit ratio)
@@ -345,18 +346,18 @@
 
 \begin{frame}\frametitle{Résultats: Durée de vie}
 
-  \begin{block}{Définition}
-    Le réseau est considéré comme mort au premier nœud mort.
-  \end{block}
 
   \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.75\textwidth]{figures/lifetime.pdf}
+    \includegraphics[width=0.7\textwidth]{figures/lifetime.pdf}
   \end{figure}
 
-  \pnote{
-    - Un cache hit elevé implique une réduction de l'utilisation des ressources et donc une durée de vie plus élevée
-  }
+  \begin{block}{Remarques}
+    \begin{itemize}
+      \item Le réseau est considéré comme mort au premier nœud mort.
+      \item Plus $c_u$ est élevé plus la durée de vie l'est aussi
+    \end{itemize}
+  \end{block}
 
 \end{frame}
 
