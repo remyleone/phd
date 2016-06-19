@@ -117,16 +117,20 @@
   \end{figure}
   \begin{block}{Estimation ``étoilée'' (Sans connaissance de la topologie)}
     \begin{itemize}
-      \item Source et destination
-      \item Aucune connaissance de la topologie
+      \item Compteurs mis à jour pour la source et la destination (A, B)
     \end{itemize}
   \end{block}
   \begin{block}{Estimation ``maillée'' (Avec connaissance de la topologie)}
     \begin{itemize}
-      \item Source et destination
-      \item Pris en compte du relayage dans la mise à jour des compteurs
+      \item Compteurs mis à jour pour la source, destination et routeurs (A, B, R)
     \end{itemize}
   \end{block}
+  \pnote{
+    On ignore l'overhearing car le trafic est le plus souvent faible
+  }
+  \pnote{
+    Pas évident d'obtenir le voisinage sans ajout d'informations
+  }
 \end{frame}
 
 \DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
