@@ -113,23 +113,25 @@
 
 \end{frame}
 
-\begin{frame}{Challenges}
+\begin{frame}{Contraintes des réseaux de capteurs}
 
   \begin{block}{Contraintes matérielles}
     \begin{itemize}
-      \item Grande hétérogéneité
-      \item Faibles ressources matérielles
+      % \item Grande hétérogéneité
+      \item Faibles ressources matérielles (Processeur, mémoire, stockage)
       \item Batterie ou source d'alimentation limitée
     \end{itemize}
   \end{block}  
 
-  \begin{alertblock}{Solutions}
+  \begin{block}{Contraintes liées au réseau}
     \begin{itemize}
-      \item Standards de communications
-      \item Système d'exploitation adaptés
-      \item Cycle de sommeil
+      \item Faible bande passante
+      \item Faible puissance d'émission
+      \item Nœuds en sommeil $\to$ Connexions intermittentes
+      \item Utilisation de la bande ISM $\to$ Canaux fortement bruités
+      % \item Passage à l'échelle
     \end{itemize}
-  \end{alertblock}
+  \end{block}
 
   \pnote{
     - L'hétérogéneité provient de la profusion des acteurs et du faible cout d'entrée dans les marchés
@@ -140,29 +142,24 @@
   \pnote{
     - En raison de la variété des standards il faut des systèmes qui s'autoconfigure autant que possible pour faciliter l'accès.
   }    
-  \pnote{
-    - La gestion du cycle de vie (authentification, mises à jour, facturation) doivent etre automatisées autant que possibles autrement elles seront jamais     faites cependant la bande passante peut etre critique.
-  }
-
 \end{frame}
 
-\begin{frame}{Contraintes liées au réseau}
+\begin{frame}{Solutions proposées}
 
-  \begin{block}{Contraintes liées au réseau}
+  \begin{block}{Solutions pour les nœuds capteurs}
     \begin{itemize}
-      \item Faible bande passante
-      \item Nœud en sommeil (Connexions intermittantes)
-      \item Canal bruité
-      \item Passage à l'échelle
+      \item Système d'exploitation adaptés
+      \item Cycle de sommeil
     \end{itemize}
   \end{block}
 
-  \begin{alertblock}{Solutions}
+  \begin{block}{Solutions pour le réseau}
     \begin{itemize}
-      \item Protocoles adaptés
-      \item Couche MAC adaptée
+      \item Protocoles adaptés et compacts (6LoWPAN, CoAP)
+      \item Réseaux maillés et multi-sauts
+      \item Couche MAC adaptée (ContikiMAC)
     \end{itemize}
-  \end{alertblock}
+  \end{block}
 
   \pnote{
     - Faible puissance d'émission
@@ -176,7 +173,7 @@
 \end{frame}
 
 \begin{frame}{Problématiques}
-  \begin{block}{Connaitre l'état des nœuds}
+  \begin{block}{Connaître l'état des nœuds}
     \begin{itemize}
       \item Diagnostiquer ou anticiper des pannes
       \item Mesurer les grandeurs caractéristiques
