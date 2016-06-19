@@ -1,0 +1,26 @@
+  \begin{tikzpicture}[scale = .8, every node/.style={scale = .8}]
+
+  % définition des styles
+  \tikzstyle{child}=[circle, draw, fill=yellow!50,text=black]
+  \tikzstyle{router}=[circle, draw, fill=orange!50,text=black]
+  \tikzstyle{root}=[circle, draw, fill=red!50,text=black]
+
+  % Réseau contraint
+  \node[root] (root) {D};
+  \node[router, left=of root] (1) {S};
+
+  % double,fit=(un) (montreal) inner sep=1ex
+  % \node[draw, dashed, fit=(root) (1) (2), inner sep=1ex,circle] (tmp) {};
+  % \node[draw, dashed, fit=(1) (2) (3), inner sep=1ex,circle] (tmp) {};
+  % \node[draw, dashed, fit=(2) (3) (4),circle] (tmp) {};
+  % \node[draw, dashed, fit=(3) (4) (5), inner sep=1ex,circle] (tmp) {};
+  % \node[draw, dashed, fit=(4) (5) (6), inner sep=1ex,circle] (tmp) {};
+  % \node[draw, dashed, fit=(5) (6), inner sep=1ex,circle] (tmp) {};
+
+\path
+
+
+  (1.east) edge[->, ultra thick] (root.west)
+  ;
+
+  \end{tikzpicture}

@@ -185,13 +185,28 @@
 \begin{frame}{Strobing moyen $N_{\textrm{sender}}$}
   \begin{block}{Conditions expérimentales}
     \begin{itemize}
-      \item Topologie binaire
       \item Rime stack (\ieee{} et ContikiMAC)
+      \item Trafic 1 paquet/s
+      \item Taille de trame variable
     \end{itemize}
   \end{block}
+  \begin{block}{Topologie}
+    \begin{figure}
+      \centering
+      \input{figures/topologie_binaire}
+    \end{figure}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Strobing moyen $N_{\textrm{sender}}$}
   \begin{figure}
     \includegraphics[width=.8\textwidth]{figures/average_strobbing.pdf}
   \end{figure}
+  \begin{block}{Calibration}
+    \begin{itemize}
+      \item $N_{sender}(69) \approx 3.76$
+    \end{itemize}
+  \end{block}
   \pnote{
     - Une trame longue est détectée plus facilement car elle a plus de chance de tomber entre deux réveils d'un destinataire
   }
