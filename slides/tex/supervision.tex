@@ -122,14 +122,16 @@
   \begin{figure}
     \input{figures/impact_transmission}
   \end{figure}
-  \begin{block}{Estimation ``étoilée''}
+  \begin{block}{Estimation ``étoilée'' (Sans connaissance de la topologie)}
     \begin{itemize}
       \item Source et destination
+      \item Aucune connaissance de la topologie
     \end{itemize}
   \end{block}
-  \begin{block}{Estimation ``maillée''}
+  \begin{block}{Estimation ``maillée'' (Avec connaissance de la topologie)}
     \begin{itemize}
-      \item Route complète
+      \item Source et destination
+      \item Pris en compte du relayage dans la mise à jour des compteurs
     \end{itemize}
   \end{block}
 \end{frame}
@@ -211,6 +213,9 @@
     \centering
     \input{figures/topologie_chaine}
   \end{figure}
+  \pnote{
+    Choix de la chaine: Interprétation facile des résultats de topologie par rapport à une topologie quelconque.
+  }
 \end{frame}
 
 \begin{frame}{Validation expérimentale}

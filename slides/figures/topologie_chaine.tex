@@ -1,4 +1,4 @@
-  \begin{tikzpicture}
+  \begin{tikzpicture}[scale = .8, every node/.style={scale = .8}]
 
   % définition des styles
   \tikzstyle{child}=[circle, draw, fill=yellow!50,text=black]
@@ -13,6 +13,14 @@
   \node[router, left=of 3] (4) {4};
   \node[router, left=of 4] (5) {5};
   \node[child, left=of 5] (6) {6};
+
+  % double,fit=(un) (montreal) inner sep=1ex
+  % \node[draw, dashed, fit=(root) (1) (2), inner sep=1ex,circle] (tmp) {};
+  % \node[draw, dashed, fit=(1) (2) (3), inner sep=1ex,circle] (tmp) {};
+  \node[draw, dashed, fit=(2) (3) (4),circle] (tmp) {};
+  % \node[draw, dashed, fit=(3) (4) (5), inner sep=1ex,circle] (tmp) {};
+  % \node[draw, dashed, fit=(4) (5) (6), inner sep=1ex,circle] (tmp) {};
+  % \node[draw, dashed, fit=(5) (6), inner sep=1ex,circle] (tmp) {};
 
 \path
 
