@@ -277,25 +277,30 @@
   }
 \end{frame}
 
-\begin{frame}{Validation expérimentale}
+\begin{frame}{Analyse des protocoles}
     \begin{figure}
     \centering
     \subfloat[Répartition par profondeur]{
         \includegraphics[width=0.5\textwidth]{figures/protocol_repartition_depth.pdf}}
     \subfloat[Évolution au cours du temps]{
         \includegraphics[width=0.5\textwidth]{figures/repartition_protocol.pdf}}
-    \caption{Analyse des protocoles}
     \end{figure}
+    \begin{block}{Observations}
+      \begin{itemize}
+        \item L'impact de RPL est homogène par profondeur
+        \item L'impact de RPL diminue au cours du temps
+        \item Le trafic applicatif est globalement majoritaire
+      \end{itemize}
+    \end{block}
 \end{frame}
 
-\begin{frame}{Validation expérimentale}
+\begin{frame}{Impact de la profondeur}
     \begin{figure}
     \centering
     \subfloat[Packet Delivery Ratio (PDR)]{
         \includegraphics[width=0.5\textwidth]{figures/pdr_depth.pdf}}
     \subfloat[Strobbing par profondeur]{
         \includegraphics[width=0.5\textwidth]{figures/strobes_depth.pdf}}
-    \caption{Impact de la profondeur}
     \end{figure}
 \end{frame}
 
