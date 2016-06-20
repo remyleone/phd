@@ -27,7 +27,7 @@
 \end{frame}
 
 \begin{frame}{État de l'art}
-  \begin{block}{Supervision active}
+  \begin{block}{Mesure active}
     \begin{itemize}
       \item Envoi de statut périodique de la part des nœuds (``health report'', SNMP)
       \item Sondes tierces
@@ -57,27 +57,54 @@
 
 \end{frame}
 
+\begin{frame}{Puissance consommée par composant}
+
+  \begin{block}{Consommation globale - CC2420}
+    \begin{itemize}
+      \item Écoute: 63 mW
+      \item Transmission: 60mW
+      \item CPU: 5mW (Actif) / 0.1mW (Sommeil)
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Consommation énergétique ContikiMAC}
+
+  \begin{block}{Hypothèses}
+    \begin{itemize}
+      \item TmoteSky - CC2420
+      \item Trame de taille maximale (127 octets)
+    \end{itemize}
+  \end{block}
+
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/consommation_contikimac.pdf}
+  \end{figure}
+
+\end{frame}
+
 \begin{frame}\frametitle{Problématiques et contributions}
 
   \begin{block}{Buts}
     \begin{itemize}
-      \item Produire une estimation de l'utilisation de la radio
       \item La radio est la principale consommatrice d'énergie
+      \item Produire une estimation de l'utilisation de la radio
       \item Avoir une vue du trafic réseau et identifier les points chauds
     \end{itemize}
   \end{block}
 
   \begin{alertblock}{Contribution}
     \begin{itemize}
-      \item Supervision passive de la consommation énergétique à la passerelle
+      \item Mesure passive de la consommation énergétique à la passerelle
       \item Utilisation de la topologie réseau pour inférer le coût des retransmissions
-      \item Correction de cette estimation avec de la supervision active quand c'est possible
+      \item Correction de cette estimation avec de la mesure active quand c'est possible
     \end{itemize}
   \end{alertblock}
 
 \end{frame}
 
-\begin{frame}{Mesures implicites}
+\begin{frame}{Mesure passive}
   \begin{block}{Définitions}
     \begin{itemize}
       \item Une mesure active nécessite un envoi de paquets dédiés à cette mesure.
@@ -107,6 +134,7 @@
   \begin{block}{Modèle}
     \begin{itemize}
       \item Modélisation de la couche MAC
+      \item Maintien de compteurs (tx/rx) pour chaque nœuds
     \end{itemize}
   \end{block}
 \end{frame}
@@ -133,9 +161,24 @@
   }
 \end{frame}
 
+\begin{frame}{Modélisation}
+  \begin{block}{Limitations de compteurs naïfs à la couche réseau}
+    \begin{itemize}
+      \item Ne connait pas le type de radio utilisé
+      \item Ne tient pas compte des retransmissions
+    \end{itemize}
+  \end{block}
+  \begin{block}{Résolution}
+    \begin{itemize}
+      \item Modélisation en fonction d'une couche MAC donnée
+      \item Modélisation linéaire en fonction de la taille de la trame
+    \end{itemize}
+  \end{block}
+\end{frame}
+
 \DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
 
-\begin{frame}{\ieee{} \& ContikiMAC}
+\begin{frame}{Modélisation ContikiMAC}
   \begin{block}{\ieee{}}
     $T_p = \frac{\mathcal{L}(f)}{R} \ceil[\Big]{\frac{\mathcal{L}(p)}{L}}$
   \end{block}
@@ -143,12 +186,7 @@
   \begin{figure}[ht]
     \centering
     \includegraphics[width=.5\textwidth]{figures/contikimac.png}
-    \caption{Schéma d'endormissement dans ContikiMAC}
   \end{figure}
-
-  \begin{block}{Facteur de ``strobing''}
-    $N_{\textrm{receiver}} = 1.5$
-  \end{block}
 
   \pnote{
     - En blue: La fenetre de réception
@@ -205,6 +243,7 @@
   \begin{block}{Calibration}
     \begin{itemize}
       \item $N_{sender}(69) \approx 3.76$
+      \item $N_{\textrm{receiver}} = 1.5$ ($\forall$ taille de la trame)
     \end{itemize}
   \end{block}
   \pnote{
@@ -226,7 +265,10 @@
     \input{figures/topologie_chaine}
   \end{figure}
   \pnote{
-    Choix de la chaine: Interprétation facile des résultats de topologie par rapport à une topologie quelconque.
+    Choix de la chaîne: Interprétation facile des résultats de topologie par rapport à une topologie quelconque.
+  }
+  \pnote{
+    Route montante = route descendante (Hypothèse simplificatrice)
   }
 \end{frame}
 
@@ -315,14 +357,14 @@
       \begin{itemize}
         \item La connaissance de la topologie améliore la précision
         \item Calibration par strobing validée mais insuffisante
-        \item Recalibrations nécessaires pour cette configuration
+        \item Mesures actives nécessaires pour cette configuration
       \end{itemize}
   \end{block}
 
   \begin{block}{Ouvertures}
     \begin{itemize}
-      \item Couche MAC plus fiable et déterministe (TSCH)
       \item Différentes topologies
+      \item Modélisation plus fine des protocoles de routage (RPL)
     \end{itemize}
   \end{block}
 
@@ -333,10 +375,4 @@
     - La fiabilité des couches basses est essentielle pour construire des modèles fiables
   }
 
-\end{frame}
-
-\begin{frame}{Publication}
-    Rémy Léone, Jérémie Leguay, Paolo Medagliani, Claude Chaudet.
-    \newblock {Tee: Traffic-based energy estimators for duty-cycled Wireless Sensor Networks}.
-    \newblock {\em {IEEE International Conference on Communication (ICC)}}, page~6749-6754, Londres, 2015.
 \end{frame}
