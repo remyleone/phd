@@ -68,6 +68,50 @@
   \end{block}
 \end{frame}
 
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+
+\begin{frame}{Modélisation ContikiMAC}
+  \begin{block}{\ieee{}}
+    $T_p = \frac{\mathcal{L}(f)}{R} \ceil[\Big]{\frac{\mathcal{L}(p)}{L}}$
+  \end{block}
+
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=.5\textwidth]{figures/contikimac.png}
+  \end{figure}
+
+  \pnote{
+    - En blue: La fenetre de réception
+  }
+  \pnote{
+    - blanc: Trame de données/ack transmises mais non reçue
+  }
+  \pnote{
+    - noir: Trame de données/ack transmis et reçue
+  }
+  \pnote{
+    $T_\detect$ est le temps que le transmetteur va passer en écoute juste après une tentative de transmission pour détecter son éventuel succès par un acquittement d'un récepteur juste après l'envoi d'une trame de donnée.
+  }
+  \pnote{
+    ti: the interval between each packet transmission. (0.4 ms)
+  }
+  \pnote{
+    tr: the time required for a stable RSSI, needed for a stable CCA indication.
+  }
+  \pnote{
+    tc: the interval between each CCA.
+  }
+  \pnote{
+    ta: the time between receiving a packet and sending the acknowledgment packet.
+  }
+  \pnote{
+    td: the time required for successfully detecting an acknowledgment from the receiver. (0.16 ms)
+  }
+  \pnote{
+    ts, the transmission time of the shortest packet, must be larger than tr + tc + tr (0.884 ms)
+  }
+\end{frame}
+
 \begin{frame}{Consommation énergétique ContikiMAC}
 
   \begin{block}{Hypothèses}
@@ -174,50 +218,11 @@
       \item Modélisation linéaire en fonction de la taille de la trame
     \end{itemize}
   \end{block}
-\end{frame}
-
-\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
-
-\begin{frame}{Modélisation ContikiMAC}
-  \begin{block}{\ieee{}}
-    $T_p = \frac{\mathcal{L}(f)}{R} \ceil[\Big]{\frac{\mathcal{L}(p)}{L}}$
-  \end{block}
-
-  \begin{figure}[ht]
-    \centering
-    \includegraphics[width=.5\textwidth]{figures/contikimac.png}
-  \end{figure}
-
-  \pnote{
-    - En blue: La fenetre de réception
-  }
-  \pnote{
-    - blanc: Trame de données/ack transmises mais non reçue
-  }
-  \pnote{
-    - noir: Trame de données/ack transmis et reçue
-  }
-  \pnote{
-    $T_\detect$ est le temps que le transmetteur va passer en écoute juste après une tentative de transmission pour détecter son éventuel succès par un acquittement d'un récepteur juste après l'envoi d'une trame de donnée.
-  }
-  \pnote{
-    ti: the interval between each packet transmission. (0.4 ms)
-  }
-  \pnote{
-    tr: the time required for a stable RSSI, needed for a stable CCA indication.
-  }
-  \pnote{
-    tc: the interval between each CCA.
-  }
-  \pnote{
-    ta: the time between receiving a packet and sending the acknowledgment packet.
-  }
-  \pnote{
-    td: the time required for successfully detecting an acknowledgment from the receiver. (0.16 ms)
-  }
-  \pnote{
-    ts, the transmission time of the shortest packet, must be larger than tr + tc + tr (0.884 ms)
-  }
+  \begin{alertblock}{Calibration préalable}
+    \begin{itemize}
+      \item Expérience modèle ne mettant en jeu que cette couche MAC
+    \end{itemize}
+  \end{alertblock}
 \end{frame}
 
 \begin{frame}{Strobing moyen $N_{\textrm{sender}}$}
@@ -343,7 +348,7 @@
   }
 \end{frame}
 
-\begin{frame}\frametitle{Évolution de l'erreur d'estimation}
+\begin{frame}\frametitle{Évolution de l'erreur d'estimation globale}
   \begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{figures/mesure_active.pdf}
