@@ -298,14 +298,18 @@
     }
 \end{frame}
 
-\begin{frame}{Impact de la profondeur}
+\begin{frame}{Validation de $N_{sender}$}
     \begin{figure}
     \centering
-    \subfloat[Packet Delivery Ratio (PDR)]{
-        \includegraphics[width=0.5\textwidth]{figures/pdr_depth.pdf}}
-    \subfloat[Strobbing par profondeur]{
-        \includegraphics[width=0.5\textwidth]{figures/strobes_depth.pdf}}
+    \includegraphics[width=.75\textwidth]{figures/strobes_depth.pdf}
     \end{figure}
+    \begin{alertblock}{Observations}
+      \begin{itemize}
+        \item La racine est toujours allumée $\to$ $N_{sender} = 1$ pour le nœud 1.
+        \item La valeur de $N_{sender}$ est validée pour les nœuds relais.
+        % \item Perte en rafale occasionnelle pour le nœud 6.
+      \end{itemize}
+    \end{alertblock}
 \end{frame}
 
 \begin{frame}{$\delta$ par profondeur}
