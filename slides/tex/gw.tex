@@ -35,28 +35,28 @@
 \end{frame}
 
 \begin{frame}{Rôle de la passerelle}
-  \begin{block}{Couche physique et liaison: \ieee{}}
-    \begin{itemize}
-      \item PAN coordinator
-    \end{itemize}
-  \end{block}
-  \begin{block}{Couche réseau: 6LoWPAN}
-    \begin{itemize}
-      \item Compression IPv6
-    \end{itemize}
-  \end{block}
-  \begin{alertblock}{Protocole de routage: RPL}
-    \begin{itemize}
-      \item Racine du DODAG (MP2P/P2MP)
-      \item Routeur de bordure (LBR)
-    \end{itemize}
-  \end{alertblock}
   \begin{alertblock}{Protocole applicatif: CoAP}
     \begin{itemize}
       \item Traduction de protocole (HTTP/CoAP)
       \item Proxy inverse
     \end{itemize}
   \end{alertblock}
+  \begin{alertblock}{Protocole de routage: RPL}
+    \begin{itemize}
+      \item Racine du DODAG (MP2P/P2MP)
+      \item Routeur de bordure (LBR)
+    \end{itemize}
+  \end{alertblock}
+  \begin{block}{Couche réseau: 6LoWPAN}
+    \begin{itemize}
+      \item Compression IPv6
+    \end{itemize}
+  \end{block}
+  \begin{block}{Couche physique et liaison: \ieee{}}
+    \begin{itemize}
+      \item PAN coordinator
+    \end{itemize}
+  \end{block}
   \pnote{
     Ajouter que le proxy inverse sera détaillé par la suite.
   }
