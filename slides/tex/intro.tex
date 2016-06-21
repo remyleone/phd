@@ -132,58 +132,25 @@
     \centering
     \input{figures/node_architecture}
   \end{figure}
-  \begin{block}{Contraintes}
+  \begin{block}{Contraintes et solutions}
     \begin{itemize}
-      \item Composants variés et généralement peu onéreux.
-      \item Faibles ressources matérielles (Processeur, mémoire, stockage).
-      \item Réserve d'énergie limitée.
+      \item Faibles ressources matérielles (Processeur, mémoire, stockage) $\to$ Système d'exploitation et applications adaptés.
+      \item Réserve d'énergie limitée $\to$ Cycle de sommeil.
     \end{itemize}
   \end{block}
+  \pnote{
+    OpenMote Proc 32 MHz, 32 Kbytes of RAM and 512 Kbytes of Flash,
+  }
+  \pnote{
+    Portée de quelques dizaines de mètres à plusieurs kilomètres selon les technologies
+  }
   \pnote{
     - L'hétérogéneité provient de la profusion des acteurs et du faible cout d'entrée dans les marchés
   }
   \pnote{
+  Composants variés et généralement peu onéreux.
     - Dire que les progrès technologiques visent à rendre les composants moins chers au lieu de performants
   }
-\end{frame}
-
-\begin{frame}{Architecture générale d'un réseau de capteurs}
-  \begin{figure}
-    \centering
-    \includegraphics[scale=.75]{figures/schema_passerelle_slides.pdf}
-  \end{figure}
-  \begin{block}{Contraintes}
-    \begin{itemize}
-      \item Faible bande passante
-      \item Faible puissance d'émission
-      \item Nœuds en sommeil $\to$ Connexions intermittentes
-      \item Utilisation de la bande ISM $\to$ Canaux fortement bruités
-      % \item Passage à l'échelle
-    \end{itemize}
-  \end{block}
-
-  \pnote{
-    - Quand ces systèmes ne sont pas autonomes il faut une interconnexion on appelle cela une passerelle.
-  }
-
-\end{frame}
-
-\begin{frame}{Solutions proposées}
-
-  \begin{block}{Solutions pour les nœuds capteurs}
-    \begin{itemize}
-      \item Système d'exploitation et applications adaptés
-      \item Cycle de sommeil
-    \end{itemize}
-  \end{block}
-
-  \begin{block}{Solutions pour le réseau}
-    \begin{itemize}
-      \item Protocoles adaptés et compacts (6LoWPAN, CoAP)
-      \item Réseaux maillés et multi-sauts
-      \item Couche MAC adaptée (ContikiMAC)
-    \end{itemize}
-  \end{block}
   \pnote{
     Modèle de programmation qui évite les allocations mémoire
   }
@@ -199,6 +166,26 @@
   \pnote{
     - Mentionner les problèmes de multi-path fading
   }
+\end{frame}
+
+\begin{frame}{Architecture générale d'un réseau de capteurs}
+  \begin{figure}
+    \centering
+    \includegraphics[scale=.75]{figures/schema_passerelle_slides.pdf}
+  \end{figure}
+  \begin{block}{Contraintes}
+    \begin{itemize}
+      \item Faible bande passante et connexions intermittentes $\to$ Protocoles compacts et sans connexions
+      \item Faible puissance d'émission $\to$ Réseaux maillés et multi-sauts
+      % \item Canaux fortement bruités (ISM) $\to$ Couche MAC adaptée
+      % \item Passage à l'échelle
+    \end{itemize}
+  \end{block}
+
+  \pnote{
+    - Quand ces systèmes ne sont pas autonomes il faut une interconnexion on appelle cela une passerelle.
+  }
+
 \end{frame}
 
 \begin{frame}{Problématiques}
