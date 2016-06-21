@@ -23,13 +23,6 @@
 \setbeamertemplate{navigation symbols}{}
 
 % To show the outline at the beginning of each section
-\AtBeginSection[]{
-  \begin{frame}
-    \frametitle{Outline}
-    %\begin{center}{\LARGE Outline }\end{center}
-    \tableofcontents[currentsection,hideothersubsections]
-  \end{frame}
-}
 
 %\newcommand{\LinkToMethodo}{
 %\begin{textblock}{25}(102,89)
@@ -104,14 +97,24 @@
 
 \makeFirstFrame
 
-\frame{
-  \frametitle{Sommaire}
-  \tableofcontents
-}
 
 \setbeamertemplate{blocks}[rounded][shadow=true]
 
 \input{tex/intro}
+
+\frame{
+  \frametitle{Plan}
+  \tableofcontents
+}
+
+\AtBeginSection[]{
+  \begin{frame}
+    \frametitle{Plan}
+    %\begin{center}{\LARGE Outline }\end{center}
+    \tableofcontents[currentsection,hideothersubsections]
+  \end{frame}
+}
+
 \input{tex/gw}
 \input{tex/supervision}
 \input{tex/cache}
