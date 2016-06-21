@@ -1,0 +1,20 @@
+\begin{tikzpicture}[->,>=latex,shorten >=1pt, thick,main node/.style={fill=blue!20,draw}, scale = .8, every node/.style={scale = .8}]
+
+  \node[main node] (cpu) {\begin{tabular}{c}Micro-contrôleur\end{tabular}};
+  % \node[main node, below=of cpu] (battery) {\begin{tabular}{c}Source d'énergie\end{tabular}};
+  \node[main node, above=of cpu] (radio) {\begin{tabular}{c}Radio\end{tabular}};
+  \node[main node, right=of cpu] (memoire) {\begin{tabular}{c}Mémoire\end{tabular}};
+  \node[main node, left=of cpu] (convert) {\begin{tabular}{c}Convertisseurs\\ analogique / numérique \end{tabular}};
+
+  % \node[main node, below=of convert] (actionneur) {\begin{tabular}{c}Actionneur\end{tabular}};
+  \node[main node, above=of convert] (sensor) {\begin{tabular}{c}Capteur / Actionneur\end{tabular}};
+
+  \path
+       % (actionneur) edge[<-] (convert.south) 
+       (sensor) edge[->] (convert.north) 
+       (convert) edge[<->] (cpu) 
+       (cpu)  edge[<->] (radio)
+       (cpu) edge[<->] (memoire)
+  ;
+
+\end{tikzpicture}

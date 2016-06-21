@@ -45,7 +45,7 @@
   \end{figure}
 
   \pnote{
-    - Mote sur support USB avec une source d'énergie pour en faire un système embarqué. 
+    - Mote sur support USB avec une source d'énergie pour en faire un système embarqué.
   }
   \pnote{
     - Interconnexion en réseau
@@ -78,15 +78,15 @@
     \begin{block}{Applications industrielles}
       Mesures, Contrôle des chaînes de productions
     \end{block}
-  
+
     \begin{block}{Villes intelligentes}
       Voirie, Contrôle de l'eau, Smart parking
     \end{block}
-  
+
     \begin{block}{Gestion de bâtiment}
       Alarmes, chauffage, lumière, surveillance, fermeture des portes
     \end{block}
-  
+
   % \begin{itemize}
   %   \item Applications industrielles
   %   \item Villes intelligentes
@@ -97,7 +97,7 @@
   \pnote{
     Insister sur le fait que les applications  sont très diverses et toujours orientées vers un service pour justifier de manière tangible un investissement.
   }
-  
+
 \end{frame}
 
 \begin{frame}{Smart Parking}
@@ -127,29 +127,32 @@
   \end{columns}
 \end{frame}
 
-\begin{frame}{Architecture générale}
+\begin{frame}{Architecture d'un nœud}
   \begin{figure}
     \centering
-    \includegraphics[scale=.75]{figures/architecture_general_slides.pdf}
+    \input{figures/node_architecture}
   \end{figure}
-
+  \begin{block}{Contraintes}
+    \begin{itemize}
+      \item Composants variés et généralement peu onéreux.
+      \item Faibles ressources matérielles (Processeur, mémoire, stockage).
+      \item Réserve d'énergie limitée.
+    \end{itemize}
+  \end{block}
   \pnote{
-    - Quand ces systèmes ne sont pas autonomes il faut une interconnexion on appelle cela une passerelle.
+    - L'hétérogéneité provient de la profusion des acteurs et du faible cout d'entrée dans les marchés
   }
-
+  \pnote{
+    - Dire que les progrès technologiques visent à rendre les composants moins chers au lieu de performants
+  }
 \end{frame}
 
-\begin{frame}{Contraintes des réseaux de capteurs}
-
-  \begin{block}{Contraintes matérielles}
-    \begin{itemize}
-      % \item Grande hétérogéneité
-      \item Faibles ressources matérielles (Processeur, mémoire, stockage)
-      \item Batterie ou source d'alimentation limitée
-    \end{itemize}
-  \end{block}  
-
-  \begin{block}{Contraintes liées au réseau}
+\begin{frame}{Architecture générale d'un réseau de capteur}
+  \begin{figure}
+    \centering
+    \includegraphics[scale=.75]{figures/schema_passerelle_slides.pdf}
+  \end{figure}
+  \begin{block}{Contraintes}
     \begin{itemize}
       \item Faible bande passante
       \item Faible puissance d'émission
@@ -160,14 +163,9 @@
   \end{block}
 
   \pnote{
-    - L'hétérogéneité provient de la profusion des acteurs et du faible cout d'entrée dans les marchés
+    - Quand ces systèmes ne sont pas autonomes il faut une interconnexion on appelle cela une passerelle.
   }
-  \pnote{
-    - Dire que les progrès technologiques visent à rendre les composants moins chers au lieu de performants
-  }    
-  \pnote{
-    - En raison de la variété des standards il faut des systèmes qui s'autoconfigure autant que possible pour faciliter l'accès.
-  }    
+
 \end{frame}
 
 \begin{frame}{Solutions proposées}
@@ -239,10 +237,10 @@
     - Position clé à mi-chemin entre le monde contraint et le monde non contraint.
     Plus facile d'y accéder qu'aux nœuds contraints.
   }
-  
+
   \pnote{
-    Plus ressources car doit par exemple fournir une connectivité permanente par réseaux cellulaires, Ethernet. 
-    Services supplémentaires: Pare-feux, sauvegarde des données collectées, mises à jour firmware, synchronisation d'horloge, 
+    Plus ressources car doit par exemple fournir une connectivité permanente par réseaux cellulaires, Ethernet.
+    Services supplémentaires: Pare-feux, sauvegarde des données collectées, mises à jour firmware, synchronisation d'horloge,
     routeur de sortie, etc.
   }
   \pnote{
