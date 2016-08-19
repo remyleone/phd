@@ -22,7 +22,7 @@ La section~\ref{supervision:validation} couvre les validations expérimentales f
 Les résultats seront mis en perspectives avec de multiples métriques mesurées au cours de l'expérience afin d'expliquer le niveau de précision obtenu.
 
 La section~\ref{supervision:explicite} montre comment améliorer la précision de la mesure implicite en la recalibrant périodiquement sur une mesure explicite.
-Cette section présente également les travaux en cours de recherche sur la réduction l'impact de la mesure active.
+Cette section présente également les travaux en cours de recherche sur la réduction de l'impact de la mesure active.
 
 La section~\ref{supervision:conclusion} conclut ce chapitre en récapitulant les avantages et les limitations de l'approche présentée et ouvre sur d'autres contextes où les mesures implicites peuvent apporter des solutions de supervision transparentes pour les \ac{LLN}s.
 
@@ -46,7 +46,7 @@ La supervision apporte ces informations sous la forme de métriques et de mesure
 \subsubsection{Anticipation de problèmes}
 
 Un administrateur souhaite prévenir certains problèmes prévisibles arrivant sur un \ac{LLN} en anticipant l'évolution de certaines métriques.
-C'est notamment le cas des problèmes d'épuisement de batteries d'un \ac{LLN} qui peuvent être évités en disposant d'estimation de la durée de vie des nœuds qui le composent.
+C'est notamment le cas des problèmes d'épuisement de batteries d'un \ac{LLN} qui peuvent être évités en disposant d'estimations de la durée de vie des nœuds qui le composent.
 Ainsi un administrateur peut prévoir en avance ses opérations de maintenance et évite une panne.
 
 \subsubsection{Mesure des performances}
@@ -95,7 +95,7 @@ Par exemple, ~\cite{Liu:2010dz} et ~\cite{Lahmadi:2013tw} considèrent le probl�
 Les sondeurs émettent des alarmes vers la passerelle s'ils détectent une anomalie.
 \cite{Liu:2010dz} propose un algorithme distribué d'approximation pour sélectionner un nombre minimum de sondeurs et étudie le taux de faux positif généré.
 \cite{Lahmadi:2013tw} propose de réduire la dépense énergétique en utilisant des paquets de contrôle de routage pour sélectionner les sondeurs et en intégrant les rapports de suivi dans les messages de contrôle du protocole de routage.
-Cependant, ces approches nécessitent des sondes déployées dans le réseau et reviennent donc à des approches actives distribuées qui peuvent être coûteuse à mettre en place.
+Cependant, ces approches nécessitent des sondes déployées dans le réseau et reviennent donc à des approches actives distribuées qui peuvent être coûteuses à mettre en place.
 
 Dans ~\cite{Chen:2008im}, les auteurs proposent LiveNet, une architecture de surveillance semi-passive  qui repose sur des sondes situées dans le \ac{LLN}.
 En utilisant les traces agrégées transmises à la passerelle, LiveNet est capable de reconstruire la topologie de routage du \ac{LLN} et de déterminer divers paramètres de performance.
@@ -103,7 +103,7 @@ Ce travail vise explicitement la surveillance de l'énergie, mais pourrait être
 Cependant, il nécessite la transmission et le traitement de traces issues des sondes dans le réseau, ainsi il n'est donc pas entièrement pertinent pour l'approche recherchée dans ce chapitre qui n'utilise pas de sondes et ne veut pas ajouter une nouvelle charge aux nœuds.
 
 Dans~\cite{Zhao:2002df}, les auteurs introduisent une méthode distribuée pour créer une carte de l'énergie restante d'un \ac{LLN}.
-Les nœuds déclarent leur énergie résiduelle à un nœud voisin chargé de l'agrégation et la compression de ces informations et ne transmettent que des mises à jour incrémentielles (condensées) à la passerelle.
+Les nœuds déclarent leur énergie résiduelle à un nœud voisin chargé de l'agrégation et de la compression de ces informations et ne transmettent que des mises à jour incrémentielles (condensées) à la passerelle.
 Suivant cette idée, \cite{Mini:2004zj} laisse l'estimation et la prédiction de temps de vie à chaque nœud puis se charge de l'envoyer au moniteur de réseau.
 De plus, \cite{Mini:2004zj} compare une méthode probabiliste, basée sur les chaînes de Markov, une méthode statistique, sur la base d'un modèle auto-régressif, avec une  méthode simple de déclaration explicite pour estimer un temps de vie.
 Dans~\cite{Hu:2007tb}, les auteurs étendent cette idée en modélisant l'énergie de chaque nœud avec un modèle de Markov caché dont les coefficients sont estimés avec des mesures explicites.
@@ -118,10 +118,10 @@ L'approche proposée dans ce chapitre s'inspire de cette méthodologie et propos
 \section{Mesure de l'utilisation de la radio implicite et passive}
 \label{supervision:model}
 
-L'utilisation de la radio désigne le temps passé par chaque nœud dans les différents états d'utilisation de sa radio (transmission, réception, écoute du canal, etc.)
+L'utilisation de la radio désigne le temps passé par chaque nœud dans les différents états d'utilisation de sa radio (transmission, réception, écoute du canal, etc.).
 C'est une des métriques les plus importantes d'un nœud dans un \ac{LLN} car elle permet de détecter des conditions difficiles de transmissions (grand nombre de retransmissions, environnement dense, etc.).
 
-De plus, elle permet de déduire une estimation de la consommation énergétique d'un nœud capteur ce qui est crucial pour disposer d'une estimation de sa durée de vie.
+De plus, elle permet de déduire une estimation de la consommation énergétique d'un nœud capteur, ce qui est crucial pour disposer d'une estimation de sa durée de vie.
 Cette déduction est obtenue en multipliant le temps passé dans chaque état par sa puissance nominale afin d'obtenir une estimation de la consommation d'énergie.
 Dans les déploiements usuels, la radio est la première source de consommation énergétique.
 Ainsi, prévoir l'utilisation de la radio permet de prévoir une large part de la consommation énergétique d'un nœud~\cite{molina2010energy}.
@@ -222,9 +222,9 @@ Donc, la passerelle peut calculer une estimation du temps passé par un nœud en
 
 % Limitations
 
-Cependant, ce mécanisme de supervision est biaisé, il ne peut pas prendre en compte les phénomènes locaux qui ne passent pas par la passerelle ce qui conduit à des prévisions sous-estimées.
+Cependant, ce mécanisme de supervision est biaisé, il ne peut pas prendre en compte les phénomènes locaux qui ne passent pas par la passerelle, ce qui conduit à des prévisions sous-estimées.
 Cette partie du trafic (perte de paquets, transmissions locales, etc.) est inconnue du routeur de bordure et est représentée sur la Figure~\ref{supervision:fig:schema} en pointillé marron.
-L'objectif est donc d'évaluer la précision que l'on peut en attendre de telles estimations en fonction de la configuration d'un \ac{LLN}.
+L'objectif est donc d'évaluer la précision que l'on peut attendre de telles estimations en fonction de la configuration d'un \ac{LLN}.
 
 % Conclusion
 
@@ -232,7 +232,7 @@ La passerelle ne peut connaître l'ensemble du trafic et donc ne peut remplacer 
 
 \subsection{Modélisation de l'impact du trafic réseau}
 
-Un nœud peut être le destinataire d'un paquet réseau, mais peut aussi être utilisé comme un routeur intermédiaire dans un chemin multi sauts.
+Un nœud peut être le destinataire d'un paquet réseau, mais peut aussi être utilisé comme un routeur intermédiaire dans un chemin multi-sauts.
 
 \begin{figure}
   \centering
@@ -287,7 +287,7 @@ Un nœud peut être le destinataire d'un paquet réseau, mais peut aussi être u
 \end{figure}
 
 La Figure~\ref{supervision:fig:estimators_overview} représente une transmission d'un paquet entre un point A et B dans un \ac{LLN} typique et permet d'illustrer les nœuds impliqués dans un réseau maillé pour le routage d'un paquet.
-Les liens en pointillé représentent les liens radios entre les différents nœuds et les nœuds représentés par un R sont les routeurs intermédiaires pour acheminer les paquets.
+Les liens en pointillés représentent les liens radios entre les différents nœuds et les nœuds représentés par un R sont les routeurs intermédiaires pour acheminer les paquets.
 Les nœuds représentés par un O peuvent être sujets à des phénomènes d'Overhearing tandis que les nœuds représentés par un I ne sont pas affectés par cette transmission.
 
 Le routeur de bordure peut observer les entêtes des paquets réseau qu'il route et extraire les sources et destinations pour chacun de ces paquets.
@@ -301,9 +301,9 @@ Soit $T_p$ le temps pris par un paquet pour être transmis et $T_{\texttt{ACK}}$
 \subsubsection{Mesure passive ``étoilée''}
 \label{supervision:noinfo_estimator}
 
-Le routeur de bordure n'a pas forcément accès à la topologie d'un \ac{LLN} ce qui peut par exemple arriver quand \ac{RPL} est utilisé en ``storing-mode''.
+Le routeur de bordure n'a pas forcément accès à la topologie d'un \ac{LLN}, ce qui peut par exemple arriver quand \ac{RPL} est utilisé en ``storing-mode''.
 Dans ce cas, le routeur de bordure ne peut voir que la source et la destination dans l'entête d'un paquet qu'il doit router et agit comme si la topologie du réseau était étoilée.
-Dans le scénario présenté sur la figure.~\ref{supervision:fig:estimators_overview} l'estimation ``étoilée'' ne déduit que les temps de radios utilisés par les nœuds $A$ et $B$ en ignorant les autres nœuds impliqués.
+Dans le scénario présenté sur la figure.~\ref{supervision:fig:estimators_overview}, l'estimation ``étoilée'' ne déduit que les temps de radios utilisés par les nœuds $A$ et $B$ en ignorant les autres nœuds impliqués.
 
 \begin{align}
   \textrm{Tx}_i &= \sum_{p \in \mathcal{S}_i}{T_p} + \sum_{p \in \mathcal{D}_i}{T_{\texttt{ACK}}}\\
@@ -324,7 +324,7 @@ Dans le reste de cette thèse, il sera supposé que chaque nœud utilise exclusi
 
 
 Ainsi lorsque les informations sur le routage sont disponibles il est possible de compléter la supervision passive pour prendre en compte l'impact causé par le relayage des paquets.
-Dans le scénario présenté sur la figure.~\ref{supervision:fig:estimators_overview} l'estimation ``maillée'' comptabilise les temps de radios utilisés par les nœuds $A$ et $B$ mais aussi ceux des nœuds routeurs (R).
+Dans le scénario présenté sur la figure.~\ref{supervision:fig:estimators_overview}, l'estimation ``maillée'' comptabilise les temps de radios utilisés par les nœuds $A$ et $B$ mais aussi ceux des nœuds routeurs (R).
 
 Soit $\mathcal{F}_i$ l'ensemble des paquets qui sont routés par le nœud $i$ alors qu'il n'est ni la source ni le destinataire du paquet.
 
@@ -370,7 +370,7 @@ Cette section prend pour hypothèse que \ieee{} fonctionne avec le protocole \ac
 \[T_p = \frac{\mathcal{L}(f)}{R} \ceil[\Big]{\frac{\mathcal{L}(p)}{L}}\]
 
 où $\mathcal{L}(f)$ est la taille d'une trame de donnée complète \ieee{} (127 octets), $R = 250$ kbits/s est le débit du \ieee{}, $L$ est la charge utile (payload) maximale d'une trame de donnée \ieee{} (environ 89 octets avec les options usuelles) et $\mathcal{L}(p)$ la taille du message que l'on veut transmettre sur ce médium.
-Une trame de donnée complète prends environ 4 ms pour être transmise.
+Une trame de donnée complète prend environ 4 ms pour être transmise.
 
 Une trame d'acquittement \texttt{ACK} en \ieee{} est de taille constante (11 octets) et occupe donc la radio pendant $T_\texttt{ACK}$ = 0.352 ms.
 
@@ -378,7 +378,7 @@ Quand une source émet une trame, tous les nœuds en écoute qui sont à portée
 Il est possible qu'un voisin éteigne sa radio lorsqu'il détecte qu'il n'est pas concerné par cette transmission.
 Néanmoins, chaque nœud réveillé dépense toujours une quantité minimale d'énergie, pour analyser une trame qui est émise par l'un de ses voisins.
 
-Enfin, il est à noter que même quand aucun paquet n'est transmis, les nœuds utilisent leurs radio afin de vérifier l'état du canal dans le but de recevoir un paquet.
+Enfin, il est à noter que même quand aucun paquet n'est transmis, les nœuds utilisent leur radio afin de vérifier l'état du canal dans le but de recevoir un paquet.
 Cependant, ce réveil ne peut être déduit implicitement de la part de la passerelle et rentre donc dans les phénomènes non couverts par la mesure passive.
 
 \subsubsection{Impact de ContikiMAC}
@@ -386,7 +386,7 @@ Cependant, ce réveil ne peut être déduit implicitement de la part de la passe
 
 Afin de communiquer, deux nœuds ont besoin d'être actifs en même temps.
 Cependant, mettre les nœuds en réception permanente est très coûteux car une radio en écoute du canal (``channel listening'') consomme une énergie non négligeable~\cite{park2005throughput}.
-Ainsi afin d'économiser les réserves d'énergies des nœuds, les nœuds s'endorment régulièrement en utilisant des mécanismes de cycle de veille qui alterne phase de sommeil et phase d'activité.
+Ainsi afin d'économiser les réserves d'énergie des nœuds, les nœuds s'endorment régulièrement en utilisant des mécanismes de cycle de veille qui alternent phase de sommeil et phase d'activité.
 
 L’objectif de  ContikiMAC~\cite{dunkels11contikimac} consiste à endormir les nœuds pendant une partie du temps afin d’économiser leur batterie et d’éviter les collisions dans les zones denses où plusieurs nœuds veulent transmettre simultanément.
 Ce mécanisme de cycle de veille est notamment utilisé par Contiki~\cite{dunkels2004contiki} en raison de son efficacité à économiser de l'énergie et sa faible empreinte mémoire~\cite{michel2014analyse}.
@@ -406,6 +406,7 @@ Si aucune émission n'est détectée, le récepteur se rendort.
 Quand une émission est détectée, le récepteur passe en réception pour recevoir la trame de donnée dans son intégralité puis, quand la trame de donnée est reçue, une trame d'acquittement est envoyée du récepteur vers l'expéditeur.
 
 Dans le cas d'une trame destinée à tous les voisins (broadcast), elle est répétée sur toute la phase d'activité afin de s’assurer que tous les voisins l’ont reçue au moins une fois.
+D'autre part, les voisins n'envoient pas un acquittement à la réception d'une trame envoyée en broadcast.
 
 Si une trame est transmise sur le canal pendant la phase de réveil, le récepteur reste réveillé pour la recevoir sinon il se remet à l’état sommeil.
 Lorsqu'un nœud reçoit une trame et qu'elle lui est effectivement destinée, il envoie un acquittement.
@@ -423,13 +424,12 @@ Donc, il est nécessaire de comptabiliser ces retransmissions afin d'avoir une m
 
 Soit $N_{\textrm{sender}}$ (respectivement $N_{\textrm{receiver}}$) le nombre de fois qu'une source (respectivement une destination) va transmettre (respectivement recevoir) un paquet avec ContikiMAC.
 
-Puisque le destinataire se réveille en moyenne au milieu d'une transmission et attend le prochain essai d'envoi pour recevoir la trame complètement et envoyer son acquittement.
-Le nombre de trames reçues par le destinataire peut être estimé à $N_{\textrm{receiver}} = 1.5$.
+Puisque le destinataire se réveille en moyenne au milieu d'une transmission et attend le prochain essai d'envoi pour recevoir la trame complètement et envoyer son acquittement, le nombre de trames reçues par le destinataire peut être estimé à $N_{\textrm{receiver}} = 1.5$.
 
 Estimer $N_{\textrm{sender}}$ est plus difficile, car cette grandeur dépend des conditions réseau (topologie, qualité du lien) et de la taille des trames.
 Ainsi il est nécessaire d'avoir une estimation de ce paramètre afin de procéder à une estimation réaliste de l'utilisation de la radio.
 
-L'expérience suivante est réalisée afin d'estimer le nombre moyen d'essais d'envoi dune trame de donnée qu'un expéditeur va faire avant de recevoir une trame de confirmation.
+L'expérience suivante est réalisée afin d'estimer le nombre moyen d'essais d'envoi d'une trame de donnée qu'un expéditeur va faire avant de recevoir une trame de confirmation.
 Deux nœuds utilisant ContikiMAC sont mis à portée de transmission dans un environnement non bruité.
 La source envoie en boucle un paquet de taille fixe qui induit de multiples retransmissions, puis elle attend l'acquittement du paquet et comptabilise le nombre d'essais réalisés avant de recevoir un acquittement et cela pour différentes tailles de paquets.
 \ieee{} est utilisé comme simple couche liaison avec un entête pour les trames de données aussi réduit que possible (6 octets) les différentes tailles de trames sont obtenues en faisant varier la taille du message applicatif.
@@ -442,7 +442,7 @@ Une simulation simule le comportement de ce système pendant 10000 secondes et p
   \label{supervision:fig:average_strobing}
 \end{figure}
 
-La Figure~\ref{supervision:fig:average_strobing} représente la moyenne du nombre de transmission  $N_{\textrm{sender}}(f)$ nécessaire à l'envoi d'une trame $f$ ayant une taille de $\mathcal{L}(f)$ octets entre deux nœuds fonctionnant avec ContikiMAC.
+La Figure~\ref{supervision:fig:average_strobing} représente la moyenne du nombre de transmissions $N_{\textrm{sender}}(f)$ nécessaires à l'envoi d'une trame $f$ ayant une taille de $\mathcal{L}(f)$ octets entre deux nœuds fonctionnant avec ContikiMAC.
 Le nombre d'envois moyens nécessaires pour envoyer un long paquet est plus faible que pour en envoyer un court, car les trames longues mettent plus de temps pour être transmises et ont donc plus de chance d'être écoutées pendant un réveil du destinataire.
 % En outre, comme les paquets \ac{ACK} ont une taille constante, le coût de réception pour la source est constant.
 % Cette valeur est inférieure à celle de $N_{\textrm{receiver}}$ ainsi c'est donc l'expéditeur qui va dépenser le plus d'énergie quand ContikiMAC est employé.
@@ -543,11 +543,11 @@ Les valeurs obtenues précédemment restent expérimentalement proches de la val
 Cependant, la variance est forte et le nombre de tentatives tend à augmenter à mesure que l'on s'éloigne de la racine.
 Cette variance peut être expliquée par la variance obtenue pour des trames de 69 octets sur l'expérience de calcul des $N_{sender}$.
 
-La convergence vers la valeur normale de 3,76 pour les nœuds proche de la racine s'explique par l'augmentation du trafic réseau sur ces nœuds: ils doivent relayer les paquets provenant de tous les autres nœuds.
+La convergence vers la valeur normale de 3,76 pour les nœuds proches de la racine s'explique par l'augmentation du trafic réseau sur ces nœuds: ils doivent relayer les paquets provenant de tous les autres nœuds.
 Ainsi, leur rythme d'envoi se rapproche de celui de l'expérience de strobing où la source envoyait autant de paquets que possible vers un destinataire en s'assurant de son acquittement.
 Pour un nœud situé en bout de chaîne et n'ayant donc aucune charge de routage, un plus grand décalage entre les cycles d'éveils est présent et explique ainsi les retransmissions supplémentaires.
 
-Enfin, au sujet du nœud qui est connecté à la passerelle directement, la quantité moyenne d'envois est très proche de 1 avec une variance faible ce qui est logique puisque par hypothèse la racine est toujours éveillée et peut donc recevoir immédiatement les transmissions qui en viennent.
+Enfin, au sujet du nœud qui est connecté à la passerelle directement, la quantité moyenne d'envois est très proche de 1 avec une variance faible, ce qui est logique puisque par hypothèse la racine est toujours éveillée et peut donc recevoir immédiatement les transmissions qui en viennent.
 Cependant, ce n'est pas le cas des nœuds se situant juste avant le nœud 1, qui reçoivent une quantité importante de trafic, mais qui ne peuvent pas la router avec la même efficacité (temporisation, ``buffering'', etc.).
 
 \subsubsection{Analyse de l'impact des protocoles}
@@ -593,7 +593,7 @@ Cependant, le trafic applicatif est majoritaire lorsque le réseau est stable, a
 Le mécanisme d'estimation se déclenche quand toutes les routes sont établies et qu'un trafic réseau est observé à la passerelle.
 L'estimation du temps radio va alors fournir une estimation pour le temps passé en transmission et en réception pour chaque nœud.
 
-On appelle \emph{précision} $\delta = \frac{\widehat{X}}{X}$ le rapport entre l'estimation d'une grandeur $\widehat{X}$ et sa valeur réelle $X$.
+On appelle \emph{précision} $\delta = \frac{\widehat{X}}{X}$ le rapport entre l'estimation d'une grandeur $\widehat{X}$ et sa valeur réelle $X$ qui est mesurée dans le simulateur.
 Cette métrique permet d'interpréter facilement les grandeurs trouvées: $\delta \leq 1$ (respectivement $\delta \geq 1$) signifie que l'estimation sous-estime (respectivement surestime) la grandeur.
 Cette section mesure la précision des estimations passives pour les cas d'estimation ``étoilée'' (où la topologie de routage est inconnue) et ``maillée'' (où la topologie de routage est connue).
 
@@ -720,7 +720,7 @@ D'autre part, $\delta$ augmente au cours du temps, car le trafic applicatif qui 
   \label{supervision:fig:route}
 \end{figure}
 
-L'estimation maillée est meilleure sur tous les intervalles de temps ce qui est attendu, car elle comptabilise la charge de routage sur chacun de ces intervalles en plus de l'estimation étoilée.
+L'estimation maillée est meilleure sur tous les intervalles de temps, ce qui est attendu, car elle comptabilise la charge de routage sur chacun de ces intervalles en plus de l'estimation étoilée.
 
 D'autre part, l'estimation s'améliore au cours du temps, car non seulement le trafic applicatif devient majoritaire au cours du temps comme montré sur la Figure~\ref{supervision:fig:protocol_repartition_time} mais en plus la charge de routage intermédiaire qu'il induit est également comptabilisée.
 
@@ -758,8 +758,8 @@ où $t_r$ et $t_{r-1}$ sont les deux dernières dates de réception de mesure ac
 $T$ désigne le temps entre chaque mesure explicite reçue.
 $X(t_r)$ désigne la valeur obtenue par mesure explicite à l'instant $t_r$.
 $\epsilon(t_r)$ est l’estimation de l'erreur apprise des précédents messages de mesure active~\footnote{Par convention: $\epsilon(0) = 0$}.
-Cette erreur est calculée par une \ac{EWMA} de paramètre $\alpha$.
-Le coefficient $\alpha$ représente le degré de décroissance des erreurs des valeurs passées.
+Cette erreur est calculée par une \ac{EWMA} de paramètre $\alpha$~\cite{mckinney2012python}.
+Le coefficient $\alpha$ compris entre 0 et 1 représente le degré de décroissance des erreurs des valeurs passées.
 Une valeur de $\alpha$ importante réduira plus rapidement l'importance des observations passées.
 A un instant $t$, l'erreur est prise proportionnellement au temps depuis la dernière mesure explicite reçue.
 
@@ -797,7 +797,7 @@ A chaque mesure explicite, l'estimateur intègre l'erreur moyenne des précéden
 On observe également que les pentes des estimations après chaque recalibrations sont moins grandes, car l'estimateur apprend son biais qui est supposé constant pendant l'expérience.
 Ainsi on obtient une estimation qui a tout temps est capable de produire une estimation du temps passé en transmission et en réception.
 
-\paragraph{Fréquence de recalibration}
+\paragraph{Fréquence de recalibrage}
 
 \begin{figure}[ht]
   \centering
@@ -815,13 +815,13 @@ Lorsque les recalibrations sont plus fréquentes, la précision est meilleure, m
 \label{supervision:ingoing}
 
 De nouveaux travaux~\footnote{Entrepris lors d'un séjour au \ac{SICS} entre août et septembre 2015 en collaboration avec Simon Duquennoy.} étendent les recherches de ce chapitre.
-Leur objectif est de trouver des schémas de supervision explicites plus économes en énergie que les méthodes systématiques et cycliques présentent dans l'état de l'art.
+Leur objectif est de trouver des schémas de supervision explicites plus économes en énergie que les méthodes systématiques et cycliques présentes dans l'état de l'art.
 Partant du constat que la supervision active est toujours nécessaire et ne peut pas être facilement substituée, l'objectif consiste à trouver une méthode optimale de supervision permettant de réduire son coût autant que possible.
 
 \subsubsection{Mesure systématique}
 
-Une supervision cyclique impose à chaque nœud d'envoyer des rapports sur son état à intervalle régulier.
-Le problème de cette approche est que son coût augmente linéairement avec le nombre de nœuds présent dans le \ac{LLN} et peut être coûteux en ressources si la fréquence d'envoi est trop importante.
+Une supervision cyclique impose à chaque nœud d'envoyer des rapports sur son état à intervalles réguliers.
+Le problème de cette approche est que son coût augmente linéairement avec le nombre de nœuds présents dans le \ac{LLN} et peut être coûteux en ressources si la fréquence d'envoi est trop importante.
 
 Une première piste de recherche en cours d'investigation consiste à diminuer le nombre d'informations envoyées à mesure que le comportement d'un nœud est stable.
 Cette méthode s'inspire de la méthode utilisée par Trickle~\cite{rfc6206} dans le protocole \ac{RPL} qui diminue le nombre de messages de routage à mesure que le routage devient stable.
@@ -834,7 +834,7 @@ Cependant, la passerelle ne peut savoir si l'état d'un nœud diverge de son mod
 Ainsi la passerelle a le choix entre conserver un modèle incertain et ne pas solliciter un nœud donné afin d'économiser des ressources ou bien payer le coût d'une mesure active quitte à ce qu'elle ne soit pas pertinente.
 Cette problématique d'exploration contre exploitation~\cite{liu1112intrusion} est connue et explorée dans le domaine de l'apprentissage renforcé~\cite{posen2012chasing}.
 
-Cette approche consiste à attribuer une valeur à l'information acquise quand la passerelle obtient une mesure venant d'un nœud et de mesure ce gain au coût de son obtention.
+Cette approche consiste à attribuer une valeur à l'information acquise quand la passerelle obtient une mesure venant d'un nœud et de mesurer ce gain au coût de son obtention.
 L'objectif est alors de maximiser la valeur des informations obtenues tout en minimisant le coût nécessaire pour l'obtenir.
 
 Cependant, cette approche est complexe, car un nœud qui est instable temporairement peut présenter temporairement un gros gain d'information si la passerelle le choisit.

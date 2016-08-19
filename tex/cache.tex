@@ -24,7 +24,7 @@ La section~\ref{cache:conclusion} conclut ce chapitre et présente les ouverture
 \label{cache:introduction}
 
 Les \ac{LLN}s ont pour objectif de fournir des relevés et des mesures sur leur environnement à des services à valeur ajoutée.
-Comme vu dans la section~\ref{gw:app_layer}, la passerelle à pour rôle d'assurer l'interface entre un \ac{LLN} et ces services tiers.
+Comme vu dans la section~\ref{gw:app_layer}, la passerelle a pour rôle d'assurer l'interface entre un \ac{LLN} et ces services tiers.
 
 \subsection{Objectifs d'un \acl{RPC}}
 
@@ -105,7 +105,7 @@ Le reste de ce chapitre se concentrera sur les moyens d'obtenir ces temps de val
 \section{État de l'art}
 \label{cache:related}
 
-Les \ac{RPC} peuvent être modélisés par des caches dits \acl{TTL} où les ressources restent valides pendant un temps donné puis sont retirés du cache~\cite{berger2014exact}.
+Les \ac{RPC} peuvent être modélisés par des caches dits \acl{TTL} où les réponses restent valides pendant un temps donné puis sont retirées du cache~\cite{berger2014exact}.
 Ce cadre théorique mesure les performances attendues, mais ne donne cependant pas de critères sur comment choisir ces temps de vie en fonction d'un contexte donné.
 
 \subsection{\ac{RPC} pour les \ac{LLN}s}
@@ -115,7 +115,7 @@ Cependant, le calcul des temps de vie n'est pas spécifié dans les implémentat
 
 L'utilisation de cache au niveau des routeurs intermédiaires du \ac{LLN} est également une technique explorée~\cite{duquennoy2011leveraging}, cependant les paramètres de gestion des temps de validité ne prennent généralement pas en compte les métriques d'un nœud (réserve de batterie) ou même du \ac{LLN} entier (temps de vie).
 
-\subsection{Optimisation des ressources basées sur les temps de vie}
+\subsection{Optimisation des ressources basée sur les temps de vie}
 
 Des méthodes heuristiques sont employées dans les \ac{RPC} \ac{HTTP} afin de configurer des temps de vie pour les réponses aux requêtes qui ne spécifient pas un temps de vie par elle-même~\cite{michel1998adaptive}.
 Ces heuristiques sont très hétérogènes, mais se basent le plus souvent sur les dates de modification d'une \ac{URI} pour fournir un temps de vie d'une réponse~\cite{gourley2002http}.
@@ -140,8 +140,8 @@ Son objectif est de trouver en fonction des objectifs de durée de vie d'un \ac{
 Réciproquement, pour une qualité de service donnée, un \ac{RPCA} donne les meilleurs objectifs de durée de vie possible.
 
 Afin de trouver les temps de vie acceptables pour chaque ressource, un \ac{RPCA} modélise la durée de vie d'un \ac{LLN} et la satisfaction des utilisateurs comme deux fonctions des temps de vie des réponses qui doivent être optimisées en même temps.
-Puis le \ac{RPCA} résout le problème multi-objectif afin de fournir les temps de vie acceptables.
-La résolution d'un problème multi-objectif étant coûteuse, il est important de trouver efficacement un ensemble de solutions afin de changer rapidement les temps de vie au cas où les hypothèses viendraient à changer.
+Puis le \ac{RPCA} résout le problème multi-objectifs afin de fournir les temps de vie acceptables.
+La résolution d'un problème multi-objectifs étant coûteuse, il est important de trouver efficacement un ensemble de solutions afin de changer rapidement les temps de vie au cas où les hypothèses viendraient à changer.
 
 \subsection{Architecture}
 \label{cache:architecture}
@@ -208,7 +208,7 @@ Soit $u$, l'\ac{URI} de la requête courante et $c_u$ le temps de validité asso
 Une requête visant une \ac{URI} $u$, venant de l'extérieur, en cache depuis moins de $c_u$ sera traitée par le \ac{RPC} sans solliciter le \ac{LLN}.
 Soit $\mathcal{C}$ l'ensemble de tous les $c_u$ que la passerelle gère.
 
-Pour fonctionner, un \ac{RPCA} a besoin d'estimer efficacement la durée de vie d'un \ac{LLN}, or comme le montre le chapitre~\ref{supervision} la connaissance de la topologie est importante pour avoir des estimations correctes.
+Pour fonctionner, un \ac{RPCA} a besoin d'estimer efficacement la durée de vie d'un \ac{LLN}, or comme le montre le chapitre~\ref{supervision}, la connaissance de la topologie est importante pour avoir des estimations correctes.
 Soit $\mathcal{T}$, la topologie du \ac{LLN} et $\mathcal{L}$ la durée de vie souhaitée pour le \ac{LLN}.
 Il est supposé dans le reste de ce chapitre que la topologie du réseau est connue du \ac{RPCA}.
 
@@ -488,7 +488,7 @@ Le temps passé en transmission et en réception pour le routeur $R_n$ lors du t
   T_{\router, \rx} &= T_{\req, \rxrx} + T_{\req, \txrx} + T_{\ans, \rxrx} + T_{\ans, \txrx}
 \end{align}
 
-La temps d'utilisation de la radio d'un routeur est modélisé par la somme des temps de traitement des paquets routés, car il gère à la fois l'acheminement de la requête et de sa réponse:
+Le temps d'utilisation de la radio d'un routeur est modélisé par la somme des temps de traitement des paquets routés, car il gère à la fois l'acheminement de la requête et de sa réponse:
 
 \begin{align}
   \alpha_{\router, \tx} &= \sum_{j \in m_i} \frac{T_{\router, \tx, j}}{r_j}
@@ -503,8 +503,8 @@ Dans le cas particulier de la passerelle, les $\alpha$ s'obtiennent en observant
 
 \subsubsection{Consommation en phase d'écoute de canal}
 
-Les phases d'écoutes du canal se produisent à chaque cycle qu'une trame de donnée soit présente ou non.
-Il est supposé qu'en l'absence de transmission, la part d'écoute est $\frac{T_\act}{T_\cycle}$ et que le rapport est préservé dans les cas de transmissions (hors périodes de transmission et de réception).
+Les phases d'écoute du canal se produisent à chaque cycle qu'une trame de donnée soit présente ou non.
+Il est supposé qu'en l'absence de transmission des voisins, la part d'écoute est $\frac{T_\act}{T_\cycle}$ et que le rapport est préservé dans les cas de transmissions (hors périodes de transmission et de réception).
 La consommation de cette phase d'écoute peut donc s'exprimer comme:
 
 \begin{align}
@@ -533,12 +533,12 @@ Ce problème admet plusieurs solutions qui font chacune un compromis différent 
 Il existe deux façons de faire ce choix: a priori ou a posteriori.
 
 Raisonner \emph{a priori} signifie que le \ac{RPCA} va définir précisément quelle solution est souhaitable en utilisant une fonction d'\emph{utilité} définie pour chaque solution possible.
-L'avantage de cette méthode est qu'elle permet de ramener un problème multi-objectif en un problème à un seul objectif plus facile à résoudre.
-Cependant, fonctionner a priori implique d'exécuter l'optimisation à chaque fois que les préférences de l'utilisateur changent ce qui coûteux.
+L'avantage de cette méthode est qu'elle permet de ramener un problème multi-objectifs en un problème à un seul objectif plus facile à résoudre.
+Cependant, fonctionner a priori implique d'exécuter l'optimisation à chaque fois que les préférences de l'utilisateur changent, ce qui est coûteux.
 D'autre part, définir cette fonction d'utilité est complexe, car elle doit prendre en compte de multiples préférences et introduire des priorités dans les différentes fonctions objectives.
 
 Une alternative consiste à fonctionner a posteriori dans laquelle autant de solutions optimales que possible sont produites dans un premier temps.
-Puis parmi toutes les solutions admissibles proposées, l'administrateur en choisit une en fonction de ces choix et n'a ainsi pas à écrire de fonction d'utilité et se contente de choisir parmi un ensemble restreint de solutions.
+Puis parmi toutes les solutions admissibles proposées, l'administrateur en choisit une en fonction de ses choix et n'a ainsi pas à écrire de fonction d'utilité et se contente de choisir parmi un ensemble restreint de solutions.
 Cette approche en plus d'être plus simple à gérer pour l'administrateur a un autre avantage: les solutions optimales peuvent être gardées en mémoire.
 Ainsi si l'administrateur souhaite modifier sa solution, il n'est pas nécessaire de refaire tourner une seconde fois l'optimisation multi-objectifs.
 
@@ -547,8 +547,8 @@ Ainsi si l'administrateur souhaite modifier sa solution, il n'est pas nécessair
 \subsubsection{Solution}
 
 Un problème d'optimisation est dit multi-objectifs lorsque plusieurs objectifs doivent être maximisés en même temps.
-Le \ac{RPCA} utilise une modélisation dans le but d'obtenir un ensemble de solutions optimales pour chacune de ces fonctions objectives.
-Ces solutions forment ce qu'on appelle un front non dominé de Pareto qui est l'ensemble des solutions pour lesquels il n'est pas possible de maximiser une des fonctions objectives sans en réduire une autre.
+Le \ac{RPCA} utilise une modélisation dans le but d'obtenir un ensemble de solutions optimales pour chacune de ses fonctions objectives.
+Ces solutions forment ce qu'on appelle un front non dominé de Pareto qui est l'ensemble des solutions pour lesquelles il n'est pas possible de maximiser une des fonctions objectives sans en réduire une autre.
 
 Une solution $\mathcal{C}$ est composée de l'ensemble des temps de vie des réponses $c_u$ pour chaque \ac{URI} $u$.
 Quand le \ac{RPCA} utilise une solution $\mathcal{C}$, la quantité de requêtes admises dans le \ac{LLN} pour le nœud $i$ sera de $r_i$.
@@ -573,10 +573,10 @@ Ainsi, soit $\gamma_u$ mesurant la satisfaction d'un utilisateur par une variabl
 
 En particulier, une satisfaction est minimale (égale à 0) quand $c_u = \cmax$ et une satisfaction est maximale (égale à 1) quand $c_u = \cmin$.
 
-\subsection{Résolution du problème multi-objectif}
+\subsection{Résolution du problème multi-objectifs}
 
-Résoudre un problème multi-objectif n'est pas trivial, car il existe le plus souvent plusieurs solutions qui sont optimales au sens de Pareto.
-D'autre part, résoudre le problème multi-objectif dans le cas du \ac{RPCA} est difficile en raison de l'espace des solutions possibles, des fonctions objectifs et des contraintes sur les ressources disponibles pour effectuer cette optimisation.
+Résoudre un problème multi-objectifs n'est pas trivial, car il existe le plus souvent plusieurs solutions qui sont optimales au sens de Pareto.
+D'autre part, résoudre le problème multi-objectifs dans le cas du \ac{RPCA} est difficile en raison de l'espace des solutions possibles, des fonctions objectifs et des contraintes sur les ressources disponibles pour effectuer cette optimisation.
 
 \subsubsection{Grand espace de recherche}
 
@@ -608,15 +608,15 @@ D'autre part, il est souhaitable d'avoir des solutions hétérogènes correspond
 Ainsi des méthodes de recherche globales sont plus adaptées pour trouver des solutions très diverses à l'inverse d'une recherche locale qui va privilégier l'amélioration de solutions existantes autour de certaines solutions.
 
 De nombreuses approches par populations sont possibles~\cite{talbi2009metaheuristics}, parmi les plus connues on peut citer les algorithmes génétiques qui sont connus et utilisés dans les \ac{LLN}s pour avoir un placement optimal des nœuds \cite{ferentinos2007adaptive, jourdan2004multi}, pour construire des clusters efficaces en énergies~\cite{hussain2007genetic,abbasi2007survey} ou encore effectuer des partitions d'un \ac{LLN} efficaces en énergie~\cite{lai2007effective}.
-Les algorithmes génétiques sont particulièrement adaptés pour trouver des approximations à des problèmes en ne faisant aucune hypothèse sur l'espace des solutions possibles ou sur les fonctions objectif qui sont considérées comme des boites noires.
+Les algorithmes génétiques sont particulièrement adaptés pour trouver des approximations à des problèmes en ne faisant aucune hypothèse sur l'espace des solutions possibles ou sur les fonctions objectifs qui sont considérées comme des boites noires.
 
-Ainsi, un algorithme génétique est une méthode générique pour obtenir une approximation de la solution a un problème complexe et sera donc appliqué ici à la résolution du problème d'optimisation multi-objectif.
+Ainsi, un algorithme génétique est une méthode générique pour obtenir une approximation de la solution à un problème complexe et sera donc appliqué ici à la résolution du problème d'optimisation multi-objectifs.
 
 \subsection{Formalisation en algorithme génétique}
 
 Un algorithme génétique permet d'approcher une solution à un problème d'optimisation en utilisant une heuristique proche de celle de l'évolution~\cite{Luke2013Metaheuristics}.
 
-Une solution au problème multi-objectif y est représentée sous la forme d'un individu composé de différents gènes.
+Une solution au problème multi-objectifs y est représentée sous la forme d'un individu composé de différents gènes.
 Dans le cas du \ac{RPCA}, un individu est une solution $\mathcal{C}$ contenant un ensemble de temps de vie $c_u$ pour chaque \ac{URI} $u$.
 Un algorithme génétique se termine soit quand le nombre maximal d'itérations (appelée génération) est atteint, soit quand la population a atteint un niveau de qualité acceptable, soit quand le budget de calcul a été atteint.
 Ainsi un \ac{RPCA} peut être configuré pour fournir une solution en fonction d'un budget prédéfini de calcul.
@@ -655,7 +655,7 @@ Pour chaque $\mathcal{C}$, il y a deux critères à prendre en compte: la durée
 Soit $\mathcal{L}(\mathcal{C})$ la durée de vie obtenue dans le pire cas c'est-à-dire quand $r_u = c_u$.
 Soit $\Gamma(\mathcal{C})$ qui est la satisfaction moyenne ressentie par l'utilisation et qui est définie comme: $\Gamma(\mathcal{C}) = \frac{1}{N}\sum_{u} \gamma_u$.
 
-Soit $f$ la fonction d'aptitude obtenue en normalisant les grandeurs $\mathcal{S(C)}$ et $\mathcal{L(C)}$ entre $0$ et $1$:
+Soit $f$ la fonction d'aptitude obtenue en normalisant les grandeurs $\Gamma(\mathcal{C})$ et $\mathcal{L(C)}$ entre $0$ et $1$:
 
 \begin{align}
   f(\mathcal{C}) &= \frac{1}{2} \left(
@@ -699,7 +699,7 @@ Il existe essentiellement deux opérateurs génétiques: le croisement et la mut
 
 Comme de nombreuses méta-heuristiques, ces mécanismes très hétérogènes peuvent être complexes à configurer, car de nombreux paramètres sont disponibles.
 Cependant, l'utilisation d'algorithmes de sélection élitiste permet de mitiger cette complexité, car les meilleures solutions sont gardées en mémoire dans le ``hall of fame''.
-Ainsi, les mécanismes de mutation et de croisement peuvent être configurés pour être  ``exploratoire'', tandis que les mécanismes de sélection s'occupent de garder les meilleures solutions.
+Ainsi, les mécanismes de mutation et de croisement peuvent être configurés pour être  ``exploratoires'', tandis que les mécanismes de sélection s'occupent de garder les meilleures solutions.
 
 \subsubsection{Mutation}
 
@@ -827,7 +827,7 @@ La consommation énergétique du réseau est obtenue en utilisant la topologie e
 La durée de vie du \ac{LLN} est calculée comme l'intervalle de temps entre son démarrage et la perte de son premier nœud.
 
 Le \ac{RPCA} met en cache les réponses rendues par les nœuds afin de les mettre à disposition pour une éventuelle autre demande entrante.
-Une fois la topologie et le trafic connus, la résolution du problème multi-objectif est lancée et les différents $\mathcal{C}$ sont calculés.
+Une fois la topologie et le trafic connus, la résolution du problème multi-objectifs est lancée et les différents $\mathcal{C}$ sont calculés.
 Le \ac{RPCA} a suffisamment de mémoire pour retenir toutes les réponses pour chaque \ac{URI} disponible dans le réseau.
 La passerelle est toujours allumée, car non contrainte en énergie et assure une connexion permanente à un réseau local conventionnel.
 
@@ -887,7 +887,7 @@ Chaque point solution est un $\mathcal{C}$ contenant l'ensemble des $c_u$.
 Ces points forment une approximation du front de Pareto qui représente les solutions optimales et les durées de vie mesurées en jours.
 
 Les poins $\mathcal{C}_{min}$ et $\mathcal{C}_{max}$ sont également présentés afin de montrer les bornes possibles des solutions.
-Ainsi si  $\mathcal{C}_{min}$ garantie une fraîcheur aussi élevée que possible, mais raccourcit la durée de vie alors que $\mathcal{C}_{max}$ garantie une durée de vie aussi longue que possible.
+Ainsi  $\mathcal{C}_{min}$ garanti une fraîcheur aussi élevée que possible, mais raccourcit la durée de vie alors que $\mathcal{C}_{max}$ garanti une durée de vie aussi longue que possible.
 
 Une valeur haute de $c_u$ sera utilisée pour des nœuds ayant peu d'énergie.
 Par contre, une valeur $c_u$ petite sera pour des informations devant être aussi récentes que possible.

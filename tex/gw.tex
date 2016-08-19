@@ -39,17 +39,17 @@ Elle peut être administrée via une interface graphique comme une interface web
 Des solutions filaires comme le \ac{PoE} permettent de fournir alimentation électrique et connectivité aux capteurs.
 Cependant, ces solutions filaires peuvent être très coûteuses et difficiles à déployer, notamment dans de grandes zones ouvertes et difficiles d'accès.
 
-Les technologies sans-fil apportent une solution efficace et pratique de connectivité pour l'\ac{IoT} en utilisant pour leurs transmissions des bandes de fréquences \ac{ISM} qui présentent l'avantage d'être libre de droits et ne nécessitent donc pas de licence.
+Les technologies sans-fil apportent une solution efficace et pratique de connectivité pour l'\ac{IoT} en utilisant pour leurs transmissions des bandes de fréquences \ac{ISM} qui présentent l'avantage d'être libres de droits et ne nécessitent donc pas de licence.
 Les \ac{LLN}s s'appuient sur ces technologies sans-fil afin de simplifier les déploiements et réduire leurs coûts opérationnels.
 
-Plusieurs solutions sont disponibles~\cite{wifiCritic} chacune d'elle offrant un compromis entre la bande passante, la portée et la consommation énergétique des équipements mis en jeu.
+Plusieurs solutions sont disponibles~\cite{wifiCritic}, chacune d'elle offrant un compromis entre la bande passante, la portée et la consommation énergétique des équipements mis en jeu.
 On peut distinguer deux grandes catégories de technologies sans-fil~: d'une part celle offrant un accès de longue portée (plusieurs kilomètres) et d'autre part celle offrant un accès de courte portée (moins d'un kilomètre).
 
 \subsubsection{Accès longue portée}
 \label{gw:long_range}
 
-Les accès de type cellulaire permettent de fournir un accès Internet a un grand nombre d'appareils mobiles~\cite{kim2007value}.
-Cependant ils ne sont pas adaptés au cas des \ac{LLN}s, d'une part en raison du prix de fabrication des composants radios dont ils ont besoin, du coût de l'accès (licence, abonnement auprès d'un opérateur) et d'autre part par la consommation énergétique qu'ils induisent.
+Les accès de type cellulaire permettent de fournir un accès Internet à un grand nombre d'appareils mobiles~\cite{kim2007value}.
+Cependant, ils ne sont pas adaptés au cas des \ac{LLN}s, d'une part en raison du prix de fabrication des composants radios dont ils ont besoin, du coût de l'accès (licence, abonnement auprès d'un opérateur) et d'autre part par la consommation énergétique qu'ils induisent.
 Ainsi des technologies plus adaptées aux \ac{LLN}s sont requises pour offrir des accès longues portées.
 
 Les technologies dites \ac{LPWAN} permettent de transmettre un volume de trafic faible~\footnote{Environ 200 octets (typique) à 5000 octets (maximum) émis par jour avec une charge applicative utile de l'ordre de 12 octets} sur des distances longues~\footnote{5 à 40 kilomètres en champ libre} à un faible débit~\footnote{Débit de 0.250 à 11 kb/s en fonction de la technologie radio}~\cite{xiong2015low}.
@@ -58,13 +58,13 @@ Ces technologies offrent un jeu de compromis clair~: peu de débit, une grande p
 
 Cependant, ces technologies présentent plusieurs limitations.
 Les stations de base lorsqu'elles émettent utilisent une puissance supérieure à celle autorisée pour les usages privés (four à micro-ondes, Wi-Fi, etc.) sur les bandes \ac{ISM}~\cite{rec200170}.
-Dans ces conditions, les autorités régulatrices de l'utilisation des bandes \ac{ISM} obligent les stations de base à ne pas transmettre au plus que 1 \% de leur temps~\cite{vangelista2015long}.
+Dans ces conditions, les autorités régulatrices de l'utilisation des bandes \ac{ISM} obligent les stations de base à transmettre au plus 1 \% de leur temps~\cite{vangelista2015long}.
 Ainsi, les liens descendants sont limités bien que présents car les liens des \ac{LPWAN}s sont bi-directionnels.
 
 De plus, les bandes de fréquences \ac{ISM} utilisées étant étroites, les liens descendant et montant sont très proches.
 Ainsi, les stations ne peuvent pas actuellement transmettre vers les objets tout en écoutant avec le même niveau de sensibilité les autres nœuds de leur cellule.
-Donc dans le cas où il faut fournir un service de lien descendant (par exemple pour acquitter un paquet, mettre à jour un objet, ou déclencher des actions) l'utilisation de ces technologies doit se faire dans un contexte où le nombre de stations est surdimensionné afin d'offrir une bonne qualité de service.
-Par conséquent, si le nombre d'objets devient grand il devient nécessaire de densifier le nombre de stations de base pour fournir un canal de communication satisfaisant des stations vers les objets ce qui augmente les coûts de déploiements.
+Donc, dans le cas où il faut fournir un service de lien descendant (par exemple pour acquitter un paquet, mettre à jour un objet, ou déclencher des actions), l'utilisation de ces technologies doit se faire dans un contexte où le nombre de stations est surdimensionné afin d'offrir une bonne qualité de service.
+Par conséquent, si le nombre d'objets devient grand, il devient nécessaire de densifier le nombre de stations de base pour fournir un canal de communication satisfaisant des stations vers les objets, ce qui augmente les coûts de déploiement.
 
 La 5G, annoncée pour l'horizon 2020, entend regrouper et intégrer ce type de technologies longue portée pour une utilisation plus efficace des bandes de fréquences qui seront alors disponibles.
 
@@ -86,7 +86,7 @@ D'autre part, les signaux peuvent suivre plusieurs chemins entre deux nœuds en 
 Ainsi un même signal peut arriver avec des amplitudes différentes et des phases différentes pouvant causer des interférences et des pertes (appelé en anglais ``multipath-fading'').
 Ces conditions sont très instables et dépendent de l'utilisation d'une fréquence donnée, dans un environnement donné, à un temps donné.
 
-Les technologies sans-fils de portée courte sont nombreuses, et seules les plus représentatives seront abordées dans les paragraphes suivants.
+Les technologies sans-fil de portée courte sont nombreuses, et seules les plus représentatives seront abordées dans les paragraphes suivants.
 
 \paragraph{Wi-Fi}
 
@@ -97,7 +97,7 @@ Le mode la plus économe en énergie du Wi-Fi nommée \ac{PSM} permet de former 
 Cependant ce mode de fonctionnement impose d'utiliser le Wi-Fi en mode infrastructure avec une topologie en étoile ce qui limite la portée du réseau.
 
 D'autre part, Wi-Fi n'est pas la technologie la plus compétitive pour les \ac{LLN} car une puce Wi-Fi est coûteuse à fabriquer et offre un débit souvent surdimensionné par rapport aux besoins des nœuds~\cite{wifiCritic}.
-Ainsi, de nouvelles technologies sans-fil ont donc ont été conçues afin de transporter des messages à des débits plus modestes tout en consommant moins d'énergie et en restant sur les bandes \ac{ISM}.
+Ainsi, de nouvelles technologies sans-fil ont donc été conçues afin de transporter des messages à des débits plus modestes tout en consommant moins d'énergie et en restant sur les bandes \ac{ISM}.
 
 \paragraph{Z-wave}
 
@@ -106,7 +106,7 @@ Cette technologie permet d'avoir des communications fiables, avec une faible lat
 
 Son attrait se trouve dans sa large diffusion dans le secteur de la domotique avec une large gamme de produits compatibles entre eux~\cite{zwaveCritic}.
 
-Cependant Z-wave ne permettent pas de passer simplement à l'échelle~\footnote{Limitation à 4 routeurs intermédiaires pour un réseau maillé, pas plus de 232 nœuds par réseau.} sur des scénarios avec un grand nombre de nœuds comme un bâtiment entier, une ville ou un centre commercial qui sont des cas d'utilisation importants des \ac{LLN}s~\cite{zwaveCritic}.
+Cependant Z-wave ne permet pas de passer simplement à l'échelle~\footnote{Limitation à 4 routeurs intermédiaires pour un réseau maillé, pas plus de 232 nœuds par réseau.} sur des scénarios avec un grand nombre de nœuds comme un bâtiment entier, une ville ou un centre commercial qui sont des cas d'utilisation importants des \ac{LLN}s~\cite{zwaveCritic}.
 
 \paragraph{\ac{BLE}}
 
@@ -119,7 +119,8 @@ Cependant les portées de transmissions sont encore trop limitées et le support
 \paragraph{\ieee{}}
 
 \ieee{} permet de connecter des objets disposant de ressources limitées entre eux par une topologie étoilée, maillée ou arborescente sur des portées de 10 à 50 mètres avec des débits de 250kb/s.
-\ieee{} est utilisée par plusieurs normes~\footnote{Zigbee~\cite{alliance2006zigbee, zigbeeCritic}, Wireless HART~\cite{lennvall2008comparison}, EnOcean~\cite{ploennigs2010performance}, \ac{6LoWPAN}~\cite{shelby20116lowpan} et plus récemment Thread~\cite{threadCritic}} ainsi ces normes permettent de disposer d'une large littérature sur ses performances et son fonctionnement.
+\ieee{} est utilisée par plusieurs normes~\footnote{Zigbee~\cite{alliance2006zigbee, zigbeeCritic}, Wireless HART~\cite{lennvall2008comparison}, EnOcean~\cite{ploennigs2010performance}, \ac{6LoWPAN}~\cite{shelby20116lowpan} et plus récemment Thread~\cite{threadCritic}}.
+Ainsi, ces normes permettent de disposer d'une large littérature sur ses performances et son fonctionnement.
 % \ieee{} permet des communications bidirectionnelles plus flexibles avec des débits plus élevés contrairement à ce que propose les accès~\ac{LPWAN} ce qui est pertinent dans des cas où des besoins de bande passante plus élevés sont souhaitables pour envoyer une photo de surveillance par exemple.
 En outre, sa consommation énergétique est faible de même que le coût moyen de ses composants radios physiques~\cite{vilajosana2015openmote}.
 
@@ -149,8 +150,8 @@ Z-wave & Non & 9.6, 40, 100 kb/s & Étoile, Maillé &  Oui \\
 \label{gw:table:protocol_recap}
 \end{table*}
 
-Le tableau~\ref{gw:table:protocol_recap} offre un récapitulatif des technologies sans-fil considérée.
-Après analyse des différentes solutions possibles, \ieee{} est le protocole qui apparaît comme le plus adapté pour construire des réseaux maillés permettant de pallier efficacement à la faible portée des nœuds en augmentant la couverture et cela sans limites de nœuds.
+Le tableau~\ref{gw:table:protocol_recap} offre un récapitulatif des technologies sans-fil considérées.
+Après analyse des différentes solutions possibles, \ieee{} est le protocole qui apparaît comme le plus adapté pour construire des réseaux maillés permettant de pallier efficacement la faible portée des nœuds en augmentant la couverture et cela sans limites de nœuds.
 
 Pour cette raison, le travail effectué dans cette thèse s'appuie exclusivement sur \ieee{}.
 
@@ -267,12 +268,12 @@ Les protocoles basés sur \ieee{} utilisent ces identifiants pour construire un 
 \subsubsection{IPv4}
 \label{gw:ipv4}
 
-IP étant le protocole réseau le plus utilisé aujourd’hui il est un candidat naturel pour fournir un adressage sur un \ac{LLN} qui soit interopérable avec un réseau existant.
+IP étant le protocole réseau le plus utilisé aujourd’hui, il est un candidat naturel pour fournir un adressage sur un \ac{LLN} qui soit interopérable avec un réseau existant.
 Ainsi une solution consisterait à affecter une adresse IPv4 à chaque nœud.
 
 Toutefois, IPv4 n'est pas pleinement satisfaisant principalement pour deux raisons.
-D'une part la pénurie d'adresses IPv4~\cite{deering1998internet} ne permet pas d'assigner une IP publique à chaque nœud ce qui est dommageable dans le cas où des scénarios de connexions directs sont requis.
-Une solution consisterait à utiliser des \ac{NAT}s~\footnote{Mécanisme permettant de disposer de plusieurs adresses privées derrière une seule adresse publique.} afin de pallier au manque d'adresses publiques allouées.
+D'une part la pénurie d'adresses IPv4~\cite{deering1998internet} ne permet pas d'assigner une IP publique à chaque nœud ce qui est dommageable dans le cas où des scénarios de connexions directes sont requis.
+Une solution consisterait à utiliser des \ac{NAT}s~\footnote{Mécanisme permettant de disposer de plusieurs adresses privées derrière une seule adresse publique.} afin de pallier le manque d'adresses publiques allouées.
 Cependant, des \ac{NAT}s requièrent de reconstruire des paquets et ce traitement dégraderait les performances en plus d'être complexe et d'invalider la connexion de bout en bout directe.
 
 D'autre part, les en-têtes IPv4 sont relativement grands, ce qui signifie plus d'informations à transmettre et donc plus d'énergie à consommer pour transmettre un message.
@@ -284,7 +285,7 @@ Ceci pourrait être clairement amélioré puisqu'un en-tête IPv4 véhicule des 
 Une solution alternative consiste à utiliser IPv6 afin de disposer d'un vaste espace d'adressage rendant l'utilisation d'un \ac{NAT} superflue et qui permettrait de généraliser les connexions de bout en bout sans intermédiaire.
 Cependant l'utilisation d'IPv6 comporte des inconvénients dans le cas des \ac{LLN}s.
 L'entête de taille fixe d'IPv6 (40 octets) est plus large que celle d'IPv4 (20 octets), d'autre part, IPv6 définit un \ac{MTU} \emph{minimal} de 1280 octets afin d'éviter les problèmes de fragmentation et de recomposition de paquets.
-Or \ieee{} ne peut fournir au maximum qu'une trame de 127 octets, ainsi les paquets IPv6 venant de \ieee{} serait rejetés par un routeur IPv6 implémentant ces recommandations de \ac{MTU} minimal.
+Or \ieee{} ne peut fournir au maximum qu'une trame de 127 octets, ainsi les paquets IPv6 venant de \ieee{} seraient rejetés par un routeur IPv6 implémentant ces recommandations de \ac{MTU} minimal.
 
 Actuellement, IPv4 est encore largement déployé et donc les adressages IPv4 et IPv6 vont cohabiter plusieurs années~\cite{colitti2010evaluating}.
 Si un \ac{LLN} utilise IPv6 pour son adressage et qu'il doit pouvoir recevoir des instructions envoyées depuis un réseau standard fonctionnant en IPv4 alors la passerelle doit assurer une conversion IPv4/IPv6 qui peut être effectuée par un mécanisme de traduction (teredo, 6to4, isatap, etc.)~\cite{conta1998generic}.
@@ -319,7 +320,7 @@ Dans le cas où les messages doivent être acquittés, ils peuvent l'être avec 
 Une application directe de cette configuration est représentée sur la Figure~\ref{gw:fig:802154} qui représente une trame \ieee{} de donnée (``Data frame'' en anglais).
 En \ieee{}, la taille maximale de données fournie par la couche physique (\ac{PLSDU}) est de 127 octets.
 Utiliser IPv6 sans compression sur cette trame de données de 127 octets impliquerait de laisser seulement 33 octets utilisables pour des messages applicatifs puisque 25 sont pris par \ieee{}~\footnote{L'entête de sécurité représenté par AES-CCM sur la Figure~\ref{gw:fig:802154} est optionnel et peut consommer jusqu'à 21 octets}, 40 par IPv6 et 8 par \ac{UDP}; soit une efficacité de 26\%.
-\ac{TCP} offre un rendement encore moins bon, car son entête prends plus de place que celle d'\ac{UDP}.
+\ac{TCP} offre un rendement encore moins bon, car son entête prend plus de place que celle d'\ac{UDP}.
 Afin d'améliorer ce rendement, il est nécessaire de procéder à une compression permettant d'empiler et d'abréger les informations contenues dans l'en-tête IPv6.
 C'est ce que propose \ac{6LoWPAN}.
 
@@ -365,7 +366,7 @@ Ainsi, \ac{6LoWPAN} permet de disposer de la compatibilité avec les réseaux IP
 \section{Routage}
 \label{gw:routing}
 
-Lorsqu'un \ac{LLN} utilise un réseau maillé pour communiquer (notamment en raison de la faible portée de transmission des nœuds), il est nécessaire de disposer d'un protocole de routage afin que les nœuds routeurs en charge de router les paquets puisse le faire.
+Lorsqu'un \ac{LLN} utilise un réseau maillé pour communiquer (notamment en raison de la faible portée de transmission des nœuds), il est nécessaire de disposer d'un protocole de routage afin que les nœuds routeurs en charge de router les paquets puissent le faire.
 Cependant les contraintes propres aux \ac{LLN}s se distinguent de celles des cas classiques de routage disponibles pour les réseaux usuels.
 
 \subsection{Contraintes du routage dans les \ac{LLN}s}
@@ -438,12 +439,12 @@ Il existe deux principales familles de protocoles de routage: le routage à éta
 
 Dans cette approche, chaque nœud a la connaissance complète du réseau qui est un graphe.
 Afin d'avoir cette connaissance, chaque nœud envoie à tout le réseau les informations à propos de ces liens et des destinations adjacentes.
-Après la réception d'assez d'états de liens depuis un nombre suffisant de nœuds, chaque nœud calcule un arbre de plus court chemin depuis lui même vers chaque destination en utilisant l'algorithme de Dijkstra~\cite{phillips1981fundamentals}.
+Après la réception d'assez d'états de liens depuis un nombre suffisant de nœuds, chaque nœud calcule un arbre de plus court chemin depuis lui-même vers chaque destination en utilisant l'algorithme de Dijkstra~\cite{phillips1981fundamentals}.
 
 Ce type de protocole induit une grande quantité de trafic de signalisation notamment quand la topologie des nœuds change souvent.
 De plus, les nœuds ont besoin de mémoire pour stocker l'état de chaque nœud ainsi ils ne sont pas adaptés pour les \ac{LLN}s~\cite{draft-ietf-roll-protocols-survey-07}.
 
-Il est à noter que ce type de protocole peut éventuellement être utilisé sur les routeurs de bordures qui ont suffisamment de capacité en bande passante et en mémoire pour communiquer aux éventuels autres routeurs de bordure sur le réseau, les routes disponibles vers le \ac{LLN}.
+Il est à noter que ce type de protocole peut éventuellement être utilisé sur les routeurs de bordure qui ont suffisamment de capacité en bande passante et en mémoire pour communiquer aux éventuels autres routeurs de bordure sur le réseau, les routes disponibles vers le \ac{LLN}.
 
 \paragraph{Routage à vecteur de distance}
 
@@ -457,7 +458,7 @@ En raison de sa simplicité, de sa faible signalisation et de son adaptabilité,
 
 \subsubsection{Réactivité}
 
-La réactivité d'un protocole de routage désigne comment les routes sont entretenues et découverte au cours du temps.
+La réactivité d'un protocole de routage désigne comment les routes sont entretenues et découvertes au cours du temps.
 Il existe deux modalités de réactivité pour le routage: le routage réactif et le routage proactif.
 
 \paragraph{Routage réactif}
@@ -481,7 +482,7 @@ L'avantage de cette approche est que les routes sont immédiatement disponibles 
 
 \subsection{\acl{RPL}}
 
-\ac{ROLL} a construit \ac{RPL}~\cite{rfc6550} afin de fournir un protocole de routage disposant des fonctionnalités nécessaires et adaptés aux contraintes spécifiques des \ac{LLN}s spécifiées dans leur cahier des charges~\cite{draft-ietf-roll-protocols-survey-07}.
+\ac{ROLL} a construit \ac{RPL}~\cite{rfc6550} afin de fournir un protocole de routage disposant des fonctionnalités nécessaires et adaptées aux contraintes spécifiques des \ac{LLN}s spécifiées dans leur cahier des charges~\cite{draft-ietf-roll-protocols-survey-07}.
 
 \ac{RPL} est un protocole de routage proactif à vecteur de distance dédié aux \ac{LLN}s.
 Il construit et maintient une topologie de réseau sous forme d’un graphe acyclique dirigé vers une destination (\ac{DODAG} en anglais) ayant comme racine une ou plusieurs routeur de bordure (\ac{LBR} en anglais).
@@ -515,17 +516,17 @@ La passerelle peut assurer cette fonctionnalité de routeur de bordure en raison
 % 	\label{gw:fig:rpl_border}
 % \end{figure}
 
-Les nœuds routeurs disposant d'interfaces vers un autre lien IP sont appelés routeurs de bordure (\ac{LBR}), il peut y avoir plusieurs \ac{LBR} pour connecter un \ac{LLN} au reste d'un réseau afin d'assurer une redondance de lien de sorties souhaitable en cas de pannes.
+Les nœuds routeurs disposant d'interfaces vers un autre lien IP sont appelés routeurs de bordure (\ac{LBR}), il peut y avoir plusieurs \ac{LBR} pour connecter un \ac{LLN} au reste d'un réseau afin d'assurer une redondance de liens de sorties souhaitable en cas de pannes.
 Le rôle de \ac{LBR} est généralement accompli par la passerelle en raison des multiples interfaces de sorties dont elle dispose.
 
 Les nœuds à l'intérieur du \ac{LLN} sont soit des routeurs soit des hôtes.
-Les hôtes ne participent pas au routage et choisissent simplement un routeur par défaut, c'est par exemple le cas des nœuds fortement contraint qui ne peuvent assurer des tâches de routage pour le compte d'autres nœuds.
-Les routeurs sont eux chargés de router les paquets en provenance d'hôte ou d'autres routeurs vers leur destination finale.
+Les hôtes ne participent pas au routage et choisissent simplement un routeur par défaut, c'est par exemple le cas des nœuds fortement contraints qui ne peuvent assurer des tâches de routage pour le compte d'autres nœuds.
+Les routeurs sont eux chargés de router les paquets en provenance d'hôtes ou d'autres routeurs vers leur destination finale.
 
 \subsubsection{Construction du routage}
 
 Pour le routage montant (\ac{MP2P}), \ac{RPL} construit un \ac{DODAG} qui démarre à partir du \ac{LBR}.
-Un rang est assigné à chaque nœud (routeur ou hôte) de tel sorte que le rang augmente à mesure que l'on s'éloigne du \ac{LBR}.
+Un rang est assigné à chaque nœud (routeur ou hôte) de telle sorte que le rang augmente à mesure que l'on s'éloigne du \ac{LBR}.
 Router un paquet vers le \ac{LBR} consiste à choisir un voisin avec un rang aussi faible que possible.
 
 Le routage descendant (\ac{P2MP}) peut être implémenté de manière stockée (``storing-mode'' en anglais) ou non stockée (``non storing-mode'' en anglais) à l'échelle du \ac{DODAG} entier.
@@ -545,7 +546,7 @@ Dans un \ac{LLN}, le trafic de routage et de données est limité, ainsi il est 
 Pour cela, un routeur \ac{RPL} insert une option (nommée \ac{RPL} Option~\cite{rfc6553}) dans l'entête de chaque paquet de donnée afin de détecter les éventuelles inconsistances et lancer des réparations ciblées ou globales le cas échéant.  
 Par exemple, si un routeur reçoit un paquet ``descendant'' et qu'il doit l'envoyer à un nœud avec un rang plus faible ou un paquet ``montant'' et qu'il doit l'envoyer à un nœud avec un rang plus élevé alors une inconsistante est détectée et une réparation est déclenchée.
 
-La transmission des paquets est suspendue tant que le \ac{DODAG} n'est pas remis dans un état admissible ce qui peut occasionner des délais et des surcharges des mémoires tampons.
+La transmission des paquets est suspendue tant que le \ac{DODAG} n'est pas remis dans un état admissible, ce qui peut occasionner des délais et des surcharges des mémoires tampons.
 
 \paragraph{Limitation de trafic de routage (Trickle)}
 
@@ -633,7 +634,7 @@ Ainsi il implémente un mécanisme de transport unicast pour assurer une fiabili
 \ac{CoAP} supporte les notifications asynchrones afin de permettre à des nœuds capteurs d'envoyer des notifications sur un modèle ``push'' à un observateur.
 
 En pratique, il n'y a le plus souvent qu'un seul observateur afin de limiter l'utilisation des ressources d'un nœud capteur qui n'a besoin de garder qu'une seule adresse en mémoire.
-Dans cette architecture c'est le plus souvent un service qui va recueillir les notifications en provenance des nœuds capteurs et les distribuer vers les abonnés pertinents sans solliciter les nœuds capteurs.
+Dans cette architecture, c'est le plus souvent un service qui va recueillir les notifications en provenance des nœuds capteurs et les distribuer vers les abonnés pertinents sans solliciter les nœuds capteurs.
 Ce mode de fonctionnement peut être accompli par l'utilisation d'un proxy inversé (\ref{gw:reverse_proxy}).
 
 \subsubsection{Traduction \ac{HTTP}/\ac{CoAP}}
@@ -642,7 +643,7 @@ L'un des objectifs de \ac{CoAP} est de permettre une traduction facile entre une
 
 \ac{CoAP} n'est pas une compression naïve de \ac{HTTP} qui serait un standard complexe à implémenter et surdimensionné pour les nœuds capteurs.
 La conversion entre \ac{HTTP} et \ac{CoAP} se fait sur les verbes employés (\texttt{GET}, \texttt{PUT}, etc.) et les \ac{URI} (paramètres et options compris).
-La conversion est sans état et peut être faite efficacement par l'utilisation de proxy traducteurs situés entre les sources des requêtes \ac{HTTP} et les nœuds capteurs.
+La conversion est sans état et peut être faite efficacement par l'utilisation de proxys traducteurs situés entre les sources des requêtes \ac{HTTP} et les nœuds capteurs.
 
 De plus, \ac{CoAP} supporte le traitement complet d'une \ac{URI} afin de profiter des options qu'elle contient pour répondre plus précisément à une requête (par exemple recevoir une notification si la température dépasse un seuil.)
 
@@ -656,14 +657,14 @@ Cette médiation peut être approfondie par la passerelle afin d'offrir des fonc
 \label{gw:traduction}
 
 Les nœuds d'un \ac{LLN} utilisent des protocoles applicatifs hétérogènes et les fournisseurs de services veulent éviter d'implémenter un support pour un grand nombre de protocoles qui serait trop coûteux.
-La passerelle connaît les spécificités de chaque nœud et peut offrir des traductions de protocoles depuis des protocoles usuellement utilisés dans les services web tel qu'\ac{HTTP} vers les protocoles utilisés par les nœuds capteurs du \ac{LLN}.
-Ainsi les tâches de traduction se font au plus près des nœuds capteurs et permet de simplifier le traitement des données dans des architectures orientées service.
+La passerelle connaît les spécificités de chaque nœud et peut offrir des traductions de protocoles depuis des protocoles usuellement utilisés dans les services web tels qu'\ac{HTTP} vers les protocoles utilisés par les nœuds capteurs du \ac{LLN}.
+Ainsi les tâches de traduction se font au plus près des nœuds capteurs et permettent de simplifier le traitement des données dans des architectures orientées service.
 
 \subsubsection{Proxy inversé}
 \label{gw:reverse_proxy}
 
 La fonctionnalité de traduction n'est pas suffisante pour fournir un service efficace et sécurisé.
-En effet, les nœuds capteurs étant contraints ils ne peuvent recevoir qu'une quantité limitée de trafic.
+En effet, les nœuds capteurs étant contraints, ils ne peuvent recevoir qu'une quantité limitée de trafic.
 De plus, s'ils sont accessibles depuis un réseau public, il est nécessaire de contrôler finement le trafic reçu afin d'éviter par exemple des attaques par déni de service ou de sommeil~\cite{wessels2001web,raymond2008denial}.
 
 Un proxy inversé (``reverse proxy'' en anglais et désigné par \ac{RPC} dans le reste de cette thèse)~\cite{reese2008nginx} est un serveur qui se pose entre des requêtes provenant de l'extérieur et des services à protéger comme représenté sur la Figure~\ref{gw:fig:rpc}.
@@ -692,7 +693,7 @@ Comme vu dans cette section, \ac{CoAP} permet d'offrir une sémantique et un jeu
 
 Cette intégration des notifications asynchrones est d'autant plus pertinente que les versions futures de \ac{HTTP}2 en cours de déploiement supporteront les notifications asynchrones (``push notifications'' en anglais).
 Ainsi, des traductions sémantiquement complètes pourront être mises en œuvre entre \ac{CoAP} et \ac{HTTP}2.
-Ces aspects sont activement étudiés aujourd'hui et accentue la nécessité d'avoir des traductions aussi efficaces que possible autour du paradigme \ac{REST} entre les nœuds et les fournisseurs de services à valeur ajoutée ce que \ac{CoAP} fournit.
+Ces aspects sont activement étudiés aujourd'hui et accentuent la nécessité d'avoir des traductions aussi efficaces que possible autour du paradigme \ac{REST} entre les nœuds et les fournisseurs de services à valeur ajoutée, ce que \ac{CoAP} fournit.
 
 \begin{figure}[ht]
   \centering
@@ -765,8 +766,7 @@ Cette surveillance est nécessaire pour s'assurer par exemple qu'un système d'a
 Un système de supervision peut agir en envoyant une alerte à un humain ou un autre système pour l'informer qu'un \ac{LLN} rencontre des problèmes et qu'une intervention est peut-être à prévoir.
 Son objectif est alors de permettre à un administrateur d'identifier aussi rapidement que possible quel est le problème et ses causes.
 
-Dans le cas des \ac{LLN}s, les métriques recueillies peuvent être relatives à un nœud donné par sa consommation énergétique, l'état du médium, le nombre de retransmissions, la charge moyenne, etc.
-Ou bien relatives à l'ensemble du \ac{LLN}s avec les nœuds les plus sollicités, les nœuds ayant des ressources énergétiques en dessous d'un certain seuil, la latence globale ou les erreurs applicatives, etc.
+Dans le cas des \ac{LLN}s, les métriques recueillies peuvent être relatives à un nœud donné par sa consommation énergétique, l'état du médium, le nombre de retransmissions, la charge moyenne, etc ou bien relatives à l'ensemble du \ac{LLN}s avec les nœuds les plus sollicités, les nœuds ayant des ressources énergétiques en dessous d'un certain seuil, la latence globale ou les erreurs applicatives, etc.
 
 Toutes ces informations permettent de prendre des décisions motivées et justifiées sur la maintenance du réseau afin de garantir son fonctionnement.
 

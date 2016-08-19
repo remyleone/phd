@@ -18,7 +18,7 @@ L'organisation du chapitre est la suivante:
 
 La section~\ref{makesense:reproductibility} présente la reproductibilité d'expérience et la met en perspective avec la recherche sur les \ac{LLN}s.
 
-La section~\ref{makesense:related} présente comment la documentation et l'automatisation sont faits dans l'état de l'art, comment l'interaction avec les nœuds physiques d'une plateforme est classiquement faite et les limites de chacune de ces approches.
+La section~\ref{makesense:related} présente comment la documentation et l'automatisation sont faites dans l'état de l'art, comment l'interaction avec les nœuds physiques d'une plateforme est classiquement faite et les limites de chacune de ces approches.
 
 La section~\ref{makesense:makesense} présente Makesense et les choix techniques effectués pour l'utiliser efficacement dans le contexte des \ac{LLN}s.
 
@@ -82,7 +82,7 @@ Les simulateurs et émulateurs n'utilisent pas des nœuds physiques et permetten
 Vérifier des résultats de simulations sur des nœuds physiques apporte une confirmation aux résultats trouvés en simulation.
 Cependant effectuer des expériences sur un grand nombre de nœuds requiert de disposer physiquement de ces nœuds.
 Il peut être coûteux pour un laboratoire d'investir pour acheter, mettre en place et maintenir tous les nœuds requis pour une expérience donnée.
-Ainsi des plateformes publiques (``testbeds'' en anglais) sont apparus afin de mutualiser un grand nombre de nœuds physiques entre plusieurs équipes de recherche~\cite{doddavenkatappa2012indriya, fleury2015fit}.
+Ainsi des plateformes publiques (``testbeds'' en anglais) sont apparues afin de mutualiser un grand nombre de nœuds physiques entre plusieurs équipes de recherche~\cite{doddavenkatappa2012indriya, fleury2015fit}.
 Ces plateformes mettent à la disposition de leurs utilisateurs des nœuds physiques avec des architectures matérielles variées sur lesquels un utilisateur déploie son système.
 Elles offrent des traces détaillées de l'expérience et permettent de déployer sur des nœuds représentatifs d'un capteur un code spécifique et de mesurer l'évolution de ce nœud au cours du temps~\cite{fleury2015fit}.
 
@@ -116,7 +116,7 @@ Cependant, un émulateur est soumis aux mêmes limitations qu'un simulateur, tou
 
 L'objectif des déploiements sur plateforme est de fournir des nœuds physiques réels aux expérimentateurs afin d'exécuter des expériences dans des conditions plus réalistes que celle d'un simulateur ou d'un émulateur.
 
-L'utilisation des plateformes est répandue en recherche et de nombreux travaux s'appuient sur ces plateformes pour effectuer des expériences~\cite{theoleyremesures,handziski2006twist}.
+L'utilisation des plateformes est répandue en recherche et de nombreux travaux s'appuient sur ces plateformes pour effectuer des expériences~\cite{handziski2006twist}.
 
 Cependant, effectuer une expérience sur plateforme présente des différences de fond par rapport aux expériences sur simulateur et émulateur.
 Le temps ne pouvant être accéléré comme sur un simulateur, des expériences longues sont nécessaires pour tester la fiabilité sur de grandes périodes de temps.
@@ -149,7 +149,7 @@ Les images binaires produites lors du prototypage avec un émulateur peuvent êt
 De plus, le code écrit pour analyser les résultats peut être également conservé, car les sorties séries peuvent être au même format.
 
 Enfin, le passage de la plateforme au déploiement réel met en jeu des contraintes qui sont spécifiques à un déploiement donné et à sa finalisation, ainsi cette difficulté souvent logistique ne peut être évitée et dépend de chaque contexte.
-Cependant le binaire faisant fonctionner les nœuds et l'analyse des résultats conçue précédemment peuvent être conservés.
+Cependant, le binaire faisant fonctionner les nœuds et l'analyse des résultats conçus précédemment peuvent être conservés.
 
 On peut observer que la progression vers le réalisme est un processus itératif et qu'une partie des développements peuvent être conservés d'un niveau à l'autre afin d'économiser les coûts de mise en place.
 Ainsi un framework permettant de documenter, d'automatiser et de réutiliser autant de fonctionnalités que possible entre les différents niveaux permet aux utilisateurs de se concentrer sur les verrous technologiques propres à chaque niveau au lieu de ré-implémenter l'ensemble de leur développement à chaque fois. 
@@ -158,13 +158,13 @@ Ainsi un framework permettant de documenter, d'automatiser et de réutiliser aut
 \label{makesense:related}
 
 Gérer une expérience sur des nœuds physiques ou émulés met en jeu de nombreuses étapes comme la préparation des nœuds, l'exécution et le traitement des données.
-L'intégration de toutes ces étapes est longue et fastidieuse ainsi il est nécessaire de la documenter et lorsque cela est possible de l'automatiser. 
+L'intégration de toutes ces étapes est longue et fastidieuse, ainsi il est nécessaire de la documenter et lorsque cela est possible de l'automatiser. 
 
 \subsection{Documentation}
 
 Les logiciels et plateformes utilisés par les \ac{LLN}s sont relativement nouveaux, ainsi, il est particulièrement important que leur documentation soit aussi claire et tenue à jour que possible afin de diffuser efficacement leur usage.
 Cette documentation est actuellement essentiellement fournie par des didacticiels ad hoc et des wikis qui sont édités par la communauté des utilisateurs.
-C'est notamment le cas des plateformes Indriya et IoT-lab~\cite{fleury2015fit,doddavenkatappa2011indriya} et des systèmes d'exploitation usuels tels que Contiki~\cite{dunkels2004contiki}, OpenWSN~\cite{watteyne2012openwsn} ou encore RIOT~\cite{baccelli2013riot}.
+C'est notamment le cas des plateformes Indriya et FIT-IoT-lab~\cite{fleury2015fit,doddavenkatappa2011indriya} et des systèmes d'exploitation usuels tels que Contiki~\cite{dunkels2004contiki}, OpenWSN~\cite{watteyne2012openwsn} ou encore RIOT~\cite{baccelli2013riot}.
 Cette approche est choisie, car elle est facile à mettre en place et permet de rapidement partager une expérience avec les utilisateurs, mais a le défaut de pouvoir devenir obsolète si elle n'est pas tenue à jour.
 
 Une autre approche consiste à documenter un projet de manière systématique par l'utilisation d'un logiciel de documentation comme Doxygen~\cite{van2004doxygen} ou Sphinx~\cite{brandl2010sphinx}.
@@ -202,7 +202,7 @@ De plus, pour un utilisateur débutant, les multiples erreurs pouvant survenir s
 
 Comme vu dans cette section, l'état de l'art offre des solutions pour chacun des problèmes individuellement cependant leur intégration au sein d'un seul framework cohérent est encore manquant.
 
-Les descriptions de protocoles expérimentaux peuvent être enrichies via un mécanisme de notebook pour fournir à la fois une description et code au sein d'un même fichier.
+Les descriptions de protocoles expérimentaux peuvent être enrichies via un mécanisme de notebook pour fournir à la fois une description et du code au sein d'un même fichier.
 
 L'automatisation est nécessaire pour garantir la consistance et la rapidité de mise en place, mais doit être couplée à la vérification des dépendances et intégrée avec la documentation afin de garantir que le code d'une expérience est exécuté dans un contexte défini et que toutes les dépendances sont satisfaites.
 
@@ -222,7 +222,7 @@ L'apport de fond d'un notebook se situe dans la juxtaposition de la documentatio
 La description d'une expérience dans un notebook est présentée de la même façon que dans un didacticiel, des étapes se suivent dans un ordre précis pour aboutir à un résultat.
 Chaque étape peut être rejouée indépendamment, ainsi le coût pour rejouer une étape se limite a l'étape elle-même et pas à ses dépendances qui sont gardées en mémoire.
 
-\paragraph{Utilisation d'un langage et d'un contexte commun}
+\paragraph{Utilisation d'un langage et d'un contexte communs}
 
 Utiliser des outils hétérogènes et incapables de communiquer efficacement entre eux augmente la charge de développement et le temps requis pour intégrer ces différents composants~\cite{stanisic2015effective}.
 Ainsi Makesense utilise un seul langage et partage un contexte d'exécution entre toutes les étapes afin de simplifier la compréhension d'une expérience et le partage des données.
@@ -234,7 +234,7 @@ En outre, les processus de gestion d'expériences ont de nombreuses similarités
 Makesense utilise des bibliothèques logicielles scientifiques et généralistes largement diffusées pour effectuer une expérience.
 Ce choix permet d'éviter l'obsolescence des dépendances, car elles reposent sur des communautés actives et visent à offrir un pont entre les communautés scientifiques et celles liées au développement logiciel.
 
-\paragraph{Approvisionnement d'expérience par l'utilisation de gabarit}
+\paragraph{Approvisionnement d'expérience par l'utilisation de gabarits}
 
 Les expériences sur les \ac{LLN}s mettent en jeu de nombreux fichiers (code source des nœuds, configuration d'un simulateur, etc.) qui peuvent être réutilisables d'une expérience à l'autre, notamment dans les cas de campagnes d'expériences.
 Makesense génère ces fichiers de manière expressive en utilisant des gabarits de fichiers pour générer dynamiquement l'ensemble des fichiers nécessaires à une expérience donnée.
@@ -242,14 +242,14 @@ Ainsi une campagne d'expérience composée d'expériences paramétrables peut ê
 
 \paragraph{Réutilisation des processus d'exploitation sur différents niveaux d'abstraction}
 
-Une expérience qu'elle se passe sur nœuds simulés, émulés ou physiques conserve d'un niveau d'abstraction à l'autre des processus et des fonctions communes (par exemple l'analyse des données et leur mise en forme).
+Une expérience, qu'elle se passe sur nœuds simulés, émulés ou physiques, conserve d'un niveau d'abstraction à l'autre des processus et des fonctions communes (par exemple l'analyse des données et leur mise en forme).
 
 Makesense permet de documenter et d'automatiser ces processus communs afin de pouvoir les réutiliser autant que faire se peut d'un niveau d'abstraction à l'autre.
 Ainsi les transitions entre les différents niveaux sont plus rapides, car les traitements communs sont conservés et peuvent être appliqués en séquence.
 
 \paragraph{Utilisation d'outils de gestion de révisions et d'intégration continue}
 
-Une expérience évolue au cours du temps ainsi il est essentiel de garder en mémoire son évolution et de tester en permanence que les révisions apportées ne cassent pas les résultats précédemment obtenus et que les dépendances sont satisfaites.
+Une expérience évolue au cours du temps, ainsi il est essentiel de garder en mémoire son évolution et de tester en permanence que les révisions apportées ne cassent pas les résultats précédemment obtenus et que les dépendances sont satisfaites.
 Ainsi Makesense utilise un gestionnaire de révision et un service d'intégration continue afin de conserver toute l'évolution du développement d'une expérience et garantir que chaque nouvelle révision d'une expérience n'introduit pas d'erreurs.
 
 \paragraph{Licence et démonstration}
@@ -275,9 +275,9 @@ Des erreurs peuvent arriver à chaque étape, ainsi leur intégration est coûte
 
 Une approche classique de la documentation d'une expérience consiste à avoir la documentation, le code et les résultats obtenus dans des fichiers distincts.
 Cette approche n'offre aucune garantie de filiation entre la documentation, le code et les résultats obtenus notamment dans le cas où la documentation et le code sont encore activement édités.
-De plus, dans le cas où il ne s'agit que d'un seul code monolithique, il est nécessaire de le ré-exécuter entièrement pour avoir ses résultats ceci peut s'avérer coûteux dans le cas où des traitements longs sont ré-exécutés inutilement.
+De plus, dans le cas où il ne s'agit que d'un seul code monolithique, il est nécessaire de le ré-exécuter entièrement pour avoir ses résultats, ceci peut s'avérer coûteux dans le cas où des traitements longs sont ré-exécutés inutilement.
 
-Makesense documente ces étapes, en utilisant des notebook afin d'avoir d'un seul référentiel pour le code et la documentation que l'expérience se passe sur émulateur ou sur testbed.
+Makesense documente ces étapes, en utilisant des notebooks afin d'avoir d'un seul référentiel pour le code et la documentation que l'expérience se passe sur émulateur ou sur testbed.
 
 \subsubsection{Introduction sur les notebooks}
 
@@ -298,7 +298,7 @@ Un notebook, une fois lancé, peut être vu et utilisé via une interface graphi
 Cette figure met en jeu quatre cellules, la première représente un rendu de texte enrichi avec un titre mis en gras et des formules \LaTeX{} rendues et centrées.
 Lorsqu'une cellule de texte est rendue, le texte et les formules mathématiques au format \LaTeX{} ou Markdown contenus  dans cette cellule sont rendus à l'utilisateur permettant d'avoir une mise en page avec des listes, des sections, des images et des formules mathématiques.
 
-La seconde cellule est une cellule de code elle contient du code et des ``built-in magic command'' introduites par le signe \% au début de la cellule et servant à modifier dynamiquement le comportement du notebook.
+La seconde cellule est une cellule de code: elle contient du code et des ``built-in magic commands'' introduites par le signe \% au début de la cellule et servant à modifier dynamiquement le comportement du notebook.
 Lorsqu'une cellule de code est rendue, le code est exécuté dans le noyau qui est un contexte commun pour toutes les autres cellules de code du notebook.
 De plus, les cellules de code peuvent être ré-exécutées indépendamment les unes des autres permettant par exemple de séparer les calculs longs et coûteux des calculs plus courts d'exploration ou de visualisation de données.
 
@@ -343,7 +343,7 @@ Le format de notebook de Jupyter Notebook est découplé de son noyau d'exécuti
 Les critères de choix d'un moteur sont relatifs à la disponibilité des bibliothèques logicielles, la stabilité du moteur et les propriétés du langage.
 
 Afin de bénéficier de la plus grande stabilité et d'une large gamme de bibliothèques logicielles scientifiques, Makesense utilise \texttt{ipykernel} qui est le noyau historique de référence de Jupyter codé en Python.
-De plus, l'utilisation de Python permet d'interfacer facilement Makesense avec la plateforme IoT-lab (\ref{automation:deploy_execute_move}) par l'utilisation de la bibliothèque officielle d'IoT-lab qui est codée en Python.
+De plus, l'utilisation de Python permet d'interfacer facilement Makesense avec la plateforme FIT-IoT-lab (\ref{automation:deploy_execute_move}) par l'utilisation de la bibliothèque officielle d'IoT-lab qui est codée en Python.
 
 \paragraph{Support d'exports et de rendu}
 
@@ -366,12 +366,12 @@ Jupyter-notebook supporte ces deux types d'exports et permet ainsi à Makesense 
 Automatiser les tâches d'un processus est essentiel pour s'assurer qu'aucune étape n'a été oubliée et qu'elles sont toutes explicitées. 
 Dans le cas de développement d'expériences collaboratives, automatiser permet d'éviter les configurations spécifiques d'une machine, et favorise la synchronisation du code et des résultats.
 
-Makesense permet d'obtenir à partir du notebook d'une expérience, son automatisation et garantir sa reproductibilité.
+Makesense permet d'obtenir à partir du notebook d'une expérience son automatisation et de garantir sa reproductibilité.
 
 Dans le cas de simulations, l'automatisation a pour but d'assurer que la construction, l’exécution et l'obtention des résultats sont valides et reproductibles.
 Lorsque des paramètres aléatoires sont utilisés, pour par exemple injecter un bruit aléatoire sur un canal, un simulateur est complètement déterminé dès lors que la graine du générateur de nombres aléatoires est fixe et que les paramètres d'entrées sont constants.
 
-Dans le cas des déploiements réels, les nœuds physiques utilisés pour réaliser une expérience peuvent changer en raison de pannes ou de problèmes d'exploitations ce qui rend l'automatisation plus délicate, mais encore possible.
+Dans le cas des déploiements réels, les nœuds physiques utilisés pour réaliser une expérience peuvent changer en raison de pannes ou de problèmes d'exploitations, ce qui rend l'automatisation plus délicate, mais encore possible.
 En outre, dans le cas d'expériences se déroulant sur une plateforme publique, une exécution peut être perturbée par les expériences gérées par d'autres utilisateurs par exemple pour les conditions radio.
 
 Comme vu dans la section~\ref{makesense:justification_notebook}, il est possible de convertir un notebook en un programme par extraction des cellules de code qu'il contient. 
@@ -423,13 +423,13 @@ Le schéma~\ref{makesense:fig:schema} illustre comment les différentes étapes 
 
 La \emph{fabrication} produit tous les binaires et fichiers de configurations initiaux qui sont nécessaires à une expérience.
 La phase de \emph{déploiement} déplace ces fichiers sur les bonnes machines.
-La phase d'\emph{exécution} lance et maintient les processus nécessaires à une expérience et de produire les traces brutes qui correspondent aux grandeurs mesurées.
+La phase d'\emph{exécution} lance et maintient les processus nécessaires à une expérience et produit les traces brutes qui correspondent aux grandeurs mesurées.
 La phase de \emph{mise en forme} ``nettoie'' des traces brutes afin de les rendre plus simples à analyser et exploiter.
 La phase d'\emph{analyse} traite ces données mises en forme afin de produire des analyses qualitatives et quantitatives sur les phénomènes observés.
-Enfin, la phase de \emph{présentation} fournit les représentations graphiques qui seront le plus souvent mises dans des articles ou partager avec d'autres collaborateurs.
+Enfin, la phase de \emph{présentation} fournit les représentations graphiques qui seront le plus souvent mises dans des articles ou partagées avec d'autres collaborateurs.
 
 Chacune des cellules de code utilisée peut être précédée ou suivie de plusieurs cellules de textes enrichis pour décrire ce qu'elle contient ou apporter des précisions sur son fonctionnement.
-Les résultats intermédiaires des cellules de code peuvent être conservés dans le contexte commun à toutes les cellules du notebook ce qui permet de réutiliser des résultats et au besoin d'ajouter une nouvelle cellule pour explorer une nouvelle idée.
+Les résultats intermédiaires des cellules de code peuvent être conservés dans le contexte commun à toutes les cellules du notebook, ce qui permet de réutiliser des résultats et au besoin d'ajouter une nouvelle cellule pour explorer une nouvelle idée.
 
 \subsubsection{Expérience séquentielle et script d'exécution}
 \label{makesense:sequentiel}
@@ -438,7 +438,7 @@ Comme vu dans la section~\ref{makesense:related_automatisation}, il est nécessa
 Or comme l'illustre le schéma~\ref{cache:fig:schema}, une expérience typique est bâtie autour d'un succession séquentielle d'étapes.
 Ainsi l'organisation du code d'un notebook en succession d'étapes est acceptable pour ce type d'expérience rendant les outils génériques de gestion de dépendances de tâches tel que \texttt{make} non nécessaire par rapport aux besoins.
 
-Il est donc possible de mettre chacune des étapes d'une expérience dans une cellule spécifique ce qui permet de rendre une expérience modulaire, car on peut obtenir le résultat d'une étape donnée en exécutant seulement une fois ses dépendances et en conservant les résultats intermédiaires.
+Il est donc possible de mettre chacune des étapes d'une expérience dans une cellule spécifique, ce qui permet de rendre une expérience modulaire, car on peut obtenir le résultat d'une étape donnée en exécutant seulement une fois ses dépendances et en conservant les résultats intermédiaires.
 Ce découpage permet de ne pas imposer de formalismes lourds sur une expérience et permet d'avoir une grande flexibilité sur son organisation.
 
 Ce flot séquentiel est également adapté pour fournir un programme validant une par une toutes les étapes pour aboutir à la production des résultats.
@@ -468,7 +468,7 @@ Comme vu dans la section~\ref{makesense:sequentiel}, un notebook peut être tran
 
 L'\emph{intégration continue} est un ensemble de pratiques utilisées en production de logiciel qui consiste à vérifier que chaque modification apportée à un programme ne modifie pas son fonctionnement et qu'aucune régression fonctionnelle n'est introduite~\cite{duvall2007continuous}.
 Son principal but est de détecter les problèmes et les erreurs afin de les corriger au plus tôt et de raccourcir les cycles de développement.
-Massivement pratiquée par les acteurs principaux du développement logiciel elle a engendré de nouveaux courants et méthodologies logicielles comme que le \ac{TDD}~\cite{beck2003test} qui ont prouvé leur efficacité pour réduire le nombre d'erreurs au cours du développement d'un logiciel~\cite{maximilien2003assessing}. 
+Massivement pratiquée par les acteurs principaux du développement logiciel elle a engendré de nouveaux courants et méthodologies logicielles comme le \ac{TDD}~\cite{beck2003test} qui ont prouvé leur efficacité pour réduire le nombre d'erreurs au cours du développement d'un logiciel~\cite{maximilien2003assessing}. 
 
 L'intégration continue est déclenchée quand une proposition de changement \footnote{``pull request'' dans le cas où on utilise \texttt{git}.} est poussée vers le dépôt gérant les versions du notebook.
 Une copie de la version révisée est envoyée sur le serveur d'intégration continue qui va créer l'environnement pour le notebook, extraire les cellules de code puis exécuter le programme engendré.
@@ -493,11 +493,11 @@ Configurer chaque nœud de manière ad hoc n'est pas envisageable à mesure que 
 Afin de réaliser des expériences à grande échelle, le langage utilisé pour décrire l'expérience doit être suffisamment souple et expressif pour initialiser facilement chaque nœud à partir d'un modèle de base.
 
 La mise en œuvre de cette phase de configuration dans Makesense consiste à créer à partir de gabarits de base (appelé ``template'' en anglais), les fichiers qui seront utilisés et compilés au cours de l'expérience.
-Chaque fichier nécessaire à l'expérience va être construit à partir d'un gabarit de base qui va être remplis par un moteur de gabarit (aussi appelé ``templating engine'' en anglais) avec les variables qui lui sont propres.
+Chaque fichier nécessaire à l'expérience va être construit à partir d'un gabarit de base qui va être rempli par un moteur de gabarit (aussi appelé ``templating engine'' en anglais) avec les variables qui lui sont propres.
 Ce type de pratique par gabarit a déjà été utilisé et validé à large échelle dans le contexte de configuration de serveurs et de configuration de serveurs~\cite{hochstein2014ansible} ainsi son utilisation dans le contexte de la configuration des nœuds capteurs se rapproche de cette utilisation.
 
 Dans le cas typique des expériences portant sur un \ac{LLN}, cette étape de préparation compile les systèmes d'exploitation pour les nœuds contraints et produit tous les fichiers de configuration nécessaires à la simulation.
-Dans le cas du binaire exécuté par les nœuds, il est obtenu pour différentes architectures~\footnote{L'émulation dans COOJA s'effectue sur l'architecture MSP430 et les nœuds IoT-lab utilisent l'architecture ARM dans le cas des Cortex M3.}.
+Dans le cas du binaire exécuté par les nœuds, il est obtenu pour différentes architectures~\footnote{L'émulation dans COOJA s'effectue sur l'architecture MSP430 et les nœuds FIT-IoT-lab utilisent l'architecture ARM dans le cas des Cortex M3.}.
 
 Une simulation dans Cooja requiert la création d'un fichier principal qui va être utilisé pour placer les nœuds, les démarrer avec le bon binaire, interagir avec eux, configurer leur portée de transmission ou la graine des générateurs de nombres aléatoires utilisée pendant la simulation.
 Ainsi, Makesense fournit un gabarit de fichier de configuration qui est peuplé dynamiquement et enregistré pour être utilisé ensuite.
@@ -518,10 +518,10 @@ Makesense déploie une expérience vers un serveur ou une plateforme en utilisan
 Ainsi toute plateforme ou machine utilisant un accès à distance automatisable est utilisable par Makesense.
 
 Dans le cas de l'exécution d'une simulation sur la même machine, ce déploiement correspond à une simple copie des fichiers pertinents.
-Cependant, dans le cas de simulations devant être exécutées sur des grilles de calcul, il est nécessaire mémoriser sur quels serveurs l'expérience a été déployée afin d'en récupérer les résultats.
+Cependant, dans le cas de simulations devant être exécutées sur des grilles de calcul, il est nécessaire de mémoriser sur quels serveurs l'expérience a été déployée afin d'en récupérer les résultats.
 
 L'utilisation d'un testbed permet de confirmer les résultats d'un simulateur par une exécution de l'expérience sur des nœuds physiques.
-Dans le cas de testbed mutualisées, il faut gérer des réservations de nœuds qui sont potentiellement accessibles par tous les utilisateurs de la plateforme et qui peuvent également tomber en panne.
+Dans le cas de testbeds mutualisés, il faut gérer des réservations de nœuds qui sont potentiellement accessibles par tous les utilisateurs de la plateforme et qui peuvent également tomber en panne.
 Ainsi il est nécessaire de maintenir dynamiquement une table de correspondance entre les  nœuds réservés et le code qui y est exécuté.
 Automatiser ce processus de déploiement permet de choisir dynamiquement les nœuds mis en jeu lors d'une expérience (par exemple les moins chargés, les mieux placés, etc.).
 
@@ -638,7 +638,7 @@ Ces fonctionnalités de groupement d'informations permettent d'exprimer de mani�
 \label{makesense:conclusion}
 
 Ce chapitre montre qu'afin de permettre le partage et la reproductibilité d'une expérience, sa documentation et son automatisation jouent un rôle clé.
-Ce processus est assez systématique et dépasse largement le contexte des \ac{LLN}s, ainsi des outils et des méthodologies communes peuvent émerger pour proposer des solutions à des problèmes communs.
+Ce processus est assez systématique et dépasse largement le contexte des \ac{LLN}s, ainsi des méthodologies et des outils communs peuvent émerger pour proposer des solutions à des problèmes communs.
 
 Makesense est une réponse possible et se veut générique en utilisant des bibliothèques généralistes et répandues dans de multiples domaines de développement logiciel scientifique ou général.
 Makesense propose de documenter et d'automatiser une expérience pour \ac{LLN} transcrite dans un notebook pour s'assurer de sa reproductibilité.
@@ -647,7 +647,7 @@ La réduction de la complexité de la mise en place d'une expérience permet d�
 À cette fin, Makesense est disponible sous licence Apache sur Github~\footnote{\href{https://github.com/sieben/makesense}{https://github.com/sieben/makesense}} et une démonstration du déroulement d'une expérience est également disponible~\footnote{\href{https://travis-ci.org/sieben/makesense}{https://travis-ci.org/sieben/makesense}}.
 Étant diffusé sous licence libre, il est difficile d'estimer son utilisation globale, cependant la version initiale disponible sur PyPI a été téléchargée plus de 1000 fois.
 
-Makesense a été utilisé afin de réaliser les expériences décrites dans les chapitres suivants et pourrait être mis à profit afin d'avoir une solution permettant d'avoir une intégration complète d'une expérience dans le but de la diffuser.
+Makesense a été utilisé afin de réaliser les expériences décrites dans les chapitres précédents et pourrait être mis à profit afin d'avoir une solution permettant d'avoir une intégration complète d'une expérience dans le but de la diffuser.
 
 Makesense ne gère pas pour le moment les erreurs à la volée qui peuvent subvenir lors d'une expérience.
 Or dans le cas de tests sur nœuds réels, ces erreurs peuvent être nombreuses par exemple dans le cas d'erreurs de flashage ou de panne d'un nœud.
