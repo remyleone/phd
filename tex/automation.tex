@@ -471,7 +471,7 @@ Son principal but est de détecter les problèmes et les erreurs afin de les cor
 Massivement pratiquée par les acteurs principaux du développement logiciel elle a engendré de nouveaux courants et méthodologies logicielles comme le \ac{TDD}~\cite{beck2003test} qui ont prouvé leur efficacité pour réduire le nombre d'erreurs au cours du développement d'un logiciel~\cite{maximilien2003assessing}. 
 
 L'intégration continue est déclenchée quand une proposition de changement \footnote{``pull request'' dans le cas où on utilise \texttt{git}.} est poussée vers le dépôt gérant les versions du notebook.
-Une copie de la version révisée est envoyée sur le serveur d'intégration continue qui va créer l'environnement pour le notebook, extraire les cellules de code puis exécuter le programme engendré.
+Une copie de la version révisée est envoyée sur un serveur qui va créer l'environnement pour le notebook, extraire les cellules de code puis exécuter le programme engendré.
 Une fois l'exécution terminée et sans erreur, on a la garantie que le changement n'a pas engendré une erreur sur un résultat existant~\footnote{On parle de test de non-régression.}.
 Une fois que le résultat est conforme aux tests demandés, il peut être intégré à la branche principale de développement et le processus se répète pour tout nouveau changement proposé.
 

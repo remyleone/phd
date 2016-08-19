@@ -699,7 +699,7 @@ Il existe essentiellement deux opérateurs génétiques: le croisement et la mut
 
 Comme de nombreuses méta-heuristiques, ces mécanismes très hétérogènes peuvent être complexes à configurer, car de nombreux paramètres sont disponibles.
 Cependant, l'utilisation d'algorithmes de sélection élitiste permet de mitiger cette complexité, car les meilleures solutions sont gardées en mémoire dans le ``hall of fame''.
-Ainsi, les mécanismes de mutation et de croisement peuvent être configurés pour être  ``exploratoires'', tandis que les mécanismes de sélection s'occupent de garder les meilleures solutions.
+Ainsi, les mécanismes de mutation et de croisement peuvent être utilisés ensemble et configurés pour être  ``exploratoires'', tandis que les mécanismes de sélection s'occupent de garder les meilleures solutions.
 
 \subsubsection{Mutation}
 
@@ -782,6 +782,7 @@ Cooja les émule comme des TmoteSky fonctionnant avec un processeur de type MSP4
 
 La Figure~\ref{cache:fig:topology} représente la topologie radio utilisée où un lien signifie que les nœuds peuvent être en communication radio l'un avec l'autre.
 Les nœuds utilisent le protocole \ac{RPL}~\cite{rfc6550} pour établir une topologie de routage qui est connue par le routeur de bordure afin de modéliser la durée de vie du réseau.
+La passerelle se trouve au centre de cette topologie: elle est la racine de cette topologie de routage.
 
 \begin{table*}[ht]
 \centering
@@ -827,7 +828,7 @@ La consommation énergétique du réseau est obtenue en utilisant la topologie e
 La durée de vie du \ac{LLN} est calculée comme l'intervalle de temps entre son démarrage et la perte de son premier nœud.
 
 Le \ac{RPCA} met en cache les réponses rendues par les nœuds afin de les mettre à disposition pour une éventuelle autre demande entrante.
-Une fois la topologie et le trafic connus, la résolution du problème multi-objectifs est lancée et les différents $\mathcal{C}$ sont calculés.
+Une fois la topologie et le trafic connus, la résolution du problème multi-objectifs est lancée sur la passerelle et les différents $\mathcal{C}$ sont calculés.
 Le \ac{RPCA} a suffisamment de mémoire pour retenir toutes les réponses pour chaque \ac{URI} disponible dans le réseau.
 La passerelle est toujours allumée, car non contrainte en énergie et assure une connexion permanente à un réseau local conventionnel.
 
@@ -849,7 +850,7 @@ Le \ac{RPCA} est configuré pour utiliser un algorithme génétique pour trouver
 \hline
 Population & $P$ & 100 \\
 \hline
-Probabilité d'accouplement & $p_c$ & 0.5 \\
+Probabilité de croisement & $p_c$ & 0.5 \\
 \hline
 Probabilité de mutation & $p_m$ & 0.2 \\
 \hline
