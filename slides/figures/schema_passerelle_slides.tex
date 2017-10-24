@@ -21,7 +21,7 @@ snakes,
 
 \begin{document}
 
-  \begin{tikzpicture}
+  \begin{tikzpicture}[scale = 1.3, every node/.style={scale = 1.3}]
 
   % définition des styles
   \tikzstyle{visible}=[draw, fill=blue!50]
@@ -31,7 +31,8 @@ snakes,
   \tikzstyle{root}=[circle, draw, fill=red!50,text=black]
 
   % les nœuds
-  \node[draw] (gw) {Passerelle};
+  \node[] (gw) {\includegraphics[scale=.2]{router.png}};
+  \node[above=.5cm of gw] (spec_gw) {\begin{tabular}{c}Interop\\(Passerelle)\end{tabular}};
 
   % \node[draw, below=of gw] (topology) {Topologie réseau connue?};
   % \node[draw, below left=of topology] (noinfo) {Estimation ``étoilée''};
@@ -45,10 +46,7 @@ snakes,
   \node[child] (5) at (-6, 0) {};
 
   % \node[cloud, cloud puffs = 10, minimum width = 4cm, draw, fill = gray!10] (cloud) at (5,0) {Réseau local};
-  \node[draw] (cloud) at (5,0) {Réseau local};
-
-  \node[draw, above=of cloud] (service) {Services};
-  \node[draw, above=of service] (users) {Utilisateurs};
+  \node[] (cloud) at (5,0) {\includegraphics[scale=.2]{user-group-icon.png}};
 
  \node [fit=(1) (2) (3) (4) (5), rounded corners, draw=black!50] (lln) {};
  \node [below=.3 cm of lln] {LLN};
@@ -56,7 +54,7 @@ snakes,
 \path
 
   % Réseau contraint
-  (gw) edge[<->, very thick, Sepia] (1)
+  (gw) edge[<->, very thick, Sepia] node [above] {\begin{tabular}{c}Protocoles\\adaptés\end{tabular}} node [below] {(6LoWPAN)} (1)
   % (1) edge[<->, very thick, bend left=20, ForestGreen] (2)
   % (1) edge[<->, very thick, bend left=20, ForestGreen] (3)
   % (2) edge[<->, very thick, bend left=20, ForestGreen] (4)
@@ -69,9 +67,9 @@ snakes,
 
 
   % Réseau conventionnel
-  (gw.east) edge[<->, very thick, ForestGreen] (cloud)
-  (service) edge[<->, very thick, ForestGreen] (cloud)
-  (service) edge[<->, very thick, ForestGreen] (users)
+  (gw.east) edge[<->, very thick, ForestGreen] node [above] {\begin{tabular}{c}Protocoles\\usuels\end{tabular}} node [below] {(IP)} (cloud)
+  % (service) edge[<->, very thick, ForestGreen] (cloud)
+  % (service) edge[<->, very thick, ForestGreen] (users)
   % % Cache
   % (gw) edge[->,very thick] (topology)
   % (topology) edge[->, very thick] node [midway, above left] {Non} (noinfo.north east)

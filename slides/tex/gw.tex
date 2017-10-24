@@ -1,81 +1,248 @@
-\section{Passerelle intelligente}
+\section{Les LLNs}
 
-\begin{frame}{Architecture réseau}
+% \begin{frame}{Architecture réseau}
+%   \begin{figure}
+%     \centering
+%     \includegraphics[scale=.3]{figures/rpl.png}
+%   \end{figure}
+%   \pnote{
+%     Il est à noter que les routeurs peuvent aussi héberger des serveurs applicatifs
+%   }
+% \end{frame}
+
+\begin{frame}{Architecture d'un nœud}
   \begin{figure}
     \centering
-    \includegraphics[scale=.3]{figures/rpl.png}
+    \input{figures/node_architecture}
   \end{figure}
+  \begin{block}{Contraintes et solutions}
+    \begin{itemize}
+      \item Faibles ressources matérielles (Processeur, mémoire, stockage) $\to$ Système d'exploitation et applications adaptés.
+      \item Réserve d'énergie limitée $\to$ Cycle de sommeil.
+    \end{itemize}
+  \end{block}
   \pnote{
-    Il est à noter que les routeurs peuvent aussi héberger des serveurs applicatifs
+    OpenMote Proc 32 MHz, 32 Kbytes of RAM and 512 Kbytes of Flash,
+  }
+  \pnote{
+    Portée de quelques dizaines de mètres à plusieurs kilomètres selon les technologies
+  }
+  \pnote{
+    - L'hétérogéneité provient de la profusion des acteurs et du faible cout d'entrée dans les marchés
+  }
+  \pnote{
+  Composants variés et généralement peu onéreux.
+    - Dire que les progrès technologiques visent à rendre les composants moins chers au lieu de performants
+  }
+  \pnote{
+    Modèle de programmation qui évite les allocations mémoire
+  }
+  \pnote{
+    On peut mentionner aussi l'énergy harvesting
+  }
+  \pnote{
+    - Faible puissance d'émission
+  }
+  \pnote{
+    - Liens assez mauvais et bruité
+  }
+  \pnote{
+    - Mentionner les problèmes de multi-path fading
   }
 \end{frame}
 
-\begin{frame}{Protocoles pour les LLNs}
+\begin{frame}{Consommation de la radio}
+
+  \begin{block}{Exemple: TmoteSky - CC2420 - ContikiMAC}
+    \begin{itemize}
+      % \item Trame de taille maximale (127 octets)
+      \item Écoute: 63 mW, Transmission: 60mW
+      \item CPU: 5mW (Actif) / 0.1mW (Sommeil)
+    \end{itemize}
+  \end{block}
+
   \begin{figure}
     \centering
-    \includegraphics[width=\textwidth]{figures/network_stack_slides.pdf}
+    \includegraphics[width=0.6\textwidth]{figures/consommation_contikimac.pdf}
   \end{figure}
 
-  \pnote{
-    - Propos général : les protocoles classiques sont adaptés aux réseaux de capteurs pour en faire des membres à part entières de l'Internet.
-  }
+  Objectif: Minimiser l'utilisation de la radio.
+\end{frame}
 
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+
+\definecolor{mycolor}{RGB}{141,177,227}
+\newcommand{\mycbox}[1]{\tikz{\path[draw=mycolor,fill=mycolor] (0,0) rectangle (.3cm,.3cm);}}
+
+\begin{frame}{Strobing (MAC asynchrone)}
+  % \begin{block}{\ieee{}}
+  %   $T_p = \frac{\mathcal{L}(f)}{R} \ceil[\Big]{\frac{\mathcal{L}(p)}{L}}$
+  % \end{block}
+
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=.6\textwidth]{figures/contikimac.png}
+  \end{figure}
+  \begin{block}{Légende}
+    \begin{description}
+      \item[D] Trame de données
+      \item[A] Trame d'acquittement
+      \item[\mycbox{blue}] Radio activée
+    \end{description}
+  \end{block}
+  \begin{alertblock}{Point clé}
+    \begin{itemize}
+      \item Différence entre paquet logique et trame physique
+    \end{itemize}
+  \end{alertblock}
   \pnote{
-    - IEEE 802.15.4: Couche Physique et MAC; topo maillé/étoilée; Faible cout
+    - En blue: La fenetre de réception
   }
   \pnote{
-    - 6LoWPAN: Compression IPv6
+    - blanc: Trame de données/ack transmises mais non reçue
   }
   \pnote{
-    - RPL: Produit les routes montantes et descendantes;
+    - noir: Trame de données/ack transmis et reçue
   }
   \pnote{
-    - CoAP: Couche applicative; REST; UDP
+    $T_\detect$ est le temps que le transmetteur va passer en écoute juste après une tentative de transmission pour détecter son éventuel succès par un acquittement d'un récepteur juste après l'envoi d'une trame de donnée.
+  }
+  \pnote{
+    ti: the interval between each packet transmission. (0.4 ms)
+  }
+  \pnote{
+    tr: the time required for a stable RSSI, needed for a stable CCA indication.
+  }
+  \pnote{
+    tc: the interval between each CCA.
+  }
+  \pnote{
+    ta: the time between receiving a packet and sending the acknowledgment packet.
+  }
+  \pnote{
+    td: the time required for successfully detecting an acknowledgment from the receiver. (0.16 ms)
+  }
+  \pnote{
+    ts, the transmission time of the shortest packet, must be larger than tr + tc + tr (0.884 ms)
   }
 \end{frame}
 
-\begin{frame}{Rôle de la passerelle}
-  \begin{alertblock}{Protocole applicatif: CoAP}
+
+\begin{frame}{Architecture générale d'un réseau de capteurs}
+  \begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{figures/schema_passerelle_slides.pdf}
+  \end{figure}
+  \begin{block}{Contraintes}
     \begin{itemize}
-      \item Traduction de protocole (HTTP/CoAP)
-      \item Proxy inverse
-    \end{itemize}
-  \end{alertblock}
-  \begin{alertblock}{Protocole de routage: RPL}
-    \begin{itemize}
-      \item Racine du DODAG (MP2P/P2MP)
-      \item Routeur de bordure (LBR)
-    \end{itemize}
-  \end{alertblock}
-  \begin{block}{Couche réseau: 6LoWPAN}
-    \begin{itemize}
-      \item Compression IPv6
+      \item Connexions difficiles $\implies$ Protocoles adaptés
+      \item Faible puissance d'émission $\implies$ Réseaux multi-sauts
+      % \item Canaux fortement bruités (ISM) $\to$ Couche MAC adaptée
+      % \item Passage à l'échelle
     \end{itemize}
   \end{block}
-  \begin{block}{Couche physique et liaison: \ieee{}}
+
+  \pnote{
+    - Quand ces systèmes ne sont pas autonomes il faut une interconnexion on appelle cela une passerelle.
+  }
+
+\end{frame}
+
+% \begin{frame}{Passerelle pour les LLNs}
+%   \begin{figure}
+%     \centering
+%     \includegraphics[width=\textwidth]{figures/network_stack_slides.pdf}
+%   \end{figure}
+
+%   \pnote{
+%     - Propos général : les protocoles classiques sont adaptés aux réseaux de capteurs pour en faire des membres à part entières de l'Internet.
+%   }
+
+%   \pnote{
+%     - IEEE 802.15.4: Couche Physique et MAC; topo maillé/étoilée; Faible cout
+%   }
+%   \pnote{
+%     - 6LoWPAN: Compression IPv6
+%   }
+%   \pnote{
+%     - RPL: Produit les routes montantes et descendantes;
+%   }
+%   \pnote{
+%     - CoAP: Couche applicative; REST; UDP
+%   }
+% \end{frame}
+
+% \begin{frame}{Zoom sur la passerelle}
+%   \begin{figure}
+%     \centering
+%     \includegraphics{figures/zoom_gateway_slides.pdf}
+%   \end{figure}
+%   \begin{block}{Protocoles}
+%     \begin{itemize}
+%       \item CoAP/HTTP: Traduction applicative
+%       \item 6LoWPAN/IPv6: Encapsulation, compression des en-têtes
+%     \end{itemize}
+%   \end{block}
+% \end{frame}
+
+\begin{frame}{Moyen de contrôle de la passerelle}
+  \begin{block}{Applicatif}
     \begin{itemize}
-      \item PAN coordinator
+      \item Interception des messages applicatifs
     \end{itemize}
   \end{block}
+  \begin{block}{Routage}
+    \begin{itemize}
+      \item Point central (Routage de bordure)
+      \item Connaissance de la topologie (Dynamique ou statique)
+      % \item Racine du DODAG (MP2P/P2MP)
+      % \item Routeur de bordure (LBR)
+    \end{itemize}
+  \end{block}
+  \begin{block}{Couche MAC}
+    \begin{itemize}
+      \item Connaît la couche MAC utilisée pour transmettre
+    \end{itemize}
+  \end{block}
+  % \begin{block}{Couche réseau: 6LoWPAN}
+  %   \begin{itemize}
+  %     \item Compression IPv6
+  %   \end{itemize}
+  % \end{block}
+  % \begin{block}{Couche physique et liaison: \ieee{}}
+  %   \begin{itemize}
+  %     \item PAN coordinator
+  %   \end{itemize}
+  % \end{block}
   \pnote{
     Ajouter que le proxy inverse sera détaillé par la suite.
   }
 \end{frame}
 
-\begin{frame}{Problématiques}
+% \begin{frame}{Passerelle intelligente}
+%   \begin{figure}
+%     \centering
+%     \includegraphics{figures/zoom_gateway_contrib_slides.pdf}
+%   \end{figure}
+% \end{frame}
 
-  \begin{block}{Prévision de l'impact du trafic}
+% Annonce des contributions
+
+\begin{frame}{Problématiques traitées dans la thèse}
+
+  \begin{block}{Comment le connaître sans (trop) le solliciter ?}
     \begin{itemize}
-      \item Provisionnement du réseau
-      \item Surveillance matérielle et fonctionnelle continue
-      \item Anticipation des pannes
+      % \item Dimensionnement du réseau
+      \item Surveillance matérielle et fonctionnelle %continue
+      % \item Diagnostiquer ou anticiper des pannes
+      \item Mesurer les grandeurs caractéristiques
     \end{itemize}
   \end{block}
 
-  \begin{block}{Optimisation de l'utilisation des ressources}
+  \begin{block}{Comment trouver le bon compromis ?}
     \begin{itemize}
-      \item Économie de bande-passante et d'énergie
-      \item Améliorer la rapidité du traitement
+      \item Économie de ressources
+      \item Conserver un niveau de service suffisant
     \end{itemize}
   \end{block}
 
@@ -98,23 +265,33 @@
   }
 \end{frame}
 
-% % Annonce des contributions
 
-\begin{frame}\frametitle{Contributions}
+\begin{frame}\frametitle{Aperçu des contributions}
 
-  \begin{alertblock}{Supervision passive}
-    \begin{itemize}
-      \item Observe le trafic au niveau du routeur de bordure
-      \item Fournit une estimation de l'utilisation de la radio permettant de déduire une partie de la consommation énergétique
-    \end{itemize}
-  \end{alertblock}
 
-  \begin{alertblock}{Reverse proxy adaptatif}
-    \begin{itemize}
-      \item Régule les temps de validité des réponses en cache au niveau de la passerelle
-      \item Offre un compromis entre satisfaction des utilisateurs et économies d'énergie
-    \end{itemize}
-  \end{alertblock}
+  \begin{figure}
+    \centering
+    \input{figures/supervision_flow}
+  \end{figure}
+
+  \begin{figure}
+    \centering
+    \input{figures/cache_flow}
+  \end{figure}
+
+  % \begin{alertblock}{Supervision passive}
+  %   \begin{itemize}
+  %     \item Observe le trafic au niveau du routeur de bordure
+  %     \item Fournit une estimation de l'utilisation de la radio permettant de déduire une partie de la consommation énergétique
+  %   \end{itemize}
+  % \end{alertblock}
+
+  % \begin{alertblock}{Reverse proxy adaptatif}
+  %   \begin{itemize}
+  %     \item Régule les temps de validité des réponses en cache au niveau de la passerelle
+  %     \item Offre un compromis entre satisfaction des utilisateurs et économies d'énergie
+  %   \end{itemize}
+  % \end{alertblock}
 
   \pnote{
     Comment ajouter des services dans le dernier noeud non contraints qui est à la bordure du réseau standard ?

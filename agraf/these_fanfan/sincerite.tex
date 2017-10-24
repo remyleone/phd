@@ -1,0 +1,220 @@
+% !TeX spellcheck = fr_FR
+\chapter{Vote sincère canonique}\label{sec:vote_sincere_canonique}
+
+There examples show that the notion of sincere strategy is more evanescent than it might look at first\footnote{One may read \cite{gibbard1973manipulation} for another famous example, the \emph{non-alcoholic party}.}. Generally speaking, this notion amounts to considering that if an elector $v$ has an opinion $\omega_v$, then she has a strategy $s_v(\omega_v)$ that is canonical for this opinion. This makes sense only if there exists a function $s_v$ from $\Omega_v$ to $\mathcal{S}_v$, that can be canonically deduced from the game form only.
+
+In some cases, it might happen that we have such a function within easy reach.
+\begin{itemize}
+  	\item If $\mathcal{S}_v = \rc$, we could take $s_v = \mathrm{P}_v$, considering that it is sincere to give one's true relation of preference.
+	\item If $\mathcal{S}_v = \Omega_v$, we could take $s_v$ equal to identity, for the same reason. \item If for any state $\omega_v$, elector $v$ has one and only one dominant strategy\footnote{For elector $v$ in state $\omega_v$, a strategy is \emph{dominant} if, whatever the other electors do, no other strategy can lead to a better outcome for $v$ (that is, in the sens of $\Plusque[v]{}$).}, then we could take $s_v$ as the function that, to any $\omega_v$, associates the corresponding dominant strategy.
+\end{itemize}
+
+If we were in this last case, it would be noticeable because strategy $s_v(\omega_v)$ would be defined by an intrinsic property of game theory and not by a choice extrinsic to the game form\footnote{More precisely, this choice would be stable by isomorphism of the game form; that is, by keeping the same mechanism and just modifying the labels of the strategies, the electors and/or the candidates.}. In particular, sincere voting of the whole population (here defined as the dominant strategy for each elector) would always be a Nash equilibrium.
+
+Unfortunately, for this to happen, the game form must be \emph{straightforward} in the sense of Gibbard \cite{gibbard1973manipulation}. And this seminal paper precisely proves that, when three candidates or more are eligible, any straightforward game form is dictatorial\footnote{It is true, at least, when the electoral space comprises all strict total orders, but this assumption is of common use.}. Hence, we will never use the too restrictive assumption that the game form is straightforward.
+
+So, we do not have, in general, a canonical sincerity function $s_v$ (here again, see \cite{gibbard1973manipulation}). We have to introduce it in addition to the game form; it is an essential part of the definition of a voting system.
+
+
+\section{Motivation}
+
+Dans l'article sur la condorcification, on insiste bien lourdement (comme le fait Gibbard par exemple) sur le fait qu'en général, la simple donnée d'un mode de scrutin ne définit pas de stratégie sincère canonique et qu'il faut ajouter une <<\,fonction de sincérité\,>> extrinsèque.
+
+Plus précisément, pour qu'il y ait une stratégie sincère canonique, il faudrait une fonction <<\,distinguée\,>> (par la simple donnée de l'espace électoral et du mode de scrutin) qui à tout état de préférence associe une stratégie. Dans l'article, on cite trois cas où c'est facile à envisager:
+\begin{enumerate}
+\item Si l'espace des stratégies est $\permc$ (ou plus généralement $\rc$, l'espace des relations binaires sur les candidats), alors on pourrait estimer que $\Plusque[v]{}$ (extraction de l'ordre de préférence associé à l'état $\omega_v$ de l'électeur) est une fonction distinguée: le vote sincère canonique serait alors de donner son véritable ordre de préférence.
+\item Si l'espace des stratégies est $\Omega_v$, alors on pourrait estimer que l'identité est une fonction distinguée: le vote sincère canonique serait alors de donner son véritable état.
+\item Si à chaque état correspond une unique stratégie dominante, alors on pourrait estimer que cette correspondance est une fonction distinguée: le vote sincère canonique consisterait alors à utiliser la stratégie qui défend le mieux les opinions de l'électeur.
+\end{enumerate}
+
+Que tirer de ces idées?
+
+Considérons le mode de scrutin suivant, avec $C=2$ candidats et $V$ impair:
+\begin{itemize}
+\item chaque électeur fournit un bulletin bleu ou rouge;
+\item s'il y a une majorité de bulletins bleus (resp. rouges), le candidat 1 (resp.~2) est élu.
+\end{itemize}
+L'idée 1 ou 2 ne fonctionne pas (on n'a pas dit explicitement que bleu représente le candidat 1), mais l'idée 3 fonctionne parfaitement (à condition d'avoir une préférence stricte): si je préfère le candidat 1, alors mon unique stratégie dominante consiste à voter bleu; il est naturel de dire que ceci est mon vote <<\,sincère\,>>. Malheureusement, dès qu'on a un mode de scrutin non dictatorial avec $C \geq 3$, cette idée 3 devient inopérante à cause du théorème de Gibbard.
+
+Considérons à présent le mode de scrutin suivant:
+\begin{itemize}
+\item chaque électeur donne un ordre sur les candidats;
+\item on applique l'uninominal à deux tours, mais en lisant le bulletin <<\,à l'envers\,>>: à chaque tour, on considère que l'électeur vote pour le dernier candidat de son bulletin parmi ceux encore en lice.
+\end{itemize}
+Clairement, dans ce mode de scrutin, considérer (conformément à l'idée 1 ou 2) que donner son véritable ordre de préférence est une stratégie sincère canonique est idiot: il y a bien une stratégie <<\,naturelle\,>> (quand on a un ordre de préférence), mais c'est celle qui consiste à donner l'ordre inverse de ses préférences.
+
+Bien sûr, cette stratégie <<\,naturelle\,>> n'est pas dominante mais on peut la justifier intuitivement ainsi: <<\,en absence d'information\,>> sur les autres électeurs, c'est la stratégie qui défend le mieux les opinions de l'électeur. C'est donc une notion plus faible que l'idée 3 mais basée sur le même genre de principe.
+
+\section{Projet et intuitions}
+
+Le projet est simple: formaliser cette notion de stratégie optimale <<\,en l'absence d'information\,>>. En particulier, on considérera qu'on n'a aucun \emph{a priori} de rupture de symétrie entre les candidats, à part les asymétries éventuelles du mode de scrutin.
+
+Afin de ne pas s'embêter avec les stratégies équivalentes, on quotientera toujours les espaces de stratégies par cette relation d'équivalence. Par exemple, si on définit \emph{plurality} ainsi:
+\begin{itemize}
+\item chaque électeur donne un ordre de préférence;
+\item le candidat le plus souvent en tête est élu;
+\end{itemize}
+alors les bulletins (A B C) et (A C B) sont équivalents. Je considérerai donc qu'il s'agit d'une seule et même stratégie.
+
+Intuitivement, voici les résultat qu'on devrait obtenir.
+\begin{itemize}
+\item Dans les modes de scrutin <<\,raisonnables\,>> basés sur des ordres (plurality, veto, VTI, maximin, etc.), si l'électeur a un ordre de préférence, alors il a une stratégie sincère canonique qui consiste à donner cet ordre de préférence.
+\item Dans ces mêmes modes de scrutin, si l'électeur n'a pas un ordre de préférence, alors il n'a pas toujours de vote sincère canonique. Par exemple, avec plurality, si j'ai deux préférés ex-aequo, ma stratégie <<\,naturelle\,>> en l'absence d'information n'est pas unique.
+\item Dans des modes de scrutin idiots (fête sans alcool, boules blanches et noires), il existe de nombreux états de l'électeur où il n'a pas de vote sincère canonique.
+\item Dans assentiment et les autres modes de scrutin habituels par notation, l'électeur n'a généralement pas de vote sincère canonique.
+\end{itemize}
+
+Ceci donne donc un critère intéressant pour juger un mode de scrutin: quand est-ce que l'électeur possède un vote sincère canonique? Toujours? Quand il a un préordre / un ordre de préférence? Jamais?
+
+
+
+
+
+
+
+
+
+
+\section{Débuts de pistes}
+
+On se place dans l'espace électoral des utilités.
+
+Soit $f$ un mode de scrutin, muni d'une règle de tie-breaking $T$:
+$$
+f:\left|
+\begin{array}{ccl}
+\mathcal{S}_1 \times \ldots \times \mathcal{S}_n \times \perm_m & \to & \mathcal{C}_m \\
+(S_1,\ldots,S_n,T) & \to & v.
+\end{array}
+\right.
+$$
+Ce formalisme permet d'avoir, si on le souhaite, un mode de scrutin qui soit parfaitement symétrique par rapport aux candidats et aussi par rapport aux électeurs\footnote{Mais pas obligatoirement: si je décide de départager les égalités en fonction du vote de l'électeur $n$ par exemple, mon mode de scrutin ne dépend simplement pas de $T$.}. Par exemple, pour plurality, on regarde quels sont les candidats qui ont le plus de voix; en cas d'égalité, on prend le candidat le mieux placé dans la règle de tie-breaking $T$.
+
+Considérons $(a_1,\ldots,a_n)$ un $n$-uplet d'actions du groupe des permutations $\perm_m$ sur les espaces de stratégies $\mathcal{S}_i$:
+$$
+a_i:\left|
+\begin{array}{ccl}
+\mathcal{S}_i \times \perm_m & \to & \mathcal{S}_i \\
+(S_i,\sigma) & \to & a_i(S_i,\sigma);
+\end{array}
+\right.
+$$
+telle que (action de groupe) $a_i(S_i,Id) = S_i$ et $a_i(a_i(S_i,\sigma),\sigma') = a_i(S_i,\sigma'\circ\sigma)$.
+
+Ce $n$-uplet d'actions est \emph{compatible} avec le mode de scrutin $f$ si et seulement si on a toujours:
+$$
+f(a_1(S_1,\sigma),\ldots,a_n(S_n,\sigma),\sigma\circ T) = \sigma(f(S_1,\ldots,S_n,T)).
+$$
+Par exemple, considérons \emph{plurality}. Si, sur tous les bulletins et sur la tie-breaking rule, on fait une même permutation des candidats, alors le vainqueur est déduit par la même permutation.
+
+Soit à présent $\mu$ une distribution de probabilité sur $\mathcal{S}_2 \times \ldots \times \mathcal{S}_n \times \perm_m$, invariante par toute permutation $\sigma$ (au sens des $a_i$):
+$$
+\mu(S_2,\ldots,S_n,T) = \mu(a_2(S_2,\sigma),\ldots,a_n(S_n,\sigma),\sigma\circ T).
+$$
+La question est: est-ce que l'électeur 1 possède une stratégie optimale, c'est-à-dire qui maximise son espérance d'utilité?
+
+Plus généralement, l'électeur 1 possède-t-il une unique stratégie optimale qui convienne pour toute mesure de probabilité $\mu$ qui respecte toutes les symétries du mode de scrutin par rapport aux candidats, c'est-à-dire invariante par toute permutation $\sigma \in \perm_m$, au sens de tout $n$-uplet d'actions de groupe $(a_1,\ldots,a_n)$ compatible avec le mode de scrutin? Si c'est le cas, alors on l'appellera la \emph{stratégie sincère canonique} de cet électeur.
+
+On peut être encore plus exigeant en demandant une même stratégie optimale pour tout vecteur d'utilité compatible avec un préordre de préférence donné, mais c'est bonus.
+
+Remarque: on pourrait croire que ce formalisme s'applique uniquement à des modes de scrutin symétriques, mais ce n'est pas le cas. Simplement, quand le mode de scrutin présente des asymétries, l'ensemble des $n$-uplets d'actions compatibles est petit, voire trivial. Dans ce dernier cas dégénéré (aucune symétrie), la notion de vote sincère canonique est simplement équivalente à celle de stratégie dominante.
+
+\subsection{Assentiment}
+
+On a 3 candidats. Je suis l'électeur 1 et mon vecteur d'utilité est $(1,b,0)$. Il est facile de voir que mes deux seules stratégies raisonnables sont 1 0 0 et 1 1 0 (car les autres sont dominées par une de ces deux stratégies). 
+
+On considère une mesure de probabilité $\mu$ sur les votes des autres électeurs, qui soit invariante par toutes les symétries du système de vote relatives aux candidats. Dans chaque situation, ce qui m'intéresse, c'est quels candidats ont le plus grand nombre de voix, et quels candidats ont une voix de moins. Je noterai donc une telle situation (AB,C) par exemple pour dire que A et B sont en tête à égalité et que C a une voix de moins (sans compter mon vote). Énumérons les situations possibles:
+\begin{itemize}
+\item (A, $\varnothing$), (B, $\varnothing$), (C, $\varnothing$), chacune avec proba $p_{10}$;
+\item (A, B), (A, C), (B, A), (B, C), (C, A), (C, B), chacune avec proba $p_{11}$;
+\item (A, BC), (B, AC), (C, AB), chacune avec proba $p_{12}$;
+\item (AB, $\varnothing$), (AC, $\varnothing$), (BC, $\varnothing$), chacune avec proba $p_{20}$;
+\item (AB, C), (AC, B), (BC, A), chacune avec proba $p_{21}$;
+\item (ABC, $\varnothing$) avec proba $p_{30}$.
+\end{itemize}
+
+Si je choisis la stratégie 1 0 0, voici mon espérance d'utilité:
+\begin{align*}
+E(u) &=  p_{10} (1+b+0) + p_{11} (1+1+\dfrac{1+b}{2}+b+\dfrac{1+0}{2}+0) + p_{12} (1+\dfrac{1+b}{2}+\dfrac{1+0}{2}) \\
+&+ p_{20} (1+1+\dfrac{b+0}{2}) + p_{21} (1+1+\dfrac{1+b+0}{3}) + p_{30}(1).
+\end{align*}
+
+Et si je choisis la stratégie 1 1 0:
+\begin{align*}
+E'(u) &= p_{10} (1+b+0) + p_{11} (1+1+b+b+\dfrac{1+0}{2}+\dfrac{b+0}{2}) + p_{12} (1+b+\dfrac{1+b+0}{3}) \\
+&+ p_{20} (\dfrac{1+b}{2}+1+b) + p_{21} (\dfrac{1+b}{2}+1+b) + p_{30}(\dfrac{1+b}{2}).
+\end{align*}
+
+Aux erreurs de calcul près, on a:
+$$
+E(u) - E'(u) = \dfrac{p_{11}}{2} (1-2b) + \dfrac{p_{12}}{6} (4-5b) + \dfrac{p_{20}}{2} (1-2b) + \dfrac{p_{21}}{6} (5-7b) + \dfrac{p_{30}}{2} (1-b).
+$$
+
+Si $b \leq \frac{1}{2}$, cette expression est positive et je possède une stratégie sincère canonique: voter uniquement pour A. En revanche, si $b > \frac{1}{2}$, alors par exemple le terme en $p_{11}$ est négatif mais celui en $p_{30}$ est positif: la meilleure stratégie dépend de la loi~$\mu$, donc \textbf{je n'ai pas de stratégie sincère canonique}.
+
+En gros, il y a toujours au moins la situation d'égalité parfaite (ABC, $\varnothing$) qui me pousse à voter uniquement pour A (cette situation n'est pas forcément improbable: je peux être dans une culture où tous les autres électeurs s'en foutent... ce qui inclut le cas où je suis tout seul, d'ailleurs). Mais quand $b > \frac{1}{2}$, certains autres types de situations pivot me poussent à inclure le candidat B dans mon bulletin. Si je ne fais aucune hypothèse sur le type de culture dans laquelle je me trouve (même en me limitant aux cultures symétriques par rapport aux candidats), alors je n'ai aucun moyen de pencher en faveur de l'une ou l'autre stratégie.
+
+\subsection{La fête sans alcool}
+
+Nombre d'électeurs $n$ impair, les votes se font à la majorité. Dans un premier temps, on vote pour une fête (F) ou non (N). Si la fête est approuvée, on vote pour qu'elle soit avec alcool (A) ou sobre (S). Il y a donc 3 candidats: N, A, S; le mode de scrutin est symétrique entre A et S, mais c'est tout.
+
+Je suis un puritain fêtard pour lequel $(u_S,u_N,u_A) = (1,b,0)$, où $b$ est strictement entre 0 et 1. Clairement, si second tour il y a, je dois voter pour S. Mais que voter au premier tour: F ou N?
+
+On considère une mesure de proba $\mu$ sur les votes des autres électeurs qui respecte les symétries du mode de scrutin par rapport aux autres candidats. Dans chaque situation, ce qui m'intéresse, c'est:
+\begin{itemize}
+\item le premier tour renvoie-t-il N, F ou bien suis-je pivot?
+\item dans les deux derniers cas, le second tour renvoie-t-il A, S ou bien suis-je pivot?
+\end{itemize}
+Énumérons donc les situations possibles:
+\begin{itemize}
+\item N avec proba $p_N$;
+\item Pivot/A, Pivot/S, chacune avec proba $p_{P1}$;
+\item Pivot/Pivot avec proba $p_{PP}$;
+\item F/A, F/S, chacune avec proba $p_{F1}$;
+\item F/Pivot avec proba $p_{FP}$.
+\end{itemize}
+
+Si je vote F au premier tour, voici mon espérance d'utilité:
+$$
+E(u) = p_N.b + p_{P1} (0 + 1) + p_{PP}.1 + p_{F1}(0+1) + p_{FP}.1.
+$$
+
+Et si je vote N:
+$$
+E'(u) = p_N.b + p_{P1} (b + b) + p_{PP}.b + p_{F1}(0+1) + p_{FP}.1.
+$$
+
+Donc:
+$$
+E(u) - E'(u) = p_{P1}(1 - 2b) + p_{PP}(1-b).
+$$
+
+Par conséquent, si $b \leq \frac{1}{2}$ (puritain modéré: une fête avec alcool est presque aussi bien que pas de fête), j'ai une stratégie sincère canonique: voter F. Et tant pis si finalement, il y a de l'alcool...
+
+En revanche, si $b > \frac{1}{2}$ (puritain strict: l'alcool, c'est le mal), alors \textbf{je n'ai pas de stratégie sincère canonique}. Si je pense qu'il est très probable qu'il y ait du pivot à chaque tour, alors je dois voter F car je pourrai décider qu'il n'y a pas d'alcool; mais si je pense qu'il est très probable que le second tour se joue sans moi (en faveur de l'alcool ou non), alors je dois voter N car le jeu n'en vaut pas la chandelle.
+
+
+\subsection{Plurality}
+
+Pour plurality, quand l'électeur a un candidat strictement préféré à tout autre, on aimerait prouver qu'il a une stratégie sincère canonique: voter pour son préféré.
+
+En considérant l'action <<\,naturelle\,>> du groupe des permutations sur ce mode de scrutin, il est facile de voir que si un tel électeur possède une stratégie sincère canonique, alors c'est bien la stratégie qui consiste à voter pour son préféré.
+
+Mais voici le problème: pour prouver que c'est sa stratégie sincère canonique, il faudrait identifier \textbf{tous} les $n$-uplets d'actions de groupes compatibles avec le mode de scrutin. Et perso, je n'arrive pas bien à voir comment on fait ça. Voilà où j'en suis...
+
+
+
+\subsection{Remarques}
+
+Existence d'une stratégie sincère canonique.
+
+Unicité.
+
+Le point-clé est de définir ce qu'est une loi $\mu$ sur les stratégies (des autres électeurs) qui soit <<\,invariante par toute permutation des candidats\,>>.
+
+= par tout candidat-automorphisme du mds?
+
+
+\section{Manipulation triviale}
+
+

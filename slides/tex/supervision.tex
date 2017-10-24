@@ -1,222 +1,217 @@
 \section{Mesure implicite} % (fold)
 \label{sec:supervision_active_&_passive}
 
-\begin{frame}{Introduction}
-
-\begin{block}{Supervision}
-  \begin{itemize}
-    \item Collecte de données
-    \item Interprétation des données
-    \item Prise de décisions
-  \end{itemize}
-\end{block}
+\begin{frame}{Supervision}
 
 \begin{alertblock}{Objectifs}
   \begin{itemize}
-    \item Diagnostiquer les pannes
-    \item Anticiper les problèmes
-    \item Mesurer le système
+    \item Collecte et interprétation des données
+    \item Diagnostic et anticipation de problèmes
   \end{itemize}
 \end{alertblock}
 
   \begin{block}{Exemples}
     \begin{itemize}
+      \item Estimer le temps restant avant problème
       \item Anticiper la perte d'un nœud (épuisement batterie)
-      \item Estimer le temps restant avant une saturation de la flash
-      \item Suivi de la consommation énergétique
+      \item Suivi de métriques
     \end{itemize}
   \end{block}
 
-  \pnote{
-    - Nombreux produits disponibles dans l'Industrie
-    - Nécessité pour prendre des décisions sur l'état d'un système
-  }
 
 \end{frame}
 
-\begin{frame}{État de l'art}
-  \begin{block}{Mesure active}
-    \begin{itemize}
-      \item Envoi de statut périodique de la part des nœuds (``health report'', SNMP)
-      \item Sondes tierces
-    \end{itemize}
-  \end{block}
+% \begin{frame}{Schéma de supervision}
 
-  \begin{block}{Limitations}
-    \begin{itemize}
-      \item Oblige les nœuds à avoir un agent actif spécifique
-      \item Pour les sondes tierces, elles ont également besoin d’être sondées
-      \item Trafic supplémentaire
-    \end{itemize}
-  \end{block}
 
-  \pnote{
-    Avec SNMP tu peux avoir un modèle client serveur mais aussi des traps pour l'envoi de notifications.
-  }
-  \pnote{
-    Par contre le protocole SNMP peut être lourd à implémenter (support des MIB Management Information Base pas forcément exhaustif, plusieurs versions du protocole (3 version), dans la troisième qui est sécurisée: pas de négociation de chiffrement =>Doit connaître à l'avance le chiffreur utilisé)
-  }
-  \pnote{
-    - Des nœuds venant de deux vendeurs différents vont pas forcément être supervisés de la même manière
-  }
-  \pnote{
-    - Pas toujours possible de déployer un agent actif sur chaque nœud (plateforme fermée, manque de ressources)
-  }
+%   \pnote{
+%     - Nombreux produits disponibles dans l'Industrie
+%     - Nécessité pour prendre des décisions sur l'état d'un système
+%   }
+  
+% \end{frame}
 
+% \begin{frame}{État de l'art}
+%   \begin{block}{Mesure active}
+%     \begin{itemize}
+%       \item Envoi de statut périodique de la part des nœuds (``health report'', SNMP)
+%       \item Sondes tierces
+%     \end{itemize}
+%   \end{block}
+
+%   \begin{block}{Limitations}
+%     \begin{itemize}
+%       \item Oblige les nœuds à avoir un agent actif spécifique
+%       \item Pour les sondes tierces, elles ont également besoin d’être sondées
+%       \item Trafic supplémentaire
+%     \end{itemize}
+%   \end{block}
+
+%   \pnote{
+%     Avec SNMP tu peux avoir un modèle client serveur mais aussi des traps pour l'envoi de notifications.
+%   }
+%   \pnote{
+%     Par contre le protocole SNMP peut être lourd à implémenter (support des MIB Management Information Base pas forcément exhaustif, plusieurs versions du protocole (3 version), dans la troisième qui est sécurisée: pas de négociation de chiffrement =>Doit connaître à l'avance le chiffreur utilisé)
+%   }
+%   \pnote{
+%     - Des nœuds venant de deux vendeurs différents vont pas forcément être supervisés de la même manière
+%   }
+%   \pnote{
+%     - Pas toujours possible de déployer un agent actif sur chaque nœud (plateforme fermée, manque de ressources)
+%   }
+
+% \end{frame}
+
+\begin{frame}{Mesure active \& passive}
+  \begin{tabular}{|p{0.1\textwidth}|p{0.4\textwidth}|p{0.4\textwidth}|}
+   \hline
+   & Mesure active &  Mesure passive \\
+   \hline
+   :-) & \begin{itemize}
+     \item Précis
+     \item Réactif
+   \end{itemize} & \begin{itemize}
+     \item Économe
+     \item Universel
+   \end{itemize} \\
+   \hline
+   :-( & \begin{itemize}
+     \item Consomme
+     \item Disponibilité
+   \end{itemize} & 
+   \begin{itemize}
+      \item Imprécis
+      \item Non Réactif
+    \end{itemize} \\
+   \hline
+\end{tabular}
 \end{frame}
 
-\begin{frame}{Puissance consommée par composant}
+% \begin{frame}{Mesure passive}
+%   \begin{block}{Définitions}
+%     \begin{itemize}
+%       \item Une mesure active nécessite un envoi de paquets dédiés à cette mesure.
+%       \item Une mesure passive ne dépend que des paquets qui seraient envoyés de toute façon, même si la mesure n'avait pas lieu.
+%     \end{itemize}
+%   \end{block}
+%   \begin{block}{Propriétés des mesures passives}
+%     \begin{itemize}
+%       \item Elles sont fondées sur l'observation de paquets non modifiés et non perturbés.
+%       \item N'induit aucune consommation de ressources supplémentaires pour les nœuds.
+%       \item Elles ne sont donc utiles que s'il existe déjà des paquets intéressants.
+%       \item Exemple: sFlow, netflow, IPFIX.
+%     \end{itemize}
 
-  \begin{block}{Consommation globale - CC2420}
-    \begin{itemize}
-      \item Écoute: 63 mW
-      \item Transmission: 60mW
-      \item CPU: 5mW (Actif) / 0.1mW (Sommeil)
-    \end{itemize}
-  \end{block}
-\end{frame}
+%   \end{block}
 
-\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+%   \pnote{
+%     - Le passif n'en créent pas et n'en modifient pas (rfc 7799)
+%   }
+% \end{frame}
 
-\begin{frame}{Modélisation ContikiMAC}
-  \begin{block}{\ieee{}}
-    $T_p = \frac{\mathcal{L}(f)}{R} \ceil[\Big]{\frac{\mathcal{L}(p)}{L}}$
-  \end{block}
+\begin{frame}\frametitle{Aperçu de la contribution}
 
-  \begin{figure}[ht]
-    \centering
-    \includegraphics[width=.5\textwidth]{figures/contikimac.png}
-  \end{figure}
-
-  \pnote{
-    - En blue: La fenetre de réception
-  }
-  \pnote{
-    - blanc: Trame de données/ack transmises mais non reçue
-  }
-  \pnote{
-    - noir: Trame de données/ack transmis et reçue
-  }
-  \pnote{
-    $T_\detect$ est le temps que le transmetteur va passer en écoute juste après une tentative de transmission pour détecter son éventuel succès par un acquittement d'un récepteur juste après l'envoi d'une trame de donnée.
-  }
-  \pnote{
-    ti: the interval between each packet transmission. (0.4 ms)
-  }
-  \pnote{
-    tr: the time required for a stable RSSI, needed for a stable CCA indication.
-  }
-  \pnote{
-    tc: the interval between each CCA.
-  }
-  \pnote{
-    ta: the time between receiving a packet and sending the acknowledgment packet.
-  }
-  \pnote{
-    td: the time required for successfully detecting an acknowledgment from the receiver. (0.16 ms)
-  }
-  \pnote{
-    ts, the transmission time of the shortest packet, must be larger than tr + tc + tr (0.884 ms)
-  }
-\end{frame}
-
-\begin{frame}{Consommation énergétique ContikiMAC}
-
-  \begin{block}{Hypothèses}
-    \begin{itemize}
-      \item TmoteSky - CC2420
-      \item Trame de taille maximale (127 octets)
-    \end{itemize}
-  \end{block}
+  % \begin{block}{Buts}
+  %   \begin{itemize}
+  %     \item La radio est la principale consommatrice d'énergie
+  %     \item Produire une estimation de l'utilisation de la radio
+  %     \item Avoir une vue du trafic réseau et identifier les points chauds
+  %   \end{itemize}
+  % \end{block}
 
   \begin{figure}
     \centering
-    \includegraphics[width=0.7\textwidth]{figures/consommation_contikimac.pdf}
+    \input{figures/supervision_flow}
   \end{figure}
 
-\end{frame}
-
-\begin{frame}\frametitle{Problématiques et contributions}
-
-  \begin{block}{Buts}
-    \begin{itemize}
-      \item La radio est la principale consommatrice d'énergie
-      \item Produire une estimation de l'utilisation de la radio
-      \item Avoir une vue du trafic réseau et identifier les points chauds
-    \end{itemize}
-  \end{block}
 
   \begin{alertblock}{Contribution}
     \begin{itemize}
-      \item Mesure passive de la consommation énergétique à la passerelle
-      \item Utilisation de la topologie réseau pour inférer le coût des retransmissions
-      \item Correction de cette estimation avec de la mesure active quand c'est possible
+      % \item Fournir une estimation de l'utilisation de la radio quand la mesure active n'est pas disponible
+      \item Estimation de l'utilisation de la radio
+      % \item Mesure passive de la consommation énergétique à la passerelle
+      \item Topologie réseau connue $\implies$ Déduction coût du relayage
+      \item Recalibration
     \end{itemize}
   \end{alertblock}
 
 \end{frame}
 
-\begin{frame}{Mesure passive}
-  \begin{block}{Définitions}
-    \begin{itemize}
-      \item Une mesure active nécessite un envoi de paquets dédiés à cette mesure.
-      \item Une mesure passive ne dépend que des paquets qui seraient envoyés de toute façon, même si la mesure n'avait pas lieu.
-    \end{itemize}
-  \end{block}
-  \begin{block}{Propriétés des mesures passives}
-    \begin{itemize}
-      \item Elles sont fondées sur l'observation de paquets non modifiés et non perturbés.
-      \item N'induit aucune consommation de ressources supplémentaires pour les nœuds.
-      \item Elles ne sont donc utiles que s'il existe déjà des paquets intéressants.
-      \item Exemple: sFlow, netflow, IPFIX.
-    \end{itemize}
+% \begin{frame}{Architecture de mesure implicite}
+%   % \begin{figure}
+%   %   \centering
+%   %   \includegraphics[width=\textwidth]{figures/schema_supervision_slides.pdf}
+%   % \end{figure}
+%   % \begin{block}{TODO: PRINCIPE BIG PICTURE}
+%   %   \begin{itemize}
+%   %     \item Modélisation de la couche MAC
+%   %     \item Maintien de compteurs (tx/rx) pour chaque nœuds
+%   %   \end{itemize}
+%   % \end{block}
+% \end{frame}
 
-  \end{block}
+\begin{frame}{Estimation du temps radio}
 
-  \pnote{
-    - Le passif n'en créent pas et n'en modifient pas (rfc 7799)
-  }
+    \begin{block}{Modèle}
+      \begin{itemize}
+        \item Maintient de compteurs (tx/rx) pour chaque nœud
+        % \item Modélisation de la couche MAC
+      \end{itemize}
+    \end{block}
+    
+    \begin{columns}
+        \begin{column}{0.50\textwidth}
+
+          \begin{figure}
+            \centering
+            % \includegraphics[width=\textwidth]{figures/schema_supervision_slides.pdf}
+            \input{figures/schema_etoile}
+            \captionsetup{labelformat=empty}
+            \caption{Topologie inconnue}
+          \end{figure}
+
+        \end{column}
+        \begin{column}{0.50\textwidth}
+
+          \begin{figure}
+            \centering
+            \input{figures/schema_maille}
+            \captionsetup{labelformat=empty}
+            \caption{Topologie connue}
+          \end{figure}
+        \end{column}
+    \end{columns}
+
+
+
 \end{frame}
 
-\begin{frame}{Architecture de mesure implicite}
-  \begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{figures/schema_supervision_slides.pdf}
-  \end{figure}
-  \begin{block}{Modèle}
-    \begin{itemize}
-      \item Modélisation de la couche MAC
-      \item Maintien de compteurs (tx/rx) pour chaque nœuds
-    \end{itemize}
-  \end{block}
-\end{frame}
+% \begin{frame}{Modélisation des transmissions}
+%   \begin{figure}
+%     \input{figures/impact_transmission}
+%   \end{figure}
+%   \begin{block}{Estimation ``étoilée'' (Sans connaissance de la topologie)}
+%     \begin{itemize}
+%       \item Compteurs mis à jour pour la source et la destination (A, B)
+%     \end{itemize}
+%   \end{block}
+%   \begin{block}{Estimation ``maillée'' (Avec connaissance de la topologie)}
+%     \begin{itemize}
+%       \item Compteurs mis à jour pour la source, destination et routeurs (A, B, R)
+%     \end{itemize}
+%   \end{block}
+%   \pnote{
+%     On ignore l'overhearing car le trafic est le plus souvent faible
+%   }
+%   \pnote{
+%     Pas évident d'obtenir le voisinage sans ajout d'informations
+%   }
+% \end{frame}
 
-\begin{frame}{Modélisation des transmissions}
-  \begin{figure}
-    \input{figures/impact_transmission}
-  \end{figure}
-  \begin{block}{Estimation ``étoilée'' (Sans connaissance de la topologie)}
-    \begin{itemize}
-      \item Compteurs mis à jour pour la source et la destination (A, B)
-    \end{itemize}
-  \end{block}
-  \begin{block}{Estimation ``maillée'' (Avec connaissance de la topologie)}
-    \begin{itemize}
-      \item Compteurs mis à jour pour la source, destination et routeurs (A, B, R)
-    \end{itemize}
-  \end{block}
-  \pnote{
-    On ignore l'overhearing car le trafic est le plus souvent faible
-  }
-  \pnote{
-    Pas évident d'obtenir le voisinage sans ajout d'informations
-  }
-\end{frame}
-
-\begin{frame}{Modélisation}
+\begin{frame}{Modélisation de la couche MAC}
   \begin{block}{Limitations de compteurs naïfs à la couche réseau}
     \begin{itemize}
-      \item Ne connait pas le type de radio utilisé
+      \item Ne connaît pas le type de radio utilisé
       \item Ne tient pas compte des retransmissions
     \end{itemize}
   \end{block}
@@ -233,13 +228,11 @@
   \end{alertblock}
 \end{frame}
 
-\begin{frame}{Strobing moyen $N_{\textrm{sender}}$}
+\begin{frame}{Strobing moyen $N_{\textrm{sender}}$ (ContikiMAC)}
   \begin{block}{Conditions expérimentales}
-    \begin{itemize}
-      \item Rime stack (\ieee{} et ContikiMAC)
-      \item Trafic 1 paquet/s
-      \item Taille de trame variable
-    \end{itemize}
+      \begin{itemize}
+        \item Trafic 1 paquet/s
+      \end{itemize}
   \end{block}
   \begin{block}{Topologie}
     \begin{figure}
@@ -247,25 +240,23 @@
       \input{figures/topologie_binaire}
     \end{figure}
   \end{block}
-\end{frame}
-
-\begin{frame}{Strobing moyen $N_{\textrm{sender}}$}
   \begin{figure}
-    \includegraphics[width=.8\textwidth]{figures/average_strobbing.pdf}
+    \includegraphics<1>[width=.7\textwidth]{figures/new_average_strobing.pdf}
+    \includegraphics<2>[width=.7\textwidth]{figures/new_average_strobing_hl.pdf}
   \end{figure}
-  \begin{block}{Calibration}
-    \begin{itemize}
-      \item $N_{sender}(69) \approx 3.76$
-      \item $N_{\textrm{receiver}} = 1.5$ ($\forall$ taille de la trame)
-    \end{itemize}
-  \end{block}
+  % \begin{block}{Calibration}
+  %   \begin{itemize}
+  %     \item $N_{sender}(69) \approx 3.76$
+  %     \item $N_{\textrm{receiver}} = 1.5$ ($\forall$ taille de la trame)
+  %   \end{itemize}
+  % \end{block}
   \pnote{
     - Une trame longue est détectée plus facilement car elle a plus de chance de tomber entre deux réveils d'un destinataire
   }
 \end{frame}
 
 \begin{frame}{Validation expérimentale}
-  \begin{block}{Hypothèses}
+  \begin{block}{Setup}
     \begin{itemize}
       \item Contiki/COOJA/Powertracker
       \item 200 secondes
@@ -277,6 +268,13 @@
     \centering
     \input{figures/topologie_chaine}
   \end{figure}
+  \begin{alertblock}{Objectifs}
+    \begin{itemize}
+      \item Valider la modélisation du strobing
+      \item Évaluer l'impact de la connaissance de la topologie
+    \end{itemize}
+  \end{alertblock}
+
   \pnote{
     Choix de la chaîne: Interprétation facile des résultats de topologie par rapport à une topologie quelconque.
   }
@@ -285,14 +283,53 @@
   }
 \end{frame}
 
-\begin{frame}{Analyse des protocoles}
-    \begin{figure}
-    \centering
-    \subfloat[Répartition par profondeur]{
-        \includegraphics[width=0.5\textwidth]{figures/protocol_repartition_depth.pdf}}
-    \subfloat[Évolution au cours du temps]{
-        \includegraphics[width=0.5\textwidth]{figures/repartition_protocol.pdf}}
-    \end{figure}
+% \begin{frame}{Analyse des protocoles}
+%     \begin{figure}
+%     \centering
+%     \captionsetup{labelformat=empty}
+
+%     \subfloat[Répartition par profondeur]{
+%         \includegraphics[width=0.5\textwidth]{figures/new_protocol_repartition_depth.pdf}}
+%     \subfloat[Évolution au cours du temps]{
+%         \includegraphics[width=0.5\textwidth]{figures/new_repartition_protocol.pdf}}
+%     \end{figure}
+%     \begin{block}{Observations}
+%       \begin{itemize}
+%         \item L'impact de RPL est homogène par profondeur
+%         \item L'impact de RPL diminue au cours du temps
+%         \item Le trafic applicatif est globalement majoritaire
+%       \end{itemize}
+%     \end{block}
+%     \pnote{
+%       Cependant il faut indiquer que comme on ne prends pas en compte le protocole de routage
+%       on va prendre un retard.
+%     }
+% \end{frame}
+
+\begin{frame}{Évaluation par protocole}
+
+    \begin{columns}
+        \begin{column}{0.48\textwidth}
+          \begin{figure}
+            \centering
+            \includegraphics<1>[width=\textwidth]{figures/new_protocol_repartition_depth.pdf}
+            \includegraphics<2>[width=\textwidth]{figures/new_protocol_repartition_depth_hl.pdf}
+            \captionsetup{labelformat=empty}
+            \caption{Répartition par profondeur}
+          \end{figure}
+        \end{column}
+        \begin{column}{0.50\textwidth}
+          \begin{figure}
+            \centering
+            \includegraphics<1>[width=\textwidth]{figures/new_repartition_protocol.pdf}
+            \includegraphics<2>[width=\textwidth]{figures/new_repartition_protocol_hl.pdf}
+            \captionsetup{labelformat=empty}
+            \caption{Évolution au cours du temps}
+          \end{figure}
+
+        \end{column}
+    \end{columns}
+
     \begin{block}{Observations}
       \begin{itemize}
         \item L'impact de RPL est homogène par profondeur
@@ -306,10 +343,13 @@
     }
 \end{frame}
 
+
+
 \begin{frame}{Validation de $N_{sender}$}
     \begin{figure}
     \centering
-    \includegraphics[width=.75\textwidth]{figures/strobes_depth.pdf}
+    \includegraphics<1>[width=.75\textwidth]{figures/new_stobes_depth.pdf}
+    \includegraphics<2>[width=.75\textwidth]{figures/new_stobes_depth_hl.pdf}
     \end{figure}
     \begin{alertblock}{Observations}
       \begin{itemize}
@@ -325,13 +365,26 @@
       $$\delta = \frac{\widehat{X}}{X}$$
     \end{block}
 
-    \begin{figure}
-    \centering
-    \subfloat[Estimation ``étoilée'' \label{fig:1}]{
-        \includegraphics[width=0.5\textwidth]{figures/global_noinfo.pdf}}
-    \subfloat[Estimation ``maillée'' \label{fig:2}]{
-        \includegraphics[width=0.5\textwidth]{figures/global_route.pdf}}
-    \end{figure}
+    \begin{columns}
+        \begin{column}{0.48\textwidth}
+          \begin{figure}
+            \centering
+            \includegraphics[width=\textwidth]{figures/global_noinfo.pdf}
+            \captionsetup{labelformat=empty}
+            \caption{Topologie inconnue}
+          \end{figure}
+        \end{column}
+        \begin{column}{0.50\textwidth}
+          \begin{figure}
+            \centering
+            \includegraphics[width=\textwidth]{figures/global_route.pdf}
+            \captionsetup{labelformat=empty}
+            \caption{Topologie connue}
+          \end{figure}
+
+        \end{column}
+    \end{columns}
+
 
   \pnote{
     - Remarque de Nathalie: On néglige les ACK. Notre modèle est perfectible.
@@ -345,22 +398,35 @@
 \end{frame}
 
 \begin{frame}{Mesure active périodique}
-  \begin{block}{Objectifs}
+  
+  \begin{columns}
+      \begin{column}{0.48\textwidth}
+        \begin{figure}
+          \centering
+          \includegraphics[width=0.9\textwidth]{figures/topology_tree.png}
+        \end{figure}
+      \end{column}
+      \begin{column}{0.50\textwidth}
+        \begin{figure}
+          \centering
+          \includegraphics[width=\textwidth]{figures/alpha_ewma.pdf}
+        \end{figure}
+
+      \end{column}
+  \end{columns}
+
+
+  % \begin{alertblock}{Modèle correctif: }
+  %   \begin{align}
+  %     \widehat{X}(t) &= X(t_r) + \epsilon(t_r)\frac{t - t_r}{T}\\
+  %     \epsilon(t_r) &= \alpha (X(t_r) - \widehat{X}(t_r)) + (1 - \alpha)\epsilon(t_{r-1})
+  %     \label{supervision:eqn:bias}
+  %   \end{align}
+  % \end{alertblock}
+  \begin{block}{Mécanismes de correction}
     \begin{itemize}
-      \item Apprendre le biais de l'estimation passive
-    \end{itemize}
-  \end{block}
-  \begin{alertblock}{Modèle correctif: Moyenne pondérée (EWMA)}
-    \begin{align}
-      \widehat{X}(t) &= X(t_r) + \epsilon(t_r)\frac{t - t_r}{T}\\
-      \epsilon(t_r) &= \alpha (X(t_r) - \widehat{X}(t_r)) + (1 - \alpha)\epsilon(t_{r-1})
-      \label{supervision:eqn:bias}
-    \end{align}
-  \end{alertblock}
-  \begin{block}{Topologie expérimentale}
-    \begin{itemize}
-      \item 21 nœuds
-      \item $\alpha = 0.25$
+      % \item 21 nœuds
+      \item Moyenne pondérée (EWMA) $\alpha = 0.25$
       \item Mesure active toutes les 25 secondes
     \end{itemize}
   \end{block}
@@ -380,29 +446,14 @@
 \end{frame}
 
 
-\begin{frame}\frametitle{Conclusion}
+% \begin{frame}\frametitle{Bilan}
 
-  \begin{block}{Supervision}
-      \begin{itemize}
-        \item La connaissance de la topologie améliore la précision
-        \item Calibration par strobing validée mais insuffisante
-        \item Mesures actives nécessaires pour cette configuration
-      \end{itemize}
-  \end{block}
 
-  \begin{block}{Ouvertures}
-    \begin{itemize}
-      \item Différentes topologies
-      \item Modélisation plus fine des protocoles de routage (RPL)
-      \item Apprentissage du biais et adaptation de la fréquence des mesures actives
-    \end{itemize}
-  \end{block}
+%   \pnote{
+%     - La supervision passive bien qu'imprécise fournit une quantité minimale d'information
+%   }
+%   \pnote{
+%     - La fiabilité des couches basses est essentielle pour construire des modèles fiables
+%   }
 
-  \pnote{
-    - La supervision passive bien qu'imprécise fournit une quantité minimale d'information
-  }
-  \pnote{
-    - La fiabilité des couches basses est essentielle pour construire des modèles fiables
-  }
-
-\end{frame}
+% \end{frame}

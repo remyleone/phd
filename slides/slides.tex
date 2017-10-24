@@ -2,11 +2,12 @@
 \usepackage{etex}
 \usepackage{subfig}
 
+\usepackage{caption}
 \usepackage[utf8]{inputenc}
 \usepackage[absolute,overlay]{textpos}
-\usepackage{listings}
+%\usepackage{listings}
 \usepackage{hyperref}
-\usepackage{amsmath} % Math environments and more by the AMS 
+\usepackage{amsmath} % Math environments and more by the AMS
 \usepackage{mathtools}
 
 % \usepackage[dvipsnames]{xcolor}
@@ -54,7 +55,7 @@
 
 \newcommand{\theTitle}{Passerelle intelligente pour réseaux de capteurs sans fil contraints}
 \newcommand{\theAuthors}{Rémy Leone, remy.leone@telecom-paristech.fr}
-\newcommand{\theConferenceAndPlace}{INFRES, Thales Communications \& Security, LINCS}
+\newcommand{\theConferenceAndPlace}{Thales Communications \& Security\\INFRES\\LINCS}
 \newcommand{\theDate}{\today}
 
 \newcommand{\ieee}{IEEE 802.15.4}
@@ -116,12 +117,13 @@
 }
 
 \input{tex/gw}
-\input{tex/supervision}
 \input{tex/cache}
+\input{tex/finterop}
 \input{tex/conclusion}
 
-\input{tex/annexe_supervision}
-\input{tex/annexe_cache}
-\input{tex/automation}
+%\input{tex/supervision}
+%\input{tex/annexe_supervision}
+%\input{tex/annexe_cache}
+%\input{tex/automation}
 
 \end{document}

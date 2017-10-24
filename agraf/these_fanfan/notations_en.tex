@@ -1,0 +1,285 @@
+% !TeX spellcheck = en_US
+\mychapter{Notations}\label{sec:notations}
+
+%\setminus, \circ...
+\newlength{\largeurGlossaireGauche}
+\setlength{\largeurGlossaireGauche}{0.23\linewidth}
+\newlength{\largeurGlossaireDroite}
+\setlength{\largeurGlossaireDroite}{\linewidth}
+\addtolength{\largeurGlossaireDroite}{-\largeurGlossaireGauche}
+\addtolength{\largeurGlossaireGauche}{-2\arraycolsep}
+\addtolength{\largeurGlossaireDroite}{-2\arraycolsep}
+
+\sectionstar{Non-alphabetical symbols}
+
+\begin{bigcenter}
+\begin{longtable}{|>{\centering}m{\largeurGlossaireGauche}|m{\largeurGlossaireDroite}|}
+\hline
+%\multicolumn{2}{|l|}{\textsc{Parenthèses, crochets, etc.}} \\\hline
+$[\alpha,\beta\mathclose\lbrack$ & Real interval from $\alpha$ included to $\beta$ excluded (French convention). \\\hline
+$\intent{j}{k}$ & Integer interval from $j$ to $k$ included. \\\hline
+$\lfloor \alpha \rfloor$ & Floor function of real number $\alpha$.%: $\lfloor \alpha \rfloor \leq \alpha$. 
+\\\hline
+$\lceil \alpha \rceil$ & Ceiling function of real number $\alpha$.%: $\lceil \alpha \rceil \geq \alpha$. 
+\\\hline
+%\rule{0pt}{1.1em}$\bracket{\vecteur{u}}{\vecteur{v}}$ & Produit scalaire canonique de $\vecteur{u}$ et $\vecteur{v}$.\\\hline
+%$\bra{\vecteur{u}}$ & Forme linéaire (si vue comme élément de $\ens{H}^\star$) ou affine (si vue comme élément de $\lott^\star$)  associée à $\vecteur{u}$. \\\hline % notation locale
+%\rule{0pt}{1.1em}$\| \vecteur{u} \|$ & Norme euclidienne canonique de $\vecteur{u}$. \\\hline
+$\voterset{\ens{A}(v)}$ & Number of voters $v$ meeting assertion $\ens{A}(v)$. \\\hline
+
+%\multicolumn{2}{|l|}{\textsc{Relations binaires}} \\\hline
+%$\moinssim$ & Relation binaire de préférence d'un agent sur $\lott$ ou $\lott'$. \\\hline
+%$\moinsque$ & Relation stricte associée à $\moinssim$. \\\hline
+%$\moinssim_{\vectutil{u}}$ & Préférences sur $\lott$ représentées par le vecteur d'utilité $\vectutil{u}$. \\\hline
+%$\moinssim_{\vectutilapprob{u}}$ & Préférences sur $\lott'$ représentées par le vecteur d'utilité avec limite d'approbation $\vectutilapprob{u}$. \\\hline
+%$\vecteur{u} \approx \vecteur{v}$ & Les vecteurs $\vecteur{u}$ et $\vecteur{v}$ de $\R^C$ sont deux vecteurs d'utilité représentant les mêmes préférences sur $\lott$. \\\hline
+%$f \approx g$ & Les formes linéaires $f$ et $g$ de $\ens{H}^\star$ sont positivement proportionnelles. \\\hline % notation locale
+%$\vecteur{u} \sim \vecteur{v}$ & Les vecteurs $\vecteur{u}$ et $\vecteur{v}$ de $\R^C$ sont deux vecteurs d'utilité avec limite d'approbation représentant les mêmes préférences sur $\lott'$. \\\hline
+%$f \sim g$ & Les formes affines $f$ et $g$ de $\lott^\star$ sont positivement proportionnelles. \\\hline % notation locale
+%$\omega_v \equiv_f \psi_v$ & Les états $\omega_v$ et $\psi_v$ sont indistinguables pour $f$ (cf. implantation canonique). \\\hline
+
+%\multicolumn{2}{|l|}{\textsc{Divers}} \\\hline
+%\rule{0pt}{1.2em}$\vecteur{1}$ & Vecteur dont les $C$ coordonnées sont toutes égales à 1. \\\hline
+%\rule{0pt}{1.2em}$\bipoint{LM}$ %\in \ens{T}'$ 
+%  & Bipoint $(M_1-L_1,\ldots,M_C-L_C)$ de $L \in \lott'$ vers $M \in \lott'$. \\\hline
+$\proba (A \mid B)$ & Conditional probability of event $A$ knowing $B$. \\ \hline
+
+\end{longtable}
+\end{bigcenter}
+
+
+\sectionstar{Greek alphabet}
+
+\begin{bigcenter}
+\begin{longtable}{|>{\centering}m{\largeurGlossaireGauche}|m{\largeurGlossaireDroite}|}
+\hline
+%$\alpha, \beta, \gamma$ & Des entiers ou des réels génériques. \\\hline
+%$\alpha \in \mathopen]0,+\infty\mathclose\lbrack$ & Dans l'annexe \ref{sec:sphere}: coefficient multiplicatif de normalisation des utilités d'un agent (modèles sans ou avec limite d'approbation). \\\hline
+%$\beta \in \R$ & Dans l'annexe \ref{sec:sphere}: coefficient additif de normalisation des utilités d'un agent (uniquement dans le modèle classique sans limite d'approbation). \\\hline
+%\rule{0pt}{1.2em}$\vecteur{\Delta}$ & Un vecteur $(\Delta_1,\ldots,\Delta_C)$ de l'hyperplan $\ens{H}$ ou de l'espace vectoriel $\R^C$. \\\hline % notation locale
+%$\delta$ & $\delta(\vectutil{u},\vectutil{v})$ (resp. $\delta(\vectutilapprob{u},\vectutilapprob{v})$) est une distance entre $\vectutil{u}$ et $\vectutil{v}$ (resp. $\vectutilapprob{u}$ et $\vectutilapprob{v}$). \\\hline % notation locale
+%$\varepsilon$ & Un réel. \\\hline %Notation locale.
+%$\zeta$ & Une métrique riemannienne sur $\mathbb{V} \setminus \{\vectutilapprob{0} \}$. \\\hline % notation locale
+%$\zeta_\rho$ & Métrique sur $\mathbb{V} \setminus \{\vectutilapprob{0} \}$ induite par $\psi_\rho$. \\\hline
+%$\Theta$ & Une bijection. \\\hline %notation locale
+%$\kappa \in \R_{+}$ & Concentration d'une loi de Von Mises-Fisher ou de Mallows. \\\hline %notation locale
+%$\Lambda$ & Une application linéaire. \\\hline %notation locale
+%$\lambda \in \R$ & Un réel. \\\hline
+$\mu$ & The law of variable $\textrm{P}$ (unless otherwise stated). \\\hline
+%$\nu$ & Une loi de probabilité sur l'espace $\mathcal{Y}$. \\\hline
+%$\xi$ & Une loi de probabilité (sur les nombres d'assentiment, dans un exemple). On utilise aussi $\xi_v(k_v)$ pour une mesure dans un autre exemple de décomposabilité. \\\hline % notation locale
+%$\xi$ & Dans l'annexe~\ref{sec:sphere}: une métrique riemannienne sur $\mathbb{U} \setminus \{\vectutil{0} \}$. \\\hline % notation locale
+%$\xi_0$ & Métrique sur $\mathbb{U} \setminus \{\vectutil{0} \}$ induite par le produit scalaire canonique sur $\R^C$. \\\hline
+%$\Pi$ & Une projection. \\\hline%notation locale
+$\proba$ & A \emph{culture} over electoral space~$\Omega$. More generally, a probability measure. \\\hline % notation locale
+%$\pi$ & Dans l'annexe~\ref{sec:sphere}: le nombre pi. \\\hline
+%$\vectutil{\pi}(\vecteur{u})$ & Classe d'équivalence de $\vecteur{u}$ au sens de $\approx$. La fonction $\vectutil{\pi}: \R^C \to \mathbb{U}$ de passage au quotient est appelée \emph{projection canonique}. \\\hline
+%$\classelin{\pi}(f)$ & Classe d'équivalence des formes linéaires positivement proportionnelles à $f \in \ens{H}^\star$. \\\hline % notation locale
+%$\vectutilapprob{\pi}(\vecteur{u})$ & Classe d'équivalence de $\vecteur{u}$ au sens de $\sim$. La fonction $\vectutilapprob{\pi}: \R^C \to \mathbb{V}$ de passage au quotient est appelée \emph{projection canonique}. \\\hline
+%$\classeaff{\pi}(f)$ & Classe d'équivalence des formes affines positivement proportionnelles à $f \in \lott^\star$. \\\hline % notation locale
+%$\rho \in \mathopen]0,+\infty\mathclose\lbrack$ & Facteur de distorsion selon la direction \rule{0pt}{1.2em}$\vecteur{1}$ dans une représentation ellipsoïdale de $\mathbb{V}$. \\\hline
+%$\Sigma_E$ & Une tribu sur l'ensemble $E$. \\\hline
+%$\sigma$ & Une permutation. \\\hline%notation locale
+%$\sigma$ & Un écart-type (en puits gaussien). \\\hline%notation locale
+$\tau_\CM^\proba(f)$ & Coalitional manipulability rate of voting system~$f$ in culture~$\proba$. \\\hline
+%$\Phi_\sigma$ & Action induite sur $\mathbb{U} \setminus \{\vectutil{0} \}$ (ou $\mathbb{V} \setminus \{\vectutilapprob{0} \}$) par une permutation $\sigma$ des coordonnées. \\\hline%notation locale
+%$\phi$ & Dans l'annexe \ref{sec:sphere}: un produit scalaire. \\\hline%notation locale
+%$\phi_0$ & Produit scalaire sur $\ens{H}$ induit par le produit scalaire canonique de $\R^C$. \\\hline%notation locale
+%$\Psi$ & Une isométrie. \\\hline%notation locale
+%$\psi$ & Dans l'annexe \ref{sec:sphere}: un produit scalaire. \\\hline%notation locale
+%$\psi_\rho$ & Produit scalaire qui coïncide sur $\mathcal{H}$ avec le produit canonique, tel que $\vecteur{1}$ soit orthogonal à $\mathcal{H}$ et que $\psi_\rho(\vecteur{1},\vecteur{1}) = \rho^2$. \\\hline
+$\Omega$ &  Set $\prod_{v\in\mathcal{V}} \Omega_v$ of possible configurations $\omega$. Also used as a notation shortcut for an electoral space $(V,C,\Omega,\textrm{P})$. \\\hline
+$\Omega_M$ & Set of possible states $\omega_M$ for voters in a set~$M$. \\\hline
+$\Omega_v$ & Set of possible states $\omega_v$ for voter $v$. \\\hline
+%$\omega, \phi, \chi, \psi \in \Omega$ & Des configurations. Par exemple, on a $\omega = (\omega_1, \ldots, \omega_V)$. \\\hline % En général, \psi est celui vers lequel on manipule.
+%$\omega_M$ & États des électeurs de l'ensemble $M$. \\\hline
+%$\omega_v \in \Omega_v$ & État de l'électeur $v$. \\\hline
+\end{longtable}
+\end{bigcenter}
+
+
+\sectionstar{Latin alphabet}
+
+\begin{bigcenter}
+\begin{longtable}{|>{\centering}m{\largeurGlossaireGauche}|m{\largeurGlossaireDroite}|}
+\hline
+%$A$ & Une partie d'un ensemble ou un événement. \\\hline % notation locale
+%$\ens{A}$ & Une assertion. \\\hline % notation locale
+%$\ens{A}, \ens{B}$ & États possibles des électeurs dans l'exemple des ananas et des bananes. \\\hline % notation locale
+%$a, b, c, d, e$ & Des candidats. \\\hline % Quand on veut manipuler, c'est normalement en faveur de c.
+%$a_v$ & Vecteur de valeurs d'approbation de l'électeur $v$. Sa valeur d'approbation pour un candidat $c$ est notée $a_v(c)$. \\\hline
+%$B$ & Une partie d'un ensemble. \\\hline % Typiquement, B est dans un ensemble image (pour définir une mesure image). %$\bicoal_{cd} = B_cd$: électeurs qui préfèrent z à c et à d. Cette notation est utilisée uniquement dans la preuve de la caractérisation du vainqueur de Condorcet résistant.
+$C \in \N \setminus \{0\}$ & Number of candidates. \\\hline
+$\mathcal{C}$ & Set $\intent{1}{C}$ of indexes for the candidates. \\\hline
+%$\mathcal{C}'$ & Ensemble $\intent{0}{C}$ des candidats, incluant le candidat spécial. \\\hline
+%$C_{\min}$ & Annexe~\ref{sec:reseaux}: nombre minimal de candidats. \\\hline
+$\card(E)$ & Cardinal of set $E$. \\\hline
+$D(\omega)$ & Matrix of duels in $\omega$. The coefficient of indexes $c$ and $d$ is denoted $D_{cd}(\omega)$ or, in short, $D_{cd}$. \\\hline
+%$D_0$ & Matrice \rule[-0.8em]{0pt}{2.3em}$I - \dfrac{1}{C} J$ de la projection orthogonale sur $\ens{H}$. \\\hline % notation locale
+%$D_\rho$ & Matrice \rule[-0.8em]{0pt}{2.3em}$I + \dfrac{\rho - 1}{C} J$ de l'affinité orthogonale qui dilate d'un facteur $\rho$ dans la direction $\vecteur{1}$. \\\hline % notation locale
+%$\nbdim$ & Dimension du spectre politique \\\hline
+%$\diff$ & Utilisé dans les intégrales pour désigner l'élément de volume. \\\hline
+%$E$ & Un ensemble. \\\hline %pour des définitions génériques. $E \in \mathcal{P}(\mathcal{V})$: un sous-ensemble des indices des électeurs dans la CN de décomposabilité.
+%$\vecteur{e}_c$ & Le $c$-ième vecteur $(0,\ldots,1,\ldots,0)$ de la base canonique de $\R^C$. \\\hline % notation locale
+%$F, G$ & Un système de vote général  $((\mathcal{S}_v)_{v\in\mathcal{V}},f,(s_v)_{v\in\mathcal{V}})$. En principe, $F$ désigne plutôt un système avant réduction basée sur l'état et $G$ désigne plutôt l'implantation canonique. \\\hline % On utilise aussi $F'$.
+$\wc$ & Set of strict weak orders over $\mathcal{C}$. \\\hline
+$f$ & A state-based voting system (SBVS), i.e. a function $\Omega \to \mathcal{C}$. In the case of a general voting system, $f$~denotes its processing function $\mathcal{S}_1 \times \ldots \times \mathcal{S}_V \to \mathcal{C}$. \\\hline % On utilise aussi $f'$, $f''$.
+%$f,g$ & Dans l'annexe \ref{sec:sphere}: des formes linéaires ($\in \ens{H}^\star$) ou affines ($\in \lott^\star$). \\\hline % notation locale
+$f^*$ & Condorcification of $f$.  \\\hline
+$f^\textrm{adm}, f^{!\text{adm}}$ & Condorcification variants of $f$ based on the notion of Condorcet-admissible candidate. \\\hline
+$f^\textrm{faible}, f^{!\text{faible}}$ & Condorcification variants of $f$ based on the notion of weak Condorcet winner. \\\hline
+$f^\textrm{rel}$ & Relative Condorcification of $f$. \\\hline
+$f^\ens{M}$ & $\ens{M}$-Condorcification of $f$. \\\hline
+$f_y$ & Slice of $f$ by a slicing method~$y$. \\\hline
+%$g, h$ & Des systèmes de vote basés sur l'état (SVBE). Exceptionnellement, peuvent aussi désigner une fonction qui n'est pas un SVBE. \\\hline
+%$\ens{H}$ & Hyperplan tangent de $\lott$, c'est-à-dire orthogonal à \rule{0pt}{1.2em}$\vecteur{1}$. \\\hline
+%$\ens{H}^\star$ & Espace dual de l'hyperplan $\ens{H}$. \\\hline
+$c \NC{\omega_v} d$ & Voter $v$ is indifferent between $c$ and $d$. \\ \hline
+%$I$ & Matrice identité de taille $C \times C$. \\\hline % notation locale
+Id & The identity function (the context precises in which set). \\\hline
+%$i, j, k \in \N$& Des entiers. En particulier, $k$ peut désigner le nombre de groupe dans une VMF multipolaire, ou plein d'autres choses. \\\hline 
+%$i$ & Dans l'appendice~\ref{sec:sphere}: indice de l'agent (pour les sommes), variant de 1 à $n$. \\\hline
+%$K$ & Variable aléatoire $(K_1, \ldots, K_V)$ (dans une proposition de décomposabilité). \\\hline
+%$K_v$ & Variable aléatoire donnant une information complémentaire sur l'électeur $v$, par exemple un nombre d'approbation (dans une proposition de décomposabilité). \\\hline
+%$\ens{K}_v$ & Un ensemble d'informations complémentaires sur l'électeur $v$ (dans une proposition de décomposabilité). \\\hline
+%$k_v$ & Une information complémentaire sur l'électeur $v$, par exemple un nombre d'approbation (dans une proposition de décomposabilité). \\\hline 
+%$k_v$ & Nombre de classes d'indifférence de l'électeur $v$ (dans une proposition de décomposabilité). \\\hline 
+%$J$ & Matrice de taille $C \times C$ dont tous les coefficients sont égaux à 1. \\\hline
+%$L, M, N$ & Dans l'annexe \ref{sec:sphere}: des loteries de $\lott$ ou $\lott'$. \\\hline % notation locale
+$\permc$ & Set of strict total orders over $\mathcal{C}$. \\\hline
+%$\lott$ & Ensemble des loteries sur les candidats: $\{ (L_1,\ldots,L_C) \in {\R_{+}}^C \text{\;t.q.\;} \sum_{c=1}^{C}{L_c} = 1 \}$. \\\hline
+%$\lott'$ & Ensemble des loteries sur les candidats, dont le candidat spécial: $\{(L_0,\ldots,L_C) \in {\R_+}^C \text{\;t.q.\;} \sum_{c=0}^{C} L_c = 1 \}$. \\\hline
+%$\lott^\star$ & Ensemble des formes affines sur $\lott$. \\\hline
+%$\ell_j$ & Une demi-droite. \\\hline % notation locale
+%$M \in \mathcal{P}(\mathcal{V})$ & Un sous-ensemble des électeurs. \\\hline % Typiquement, des gens malhonnêtes :).
+$\mathcal{M}$ & A family of collections of coalitions. \\\hline
+$\mathcal{M}_c \in \mathcal{P}(\mathcal{P}(\mathcal{V}))$ & A collection of coalitions that are said \emph{winning} for candidate~$c$. \\\hline
+$\ManipFull{c}{\winner}$ & Set of voters preferring $c$ to $\winner$. In short, $\Manip{c}{\winner}$. \\\hline
+$\MC_f$ & Set of configurations $\omega$ where $f$ is manipulable (or indicator function of this set).\\\hline
+%$m_c$ & Score de Borda médian du candidat $c$ (au sens de Bucklin). \\\hline
+$\moy(x_1, \ldots, x_k)$ & Arithmetical average of $x_1, \ldots, x_k$. \\\hline
+%$\N$ & Ensemble des entiers naturels. \\\hline
+%$n$ & Dans l'appendice~\ref{sec:sphere}: nombre d'agents (pour les sommes). \\\hline
+%$\pole$ & Un vecteur unitaire (pôle dans une distribution de VMF). S'il y a plusieurs pôles, on peut les noter $\pole_0$, etc. Dans l'annexe~\ref{sec:sphere}, on le note $\vecteur{u}_0$. \\\hline
+$\text{P}$ & Function $\Omega \to \mathcal{R}$ that, to state $\omega$ of the population, associates profile $\textrm{P}(\omega) = (\Plusquefull[1]{\omega_1}, \ldots, \Plusquefull[V]{\omega_V})$. \\\hline
+%$\text{P}$ & En section \ref{sec:relations_binaires}: une relation binaire. \\\hline
+$c \Plusque{\omega_v} d$ & Voter $v$ prefers $c$ to $d$. \\\hline
+$c \Plusque[\abs]{\omega} d$ & $c$ has an absolute victory against $d$: $\voterset{c \Plusque{} d} > \frac{V}{2}$. \\\hline
+%$\Plusque[\refsp]{}$ & Ordre strict total de référence pour une culture single-peaked. \\\hline
+$c \Plusque[\rel]{\omega} d$ & $c$ has a relative victory against $d$: $\voterset{c \Plusque{} d} > \voterset{d \Plusque{} c}$. \\\hline
+$c \Plusque[\ens{M}]{\omega} d$ & $c$ has an $\ens{M}$-victory against $d$: $\{v \tq c \Plusque{} d\} \in \ens{M}_c$. \\\hline
+$c \Plusmoins{\omega_v} d$ & Voter $v$ prefers $c$ to $d$ and vice versa (impossible if $\Plusque{\omega_v}$ is antisymmetric). \\\hline
+$c \PPlusque{\omega} d$ & Voter $v$ prefers $c$ to $d$ but not $d$ to $c$ (synonym of $c \Plusque{\omega_v} d$ if $\Plusque{\omega_v}$ is antisymmetric). \\\hline
+%\complexP & Ensemble des problèmes résolubles en temps polynomial \\\hline
+%$\ens{P}_v$ & Une partie non vide de $\rc$. \\\hline
+%$\mathcal{P}(E)$ & Ensemble des parties de l'ensemble $E$. \\\hline
+%$\mathbb{P}(E)$ & Dans l'annexe~\ref{sec:sphere}: espace projectif de l'espace vectoriel $E$. \\\hline % notation locale
+%$p \in \ens{R}$ & Un profil. \\\hline 
+%$p$ & Dans l'annexe~\ref{sec:sphere}: une densité de probabilité. \\\hline 
+%$p_v \in \rc$ & Relation binaire de préférence de l'électeur $v$. \\\hline
+%$\unordre \in \rc$ & Une relation binaire de préférence. \\\hline
+$\mathcal{R}%= \prod_{v\in\mathcal{V}} (\mathcal{R}_m,\Sigma_{\mathcal{R}_m})
+$ & Set $\rc^V$ whose an element (profile) represents binary relations of preference for the whole population of voters. \\\hline
+$\rc$ & Set of binary relations over $\mathcal{C}$. \\\hline
+%$\R$& Ensemble des nombres réels. \\\hline
+%$\R_{+}$ & Ensemble des nombres réels positifs ou nuls. \\\hline
+%$r(v, c)$ & Quand l'électeur $v$ possède un ordre strict total de préférence, $r(v,c)$ est le rang du candidat~$c$ dans cet ordre (1 pour le meilleur, $C$ pour le pire). \\\hline
+%$S$ & Un $V$-uplet de stratégies $(S_1, \ldots, S_V)$. \\\hline
+%$S_v \in \mathcal{S}_v$ & Une stratégie de l'électeur $v$. \\\hline
+%$\mathcal{S}_v$ & Ensemble des stratégies autorisées pour l'électeur $v$. Dans un SVBE, on a $\mathcal{S}_v = \Omega_v$. \\\hline
+%$\ens{S}_{k}$ & Dans l'annexe~\ref{sec:sphere}: une sphère de dimension $k$. \\\hline % notation locale
+%$s_v$ & Fonction de sincérité $\Omega_v \to \mathcal{S}_v$ de l'électeur $v$. Dans un SVBE, c'est la fonction identité. \\\hline
+%$s$ & Fonction $\Omega \to \mathcal{S}_1 \times \ldots \times \mathcal{S}_V$ qui à l'état $\omega$ de la population des électeurs associe le $V$-uplet $(s_1(\omega_1),\ldots,s_V(\omega_V))$ des stratégies réputées sincères. Dans un système de vote réduit, c'est la fonction identité. \\\hline % WARNING: A priori, cette notation n'est plus utilisée
+$\SincFull{c}{\winner}$ & Set of voters who do not prefer $c$ to $\winner$. In short, $\Sinc{c}{\winner}$. \\\hline
+%$\ens{T}$ & Polytope tangent de $\lott$: \rule{0pt}{1.3em}$\{\bipoint{LM}, (L,M) \in {\lott}^2\}$. \\\hline
+%$\ens{T}'$ & Polytope tangent de $\lott'$: \rule{0pt}{1.3em}$\{\bipoint{LM}, (L,M) \in {\lott_m'}^2\}$. \\\hline
+%$t_v$ & Candidat préféré de l'électeur $v$ (son <<\,top\,>>). \\\hline % Notation locale
+%$t$ & Numéro du tour dans un scrutin à plusieurs tours (réels ou virtuels). \\\hline % Notation locale
+%$t$ & Dans l'annexe~\ref{sec:sphere}: le temps (paramètre sur une ligne de changement d'opinion). \\\hline % Notation locale
+%$\mathbb{U}$ & Ensemble des vecteurs d'utilité sur $\mathcal{C}$ (définis à transformation affine strictement positive près): $\mathbb{U} = \R^C / \approx$. \\\hline
+%$\vecteur{u} \in \R^C$ & Un vecteur d'utilité $(u_1,\dots,u_C)$. \\\hline
+%$\vectutil{u} \in \mathbb{U}$ & Un vecteur d'utilité (à équivalence $\approx$ près). \\\hline
+%$\vectutilapprob{u} \in \mathbb{V}$ & Un vecteur d'utilité avec limite d'approbation (à équivalence $\sim$ près). \\\hline
+%$u_v$ & Excepté dans l'annexe \ref{sec:sphere}: vecteur de notes sincères de l'électeur $v$. Sa note pour un candidat $c$ est notée $u_v(c)$. \\\hline
+%$[\underline{u_v}(c), \overline{u_v}(c)]$ & Intervalle d'utilité de l'électeur $v$ pour le candidat $c$ (dans le modèle des intervalles d'utilité). \\\hline
+%$\vecteur{u}^{+}$ & Demi-espace positif associé à $\vecteur{u}$. \\\hline
+%$\vecteur{u}^{+\mathcal{H}}$ & Demi-hyperplan positif associé à $\vecteur{u}$. \\\hline
+$V \in \N \setminus \{0\}$ & Number of voters. \\\hline
+$(V,C,\Omega,\text{P})$ & An electoral space. In short, $\Omega$. \\\hline
+$\mathcal{V}$ & Set $\intent{1}{V}$ of indexes for the voters. \\\hline
+%$\mathcal{V}'$ & Un sous-ensemble d'électeurs (mais qu'on n'envisage pas spécialement comme des manipulateurs). \\\hline
+%$\mathbb{V}$ & Ensemble des vecteurs d'utilité sur $\ens{C}$ avec limite d'approbation (définis à multiplication strictement positive près): $\mathbb{V} = \R^C / \sim$. \\\hline
+%$v \in \mathcal{V}$ & Indice désignant un électeur. \\\hline
+%$\vecteur{v}, \vecteur{w}$ & Des vecteurs. \\\hline % notation locale
+$\vect(E)$ & Linear span of $E$, where $E$ is a part of a vector space. \\\hline
+%$\winner \in \mathcal{C}$ & Le candidat vainqueur du vote sincère: $w = f(\omega)$. \\\hline
+%$x = X \in \ens{X}, x_v = X_v \in \ens{X}_v$ & Variables aléatoires (pour la décomposabilité générale). \\\hline
+%$X_\kappa \in \R$ & Constante de normalisation d'une loi de Von Mises-Fisher. \\\hline %notation locale
+%$X_\kappa' \in \R$ & Constante de normalisation d'une loi de Mallows. \\\hline %notation locale
+%$X_i$ & Dans le chapitre \ref{sec:mds_optimaux}: une configuration Condorcet \\\hline
+%$\mathbf{x}$ & Vecteur de poids $(x_1, \ldots, x_C)$ utilisé pour une RPS. \\\hline
+%$x_c$ & Notation temporaire utilisée pour la méthode de Bucklin: nombre d'électeurs qui donnent au moins le score de Borda médian au candidat $c$. \\\hline
+%$x_v$ & État pile ou face de l'électeur $v$ (dans le modèle du générateur aléatoire décentralisé). Ou variable de corruptibilité (dans l'exemple des électeurs corruptibles). Ou numéro magique dans le mode de scrutin Condorcet le plus manipulable. \\\hline
+%$x_v^i$ & Position d'un électeur en puits gaussien \\\hline
+%$Y_j$ & Dans le chapitre \ref{sec:mds_optimaux}: une configuration non Condorcet \\\hline
+$\mathcal{Y}$ & Set $\prod_{v \in \mathcal{V}} \mathcal{Y}_v$ of slicing methods~$y$ for the whole population of voters. \\\hline % WARNING: dans la permière partie de l'annexe, n n'existe pas.
+$\mathcal{Y}_v$ & Set $\{y_v: \textrm{P}(\Omega_v) \to \Omega_v \tq \textrm{P}_v\circ y_v = \text{Id}\}$ of slicing methods~$y_v$ for voter $v$. \\\hline 
+%$y \in \mathcal{Y}$ & Une méthode de tranchage pour toute la population d'électeurs. \\\hline
+%$y_v \in \mathcal{Y}_v$ & Une méthode de tranchage pour l'électeur~$v$. \\\hline
+%$y_c^i$ & Position d'un candidat en puits gaussien \\\hline
+%$y_0$ & Décalage en puits gaussien unidimensionnel \\\hline
+\end{longtable}
+\end{bigcenter}
+
+
+\sectionstar{Acronyms and abbreviations}
+
+\begin{bigcenter}
+\begin{longtable}{|>{\centering}m{\largeurGlossaireGauche}|m{\largeurGlossaireDroite}|}
+\hline
+AV & Approval voting. \\\hline
+Bald. & Baldwin's method. \\\hline
+Bor. & Borda's method. \\\hline
+Buck. & Bucklin's method. \\\hline
+CIRV & Condorcification of IRV. \\\hline
+CM & Coalition manipulation / manipulable.\\\hline
+\cond & Condorcet criterion. \\\hline
+Coo. & Coombs' method. \\\hline 
+CSD & Condorcet's method with sum of defeats. \\\hline
+EB & Exhaustive ballot. \\\hline
+
+IB & Iterated Bucklin's method. \\\hline
+ICM & Ignorant-coalition manipulation / manipulable. \\\hline
+iff & If and only if. \\\hline
+\cmign & Ignorant majority coalition criterion. \\\hline
+IIA & Independence of irrelevant alternatives. \\\hline
+IM & Individual manipulation / manipulable. \\\hline
+\cminf & Informed majority coalition criterion. \\\hline
+IRV & Instant-runoff voting. \\\hline
+IRVA & Instant-runoff voting based on the average. \\\hline
+IRVD & Instant-runoff voting with duels. \\\hline
+ITR & Instant two-round system. \\\hline
+Kem. & Kemeny's method. \\\hline
+KR & Kim-Roush's method. \\\hline
+\bulmaj & Majority ballot criterion. \\\hline
+\favmaj & Majority favorite criterion. \\\hline
+\bulmajuni & Majority unison ballot criterion. \\\hline
+Max. & Maximin. \\\hline
+MJ & Majority Judgement. \\\hline
+Nan. & Nanson's methodd. \\\hline
+Plu. & Plurality. \\\hline
+RP & Ranked Pairs method. \\\hline 
+RV & Range voting. \\\hline
+s.t. & Such that. \\\hline
+SBVS & State-based voting system. \\\hline
+Sch. & Schulze's method. \\\hline
+\svvamp & Simulator of Various Voting Algorithms in Manipulating Populations. \\\hline
+TM & Trivial manipulation / manipulable. \\\hline
+TR & Two-round system. \\\hline
+UM & Unison manipulation / manipulable. \\\hline
+VMF & Von Mises--Fisher. \\\hline
+%VTCI & Vote à tours Condorcet instantanés. \\\hline
+\end{longtable}
+\end{bigcenter}
+
+

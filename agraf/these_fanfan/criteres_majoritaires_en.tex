@@ -1,0 +1,1102 @@
+% !TeX spellcheck = en_US
+\mychapter{Majoritarian criteria}\label{sec:criteres_majoritaires}
+
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}[thick]
+\node[above right,rounded corners,draw=Red,fill=white,minimum width=8.0cm,minimum height=7.1cm] at (-0.7,-0.7) {};
+\node[right] at (0.1,6.0) {\footnotesize\textbf{Voting systems:} KR, Veto\ldots};
+
+\node[above right,rounded corners,draw=Orange,fill=white,minimum width=7.8cm,minimum height=6.2cm] at (-0.6,-0.6) {};
+\node[right] at (0.1,5.2) {\footnotesize\textbf{\cminf{} $=$ \renfadm:} Bor\ldots};
+
+\node[above right,rounded corners,draw=Dandelion,fill=white,minimum width=7.6cm,minimum height=5.3cm] at (-0.5,-0.5) {};
+\node[right] at (0.1,4.4) {\footnotesize\textbf{\cmign:} Betrayal game\ldots};
+
+\node[above right,rounded corners,draw=OliveGreen,fill=white,minimum width=7.4cm,minimum height=4.4cm] at (-0.4,-0.4) {};
+\node[right] at (0.1,3.6) {\footnotesize\textbf{\eenfcond:} Weird coordination game\ldots};
+
+\node[above right,rounded corners,draw=PineGreen,fill=white,minimum width=7.2cm,minimum height=3.5cm] at (-0.3,-0.3) {};
+\node[right] at (0.1,2.8) {\footnotesize\strut\textbf{\bulmaj{}:} AV, Coo., MJ, RV\ldots};
+
+\node[above right,rounded corners,draw=Blue,fill=white,minimum width=7.0cm,minimum height=2.6cm] at (-0.2,-0.2) {};
+\node[right] at (0.1,2.0) {\footnotesize\strut\favmaj: Buck., IB, IRV, IRVA, Plu., TR\ldots};
+
+\node[above right,rounded corners,draw=Plum,fill=white,minimum width=6.8cm,minimum height=1.7cm] at (-0.1,-0.1) {};
+\node[right] at (0.1,1.2) {\footnotesize\strut\textbf{rCond:} RDean\ldots};
+
+\node[above right,rounded corners,draw=black,fill=white,minimum width=6.6cm,minimum height=0.8cm] at (0,0) {};%RawSienna
+\node[right] at (0.1,0.4) {\footnotesize\begin{minipage}{6.2cm}
+\cond: 
+Bald., CBor., CDean, CDict., CSD, Dodg., IRVD, Kem., Max., Nan., RP, Sch.\ldots
+\end{minipage}};
+%\node[above right,rounded corners,draw=OliveGreen,minimum width=1cm,minimum height=3.8cm] at (5.5,0.1) {};
+%\node at (5.5+0.5,3.6) {\footnotesize\textbf{\eenfadm}};
+%\node[above right,rounded corners,draw=Orange,minimum width=1cm,minimum height=5.4cm] at (5,0.1) {};
+%\node at (5+0.5,5.2) {\footnotesize\textbf{\renfcond}};
+\end{tikzpicture}
+\end{center}
+\caption{Inclusion diagram of majoritarian criteria. We assume that the preferences are antisymmetric and that the electoral space allows any candidate as most liked.}\label{fig:diagramme_inclusion_criteres}
+\end{figure}
+
+In previous chapters, we have recalled the Condorcet criterion (\cond), then we have presented the informed majority coalition criterion (\cminf) and the resistant-Condorcet criterion (\rcond). Now, we will see how these properties fit in a larger family of majoritarian criteria and develop links with concepts from game theory, such as the set of strong Nash equilibria (SNE) and the ability to reach them.
+
+\medskip
+In section~\ref{sec:criteres_majoritaires_definition}, we define some other criteria related to the notion of majority. In voting theory, it is usual to consider the majority criterion, whose definition will be recalled, and which we call the \emph{majority favorite criterion} (\favmaj) in order to distinguish it from other majoritarian criteria. We also introduce the \emph{ignorant majority coalition criterion} and the \emph{majority ballot criterion}. The initial motivation of these definitions is simply practical: they give criteria that are easy to test and make it possible to prove that a given voting system meets \cminf{}.
+
+Indeed, we show in section~\ref{sec:implications_entre_criteres_maj} that all the other criteria under study imply \cminf{}. Moreover, she show that they form a chain of implications\footnote{In all rigor, we will see that this chain of implications is complete if the electoral space allows any candidate as most liked, which is a common assumption (definition~\ref{def:ES_richness}).}, from the strongest criterion (\cond{}) to the weakest one (\cminf).
+
+In the introduction, we have already mentioned strong Nash equilibria (SNE) and we have discussed the interest of such a notion\footnote{About SNE and several variants of this concept, one may consult \cite{bernheim1987concepts}.}. 
+In particular, the non-manipulability of a configuration means precisely that sincere voting is an SNE for the corresponding preferences. \cite{brill2015strategic} showed that, for a voting system meeting \cminf{}, if there exists a Condorcet winner for voters' sincere preferences, then she is the only one who can win in a strong Nash equilibrium. This connection between a majority criterion and a notion of equilibrium leads us in section~\ref{sec:lien_crit_majo_crit_equi} to consider several equilibrium criteria for a voting system: the fact that the existence of an SNE is guaranteed by the existence of a Condorcet winner (\eenfcond) or by the existence of a Condorcet-admissible candidate (\eenfadm) and the restriction of SNE to the Condorcete winners (\renfcond) or to the Condorcet-admissible candidates (\renfadm). If the two first ones are existence criteria, the two last ones may be seen as a weak version of unicity criteria. We reveal the relations of implication between these equilibrium criteria and the majoritarian criteria. In particular, not only defining the criteria makes it possible to extend the result by Brill and Conitzer by showing that \cminf{} implies \renfadm{}, but we show also that these two criteria are actually equivalent.
+
+In proposition~\ref{thm:classical_meet_cminf}, we wrote without proof that almost all classic voting system meet \cminf. In section~\ref{sec:crit_maj_pour_mds_classiques}, we prove this result and we precise it, by studying which criteria are met by classic voting systems and we detail this study, depending on the number of candidates. This will allow us to demonstrate progressively the inclusion diagram of figure~\ref{fig:diagramme_inclusion_criteres}, which has the drawback to spoil a dramatic suspense but the advantage to provide the reader with a road map for this chapter. This diagram reads this way. For example, the set of voting systems meeting \favmaj{} is included (in general, stricly) in the set of those meeting \bulmaj{}; Coombs' method belong to the later, but generally not to the former (except in particular electoral spaces, such as the one of strict total orders with 2~candidates).
+
+This section~\ref{sec:crit_maj_pour_mds_classiques}, dedicated to criteria met by different voting systems is a synthesis of classic results from the literature and original contributions. To the best of our knowledge, results about \cminf{}, \cmign{}, \bulmaj{} and \rcond{} are original, since we defined those criteria; that being said, results about \cmign{} and \bulmaj{} are quite easy from the definition, since these criteria were precisely conceived to be easily testable. Results about \cminf{} and \rcond{} require usually more effort. Result about \favmaj{} and \cond{} are classic, with the following nuances. Firstly, we found no trace of exhaustive study of \favmaj{} for all IPSR-EA in the literature; that being said, it would be surprising that the results we present had not been formulated, because it is a classic criterion and classic voting systems. Secondly, results about IB are all original, since this voting system is a contribution of this memoir.
+
+Lastly, in section~\ref{sec:informationnel}, we propose a reflection about the criteria under study, in terms of quantity of information necessary to coordinate the manipulation strategies and to reach SNE. This way, we discuss why these criteria may be considered as desirable for a voting system.
+
+%Generally, I will consider a ``rich enough'' electoral space, in particular ``comprising all strict total orders'' (cf. my paper).
+
+
+\section{Definition of majoritarian criteria}\label{sec:criteres_majoritaires_definition}
+
+In previous chapters, we have already recalled the definition of the Condorcet criterion (definition~\ref{def:critere_de_condorcet}) and we introduced the informed majority coalition criterion (definition~\ref{def:cminf}) and the resistant-Condorcet criterion (definition~\ref{def:critere_rcond}).Now, we define three other criteria, which will prove convenient tools to prove that a given voting meets \cminf{} (and the it is, as a consequence, concerned by the weak Condorcification theorem~\ref{thm_Condorcifie_aussi_bon}).
+
+%Nous allons maintenant présenter trois autres critères majoritaires qui en sont des affaiblissements successifs. Seul le plus faible d'entre eux, le \emph{critère de la coalition majoritaire informée} (\cminf{}), sera requis par le théorème de condorcification~\ref{thm_Condorcifie_aussi_bon}. Les autres critères seront des outils commodes pour prouver qu'un système de vote donnée vérifie \cminf{}.
+
+\medskip
+Before defining the criteria themselves, let us define the notion of \emph{majority favorite}.
+
+\begin{definition}[majority favorite]
+For a configuration $\omega \in \Omega$ and a candidate $c \in \ens{C}$, we say that $c$ is a \emph{majority favorite} in $\omega$ \ssi a strict majority of voters prefer strictly $c$ to any other candidate:
+$\voterset{ \forall d \in \mathcal{C} \setminus \{c\}, c \PPlusque{\omega_v} d } > \frac{V}{2}.$
+When preferences are strict orders (weak or total), it simply means that more than half the voters put $c$ in first position in their order of preference, without tie with other candidates.
+\end{definition}
+
+If $c$ is a majority favorite, than $c$ is obviously a resistant Condorcet winner.
+
+\begin{definition}[majority criteria]\label{def:criteria}
+We say that that $f$ meets the \emph{majority favorite criterion} (\favmaj{}) \ssi, for any configuration $\omega \in \Omega$ and for any candidate $c \in \mathcal{C}$, if $c$ is majority favorite in $\omega$, then $f(\omega) = c$.
+
+We say that $f$ meets the \emph{majority ballot criterion} (\bulmaj{}) \ssi, for any candidate~$c$, there exists an assignment of ballots to the voters that meets the following property: if it is respected by a strict majority of voters, then $c$ is declared the winner. Formally, this condition reads: $\forall c \in \ens{C}, \exists \psi^c \in \Omega \tq \forall \omega \in \Omega, \left[\voterset{\omega_v = \psi_v^c} > \frac{V}{2} \Rightarrow f(\omega) = c \right]$.
+
+We say that $f$ meets the \emph{ignorant majority coalition criterion} (\cmign{}) \ssi any majority coalition can choose the result, whatever the other voters do. Formally, $\forall M \in \mathcal{P}(\mathcal{V})$, if $\textrm{card}(M) > \frac{V}{2}$ then: $\forall c \in \mathcal{C}, \exists \omega_M \in \Omega_M$ s.t. $\forall \omega_{\mathcal{V} \setminus M} \in \Omega_{\mathcal{V} \setminus M}, f(\omega_M,\omega_{\mathcal{V} \setminus M}) = c$.
+
+%On dit que $f$ vérifie le \emph{critère de la coalition majoritaire informée} (\cminf{}) \ssi toute coalition majoritaire et informée de ce que font les autres électeurs peut décider du résultat. Formellement, $\forall M \in \mathcal{P}(\mathcal{V})$, si $\textrm{card}(M) > \frac{V}{2}$, alors $\forall c \in \mathcal{C}$, $\forall \omega_{\mathcal{V} \setminus M} \in \Omega_{\mathcal{V} \setminus M}$, $\exists \omega_M \in \Omega_M$ t.q. $f(\omega_M,\omega_{\mathcal{V} \setminus M}) = c$.
+
+Like for \cminf{}, \cond{} or \rcond{}, each notation \favmaj{}, \bulmaj{} or \cmign{} designates the criterion itself or the set of SBVS (over $\Omega$) meeting it.
+\end{definition}
+
+It is quite easy to extend the majoritarian criteria to general voting systems defined in section~\ref{sec:systemes_de_vote_generaux}. In that case, it appears that \cminf{}, \cmign{} and \bulmaj{} are properties for the \emph{game form}: these criteria describe the power given by the processing rule to a strict majority of voters. In contrast, \favmaj{}, \rcond{} and \cond{} are properties for the \emph{voting system}: they establish a link between voter's preferences and the sincere result. For these last criteria, it is necessary to explicit the electoral space and the sincerity functions.
+%\begin{remark}[generalization to general voting systems]\label{rmq:criteres_pour_syst_generaux}
+%It is easy to extend the definitions of these criteria to general voting systems. In that case, one would notice that:
+%\begin{itemize}
+%\item The Condorcet criterion and the majority favorite criterion are related to the \emph{voting system} via its sincere winner, which means they need the definition of the sincerity function (and, as a consequence, of the electoral space under consideration);
+%\item The ignorant majority coalition criterion and the informed majority coalition criterion depend only on the \emph{game form} itself (strategies and processing rule).
+%\end{itemize}
+%\end{remark}
+
+\medskip
+In an anonymous electoral space (section~\ref{sec:anonymat}), we can also define the \emph{majority unison ballot criterion} (\bulmajuni) by the following property: for any candidate~$c$, there exists a ballot $\psi_0^c$ (belonging to any $\Omega_v$, since they are all identical) such that, if it is used by a strict majority of voters, then $c$ is declared the winner. We preferred not including this notion in the inclusion diagram of figure~\ref{fig:diagramme_inclusion_criteres} because it is not defined in all electoral spaces.
+
+The more general definition of \bulmaj{} avoids the need to have an anonymous electoral space. This wording makes it also possible to apply this criterion to non-anonymous voting systems (even if the electoral space itself is so): indeed, it is possible to give a different instruction to each voter; the criterion only requires that, if the instructions are followed by a strict majority of voters, candidate~$c$ is elected. In the case of a general voting system (section~\ref{sec:systemes_de_vote_generaux}), this definition has also the advantage that it is stable by \emph{isomorphism of voting system}, in the following sense: if we change the labels of the ballots while changing the processing rule accordingly, it has no impact on the fact that the criterion is met or not.
+
+\medskip
+Criterion \cmign{} is very similar to \cminf{} (definition~\ref{def:cminf}): the only difference resides in the exchange of quantifiers ``$\exists \omega_M \in \Omega_M$'' and ``$\forall \omega_{\mathcal{V} \setminus M} \in \Omega_{\mathcal{V} \setminus M}$''. In practice, if quantifiers are in this order, which is the one used in \cmign{}, manipulation is more difficult because manipulators vote first and other voters can reply; in the inverse order, which is the one used in \cminf{}, sincere voters' ballots are known first, and manipulators can choose their vote depending on them. So, \cmign{} is a more demanding criterion than \cminf{}.
+
+
+\section{Implications between majoritarian criteria}\label{sec:implications_entre_criteres_maj}
+
+The following propostion establishes a hierarchy between the six majoritarian criteria we have defined. We present them in the form of inclusions in order to show the connection with diagramme~\ref{fig:diagramme_inclusion_criteres} but it is equivalent to present them as implications. For example, the inclusion $\cond \subseteq \rcond$ is another way to say that for any SVBE~$f$, we have: $f \in \cond{} \Rightarrow f \in \rcond{}$.
+
+\begin{prop}\label{thm:implications_entre_criteres}
+%Pour un SVBE $f$, on considère les conditions suivantes.
+%\begin{enumerate}
+%	\item $f \in$ \cond{}.\label{enumi:f_crit_Condorcet}
+%	\item $f \in$ \favmaj{}.\label{enumi:f_crit_majo}
+%	\item $f \in$ \cmign{}.\label{enumi:f_crit_CM_vgnorante}
+%	\item $f \in$ \cminf{}.\label{enumi:f_crit_CM_vnformee}
+%\end{enumerate}
+%
+%We have the following implications: \ref{enumi:f_crit_Condorcet} $\Rightarrow$ \ref{enumi:f_crit_majo} and \ref{enumi:f_crit_CM_vgnorante} $\Rightarrow$ \ref{enumi:f_crit_CM_vnformee}.
+%
+We have the following inclusions.
+\begin{enumerate}
+\item $\cond \subseteq \rcond \subseteq \favmaj$.
+\item $\bulmaj \subseteq \cmign \subseteq \cminf$.
+\end{enumerate}
+
+If the electoral space allows any candidate as most liked (which is a common assumption, cf.  definition~\ref{def:ES_richness}), then we have also $\favmaj \subseteq \bulmaj$. Under this assumption, we have:
+$$
+\cond \subseteq \rcond \subseteq \favmaj \subseteq \bulmaj \subseteq \cmign \subseteq \cminf.
+$$
+
+All inclusions are strict in general, i.e. all converse implications are false.
+\end{prop}
+
+\begin{proof}
+$\cond \subseteq \rcond \subseteq \favmaj$: this chain of inclusions is immediately deduced from the facts that a majority favorite is a resistant Condorcet winner and that a resistant Condorcet winner is a Condorcet winner.
+
+$\bulmaj \subseteq \cmign$: for any candidate $c$, \bulmaj{} ensure that there exists a assignment of ballots~$\psi^c$ that makes it possible to elect $c$ if it is used by a strict majority of voters. If a majority coalition wishes to elect~$c$, they just have to use these ballots so that $c$ wins, whatever the other voters reply. So, the voting system meets \cmign{}.
+
+$\cmign \subseteq \cminf$: this inclusion is immediately deduced from the remark we did about the order of quantifiers in the definition of these criteria.
+
+$\favmaj \subseteq \bulmaj$: let us consider an assignment of ballots where each voter claims that she strictly prefers a certain candidate~$c$ to all other candidates, which is possible because the electoral space allows any candidate as favorite. If the voting system under consideration meets \favmaj{}, it is sufficient that a strict majority of voters respects this assignment so that $c$ wins. So, the voting system meets \bulmaj.
+
+The fact that all converse implications are false will be proven when studying the classic voting systems in section~\ref{sec:crit_maj_pour_mds_classiques}. As for now, we can have an overview of counter-examples in figure~\ref{fig:diagramme_inclusion_criteres}.
+\end{proof}
+ 
+In an anonymous electoral space, it is clear that we have also $\bulmajuni{} \subseteq \bulmaj{}$. If, moreover, the electoral space allows any candidate as most liked, then we have also $\favmaj{} \subseteq \bulmajuni$.
+
+
+\section{Connection with the strong Nash equilibria (SNE)}\label{sec:lien_crit_majo_crit_equi}
+
+
+
+%Following our discussions about your talk, I wondered what minimal conditions on the voting system ensure that the result of a strong Nash equilibrium (SNE) is Condorcet winner, and what minimal conditions ensure that a Condorcet winner has an SNE electing her? It appears that these considerations are closely related to the inclusion diagram that was on my poster.
+
+%So, here I propose a more detailed version of the inclusion diagram between criteria (explanations follow\ldots).
+
+As \cite{gibbard1973manipulation} notices, the pair of a voting system and a configuration of preferences $\omega$ for the voters defines a game, in the usual sense of game theory: each player-voter has a set of strategies, well-determined objectives and there exists a rule that makes it possible to decide the result, depending on players' strategies. So, it is immediate to adapt the usual notion of \emph{strong Nash equilibrium} in this context.
+
+By the way, we can remark that we using the framework of general voting systems (section~\ref{sec:systemes_de_vote_generaux}), any game can be expressed as a voting system and a state of preferences for the voters. Hence the terminology of \emph{game form}: it is a proto-game defining the procedure to follow, and lacking only the information of players' preferences about the possible outcomes of the game.
+
+\begin{definition}[strong Nash equilibrium]\label{def:enf}
+Let $f$ be an SBVS and $(\omega, \psi) \in \Omega^2$.
+
+We say that $\psi$ is a \emph{strong Nash equilibrium} (ENF) for preferences $\omega$ in system~$f$ \ssi $\psi$ is a strong Nash equilibrium in the game defined by $(f, \omega)$. I.e., there exists no configuration $\phi$ such that:
+$$
+\left\{
+\begin{array}{l}
+f(\phi) \neq f(\psi), \\
+%\forall v \in \mathcal{V}, \psi_v \neq \omega_v \Rightarrow c \Plusque{\omega_v} f(\omega), \\
+\forall v \in \SincFull{f(\phi)}{f(\psi)}, \phi_v = \psi_v. \\
+\end{array}
+\right.
+$$
+\end{definition}
+
+In the case of a general voting system, using notations from section~\ref{sec:systemes_de_vote_generaux}, we would adapt the definition by saying that a vector $S = (S_1, \ldots, S_V)$ of strategies for the voters (i.e. ballots) is an SNE for a configuration of preference~$\omega$. As we have already noticed, the fact that a configuration~$\omega$ is not manipulable simply means that sincere voting $s(\omega)$ is an SNE for~$\omega$.
+
+For an SBVS, the formalism is simplified because notions of authorized ballot and possible state of preference are identified. The fact that a configuration $\omega$ is not manipulable means that configuration $\omega$ (seen as ballots) is an SNE for~$\omega$ (seen as preferences).
+
+\medskip
+As we mentioned in the introduction of this chapter, \cite{brill2015strategic} showed that, in a system meeting \cminf{}, if a configuration is Condorcet, then only the Condorcet winner can be the winner of an SNE. This result suggests a deep connection between some of the majoritarian criteria, not only with manipulability, but with the notion of SNE in general. After reading this article and thanks to fruitful discussions in front of a probably non-alcoholic beverage with Markus Brill, whom we thank here, we examined a few questions connected to this issue. So, we have defined the four following equilibrium criteria and we have studied their connection with the majoritarian criteria.
+
+\begin{definition}[equilibrium criteria]
+We say that $f$ meets the criterion of \emph{restriction of possible SNE to Condorcet-admissible candidates} (\renfadm{}) \ssi for any $(\omega, \psi) \in \Omega^2$: if $\psi$ is an SNE for preferences~$\omega$, then $f(\psi)$ is Condorcet-admissible in $\omega$. 
+
+We say that $f$ meets the criterion of \emph{restriction of possible SNE to Condorcet winners} (\renfcond{}) \ssi for any $(\omega, \psi) \in \Omega^2$: if $\psi$ is an SNE for preferences~$\omega$, then $f(\psi)$ is Condorcet winner in~$\omega$. 
+
+We say that $f$ meets the criterion of \emph{existence of an SNE for any Condorcet winner} (\eenfcond{}) \ssi $\forall (\omega, c) \in \Omega \times \ens{C}$: if $c$ is Condorcer winner in~$\omega$, then there exists $\psi$ that is an SNE for $\omega$ and such that $f(\psi) = c$.
+
+We say that $f$ meets the criterion of \emph{existence of an SNE for any Condorcet-admissible candidate} (\eenfadm{}) \ssi $\forall (\omega, c) \in \Omega \times \ens{C}$: if $c$ is Condorcet-admissible in~$\omega$, then there exists $\psi$ that is an SNE for $\omega$ and such that $f(\psi) = c$.
+%\begin{description}
+%\item[\renfadm{} (restriction des ENF possibles aux candidats Condorcet-admissibles)] Si $\psi$ est un ENF pour les préférences~$\omega$, alors $f(\psi)$ est Condorcet-admissible en $\omega$.
+%\item[\renfcond{} (restriction des ENF possibles aux vainqueur de Condorcet)] Si $\psi$ est un ENF pour les préférences~$\omega$, alors $f(\psi)$ est vainqueur de Condorcet en $\omega$.
+%\item[\eenfcond{} (existence d'ENF pour un vainqueur de Condorcet)] Si $c$ est vainqueur de Condorcet dans~$\omega$, alors il existe $\psi$, un ENF pour $\omega$, tel que $f(\psi) = c$.
+%\item[\eenfadm{} (existence d'ENF pour un candidat Condorcet-admissible)] Si $c$ est Condorcet-admissible dans~$\omega$, alors il existe $\psi$, un ENF pour $\omega$, tel que $f(\psi) = c$.
+%\end{description}
+\end{definition}
+
+As we noticed in the introduction of this chapter, the criterion \renfcond{} can be seen as a unicity criterion, not for the SNE, but for the possible winner in a SNE. In an electoral space where there exists at least a semi-Condorcet configuration (i.e. if it is possible to have a candidate who is Condorcet-admissible but not Condorcet winner, as in the electoral space of strict total orders with an even number of voters), criterion \renfadm{} is a weaker version, which we will proved met by most usual voting systems. If there is no semi-Condorcet configuration (for example, in the electoral space of strict total orders with an odd number of voters), the two notions are equivalent. Similarly, in that case, existence criteria \eenfcond{} and \eenfadm{} are equivalent.
+
+Criterion \renfadm{} implies, in particular, Brill and Conitzer's criterion: when it is met, if $\omega$ is a Condorcet configuration, then the Condorcet winner is the only Condorcet-admissible candidate (proposition~\ref{thm_CondUnique}), so she is the only possible winner of an SNE.
+
+\medskip
+Now, we study the connections between these equilibrium notions and the majoritarian criteria. We focus first on \renfadm{} and \eenfcond{}, which will show more naturally integrable in the chain of inclusions of proposition~\ref{thm:implications_entre_criteres}, which justifies their position in the inclusion diagram of figure~\ref{fig:diagramme_inclusion_criteres}.
+
+\begin{prop}\label{thm:cminf_egal_renfa}
+We assume that the electoral space allows any candidate as most liked.
+
+Then $\cminf = \renfadm$.
+\end{prop}
+
+In the same kind of idea, \cite{sertel2004strong} show that in the electoral space of strict weak orders, if a voting system meets \favmaj{}, then the winner of an SNE is necessarily a weak Condorcet winner (which is equivalent to a Condorcet-admissible candidate in this context): in other words, $\favmaj{} \subseteq \renfadm$. SO, proposition~\ref{thm:cminf_egal_renfa} extends this result. As for the authors of this paper, they generalize this result in another direction by considering a family of variants for criteria \favmaj{} and \renfadm{}.
+
+\begin{proof}
+If a voting system~$f$ meets $\cminf$, then it meets \renfadm{}: indeed, if the winner candidate of a configuration~$\psi$ is not Condorcet-admissible in $\omega$, then a strict majority of voters prefer another candidate (in the sense of $\omega$) and they can make her win, by virtue of \cminf. Hence $\psi$ cannot be an SNE for $\omega$.
+
+Now, let us consider a voting system that does not meet $\cminf$ and let us show that it does not meet \renfadm{}. By definition, there exists a candidate~$c$, a coalition with a strict majority $M$, a configuration $\psi_{\mathcal{V} \setminus M}$ of other voters such that, whatever the ballots $\psi_M$ chosen by the coalition, $f(\psi_M, \psi_{\mathcal{V} \setminus M}) \neq c$.
+
+Let us consider the state $\psi_{\mathcal{V} \setminus M}$ mentioned above (such that the minority makes the election of~$c$ impossible) and an arbitrary state $\psi_M$ of the majority coalition~$M$. Let us note $a = f(\psi_M, \psi_{\mathcal{V} \setminus M})$, which is by assumption distinct of~$c$.
+
+Now, let us consider the following profile of preferences~$\omega$.
+\begin{center}
+\begin{tabular}{c|c}
+Voters in $M$ (majority) & Voters in $\mathcal{V} \setminus M$ (minority) \\ \hline
+$c$ & $a$ \\
+$a$ & $c$ \\
+Others & Others \\
+\end{tabular}
+\end{center}
+Clearly, $c$ is Condorcet winner, hence she is the only Condorcet-admissible candidate.
+
+If ballots are $\psi$, then candidate $a$ is winner by assumption. The only possible deviations come from voters in~$M$, and their only wish is to make~$c$ win, but it is impossible. As a consequence, $\psi$ is an SNE for $\omega$ whose winner is not Condorcet-admissible in~$\omega$. Hence, the voting system under consideration does not meet \renfadm{}.
+\end{proof}
+
+\vspace{0.1cm}%MAGOUILLE
+\begin{prop}
+We assume that the binary relations of preference are antisymmetric.
+
+We have: $\bulmaj{} \subseteq \eenfcond$. The converse is false in general.
+\end{prop}
+\vspace{0.1cm}%MAGOUILLE
+
+\begin{proof}
+Let $f$ be an SBVS meeting \bulmaj{} and $\omega$ a configuration. If there exists a Condorcet winner~$c$ in $\omega$, then consider configuration $\psi^c$ whose existence is granted by \bulmaj: if a strict majority of vtoers respect this assignment of ballots, then $c$ wins. It is easy to see that it is an SNE for $\omega$: indeed, if a subset of voters want to make win some candidate $d$ instead of $c$, then since $c$ is Condorcet winner and since preferences are antisymmetric, these voters are a strict minority. So, by definition of $\psi^c$, candidate~$c$ remains the winner. Hence, $f$ meets \eenfcond.
+
+\medskip
+In order to show that the converse is false, let us consider the electoral space of strict total orders for $V = 3$ voters and $C = 3$ candidates. We will define a voting system we call the \emph{weird coordination game} and prove that it meets \eenfcond{} but not \bulmaj{}.
+
+Here is the rule.
+\begin{enumerate}
+\item\label{enumi:coordination_game_maj} If there exists at least a doubleton of voters whose voters put the same candidate on top of their ballots but their two last candidates in different orders, then their top candidate wins. 
+\item\label{enumi:coordination_game_doyen} In all other cases, the dean (i.e. a candidate fixed in advance) is declared the winner.
+\end{enumerate}
+So, if two voters want to elect some candidate~$c$ who is not the dean, they need to coordinate cautiously to put $c$ on top and especially to ensure that their ballots are not identical.
+
+Let us show that this system meets \eenfcond. Consider a Condorcet configuration~$\omega$. Since $V = 3$ and $C = 3$, a Condorcet winner is necessarily the most liked candidate for at least one voter (otherwise, another candidate is on top of at least two ballots, so she is majority favorite and \emph{a fortiori} Condorcet winner). 
+
+If the Condorcet winner is the most liked for at least two voters, then they just need to desynchronize the bottom of their ballots so that she is elected, and the configuration is an SNE: they are fully satisfied, and if the third voter is not, well, too bad for her.
+
+If the Condorcet winner is the most liked candidate for exactly one voter, then it is easy to show that, up to permuting some voters and/or candidates, the profile~$\omega$ is of the following type.
+$$
+\begin{array}{c|>{\;\;\;}c<{\;\;\;}|>{\;\;\;}c<{\;\;\;}}
+c & a & b \\
+\text{Autres} & c & c \\
+ & b & a \\
+\end{array}
+$$
+Candidate~$c$ is Condorcet winner. Up to exchanging $a$ and $b$ and the two last voters, we can assume that the dean is not $b$: so, it is $c$ or~$a$.
+
+Then, consider the following profile~$\psi$.
+$$
+\begin{array}{ccc|>{\;\;\;}c<{\;\;\;}|>{\;\;\;}c<{\;\;\;}}
+& c & & a & \textbf{c} \\
+& a & & c & \textbf{b} \\
+\,\; & b & \;\, & b & a \\
+\end{array}
+$$
+Candidate $c$ wins and this is an SNE for $\omega$: indeed, the second voter cannot change the result and the third voter cannot make~$b$ win (she cannot exploit neither rule~\ref{enumi:coordination_game_maj} because $b$ cannot become a majority favorite, nor rule~\ref{enumi:coordination_game_doyen} because $b$ is not the dean). Hence, the weird coordination game meets \eenfcond{}.
+
+\medskip
+Now, let us prove that it does not meet \bulmaj. Consider a candidate~$c$, distinct from the dean, and let us try to conceive an assignment of ballots~$\psi^c$ ensuring a victory of~$c$ as soon as it is used by a strict majority of voters. For each pair of voters, there must be exactly one ballot $c \plusque a \plusque b$ and a ballot $c \plusque b \plusque a$, which is impossible: indeed, we authorize only two different ballots for three voters, so there exists two voters with the same ballots. If two voters use this identical ballot, the other voter just needs not to put~$c$ on top so that the dean is elected, which contradicts the definition of $\psi^c$. Hence, the weird coordination game does not meet \bulmaj.
+\end{proof}
+
+\begin{prop}
+We assume that the electoral space allows any candidate as most liked.
+
+Then $\eenfcond \subseteq \cmign$. The converse is false in general.
+\end{prop}
+
+\begin{proof}
+Let us consider a voting system that does not meet \cmign. By definition, there exists a candidate~$c$ and a coalition with a strict majority~$M$ such that for any assignment $\psi_M$ of ballots for the coalition, there exists a response $\psi_{\mathcal{V}\setminus M}$ from other voters such that $f(\psi_M, \psi_{\mathcal{V} \setminus M}) \neq c$.
+
+Consider a profile of preference~$\omega$ of the following type.
+\begin{center}
+\begin{tabular}{c|c}
+Voters in $M$ (majority) & Voters in $\mathcal{V} \setminus M$ (minority) \\ \hline
+$c$ & Others \\
+Others & $c$ \\
+\end{tabular}
+\end{center}
+Clearly, $c$ is the Condorcet winner.
+
+In a state $\psi$ that is an SNE for $\omega$, it is impossible that $c$ wins: indeed, members of $\mathcal{V} \setminus M$ can prevent a victory for $c$ and they want to do it, whatever the alternate result. So, the voting system does not meet \eenfcond, which proves the inclusion $\eenfcond \subseteq \cmign$ by contraposition.
+
+\medskip
+In order to prove that the converse is false, we are going to define a voting system we call the \emph{betrayal game} and show that it meets \cmign{} but not \eenfcond. We will use an non-ordinal voting system to reveal the underlying intuition, then we will show that, with a bit of effort, this counterexample can be adapted to an ordinal system.
+
+Here is the rule. Each voter $v$ emits a ballot of the type $(M_v,c_v) \in \mathcal{P}(\mathcal{V}) \times \mathcal{C}$: she announces a coaltion, i.e. a set of voters, and the index of a candidate. In order to get the idea, we can interpret $M_v$ as the set of voters that $v$ considers as her ``friends''. We could demand that $M_v$ contains~$v$ herrself, but this additional assumption has no impact on our demonstration. Now, here is how we determine the winning candidate.
+\begin{enumerate}
+\item\label{enumi:betrayal_coal} If there exists a coalition with a strict majority of voters $M$ and a candidate $c$ such that each voter in $M$ emits the ballot $(M,c)$, then $c$ wins (there is no ambiguity because such a coalition is necessarily unique).
+\item\label{enumi:betrayal_modulo} In all other cases, the result is $\sum_{v \in \ens{V}} c_v$, moved by modulo $C$ to interval $\intent{1}{C}$. 
+\end{enumerate}
+
+Clearly, this voting system meets \cmign{}: indeed, if a coalition with a strict majority~$M$ want to make a certain candidate~$c$ win, they can simply coordinate to announce the ballot~$(M, c)$, which makes $c$ win, whatever the others voters do.
+
+In order to show that the betrayal game does not meet \eenfcond, consider the following profile, where candidate~$c$ is Condorcet winner.
+$$
+\begin{array}{c|c|c}
+c & a & b \\
+a & c & c \\
+b & b & a \\
+\end{array}
+$$
+
+Can there be an SNE where $c$ is elected? If $c$ is elected by virtue of rule~\ref{enumi:betrayal_coal}, then the second voter, the third voter or both participate to coalition~$M$ since it is a majority. Any one of them can betray coalition $M$ by naming the coalition consisting of only herseld and make $a$ or $b$ win by choosing the adequate modulo.
+
+The other possibility is that $c$ is elected by virtue of rule~\ref{enumi:betrayal_modulo}. Then the second voter can name the coalition consisting of herself and make~$a$ win by choosing the adequate modulo.
+
+As a consequence, there is no SNE where $c$ is elected\footnote{In fact, with this configuration of preference, it is even possible to prove that there is no SNE at all.}, which proves that the betrayal game does not meet \eenfcond{}.
+
+If one prefers a purely ordinal example, it is sufficient to consider additional candidates $d_1, \ldots, d_4$ and to coder coalition~$M$ in the order given on the four last candidates of a ballot (4~candidates provide a sufficient expressiveness because $4! = 24 > 2^3 = 8$), in a way similar to what we did in section~\ref{sec:borne_sup_manip_pour_les_cond} to define a very manipulable Condorcet system. Then, we consider a variant of the above profile, where candidates $d_1, \ldots, d_4$ are last for all voters and we show similarly that there is no SNE where~$c$ is elected.
+\end{proof}
+
+Until now, we focused on criteria \renfadm{} and \eenfcond{} and we have proved their position in the inclusion diagram of figure~\ref{fig:diagramme_inclusion_criteres}. Criteria \renfcond{} and \eenfadm{} are obviously stronger versions (respectively), in the sense that $\renfcond \subseteq \renfadm$ and $\eenfadm \subseteq \eenfcond$. If the electoral space contains no semi-Condorcet configuration (such as the electoral space of strict total orders with an odd number of voters), then it is immediate that these inclusions are actually equalities: $\renfcond = \renfadm$ et $\eenfadm = \eenfcond$.
+
+\medskip
+As a consequence, for all criteria inside the zone \renfadm{} (resp. \eenfcond{}), in particular \cond{}, there exists some SBVS that also meet \renfcond{} (resp. \eenfadm{}): indeed, we can simply consider an electoral space with no semi-Condorcet configuration. In that case, any system meeting a criterion stronger than \renfadm{} (resp. \eenfcond{}) meets also \renfcond{} (resp. \eenfadm{}), since these notions are equivalent.
+
+On the other side, for all criteria inside the zone \renfadm{} (resp. \eenfcond{}), in particular \cond{}, there exists some SBVS that do not meet \renfcond{} (resp. \eenfadm{}). Indeed, consider the electoral space of strict total orders with an even number of voters and the voting system Condorcet-dean, where the dean is denoted~$a$.
+
+\begin{enumerate}
+\item If half of the voters prefer a candidate~$c$, distinct from the dean, to all other candidates and if the other half prefer all the other candidates to~$c$, then $c$ is Condorcet-admissible but there is no SNE where she is elected (there is always a possible deviation in favor of~$a$). So, this system does not meet \eenfadm.
+\item If half of the voters prefer the dean~$a$ to all other candidates and if the other half have~$a$ last in their order of preference, then sincere voting is a SNE where $a$ is elected, although she is only Condorcet-admissible but not Condorcet winner. So, this system does not meet \renfcond.
+\end{enumerate}
+
+As a consequence, \eenfadm{} is included in \eenfcond{} but it has, in general, no simple relation of inclusion with the criteria inside the zone \eenfcond{}: for example, it may have a non-empty intersection with \cond{} but also with its complement. It is similar for \renfcond{}, which is included in \renfadm{} but has no simple relation of inclusion with criteria stronger than \renfadm{}.
+
+\medskip
+By the way, we can remark than, in an electoral space where there exists at least one semi-Condorcet configuration, criteria \eenfadm{} and \renfcond{} are incompatible: indded, in a semi-Condorcet configuration, \eenfadm{} demands that there exists a SNE where a Condorcet-admissible candidate is elected, but since this candidate is not a Condorcet winner, this contradicts \renfcond{}.
+
+For all these reasons, it seems that criteria \eenfadm{} and \renfcond{} are less ``natural'' than their respective weaker versions \eenfcond{} and \renfadm{}; and we have chosen not to include them in the inclusion diagram of figure~\ref{fig:diagramme_inclusion_criteres} for the sake of readability.
+
+\medskip
+To sum up this section, we have studied the ``unicity'' and the existence of an SNE, in connection with Condorcet notions.
+
+For the ``unicity'' of the equilibrium, we have defined the criterion $\renfcond$, which demands than only a Condorcet winner can benefit from an SNE. But eventually, it seems that \renfadm{} is a more natural property than its weak version \renfcond, in the sense that it is more frequently met by usual systems, knowing that these notions are of course equivalent when there is no semi-Condorcet configuration. Whereas it was quite clear that $\cminf$ implies \renfadm, we have shown that actually, these two criteria are equivalent.
+
+We also wanted to know what guarantees the existence of an SNE when preferences are Condorcet, i.e. the criterion $\eenfcond$. We have seen that this criterion is more natural than its strong version \eenfadm. We have proved that \bulmaj{} is sufficient but not necessary (as illustrated by the weird coordination game) and that \cmign{} is necessary but not sufficient (as shown by the betrayal game).
+
+
+
+\section{Majoritarian criteria met by the usual voting systems}\label{sec:crit_maj_pour_mds_classiques}
+
+Now, we understand better the position of majoritarian and equilibrium criteria in the inclusion diagram of figure~\ref{fig:diagramme_inclusion_criteres}. Before proposing a reflection about the motivation and the consequences of these criteria, we will study which criteria are met by the usual voting systems.
+In this whole section, we will consider a fixed number of candidates~$C$ but a variable number of voters~$V$: 
+so, we will say that a voting system\footnote{To respect a mathematically rigorous terminology, we should say a \emph{meta-voting system}, because by varying the number of voters, we consider systems that are defined over several different electoral spaces. However, we will avoid this coquetry of language and we will keep on speaking about \emph{voting systems}, even in that case.} meets a given criterion for a given value of $C$ iff it meets it for any number of voters; and that it does not meet it if there exists a configuration that contradicts the criterion, whatever the number of voters.
+
+The motivation of this choice is two-sided. One one hand, when an election is organized in the real life, the number of candidates is almost always known (at least at the moment where ballots must be chosen by the voters), whereas it is very frequent that the number of voters in unknown in advance. On the other hand, fixing the number of voters may lead to difficult questions of quantification: so, it may happen that a given system meets some criterion for a value of $(V, C)$ for backpacking-type reasons, whereas it does not meet the criterion in general for this value of $C$ (and especially for a large enough number of voters). In other words, it is practical and technically more tractable to let the number of voters vary. For this, our approach is the same as \cite{smith1973aggregation}, who studied some of these questions for PSR with a variable number of voters.
+
+
+\subsection{Cardinal voting systems}
+
+\begin{prop}
+\leavevmode\vspace{-\baselineskip}
+\begin{enumerate}
+\item\label{enumi:pptes_card_bulmaj} Range voting, the majority judgment and approval voting meet \bulmaj. 
+\item\label{enumi:pptes_card_favmaj} Let $C \geq 3$. Assume that, for any voter~$v$ and for any strict total order of preference~$p_v$ over the candidates, voter $v$ has at least at her disposal:
+\begin{itemize}
+\item One state $\omega_v$ such that $\Plusquefull{\omega_v} = p_v$ and where she attributes the maximal grade to her most-liked candidate and the minimal grade to all the others;
+\item And one state $\omega_v'$ such that $\Plusquefull{\omega_v'} = p_v$ and where she attributes the maximal grade to her two most-liked candidates and the minimal grades to all the others.
+\end{itemize}
+Then these voting system do not meet \favmaj{}.
+\end{enumerate}
+\end{prop}
+
+\begin{proof}
+\ref{enumi:pptes_card_bulmaj}. Let $c$ be a candidate. Consider a ballot consisting of attributing the maximal grade to~$c$ and the minimal grade to other candidates. If a strict majority of voters use this ballot, then~$c$ is elected. So, these voting systems meet~\bulmaj. If we define these voting systems reasonably, in an anonymous electoral space, then we have just proved that they even meet $\bulmajuni$.
+
+\ref{enumi:pptes_card_favmaj}. Consider the following configuration where candidates are denoted $c, d_1, \ldots, d_{C-1}$ and where minimal and maximal grades are respectively 0 and 1 by convention.
+$$
+\begin{array}{r@{~:~}l|r@{~:~}l}
+\multicolumn{2}{c|}{2} & \multicolumn{2}{c}{1} \\ \hline
+c & 1    & d_1 & 1 \\
+d_1 & 1  & d_2 & 0 \\
+d_2 & 0  & \multicolumn{2}{c}{\vdots} \\
+\multicolumn{2}{c|}{\vdots} & d_{C-1} & 0 \\
+d_{C-1}& 0 & c & 0 \\
+\end{array}
+$$
+Then candidate $c$ is majority favorite but $d_1$ is elected.
+\end{proof}
+
+Property~\ref{enumi:pptes_card_favmaj} is also true for $C = 2$ but we have preferred not to mention it in the proposition because the assumption, in that case, is debatable. Indeed, if there are only two candidates and if the binary relations of preference are strict total orders, then there is a natural sincerity function, since each voter has a dominant strategy: attribute the maximal grade to her most-liked candidate and the minimal grade to the other. With this sincerity function, these voting systems become equivalent to the simple majority vote (mentioned in the introduction) and they trivially meet \favmaj{} (and even \cond{}). In contract, as soon as $C \geq 3$, the assumption that it is possible to sincerely vote for one's most-liked candidate or for one's two most-liked candidates is quite natural in practice, and compliant with the spirit of approval voting, range voting and the majority judgment.
+
+%Pour VA, VN et JM, il suffit que les membres de la coalition attribuent la note maximale à $c$ et la note minimale aux autres candidats.
+
+\medskip
+In all the rest of this section~\ref{sec:crit_maj_pour_mds_classiques}, dedicated to usual voting systems, we work in the electoral space of strict total orders.
+
+As a reminder, Baldwin, Condorcet-Borda (Black's method), Condorcet-dean, Condorcet-dictatorship, CSD, Dodgson, IRVD, Kemeny, Maximin, Nanson, RP and Schulze's method meet \cond{}, which immediately determines their positions in the inclusion diagram of figure~\ref{fig:diagramme_inclusion_criteres}.
+
+\subsection{Plurality with one or several rounds}
+
+Even if we will see Plurality again as a particular case of proposition~\ref{thm:pptes_rps} about PSR, IRV as a particular case of proposition~\ref{thm:pptes_rpsi_es} about IPSR-SE and IRVA as a particular case of proposition~\ref{thm:pptes_rpsi_em} about IPSR-EA, we wil first study these voting systems on their own and take the occasion to examine the two-round system also. On one hand, these voting systems are widely spread in practice (except IRVA) and they all present some similarities of principle. On the other hand, this will allow us to prove, in a simple context, some result that will be useful afterwards.
+
+\begin{prop}\label{thm:pptes_uninominal}
+\leavevmode\vspace{-\baselineskip}
+\begin{enumerate}
+\item\label{pptes_uni_favmaj} Plurality, the two-round system (TR or ITR), IRV and IRVA meet \favmaj{}.
+\item\label{pptes_uni_rcond} They meet \rcond{} \ssi $C \leq 4$.
+\item\label{pptes_uni_cond} They do not meet \cond{} (except in the trivial case $C \leq 2$).
+\end{enumerate}
+\end{prop}
+
+In order to prove this proposition, we will use the following lemma.
+
+\begin{lem}\label{thm:resist_cond_gagne_uninominal_C_4}
+We consider the electoral space of strict total orders and we assume that some candidate~$c$ is resistant Condorcet winner.
+
+If $C \leq 4$, then the score for $c$ in the sense of Plurality is strictly the highest one.
+
+If $C \geq 5$, then the score for $c$ in the sense of Plurality can be strictly the lowest one.
+\end{lem}
+
+\begin{proof}
+For $C \leq 3$, a resistant Condorcet winner is, by definition, a majority favorite, hence the affirmation is obvious. So, let us assume $C = 4$. Let the candidates be named $c, d_1, d_2, d_3$ and let us denote $\gamma$ (resp. $\delta_1$, $\delta_2$, $\delta_3$) the number of voters who have $c$ (resp. $d_1$, $d_2$, $d_3$) on top of their order of preference. So, we have the following profile.
+$$
+\begin{array}{c|c|c|c}
+\gamma & \delta_1 & \delta_2 & \delta_3 \\\hline
+c & d_1 & d_2 & d_3 \\
+\text{Others} & \text{Others} & \text{Others} & \text{Others} \\
+\end{array}
+$$
+
+Since $c$ is resistant Condorcet winner, a strict majority of voters strictly prefer her to $d_1$ and $d_2$ simultaneously. But we know that at least $\delta_1 + \delta_2$ voters do not meet this condition. As a consequence, we have $\gamma + \delta_3 > \delta_1 + \delta_2$. Similar relations are obtained by permuting the $\delta_i$'s.
+
+Assume that a candidate, for example $d_1$, has a score greater or equal than the score for $c$ in the sense of Plurality, i.e. we have $\delta_1 \geq \gamma$. Combining this relation with previous ones, we obtain $\delta_1 + \delta_2 \geq \gamma + \delta_2 > \delta_1 + \delta_3 \geq \gamma + \delta_3 > \delta_1 + \delta_2$, which is a contradiction.
+
+\medskip
+For $C \geq 5$, consider a profile of the following type.
+$$
+\begin{array}{c|c|c|c|c}
+1 & 2 & 2 & 2 & 2 \\\hline
+c & d_1 & d_2 & d_3 & d_4 \\
+  & c   & c   & c   & c \\
+\text{Autres} & \text{Autres} & \text{Autres} & \text{Autres} & \text{Autres} \\
+\end{array}
+$$
+Candidate~$c$ is preferred to any other pair of opponents by at least 5~voters out of~9, hence she is resistant Condorcet winner. But her Plurality score is the lowest one.
+\end{proof}
+
+\begin{lem}\label{thm:cond_peut_avoir_pire_score_uni}
+We consider the electoral space of strict total orders and we assume that some candidate~$c$ is Condorcet winner.
+
+If $C \geq 3$, the score for $c$ in the sense of Plurality can be the lowest one.
+\end{lem}
+
+\begin{proof}
+This classic property is a particular case of a lemma by \cite{smith1973aggregation}, showing the same result not only for Plurality but for all PSR except Borda. We will come back to it in lemma~\ref{thm:smith_condorcet_worst_rps}. For the moment, it is sufficient to consider the following profile.
+$$
+\begin{array}{c|c|c}
+1   & 2   & 2   \\\hline
+c   & d_1 & d_2 \\
+    & c   & c   \\
+\text{Others} & \text{Others} & \text{Others} \\
+\end{array}
+$$
+\end{proof}
+
+Now, we have all the elements to prove proposition~\ref{thm:pptes_uninominal}.
+
+\begin{proof}
+\ref{pptes_uni_favmaj}. It is clear that Plurality, the two-round system, IRV and IRVA meet \favmaj{}.
+
+\ref{pptes_uni_rcond}. Lemma~\ref{thm:resist_cond_gagne_uninominal_C_4} proves that with 4~candidates or less, a resistant Condorcet winner always has the best score in Plurality. In the two-round system, it implies that she is selected for the second round; since she is Condorcet winner, she wins this last duel. In IRV or IRVA, it implies that she has the best score during each round; in particular, she wins the election.
+
+Lemma~\ref{thm:resist_cond_gagne_uninominal_C_4} says also that with 5~candidates or more, a resistant Condorcet winner can have the strictly worst score in Plurality. So, she can lose in Plurality and be eliminated during the first round in the two-round system, IRV or IRVA.
+
+\ref{pptes_uni_cond}. Lemma~\ref{thm:cond_peut_avoir_pire_score_uni} proves that with 3~candidates or more, a Condorcet winner can have the strictly worst score in Plurality, and as a consequence, lose also in the two-round system, IRV or IRVA.
+\end{proof}
+
+
+
+\subsection{Positional scoring rules (PSR)}
+
+We already know the criteria met by Plurality. Now, we generalize our investigation to PSR, which comprise notably Borda's method and Veto.
+
+In order to study PSR and later IPSR, it will often be convenient to enunciate the result by using the arithmetical average of all the weight, or of some of them. We will use the following convention: for some real numbers $x_1, \ldots, x_n$, we note $\moy(x_1, \ldots, x_n)$ their arithmetical average.
+
+\begin{prop}\label{thm:pptes_rps}
+Let $f$ be a PSR with vector of weights $\mathbf{x}$. %Quitte à translater les poids et à les multiplier par une constante positive, on suppose $x_1 = 1$ et $x_C = 0$. %WARNING: on verra si cette convention (surtout $x_1 = 1$) est vraiment utile.
+
+\begin{enumerate}
+\item\label{enumi:pptes_rps_cminf_nec} In order for $f$ to meet \cminf{}, it is necessary that for any $k \in \intent{2}{C}$, we have:
+$$
+\moy(x_1,\ldots,x_k) + \moy(x_{C-k+1},\ldots,x_C) \leq x_1 + x_C.
+$$
+\item\label{enumi:pptes_rps_cminf_suf} In order for $f$ to meet \cminf{}, it is sufficient that for any $k \in \intent{2}{C}$, we have:
+$$
+x_{k} + x_{C-k+2} \leq x_1 + x_C
+$$
+and that at least $j-1$ such inequalities are strict, where $j$ is the greatest integer such that $x_j = x_1$.
+\item\label{enumi:pptes_rps_cmign} $f$ meets \cmign{} iff it is Plurality. In that case, it also meets \favmaj{}.
+\item\label{enumi:pptes_rps_rcond} $f$ meets \rcond{} iff it is Plurality with $C \leq 4$.
+\item\label{enumi:pptes_rps_cond} $f$ does not meet \cond{} (except in the trivial case $C \leq 2$).
+\end{enumerate}
+\end{prop}
+
+First of all, let us notice that the particular case $k = 1$ is not mentioned in property~\ref{enumi:pptes_rps_cminf_nec}. Indeed, it would be useless because the condition becomes $x_1 + x_C \leq x_1 + x_C$, which is always met.
+
+For property~\ref{enumi:pptes_rps_cminf_suf}, we consider the sum of $x_k$ and $x_{C-k+2}$, i.e. we add $x_2$ and $x_C$, or $x_3$ and $x_{C-1}$, etc. The particular case $k = 1$ would not even be defined, since the weight $x_{C+1}$ does not exist.
+
+
+\begin{proof}
+\ref{enumi:pptes_rps_cminf_nec}. We will deal with the particular case $k = C$ last. Assume that there exists $k \in \intent{2}{C-1}$ such that:
+$$
+\moy(x_1,\ldots,x_k) + \moy(x_{C-k+1},\ldots,x_C) > x_1 + x_C.
+$$
+Let $\alpha$ be a natural integer. Consider $\alpha$ sincer voters who always put some candidates $d_1, \ldots, d_k$ on top (not necessarily in the same order) and candidate~$c$ last. If $\alpha+1$ additional voters wish to make~$c$ win, it is necessary that~$c$ has a better score than candidates $d_1, \ldots, d_k$. To achieve this necessary condition, manipulators cannot do best than put~$c$ on top and $d_1, \ldots, d_k$ in the bottom of their ballots (not necessarily in the same order). But then, we have:
+\begin{align*}
+&\moy(\score(d_1), \ldots, \score(d_k)) - \score(c) \\
+&= \alpha \moy(x_1,\ldots,x_k) + (\alpha+1) \moy(x_{C-k+1},\ldots,x_C) - (\alpha + 1) x_1 - \alpha x_C \\
+&= (\alpha + 1) \left[ \frac{\alpha}{\alpha + 1} \moy(x_1,\ldots,x_k) + \moy(x_{C-k+1},\ldots,x_C) - x_1 - \frac{\alpha}{\alpha + 1} x_C \right].
+\end{align*}
+For $\alpha$ large enough, this quantity is positive, hence at least one candidate~$d_i$ has a better score than $c$, who therefore cannot be elected. Hence, $f$ does not meet \cminf{}.
+
+Remains the particular case $k = C$. Let us assume that $f$ meet \cminf. Now, we know that it means the condition we gave for $k = C - 1$, which we can reword this way:
+$$
+x_1 + 2 x_2 + \ldots + 2 x_{C-1} + x_C \leq (C-1) (x_1 + x_C).
+$$
+By adding the trivial inequality $x_1 + x_C \leq x_1 + x_C$, we obtain $2 \sum_i x_i \leq C (x_1 + x_C)$, which proves that the condition we gave is also met for $k = C$.
+
+We can notice that, in order to prove that a given voting system meets all the necessary conditions we mentioned, it is not necessary to test the particular case $k = C$, which is directly deduced of the condition for $k = C-1$. At the opposite, to prove that a given system does not meet \cminf{}, it can be convenient to test first the condition for $k = C$, in case this one is not met.
+
+\medskip
+\ref{enumi:pptes_rps_cminf_suf}. Let us prove that with the conditions we gave, $f$ meets \cminf. If there are $\alpha$ sincere voters and $\beta$ manipulators in favor of some candidate~$c$, with ${\beta > \alpha}$, let us separate the $\beta$ manipulators in two groups: the $\alpha$ first of them will be used to give $c$ a score that is greater or equal to other candidates' and the $\beta-\alpha$ other manipulators will make this inequality strict.
+
+The $\alpha$ first manipulators pu themselves in bijection with the sincere voters and each of them uses as ballot the inverse order of her alter ego, while moving~$c$ on top of her ballot. Then, the inequalities that are assumed ensure that the other candidates have at most the same score as~$c$ and that at least $j-1$ of them have a strictly lower score.
+
+When an additional manipulator is added, she can attribute $x_1$~points to~$c$ and to these $j-1$ candidates and strictly less to the others, so candidate~$c$ has strictly the highest score. If $\beta - \alpha > 1$, the remaining manipulators simply put $c$ on top and the inequality remains strict.
+
+\medskip
+\ref{enumi:pptes_rps_cmign}. Let us show that the only PSR meeting \cmign{} is Plurality. Up to adding a constant to the weights and multiplying them by a positive constant, we can assume $x_1 = 1$ and $x_C = 0$.
+
+Consider $\frac{V}{2} + \varepsilon$ voters who want to make~$c$ win and $\frac{V}{2} - \varepsilon$ voters who vote after them and whose only goal is to prevent them from electing~$c$, with $\varepsilon > 0$. As for the position of~$c$ in the ballots, her proponents cannot do better than putting her on top and the others cannot do better than putting her in the bottom of their ballots. So, we have $\score(c) = \frac{V}{2} + \varepsilon$.
+
+Each proponent of~$c$ distributes at least $x_2$ points to the other candidates, hence at least $\frac{x_2}{C-1}$ points in average to each of them. Among these candidates, let $d$ be the one receiving most points from the proponents of~$c$. In order to prevent $c$ from winning, other voters' best strategy is to put $d$ on top of their ballots. Then we have:
+$$
+\score(d) \geq \left( \frac{V}{2} + \varepsilon \right) \frac{x_2}{C-1} + \left( \frac{V}{2} - \varepsilon \right).
+$$
+
+In order for $f$ to meet \cmign{}, it is necessary that even for $\varepsilon$ negligible compared to~$V$, we have $\score(d) < \score(c)$. Considering the limit $\varepsilon \to 0$, we obtain after simplification $x_2 \leq 0$, hence $x_2 = \ldots = x_C = 0$ (because weights are always decreasing, cf. definition~\ref{def:rps}). So, $f$ is Plurality.
+
+Conversely, Plurality meets \cmign{} and even \favmaj{} (proposition~\ref{thm:pptes_uninominal}).
+
+\medskip
+\ref{enumi:pptes_rps_rcond}. In order for $f$ to meet \rcond{}, it is necessary that it meets \favmaj{} hence, according the previous point, it is Plurality. But we know (proposition~\ref{thm:pptes_uninominal}) that Plurality meets \rcond{} \ssi $C \leq 4$.
+
+\medskip
+\ref{enumi:pptes_rps_cond}. Finally, it is a classic property that $f$ does not meet \cond{} (except if $C \leq 2$).
+A possible proof is the following. In order for $f$ to meet \cond{}, it must meet \favmaj{}, hence $f$ is necessarily Plurality. But we know (proposition~\ref{thm:pptes_uninominal}) that Plurality does not meet \cond{} (except in the trivial case $C \leq 2$).
+\end{proof}
+
+The fact that the only PSR meeting \favmaj{} is Plurality is already proved by \cite{lepelley1998choix}. Point~\ref{enumi:pptes_rps_cmign} shows that in fact, it is the only PSR meeting the criterion \cmign{} (less demanding, \emph{a priori}).
+
+In order to complete proposition~\ref{thm:pptes_rps} about PSR, ideally, it would be desirable to find a necessary and sufficient condition such that a PSR meets \cminf{}. According to our ongoing research on this topic, we conjecture that it is possible to find a sufficient condition whose form is close to the necessary condition we gave. We leave this question open for future works.
+
+\medskip
+From proposition~\ref{thm:pptes_rps}, we immediately deduce the two following corollaries for Borda's method and Veto.
+
+\begin{cor}\label{thm:pptes_borda}
+\leavevmode{}\vspace{-\baselineskip}
+\begin{enumerate}
+\item\label{enumi:pptes_borda_cminf} Borda's method meets \cminf{}.
+\item\label{enumi:pptes_borda_cmign} It does not meet \cmign{} (except in the trivial case $C \leq 2$).
+\end{enumerate}
+\end{cor}
+
+%\begin{proof}
+%Nous avons déjà vu que la méthode de Borda vérifie \cminf{}.
+%
+%Pour $C \geq 3$, considérons $V = 11$ électeurs dont 6~qui souhaitent faire gagner le candidat $c$ et 5~qui votent ensuite et souhaitent les en empêcher.
+%
+%Clairement, les partisans de~$c$ ont intérêt à mettre $c$ en tête de leur bulletin, ce qui lui donne $6(C-1)$ points. Chacun donne également $\frac{C-2}{2}$ points en moyenne à chaque autre candidat. Il existe donc un autre candidat $d$ qui reçoit au moins $6 \times \frac{C-2}{2} = 3C - 6$ points de la part des partisans de~$c$.
+%
+%Supposons à présent que les 5~autres électeurs placent $d$ en premier et $c$ en dernier sur leur bulletin. On a alors:
+%\begin{align*} 
+%\score(d) - \score(c) 
+%&\geq  [ (3C - 6) + 5 (C - 1)] - [6(C-1)] \\ 
+%&\geq 2 C - 5 \\
+%&> 0.
+%\end{align*}
+%Donc $c$ n'est pas élu. Par conséquent, pour $C \geq 3$, la méthode de Borda ne vérifie pas \cmign{}.
+%\end{proof}
+
+%Prouvons tout d'abord que la méthode de Borda vérifie \cminf{}. S'il y a $\alpha$ électeurs sincères et $\beta$ manipulateurs, avec $\beta > \alpha$, il est suffisant que les premiers $\alpha$ manipulateurs se mettent en bijection avec les $\alpha$ électeurs sincères, chacun votant pour la relation binaire opposée à son alter ego: le manipulateur prétend préférer $d$ à $e$ \ssi son alter ego sincère préfère $e$ à $d$. Cette disposition permet d'égaliser les scores de tous les candidats. Puis, les $\beta-\alpha$ manipulateurs restant n'ont qu'à prétendre qu'ils préfèrent $c$ à tous les autres candidats, ce qui assure l'élection de $c$.
+%
+%Pour prouver que la méthode de Borda ne vérifie pas \cmign{}, considérons $C = 5$ candidats et $V = 5$ électeurs, parmi lesquels il y a 3 manipulateurs en faveur du candidat~$a$. Clairement, ils ont intérêt à prétendre préférer $a$ à tous les autres candidats, ce qui donne $3 \times 4 = 12$ points à $a$. Ils allouent également $3 \times 6 = 18$ points aux autres candidats, ce qui fait une moyenne de $4,5$ points: par conséquent, l'un d'entre eux, disons $b$, a au moins $4,5$ points.
+%%
+%%For example, with the following ballots (which are strict total orders), candidates B and C get 5 points each, whereas D and E have 4 points each.
+%%\begin{center}
+%%\begin{tabular}{IlIc|c|cI}
+%%\Cline{1pt}{2-4}
+%%\multicolumn{1}{cI}{} & \multicolumn{3}{cI}{Manipulator}\\ \cline{2-4}
+%%\multicolumn{1}{cI}{} & \;\,1\,\; & \;\,2\,\; & \;\,3\,\; \\ \Cline{1pt}{1-4}
+%%\multirow{5}{*}{\myrotate{Ballot}} & A & A & A \\ 
+%%& B & E & D \\ 
+%%& C & B & C \\ 
+%%& D & C & E \\ 
+%%& E & D & B \\ \Cline{1pt}{1-4}
+%%\end{tabular}
+%%\end{center}
+%%
+%Si les deux électeurs restants fournissent un ordre strict total avec $b$ en premier et $a$ en dernier, alors $b$ a au moins $4.5 + 8 = 12.5$ points au total et $a$ n'en a toujours que 12, donc $a$ ne peut pas être élu.
+%
+%On notera que ces preuves sont toujours valables s'il est requis que les électeurs fournissent des ordres stricts totaux (ou des ordres stricts faibles).
+
+\begin{cor}\label{thm:pptes_veto}
+Veto does not meet \cminf{} (except in the trivial case $C \leq 2$).
+\end{cor}
+
+In both cases, it is possible to prove the result directly, with using proposition~\ref{thm:pptes_rps}. For Veto, we can give an especially short proof. Let $C \geq 3$ and $V = 7$. Assume that 3 sincere voters vote against candidate~$c$. Then $c$ has more vetos than the average (which is $\frac{V}{C}$), hence she cannot win, whatever the other 4~voters do (although they constitute a strict majority).
+
+%Considérons $C=4$ candidats et $V=3$ électeurs. Pour qu'un candidat soit élu, il faut qu'il ne reçoive aucun veto. Par conséquent, si un électeur vote contre $c$, alors quoi que fassent les deux autres (qui sont une coalition majoritaire), le candidat $c$ ne peut pas gagner.
+
+
+\subsection{Iterated PSR with simple elimination}
+
+We have already studied the case of IRV in proposition~\ref{thm:pptes_uninominal}. Now, we will extend this result to the class of IPSR-SE, which comprise, notably, Baldwin and Coombs' method.
+
+\begin{prop}\label{thm:pptes_rpsi_es}
+Let $f$ be an IPSR-SE, with vectors of weights $(\vecteur{x}^k)_{k \leq C}$. %Pour tout $C' < C$, on note $f_{C'}$ la RPSI-EM de vecteurs de poids $(\vecteur{x}^k)_{k \leq C'}$.
+
+\begin{enumerate}
+\item\label{enumi:pptes_rpsies_bulmaj} $f$ meets \bulmajuni{}.
+\item\label{enumi:pptes_rpsies_favmaj} $f$ meets \favmaj{} iff for any $k \in \intent{3}{C}$: 
+$$\moy(x^k_1, x^k_k) \geq \moy(x^k_1, \ldots, x^k_k).$$
+If this condition is met and if $C \leq 4$, then $f$ meets also \rcond{}.
+\item\label{enumi:pptes_rpsies_cond} $f$ meets \cond{} iff it is Baldwin's method.
+\end{enumerate}
+\end{prop}
+
+The condition we gave such that an IPSR-SE meets \favmaj{} is proven by \cite{lepelley1998choix}. The condition we gave to meet \cond{} is proven by \cite{smith1973aggregation}. We are going to give a sketch of proof in order to have a complete overview of proposition~\ref{thm:pptes_rpsi_es}.
+
+\medskip
+In order to prove these results and, later, to study IPSR-EA, we will use several times the following lemma.
+
+\begin{lem}[Smith]\label{thm:smith_condorcet_worst_rps}
+Let $f$ be a PSR (for a fixed $C$ and variable $V$).
+
+If $f$ is Borda's method, then a Condorcet winner has necessarily a score that is strictly greater than the average score.
+
+Otherwise, a Condorcet winner can have a score that is strictly the lowest.
+\end{lem}
+
+The first affirmation above is mentioned as a reminder: it comes from the fact that a candidate's Borda score is the sum of the score of her row in the matrix of duels. The second one is proven by \cite{smith1973aggregation}.
+
+\medskip
+The following lemma shows a similar result for the majority favorite.
+
+\begin{lem}\label{thm:favori_maj_score_rps}
+Let $f$ be a PSE with vector of weights $\vecteur{x}$ (with $C \geq 2$).
+
+We consider the following condition:
+$$\moy(x_1, x_C) \geq \moy(x_1, \ldots, x_C).$$
+
+If it is met, then a majority favorite has necessarily a score that is strictly greater than the average score.
+
+Otherwise, a majority favorite can have a score that is strictly the lowest.
+\end{lem}
+
+\begin{proof}
+The minimal score that a majority favorite $c$ can reach is $\frac{V}{2} (x_1 + x_C) + \varepsilon (x_1 - x_C)$, where $\varepsilon > 0$ can be made negligible compared to $V$. And the average score is $V \moy(x_1, \ldots, x_C)$. In order for $c$'s score to be always strictly greater than the average score, it is necessary and sufficient that $\frac{1}{2} (x_1 + x_C) \geq \moy(x_1, \ldots, x_C)$.
+
+If the condition is not met, let us remark that it is possible that the score for a majority favorite~$c$ is not only lower or equal, but actually strictly lower than the average score (by taking $\varepsilon$ small enough). Consider such a profile. Up to make $C - 1$ copies by a circular permutation of other candidates and join the profiles we obtain, all opponents have the same score, whereas $c$'s score is strictly lower than the average: so, her score is strictly the lowest. But $c$ remains a majority favorite in the profile we obtain.
+\end{proof}
+
+Finally, for $C \leq 4$, the following lemma shows that the same condition gives a similar result for a resistant Condorcet winner.
+
+\begin{lem}\label{thm:resist_cond_score_rps_c4}
+Let $f$ a PSR with vector of weights $\vecteur{x}$.
+
+Consider the following condition:
+%$$
+%x_2 \geq \frac{1}{3} x_1 \geq \frac{2}{3} \moy(x_1, \ldots, x_4) \;\;\ou\;\; 
+%	\frac{1}{3} x_1 \geq x_2 .
+%$$
+%$$
+%\frac{1}{3} x_1 \leq x_2 \leq x_1 - x_3 \;\;\ou\;\; 
+%	x_2 \leq \frac{1}{3} x_1.
+%$$
+$$\moy(x_1, x_C) \geq \moy(x_1, \ldots, x_C).$$
+
+If it is met and if $C \leq 4$, then a resistant Condorcet winner has necessarily a score that is strictly greater than the average score.
+
+If it is not met (for any $C$), then a resistant Condorcet winner can have a score that is strictly the lowest\footnote{The condition can be violated only if $C \geq 3$.}.
+\end{lem}
+
+\begin{proof} The second affirmation is easier: if the condition is not met, then according to lemma~\ref{thm:favori_maj_score_rps}, a majority favorite (who is, \emph{a fortiori}, a resistant Condorcet winner) can have a score that is strictly the lowest. As for the first affirmation, If $C \leq 3$, it directly comes from lemma~\ref{thm:favori_maj_score_rps} because in that case, notions of majority favorite and resistant Condorcet winner are equivalent.
+
+We just need to prove the first affirmation for $C = 4$. Up to subtract $x_4$ from each weight, we can assume $x_4 = 0$. Let us reword the condition that is met by assumption:
+\begin{align*}
+\frac{x_1 + x_2 + x_3 + 0}{4} &\leq \frac{x_1 + 0}{2},
+\end{align*}
+i.e. $x_2 + x_3 \leq x_1$.
+
+For $v$ a voter and $\{d, e\}$ a doubleton of distinct candidates, we say that $(v, \{d, e\})$ gives a \emph{supremacy} to $c$ \ssi $v$ puts simultaneously $c$ before $d$ and~$e$. To be a resistant Condorcet winner, it is necessary to have strictly more than $\frac{3}{2} V$ supremacies, because a strict majority is necessary against each doubleton of opponents.
+
+If a voter puts $c$ on top, it gives three supremacies to~$c$: one over the doubleton of opponents $\{d_1, d_2\}$, one over $\{d_1, d_3\}$ and one over $\{d_2, d_3\}$. If a voter puts $c$ in second position, it gives her only one supremacy, over the two candidates in the bottom of the ballot. If a voter puts $c$ in third or fourth position, its gives her no supremacy. So, the ``unit price'' of a supremacy (in points of score) is $\frac{1}{3} x_1$ when $c$ is in first position and $x_2$ when $c$ is in second position. 
+
+\paragraph{Case 1}
+Assume $\frac{1}{3} x_1 \leq x_2$. Then, to be a resistant Condorcet winner while having as few points as possible, the optimum is to be in first position for a strict majority of voters (never in second position); in other words, to be a majority favorite. So, according to lemma~\ref{thm:favori_maj_score_rps}, $c$'s score is strictly greater than the average score. 
+% et en dernière position chez tous les autres. Pour un certain $\varepsilon > 0$, on a alors:
+%\begin{align*}
+%\score{c} - \overline{\score}
+%&= \left(\frac{V}{2} + \varepsilon\right) x_1 - V \moy(x_1, \ldots, x_4)\\
+%&= \frac{V}{4} \left(  x_1  - x_2 - x_3 \right) + \varepsilon x_1 \\  
+%&> 0.
+%\end{align*}
+%Donc le score de $c$ est strictement supérieur au score moyen.
+
+\paragraph{Case 2}
+Assume $x_2 < \frac{1}{3} x_1$. Now, to be a resistant Condorcet winner while having as few points as possible, the optimum is to be in second position as often as possible. However, being always in second position is not enough, because it gives only $V$ supremacies (instead of the $\frac{3}{2} V$ supremacies we need). To have enough supremacies, it is necessary to be in first position for $\frac{V}{4} + \varepsilon$ voters, for some $\varepsilon > 0$. With this notation, it is necessary to be in second position for at least $\frac{3V}{4} - 3 \varepsilon$ voters (so, there remains $2\varepsilon$ voters who can do whatever they like). So we have (denoting $\moy(\score)$ the average score of all candidates):
+\begin{align*}
+\score{(c)} - \moy(\score)
+&\geq \frac{V}{4} x_1 + \frac{3V}{4} x_2 + \varepsilon \left(x_1 - 3 x_2\right) - V \moy(x_1, \ldots, x_4)\\
+&\geq \frac{V}{4} x_2 + \frac{V}{4} (x_2 - x_3) + \varepsilon \left(x_1 - 3 x_2\right).%\\
+%&> 0
+\end{align*}
+But the two first terms are nonnegative by definition of a PSR and the third one is positive by assumption. Hence, $c$'s score is strictly greater than the average score.
+\end{proof}
+
+The first affirmation in lemma~\ref{thm:resist_cond_score_rps_c4} cannot be extended to $C \geq 5$: 
+in that case, a resistant Condorcet winner can even have a score that is strictly lower than the average score. Indeed, let us consider Plurality: $\vecteur{x} = (1, 0, \ldots, 0)$. Condition $\moy(x_1, x_C) \geq \moy(x_1, \ldots, x_C)$ is clearly met. However, we have already shown in lemma~\ref{thm:resist_cond_gagne_uninominal_C_4} that a resistant Condorcet winner can have a Plurality score that is strictly the lowest.
+
+\medskip
+Now, we have at our disposal all elements to prove proposition~\ref{thm:pptes_rpsi_es} about IPSR-SE.
+
+\begin{proof}
+\ref{enumi:pptes_rpsies_bulmaj}. Let us prove that $f$ meets \bulmajuni. If a strict-majority coalition wished to make candidate~$c$ win, it is sufficient that they put $c$ on top of their ballots and all other candidates in the same arbitrary order. During the counting round where $k$ candidates remain, let us note $d_k$ the candidate put last by these proponents of~$c$. Even if all other voters put~$d_k$ first and $c$ last in their ballots, we have $\score_k(c) > \frac{V}{2} (x_1^k + x_k^k) > \score_k(d_k)$, hence $c$ cannot be eliminated. So, she wins the election.
+
+\medskip
+\ref{enumi:pptes_rpsies_favmaj}. From lemma~\ref{thm:favori_maj_score_rps}, we immediately deduce that $f$ meets $\favmaj{}$ iff for any $k \in \intent{3}{C}$, $\moy(x^k_1, x^k_k) \geq \moy(x^k_1, \ldots, x^k_k).$ If this condition is met and if $C \leq 4$, lemma~\ref{thm:resist_cond_score_rps_c4} ensures that a resistant Condorcet winner cannot be eliminated, hence $f$ meets \rcond{}.
+
+\medskip
+\ref{enumi:pptes_rpsies_cond}. The fact that the only IPSR-SE meeting \cond{} is Baldwin's method is proven by \cite{smith1973aggregation}: it is a direct consequence of~\ref{thm:smith_condorcet_worst_rps}.
+\end{proof}
+
+In order to complete proposition~\ref{thm:pptes_rpsi_es} about IPSR-SE, there remains to find a general criterion for \rcond, but we think that it is optimistic to hope for a simple relation that would be valid for any number of candidates. We have a first taste of the problem in the proof of lemma~\ref{thm:resist_cond_score_rps_c4}: the more candidates there are, the more ways to gain supremacies. Depending on the values of weights, it can be cheaper (in points of score) to be more often in first position, in second position, etc. Moreover, if it is cheaper to be more often in $k$-th position for some $k > 1$, we may have to complete with voter that put the candidate in highest positions, as we did in the second case of the proof. Then, there is a sub-case distinction, depending on the unit price of supremacy in these different positions. So, we can expect (and fear) having to distinguish all non-empty subsets of the first $C-2$ first positions as possible sources of supremacies, which may lead, in the worst case, to $2^{C-2} - 1$ inequalities.
+
+Anyway, we know that for $C \geq 5$, it is possible that an IPSR-SE meets \favmaj{} without meeting \rcond{}, since it is the case for IRV (proposition~\ref{thm:pptes_uninominal}).
+
+%\begin{prop}\label{thm:rpsi_es_rcond_c4}
+%Soit $f$ une RPSI-ES de vecteurs de poids $(\vecteur{x}^k)_{k \leq C}$ avec $C = 4$. Par convention, on suppose $x^3_3 = 0$ et $x^4_4 = 0$.
+%
+%Les conditions suivantes sont équivalentes.
+%\begin{enumerate}
+%\item $f$ vérifie \rcond{}.
+%\item On a les relations suivantes:
+%$$
+%\left\{\begin{array}{l}
+%x^3_2 \leq \frac{1}{2} x^3_1, \\
+%%\moy(x^3_1, x^3_3) \geq \moy(x^3_1, x^3_2, x^3_3), \\
+%\frac{1}{3} x^4_1 \leq x^4_2 \leq x^4_1 - x^4_3 \;\;\ou\;\; 
+%	x^4_2 \leq \frac{1}{3} x^4_1.
+%\end{array}\right.
+%$$
+%\end{enumerate}
+%\end{prop}
+%
+%Il est maintenant immédiat de prouver la proposition~\ref{thm:rpsi_es_rcond_c4}.
+%
+%\begin{proof}
+%Pour $k = 3$, la proposition~\ref{thm:pptes_rpsi_es} donne la condition $\moy(x^k_1, x^k_k) \geq \moy(x^k_1, \ldots, x^k_k)$, qui se simplifie en $x^3_2 \leq \frac{1}{2} x^3_1$. Le lemme~\ref{thm:resist_cond_score_rps_c4} fournit la condition pour $k = 4$.
+%\end{proof}
+
+\medskip
+From proposition~\ref{thm:pptes_rpsi_es}, we immediately deduce the following corollary about Coombs' method.
+
+\begin{cor}\label{thm:pptes_coombs}
+\leavevmode{}\vspace{-\baselineskip}
+\begin{enumerate}
+\item\label{enumi:pptes_coombs_bulmaj} Coombs' method meets \bulmaj{}.
+\item\label{enumi:pptes_coombs_favmaj} It does not meet \favmaj{} (except in the trivial case $C \leq 2$).
+\end{enumerate}
+\end{cor}
+
+%\begin{proof}
+%Soit $c$ un candidat. Considérons le bulletin où $c$ est placé en tête et où tous les autres candidats sont placés dans un ordre arbitraire (fixé une fois pour toutes). Si une majorité stricte d'électeurs utilisent ce bulletin, alors les adversaires de~$c$ sont éliminés successivement, du dernier au premier dans l'ordre choisi, et $c$ sera élu. Ainsi, la méthode de Coombs vérifie \bulmaj{}.
+%
+As well as for corollary~\ref{thm:pptes_veto}, we can prove the last result in a more concise way than using proposition~\ref{thm:pptes_rpsi_es}. Even if it is well known that Coombs' method does not meet \favmaj{}, here is a counter-example as a reminder.
+$$
+\begin{array}{c|c|c}
+2 & 2 & 3 \\\hline
+a & a & b \\
+b & c & c \\
+\text{Autres} & \text{Autres} & \text{Autres} \\
+c & b & a \\
+\end{array}
+$$
+Candidate~$a$ is majority favorite but she is eliminated during the first round.
+%\end{proof}
+%
+%Pour la méthode de Coombs (ou n'importe quelle autre RPS itérée), il suffit que les membres de la coalition fournissent un même ordre de préférence avec $c$ en première position et les autres candidats dans un ordre arbitraire: quelle que soit l'action des autres électeurs, $c$ a un meilleur score que le dernier candidat dans l'ordre fourni par les manipulateurs, donc $c$ ne peut être éliminé. Le même raisonnement reste valable pour tous les tours du dépouillement.
+
+
+
+
+
+
+
+
+
+
+
+\vspace{-0.25cm}%MAGOUILLE
+\subsection{Iterated PRS with elimination based on the average}
+\vspace{-0.15cm}%MAGOUILLE
+
+We have already studied IRVA in proposition~\ref{thm:pptes_uninominal} and now, we will study IPSR-EA in general, which comprise notably Nanson and Kim-Roush methods. For this purpose, we will exploit some of the lemma we gave when studying IPSR-SE.
+
+\begin{prop}\label{thm:pptes_rpsi_em}
+Let $f_C$ be an IPSR-EA, with vectors of weights $(\vecteur{x}^k)_{k \leq C}$. For any $C' < C$, we note $f_{C'}$ the IPSR-EA of vectors of weights $(\vecteur{x}^k)_{k \leq C'}$.
+
+\begin{enumerate}
+\item\label{enumi:pptes_rpsiem_cminfequiv} The following conditions are equivalent.
+\begin{enumerate}
+\item\label{enumi:rpsiem_cminf} For any $C' \leq C$, $f_{C'}$ meets \cminf{}.
+\item\label{enumi:rpsiem_petite_moyenne} For any $k \in \intent{3}{C}$, we have:
+\vspace{-0.2cm}%MAGOUILLE
+$$\moy(x^k_1, x^k_k) \geq \moy(x^k_1, \ldots, x^k_k).$$
+\end{enumerate}
+\vspace{-0.2cm}%MAGOUILLE
+When they are met, each $f_{C'}$ meets also \favmaj{} and, for $C' \leq 4$, \rcond{}.
+\item\label{enumi:pptes_rpsiem_cond} $f_C$ meets \cond{} iff it is Nanson's method.
+\end{enumerate}
+\end{prop}
+
+It should be noticed that, if we weaken condition~\ref{enumi:rpsiem_cminf} by demanding only that $f_C$ meets \cminf{}, then condition~\ref{enumi:rpsiem_petite_moyenne} is not necessary anymore. Indeed, let $C = 4$, $\vecteur{x}^4 = (1, 0, 0, 0)$ (Plurality) and $\vecteur{x}^3 = (1, 1, 0)$ (Veto). So, condition~\ref{enumi:rpsiem_petite_moyenne} is not met for $k = 3$.
+
+However, we will show that $f$ meets $\favmaj$, hence $\cminf$. Assume that a strict majority of voters put $c$ on top of their ballots. Since there are 4~candidates in the beginning of the counting process, a candidate must have at least $\frac{V}{4}$ votes to get to the following round: since $c$ has a strict majority of votes, at most one opponent of $c$ may reach that threshold, hence at least two opponents are eliminated during the first round. As a consequence, there is no round for $k = 3$ and $c$~is ensured to win. Hence, $f_C$ meets \favmaj{} and weaker criteria, in particular \cminf{}, although condition~\ref{enumi:rpsiem_petite_moyenne} from previous proposition is not met.
+
+\begin{proof}
+not \ref{enumi:rpsiem_petite_moyenne} $\Rightarrow$ not \ref{enumi:rpsiem_cminf}: Let $k$ such that $\moy(x^k_1, x^k_k) < \moy(x^k_1, \ldots, x^k_k)$. Consider the voting system $f_{C'}$, with $C' = k$. Assume that $\frac{V}{2} - \varepsilon$ sincere voters put candidate $c$ in last position, with $\varepsilon > 0$. In order to avoid an immediate elimination of~$c$, the $\frac{V}{2} + \varepsilon$ manipulators cannot do better than putting her on top of their ballots. Then (denoting $\moy(\score_k)$ the average score of all candidates):
+\begin{align*}
+\moy(\score_k) - \score_k(c)
+&= V \moy(x^k_1, \ldots, x^k_k) - \left[\left(\frac{V}{2} - \varepsilon\right) x^k_k + \left(\frac{V}{2} + \varepsilon\right) x^k_1\right] \\
+&= V \big[\moy(x^k_1, \ldots, x^k_k) - \moy(x^k_1, x^k_k) \big] - \varepsilon \big[ x^k_1 - x^k_k \big],
+\end{align*}
+If $\varepsilon$ is small enough compared to $V$, then the above quantity is strictly positive, so $c$ is eliminated. Hence, $f_{C'}$ does not meet \cminf{}.
+
+\ref{enumi:rpsiem_petite_moyenne} $\Rightarrow$ \ref{enumi:rpsiem_cminf}: thanks to lemma~\ref{thm:favori_maj_score_rps}, we know that condition \ref{enumi:rpsiem_petite_moyenne} implies that a majority favorite has always a score that is strictly more than the average, hence she cannot be eliminated.
+%supposons qu'une majorité stricte d'électeurs placent $c$ en tête. Au pire, les autres électeurs le placent en fin de bulletin. Pour tout tour de dépouillement, soit il ne reste que 2 candidats et il est trivial que $c$ est élu; soit, en notant $k \geq 3$ le nombre de candidats en lice, on a $\score_k(c) > V \moy(x^k_1, x^k_k) \geq V \moy(x^k_1, \ldots, x^k_k) = \overline{\score_k}$, donc $c$ n'est pas éliminé. 
+Therefore, each $f_{C'}$ meets \favmaj{} and, as a consequence, weaker criteria in particular \cminf{}.
+
+\medskip
+Now, assume that these conditions are met. For $C' \leq 4$, lemma~\ref{thm:resist_cond_score_rps_c4} ensures that a resistant Condorcet winner has always a score that is strictly greater than the average, so she cannot be eliminated. Hence, $f_{C'}$~meets~\rcond{}.
+
+\medskip
+\ref{enumi:pptes_rpsiem_cond}. The fact that the only IPSR-EA meeting \cond{} is Nanson's method is a direct consequence of lemma~\ref{thm:smith_condorcet_worst_rps} proven by \cite{smith1973aggregation}.
+\end{proof}
+
+There remains to find a general criterion for \rcond{} but, like for IPSR-SE, we think that it is optimistic to hope for a simple relation that would be valid for any number of candidates~$C$. Here again, we know anyway that an IPSR-EA can meet \favmaj{} without meeting \rcond{}, since it is the case of IRVA for $C \geq 5$ (proposition~\ref{thm:pptes_uninominal}).% considérons VTIM. Pour $C \geq 5$, la proposition~\ref{thm:pptes_rpsi_em} prouve que ce système vérifie \favmaj{}; mais la proposition~\ref{thm:resist_cond_gagne_uninominal_C_4} montre qu'un vainqueur de Condorcet résistant peut avoir un score en uninominal qui est strictement le plus faible, donc être éliminé dès le premier tour.
+
+\medskip
+To finish our study of ISPR-EA, let us examine the particular case of Kim-Roush method.
+
+\begin{prop}\label{thm:pptes_kim_roush}
+Kim-Roush method does not meet \cminf{} (except in the trivial case $C \leq 2$).
+\end{prop}
+
+It is not really a corollary of proposition~\ref{thm:pptes_rpsi_em} (which would only allow us to conclude that for a given $C \geq 3$, there exists $C' \leq C$ such that Kim-Roush method $C'$~candidates does not meet \cminf{}). So, we have to prove this result directly.
+
+\begin{proof}
+We can use the same counterexample as for Veto (corollary~\ref{thm:pptes_veto}). For $C \geq 3$ and $V = 7$ voters, assume that 3~voters vote against some candidate~$c$. Then, whatever the majority consisting of the other 4~voters do, $c$ is eliminated during the first round because she receives more vetos than the average, which is $\frac{V}{C} \leq \frac{7}{3}$.
+\end{proof}
+
+\vspace{0.2cm}%MAGOUILLE
+\subsection{Simple or iterated Bucklin's method}
+\vspace{0.2cm}%MAGOUILLE
+
+\begin{prop}
+\leavevmode{}\vspace{-\baselineskip}
+\begin{enumerate}
+\item\label{enumi:pptes_bucklin_favmaj} Bucklin's method meetd \favmaj{}.
+\item\label{enumi:pptes_bucklin_rcond} It meets \rcond{} iff $C \leq 3$.
+\item\label{enumi:pptes_bucklin_cond} It does not meet \cond{} (except in the trivial case $C \leq 2$).
+\end{enumerate}
+\end{prop}
+
+\begin{proof}
+\ref{enumi:pptes_bucklin_favmaj}, \ref{enumi:pptes_bucklin_rcond}. It is easy to prove the cases where criteria are met. For \favmaj{}, it is sufficient to notice that when there is a majority favorite, her median rank is~1, whereas for any other candidate, her median rank is strictly more. For \rcond, it is sufficient to notice that, for $C \leq 3$, a resistant Condorcet winner is necessarily a majority favorite (in the electoral space of strict total orders). Now, let us prove the cases where some criteria are not met.
+
+\ref{enumi:pptes_bucklin_rcond}. Consider the following profile, where $C \geq 4$.
+$$
+\begin{array}{c|c|c|c|c|c}
+49  & 11  & 6   & 6   & 14  & 14 \\ \hline
+c   &  a  & d_1 & d_2 & a   & a \\
+a   &  c  & c   & c   & d_1 & d_2 \\
+d_1 & d_1 & a   & a   & c   & c \\
+d_2 & d_2 & d_2 & d_1 & d_2 & d_1 \\
+\text{Others} & \text{Others} & \text{Others} & \text{Others} & \text{Others} & \text{Others} \\
+\end{array}
+$$
+Candidate~$c$ is preferred to any pair $(a, d_i)$ by 55~voters and to the pair $(d_1, d_2)$ by 60~voters out of~100, hence she is resistant Condorcet winner. But, in the sense of Bucklin, we have $\score(c) = (2\;;\,72)$ and $\score(a) = (2\;;\,88)$, so $a$ wins. Hence, for $C \geq 4$, Bucklin's method does not meet \rcond.
+
+\ref{enumi:pptes_bucklin_cond}. It is well known that Bucklin's method does not meet \cond{} (except in the trivial case $C \leq 2$) but we are going to give a counter-example as a reminder.
+$$
+\begin{array}{c|c|c|c}
+40 & 15  & 15 & 30 \\ \hline
+c  & a   & b  & a \\
+a  & c   & c  & b \\
+b  & b   & a  & c \\
+\text{Others} & \text{Others} & \text{Others} & \text{Others} \\
+\end{array}
+$$
+Candidate~$c$ is the Condorcet winner, but we have $\score(c) = (2\;;\,70)$ et $\score(a) = (2\;;\,85)$. Hence, $a$ is elected.
+\end{proof}
+
+\begin{prop}\label{thm:pptes_bucklin_itere}
+\leavevmode{}\vspace{-\baselineskip}
+\begin{enumerate}
+\item\label{enumi:pptes_bi_favmaj} Iterated Bucklin's method meets \favmaj{}.
+\item\label{enumi:pptes_bi_rcond} It meets \rcond{} iff $C \leq 4$.
+\item\label{enumi:pptes_bi_cond} It does not meet \cond{} (except in the trivial case $C \leq 2$).
+\end{enumerate}
+\end{prop}
+
+To prove this proposition, we will use the following lemma.
+
+\begin{lem}\label{thm:resist_cond_pas_pire_bucklin}
+We consider the electoral space of strict total orders with $C \leq 4$ and we assume that some candidate~$c$ is resistant Condorcet winner.
+
+Then there exists a candidate $d$ whose median rank (in the sense of Bucklin) is strictly worse than $c$'s median rank. In particular, $d$'s score in the sense of Bucklin is strictly worse than $c$'s score.
+\end{lem}
+
+\begin{proof}
+If $C \leq 3$, this is deduced from the fact that a resistant Condorcet winner is necessarily a majority favorite (in the electoral space of strict total orders): so, her median rank is~$1$ and she is the only one candidate with this property.
+
+If $C \leq 4$, let us note the candidates $c, d_1, d_2$ et $d_3$. Since $c$ is resistant Condorcet winner, she is preferred by a strict majority of voters to $d_1$ and $d_2$ simultaneously: so, this majority of voters put $c$ with the rank $1$ or $2$. As a consequence, $c$'s median rank in the sense of Bucklin is 2 at worst (i.e. 1 or 2). 
+
+Let us assume that no candidate has a strictly worse median rank. For this, it is necessary that each of the 4~candidates (including $c$) occupies strictly more than~$\frac{V}{2}$ positions in ranks 1 or 2 of the $V$~voters: so, there are strictly more than $2V$ pigeons for $2V$ holes, which is contradictory.
+\end{proof}
+
+Now, we can prove proposition~\ref{thm:pptes_bucklin_itere}.
+
+\begin{proof}
+\ref{enumi:pptes_bi_favmaj}, \ref{enumi:pptes_bi_rcond}. It is clear that IB meets \favmaj{}. Lemma~\ref{thm:resist_cond_pas_pire_bucklin} proves that for $C \leq 4$, it meets \rcond{}. Now, let us show the cases where criteria are not met.
+
+\ref{enumi:pptes_bi_rcond}. For $C = 5$, let us note the candidates $\{c, d_1, \ldots, d_4\}$. Let us note $\alpha = 18$, $\beta = 4$ and $\gamma = 15$ and consider the following profile. For the first column, for example, our notation means that, for any permutation $\sigma$ of integers from 1 to~4, there are $\alpha$ voters who prefer $c$ then $d_{\sigma(1)}$, $d_{\sigma(2)}$, $d_{\sigma(3)}$ and finally $d_{\sigma(4)}$. Overall, for the first column, there are $4! \times \alpha = 24 \alpha$ voters who put $c$ in first position. In total, there are $24 (\alpha + \beta + \gamma) = 888$ voters.
+$$
+\begin{array}{c|c|c}
+24 \alpha & 24 \beta & 24 \gamma \\ \hline
+c & \bullet & \bullet \\
+\bullet & \bullet & \bullet \\
+\bullet & c & \bullet \\
+\bullet & \bullet & \bullet \\
+\bullet & \bullet & c \\
+\end{array}
+$$
+Candidate~$c$ is preferred to any pair $(d_i, d_j)$ by $24\alpha + 4\beta = 448$ voters, so there is a resistant Condorcet winner. In the sense of Bucklin, we have $\score(c) = (3\:;\,24 \alpha + 24 \beta) = (3\:;\,528)$ and for any other candidate $d_i$, we have $\score(d_i) = (3\:;\,12\alpha + 12\beta + 18\gamma) = (3\:;\,534)$. Hence, $c$ is eliminated. Therefore, IB does not meet \rcond{}.
+
+\ref{enumi:pptes_bi_cond}. For $C = 3$, let us prove that IB does not meet \cond{}.
+$$
+\begin{array}{c|c|c|c|c|c}
+24  & 24  & 4   & 4   & 22  & 22 \\ \hline
+c   & c   & d_1 & d_2 & d_1 & d_2 \\
+d_1 & d_2 & c   & c   & d_2 & d_1 \\
+d_2 & d_1 & d_2 & d_1 & c   & c \\
+\end{array}
+$$
+Candidate $c$ is preferred to any other candidate $d_i$ by 52~voters, hence she is Condorcet winner. But, in the sense of Bucklin, we have $\score(c) = (2\;;\,56)$ and $\score(d_i) = (2\;;\,72)$, so $c$ is eliminated.
+
+To adapt these counterexamples to more candidates, it is sufficient to add other candidates in the same order in the bottom of each order of preferences: these dummy candidates will be eliminated during the first counting rounds and we will be in the same situation as in the above counterexamples.
+\end{proof}
+
+
+
+\section{Informational aspect of the majoritarian criteria}\label{sec:informationnel}
+
+To conclude this chapter, we propose a qualitative interpretation of the criteria we studied. Here, it is a casual discussion, whose goal is simply to propose a thought experiment allowing us to apprehend the question of information and communication that may arise to vote strategically in a given voting system, and possibly find an SNE or, at least, to find the same candidate as if we had found an SNE.
+
+For the sake of simplicity, we consider an electoral space where there is no semi-Condorcet configuration, such as the electoral space of strict total orders with an odd number of voters: it allows us to identify \renfadm{} and \renfcond{} on one hand, \eenfadm{} and \eenfcond{} on the other. 
+
+We limit our discussion to voting systems meeting \cminf{}, since they seem to be favored by practice in application cases where is it desired to have some kind of equality between voters and between candidates (which does not meet that we are not interested in other kinds of systems, which we will study in the next chapter). With this assumption, we have seen that \renfadm{} (which is, by the way, equivalent to \renfcond{} in that case) is also met. So, the only configurations~$\omega$ that might have an SNE are the Condorcet configurations, and the only possible winner of an SNE is the Condorcet winner.
+
+Lastly, we assume that the electoral space is finite, which ensures the existence of a voting system whose manipulability is minimal (in the set-theory sense) in any class of voting systems, in particular class \cminf{}\footnote{We will see in chapter~\ref{sec:slicing} another important sufficient condition that guarantees the existence of an optimum (in the probabilistic sense, this time) in some particular cultures, even in infinite electoral spaces, typically those that are used for certain cardinal systems.}.
+
+The objective of our thought experiment is to illustrate the following fact: the more criteria are met by a given voting system in the inclusion diagram of figure~\ref{fig:diagramme_inclusion_criteres}, the more we progress on the following issues:
+\begin{itemize}
+\item More often, there is at least an SNE;
+\item It is easier to obtain the same result as in an SNE (i.e. elect the Condorcet winner if there is one);
+\item il is easier to reach an SNE.
+\end{itemize}
+When we use the expression ``easy'', it it from the point of view of the quantity of information exchanged between the agents: the higher it is, the easier the task.
+
+
+\newcommand{\ok}{\raisebox{-1mm}{\textcolor{OliveGreen}{\Large$\checkmark$}}}
+\newcommand{\bad}{\raisebox{-1mm}{\textcolor{Red}{\Large\xmark}}}
+\begin{table}
+\begin{bigcenter}\footnotesize
+\begin{tabular}{IlIc|c|c|c|c|c|cI}
+\Cline{1pt}{2-8}
+\multicolumn{1}{cI}{} & \rule[-0.9em]{0pt}{2.5em}\cminf{} & \cmign{} & \eenfcond{} & \bulmaj{} & \favmaj{} & \rcond{} & \cond{} \\ \Cline{1pt}{1-8}
+\multicolumn{8}{IlI}{\rule[-0.9em]{0pt}{2.5em}\textbf{Property of SNE}} \\ \Cline{1pt}{1-8}
+\begin{tabular}{@{}l@{}}Maximize the set \\ of all $\omega$ with an SNE\end{tabular}  &          &          &    \ok      &    \ok    &   \ok     &   \ok    &   \ok   \\ \hline
+\begin{tabular}{@{}l@{}}There might exist a system \\ with minimal manipulability\end{tabular} &          &          &             &           &           &   \ok    &   \ok   \\ \hline 
+%\begin{tabular}{@{}l@{}}Peut maximiser l'ensemble \\ des $\omega$ non manipulables\end{tabular} &          &          &             &           &           &   \ok    &   \ok   \\ \hline 
+\begin{tabular}{@{}l@{}}There exists a system\\ with minimal manipulability\end{tabular} &          &          &             &           &           &         &   \ok   \\ \hline 
+\begin{tabular}{@{}l@{}}Any SNE winner coincides\\ with the sincere winner\end{tabular} &          &          &             &           &           &          &   \ok   \\ \Cline{1pt}{1-8}
+\multicolumn{8}{IlI}{\rule[-0.9em]{0pt}{2.5em}\textbf{Information and communication issues}} \\ \Cline{1pt}{1-8}
+\rule[-0.9em]{0pt}{2.5em}Target candidate $c$ &    \bad  &     \bad &     \bad    &   \bad    &   \bad    &  \bad    &         \\ \hline
+\rule[-0.9em]{0pt}{2.5em}Assignments of ballots&  \bad &     \bad &     \bad    &   \bad    &           &          &         \\ \hline
+\rule[-0.9em]{0pt}{2.5em}Members of the coalition&   \bad  &     \bad &     \bad    &           &           &          &         \\ \hline
+\rule[-0.9em]{0pt}{2.5em}Other voters' ballots& \bad &      &             &           &           &          &         \\ \Cline{1pt}{1-8}
+\end{tabular}
+\end{bigcenter}
+\caption{Informational aspect of the majoritarian and equilibrium criteria. Each column illustrates the properties of the set of voting systems meeting a criterion but not more demanding ones.}\label{table:info_crit_maj}
+\end{table}
+
+\medskip
+Here is our thought experiment, whose conclusions are summed up in table~\ref{table:info_crit_maj}. Let us imagine that an external coordinator wants to help voters to find the only possible result of an SNE if it exists (i.e. the Condorcet winner with our assumptions). We assume that there is a strict majority of voters, which we call here \emph{the} coalition, who want to collaborate with the coordinator to achieve this goal. Using criterion \cminf{}, we can imagine the following protocol, where we exploit some supernatural gifts the coordinator has.
+\begin{enumerate}
+\item The coordinator has the magic power to know voters' preferences, which allows her to identify which candidate~$c$ is the Condorcet winner. So, this is the target candidate, which we want to get elected.
+\item The members of the coalition send a message to the coordinator to inform her that they will follow her instructions.
+\item The coordinator has the magic power to know the ballots emitted by the other voters.
+\item Using \cminf, the coordinator computes ballots for the members of the coalition that make~$c$ win and she send this information to them.
+\end{enumerate}
+
+To use this protocol, there are four aspects of information to deal with: on one hand, the coordinator must know the target candidate~$c$, the identity of the members of the coalition and the ballots emitted by the other voters; on the other hand, she must send to the members of the coalition the assignment of their ballots.
+
+Of course, we do not pretend that such a flow of actions is actually possible. The purpose of this thought experiment is simply to illustrate which issues of information and communication can arise for a population of strategic voters searching for a strong Nash equilibrium or, at least, trying to elect the same candidate as if they reached an equilibrium.
+
+\medskip
+Now, let us see how the situation improves if we demand voting systems meeting stronger criteria than \cminf{}. The ideas below are summed up in table~\ref{table:info_crit_maj}.
+
+If the voting system meets \cmign{}, then the coordinator does not need to know the ballots emitted by the voters who do not belong to the coalition.
+
+If the voting system meets \eenfcond{}, the exchanges of information are the same \emph{a priori} (lower part of the table).
+But the system maximizes the set of configurations of preference where an SNE exists, since we guarantee that any Condorcet configuration has an SNE and since the criterion $\cminf$, equivalent to \renfcond{} with our assumptions, impose that these are the only ones. So, \eenfcond{} does no modify the protocol we use, but maximizes the set of configurations of preference where it makes it possible to obtain a result that is the same as in an SNE.
+
+If the voting system meets \bulmaj{}, then up to diffusing an assignation of ballots to all voters and not only to the members of the coalition, the coordinator does not need to know in advance which voters will follow her instructions. In practice, all usual voting systems meeting \bulmaj{} meet also \bulmajuni{} (such as the IPSR-SE, for example Coombs' method), so the coordinator can simply \emph{broadcast} one ballot only and not use personalized messages for each voter. It is the case, for example, for approval voting, for which \cite{laslier2009leader} shows, by a different approach, that an equilibrium can be reached relatively cheaply.
+
+If the voting system meets \favmaj{}, then it is useless to diffuse an assignment of ballots to the voters, the coordinator can simply tell them the name of candidate~$c$ instead: it is sufficient that obedient voters simply put~$c$ on top of their ballots.
+
+If we restrict ourselves to the class \rcond{}, information issues are the same \emph{a priori} (lower part of the table). But it is not excluded that one of this voting systems has a minimal manipulability (in the set-theory sense), whereas it is impossible for a voting system no meeting~\rcond{}, as mentioned in corollary~\ref{thm:minimum_set} of the Condorcification theorems. Such a system with minimal manipulability maximizes the set of non-manipulable configurations, i.e. the set of configurations where an SNE can be found with absolutely no exchange of information, simply by sincere voting.
+
+If the voting system meets \cond{}, then when there is an SNE, its result coincides with the one obtained by sincere voting. Then, the coordinator can exchange no information with the voters: if they vote sincerely, they can always find the same result as an SNE (if one exists) without any exchange of information.
+
+Moreover, in class \cond{}, the existence of a voting system with minimal manipulability is not only possible but guaranteed by corollary~\ref{thm:minimum_set}. If such an optimal system is used, then voters have the ability to find an SNE as often as it is possible to do so without any exchange of information.
+
+%From \textbf{rCond} to \cond{}:
+%\begin{itemize}
+%\item Without information (sincere voting), you find the result of any SNE (you may have failed to find an SNE, but you have the same result);
+%\item You can maximize the set of non-manipulable $\omega$, i.e. the set of preference profiles where without information (sincere voting), you find an SNE. Cf. the Condorcification theorem in my paper.
+%\end{itemize}
+
+
+
+%\section{Junk}
+%
+%La proposition suivante classifie les systèmes de votes classiques de la littérature et prouve au passage que dans la proposition précédente, chaque réciproque est fausse en général.
+%
+%
+%\begin{prop}\label{thm:criteres_classical_SBVS}
+%%\leavevmode\vspace{-\baselineskip}
+%\leavevmode\newline\vspace{-\baselineskip}
+%\begin{enumerate}
+%\item\label{enumi:cond} Les systèmes de votes suivants vérifient \cond{}: Maximin, PO, VTCI, VTI-D, CSD, méthodes de Schulze, Kemeny, Dodgson, Baldwin et Nanson.
+%\end{enumerate}
+%
+%On considère à présent un espace électoral qui comprend les ordres stricts totaux.
+%
+%\begin{enumerate}\setcounter{enumi}{1}
+%\item\label{enumi:majoritaire} Les systèmes de votes suivants vérifient \favmaj{} mais pas \cond{}: uninominal, U2TI, VTI, méthode de Bucklin, BI.
+%
+%\item\label{enumi:ignorante} Les systèmes de votes suivants vérifient \cmign{} mais pas \favmaj{}: VA, VN, JM, méthode de Coombs. 
+%
+%\item\label{enumi:informee} La méthode de Borda vérifie \cminf{} mais pas \cmign{}.
+%
+%\item\label{enumi:nocritere} Veto ne vérifie pas \cminf{}.
+%\end{enumerate}
+%\end{prop}
+
+
+
+
+
+

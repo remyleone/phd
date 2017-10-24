@@ -1,0 +1,1410 @@
+% !TeX spellcheck = en_US
+\mychapter{Framework}\label{sec:formalisme}
+
+
+%In most studies about voting, each voter's opinions are only represented by an order of preferences over the candidates. However, in such framework, it is unnatural to study voting systems like Range voting or Approval voting.
+%Some authors circumvent this problem, for example by studying Approval voting with a fixed number of approvals \citep{chamberlin1984observed}, but doing so does not take into account the very specificities of such a voting system.
+%Section~\ref{sec:preliminaires} presents the first contribution of this paper: a very general class of models called \emph{electoral spaces} where voters' preferences can embed not only orders over the candidates but also non-transitive binary relations, grades or any kind of information. In this framework, we define \emph{state-based voting systems} and their manipulability.
+
+%Then we formally define manipulability, discuss the relevance of classical arguments against it and stress on another interpretation: when voting without prior communication, non-manipulability means less regret for the voters and more legitimacy for the outcome.
+
+%\medskip
+%In section \ref{sec:Condorcification_large}, we precise how we extend the usual notion of Condorcet winner when voters may have any kind of binary relation of preference. We also define the \emph{informed majority coalition criterion}\footnote{This notion is based on the same idea as Peleg's third simple game associated to a voting system \citep{peleg1984game}.} (\cminf{}), which is met by a large class of common voting systems from literature and real life.
+
+In the literature of Arrovian social choice, a voter's preferences are generally represented by a strict order of preference over the candidates \citep{arrow1950difficulty}. A voting system (or \emph{social choice function}) is a function, which maps the preferences of all voter to a winning candidate. However, in this framework, it is not possible to apprehend correctly some voting systems such as \emph{approval voting} or \emph{range voting}.
+
+We develop the formalism of \emph{electoral spaces} (section~\ref{sec:def_preferences}), a class of models able to use any kind of mathematical object to represent the preferences, while making it possible to prove general theorem on this models. In this framework, we define \emph{state-based voting system} (SBVS), which will be the main object under study in this memoir (section~\ref{sec:svbe}), and we adapt the usual definition of \emph{manipulability} in this model (section~\ref{sec:manipulabilite_definition}). Then we define \emph{general voting systems}, which make it possible to represent any kind of voting system we could think of (section~\ref{sec:systemes_de_vote_generaux}). We explain how it is possible to go back and forth between general voting systems and SBVS and we show why we can restrict our study to the later.
+
+We use the opportunity of this first chapter to recall the notions of matrix of duels and Condorcet winner (section~\ref{sec:condorcet_definitions}). We emphasize on the different variants of this notions, due to the fact that we allow any kind of binary relations, for example weak orders. In particular, we generalize the usual notion of \emph{weak Condorcet winner} by defining the notion of \emph{Condorcet-admissible candidate}, which will prove important in the following chapters to study the manipulability of most usual voting systems.
+
+Lastly, we present the voting systems that we will study in this memoir (section~\ref{sec:zoologie}). Among these, \emph{CSD} and \emph{IB} are original contributions, to the best of our knowledge. So are \emph{Condorcet-dean} and \emph{Condorcet-dicator} systems, whose main purpose is to serve as convenient theoretical examples for some of our results. We also introduce \emph{IRVD}; this voting system was kindly suggested by Laurent Viennot.
+
+%dans lesquels les bulletins ou stratégies autorisées pour un électeur peuvent appartenir à un ensemble d'objets mathématiques quelconques. Nous montrons que, dans l'optique de limiter la manipulabilité, on peut restreindre l'étude aux \emph{modes de scrutin basés sur l'état}, où les bulletins autorisés sont des états de préférences, au sens de l'espace électoral choisi comme modèle.
+
+
+\section{Electoral spaces}\label{sec:def_preferences}
+
+In this section, we introduce the formalism of \emph{electoral spaces}, which will allow us to represent voters' preferences and also their ballots.
+
+\subsection{Binary relations}\label{sec:relations_binaires}
+
+First of all, we need to recall some basic vocabulary about binary relations. Let~$E$ be a set and $\text{P}_0 \in \mathcal{P}(E^2)$ be a binary relation over $E$.
+We say that $\Plusque[0]{}$ is:
+\begin{itemize}
+\item \emph{Reflexive} iff $\forall c \in E, c \Plusque[0]{} c$;
+\item \emph{Irreflexive} iff $\forall c \in E, \text{non}(c \Plusque[0]{} c)$ (i.e. iff not $\Plusque[0]{}$ is reflexive);
+\item \emph{Weakly complete}, or just \emph{complete}\footnote{We say that $\Plusque[0]{}$ is \emph{strongly complete} when it is also reflexive. Depending on different authors, the adjective \emph{complete} alone may mean one notion or the other. Since we will generally use the word \emph{complete} for irreflexive relations, it will necessarily mean \emph{weakly complete}, so there will be no ambiguity.}, iff $\forall (c, d) \in E^2, c \neq d \Rightarrow c \Plusque[0]{} d \ou d \Plusque[0]{} c$;
+\item \emph{Antisymmetric} iff $\forall (c, d) \in E^2, c \Plusque[0]{} d \et d \Plusque[0]{} c \Rightarrow c = d$ (i.e. iff not $\Plusque[0]{}$ is complete);
+\item \emph{Transitive} iff $\forall (c, d, e) \in E^3, c \Plusque[0]{} d \et d \Plusque[0]{} e \Rightarrow c \Plusque[0]{} e$;
+\item \emph{Negatively transitive} iff not $\Plusque[0]{}$ is transitive.
+\end{itemize}
+
+We say that $\Plusque[0]{}$ is a \emph{strict weak order} iff it is negatively transitive, irreflexive and antisymmetric; a \emph{strict total order} iff it it transitive, irreflexive and weakly complete.
+
+\subsection{Profiles}\label{sec:espaces_electoraux}
+
+Now, we can represent voters' preferences over the candidates.
+
+Let $V$ and $C$ be two positive integers. We note $\mathcal{V} = \intent{1}{V}$ the set of indexes for \emph{voters} and $\mathcal{C} = \intent{1}{C}$ the set of indexes for \emph{candidates}, where the notation with doubled brackets represents the set of integers included in the closed interval. Candidates may be voters themselves, without impact on our results\footnote{However, we consider that the set of candidates is given \emph{a priori}. An interesting extension of the model, which we will not consider in this memoir, allows possible candidates to enter the election or to withdraw for strategic reasons \citep{dutta2001strategic, dutta2002voting, lang2013new, brill2015strategic}.}.
+
+We note $\rc{}$ the set of binary relations over $\ens{C}$: an element of $\rc{}$ represent a voter's binary relation of preference over the candidates. We note $\wc{}$ the set of strict weak orders and $\permc$ the set of strict total orders over~$\ens{C}$.
+
+We note $\ens{R} = (\rc{})^V$. As usual in social choice literature, an element of $\ens{R}$ is called a \emph{profile}; for each voter, it gives her binary relation of preference over the candidates.
+
+When these relations of preference are strict orders (either total or weak), we represent a profile as in the following example.
+$$
+\begin{array}{c|c|c}
+44 & 32 & 24 \\ \hline
+a & b & c \\
+b,c & c &  a \\
+  & a & b  \\
+\end{array}
+$$
+In this profile, the 44~voters on the left prefer $a$ and are indifferent between $b$ and $c$, the 32~voters in the middle prefer $b$ to $c$ and $c$ to $a$, etc. When each colon corresponds to one voter only, we will omit the first row, which indicates in the general case the number of voters in each colon. It is also possible to indicate the number of voters as a percentage of the total number of voters~$V$.
+
+In short, it is also possible to write that the strict weak order of preference for the 44~voters on the left is ($a \plusque b \sim c)$, where the symbol $\plusque$ represents a strict preference and the symbol $\sim$ an indifference.
+
+\subsection{Definition of an electoral space}\label{sec:espace_electoral_definition}
+
+Before defining the notion of \emph{electoral space} in general, we present a model that makes it possible to study all usual voting systems. We will use it frequently to illustrate our results.
+
+\begin{definition}[reference electoral space]
+In the model we call \emph{reference electoral space}, each voter~$v$ is capable of mentally establishing:
+\begin{itemize}
+\item A strict weak order of preference $p_v \in \wc{}$ over the candidates,
+\item A vector $u_v \in [0,1]^C$ of \emph{grades} over the candidates,
+\item And a vector $a_v \in \{0,1\}^C$ of \emph{approval values} over the candidates.
+\end{itemize}
+The triplet $\omega_v = (p_v, u_v, a_v)$ is called her sincere \emph{state} and we note $\Plusque{}$ the function extracting the first member of this triplet: $\Plusquefull{\omega_v} = p_v$.
+\end{definition}
+
+Generally speaking, we note $\Omega_v$ the set of possible states for voter~$v$. In the first model above, we have $\Omega_v = \mathcal{F}_\mathcal{C} \times [0,1]^C \times \{0,1\}^C$. Nous suggest that the reader consider the set as analogous to a universe in probability theory; for most problems, it is not needed to specify its content exactly. The essential point is the possibility to define functions extracting any kind of information about voter~$v$, as would do a random variable in probability theory: for example, function $\Plusque{}$ makes it possible to access her binary relation of preference.
+
+By analogy with usual notations for random variables, we will frequently write $\Plusque{}$ as a shortcut for $\Plusquefull{\omega_v}$: as a consequence, expressions $c \Plusquefull{\omega_v} d$ and $c \Plusque{} d$ are synonyms meaning that voter $v$ (in state~$\omega_v$) prefers candidate~$c$ to candidate~$d$. For a given binary relation of preference over the candidates~$p_v$, the notation $\text{P}_v(\omega_v) = p_v$ or, in short, $\text{P}_v = p_v$, means that the variable~$\text{P}_v$ has value~$p_v$ (in state~$\omega_v$).
+
+We call \emph{configuration} a $V$-uple $\omega = (\omega_1, \ldots, \omega_V)$ giving the state of each voter, as illustrated in figure~\ref{fig:configuration_et_profil}. We note $\Omega = \prod_{v\in\mathcal{V}} \Omega_v$ the Cartesian product that contains all possible configurations and $\textrm{P} = (\textrm{P}_1,\ldots,\textrm{P}_V)$ the function with $V$ variables that maps a configuration~$\omega$ to the corresponding profile $(\textrm{P}_1(\omega_1),\ldots,\textrm{P}_V(\omega_V))$.
+
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}[yscale=0.8]
+\node[draw] (o1) at (0,0) {\phantom{\strut$\omega_V \in \Omega_V$}};
+\node at (0,0) {\strut$\omega_1 \in \Omega_1$};
+\node[draw, red, thick] (o2) at (0,-1) {\phantom{\strut$\omega_V \in \Omega_V$}};
+\node at (0,-1) {\strut$\omega_2 \in \Omega_2$};
+\node at (0,-2) {\strut$\vdots$};
+\node[draw] (ov) at (0,-3) {\strut$\omega_V \in \Omega_V$};
+\node[draw] (p1) at (4,0) {\phantom{\strut$\Plusque[V]{} \in \ens{R}_C$}};
+\node at (4,0) {\strut$\Plusque[1]{} \in \rc$};
+\node[draw, red, thick] (p2) at (4,-1) {\phantom{\strut$\Plusque[V]{} \in \ens{R}_C$}};
+\node at (4,-1) {\strut$\Plusque[2]{} \in \rc$};
+\node at (4,-2) {\strut$\vdots$};
+\node[draw] (pv) at (4,-3) {\strut$\Plusque[V]{} \in \rc$};
+\draw[->, >=latex] (o1) -- (p1);
+\draw[->, >=latex] (o2) -- (p2);
+\draw[->, >=latex] (ov) -- (pv);
+\draw[thick, blue] (0-1.2,0+0.7) rectangle (0+1.2,-3-0.7);
+\draw[thick, blue] (4-1.2,0+0.7) rectangle (4+1.2,-3-0.7);
+\node[left] (etatbla) at (-2,-1) {state};
+\node[right] (relbinbla) at (6,-1) {binary relation};
+\node (confbla) at (0,-4.5) {configuration $\omega \in \Omega$};
+\node (profilbla) at (4,-4.5) {profile $\Plusque[]{} \in \ens{R}$};
+\draw[thick, blue] (0,-3-0.7) -- (confbla);
+\draw[thick, blue] (4,-3-0.7) -- (profilbla);
+\draw[thick, red] (etatbla) -- (o2);
+\draw[thick, red] (relbinbla) -- (p2);
+\end{tikzpicture}
+\end{center}
+\caption{Voters' configuration and profile}\label{fig:configuration_et_profil}
+\end{figure}
+
+Now, we have all necessary elements to define an \emph{electoral space}, i.e. a mathematical model representing voters' preferences.
+
+\begin{definition}[electoral space]\label{def:electoral_space}
+An \emph{electoral space} is given by:
+\begin{itemize}
+	\item Two positive integers $V$ and $C$,
+	\item For each voter $v\in\mathcal{V}$, a non-empty set $\Omega_v$ of her possible states,
+	\item For each voter $v\in\mathcal{V}$, a function $\textrm{P}_v: \Omega_v \to \rc$, whose output is her binary relation of preference.
+\end{itemize}
+
+Such an electoral space is denoted $(V,C,\Omega,\textrm{P})$, or just $\Omega$ when there is no ambiguity.
+\end{definition}
+
+Let us consider the reference electoral space again, where $\omega_v = (p_v, u_v, a_v)$. For more realism, the \emph{social planner}\footnote{In economics and social sciences, the \emph{social planner} is a decision maker trying to reach the best possible result for all the agents. In our field of study, it is an abstract agent who can represent researchers in social sciences and anyone who can have an influence to choose the voting system used by a given human organization. By assumption, the social planner tries to find a voting system having as good properties as possible. For this, a first necessary step is to delimit the cases of applications by defining the electoral space of interest.} can adopt the assumption that for each voter, grades and approval values are coherent with her binary relation of preference: if $c \;p_v\; d$, then $u_v(c) > u_v(d)$ and $a_v(c) \geq a_v(d)$. Figure~\ref{fig:etat_dans_ee_de_reference} illustrates the state of a voter meeting these assumptions. The left part of the figure represents candidates' positions on her utility axis~$u_v$, and also the limit between candidates she disapproves ($a_v = 0$) and those she approves of ($a_v = 1$). The part on the right represent the graph of her binary relation of preference. In this example, since it is a strict weak order, transitivity is implied in the figure.
+
+It is easy to include this assumption in the model, by defining $\Omega_v$ as the set of triplets $(p_v,u_v,a_v)$ meeting the required conditions. Other assumptions may be added as weel, simply by choosing a suitable set $\Omega_v$ for each voter.
+
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}
+\node[left] at (0,0) {%
+\begin{tikzpicture}[xscale=0.8]
+\draw[thick, \couleurA] (0,0) +(0,0.13) node[above] {$u_v(a)$} -- +(0,-0.13);
+\draw[thick, \couleurB] (2,0) +(0,0.13) node[above] {$u_v(b)$} -- +(0,-0.13);
+\draw[thick, \couleurC] (3.5,0) -- +(0,0.13) node[above] {$u_v(c)$};
+\draw[thick, \couleurD] (3.5,0) -- +(0,-0.13) node[below] {$u_v(d)$};
+\draw[thick, \couleurE] (5.5,0) +(0,0.13) node[above] {$u_v(e)$} -- +(0,-0.13);
+\draw[->, >=latex] (-0.8,0) -- (6.5,0) node[right] {$u_v$};
+\draw[dashed] (2.75,1.5) -- (2.75,-1.5) node[above right, xshift=0.2cm] {$a_v = 1$} node[above left, xshift=-0.2cm] {$a_v = 0$};
+\end{tikzpicture}%
+};
+\node[right] at (0,0) {%
+\begin{tikzpicture}[xscale=1.2, yscale=1.2]
+\node[shape=circle, \couleurA, draw, thick, minimum width=0.6cm] (a) at (0,0) {$a$};
+\node[shape=circle, \couleurB, draw, thick, minimum width=0.6cm] (b) at (1,0) {$b$};
+\node[shape=circle, \couleurC, draw, thick, minimum width=0.6cm] (c) at (2,0.5) {$c$};
+\node[shape=circle, \couleurD, draw, thick, minimum width=0.6cm] (d) at (2,-0.5) {$d$};
+\node[shape=circle, \couleurE, draw, thick, minimum width=0.6cm] (e) at (3,0) {$e$};
+\draw [<-, >=latex] (a) -- (b);
+\draw [<-, >=latex] (b) -- (c);
+\draw [<-, >=latex] (b) -- (d);
+\draw [<-, >=latex] (c) -- (e);
+\draw [<-, >=latex] (d) -- (e);
+\end{tikzpicture}%
+};
+\end{tikzpicture}
+\caption{A voter's state in the reference electoral space}\label{fig:etat_dans_ee_de_reference}
+\end{center}
+\end{figure}
+
+\subsection{Examples of electoral spaces}\label{sec:espaces_electoraux_exemples}
+
+Another model is very important for theory: in the literature of Arrovian social choice, it is common practice to represent each voter's opinion simply by a strict total order over the candidates. This corresponds to the following electoral space.
+
+\begin{definition}[electoral space of strict total orders]
+For each $v \in \mathcal{V}$, let us note $\Omega_v = \permc$ et $\Plusque{}$ the identity function\footnote{This is a language shortcut: more precisely, $\Plusque{}$ is the canonical injection from $\permc$ to $\rc{}$.}. This model is called the \emph{electoral space of strict total orders for $V$ and $C$}.
+\end{definition}
+
+This model is sometimes extended by allowing strict weak orders. It is also possible to use any kind of binary relation.
+
+\begin{definition}[electoral space of strict weak orders]
+For each $v \in \mathcal{V}$, let us note $\Omega_v = \wc{}$ et $\Plusque{}$ the identity function.  This model is called the \emph{electoral space of strict weak orders for $V$ and $C$}.
+\end{definition}
+
+\begin{definition}[electoral space of binary relations]\label{def:ee_relations_binaires}
+For each $v \in \mathcal{V}$, let us note $\Omega_v = \rc{}$ et $\Plusque{}$ the identity function.  This model is called the \emph{electoral space of binary relations for $V$ and $C$}.
+\end{definition}
+
+The choice of the electoral space tells nothing about the expressiveness of an eventual voting system that we may wish to study. For example, if we choose the electoral space of strict weak orders, it does not mean that the voting system will allow a voter to transmit a strict weak order in her ballot. It simply means that the social planner admits that a voter can have a strict weak order of preference over the candidates and considers it impossible that she has another kind of preference (\emph{descriptive} approach). Or, more reasonably, it means that the good properties that the social planner might be able to exhibit for this voting system are proved when voters have strict weak orders of preference, but not \emph{a priori} in other cases (\emph{normative} approach). %Bien que cette hypothèse soit tout à fait raisonnable, elle est aussi restrictive et nous ne l'adopterons pas en général.
+
+Let us go on and explore the possibilities of electoral spaces with some examples.
+
+\begin{exemple}[utility with a margin of uncertainty]\label{ex:utilites_epsilon}
+Let us assume that each voter $v$ is capable of establishing a vector of notes $u_v \in [0,1]^C$ and a real number $\varepsilon \geq 0$, seen as a margin of uncertainty, such that she prefers a candidate~$c$ to a candidate~$d$ iff $u_v(c) > u_v(d) + \varepsilon$. Then, her set of states is $\Omega_v = [0,1]^C \times \R$ and her function~$\textrm{P}_v$ is defined by the above inequality\footnote{We can link this idea the the works by \cite{ehlers2004threshold}, where a manipulability with threshold is considered, i.e. voters want to increase their utility at least by a given amplitude.}.
+\end{exemple}
+
+\begin{exemple}[utility intervals]\label{ex:interval_graph}
+It is easy to extend previous example. To each candidate~$c$, voter~$v$ associates a non-empty interval $[\underline{u_v}(c), \overline{u_v}(c)]$. The interpretation is the following: $v$~locates her utility for candidate~$c$ in this interval, but not more precisely (because of a lack of ability to be more precise, a lack of interest or because it represents a cognitive cost that is too expensive). She prefers candidate~$c$ to~$d$ iff $\underline{u_v}(c) > \overline{u_v}(d)$. Figure \ref{fig:intervalles_d_utilite} represent an example of state for such a voter. In the left part, her utility interval for each candidate is represented; in the part on the right, there is the graph of her binary relation of preference. This relation is irreflexive, antisymmetric and transitive; that is why the edges from $d$ or $e$ to $a$ are not represented: they are implied by the others for the sake of transitivity. However, this relation is not negatively transitive: the voter does prefers neither $e$ to $d$ nor $d$ to $c$, but she prefers $e$ to $c$. So, this is not a strict weak order.
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}
+\node[left] at (0,0) {%
+\begin{tikzpicture}[xscale=0.8, yscale=0.6]
+\draw (0,1) -- (2,1);
+\draw[\couleurA, thick, |-|] (0,1) -- (2,1) node[midway, above] {$a$};
+\draw[\couleurB, thick, |-|] (2.5,1) -- (3.5,1) node[midway, above] {$b$};
+\draw[\couleurD, thick, |-|] (4,1) -- (6,1) node[midway, above] {$d$};
+\draw[\couleurC, thick, |-|] (1,0) -- (4.5,0) node[midway, above] {$c$};
+\draw[\couleurE, thick, |-|] (5,0) -- (6.5,0) node[midway, above] {$e$};
+\draw[->, >=latex] (-0.5,-0.9) -- (7,-0.9) node[right] {$u_v$};
+\end{tikzpicture}%
+};
+\node[right, xshift=0.3cm, yshift=0.2cm] at (0,0) {%
+\begin{tikzpicture}[xscale=1.4, yscale=1.2]
+\node[shape=circle, \couleurA, draw, thick, minimum width=0.6cm] (a) at (0,0.5) {$a$};
+\node[shape=circle, \couleurB, draw, thick, minimum width=0.6cm] (b) at (1,1) {$b$};
+\node[shape=circle, \couleurC, draw, thick, minimum width=0.6cm] (c) at (1,0) {$c$};
+\node[shape=circle, \couleurD, draw, thick, minimum width=0.6cm] (d) at (2,1) {$d$};
+\node[shape=circle, \couleurE, draw, thick, minimum width=0.6cm] (e) at (2,0) {$e$};
+\draw[<-, >=latex] (a) -- (b);
+\draw[<-, >=latex] (b) -- (d);
+\draw[<-, >=latex] (b) -- (e);
+\draw[<-, >=latex] (c) -- (e);
+\end{tikzpicture}%
+};
+\end{tikzpicture}
+\caption{A voter's state in the electoral space of utility intervals}\label{fig:intervalles_d_utilite}
+\end{center}
+\end{figure}
+\end{exemple}
+
+\begin{exemple}[multicriteria preferences]\label{ex:preferences_multicriteres}
+Now, each voter grades each candidates according to three criteria in the interval~$[0,1]$: her set of states $\Omega_v$ is the set of matrices of size $3 \times C$ with values in $[0,1]$. We assume that she prefers a candidate~$c$ to a candidate~$d$ iff $c$ has strictly better grades than~$d$ for at least two criteria; this defines function~$\textrm{P}_v$. Let us consider a voter in state~$\omega_v$ represented in figure~\ref{fig:preference_multicrit}. She prefers $a$ to $b$, $b$ to $c$ and $c$ to $a$: so, her binary relation of preference $\Plusquefull{\omega_v}$ is not transitive. In some way, such a voter is a Condorcet paradox on her own: the multiplicity of criteria, and the fact that she decides her preference according to the majority of criteria, mimics the behavior of three distinct voters using the simple majority vote for each pair of candidates.
+
+If such a voter is required to choose between all three candidates, then she necessarily violates by herself the property of independence of irrelevant alternatives (IIA) that we mentionned in the introduction: for example, if she designates the beef as her favorite candidate among the three, it looks contradictory with her choosing the chicken when it comes to choosing between chicken and beef.
+
+\begin{figure}
+\begin{center}
+%\begin{tikzpicture}
+%\node[left] at (0,0) {%
+%\begin{tabular}{Ic|lIc|c|cI}
+%\Cline{1pt}{3-5}
+%\multicolumn{2}{cI}{} & \multicolumn{3}{cI}{Candidat} \\ \cline{3-5}
+%\multicolumn{2}{cI}{} & \textcolor{\couleurA}{$a$}  & \textcolor{\couleurB}{$b$} & \textcolor{\couleurC}{$c$} \\ \Cline{1pt}{1-5}
+%\multirow{3}{*}{\myrotate{Critère~}} & Sent bon & 1 & 0,5  & 0  \\ \cline{2-5} 
+%& Élimine les taches & 0,5  & 0  & 1 \\ \cline{2-5}
+%& Lave plus blanc & 0  & 1 & 0,5  \\ \Cline{1pt}{1-5}
+%\end{tabular}%
+%};
+%\node[right, xshift=1cm] at (0,0) {%
+%\begin{tikzpicture}[scale=1.1]
+%\node[shape=circle, \couleurA, draw, thick, minimum width=0.6cm] (a) at (90:1) {$a$};
+%\node[shape=circle, \couleurB, draw, thick, minimum width=0.6cm] (b) at (-30:1) {$b$};
+%\node[shape=circle, \couleurC, draw, thick, minimum width=0.6cm] (c) at (-150:1) {$c$};
+%\draw[->, >=latex] (a) -- (b);
+%\draw[->, >=latex] (b) -- (c);
+%\draw[->, >=latex] (c) -- (a);
+%\end{tikzpicture}%
+%};
+%\end{tikzpicture}
+\begin{tikzpicture}
+\node[left] at (0,0) {%
+\begin{tabular}{Ic|lIc|c|cI}
+\Cline{1pt}{3-5}
+\multicolumn{2}{cI}{} & \multicolumn{3}{cI}{Candidate} \\ \cline{3-5}
+\multicolumn{2}{cI}{} & Chicken (\textcolor{\couleurA}{$a$})  & Beef (\textcolor{\couleurB}{$b$}) & Fish (\textcolor{\couleurC}{$c$}) \\ \Cline{1pt}{1-5}
+\multirow{3}{*}{\myrotate{Criterion~}} & Cheap & 1 & 0,5  & 0  \\ \cline{2-5} 
+& Sound & 0,5  & 0  & 1 \\ \cline{2-5}
+& Mellow & 0  & 1 & 0,5  \\ \Cline{1pt}{1-5}
+\end{tabular}%
+};
+\node[right, xshift=0.5cm] at (0,0) {%
+\begin{tikzpicture}[scale=1.1]
+\node[shape=circle, \couleurA, draw, thick, minimum width=0.6cm] (a) at (90:1) {$a$};
+\node[shape=circle, \couleurB, draw, thick, minimum width=0.6cm] (b) at (-30:1) {$b$};
+\node[shape=circle, \couleurC, draw, thick, minimum width=0.6cm] (c) at (-150:1) {$c$};
+\draw[->, >=latex] (a) -- (b);
+\draw[->, >=latex] (b) -- (c);
+\draw[->, >=latex] (c) -- (a);
+\end{tikzpicture}%
+};
+\end{tikzpicture}
+\caption{État d'un électeur avec des préférences multicritères}\label{fig:preference_multicrit}
+\end{center}
+\end{figure}
+\end{exemple}
+
+\begin{exemple}[decentralized random generator]\label{ex:generateur_aleatoire_decentralise}
+Each voter has a binary relation of preference~$p_v$ over the candidates and a coin. After flipping the coin, her \emph{sincere} state is $(p_v, x_v)$, where $x_v \in \{\text{Head}, \text{Tail}\}$. We assume that she is the only one knowing the result of her random experiment: as a consequence, if she is to communicate her state to a voting system, she may lie about the result about the result of the coin, as well as she can lie about her order of preference.
+\end{exemple}
+
+
+
+
+
+\subsection{Basic properties of an electoral space}
+
+Until now, we have interpreted $\Plusque{\omega_v}$ as a \emph{strict} preference in most of our examples\footnote{So far, the only case where antisymmetry was not met was the electoral space of binary relations (definition~\ref{def:ee_relations_binaires}).% On aurait également pu étendre l'exemple~\ref{ex:utilites_epsilon} des utilités avec incertitude au cas où $\varepsilon < 0$.
+}. However, antisymmetry is not required in definition \ref{def:electoral_space} of an electoral space. In section~\ref{sec:manipulabilite_definition} (page~\pageref{discussion_antisymetrie}), we will discuss how relation $\Plusque{}$ can be interpreted when it is not antisymmetric. If the reader is disturbed by such an possibility, she may read all that follows with an additional assumption of antisymmetry. However, in the general case, we will note:
+\begin{itemize}
+\item $c \NC{\omega_v} d$ iff not $c \Plusque{\omega_v} d$ and not $d \Plusque{\omega_v} c$ (indifference),
+\item $c \PPlusque{\omega_v} d$ iff $c \Plusque{\omega_v} d$ and not $d \Plusque{\omega_v} c$ (antisymmetric preference),
+\item $c \Plusmoins{\omega_v} d$ iff $c \Plusque{\omega_v} d$ and $d \Plusque{\omega_v} c$ (mutual preference).
+\end{itemize}
+
+If relation $\Plusque{\omega_v}$ is antisymmetric, which is a common assumption, then there are only three mutual exclusive possibilities: $c \Plusque{\omega_v} d$ (equivalent to $c \PPlusque{\omega_v} d$ in this case), $d \Plusque{\omega_v} c$ and $c \NC{\omega_v} d$.
+
+\medskip
+For some of our results, we will assume that voters have a minimal freedom of opinion (which implies nothing about the possibility of expressing this opinion in their ballots).
+
+\begin{definition}[richness of an electoral space]\label{def:ES_richness}
+We say that:
+\begin{enumerate}
+\item $\Omega$ \emph{comprises all strict total orders} \ssi any voter can have any strict total order as her binary relation of preference; i.e. $\forall (v,p_v) \in \mathcal{V} \times \permc, \exists \omega_v \in \Omega_v \tq \textrm{P}_v(\omega_v) = p_v$;\label{enumi:comprend_ordres}
+\item $\Omega$ \emph{allows any candidate as most liked} \ssi any voter can strictly prefer any candidates to all the others; i.e. $\forall (v,c) \in \mathcal{V} \times \mathcal{C}, \exists \omega_v \in \Omega_v \tq \forall d \in \mathcal{C} \setminus\{c\}, c \PPlusque{\omega_v} d$.\label{enumi:permet_tout_favori}
+\end{enumerate}
+
+We trivially have the implication \ref{enumi:comprend_ordres} $\Rightarrow$ \ref{enumi:permet_tout_favori}.
+\end{definition}
+
+For example, in the reference electoral space, where $\omega_v = (p_v,u_v,a_v)$, the binary relation of preference~$p_v$ of voter~$v$ can be any strict weak order; in particular, any strict total order is possible. As a consequence, this electoral space meets properties \ref{enumi:comprend_ordres} and \ref{enumi:permet_tout_favori}.
+
+Again, we stress on the fact that these properties have nothing to do with the expressiveness of an eventual voting system under study. For example, si we assume that the electoral space comprises all stricts total orders, it does not means that the voting system allows a voter to express her strict total order of preference when she has one; it just means that such an opinion is considered as possible \emph{a priori}.
+
+Whereas limiting the electoral space to strict total orders is debatable, the weaker assumption that it comprises all strict total orders looks generally quite natural. However, it is easy to conceive reasonable models that do not meet this property. For example, if the number of candidates~$C$ is very large, one may argue that it is cognitively impossible for a voter to establish a strict total order of preference over the candidates. But we could discuss this model: even if the idea is interesting from a \emph{descriptive} point of view, it seems fair to add the possibility of establishing a strict total order for \emph{normative} reasons. Indeed, even if we estimate that a voter can not reach this state of full knowledge about her preferences, we have no reason (and no practical means) to forbid it \emph{a priori}.
+
+\medskip
+Before seeing another example of electoral space that does not comprise all strict total orders, let us recall the classic notion of \emph{single-peakedness}~\citep{black1958theory}. Here is the intuition: let us assume that there exists a ``natural'' way to locate all candidates on an abstract axis, for example a left-right axis in politics. This gives a reference order over the candidates, which we will note~$\Plusque[\refsp]{}$.
+
+Imagine that this axis has the following property: each voter has a maximal utility for a given candidate (her peak) and her utility is decreasing when going away from the peak, on the left and on the right as well. Then her order of preference~$\Plusque[v]{}$ starts with her peak candidate, then there are all candidates on the left of the peak, by increasing distance, and similarly for all candidates on the right. She can prefers all candidates on the left to all candidates on the right, or the opposite, or these candidates can be intertwined in order~$\Plusque[v]{}$.
+
+The characteristic property of such an order of preference~$\Plusque[v]{}$ is that between a given candidate~$d$ and two other candidates $c$ and~$e$ who are respectively on her left and on her right (in the sense of~$\Plusque[\refsp]{}$), it is impossible to appreciate $d$ less than $c$ and $d$ at the same time: indeed, it would imply that the peak of preference for this voter is on the left and on the right of $d$ at the same time, whereas this peak is unique by assumption. This characterization has the advantage not to rely on the notion of utility, and that is why it is generally taken as definition for the notion of \emph{single-peakedness}.
+
+\begin{definition}[single-peakedness]\label{def:single_peaked}
+For $\Plusque[v]{}$ and $\Plusque[\refsp]{}$ two strict total orders over the candidates, we say that $\Plusque[v]{}$ is \emph{single-peaked} for $\Plusque[\refsp]{}$ iff:
+$$
+c \Plusque[\refsp]{} d \et d \Plusque[\refsp]{} e \Rightarrow \text{non}(c \Plusque{} d \et e \Plusque{} d).
+$$
+
+For $\Plusque[]{}$ a profile and $\Plusque[\refsp]{}$ a strict total order, we say that $\Plusque[]{}$ is \emph{single-peaked} for $\Plusque[\refsp]{}$ iff for any voter~$v$, $\Plusque[v]{}$ is a strict total order that is \emph{single-peaked} for $\Plusque[\refsp]{}$.
+
+We say that a profile $\Plusque[]{}$ is \emph{single-peaked} iff there exists a strict total order~$\Plusque[\refsp]{}$ such that $\Plusque[]{}$ is \emph{single-peaked} for $\Plusque[\refsp]{}$.
+
+%Pour $\Plusque[]{}$ un profil constitué d'ordre et $\Plusque[ref]{}$ un ordre strict total, on dit que $\Plusque[]{}$ est \emph{single-peaked} par rapport à $\Plusque[ref]{}$ ssi pour tout électeur $v$, $\Plusque[v]{}$ vérifie la propriété ci-dessus.
+%
+%On dit qu'un profil $\Plusque[]{}$ est \emph{single-peaked} ssi il existe un ordre strict total $\Plusque[ref]{}$ vérifiant la propriété ci-dessus.
+
+We say that an electoral space $\Omega$ is \emph{single-peaked} iff any profile $\Plusque[]{}$ in this electoral space is \emph{single-peaked}.
+\end{definition}
+
+\begin{exemple}[temperature of a room]\label{ex:temperature}
+Several persons in a room are to choose the temperature of the thermostat among the candidate options $\{64\degres,65\degres,66\degres,67\degres\}$. The social planner assumes that each voter may have any order of preference, provided it is \emph{single-peaked} for the natural order of temperatures. %Pour chaque électeur $v$, son espace d'états possibles $\Omega_v$ est donc un sous-ensemble strict de $\permc$.
+This electoral space allows any candidate as most liked but does not comprise all strict total orders: for example, the order $67\degres \plusque 64\degres \plusque 66\degres \plusque 65\degres$ is excluded by assumption. Indeed, in this framework, if the ideal temperature for a given voter is $67\degres$, then she can not estimate that $64\degres$ is better than $65\degres$.
+\end{exemple}
+
+\subsection{Probabilized electoral space}
+
+Now, we will endow $\Omega$ with a probability measure, or \emph{culture}. In order to handle probabilistic notions rigorously, we need to consider sigma-algebras, measurable sets and probabilistic events. However, measurability is barely a problem in practice: for example, without the axiom of choice, any subset of $\R^C$ is Lebesgue-measurable. That is why these technical questions will be discussed only in appendix~\ref{sec:mesurabilite}.
+
+\begin{definition}[probabilized electoral space]
+A \emph{probabilized electoral space}, or \emph{PES}, is defined by giving an electoral space $(V,C,\Omega,\textrm{P})$ and a probability measure $\proba $ over $\Omega$, called \emph{culture}.
+
+Such a PES is denoted $(V,C,\Omega,\textrm{P},\proba )$, or just $(\Omega,\proba )$.
+
+We note $\mu$ the law of the random variable $\textrm{P}$ according to culture $\proba$%, c'est-à-dire: $\forall B \in \Sigma_{\mathcal{R}}, \mu(B) = \proba (R^{-1}(B))$%
+. 
+\end{definition}
+
+For example, let us consider the reference electoral space. Independently for each voter $v$:
+\begin{itemize}
+\item We draw a vector of grades $u_v$ uniformly in $[0,1]^C$;
+\item We define $p_v$ as the strict weak order that is naturally implied by $u_v$, in the sense that $c \mathrel{p_v} d \Leftrightarrow u_v(c) > u_v(d)$;
+\item For each candidate~$c$, we define the approval value $a_v(c)$ as $u_v(c)$ rounded to the closest integer, 0 or 1.
+\end{itemize}
+Then we have defined an example of culture~$\proba $, i.e. a probability measure over the electoral space~$\Omega$. Implicitly, this defines a law $\mu$ for the profile~$\textrm{P}$.
+
+\medskip
+A classical example is the \emph{impartial culture}. Let us recall its definition.
+
+\begin{definition}[impartial culture]\label{def:culture_impartiale}
+Over the electoral space of strict total orders, we call \emph{impartial culture} the measure for which each voter's order of preference is drawn independently and uniformly in~$\permc$.
+\end{definition}
+
+Let us finish with a more complex example. Let us assume that we have 3~voters and 3~candidates. We would like to study an electoral space where each voter is characterized by a strict total order of preference and where all \emph{single-peaked} profiles, and only those, are possible, whatever the reference order $\Plusque[\refsp]{}$. We will see that it is impossible, why it is desirable that it is so, and how we can transform the problem. 
+
+For any strict total order of preference $\unordre$, the profile where all voters have the order of preference is obviously single-peaked (for $\unordre$), so it is allowed. As a consequence, any order $\unordre$ belongs to the set of possible states $\Omega_v$ for any voter~$v$. So, the following profile is allowed.
+$$
+\begin{array}{c|c|c}
+a & b & c \\
+b & c & a \\
+c & a & b \\
+\end{array}
+$$
+But this profile is not \emph{single-peaked}\footnote{The reader used to these notions may notice that this profile cannot be single-peaked because there is no Condorcet winner. We will come back to this.}: indeed, the second candidate in order $\Plusque[\refsp]]{}$ cannot be $c$ (resp. $a$, $b$) because of voter~1 (resp. 2, 3). 
+
+The reason is that we have defined $\Omega$ as a Cartesian product: if a given opinion $\omega_v$ is possible \emph{a priori} for voter~$v$, we consider that it is still possible, allowed, whatever other voters' opinions. ``It's not a bug, it's a feature'': it is a desirable property of the model.
+
+Howver, the probability of a given opinion $\omega_v$ may depend on other voters' states, and even become equal to zero. In order to study all \emph{single-peaked} configurations, it is possible to use a PES in order to give zero proability to non single-peaked configurations: for example, we can examine the electoral space of strict total orders, endowed with a culture~$\pi$ whose support is equal to the set of \emph{single-peaked} configurations.
+
+%Il serait facile de changer le formalisme des espaces électoraux pour inclure cette possibilité: au lieu de définir $\Omega$ comme le produit des $\Omega_v$, on pourrait le définir comme un sous-ensemble de ce produit (ici, les configurations \emph{single-peaked}). Mais il nous semble que ce serait une mauvaise idée. En effet, si l'ordre $c a b$ est \emph{a priori} possible pour l'électeur~3
+
+
+
+\section{State-based voting systems (SBVS)}\label{sec:svbe}
+
+\subsection{Definition}\label{sec:svbe_definition}
+
+%Now, we present \emph{state-based voting systems}, a framework that allows to study most voting systems, even those depending on grades, approval values, non-transitive preferences, etc. In appendix \ref{sec:append_GVS}, we define an even more general model and we prove that, for the purpose of diminishing manipulability, we can always restrict our study to state-based voting systems\footnote{This notion of \emph{state-based voting system} is a generalization of what is called \emph{elementary voting procedure} (``procédure de vote élémentaire'') by \citet[chapter II, definition 2]{moulin1978strategie}. The author already remarks that considering such a procedure only reduces the strategical possibilities of the voters.}.
+
+In this section, we define the \emph{state-based voting systems}, which will be our main object of study. At first glance, this model does not seem to make it possible to represent all imaginable voting systems. But we will see in section~\ref{sec:systemes_de_vote_generaux} that, in order to limit manipulability, investigation can be restricted to SBVS\footnote{This notion of \emph{state-based voting system} generalizes what is called an \emph{elementary voting procedure} (\emph{procédure de vote élémentaire}) by \citet[chapitre II, définition 2]{moulin1978strategie}. The author already notices that considering such a procedure can only limit the strategic options for manipulators.}, which allows to make the framework simpler.
+
+\begin{definition}[state-based voting system]\label{def:svbe}
+A \emph{state-based voting system} over electoral space $\Omega$, or \emph{SBVS}, is a function $f: \Omega \to \mathcal{C}$.
+%$$
+%f: 
+%\left|\begin{array}{ccl}
+%\Omega & \to & \mathcal{C} \\
+%(\omega_1,\ldots,\omega_V) & \to & f(\omega_1,\ldots,\omega_V).
+%\end{array}\right.
+%$$
+
+In the following, unless stated otherwise, $f$ will always denote an SBVS over the electoral space~$\Omega$.
+\end{definition}
+
+For example, let us consider a possible variant for the voting system called \emph{range voting}, in the reference electoral space, where $\omega_v = (p_v, u_v, a_v)$.
+\begin{itemize} 
+\item Each voter $v$ communicates a state belonging to $\Omega_v$;
+\item We say that she votes \emph{sincerely} \ssi she communicates her true state $\omega_v$;
+\item Function $f$ takes into account only the vectors of grades communicated by the voters, then returns the candidate with highest total grade% (résolvant les égalités d'une façon déterministe fixée à l'avance)
+.
+\end{itemize}
+
+\medskip
+In order to finish defining this SBVS, it is necessary to give a \emph{tie-breaking rule}, i.e. a procedure resolving ties. When we say that we have defined an SVBS, it is a slight abuse of language: it is a class of SBVS, where each member of the class returns the same result when there is no tie.
+
+In the literature, a voting system is sometimes allowed to return, as a result, a subset of the candidates; in that case, the voting system is said \emph{resolute} when it result is always a unique candidate. In this memoir, the assumption that the voting system is resolute is embedded in the definition of an SBVS. For this, we share a point a view presented by~\cite{gibbard1973manipulation}: if the goal of the election is to choose a unique option among several ones, than the system is totally defined only if we include the eventual tie-breaking rule in its definition. This rule can be important for the properties under study: in particular, it can have an impact on the possible manipulations.
+
+\medskip
+Besides that, when implementing such a voting system in practice, like range voting above, it is sufficient that ballots include only the information that is actually used by function~$f$, such as grades in this example. We will come back to this point in section~\ref{sec:systemes_de_vote_generaux}. But this state-based formalism significantly facilitates the analysis. Firstly, it avoids the need of a tedious additional function that maps states of opinion to ballots (as we mentionned in the introduction and as we will discuss in section~\ref{sec:systemes_de_vote_generaux}). Secondly, it makes it easier to design transformations of voting systems, such as the Condorcification we will define in chapter~\ref{sec:condorcification} and the slicing in chapter~\ref{sec:slicing}.
+
+
+\subsection{Basic criteria for an SBVS}\label{sec:anonymat}\label{sec:neutralite}\label{sec:unanimite}
+
+First of all, we say that a voting system is \emph{unanimous} iff it meets this property: for any candidate~$c$, if all voters strictly prefer~$c$ to all other candidates and vote sincerely, then~$c$ is declared the winner.
+
+\medskip
+We will also define \emph{anonymity} and \emph{neutrality}. Since the model of electoral is more abstract and more general that simply using strict total orders of preference, these definitions need a bit more caution that the informal definition we mentioned in the introduction of this memoir.
+
+\medskip
+We say that the electoral space $\Omega$ itself is \emph{anonymous} iff all voters have the same set of states: $\forall (v, v') \in \ens{V}^2, \Omega_v = \Omega_{v'}$ and $\text{P}_{v} = \text{P}_{v'}$. Let us notice that it is an equality between $\text{P}_v$ and $\text{P}_{v'}$ as functions here, and not between two relations of preference.
+
+We say that an SBVS $f$ over electoral space~$\Omega$ is \emph{anonymous} iff:
+\begin{enumerate}
+\item $\Omega$ is anonymous;
+\item For any configuration $\omega \in \Omega$, for any permutation $\sigma \in \perm_\ens{V}$ of voters, denoting $\omega_\sigma = (\omega_{\sigma(1)}, \ldots, \omega_{\sigma(V)})$, we have $f(\omega) = f(\omega_\sigma)$.
+\end{enumerate}
+In other words, the winning candidate depends only on the ballots, and not on the identity of the voters who emitted the ballots.
+
+\medskip
+In order to define neutrality, let us note $\Phi$ an \emph{action} by the group of permutations of candidates $\perm_\ens{C}$ over the set of states $\Omega_v$ for each voter~$v$. It means that to any state~$\omega_v$ and to any permutation $\sigma$ of the candidates, we associate a state $\Phi_\sigma(\omega_v)$, which we note simply $\sigma(\omega_v)$; and that we demand that this transformation is compatible with the group structure of~$\perm_C$: it means, for example, that for another permutation $\sigma'$ and noting $\circ$ the composition operator, we demand that $\sigma(\sigma'(\omega_v)) = (\sigma \circ \sigma') (\omega_v)$.
+
+In addition, we demand that $\Phi$ is compatible with $\text{P}_v$, in the sense that $\text{P}_v(\sigma(\omega_v)) = \sigma(\text{P}_v(\omega_v))$. In the right member of this equality, relation $\sigma(\text{P}_v(\omega_v))$ is naturally defined by: $c \mathrel{\text{P}_v(\omega_v)} d \Leftrightarrow \sigma(c) \mathrel{\sigma(\text{P}_v(\omega_v))} \sigma(d)$, i.e. we consider the same relation of preference and simply permute the names of the candidates.
+
+When such a group action is defined over the set of states for each voter, it induces a group action over the electoral space $\Omega$ in whole: for any configuration $\omega \in \Omega$, we simply have to note $\sigma(\omega) = (\sigma(\omega_1), \ldots, \sigma(\omega_V))$.
+
+We say that $f$ is \emph{neutral} (for group action~$\Phi$) \ssi $\forall \sigma \in \perm_\ens{C}, \forall \omega \in \Omega, f(\sigma(\omega)) = \sigma(f(\omega))$. In other words, the winning candidate does not depend on the labels used to name candidate: if we change these labels, there exists a way to relabel the ballots ($\Phi$) that gives the same voting system.
+
+Generally, the action group~$\Phi$ of interest is intuitively obvious: for example, in the reference electoral space, we will apply~$\sigma$ to the order of preference~$p_v$, we will permute the coordinates of the vector of grades~$u_v$ and we will do the same for the vector of approval values~$a_v$.
+
+\medskip
+However, in all generality, it can by necessary to explicit the group action~$\Phi$. Let us consider again the example~\ref{ex:generateur_aleatoire_decentralise} of the decentralized random generator, where each voter has access to the result of a coin flip. We consider the case with $C = 2$ candidates; as a consequence, in order to define the group action~$\Phi$, it is sufficient to give its effects on the only non-trivial permutation $\sigma = (1 \leftrightarrow 2)$, which swaps the two candidates. Its effects on the orders of preference is automatic, since we have demanded that $\Psi$ is compatible with functions~$\text{P}_v$. We only need to define the effect of $\sigma$ on the values Head and Tail. Besides that, we suppose that there are 3~voters (to avoid questions of tie-breaking).
+
+Firstly, let us examine the following SBVS: if there are more Heads, then candidate~1 is the winner; otherwise, so is candidate~2. This system is particularly manipulable: if a voter prefers candidate~$1$ and her coin has returned Tail, then it is always a better strategy to lie and announce Head; but it is the neutrality of this system we want to address for now. If we define the action of $\sigma = (1 \leftrightarrow 2)$ as swapping Head and Tail (in addition to its effects on the binary relations of preference), then this voting system is neutral for~$\Phi$.
+
+Secondly, let us consider another SBVS. Each voter communicates her order of preference and the state of her coin. If it is Head, then we count 1~point for her most liked candidate; if it is Tail, then we count 3~points for this candidate. The candidate with most points is declared the winner. This system is similar to a vote using grades where Head means ``prefer moderately'' and Tail means ``prefer strongly''. By the way, as we already noticed, a voter who has Head in her state is always better lying and pretending it is Tail. About neutrality, if we define the action of $\sigma = (1 \leftrightarrow 2)$ as leaving Head and Tail unmodified (in addition to its effects on the binary relations of preference), then this voting system is neutral for~$\Phi$.
+
+So, in the general case, it may happen that several voting systems are neutral if we consider different group actions, which are not made obvious \emph{a priori} by the sole definition of the electoral space itself. That being said, in most practical cases of interest, the group action~$\Phi$ will be intuitively obvious, as we saw in the reference electoral space.
+
+\medskip
+In the following, (especially in chapter~\ref{sec:mds_optimaux}), we will sometimes focus on the electoral space of strict total orders. Then, a natural question arises: under which condition does there exist a voting system that is anonymous and neutral?
+
+\begin{prop}\label{thm:neutr_anon_cns}
+We consider the electoral space of strict total orders.
+
+\begin{enumerate}
+\item\label{enumi:neutr_ano_cns}The following conditions are equivalent.
+\begin{enumerate}
+\item\label{enumi:neutr_ano_existe} There exists an anonymous and neutral voting system.
+\item\label{enumi:neutr_ano_facteurs_sup_un} It is impossible to write~$C$ as a sum of divisors of~$V$ that are greater than~1. In other words, there is no sequence of natural integers $(k_1, \ldots, k_n)$ such that: $$\big[\forall i \in \intent{1}{n}, k_i > 1 \et k_i \textrm{\normalfont{} divise } V \big] \et \sum_{i=1}^n k_i = C.$$
+\item\label{enumi:neutr_ano_facteurs_prem} It is impossible to write $C$ as a sum of prime factors of~$V$. In other words, there is no sequence of natural integers $(k_1, \ldots, k_n)$ such that:
+$$\big[\forall i \in \intent{1}{n}, k_i \text{\normalfont{} est premier} \et k_i \textrm{\normalfont{} divise } V \big] \et \sum_{i=1}^n k_i = C.$$ 
+\end{enumerate}   %pour toute séquence $(k_1, \ldots, k_n)$ d'entiers naturels, on a:
+%$$\left[ \sum_{i=1}^n k_i = C \et \forall i \in \intent{1}{n}, k_i > 1 \right] \Rightarrow \exists i \in \intent{1}{n} \tq k_i \nmid V.$$
+
+\item\label{enumi:neutr_ano_cn} For an anonymous and neutral SBVS to exist, it is necessary but not sufficient that $V$ and $C$ are relatively prime.
+\end{enumerate}
+\end{prop}
+
+\begin{proof}
+We will first assume~\ref{enumi:neutr_ano_cns} and deduce~\ref{enumi:neutr_ano_cn}, which will give a first intuition for the proof of~\ref{enumi:neutr_ano_cns} that we will give in a second time.
+
+\medskip
+\ref{enumi:neutr_ano_cn}. First, let us prove that this simplified condition is not sufficient: let us consider $V = 6$ and $C = 7$, which are indeed relatively prime. It is possible to write~$C$ as a sum of factors of~$V$ that are greater than~1: $C = 3 + 2 + 2$, where 3 divides~$V$ and 2 divides~$V$. So, condition~\ref{enumi:neutr_ano_facteurs_sup_un} is not met, which implies that there exists no anonymous and neutral SBVS.
+
+To understand why intuitively, let us examine the following profile, which will give a lead for the proof of the equivalence mentioned in point~\ref{enumi:neutr_ano_cns}.
+$$
+%\begin{array}{c|c|c|c|c|c}
+%1 & 1 & 2 & 2 & 3 & 3 \\
+%2 & 2 & 3 & 3 & 1 & 2 \\
+%3 & 3 & 1 & 1 & 2 & 2 \\
+%4 & 5 & 4 & 5 & 4 & 5 \\
+%5 & 4 & 5 & 4 & 5 & 4 \\
+%6 & 7 & 6 & 7 & 6 & 7 \\
+%7 & 6 & 7 & 6 & 7 & 6 \\
+%\end{array}
+\begin{array}{c|c|c|c|c|c}
+1 & 2 & 3 & 1 & 2 & 3 \\
+2 & 3 & 1 & 2 & 3 & 1 \\
+3 & 1 & 2 & 3 & 1 & 2 \\
+4 & 5 & 4 & 5 & 4 & 5 \\
+5 & 4 & 5 & 4 & 5 & 4 \\
+6 & 7 & 6 & 7 & 6 & 7 \\
+7 & 6 & 7 & 6 & 7 & 6 \\
+\end{array}
+$$
+This profile is obtained by starting with the ranking of the first voter and applying circular permutations to the three first candidates, 
+Ce profil est obtenu en partant du classement du premier électeur et en appliquant des permutations circulaires aux trois premiers candidats, aux deux suivants et aux deux derniers. On remarquera notamment que les permutations des deux dernières paires sont toujours simultanées (si 4 est devant 5, alors 6 est devant~7), ce qui permet d'avoir $3 \times 2$ électeurs seulement et non $3 \times 2 \times 2 = 12$ (ce qui serait le cas si on considérait les images du premier électeur par toutes les permutations circulaires mentionnées, de façon indépendante les unes des autres). On pourra d'ailleurs noter qu'on a, en l'occurrence, $V = \ppcm(3, 2, 2)$.
+
+Il est, alors, facile de voir que, quel que soit le candidat vainqueur dans ce profil, le SVBE ne peut être anonyme et neutre: par exemple, si 1 est élu, alors 2 et 3 devraient l'être également par anonymat et neutralité.
+
+\medskip
+Prouvons, à présent, qu'il est nécessaire que $V$ et $C$ soient premiers entre eux. Si ce n'est pas le cas, soit $k$ un facteur premier commun de $C$ et $V$. Notons $n = \frac{C}{k}$ et $k_i = k$ pour $i \in \intent{1}{n}$. Alors $\sum_{i=1}^n k_i = C$, où tous les $k_i$ sont premiers et divisent~$V$. Donc la condition~\ref{enumi:neutr_ano_facteurs_prem} n'est pas vérifiée, ce qui implique qu'il n'existe pas de SVBE anonyme et neutre.
+
+\medskip
+\ref{enumi:neutr_ano_existe} $\Rightarrow$ \ref{enumi:neutr_ano_facteurs_sup_un}. Si la condition~\ref{enumi:neutr_ano_facteurs_sup_un} n'est pas vérifiée, généralisons l'exemple précédent. Considérons une séquence $(k_1, \ldots, k_n)$ telle que $\sum_{i=1}^n k_i = C$, tous les $k_i$ sont supérieurs à~1 et divisent~$V$.  Cette dernière propriété est équivalente à: $\ppcm_i(k_i)$ divise~$V$. Considérons un ordre de préférence quelconque (par exemple $1 \plusque 2 \plusque \ldots \plusque C$) puis toutes ses images en appliquant simultanément une permutation circulaire sur les $k_1$ premiers candidats, sur les $k_2$ candidats suivants, etc. L'orbite, c'est-à-dire l'ensemble des classements images obtenus, est de taille $\ppcm_i(k_i)$. En copiant ces images suffisamment de fois, on obtient un profil à $V$ électeurs. Si l'un des $k_1$ premiers candidats est vainqueur, alors par anonymat et neutralité, chacun des $k_1$ premiers candidats devrait être vainqueur également, ce qui contredit l'unicité du résultat car $k_1 > 1$. Il en est de même pour les $k_2$ candidats suivants, etc. Donc il n'existe pas de SVBE anonyme et neutre: la condition~\ref{enumi:neutr_ano_existe} n'est pas vérifiée.
+
+\ref{enumi:neutr_ano_facteurs_sup_un} $\Rightarrow$ \ref{enumi:neutr_ano_existe}. Supposons la condition~\ref{enumi:neutr_ano_facteurs_sup_un} vérifiée. Soit $\textrm{P}$ un profil. On dit que deux candidats sont équivalents dans~$\text{P}$ s'il existe une permutation des candidats qui envoie l'un sur l'autre et qui laisse $\textrm{P}$ stable, à permutation près des électeurs. Alors notons $k_1, \ldots, k_n$ les cardinaux des classes d'équivalence: on a $\sum_{i=1}^n k_i = C$. Considérons une certaine classe d'équivalence de taille~$k_i$: comme tout candidat de la classe prend le meilleur rang (au sein de la classe) chez le même nombre d'électeurs, $k_i$ divise~$V$. Comme la condition~\ref{enumi:neutr_ano_facteurs_sup_un} est vérifiée, il existe donc un $k_1$ égal à 1. On peut alors choisir le candidat correspondant comme vainqueur sans violer l'anonymat et la neutralité (ce qui fixe le vainqueur dans tout autre profil obtenu à partir de $\text{P}$ par permutation des candidats et/ou des électeurs). En effectuant le même raisonnement pour tout profil $\textrm{P}$ dont le vainqueur n'est pas encore choisi, on obtient un SVBE anonyme et neutre.
+
+\ref{enumi:neutr_ano_facteurs_sup_un} $\Rightarrow$ \ref{enumi:neutr_ano_facteurs_prem}. C'est immédiat car tout entier naturel premier est supérieur à~1.
+
+\ref{enumi:neutr_ano_facteurs_prem} $\Rightarrow$ \ref{enumi:neutr_ano_facteurs_sup_un}. Si la condition~\ref{enumi:neutr_ano_facteurs_sup_un} n'est par vérifiée, alors il est possible d'écrire $C$ comme une somme $C = \sum_{i=1}^n k_i$, où tous les $k_i$ divisent~$V$ et sont différents de~$1$. Pour chaque $k_i$, notons $k_i'$ un facteur premier arbitraire de $k_i$, qui est donc également un facteur premier de~$V$, et posons $n_i = \frac{k_i}{k_i'}$. On a alors $C = \sum_{i=1}^n \sum_{j=1}^{n_i} k_i'$, qui est une somme de facteurs premiers de~$V$. Donc la condition~\ref{enumi:neutr_ano_facteurs_prem} n'est pas vérifiée.
+\end{proof}
+
+Cette proposition est à mettre en parallèle avec un résultat classique \citep{moulin1978strategie}, qui concerne les modes de scrutin non seulement anonymes et neutres, mais également \emph{efficients}. Ce qualificatif signifie qu'on a la propriété suivante: si tous les électeurs préfèrent strictement un certain candidat~$c$ à un certain~$d$ (c'est-à-dire si $d$ est \emph{Pareto-dominé} par~$c$), alors $d$ ne peut pas être élu. Le résultat précédemment connu est qu'il existe un SVBE neutre, anonyme et efficient (sur l'espace électoral des ordres stricts totaux) \ssi $C!$ et $V$ sont premiers entre eux, c'est-à-dire \ssi tout entier inférieur ou égal à $C$ est premier avec~$V$. 
+
+Afin de vérifier la cohérence entre ce résultat et la proposition~\ref{thm:neutr_anon_cns}, on peut supposer que cette condition est vérifiée et montrer qu'elle implique bien la condition~\ref{enumi:neutr_ano_facteurs_sup_un}. Si on écrit $C$ comme une somme d'entiers naturels supérieurs à~1, alors chacun d'eux est inférieur ou égal à~$C$, donc il est premier avec~$V$; comme il est supérieur à~1, ceci signifie qu'il ne divise pas~$V$. Donc la condition~\ref{enumi:neutr_ano_facteurs_sup_un} est vérifiée.
+
+À notre connaissance, si on supprime l'hypothèse d'efficience, il n'existe pas de résultat précédent dans la littérature donnant une condition nécessaire et suffisante sur le couple $(V, C)$ pour qu'il existe un SVBE anonyme et neutre (sur l'espace électoral des ordres stricts totaux), comme le fait la proposition~\ref{thm:neutr_anon_cns}.
+
+
+\section{Manipulability}\label{sec:manipulabilite_definition}
+
+À présent, nous allons traduire la définition habituelle de la manipulabilité dans le cadre des espaces électoraux.
+
+Pour deux candidats $\winner$ et $c$, on note:
+$$
+\ManipFull{c}{\winner} = \{v \in \ens{V} \tq c \Plusquefull[v]{\omega_v} \winner\}.
+$$
+C'est l'ensemble des électeurs qui préfèrent $c$ à $\winner$; si $\winner$ est vainqueur du vote sincère, ces électeurs sont donc intéressés par une manipulation en faveur de~$c$. À l'inverse, on note:
+$$\SincFull{c}{\winner} = \{v \in \ens{V} \tq \text{non}(c \Plusquefull[v]{\omega_v} \winner)\}.$$
+Il s'agit des électeurs qui ne sont pas intéressés par une manipulation visant à faire gagner $c$ au lieu de $\winner$. Pour ces deux notions, on sous-entendra généralement la dépendance en $\omega$ et on notera simplement $\Manip{c}{\winner}$ et $\Sinc{c}{\winner}$.
+
+
+\begin{definition}[manipulabilité]\label{def:manipulability_sbvs}
+%As is usually done in the literature, we say that a voting system is (coalitionaly) \emph{manipulable} in a given configuration \ssi there exists a coalition of voters who, by misrepresenting their states, may secure an outcome that is different from the sincere winner and that they all prefer to her, while assuming that other voters still vote sincerely.
+%
+%Formally, let $\Omega$ be an ES and $f$ an SBVS.
+%
+Pour $(\omega,\psi) \in {\Omega}^2$, un sous-ensemble d'électeurs $M \in \ens{P}(\ens{V})$ et un candidat $c \in \ens{C}$, on dit que $f$ est \emph{manipulable} dans la configuration $\omega$ par la coalition $M$ vers la configuration $\psi$ en faveur du candidat~$c$ ssi:
+$$
+\left\{
+\begin{array}{l}
+c \neq f(\omega), \\
+f(\psi) = c, \\
+%\forall v \in M, c \Plusque{\omega_v} f(\omega), \\
+M \subseteq \Manip{c}{f(\omega)}, \\
+\forall v \in \ens{V} \setminus M, \psi_v = \omega_v. \\
+\end{array}
+\right. 
+$$
+
+Dans la suite de cette thèse, nous dirons indifféremment \emph{manipulable par coalition} (MC), \emph{coalition-manipulable} ou, simplement, \emph{manipulable} sans davantage de précision: en effet, c'est la notion la plus générale de manipulabilité, au sens où elle est impliquée par toutes les autres formes de manipulabilité que nous mentionnerons plus tard, notamment à partir du chapitre~\ref{sec:svvamp}. Nous utiliserons le sigle MC indifféremment comme adjectif (\emph{manipulable} par coalition) ou comme substantif (\emph{manipulation} par coalition).
+\end{definition}
+
+Quand on dit que $f$ est manipulable en $\omega$ sans préciser $\psi$ (resp. $M$, $c$), cela signifie qu'il existe $\psi$ (resp. $M$, $c$) qui vérifie la définition précédente.
+
+Ainsi, pour $(\omega,\psi) \in {\Omega}^2$ et un candidat $c \in \ens{C}$, on dit que $f$ est \emph{manipulable} dans la configuration $\omega$ vers la configuration $\psi$ en faveur du candidat~$c$ ssi il existe une coalition $M$ telle que les conditions précédentes soient vérifiées, ce qui se traduit par les relations suivantes.
+$$
+\left\{
+\begin{array}{l}
+c \neq f(\omega), \\
+f(\psi) = c, \\
+%\forall v \in \mathcal{V}, \psi_v \neq \omega_v \Rightarrow c \Plusque{\omega_v} f(\omega), \\
+\forall v \in \Sinc{c}{f(\omega)}, \psi_v = \omega_v. \\
+\end{array}
+\right.
+$$
+
+De même, pour $(\omega,\psi) \in {\Omega}^2$, on dit que $f$ est \emph{manipulable} dans la configuration $\omega$ vers la configuration $\psi$ ssi il existe un candidat $c$ telle que les relations précédentes soient vérifiées, ce qui s'écrit:
+$$
+\left\{
+\begin{array}{l}
+f(\psi) \neq f(\omega), \\
+%\forall v \in \mathcal{V}, \psi_v \neq \omega_v \Rightarrow f(\psi) \Plusque{\omega_v} f(\omega).
+\forall v \in \Sinc{f(\psi)}{f(\omega)}, \psi_v = \omega_v. \\
+\end{array}
+\right.
+$$
+
+Enfin, pour $\omega \in \Omega$, on dit que $f$ est \emph{manipulable} dans la configuration $\omega$ \ssi il existe une configuration $\psi \in \Omega$ telle que $f$ est manipulable en $\omega$ vers $\psi$. Par commodité de langage, il nous arrivera alternativement de dire que c'est la configuration~$\omega$ qui est manipulable (dans le cadre du système de vote~$f$).
+
+
+
+\medskip
+On note $\MC_f$ l'ensemble des configurations $\omega$ où $f$ est manipulable et on utilise la même notation pour la fonction indicatrice de cet ensemble:
+%
+%The \emph{manipulability indicator of $f$} is the function:
+$$
+\MC_{f}:
+\begin{array}{|cll}
+\Omega & \to & \{0,1\} \\
+\omega & \to &
+\begin{array}{|l}
+1 \textrm{\;si\;} f \textrm{\;est manipulable en\;} \omega, \\
+0 \textrm{\;sinon}. \\
+\end{array}
+\end{array}
+$$
+
+Pour une culture $\proba$, nous appelons \emph{taux de MC de $f$ pour~$\proba $} (à condition que $\MC_f$ soit mesurable, cf. appendice \ref{sec:mesurabilite}):
+\begin{align*}
+\tau_\MC^\proba (f) 
+&= \proba (f \textrm{\;est manipulable en\;} \omega) \\
+&= \int_{\omega\in\Omega} \MC_f(\omega) \proba (\diff\omega).
+\end{align*}
+Quand il n'y a pas d'ambiguïté sur la culture $\proba$ utilisée, nous notons simplement ce taux $\tau_\MC(f)$.
+
+\medskip
+Pour deux SVBE $f$ et $g$, on dit que $f$ est \emph{au plus aussi manipulable que $g$ au sens ensembliste}\footnote{Cette notion est définie par \cite{lepelley1994vulnerability}.} \ssi $\MC_f \subseteq \MC_g$; et on dit que $f$ est \emph{au plus aussi manipulable que $g$ au sens probabiliste} \ssi $\tau^\proba_\MC(f) \leq \tau^\proba_\MC(g)$. La première propriété est très forte puisqu'elle implique la seconde pour toute culture $\proba$: si $f$ est moins manipulable que $g$ au sens ensembliste, alors, dans toute culture, $f$ est moins manipulable que~$g$ au sens probabiliste\footnote{Si $\Omega$ est muni d'une tribu telle que tout singleton est mesurable (ce qui est généralement le cas), ce n'est pas seulement une implication mais une équivalence.}.
+
+\medskip
+\label{discussion_antisymetrie}
+Cette définition de la manipulabilité est la première où nous exploitons réellement les relations binaires de préférence $\Plusque{}$. Profitons de cette occasion pour revenir sur le fait que nous ne les avons pas supposées antisymétriques.
+
+Considérons deux candidats $a$ et $b$. Supposons que pour chaque électeur $v$, son état $\omega_v$ est un couple $(t_v, x_v)$ où:
+\begin{itemize}
+\item $t_v \in \{a, b, \varnothing\}$ est égal soit à son candidat favori (son <<\,top\,>>, qui peut être $a$ ou $b$), soit à $\varnothing$ s'il n'est partisan d'aucun des deux;
+\item $x_v$ est une variable booléenne qui représente si l'électeur est corruptible ou non, typiquement dans le cas où un candidat lui proposerait un pot-de-vin.
+\end{itemize}
+Nous nous posons la question suivante: étant donné le système de vote utilisé, le résultat du vote est-il résistant aux effets combinés de la corruption par des pots-de-vin et du vote stratégique au sens habituel?
+
+Si $a$ (resp. $b$) est le vainqueur du vote sincère, les électeurs susceptibles de tenter de changer le résultat sont ceux qui sont corruptibles, quel que soit leur candidat favori, et ceux dont le candidat favori est vraiment~$b$ (resp. $a$). Remarquons alors que ce problème peut être traité avec notre formalisme sur la manipulation en utilisant des préférences qui ne sont pas antisymétriques. En effet, pour tout électeur $v$, définissons la relation binaire $\Plusque{}$ comme dans le tableau suivant.
+%\begin{itemize}
+%\item pour tout électeur $v$ non corruptible dont le candidat préféré est $a$ (resp. $b$), posons $a \PPlusque{} b$ (resp. $b \PPlusque{} a$),
+%\item pour tout électeur $v$ non corruptible dont le candidat préféré est $\varnothing$, posons $a \NC{} b$,
+%\item pour tout électeur $v$ corruptible, posons $a \Plusmoins{} b$.
+%\end{itemize}
+\begin{center}
+\begin{tabular}{Ic|cIc|c|cI}
+\Cline{1pt}{3-5}
+\multicolumn{2}{cI}{} & \multicolumn{3}{cI}{$t_v$ (candidat favori)} \\ \cline{3-5}
+\multicolumn{2}{cI}{} & $a$ 				& $\varnothing$ & $b$ \\ \Cline{1pt}{1-5}
+\multirow{2}{*}{$x_v$ (corruptible)} & Faux	& $a \PPlusque{} b$	& $\;\,a \NC{} b\;\,$	& $b \PPlusque{} a$ \\ \cline{2-5}
+& Vrai	& \multicolumn{3}{cI}{$a \Plusmoins{} b$} \\ \Cline{1pt}{1-5}
+\end{tabular}
+\end{center}
+Dans l'espace électoral ainsi défini, la \emph{manipulabilité} (au sens formel de la définition \ref{def:manipulability_sbvs}) coïncide avec la vulnérabilité aux effets combinés de la corruption et du vote stratégique au sens habituel.
+
+\medskip
+Par ailleurs, l'absence d'hypothèse d'antisymétrie permet d'envisager un électeur \emph{jamais content}, pour qui on a $c \Plusque{} d$ pour tout couple de candidats $(c, d)$. Un tel électeur est prêt à participer à n'importe quelle tentative de manipulation, introduisant ainsi une instabilité intéressante dans le système. On retiendra de cet exemple plaisant que, quand on veut étudier la manipulation, la question pertinente pour un électeur donné peut être formulée ainsi: s'il sait que le vainqueur par défaut est un certain~$\winner$, est-ce qu'il est prêt à agir pour qu'un certain candidat~$c$ soit vainqueur à la place? Tandis qu'exiger que la relation obtenue ait des propriétés intéressantes (antisymétrie, transitivité) peut avoir un intérêt pour attribuer une certaine cohérence aux actions d'un électeur, de telles hypothèses de rationalité ne sont pas nécessaires pour étudier la manipulation.
+
+\medskip
+Nous avons deux autres raisons de ne pas supposer l'antisymétrie en général. D'une part, la plupart de nos résultats ne nécessitent pas cette hypothèse; il serait donc dommage de prouver des théorèmes dans un cas particulier alors qu'ils sont vrais dans le cas général. D'autre part, supprimer cette hypothèse permet d'avoir des définitions et des énoncés qui se prêtent plus facilement à d'autres types de généralisation, notamment celles du chapitre~\ref{sec:condorcification_generalisee}.
+
+%\medskip
+%Dans les exemples d'espaces électoraux que nous avons mentionnés, les relations $\textrm{P}_v$ étaient généralement antisymétriques\footnote{Une exception est l'exemple \ref{ex:interval_graph}, dans le cas $\varepsilon < 0$.}. Sans cette hypothèse, on peut avoir $c \Plusmoins{\omega_v} d$ (préférence mutuelle); comment pouvons-nous l'interpréter? %Literally, it reads that voter $v$ prefers candidate $c$ to $d$ and $d$ to $c$ in the same time, but it seems paradoxical.
+%Puisque les relations $\textrm{P}_v$ n'ont été exploitées que dans la définition \ref{def:manipulability_sbvs} jusqu'à présent, l'assertion $c \Plusmoins{\omega_v} d$ doit être interprétée en termes de manipulation: elle signifie que si $c$ est le vainqueur du vote sincère, alors l'électeur $v$ est susceptible de manipuler pour $d$\dots et vice-versa! 
+%
+%%Voici quelques interprétations possibles. $v$ a des préférences floues à propos des candidats $c$ et $d$. Ou bien $v$ est un trublion qui aime changer le résultat du vote quand c'est possible (au moins entre $c$ et $d$).
+%%
+%%Une autre interprétation est que $v$ n'a pas de préférence particulière entre ces deux candidats et est susceptible d'accepter un pot-de-vin pour manipuler pour n'importe lequel d'entre eux. Dans ce cadre d'interprétation, $c \NC{\omega_v} d$ signifie que l'électeur $v$ est aussi indifférent entre $c$ et $d$, mais incorruptible. Dans un modèle qui permet de telles situations, la \emph{manipulabilité} d'une configuration~$\omega$ (au sens de la définition formelle ci-dessus) est interprétée comme les effets combinés des bulletins stratégiques par les électeurs qui préfèrent effectivement le nouveau vainqueur au vainqueur sincère et la corruption de certains électeurs acceptant des pots-de-vin.
+
+%De nouveau, nous insistons que p
+Pour les lecteurs qui pourraient être perturbés par un tel modèle, tout ce qui suit peut être lu en ajoutant l'hypothèse d'antisymétrie et l'interprétation habituelle de la manipulabilité.
+
+\medskip
+Le théorème de \cite{gibbard1973manipulation}, que nous avons déjà mentionné en introduction, implique que dans un espace électoral qui comprend tous les ordres stricts totaux, pour tout SVBE~$f$ non trivial (c'est-à-dire qui n'est pas dictatorial et dont l'image contient au moins 3~candidats), on a $\MC_f \neq \varnothing$. Le théorème de \cite{satterthwaite1975strategyproofness} énonce essentiellement le même résultat dans l'espace électoral des ordres stricts faibles\footnote{Pour des preuves alternatives du théorèmes de Gibbard-Satterthwaite, on pourra notamment consulter \cite{gardenfors1977concise, barbera1983pivotal, benoit2000simpleproof, sen2001proof}. Plusieurs approches, notamment celle de \cite{reny2001unified}, permettent de comprendre le lien profond entre ce résultat et le théorème d'Arrow. \cite{muller1977strongpositive} montrent qu'il est aussi intimement lié à l'impossibilité qu'un mode de scrutin non trivial vérifie la \emph{strong positive association}, une condition de monotonie par rapport aux préférences qui généralise la propriété de \emph{réponse positive} que nous avons vue pour 2~candidats. %En réaction à une formulation restrictive du théorème trop souvent rencontrée dans la littérature, 
+\cite{weber2009alternatives} souligne, comme l'avaient fait Gibbard et Satterthwaite, qu'il n'est pas nécessaire de supposer que le mode de scrutin est surjectif (une formulation du théorème souvent rencontrée), mais simplement qu'au moins 3~candidats sont dans son image, c'est-à-dire sont éligibles. \cite{duggan2000manipulability} généralisent le résultat à un système de vote non résolu, c'est-à-dire sans règle de départage explicite; \cite{brandt2011necessary} discutent ce qu'il en est lorsqu'on considère des notions de non-manipulabilité moins exigeantes. \cite{slinko2008safelymanipulable} montrent que le théorème reste vrai même en se limitant à des manipulations dites \emph{sûres} (\emph{safe}). \cite{barbera1990continuous} proposent une variante du théorème pour un nombre infini de candidats et une hypothèse de continuité sur les préférences des électeurs. On pourra consulter~\cite{taylor2005socialchoice} pour une vue d'ensemble de divers résultats d'impossibilité du même type.}. En outre, nous verrons que le théorème de Gibbard concerne également les \emph{systèmes de vote généraux}, que nous allons définir dans la section~\ref{sec:systemes_de_vote_generaux}.
+
+Si l'espace électoral ne comprend pas les ordres stricts totaux, il est possible d'avoir un SVBE non trivial et non manipulable. Par exemple, dans l'espace des températures de l'exemple~\ref{ex:temperature}, et plus généralement dans un espace \emph{single-peaked} (définition~\ref{def:single_peaked}), il est classique et facile à prouver que le mode de scrutin suivant n'est pas manipulable: chaque électeur indique sa température préférée, puis la température médiane est élue\footnote{\cite{moulin1980singlepeaked} montre une extension de ce résultat, qui est elle-même généralisée par \cite{border1983straightforward} et \cite{barbera2001introduction} dans un cadre multi-dimensionnel.}. Avec un cadre légèrement différent, \cite{blin_satterthwaite1975singlepeaked} discutent précisément les hypothèses impliquées et montrent notamment qu'il est crucial que non seulement les bulletins ne puissent exprimer que des préférences single-peaked par rapport à l'ordre de référence, mais aussi que les électeurs ne puissent avoir sincèrement que de telles préférences. 
+
+On peut donc se demander s'il existe une condition nécessaire et suffisante simple sur l'espace électoral pour que les conclusions du théorème de Gibbard-Satterthwaite s'appliquent, c'est-à-dire qu'il n'existe pas de système de vote non trivial et non manipulable. \cite{aswal2003dictatorialdomains} répondent en partie à cette question en fournissant une condition suffisante (plutôt technique) mais, à notre connaissance, le problème reste ouvert. Dans ce mémoire, nous considérerons souvent des espaces électoraux qui comprennent tous les ordres stricts totaux, où le théorème de Gibbard-Satterthwaite s'applique; ceci dit, la plupart de nos résultats théoriques concerneront un espace électoral quelconque.
+
+
+
+\section{General voting systems}\label{sec:systemes_de_vote_generaux}
+
+Jusqu'à présent, nous avons défini des systèmes de vote basés sur l'état, ou SVBE. Cependant, les modes de scrutin réels sont parfois plus complexes: notamment, ils peuvent se dérouler en plusieurs tours et la forme des bulletins ne coïncide pas forcément avec l'objet mathématique utilisé pour modéliser les préférences des électeurs. Nous présentons ici un formalisme qui permet d'étudier n'importe quel type de mode de scrutin et dont les systèmes de vote basés sur l'état (SVBE) ne sont que des cas particuliers. Puis nous prouvons que, dans l'optique de limiter la manipulabilité, nous pouvons restreindre l'étude aux SVBE.
+
+\subsection{Definition}
+
+Pour commencer, considérons une des variantes possibles pour le mode de scrutin appelé \emph{vote par notation}. Chaque électeur $v$ peut choisir dans un ensemble de stratégies $\mathcal{S}_v = [0,1]^C$: il doit attribuer une note à chaque candidat. Une fois ces notes communiquées, on utilise une règle de dépouillement $f$ qui renvoie le candidat avec la meilleure note moyenne (et utilise, en cas d'égalité, une règle déterministe choisie à l'avance). Généralisons ce cas particulier pour définir un \emph{mode de scrutin}.
+
+\begin{definition}[mode de scrutin]\label{def:mode_de_scrutin}
+Un \emph{mode de scrutin} (pour $V$ et $C$) est défini par la donnée de:
+\begin{itemize}
+	\item pour chaque électeur $v \in \mathcal{V}$, un ensemble non vide $\mathcal{S}_v$ dont les éléments sont appelés \emph{stratégies}\footnote{Ici, les stratégies correspondent à ce qu'on appelle <<\,stratégies pures\,>> en théorie des jeux. Il peut s'agir de bulletins, d'arbres de décisions dans un processus en plusieurs étapes ou, plus généralement de n'importe quel type d'objet.};
+	\item et une fonction $f: \mathcal{S}_1 \times \ldots \times \mathcal{S}_V \to \mathcal{C}$ que nous appelons \emph{règle de dépouillement}.
+\end{itemize}
+\end{definition}
+
+En anglais, un mode de scrutin tel que nous le définissons est appelé \emph{game form} dans l'article fondateur de \cite{gibbard1973manipulation}.
+
+\medskip
+Quand un électeur $v$ est dans l'état $\omega_v \in \Omega_v$, on peut se demander quelle stratégie $S_v \in \mathcal{S}_v$ doit être considérée comme sa stratégie sincère.  Comme le remarque \cite{gibbard1973manipulation}, il n'y a pas de façon générale, canonique, de définir le vote sincère en se basant seulement sur le mode de scrutin\footnote{Il en présente un exemple éclairant, la \emph{fête sans alcool}.}. Voyons pourquoi avec deux exemples. 
+
+\begin{exemple}[vote de parité]
+Nous avons déjà évoqué ce système en introduction. On considère $C=2$ candidats. Chaque électeur met une boule blanche ou noire dans l'urne. Si le nombre de boules noires est impaire, alors le candidat~1 est élu. Dans le cas contraire, c'est le candidat~2. Étant donné le candidat préféré par l'électeur $v$, on ne peut pas dire que celui-ci ait un bulletin sincère naturel!
+\end{exemple}
+
+On pourrait objecter que cet exemple repose sur une façon de voter contre-intuitive (bien qu'il s'agisse d'un mode de scrutin tout à fait conforme à la définition~\ref{def:mode_de_scrutin}). Mais l'exemple suivant repose sur un mode de scrutin très classique.
+
+\begin{exemple}[uninominal sans ordre de préférence]
+Dans l'espace électoral des ordres stricts faibles, considérons le mode de scrutin \emph{uninominal} (à un tour): chaque électeur vote pour un candidat, et le candidat qui reçoit le plus de voix est élu. Si un électeur ne préfère pas un candidat à tous les autres, il n'y a pas de façon évidente, canonique, de définir son vote sincère.
+\end{exemple}
+
+Ces exemples montrent que la notion de stratégie sincère est plus évanescente qu'elle n'y paraît de prime abord. Par conséquent, elle doit être définie de façon extrinsèque au mode de scrutin par des fonctions $s_v: \Omega_v \to \mathcal{S}_v$ qui, à chaque état d'opinion $\omega_v$, associent un bulletin $S_v = s_v(\omega_v)$.
+
+\begin{definition}[système de vote]
+Un \emph{système de vote} $F$ (sur l'espace électoral~$\Omega$) est défini par la donnée de:
+\begin{itemize}
+	\item un mode de scrutin $((\mathcal{S}_v)_{v \in \mathcal{V}}, f)$;
+	\item et pour chaque électeur $v \in \mathcal{V}$, une fonction $s_v: \omega_v \to \mathcal{S}_v$ qui est appelée \emph{fonction de sincérité}.
+\end{itemize}
+\end{definition}
+
+Selon une première interprétation, la fonction $s_v$ représente un consensus social sur l'esprit selon lequel on doit utiliser le mode de scrutin, ou un mode d'emploi du système communiqué par le planificateur social.
+
+D'un point de vue légèrement différent, considérons un électeur qui choisit toujours son bulletin de façon déterministe, en se basant uniquement sur son état d'opinion, sans aucune information sur les opinions et les stratégies des autres électeurs. Cela peut provenir du fait qu'il n'a pas accès à ce type d'information avant l'élection, ou qu'il refuse de dépendre de ses sources d'information, comme les instituts de sondage. Alors, par définition, il utilise précisément une fonction $s_v: \Omega_v \to \mathcal{S}_v$ qui peut être vue, dans ce cas, comme une heuristique pour choisir son bulletin en fonction de sa propre opinion, mais sans information externe.
+
+Dans l'exemple du vote par notation, il est possible de choisir, par exemple, la fonction de sincérité définie par $s_v(p_v,u_v,a_v) = u_v$ (dans l'espace électoral de référence). Si on suit la première interprétation, le planificateur social transmet le message aux électeurs que leur vecteur sincère~$u_v$ est considéré comme un bulletin approprié. Selon la seconde interprétation, $s_v$ est une façon heuristique de choisir son bulletin en absence d'information sur les autres électeurs. Quelle que soit l'interprétation choisie, d'autres choix sont possibles: par exemple, nous pourrions décider que le bulletin sincère d'un électeur consiste à appliquer une transformation linéaire positive à son vecteur de notes de telle manière que son minimum soit 0 et que son maximum soit 1. Dans ce cas, nous étudierions un autre \emph{système de vote} basé sur le même \emph{mode de scrutin}.
+
+La distinction formelle entre \emph{mode de scrutin} et \emph{système de vote} est donc importante quand on envisage d'utiliser un certain mode de scrutin en faisant varier la fonction de sincérité utilisée. Dans les autres cas, cette distinction n'est pas nécessaire et, par commodité de langage, nous emploierons les termes \emph{mode de scrutin} et \emph{système de vote} indifféremment.
+
+Dans le monde réel, on se contente souvent de définir le mode de scrutin utilisé, sans définir explicitement une fonction de sincérité. Dans l'exemple de la France, on trouve sur les sites gouvernementaux les indications suivantes\footnote{\url{http://www.interieur.gouv.fr/Elections/Les-elections-en-France/Les-modalites-d-elections/Les-differents-modes-de-scrutins}.}.
+\begin{quote}
+Le principe du scrutin majoritaire est simple. Le ou les candidats qui
+obtiennent la majorité des suffrages exprimés sont élus. $[$\ldots$]$
+Le scrutin peut être uninominal s'il y a un siège à pourvoir par
+circonscription. Les électeurs votent alors pour un seul candidat.
+\end{quote}
+À notre connaissance, aucun texte officiel ne précise qu'il est recommandé de voter pour son candidat préféré: le choix de la fonction de sincérité éventuelle ou du comportement stratégique à adopter est laissé à l'entière appréciation des électeurs. Ainsi, les textes définissent un mode de scrutin, mais pas un système de vote.
+
+\medskip
+Définissons à présent la manipulabilité d'un système de vote en général.
+
+Pour $\omega \in \Omega$ et $S = (S_1,\dots,S_V) \in \mathcal{S}_1 \times \ldots \times \mathcal{S}_V$, on dit que $F$ est \emph{manipulable en $\omega$ vers $S$} \ssi:
+$$
+\left\{
+\begin{array}{l}
+f(S_1,\dots,S_V) \neq f\big(s_1(\omega_1),\ldots,s_V(\omega_V)\big), \\
+\forall v \in \SincBig{f(S_1,\dots,S_V)}{f\big(s_1(\omega_1),\ldots,s_V(\omega_V)\big)}, S_v = s_v(\omega_v). \\
+%\forall v \in \mathcal{V}, S_v \neq s_v(\omega_v) \Rightarrow 
+%f(S_1,\dots,S_V) \Plusque{\omega_v} f(s_1(\omega_1),\ldots,s_V(\omega_V)) .
+\end{array}
+\right.
+$$
+
+%The second condition means that only voters who prefer the new winner to the former one may have modified their vote.
+
+On dit que $F$ est \emph{manipulable en $\omega$} \ssi il existe $S \in \mathcal{S}_1 \times \ldots \times \mathcal{S}_V$ tel que $F$ est manipulable en $\omega$ vers $S$. L'ensemble des configurations manipulables de $F$ est noté $\MC_F$.
+
+Si $F$ n'est pas manipulable en $\omega$, cela signifie qu'avec l'heuristique $s_v$ (qui peut être fournie par le planificateur social ou choisie individuellement par chaque électeur), les électeurs sont capables de trouver un équilibre de Nash fort sans échange préliminaire d'information. Par conséquent, même si tous les bulletins sont révélés après l'élection, ils n'auront aucun regret sur le bulletin qu'ils ont choisi.
+
+\medskip
+Dans son article fondateur, \cite{gibbard1973manipulation} présente un premier théorème fondamental qui peut être reformulé de la façon suivante. On dit qu'un mode de scrutin est \emph{straightforward} \ssi pour tout ordre strict total sur les candidats, chaque électeur possède une stratégie dominante quand il possède cet ordre de préférence. Le résultat est le suivant: il n'existe pas de mode de scrutin non trivial (c'est-à-dire qui n'est pas dictatorial et dont l'image contient au moins 3~candidats) qui soit \emph{straightforward}. Autrement dit, il est impossible que tous les électeurs mettent au point une fonction de sincérité qui leur permettra de toujours défendre au mieux leurs opinions (même sans aucune information sur les bulletins des autres électeurs).
+
+De ce premier théorème, Gibbard déduit un second résultat qu'on peut reformuler ainsi: dans un espace électoral qui comprend tous les ordres stricts totaux, pour tout système de vote~$F$ non trivial (c'est-à-dire qui n'est pas dictatorial et dont l'image contient au moins 3~candidats), on a $\MC_F \neq \varnothing$. Quand on restreint ce second théorème aux SVBE dans l'espace électoral des ordres stricts faibles, on obtient le théorème de Gibbard-Satterthwaite dans sa version la plus souvent citée.
+
+
+\subsection{Reduction of a general voting system to an SBVS}\label{sec:reducation_general_vers_svbe}
+
+À présent, nous allons prouver que, dans l'optique de diminuer la manipulabilité, nous pouvons restreindre notre étude aux SVBE. La proposition qui suit est essentiellement un résultat de \citet[chapitre II]{moulin1978strategie}. L'adapter au formalisme des espaces électoraux permet de le généraliser à des électeurs dont les préférences sont représentées par des objets mathématiques quelconques, et pas obligatoirement des relations d'ordre.%Nous allons prouver le résultat pour MC, mais il est facile de voir que le résultat est également vrai pour MI.
+
+\medskip
+Commençons par un exemple. Dans l'espace électoral des ordres stricts totaux, examinons l'uninominal à deux tours (U2T) avec sa fonction de sincérité la plus intuitive: à chaque tour, chaque électeur vote pour son candidat préféré parmi ceux qui sont encore en lice. Si un électeur vote pour le candidat $c$ au premier tour et pour le candidat~$d$ au second tour alors que $c$ est encore en lice, alors il n'est manifestement pas sincère.
+
+Pour empêcher ce type de comportement, on peut modifier le système de vote: les électeurs communiquent leur ordre de préférence; puis, l'uninominal à deux tours est simulé avec les stratégies sincères correspondantes. Cela n'empêche pas les électeurs de mentir sur leur ordre de préférence, mais en tout cas, il ne peuvent plus voter pour $c$ au premier tour et voter pour $d$ contre $c$ au second. Nous appelons le système obtenu l'\emph{uninominal à deux tours instantanés (U2TI)}. C'est cette idée simple que nous allons généraliser.
+
+\begin{prop}[version basée sur l'état]\label{thm:restriction_strategies_sinceres}
+Étant donné un système de vote $F$, considérons le système de vote $F' = ((\mathcal{S}'_v)_{v\in\mathcal{V}},$ $f',$ $(s'_v)_{v\in\mathcal{V}})$ défini de la façon suivante.
+\begin{enumerate}
+	\item Chaque électeur communique un état: $\forall v \in \mathcal{V}, \mathcal{S}'_v = \Omega_v$.
+	\item La sincérité consiste à donner son véritable état: 
+	%$\forall i \in \mathcal{V}, s'_v: \begin{array}{|cll} \Omega_v & \to & \mathcal{S}'_v \\ \omega_v & \to & \omega_v. \end{array}$
+	$\forall v \in \mathcal{V}, s'_v = \text{\normalfont Id}$.
+	\item Pour obtenir le résultat, on utilise l'ancienne règle de dépouillement $f$, en considérant que chaque électeur utilise la stratégie sincère correspondant à l'état qu'il a communiqué: $f'(\omega) = f(s_1(\omega_1),\ldots,s_V(\omega_V))$.
+%$$
+%f':\begin{array}{|cll} \mathcal{S}'_1 \times \ldots \times \mathcal{S}'_V & \to & \mathcal{C} \\ (\omega_1,\ldots,\omega_V) & \to & f(s_1(\omega_1),\ldots,s_V(\omega_V)). \end{array}
+%$$
+\end{enumerate}
+
+Alors, le système de vote $F'$, appelé la \emph{version basée sur l'état} de $F$, est au plus aussi manipulable que $F$: $\MC_{F'} \subseteq \MC_F$.
+%$$
+%\{\omega \in \Omega \text{\;s.t.\;} F' \textrm{\;is manipulable in } \omega \}
+%\subseteq 
+%\{\omega \in \Omega \text{\;s.t.\;} F \textrm{\;is manipulable in } \omega \}.
+%$$
+\end{prop}
+
+\begin{proof}
+Dans $F'$, le vote sincère conduit au même résultat que dans $F$, mais les manipulateurs ont accès à au plus les mêmes bulletins.
+%Let $\omega = (\omega_1,\ldots,\omega_V) \in \Omega$ such that $\omega$ is $F'$-manipulable. By definition, $\exists (\psi_1,\dots,\psi_V) \in \mathcal{S}'_1 \times \ldots \times \mathcal{S}'_V$ such that:
+%$$
+%\left\{
+%\begin{array}{l}
+%f'(\psi_1,\dots,\psi_V) \neq f'(\omega_1,\dots,\omega_V), \\
+%\forall i \in \mathcal{V}, \psi_v \neq \omega_v \Rightarrow f'(\psi_1,\dots,\psi_V) \Plusque{\omega_v} f'(\omega_1,\dots,\omega_V). 
+%\end{array}
+%\right.
+%$$
+%
+%For any $i \in \mathcal{V}$, let us note $S_v = s_v(\psi_v)$. We just rewrite:
+%$$
+%\left\{
+%\begin{array}{l}
+%f(S_1,\dots,S_V) \neq f(s(\omega)), \\
+%\forall i \in \mathcal{V}, \psi_v \neq \omega_v \Rightarrow f(S_1,\dots,S_V) \Plusque{\omega_v} f(s(\omega)).
+%\end{array}
+%\right.
+%$$
+%
+%In particular, for any voter $i \in \mathcal{V}$, if $S_v \neq s_v(\omega_v)$ then $\psi_v \neq \omega_v$ so $f(S_1,\dots,S_n) \Plusque{\omega_v} f(s(\omega))$. Hence, $\omega$ is $F$-manipulable.
+\end{proof}
+
+Un système de vote $F$ est appelé un \emph{système de vote basé sur l'état} (SVBE) ssi il est égal à sa version basée sur l'état, c'est-à-dire ssi, pour tout électeur $v \in \mathcal{V}$, on a $\mathcal{S}_v = \Omega_v$ et $s_v = \text{Id}$. Par raccourci de notation, un SVBE peut donc être désigné uniquement par sa fonction de dépouillement $f$, comme nous l'avons déjà fait jusqu'à présent.
+
+Considérer la version basée sur l'état d'un système de vote présente divers avantages.
+\begin{itemize}
+\item Cela peut empêcher les électeurs de recourir à des stratégies qui ne sont manifestement pas sincères, comme dans l'exemple de l'uninominal à deux tours.
+\item Cela simplifie le formalisme en identifiant les états d'opinion $\omega_v \in \Omega_v$ et les stratégies autorisées $S_v \in \ens{S}_v$, ce qui permet d'omettre les fonctions de sincérité $s_v$.
+\item Dans un SVBE, le bulletin inclut la relation binaire de préférence, même si ce n'était pas le cas dans le mode de scrutin original. Pour des systèmes de vote comme le vote par assentiment, cette étape est nécessaire avant de définir la \emph{condorcification}, comme nous le ferons dans le chapitre suivant. 
+\end{itemize}
+
+Le bulletin utilisé dans ce cadre doit être vu comme une abstraction théorique, plus que comme un bulletin réel. Pour une implantation pratique du système de vote considéré, on pourra simplifier le bulletin utilisé, comme nous le verrons en section~\ref{sec:implantation_canonique}.
+
+\medskip
+\begin{table}
+$$
+\begin{array}{c|c|c|c}
+	   1    &    4    &    8    &    4    \\ \hline
+	\winner & \winner &    c    &    d    \\
+	   c    &    d    & \winner & \winner \\
+	   d    &    c    &    d    &    c    \\
+\end{array}
+$$
+\caption{Exemple: U2T est manipulable mais pas U2TI.}\label{table:u2t_manip_not_u2ti}
+\end{table}
+Ainsi, la proposition~\ref{thm:restriction_strategies_sinceres} nous apprend que considérer la version basée sur l'état ne peut pas augmenter la manipulabilité. Dans la table~\ref{table:u2t_manip_not_u2ti}, on montre que ce procédé peut même la diminuer strictement. On considère les systèmes U2T et U2TI. En vote sincère, le second tour oppose $\winner$ à $c$ et c'est $\winner$ qui est élu.
+
+En U2T ou en U2TI, il est impossible de manipuler pour~$d$: en effet, les manipulateurs concernés ne peuvent éviter que~$d$ soit éliminé au terme du premier tour. Examinons donc la manipulabilité en faveur de~$c$. Les manipulateurs doivent éviter un second tour contre $\winner$, sinon celui-ci est élu. Ils ont donc besoin d'un second tour entre~$c$ et $d$. Pour cela, ils doivent donner au moins une voix à~$d$%peut-être deux selon la règle de départage, mais c'est sans importance pour notre démonstration)
+. En U2TI, cela signifie qu'au second tour, $d$ a au moins 8~voix venant des électeurs sincères (ceux qui ne préfèrent pas $c$ à $\winner$), ainsi qu'au moins 1~voix des manipulateurs, donc $d$ est élu et la manipulation échoue.
+
+En revanche, en U2T, 6~manipulateurs votent pour $c$ et 2~votent pour~$d$ au premier tour, ce qui fait 6~voix au total pour~$c$ et~$d$, contre~5 pour $\winner$. Lors du second tour entre $c$ et $d$, tous les manipulateurs peuvent voter pour~$c$, y compris ceux qui avaient voté pour~$d$ au premier tour. Alors $c$ est élu par 9~voix contre~8. Ainsi, U2T est manipulable en faveur de $c$, tandis qu'U2TI n'est pas manipulable dans la configuration étudiée.
+
+
+
+\subsection{Canonical implementation of an SBVS}\label{sec:implantation_canonique}
+
+Dans la définition~\ref{def:svbe} d'un SVBE, nous avons vu qu'un électeur est censé communiquer toute l'information à propos de son état. Pour l'exemple du vote par notation dans l'espace électoral de référence, cela signifie qu'il doit communiquer son ordre faible et ses valeurs d'approbation, ce qui est manifestement inutile puisque ces informations n'ont aucune influence sur le résultat du vote. Nous allons simplement formaliser le fait que, pour implanter un tel système de vote en pratique, on ne demandera pas ces informations inutiles.
+
+\medskip
+Pour la définition suivante, nous aurons besoin d'une notation pour décrire les états d'un sous-ensemble d'électeurs. Soit un sous-ensemble d'électeurs $M \in \ens{P}(\ens{V})$. On note $\Omega_M = \prod_{v \in M} \Omega_v$ l'ensemble des états possibles pour ces électeurs. La notation $\omega_M$ désignera un élément de cet ensemble. Si une configuration $\omega \in \Omega$ a été préalablement définie, alors $\omega_M$ désigne la restriction de la configuration $\omega$ aux électeurs de $M$.
+
+Pour $M \in \ens{P}(\ens{V})$, $\omega_{\ens{V} \setminus M} \in \Omega_{\ens{V} \setminus M}$ et $\psi_M \in \Omega_M$, la notation $(\omega_{\ens{V} \setminus M}, \psi_M)$ désigne la configuration obtenue en rassemblant les électeurs de $\omega_{\ens{V} \setminus M}$ et de $\psi_M$. Par raccourci de notation, on écrira $f(\omega_{\ens{V} \setminus M}, \psi_M)$ sans ajouter une seconde paire de parenthèses.
+
+
+\begin{prop}[implantation canonique]\label{def:implantation_canonique}
+Soit $f$ un SVBE et $v$ un électeur. On dit que deux états $(\omega_v, \psi_v) \in (\Omega_v)^2$ sont \emph{indistinguables} pour $f$, et on note $\omega_v \equiv_f \psi_v$, ssi pour tout état des autres électeurs $\phi_{\ens{V} \setminus \{v\}} \in \Omega_{\ens{V} \setminus \{v\}}$, on a $f(\phi_{\ens{V} \setminus \{v\}}, \omega_v) = f(\phi_{\ens{V} \setminus \{v\}}, \psi_v)$. En toute rigueur, la relation $\equiv_f$ devrait aussi être indexée par l'électeur~$v$, mais en pratique il n'y aura pas d'ambiguïté.
+
+On appelle \emph{implantation canonique} de $f$ le système de vote $G = ((\mathcal{S}_v)_{v\in\mathcal{V}},$ $g,$ $(s_v)_{v\in\mathcal{V}})$ défini de la façon suivante.
+\begin{enumerate}
+\item Pour tout électeur $v \in \ens{V}$, son ensemble de stratégies $\ens{S}_v$ est le quotient de $\Omega_v$ par la relation d'équivalence  $\equiv_f$.
+\item Pour tout électeur $v \in \ens{V}$, sa fonction de sincérité $s_v$ est la projection canonique de $\Omega_v$ vers le quotient $\ens{S}_v = (\Omega_v / \equiv_f)$.
+\item La fonction de dépouillement $g: \ens{S}_1 \times \ldots \times \ens{S}_V \to \ens{C}$ est le passage de $f$ au quotient.
+\end{enumerate}
+
+Un SVBE $f$ et son implantation canonique $G$ ont la même manipulabilité: $\MC_G = \MC_f$.
+\end{prop}
+
+\begin{proof}
+Il suffit de remarquer que la définition de la manipulabilité est inchangée par passage au quotient.
+\end{proof}
+
+Examinons un autre exemple. Dans l'espace électoral des ordres stricts totaux (avec $V \geq 3$), considérons l'uninominal, muni d'une règle de départage qui n'utilise pas d'autre information d'état que le candidat préféré des électeurs. Voici deux exemples de telles règles.
+\begin{enumerate}
+\item Parmi les candidats ex aequo, le vainqueur est celui qui est premier dans l'ordre des indices.
+\item Si le premier électeur dans l'ordre des indices vote pour un des candidats ex-aequo, celui-ci est élu. Sinon, on examine le bulletin du deuxième électeur, puis du troisième, etc. Autrement dit, l'électeur d'indice minimal parmi ceux qui votent pour un des candidats ex-aequo départage le vote en faveur de son favori.
+\end{enumerate}
+Dans le SVBE représentant ce système de vote, chaque électeur communique son ordre de préférence. Dans l'implantation canonique, il communique uniquement son candidat préféré.
+
+\medskip
+
+\begin{figure}
+\begin{bigcenter}
+\begin{tikzpicture}[xscale=1, yscale=1]
+\node[draw] (ini) at (-4,-2) {\strut$F$};
+\node[draw] (svbe) at (0,0) {\strut$f'$};
+\node[draw] (cond) at (4,0) {\strut$f''$};
+\node[draw] (implant) at (8,-2) {\strut$G$};
+\draw[blue, thick, dashed] (-0.7,-1) rectangle (4+0.7,1);
+\node[blue, above] at (2,1) {SVBE};
+%\draw[dashed] (-1,0) -- (4,0);
+\draw[->, >=latex] (ini) -- (svbe) node[midway, above, sloped] {\strut Version basée} node[midway, below, sloped] {\strut sur l'état};
+\draw[->, >=latex] (svbe) -- (cond) node[midway, above, sloped] {\strut Améliorations} node[midway, below, sloped] {\strut diverses};
+\draw[->, >=latex] (cond) -- (implant) node[midway, above, sloped] {\strut Implantation} node[midway, below, sloped] {\strut canonique};
+\end{tikzpicture}
+\caption{Transformations de systèmes de vote}\label{fig:implantation_canonique}
+\end{bigcenter}
+\end{figure}
+
+Quand nous étudierons un système de vote $F$, nous utiliserons presque toujours (et en général implicitement) le mécanisme représenté dans la figure \ref{fig:implantation_canonique}: tout d'abord, nous considérons sa version basée sur l'état, notée ici $f'$, ce qui ne peut augmenter la manipulabilité. Puis nous lui appliquons diverses transformations pour diminuer la manipulabilité et nous obtenons un nouveau SVBE~$f''$. Si on souhaite mettre en pratique ce système de vote, on utilisera son implantation canonique $G$, ce qui ne change pas la manipulabilité.
+
+
+\section{Matrix of duels and Condorcet notions}\label{sec:condorcet_definitions}
+
+À présent, nous rappelons les notions classiques de \emph{matrice des duels}, de \emph{vainqueur de Condorcet} et de \emph{vainqueur de Condorcet faible}. Comme nous autorisons des relations binaires de préférence qui peuvent être quelconques, nous accordons une attention particulière à différentes variantes de ces notions, même si certaines d'entre elles peuvent coïncider dans certains espaces électoraux, par exemple quand on n'autorise que des ordres stricts totaux. En particulier, nous introduisons la notion de \emph{candidat Condorcet-admissible}, qui sera une notion centrale pour étudier la manipulabilité d'une large classe de systèmes de vote.
+
+\medskip
+Quand $\ens{A}(v)$ est une assertion qui dépend de l'électeur $v$, nous notons $\voterset{\ens{A}(v)} = \textrm{card}\{v \in \mathcal{V} \textrm{\;t.q.\;} \ens{A}(v)\}$. Par exemple, pour un couple de candidats $(c, d)$, la notation $\voterset{c \Plusque{} d}$ désigne le nombre d'électeurs qui préfèrent $c$ à~$d$.
+
+\begin{definition}[matrice des duels]
+Pour toute paire de candidats $(c, d)$, on note $D_{cd}(\omega) = \voterset{c \Plusque{\omega_v} d}$, c'est-à-dire le nombre d'électeurs qui préfèrent $c$ à $d$. La matrice $D(\omega)$ est appelée \emph{matrice des duels} de $\omega$.
+\end{definition}
+
+La relation de \emph{victoire relative} $\Plusquefull[\rel]{\omega}$ est définie par:
+$$
+c \Plusque[\rel]{} d \Leftrightarrow D_{cd} > D_{dc}.
+$$
+Il est facile de vérifier que cette relation est irréflexive, antisymétrique mais pas nécessairement complète. S'il y a un nombre impair d'électeurs et si leurs relations de préférence $\Plusque{}$ sont des ordres strict totaux, alors on ne peut pas avoir $D_{cd} = D_{dc}$ donc l'un des candidats est nécessairement vainqueur: par conséquent, $\Plusque[\rel]{}$ est complète. De la même façon que pour les préférences individuelles, on définit $\NC[\rel]{\omega}$ (absence de victoire relative). Les relations $\PPlusque[\rel]{\omega}$ et $\Plusmoins[\rel]{\omega}$ n'ont guère d'intérêt: comme $\Plusque[\rel]{}$ est antisymétrique, $\PPlusque[\rel]{\omega}$ est identique à $\Plusque[\rel]{}$; et $\Plusmoins[\rel]{\omega}$ est la relation vide.
+
+\medskip
+La relation de \emph{victoire absolue} $\Plusquefull[\abs]{\omega}$ est définie par:
+$$
+c \Plusque[\abs]{} d \Leftrightarrow D_{cd} > \frac{V}{2}.
+$$
+Quand cette relation est vérifiée, nous dirons indifféremment que $c$ a une \emph{victoire absolue} contre $d$ dans $\omega$, ou que $d$ a une \emph{défaite absolue} contre $c$ dans $\omega$. Quand nous parlerons de victoire (resp. défaite) sans davantage de précision, il s'agira toujours de victoire (resp. défaite) absolue.
+%Intuitively, our motivation is that most common voting systems attribute to any absolute majority the power to change the outcome of an election; whereas a smaller group %, for example a relative majority in the duel between candidates $c$ and $d$ (for which some voters might be indifferent),%
+%can not always do so.%change the outcome of the whole election.
+
+À partir de $\Plusquefull[\abs]{\omega}$, on définit les relations $\NC[\abs]{\omega}$ (absence de victoire), $\PPlusque[\abs]{\omega}$ (victoire stricte) et $\Plusmoins[\abs]{\omega}$ (victoires mutuelles) comme nous l'avons fait pour les préférences individuelles.
+
+Attention, quand nous disons que $c$ a une victoire absolue contre $d$, ce qui est noté $c \Plusque[\abs]{} d$, l'inégalité:
+$$
+D_{cd} > \frac{V}{2}
+$$
+est déjà stricte par définition. Quand nous disons que $c$ a une victoire absolue \textbf{stricte} contre $d$, ce qui est noté $c \PPlusque[\abs]{} d$, cela ne concerne donc pas le signe de cette inégalité mais ajoute la condition que $d$ n'a pas de victoire absolue contre~$c$, ce qui signifie que:
+$$
+D_{dc} \leq \frac{V}{2}.
+$$
+Heureusement, ces subtilités se dissipent dès que les électeurs ont des préférences antisymétriques, comme nous allons le voir. Nous verrons cependant, dans le cadre de la condorcification généralisée (chapitre~\ref{sec:condorcification_generalisee}), que formaliser les choses ainsi facilitera leur généralisation.
+
+\medskip
+Nous utiliserons plusieurs fois le résultat suivant (qui est trivial).
+
+\begin{prop}[nombre de points total d'un duel]\label{thm:points_totaux_dun_duel}
+%Let $\Omega$ be an ES, $\omega \in \Omega$ and $(c,d) \in {\mathcal{C}}^2$. 
+%We have:
+$$
+D_{cd} + D_{dc} = V + \voterset{ c \Plusmoins{\omega_v} d } - \voterset{ c \NC{\omega_v} d }.
+$$
+\end{prop}
+
+%\begin{proof}
+%%It is trivial.
+%Immediate consequence of partitioning the voters in four classes, according to the value of their binary relation of preference on $(c,d)$ and $(d,c)$.
+%% between those who strictly prefer $c$, those who strictly prefer $d$, those who judge them incomparable and those who judge them preferable to the each other.
+%\end{proof}
+
+
+Il en découle immédiatement que, si les relations $\textrm{P}_v$ sont antisymétriques (ce qui est une hypothèse courante), alors la relation $\textrm{P}_{\abs}$ est antisymétrique: deux candidats $c$ et $d$ ne peuvent pas avoir de victoires mutuelles. En d'autres mots, avec l'hypothèse classique d'antisymétrie, toute victoire (absolue) est stricte.
+
+Par ailleurs, il découle également de cette proposition que, si les relations $\textrm{P}_v$ sont complètes et si le nombre d'électeurs $V$ est impair, alors la relation $\textrm{P}_{\abs}$ est complète: entre deux candidats distincts $c$ et $d$, il ne peut y avoir une absence de victoire.
+
+
+
+\medskip
+À présent, nous allons définir diverses variantes de la notion de vainqueur de Condorcet.
+
+\begin{definition}[vainqueur de Condorcet absolu]\label{def:vainqueur_de_condorcet_absolu}
+Soit $\omega \in \Omega$ et $c \in \mathcal{C}$. On dit que $c$ est \emph{vainqueur de Condorcet absolu}, ou simplement \emph{vainqueur de Condorcet}, dans $\omega$, ssi $c$ a une victoire absolue stricte contre tout autre candidat. C'est-à-dire que pour tout autre candidat $d$, on a $c \PPlusque[\abs]{} d$, ce qui s'écrit également:
+\begin{empheq}[left={\empheqlbrace}]{align}
+&\voterset{ c \Plusque{\omega_v} d } > \frac{V}{2},\label{eq:cond_victoire} \\
+&\voterset{ d \Plusque{\omega_v} c } \leq \frac{V}{2}.\label{eq:cond_no_defaite}
+\end{empheq}
+\end{definition}
+
+Si les relations $\Plusque{}$ sont antisymétriques (ce qui est une hypothèse courante), alors nous avons remarqué que toute victoire absolue est stricte. Dans ce cas, $c$ est vainqueur de Condorcet ssi pour tout autre candidat $d$:
+$$
+\voterset{ c \Plusque{\omega_v} d } > \frac{V}{2}.
+$$
+
+\begin{definition}[vainqueur de Condorcet relatif]
+Soit $\omega \in \Omega$ et $c \in \mathcal{C}$. On dit que $c$ est \emph{vainqueur de Condorcet relatif} dans $\omega$ ssi $c$ a une victoire relative contre tout autre candidat. C'est-à-dire que pour tout autre candidat $d$, on a $c \Plusque[\rel]{} d$, ce qui s'écrit également:
+$$
+\voterset{ c \Plusque{\omega_v} d } > \voterset{ d \Plusque{\omega_v} c }.
+$$
+\end{definition}
+
+\begin{definition}[vainqueur de Condorcet faible]
+Soit $\omega \in \Omega$ et $c \in \mathcal{C}$. On dit que $c$ est \emph{vainqueur de Condorcet faible} dans $\omega$ ssi $c$ n'a aucune défaite relative. C'est-à-dire que, pour tout autre candidat $d$, on a non($d \Plusque[\rel]{} c$), ce qui s'écrit également:
+$$
+\voterset{ c \Plusque{\omega_v} d } \geq \voterset{ d \Plusque{\omega_v} c }.
+$$
+\end{definition}
+
+\begin{definition}[candidat Condorcet-admissible]
+Soit $\omega \in \Omega$ et $c \in \mathcal{C}$. On dit que $c$ est \emph{Condorcet-admissible} dans $\omega$ ssi $c$ n'a aucune défaite absolue. C'est-à-dire que, pour tout autre candidat $d$, on a non($d \Plusque[\abs]{} c$), ce qui s'écrit également:
+$$
+\voterset{ d \Plusque{\omega_v} c } \leq \frac{V}{2}.
+$$
+\end{definition}
+
+La proposition suivante indique les liens entre ces différentes notions Condorcet. Toutes les implications mentionnées dans la proposition, ainsi que celles qui en découlent immédiatement, sont représentées à titre de référence dans la figure~\ref{fig:implications_notions_condorcet}. On retiendra notamment que, dans le cas où les préférences sont antisymétriques, la notion de vainqueur de Condorcet absolu est plus forte que celle de vainqueur de Condorcet relatif, qui est plus forte que celle de vainqueur de Condorcet faible, qui est plus forte que celle de candidat Condorcet-admissible.
+
+\begin{prop}[implications entre les notions Condorcet]\label{thm:condorcet_notions_implications}
+Si $c$ est vainqueur de Condorcet (absolu), alors $c$ est vainqueur de Condorcet relatif. Si les relations de préférence $\Plusque{}$ sont antisymétriques et complètes, alors la réciproque est vraie.
+
+Si $c$ est vainqueur de Condorcet relatif, alors $c$ est vainqueur de Condorcet faible. Si les relations de préférence $\Plusque{}$ sont antisymétriques et complètes et si le nombre d'électeurs est impair, alors la réciproque est vraie.
+
+Si $c$ est vainqueur de Condorcet faible et si les relations de préférence $\Plusque{}$ sont antisymétriques, alors $c$ est Condorcet-admissible. Si $c$ est Condorcet-admissible et si les relations de préférence $\Plusque{}$ sont complètes, alors $c$ est vainqueur de Condorcet faible.
+
+Si $c$ est vainqueur de Condorcet (absolu), alors $c$ est Condorcet-admissible. Si $c$ est Condorcet-admissible, si les relations de préférence $\Plusque{}$ sont complètes et si le nombre d'électeurs est impair, alors $c$ est vainqueur de Condorcet (absolu).
+\end{prop}
+
+%\begin{center}
+%%\begin{tikzpicture}[scale=1.5]
+%%\node[draw] (abs) at (0,0) {Condorcet absolu};
+%%\node[draw] (rel) at (-1,-1) {Condorcet relatif};
+%%\node[draw] (weak) at (1,-2) {Condorcet faible};
+%%\node[draw] (adm) at (0,-3) {Condorcet-admissible};
+%%\draw[->, >=latex, thick] (abs) to[bend left=10] (rel);
+%%\draw[->, >=latex, thick] (rel) to[bend left=10] (abs);
+%%%\draw[->, >=latex, thick] (rel.90) -- (abs) node[midway, above, sloped] {ac};
+%%\draw[->, >=latex, thick] (rel) -- (weak);
+%%\draw[->, >=latex, thick, blue] (weak) -- (adm);
+%%\draw[->, >=latex, thick, blue] (rel) -- (adm);
+%%\end{tikzpicture}
+%\begin{tikzpicture}[->,>=latex,shorten >=1pt,auto,node distance=3cm,
+%  thick,main node/.style={fill=blue!20,draw}]
+%
+%  \node[main node] (abs) at (0,0) {Condorcet absolu};
+%  \node[main node] (rel) at (0,-2) {Condorcet relatif};
+%  \node[main node] (weak) at (-3,-4) {Condorcet faible};
+%  \node[main node] (adm) at (3,-6) {Condorcet-admissible};
+%
+%  \path
+%    (abs) edge[ultra thick,bend right=15] (rel)
+%    (rel) edge [bend right=15] node[right] {ac} (abs)
+%    (abs) edge[ultra thick, bend right=35] (weak)
+%    (weak) edge[bend left=29] node[right] {aci} (abs)
+%    (abs) edge[ultra thick, bend left=35] (adm)
+%    (adm) edge [bend right=25] node[left] {ci} (abs)
+%    (rel) edge[ultra thick] (weak)
+%    (weak) edge [bend right=15] node[right] {aci} (rel)
+%    (rel) edge[ultra thick, blue] node[right] {a} (adm)
+%    (adm) edge [bend left=15] node[left] {ci} (rel)
+%    (weak) edge[ultra thick, blue] node[left] {a} (adm)
+%    (adm) edge [bend right=8] node[right] {c} (weak)
+%;
+%\end{tikzpicture}
+%\begin{tikzpicture}[->,>=latex,shorten >=1pt,auto,node distance=3cm,
+%  thick,main node/.style={fill=blue!20,draw,minimum width=3.8cm}]
+%
+%  \node[main node] (abs) at (0,0) {Condorcet absolu};
+%  \node[main node] (rel) at (0,-2) {Condorcet relatif};
+%  \node[main node] (weak) at (0,-4) {Condorcet faible};
+%  \node[main node] (adm) at (0,-6) {Condorcet-admissible};
+%
+%  \path
+%    (abs) edge[ultra thick] (rel)
+%    (rel) edge [bend right] node[right] {ac} (abs)
+%    (rel) edge[ultra thick] (weak)
+%    (weak) edge [bend right] node[right] {aci} (rel)
+%    (weak) edge[ultra thick, blue] node[left] {a} (adm)
+%    (adm) edge [bend right] node[right] {c} (weak)
+%    (abs.180) edge[ultra thick, bend right=30] (weak.180)
+%    (weak.180) edge[bend left=60] node[left] {aci} (abs.180)
+%
+%
+%%    (abs) edge[ultra thick, bend left=35] (adm)
+%%    (adm) edge [bend right=25] node[left] {ci} (abs)
+%%    (rel) edge[ultra thick, blue] node[right] {a} (adm)
+%%    (adm) edge [bend left=15] node[left] {ci} (rel)
+%;
+%\end{tikzpicture}
+%\end{center}
+\begin{figure}
+\begin{bigcenter}
+\begin{tikzpicture}[->,>=latex,shorten >=1pt,auto,node distance=3cm,
+  thick,main node/.style={fill=blue!20,draw}]
+
+  \node[main node] (abs) at (0,0) {\begin{tabular}{c}Condorcet\\absolu\end{tabular}};
+  \node[main node] (rel) at (4,0) {\begin{tabular}{c}Condorcet\\relatif\end{tabular}};
+  \node[main node] (weak) at (8,0) {\begin{tabular}{c}Condorcet\\faible\end{tabular}};
+  \node[main node] (adm) at (12,0) {\begin{tabular}{c}Condorcet-\\admissible\end{tabular}};
+
+  \path
+    (abs) edge[ultra thick] (rel)
+    (rel) edge [bend left=10] node[below] {ac} (abs)
+    (rel) edge[ultra thick] (weak)
+    (weak) edge [bend left=10] node[below] {aci} (rel)
+    (weak) edge[ultra thick, blue] node[above] {a} (adm)
+    (adm) edge [bend left=10] node[below] {c} (weak)
+    (abs) edge[ultra thick, bend left] (weak)
+    (weak) edge[bend right=25] node[below] {aci} (abs)
+    (rel) edge[ultra thick, blue,bend right] node[below] {a} (adm)
+    (adm) edge [bend left=25] node[above] {ci} (rel)
+    (abs.60) edge[ultra thick, bend left=33] (adm.120)
+    (adm.135) edge [bend right=30] node[below] {ci} (abs.45)
+;
+\end{tikzpicture}
+\end{bigcenter}
+\caption{Implication entre les notions Condorcet (a: préférences antisymétriques, c: préférences complètes, i: nombre impair d'électeurs).}\label{fig:implications_notions_condorcet}
+\end{figure}
+
+\begin{proof}
+Chacune de ces propriétés est triviale ou découle immédiatement de la proposition~\ref{thm:points_totaux_dun_duel}.
+\end{proof}
+
+Si les relations de préférence $\Plusque{}$ sont antisymétriques et complètes (en particulier si ce sont des ordres stricts totaux), alors ces quatre notions se ramènent à deux seulement: d'une part, vainqueurs de Condorcet absolu et relatif sont équivalents; d'autre part, vainqueur de Condorcet faible et candidat Condorcet-admissible le sont aussi. Si, en outre, il y a un nombre impair d'électeurs, alors les quatre notions sont équivalentes.
+
+Dans la littérature, l'expression \emph{vainqueur de Condorcet} (sans précision) désigne plutôt, habituellement, le vainqueur de Condorcet relatif. Dans cette thèse, nous utiliserons, cependant, cette expression pour désigner le vainqueur de Condorcet absolu, puisque nous utiliserons cette notion beaucoup plus souvent.
+
+%\medskip
+%Dans le même esprit, nous utiliserons parfois la notion de \emph{perdant de Condorcet} (absolu), qui est un candidat qui ne possède que des défaites absolues strictes.
+
+\medskip
+Clairement, le vainqueur de Condorcet absolu ou relatif, s'il existe, est unique. On a également la propriété suivante, tout aussi évidente mais qui nous sera très utile.
+
+\begin{prop}\label{thm_CondUnique}
+Si un candidat est vainqueur de Condorcet (absolu), alors aucun autre candidat n'est Condorcet-admissible.
+\end{prop}
+
+%\begin{proof}
+%Is it trivial. 
+%\end{proof}
+
+À présent, on peut définir formellement le critère de Condorcet.
+
+\begin{definition}[critère de Condorcet]\label{def:critere_de_condorcet}
+On dit qu'un SVBE $f$ vérifie le \emph{critère de Condorcet} \ssi, pour toute configuration $\omega \in \Omega$ et pour tout candidat $c \in \mathcal{C}$, si $c$ est vainqueur de Condorcet dans~$\omega$, alors $f(\omega) = c$. On note indifféremment $\cond(\Omega)$ ou simplement \cond{} l'ensemble des SVBE sur $\Omega$ qui vérifient ce critère, aussi bien que le critère lui-même.
+\end{definition}
+
+Par commodité de langage, on utilisera aussi le mot \emph{Condorcet} comme un adjectif: ainsi, on dira que $f$ est un mode de scrutin Condorcet. Dans le même esprit, en parlant d'une configuration $\omega$, on dira qu'elle est:
+\begin{itemize}
+	\item \emph{Condorcet} s'il existe un vainqueur de Condorcet dans $\omega$;
+	\item \emph{semi-Condorcet} s'il existe au moins un candidat Condorcet-admissible mais pas de vainqueur de Condorcet dans $\omega$;
+	\item \emph{non admissible} s'il n'existe aucun candidat Condorcet-admissible dans $\omega$.
+\end{itemize}
+De même, nous dirons que la configuration $\omega$ est \emph{admissible} s'il existe un candidat Condorcet-admissible (c'est-à-dire si elle est Condorcet ou semi-Condorcet) et qu'elle est \emph{non-Condorcet} s'il n'existe pas de vainqueur de Condorcet (c'est-à-dire si elle est semi-Condorcet ou non admissible).
+
+
+\section{Zoology of voting systems}\label{sec:zoologie}
+
+Pour terminer ce premier chapitre généraliste, nous allons présenter les systèmes de vote fréquemment utilisés dans cette thèse. Afin de ne pas alourdir outre mesure le formalisme, nous ne donnons pas toujours une définition mathématique complète de chacun de ces systèmes. Pour plus de détails, le lecteur pourra se référer par exemple à \cite{tideman2006collective}. À chaque mode de scrutin, nous attribuons également un nom court (sigle ou abréviation), qui nous servira notamment dans les tableaux et les graphiques de la seconde partie de ce mémoire.
+
+Dans les définitions suivantes, quand un système de vote définit un score, le candidat possédant le score maximal est élu. En cas d'égalité, une règle de départage déterministe permet de choisir un candidat parmi les ex-aequo. Comme nous l'avons remarqué précédemment à propos du vote par notation, ce que nous définissons à chaque fois n'est pas rigoureusement un système de vote, mais une classe de systèmes de vote qui renvoient le même résultat sauf dans un certain ensemble de cas (en général raisonnablement limité), pour lesquels il est nécessaire de préciser la règle de départage.
+
+\subsection{Cardinal voting systems}\label{sec:zoologie_cardinaux}
+
+Nous disons qu'un système de vote est \emph{ordinal} ssi la donnée de la relation binaire de préférence d'un électeur est suffisante pour déterminer sa stratégie sincère, c'est-à-dire qu'on a l'implication $\left[\text{P}_v(\omega_v) = \text{P}_v(\omega_v')\right] \Rightarrow \left[s_v(\omega_v) = s_v(\omega_v')\right]$. Dans le cas contraire, nous disons qu'il est \emph{non ordinal}. Par commodité de langage et de façon légèrement informelle, nous disons qu'un \emph{mode de scrutin} est non ordinal s'il n'y a pas de fonction de sincérité relativement naturelle pour laquelle le \emph{système de vote} obtenu est ordinal. Parmi les systèmes non ordinaux, on distingue notamment les systèmes \emph{cardinaux}, où le bulletin de chaque électeur consiste à attribuer une note (ou un objet mathématique similaire) à chaque candidat. On a notamment les trois systèmes suivants.
+
+\paragraph{\emph{Vote par notation} (VN)} Chaque électeur attribue une note à chaque candidat, parmi un ensemble de notes autorisées (qui sont des nombres réels). Le score d'un candidat est sa note moyenne.
+
+\paragraph{\emph{Jugement majoritaire} (JM)} Chaque électeur attribue une appréciation à chaque candidat, parmi un ensemble d'appréciations autorisées. Les appréciations sont des objets de nature mathématique quelconque, munis d'un ordre total, par exemple des nombres réels. En pratique, dans cette thèse, nous représenterons ces appréciations par des nombres réels que nous appellerons des notes, comme en vote par notation, même si seules les positions relatives sont importantes et pas les nombres eux-mêmes\footnote{On considère donc l'ensemble $\R$ comme muni de sa structure topologique de l'ordre, mais pas comme un espace métrique.}. Le score d'un candidat est sa note médiane. Si le nombre d'électeurs est pair, on considère la médiane défavorable: ainsi, si les deux électeurs médians pour un certain candidat lui attribuent les notes 0,4 et 0,5, alors son score est 0,4. Pour la règle utilisée au cas où plusieurs candidats possèdent la même note médiane, voir~\cite{balinski2010majority}.
+
+\medskip
+Pour les deux modes de scrutin précédents, on supposera toujours que l'ensemble des notes ou des appréciations autorisées contient au moins deux éléments distincts.
+
+\paragraph{\emph{Vote par assentiment} (VA)} Quand les notes autorisées sont uniquement 0 et~1, les deux systèmes précédents deviennent équivalents\footnote{Pour le prouver, il est nécessaire de préciser la règle de départage des égalités du jugement majoritaire. Pour plus de précisions sur ce point, on pourra consulter~\cite{balinski2010majority}.}. Le mode de scrutin obtenu est appelé le \emph{vote par assentiment}. Pour plus de détails, on pourra consulter, par exemple, \cite{brams1978approval}.
+
+\medskip
+Dans ces modes de scrutin cardinaux, on représentera une configuration sous la forme suivante (à condition que les relations binaires de préférence soient des ordres stricts faibles cohérents avec les notes).
+$$
+\begin{array}{r@{~:~}l|r@{~:~}l|r@{~:~}l}
+\multicolumn{2}{c|}{2} & \multicolumn{2}{c|}{3} & \multicolumn{2}{c}{4} \\ \hline
+a & 1    & a & 1 & c & 1 \\
+b & 0    & b, c & 0 & b & 1 \\
+c & 0    & \multicolumn{2}{c|}{} & a & 0    \\
+\end{array}
+$$
+Dans cet exemple, les deux premiers électeurs (colonne de gauche) préfèrent le candidat~$a$, puis~$b$, puis~$c$. Ils attribuent la note (ou la valeur d'assentiment) 1 à $a$ et 0 aux candidats $b$ et $c$. Les trois électeurs suivants (colonne du milieu) préfèrent le candidat $a$, auxquelles ils attribuent la note~$1$; ils sont indifférents entre les candidats~$b$ et $c$, auxquels ils attribuent la note~0. Etc.
+
+\medskip
+À présent, nous allons nous intéresser aux modes de scrutin ordinaux. En général, on supposera que chaque électeur fournit un ordre strict total de préférence. Si l'espace électoral autorise des préférences qui ne sont pas des ordres stricts totaux, une manière simple d'adapter ces règles consiste à décider que, si un électeur ne fournit pas un ordre total, alors son bulletin n'est pas comptabilisé. Dans certains cas, cependant, nous donnerons d'autres généralisations possibles.
+
+\subsection{Positional scoring rules (PSR)}\label{sec:rps_definition}
+
+\begin{definition}[règle positionnelle à score]\label{def:rps}
+Soit $\mathbf{x} = (x_1, \ldots, x_C) \in \R^C$ une liste de nombre réels appelés \emph{poids}. Nous supposerons toujours qu'un tel vecteur est décroissant et qu'en outre, il est non constant, c'est-à-dire que $x_C < x_1$.
+
+Pour tout électeur $v$ et pour tout candidat $c$, notons $r(v, c)$ le rang de $c$ dans l'ordre de préférence de $v$ (1 pour le meilleur candidat, $C$ pour le pire). Le score du candidat $c$ est défini par:
+$$
+\score(c) = \sum_{v\in\ens{V}} x_{r(v,c)}.
+$$
+
+On appelle \emph{règle positionnelle à score (RPS)} de poids $\mathbf{x}$ le mode de scrutin qui élit le candidat possédant le meilleur score au sens ci-dessus.
+\end{definition}
+
+Les RPS ont fait l'objet de nombreuses caractérisations, dont on pourra trouver une vue d'ensemble présentée par \cite{merlin2003axiomatic}. Les trois cas particuliers suivants de RPS sont particulièrement célèbres.
+
+\paragraph{\emph{Uninominal} (Uni.) ou \emph{Plurality}} RPS de poids $\mathbf{x} = (1, 0, \ldots, 0)$.
+
+\paragraph{\emph{Veto} ou \emph{Antiplurality}} RPS de poids $\mathbf{x} = (0, \ldots, 0, -1)$.
+
+\paragraph{\emph{Méthode de Borda} (Bor.)} RPS de poids $\mathbf{x} = (C-1, C-2, \ldots, 0)$. Cette procédure a fait l'objet d'innombrables études. On pourra notamment consulter \cite{fishburn1976borda, saari2012geometry}.
+
+\medskip
+Ces trois systèmes particuliers possèdent des généralisations assez naturelles au cas où un électeur ne fournit pas un ordre strict total.
+
+Pour l'uninominal, si $v$ préfère strictement un candidat $c$ à tout autre candidat~$d$, au sens où $c \PPlusque{} d$, alors il donne un point à $c$; dans le cas contraire, il ne donne un point à personne. Ainsi, s'il préfère strictement $c$ mais possède un cycle de préférence parmi les autres candidats, sa préférence pour $c$ est tout de même prise en compte. Pour Veto, il est facile de proposer une adaptation similaire, \emph{mutatis mutandis}.
+
+Quand les électeurs possèdent des ordres faibles de préférence, une autre possibilité pour l'uninominal (resp. Veto) consiste à diviser la voix d'un électeur équitablement entre les candidats qu'il place en tête (resp. en bas) de son bulletin.
+
+Pour la méthode de Borda, sauf mention explicite du contraire, nous utiliserons toujours la généralisation suivante. Chaque électeur~$v$ apporte au score du candidat~$c$:
+\begin{itemize}
+\item 1 point pour chaque candidat $d$ tel que $c \PPlusque{} d$;
+\item et 0,5 point pour chaque candidat $d$ tel que $c \NC{} d$ ou $c \Plusmoins{} d$.
+\end{itemize}
+Cette généralisation est assez naturelle dans la mesure où le nombre total de points donnés par un électeur est constant, que ses préférences soient un ordre strict total ou pas. En particulier, certaines propriétés impliquant le score moyen d'un candidat resteront vraies avec cette généralisation.
+
+\subsection{Bucklin's method}
+
+En \emph{méthode de Bucklin} (Buck.), le dépouillement se déroule par tours. Au tour~$t$, le score provisoire d'un candidat $c$ est le nombre d'électeurs qui placent $c$ entre le rang~$1$ et le rang~$t$ sur leur bulletin. Si au moins un candidat a un score strictement supérieur à $\frac{V}{2}$, alors le candidat possédant le plus haut score est élu. Sinon, on procède au tour de dépouillement $t + 1$.
+
+Ce système élit le candidat qui possède le meilleur rang médian, à condition de considérer la médiane défavorable quand le nombre d'électeurs est pair. Par exemple, si les deux rangs médians pour un certain candidat~$c$ sont les rangs 2 et~3, alors le rang médian au sens de Bucklin est~3.
+
+Sur le principe, la méthode de Bucklin est à la méthode de Borda ce que le jugement majoritaire est au vote par notation, comme l'illustre la table~\ref{table:principe_bucklin_borda_vn_jm}: en effet, la méthode de Bucklin désigne le candidat avec le meilleur rang médian, alors que la méthode de Borda élit celui qui a le meilleur rang moyen. Le jugement majoritaire désigne le candidat avec la meilleure note médiane, alors que le vote par notation élit celui avec la meilleure note moyenne.
+
+\begin{table}
+\begin{center}
+\begin{tabular}{Ip{1cm}Ic|cI}
+\Cline{1pt}{2-3}
+\multicolumn{1}{cI}{} & Moyenne & Médiane \\\Cline{1pt}{1-3}
+Rang & Méthode de Borda   & Méthode de Bucklin \\\hline
+Note & Vote par notation & Jugement majoritaire \\\Cline{1pt}{1-3}
+\end{tabular}
+\end{center}
+\caption{Comparaison de principe entre les méthodes de Borda et Bucklin, le vote par notation et le jugement majoritaire}\label{table:principe_bucklin_borda_vn_jm}
+\end{table}
+
+\medskip
+La règle énoncée ci-dessus est plus précise que choisir simplement le candidat possédant le meilleur rang médian, puisqu'elle permet, en général, de départager deux candidats ayant le même rang médian. Pour le voir, il suffit d'observer que la définition suivante est équivalente à celle que nous avons donnée.
+
+Pour tout candidat~$c$, notons $m_c$ son rang médian au sens de Bucklin (c'est-à-dire défavorable quand le nombre d'électeurs est pair) et $x_c$ le nombre d'électeurs qui lui attribuent un rang égal ou meilleur (c'est-à-dire moins élevé). Posons: $$\score(c) = (m_c, x_c).$$ 
+L'ensemble des rangs médians $m_c$ est muni de la relation d'ordre décroissante (un rang moins élevé est meilleur) et l'ensemble des valeurs $x_c$ est muni de la relation d'ordre naturelle (un nombre plus élevé est meilleur). Alors il est facile de montrer que le candidat possédant le meilleur score au sens lexicographique (rang moins élevé et, en cas d'égalité, valeur $x_c$ plus élevée) est bien le vainqueur par la méthode de Bucklin, au sens de la première définition que nous avons donnée.
+
+Cette variante de la définition permet d'étendre naturellement la méthode de Bucklin au cas où les relations binaires de préférence ne sont pas des ordres stricts totaux. En effet, une possibilité élégante consiste à généraliser conventionnellement le rang $r(v, c)$ attribué par l'électeur $v$ au candidat $c$ par $r(v, c) = C - B(v, c)$, où $B(v, c)$ est le score de Borda tel que nous l'avons généralisé. Ainsi, si l'électeur place deux candidats à égalité devant les autres, on considère qu'il les place au rang 1,5. S'il place trois candidats dans un cycle de préférence non transitif $a \PPlusque{} b \PPlusque{} c \PPlusque{} a$ au-dessus de tous les autres candidats, on considère qu'il les place au rang 2. On peut, ensuite, calculer les scores tels que nous les avons définis ci-dessus.
+
+
+
+\subsection{Iterated PSR with simple elimination (IPSR-SE)}
+
+Dans cette section et les deux suivantes, nous allons nous intéresser aux méthodes par élimination. De façon informelle, ces systèmes fonctionnent de la façon suivante. On attribue un score à chaque candidat selon une certaine règle. Puis on élimine un certain nombre de candidats qui ont les plus mauvais scores. On itère ce processus jusqu'à ce qu'il ne reste plus qu'un candidat, qui est alors déclaré vainqueur.
+
+En général, nous considérerons le cas où les tours sont virtuels: les électeurs donnent toute l'information utile dans leur bulletin dès le début et les tours sont émulés automatiquement lors du dépouillement (comme pour le système U2TI, évoqué en section~\ref{sec:reducation_general_vers_svbe}). Mais les tours peuvent aussi être réels (comme pour U2T), c'est-à-dire que les électeurs retournent aux urnes à chaque fois. Dans ce cas, le système ne peut généralement pas être décrit par un SVBE, mais par le formalisme d'un système de vote général.
+
+\medskip
+Parmi les modes de scrutin par élimination, on distingue notamment les \emph{RPS itérées} ou \emph{RPSI}: on utilise une règle positionnelle à score et on élimine un certain nombre de candidats à chaque tour. Deux façons de faire, notamment, sont classiques\footnote{Pour les RPSI, nous reprenons en partie une classification proposée par \cite{favardin2006further} pour le cas $C = 3$.}: l'élimination simple et celle basée sur la moyenne.
+
+\begin{definition}[RPSI à élimination simple]
+Soit $\mathbf{x}$ une fonction qui, à chaque entier $k$ compris entre $2$ et $C$, associe un vecteur $\mathbf{x}^k = (x_1^k, \ldots, x_k^k) \in \R^k$.
+
+Le dépouillement se déroule en tours numérotés de $1$ à $C-1$. Au tour $t$, le score de chaque candidat non éliminé est calculé en utilisant la RPS de vecteur $\mathbf{x}^{C+1-t}$ et le candidat avec le score le plus faible est éliminé. Le candidat non éliminé à la fin du dernier tour est déclaré vainqueur.
+
+Par commodité, le score d'un candidat~$c$ au tour $t$ est noté $\score_k(c)$, où $k$ est le nombre de candidats encore en lice. Cette convention d'écriture permet que $\score_k(c)$ soit calculé en utilisant le vecteur de poids~$\vecteur{x}^k$ qui possède $k$ composantes.
+
+Ce système est appelé la \emph{RPS itérée à élimination simple (RPSI-ES)} de vecteurs de poids $\mathbf{x}$.
+\end{definition}
+
+Dans cette famille de modes de scrutin, les trois systèmes suivants sont particulièrement étudiés.
+
+\paragraph{\emph{Vote à tours instantanés (VTI)}} La RPSI-ES de l'uninominal est connue sous les noms d'\emph{Instant-Runoff Voting}, \emph{Single Transferable Voting}, \emph{Hare method}, \emph{Alternative vote} ou, en français, \emph{Vote à tours instantanés}\footnote{La dénomination \emph{Single Transferable Vote} peut mener à une confusion avec sa version à plusieurs vainqueurs, utilisée par exemple en Australie, alors que, à notre connaissance, la terminologie \emph{Instant-Runoff Voting} n'est utilisée que pour la version à un seul vainqueur. C'est pourquoi nous préférons utiliser la seconde, ainsi que sa traduction française: \emph{Vote à tours instantanés}.}.
+
+\paragraph{\emph{Méthode de Coombs} (Coo.)} RPSI-ES de Veto.
+
+\paragraph{\emph{Méthode de Baldwin} (Bald.)} RPSI-ES de la méthode de Borda. L'intérêt de ce système réside dans le fait qu'un vainqueur de Condorcet a toujours un score de Borda strictement supérieur au score moyen (car il s'agit de la somme de sa ligne dans la matrice des duels). Par conséquent, ce système vérifie le critère de Condorcet.
+
+\subsection{Iterated PSR with elimination based on the average (IPSR-EA)}
+
+Le principe de ces systèmes est similaire aux RPSI-ES mais, à chaque tour de dépouillement, on élimine en même temps tous les candidats qui ont un score inférieur au score moyen.
+
+\begin{definition}[RPSI à élimination par la moyenne]
+Soit $\mathbf{x}$ une fonction qui, à chaque entier $k$ compris entre $2$ et $C$, associe un vecteur $\mathbf{x}^k = (x_1^k, \ldots, x_k^k) \in \R^k$.
+
+Le dépouillement se déroule en tours numérotés. Le nombre total de tours n'est pas fixé à l'avance. En notant $k$ le nombre de candidats encore en lice au début d'un tour, le score pour ce tour de chaque candidat non éliminé est calculé en utilisant la RPS de vecteur $\mathbf{x}^{k}$. Chaque candidat possédant un score strictement inférieur au score moyen est éliminé. Le candidat non éliminé à la fin du dernier tour est déclaré vainqueur.
+
+De même que pour les RPSI-ES, le score d'un candidat~$c$ à un certain tour de dépouillement est noté $\score_k(c)$, où $k$ est le nombre de candidats encore en lice. Ainsi, $\score_k(c)$ est calculé en utilisant le vecteur de poids~$\vecteur{x}^k$ qui possède $k$ composantes.
+
+Ce système est appelé la \emph{RPS itérée à élimination par la moyenne (RPSI-EM)} de vecteurs de poids $\mathbf{x}$.
+\end{definition}
+
+Deux exemples, notamment, ont fait l'objet d'une attention particulière.
+
+\paragraph{\emph{Méthode de Nanson} (Nan.)} RPSI-EM de la méthode de Borda. Pour les mêmes raisons que la méthode de Baldwin, ce système vérifie le critère de Condorcet. Historiquement, il s'agit de la motivation initiale pour définir la méthode de Nanson, qui inspira ensuite la classe des RPSI-EM par généralisation.
+
+\paragraph{\emph{Méthode de Kim-Roush} (KR)} RPSI-EM de Veto. On pourra consulter notamment \cite{kim1996manipulability} et \cite{lepelley1999kimroush}.
+
+\medskip
+Dans la même lignée, il est naturel de considérer le système suivant.
+
+\paragraph{\emph{VTI basé sur la moyenne} (VTIM)} RPSI-EM de l'uninominal.
+
+\medskip
+Dans nos simulations informatiques (chapitre~\ref{sec:svvamp} et suivants), nous n'inclurons pas KR et VTIM, bien que ces systèmes soient disponibles dans notre package \svvamp{}. En effet, ils ont été implantés lors de la phase finale de rédaction, alors que les simulations avaient déjà été réalisées et les chapitres correspondants rédigés. Pour des raisons de temps de calcul et afin d'éviter l'ajout de coquilles de dernière minute dans ces chapitres, nous avons préféré nous en tenir aux simulations déjà effectuées. Nous donnerons tout de même quelques indications sur les premiers résultats de simulation obtenus avec ces deux systèmes dans la section~\ref{sec:simus_methodo} et en conclusion de ce mémoire.
+
+
+
+
+\subsection{Diverse methods based on elimination rounds}
+
+Les modes de scrutin suivants n'entrent pas dans les familles des RPSI-ES ou des RPSI-EM mais ils utilisent tout de même des éliminations successives.
+
+\paragraph{\emph{Scrutin exhaustif} (SE)} Il s'agit de la variante de VTI avec des tours réels. À chaque tour, chaque électeur vote pour un candidat et le candidat qui reçoit le moins de voix est éliminé. Si les électeurs votent sincèrement, ce mode de scrutin est équivalent à VTI. Quand on utilise ce mode de scrutin en pratique, on ajoute généralement la clause suivante: dès qu'un candidat possède une majorité absolue, il est déclaré vainqueur. Si les électeurs votent sincèrement, cette clause ne change pas le résultat et permet d'économiser des tours inutiles.
+
+\paragraph{\emph{Uninominal à deux tours} (U2T)} Nous avons déjà mentionné plusieurs fois ce système. %On peut d'ailleurs le voir comme une variante du scrutin exhaustif. Mais à la fin du premier tour, on élimine tous les candidats sauf les deux qui ont les meilleurs scores. 
+Quand il y a trois candidats, il est équivalent au scrutin exhaustif; et sa version instantanée, que nous avons déjà nommée U2TI (section~\ref{sec:reducation_general_vers_svbe}), est alors équivalente à VTI. En particulier, l'exemple de la table~\ref{table:u2t_manip_not_u2ti} en section~\ref{sec:reducation_general_vers_svbe}, qui concernait U2T et U2TI avec 3~candidats, démontre également que VTI est en général strictement moins manipulable que SE.
+
+\paragraph{\emph{Méthode de Bucklin itérée} (BI)} On élimine le candidat le moins bon au sens de Bucklin, c'est-à-dire ayant le pire rang médian et, en cas d'égalité, celui qui a le moins d'électeurs lui attribuant son rang médian ou un meilleur rang. Puis on itère, en réévaluant les rangs à chaque tour d'élimination à cause des candidats éliminés.
+
+
+
+\subsection{Condorcet methods}\label{sec:zoologie_mds_condorcet}
+
+Nous avons déjà évoqué les méthodes de Baldwin et Nanson, qui faisaient respectivement partie des RPSI-ES et des RPSI-EM. Voici, à présent, diverses autres méthodes qui vérifient le critère de Condorcet.
+
+\paragraph{\emph{Condorcet-doyen} (CDoy.)} S'il y a un vainqueur de Condorcet, il est élu. Sinon, un candidat fixé à l'avance, appelé \emph{doyen}, est déclaré vainqueur.
+
+\paragraph{\emph{Condorcet-dictature} (CDict.)} S'il y a un vainqueur de Condorcet, il est élu. Sinon, on déclare vainqueur le candidat qui est en tête du bulletin d'un électeur fixé à l'avance.
+
+\paragraph{\emph{Méthode de Black (Condorcet-Borda ou CBor.)}} S'il y a un vainqueur de Condorcet, il est élu. Sinon, le candidat possédant le plus haut score de Borda est élu. Ce mode de scrutin a été proposé par \cite{black1958theory}. On pourra également consulter~\cite{blin_satterthwaite1975singlepeaked}.
+
+\paragraph{\emph{VTI à Duels} (VTID)} Le principe de ce système est inspiré de VTI et il nous a été suggéré par Laurent Viennot, que nous remercions. Lors de chaque tour de dépouillement, les deux candidats qui sont en tête dans le moins de bulletins sont sélectionnés pour un duel. Celui des deux qui perd le duel (au sens de la matrice des duels) est éliminé. Puis on procède au tour de dépouillement suivant.
+
+%\paragraph{Vote à tours Condorcet instantanés (VTCI)} Lors de chaque tour de dépouillement, s'il y a un vainqueur de Condorcet sur le sous-ensemble des candidats non éliminés, il est élu immédiatement. Sinon, on élimine le candidat qui est en tête sur le moins de bulletins et on passe au tour suivant.
+
+\paragraph{\emph{Maximin} (Max.)} Le score d'un candidat $c$ est égal au coefficient non-diagonal minimal de sa ligne dans la matrice des duels; autrement dit, son score dans son plus mauvais duel. Si les bulletins ne sont pas des ordres stricts totaux, plusieurs variantes sont naturelles, selon qu'on considère la matrice des duels en pourcentages exprimés ou en nombre d'électeurs, le score brut de chaque duel ou le différentiel à l'adversaire. Nous ne nous attarderons pas davantage sur ces variantes.
+
+\paragraph{\emph{Méthode de Kemeny} (Kem.)} La \emph{distance tau de Kendall} entre deux ordres de préférence de $\permc$ consiste à compter 1~point pour chaque couple de candidats $(c, d)$ tel que le premier ordre place $c$ devant $d$ et que le second ordre fait l'inverse.
+
+Pour chaque ordre $\unordre \in \permc$ sur les candidats, son score de Kemeny est:
+$$
+\score(\unordre) = - \sum_{v \in \ens{V}} \delta(\text{P}_v, \unordre),
+$$
+où $\delta$ désigne la distance tau de Kendall. L'ordre possédant le meilleur score est choisi, et le premier candidat de cet ordre est déclaré vainqueur de l'élection. On consultera notamment \cite{kemeny1959mathematics, young1978kemeny, saari2000geometric}.
+
+On peut aussi exprimer le problème de la façon suivante: il s'agit de trouver une permutation $\unordre$ telle qu'en l'appliquant simultanément aux lignes et aux colonnes de la matrice des duels, la somme des coefficients au-dessous de la diagonale soit minimale. Cette reformulation donne, d'ailleurs, une généralisation naturelle de la méthode quand les préférences ne sont pas des ordres stricts totaux.
+
+\paragraph{\emph{Méthode de Dodgson} (Dodg.)} On appelle \emph{action élémentaire} le fait d'échanger deux candidats consécutifs dans l'ordre de préférence d'un électeur. Le score d'un candidat $c$ est, en négatif, le nombre minimal d'actions élémentaires qu'il faut appliquer au profil de la population pour que $c$ devienne vainqueur de Condorcet.
+
+Autrement dit, on cherche le profil le plus proche de celui de la population (au sens des distances tau de Kendall) parmi ceux qui possèdent un vainqueur de Condorcet et dont les préférences sont des ordres stricts totaux.
+
+Charles Lutwidge Dodgson, qui a conçu ce système de vote, est plus connu sous son nom d'écrivain, Lewis Carroll, avec lequel il a signé \emph{Alice au pays des merveilles}.
+
+\medskip
+Les méthodes de Kemeny et de Dodgson possèdent un inconvénient important: \cite{bartholdi1989voting} ont montré qu'il est \complexNP-difficile de déterminer le vainqueur d'une élection dans ces modes de scrutin\footnote{On pourra également consulter \cite{caragiannis2009approximability} et \cite{betzler2010parameterized} pour la complexité de déterminer le vainqueur dans ces systèmes de vote.}.
+
+\paragraph{\emph{Méthode de Condorcet avec somme des défaites} (CSD)} À présent, on appelle \emph{action élémentaire} le fait d'inverser les préférences d'un électeur à propos d'une paire de candidats (mais sans exiger que sa relation de préférence reste transitive). Le score d'un candidat $c$ est, en négatif, le nombre minimal d'actions élémentaires qu'il faut appliquer au profil de la population pour que $c$ devienne vainqueur de Condorcet.
+
+Autrement dit, on cherche le profil le plus proche de celui de la population (au sens des distances tau de Kendall) parmi ceux qui possèdent un vainqueur de Condorcet, mais sans imposer que les préférences soient des ordres stricts totaux.
+
+En pratique, le score d'un candidat $c$ est:
+$$
+\score(c) = - \sum_{c \text{ ne vainc pas } d} \left( \left\lfloor \dfrac{V}{2} \right\rfloor + 1 - D_{cd} \right).
+$$
+Pour chaque duel qui n'est pas une victoire, le candidat $c$ perd le nombre de points qui lui manquent pour vaincre. C'est pourquoi, par raccourci de langage, nous appelons ce système la \emph{méthode de Condorcet avec somme des défaites} (\emph{CSD}).
+
+Dans son approche, cette méthode est similaire à la méthode de Dodgson, mais elle possède l'avantage que l'on peut déterminer le vainqueur en temps polynomial.
+
+
+\paragraph{\emph{Méthode par paires ordonnées} (PO)} On construit un graphe orienté dont les sommets sont les candidats. Pour cela, on examine tous les duels entre candidats (dans la matrice des duels) par amplitude décroissante; par exemple, on commence par le duel $(c,d)$ pour lequel $D_{cd} - D_{dc}$ est maximal. Pour chaque duel, on ajoute une arête au graphe dans le sens de la victoire, sauf si ajouter cette arête crée un cycle dans le graphe.
+
+À la fin du processus, on obtient un graphe orienté transitif dont la relation d'adjacence est incluse dans la relation de victoire. Le candidat qui est le n\oe ud maximal de ce graphe par ordre topologique est déclaré vainqueur \citep{tideman1987clones}. Lorsque plusieurs duels présentent la même amplitude, on se donne généralement une règle de départage qui permet de savoir lequel on examine en premier. C'est ce que nous ferons dans ce mémoire, en particulier pour les simulations de la seconde partie, car la détermination du vainqueur est alors clairement faisable en temps polynomial. En revanche, si on veut calculer l'ensemble des vainqueurs possibles pour toutes les règles de départage, alors le problème est \complexNP-complet \citep{brill2012price}.
+
+\paragraph{\emph{Méthode de Schulze} (Sch.)} On considère le graphe capacitaire défini par la matrice des duels: pour chaque couple de candidats $(c, d)$, il y a une arête dont le poids\footnote{Il est aussi possible de prendre les poids $D_{cd} - D_{dc}$. Comme nous considérons des ordres stricts totaux ici, on a $D_{cd} - D_{dc} = 2 D_{cd} - V$, ce qui est équivalent à $D_{cd}$ à multiplication par la constante positive~$2$ et soustraction de la constante $V$ près. Pour cette raison, les deux définitions aboutissent au même système de vote.} est $D_{cd}$. Il est conseillé de voir une arête comme un tuyau unidirectionnel de $c$ vers~$d$ et le poids comme la largeur de ce tuyau. On définit la largeur d'un chemin comme le poids de l'arête minimale de ce chemin. On note $\score(c, d)$ la largeur du plus large chemin du candidat $c$ vers le candidat~$d$. Le candidat $c$ est dit \emph{meilleur} que $d$ ssi $\score(c, d) \geq \score(d, c)$. Le candidat $c$ est un \emph{vainqueur potentiel} si aucun candidat $d$ n'est meilleur que $c$.
+
+\cite{schulze2011method} prouve que l'ensemble des vainqueurs potentiels est toujours non vide. Il est facile de voir que, s'il existe un vainqueur de Condorcet, alors c'est le seul vainqueur potentiel. 
+
+Dans la méthode de Schulze telle qu'elle est promue par son inventeur, le vainqueur est tiré au hasard parmi les vainqueurs potentiels. Dans ce mémoire, en revanche, nous considérerons que la règle de départage utilisée est déterministe.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,62 @@
+{
+    "1": {
+        "received": 146, 
+        "sent": 180
+    }, 
+    "10": {
+        "received": 219, 
+        "sent": 242
+    }, 
+    "11": {
+        "received": 134, 
+        "sent": 211
+    }, 
+    "12": {
+        "received": 124, 
+        "sent": 222
+    }, 
+    "13": {
+        "received": 212, 
+        "sent": 270
+    }, 
+    "14": {
+        "received": 246, 
+        "sent": 270
+    }, 
+    "15": {
+        "received": 192, 
+        "sent": 256
+    }, 
+    "2": {
+        "received": 266, 
+        "sent": 303
+    }, 
+    "3": {
+        "received": 128, 
+        "sent": 234
+    }, 
+    "4": {
+        "received": 179, 
+        "sent": 268
+    }, 
+    "5": {
+        "received": 232, 
+        "sent": 307
+    }, 
+    "6": {
+        "received": 236, 
+        "sent": 276
+    }, 
+    "7": {
+        "received": 136, 
+        "sent": 212
+    }, 
+    "9": {
+        "received": 205, 
+        "sent": 285
+    }, 
+    "global": {
+        "received": 2655, 
+        "sent": 3536
+    }
+}

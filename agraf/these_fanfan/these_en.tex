@@ -1,0 +1,865 @@
+% !TeX spellcheck = en_US
+\documentclass[a4paper, reqno]{book} % reqno: equation numbers on the right of the page
+
+
+
+
+%%%%%%%%%%%%
+% Packages
+%%%%%%%%%%%%
+\label{packages}
+
+% Layout
+\usepackage[inner=4.3cm, outer=4.3cm, top=4cm, bottom=3.5cm]{geometry}
+
+% Encoding
+\usepackage[latin1]{inputenc}
+%\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% Math
+\usepackage{amsfonts}
+\usepackage{amsmath,amstext,amssymb,amsthm}
+\usepackage{empheq}
+\usepackage{accents} % Pour mettre les tildes au-dessus des vecteurs d'utilité
+\usepackage{stmaryrd} % Pour les doubles crochets
+\usepackage{gensymb} % Pour le symbole degré
+
+% Bibliography
+\usepackage[round,colon]{natbib} % round: parenthesis in Gibbard (1973) ; colon: separate multiple citations by ";"
+
+%\def\bbljan{janvier}  \def\bblfeb{f\'evrier}  \def\bblmar{mars}
+%\def\bblapr{avril}    \def\bblmay{mai}        \def\bbljun{juin}
+%\def\bbljul{juillet}  \def\bblaug{ao\^ut}     \def\bblsep{septembre}
+%\def\bbloct{octobre}  \def\bblnov{novembre}   \def\bbldec{d\'ecembre}
+
+% Tables
+\usepackage{array}
+\usepackage{colortbl}
+\usepackage{longtable}
+\usepackage{multirow}
+
+% Figures
+\usepackage{float}
+\usepackage[usenames,dvipsnames,table]{xcolor}
+\usepackage{subfigure}
+\usepackage{tikz}
+\usepackage{epstopdf}
+\usetikzlibrary{fadings}
+\usetikzlibrary{intersections}
+\newcommand{\spacebeforecaption}{\vspace{0cm}}
+\newcommand{\relativewidth}{0.9}
+\usepackage{pgfplots}
+
+% Hyperlinks
+\usepackage[colorlinks,citecolor=blue,urlcolor=blue,linkcolor=blue,linktoc=all]{hyperref}
+
+% Miscellaneous packages
+\usepackage{ifthen}
+\usepackage{xspace}
+\usepackage{indentfirst} 
+\usepackage{varioref} % Gadget pour avoir la commande \vpageref qui fait référence à une page intelligemment.
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{textcomp}
+\usepackage{pifont}% pour le X correspondant à checkmark
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+
+% Declare babel late to redefine what must be redefined
+\usepackage[francais, polutonikogreek, english]{babel}
+\renewcommand{\textgreek}[1]{\foreignlanguage{greek}{#1}}
+
+%\renewcommand{\algorithmicrequire}{\textbf{Requérir:}}
+%\renewcommand{\algorithmicensure}{\textbf{Assurer:}}
+%\renewcommand{\algorithmiccomment}[1]{\{#1\}}
+%\renewcommand{\algorithmicend}{\textbf{fin}}
+%\renewcommand{\algorithmicif}{\textbf{si}}
+%\renewcommand{\algorithmicthen}{\textbf{alors}}
+%\renewcommand{\algorithmicelse}{\textbf{sinon}}
+%\renewcommand{\algorithmicelsif}{\algorithmicelse\ \algorithmicif}
+%\renewcommand{\algorithmicendif}{\algorithmicend\ \algorithmicif}
+%\renewcommand{\algorithmicfor}{\textbf{pour}}
+%\renewcommand{\algorithmicforall}{\textbf{pour tout}}
+%\renewcommand{\algorithmicdo}{\textbf{faire}}
+%\renewcommand{\algorithmicendfor}{\algorithmicend\ \algorithmicfor}
+%\renewcommand{\algorithmicwhile}{\textbf{tant que}}
+%\renewcommand{\algorithmicendwhile}{\algorithmicend\ \algorithmicwhile}
+%\renewcommand{\algorithmicloop}{\textbf{boucle}}
+%\renewcommand{\algorithmicendloop}{\algorithmicend\ \algorithmicloop}
+%\renewcommand{\algorithmicrepeat}{\textbf{répéter}}
+%\renewcommand{\algorithmicuntil}{\textbf{jusqu'à}}
+%\renewcommand{\algorithmicprint}{\textbf{imprimer}}
+%\renewcommand{\algorithmicreturn}{\textbf{renvoyer}}
+%\renewcommand{\algorithmicand}{\textbf{et}}
+%\renewcommand{\algorithmicor}{\textbf{ou}}
+%\renewcommand{\algorithmicxor}{\textbf{ouex}}
+%\renewcommand{\algorithmicnot}{\textbf{non}}
+%\renewcommand{\algorithmicto}{\textbf{à}}
+%\renewcommand{\algorithmicinputs}{\textbf{entrées}}
+%\renewcommand{\algorithmicoutputs}{\textbf{sorties}}
+%\renewcommand{\algorithmicglobals}{\textbf{globaux}}
+%\renewcommand{\algorithmicbody}{\textbf{faire}}
+%\renewcommand{\algorithmictrue}{\textbf{True}}
+%\renewcommand{\algorithmicfalse}{\textbf{False}}
+%\makeatletter
+%\renewcommand{\ALG@name}{Algorithme}
+%\makeatother
+
+% Stuff after babel
+\usepackage{listings}
+\usepackage{cancel}
+
+
+%%%%%%%%%%%%%%%%%%
+% Fandy headers
+%%%%%%%%%%%%%%%%%%
+\label{fancy_headers}
+
+\usepackage{fancyhdr}
+        \setlength{\headheight}{14.2pt}% hauteur de l'en-tête
+%%%%%%%%%%%%%%%%%%%style front%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+        \fancypagestyle{front}{%
+                \fancyhf{}%on vide l'en-tête
+                \fancyfoot[C]{\thepage}%
+                \renewcommand{\headrulewidth}{0pt}%trait horizontal pour l'en-tête
+                \renewcommand{\footrulewidth}{0pt}%trait horizontal pour le pied de page
+                }
+%\renewcommand{\chaptermark}[1]{%
+%\markboth{\MakeUppercase{%
+%\chaptername}\ \thechapter.%	
+%\ #1}{}}
+%%%%%%%%%%%%%%%%%%%style main%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        \fancypagestyle{main}{%
+                \fancyhf{}
+				\renewcommand{\headrulewidth}{0.4pt}
+				\renewcommand{\footrulewidth}{0pt}
+                \renewcommand{\chaptermark}[1]{\markboth{\thechapter.\ ##1}{}}% redéfinition pour avoir ici les titres des chapitres des sections en minuscules
+                \renewcommand{\sectionmark}[1]{\markright{\thesection\ ##1}}
+                \fancyhead[c]{}
+                \fancyhead[LO]{\itshape\nouppercase{\rightmark}}%
+                \fancyhead[RE]{\itshape\nouppercase{\leftmark}}
+                \fancyfoot[C]{\thepage}
+                \fancyfoot[RO,LE]{}%
+                \fancyfoot[LO,RE]{}
+                }
+%%%%%%%%%%%%%%%%%%%style back%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+        \fancypagestyle{back}{%
+                \renewcommand{\chaptermark}[1]{\markboth{##1}{}}
+                \fancyhead[LO]{\itshape\nouppercase{\leftmark}}%
+                \fancyhead[RE]{\itshape\nouppercase{\leftmark}}
+                }
+
+		\fancypagestyle{plain}{
+				\fancyhead{}
+                \fancyfoot{}%
+				\renewcommand{\headrulewidth}{0pt}
+		}
+
+		\fancypagestyle{chapterpage}{
+				\fancyhead{}
+                \fancyfoot[C]{\thepage}%
+				\renewcommand{\headrulewidth}{0pt}
+		}
+
+%%%%%%%%%%%%%%%%%%
+% Theorem styles
+%%%%%%%%%%%%%%%%%%
+\label{theorem_styles}
+
+%\theoremstyle{plain}
+
+\newtheoremstyle{montheoreme}% name of the style to be used
+{\topsep}% measure of space to leave above the theorem. E.g.: 3pt
+{\topsep}% measure of space to leave below the theorem. E.g.: 3pt
+{\em}% name of font to use in the body of the theorem
+{0pt}% measure of space to indent
+{\bfseries}% name of head font
+{}% punctuation between head and body
+{0pt}% space after theorem head; " " = normal interword space
+{\thmname{#1}\ \thmnumber{#2}\ \thmnote{(#3)}\newline\indent}% Manually specify head
+%\makeatletter
+%\def\th@montheoreme{%
+%  \thm@notefont{}% same as heading font
+%  \normalfont% body font
+%}
+%\makeatother
+\newtheoremstyle{madefinition}% name of the style to be used
+{\topsep}% measure of space to leave above the theorem. E.g.: 3pt
+{\topsep}% measure of space to leave below the theorem. E.g.: 3pt
+{\normalfont}% name of font to use in the body of the theorem
+{0pt}% measure of space to indent
+{\bfseries}% name of head font
+{}% punctuation between head and body
+{0pt}% space after theorem head; " " = normal interword space
+{\thmname{#1}\ \thmnumber{#2}\ \thmnote{(#3)}\newline\indent}% Manually specify head
+%\makeatletter
+%\def\th@montheoreme{%
+%  \thm@notefont{}% same as heading font
+%  \normalfont% body font
+%}
+%\makeatother
+
+\theoremstyle{montheoreme}
+\newtheorem{thm}{Theorem}[chapter]
+\newtheorem{thmfaux}[thm]{Pseudo-theorem}
+\newtheorem{conj}[thm]{Conjecture}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{defprop}[thm]{Definition and proposition}
+\newtheorem{propdef}[thm]{Proposition and definition}
+\newtheorem{lem}[thm]{Lemma}
+
+\theoremstyle{madefinition}
+\newtheorem{definition}[thm]{Definition}
+\newtheorem{notations}[thm]{Notations}
+\newtheorem{exemple}[thm]{Example}
+
+%\theoremstyle{remark}
+\newtheorem{remark}[thm]{Remark}
+
+
+
+
+%%%%%%%%%%
+% Macros
+%%%%%%%%%%
+\label{macros}
+
+% Abstract (not defined in book class)
+\makeatletter
+\newenvironment{abstract}{%
+	\pagestyle{empty}
+    \cleardoublepage
+    \null\vfil
+    \@beginparpenalty\@lowpenalty
+    \begin{center}%
+      \bfseries \abstractname
+      \@endparpenalty\@M
+    \end{center}}%
+   {\par\vfil\null}
+\makeatother
+
+% Sections without number but appearing in table of contents
+\newcommand{\mychapter}[1]{\clearemptydoublepage\chapter{#1}\thispagestyle{chapterpage}}
+\newcommand{\chapterstar}[1]{\clearemptydoublepage\chapter*{#1}\addcontentsline{toc}{chapter}{#1}\thispagestyle{chapterpage}}
+\newcommand{\sectionstar}[1]{\section*{#1}\addcontentsline{toc}{section}{#1}\markright{#1}}
+\newcommand{\subsectionstar}[1]{\subsection*{#1}\addcontentsline{toc}{subsection}{#1}}
+
+% Work comments
+\newboolean{showcomments}
+\setboolean{showcomments}{true}
+\ifthenelse{\boolean{showcomments}}
+{ \newcommand{\mynote}[3]{
+    \fbox{\bfseries\sffamily\scriptsize#1}
+    {\small$\blacktriangleright$\textsf{\emph{\color{#3}{#2}}}$\blacktriangleleft$}}}
+{ \newcommand{\mynote}[3]{}}
+\newcommand{\fd}[1]{\mynote{Fran{\c c}ois}{#1}{red}}
+\newcommand{\fm}[1]{\mynote{Fabien}{#1}{Plum}}
+\newcommand{\ludo}[1]{\mynote{Ludovic}{#1}{Sepia}}
+\newcommand{\todo}[1]{\mynote{To do}{#1}{Cyan}}
+
+% Email address
+\newcommand{\email}[1]{\href{mailto:#1}{\textsf{#1}}}
+
+% bigcenter
+\makeatletter
+\newskip\@bigflushglue \@bigflushglue = -100pt plus 1fil
+
+\def\bigcenter{\trivlist \bigcentering\item\relax}
+\def\bigcentering{\let\\\@centercr\rightskip\@bigflushglue%
+\leftskip\@bigflushglue
+\parindent\z@\parfillskip\z@skip}
+\def\endbigcenter{\endtrivlist}
+\makeatother
+
+% Nice tabulars
+\newlength{\Oldarrayrulewidth}
+\newcommand{\Cline}[2]{%
+\noalign{\global\Oldarrayrulewidth=\arrayrulewidth}%
+\noalign{\global\arrayrulewidth=#1}\cline{#2}%
+\noalign{\global\arrayrulewidth=\Oldarrayrulewidth}%
+}
+\renewcommand{\arraystretch}{1.2}
+\newcolumntype{I}{!{\vrule  width  1pt}}
+\newcommand{\myrotate}[1]{\hspace{-0.9ex}\begin{tikzpicture}\node[rotate=90] at (0,0) {#1\,};\end{tikzpicture}\hspace{-0.9ex}}
+
+% Math: article sphere
+\newcommand{\bipoint}[1]{\overrightarrow{#1}}
+\newcommand{\vectutil}[1]{\accentset{\approx}{#1}}
+\newcommand{\vectutilapprob}[1]{\accentset{\sim}{#1}}
+\newcommand{\classelin}[1]{\accentset{\approx}{#1}}
+\newcommand{\classeaff}[1]{\accentset{\sim}{#1}}
+\newcommand{\bra}[1]{\langle \, #1 \, |} % Forme linéaire associée à #1
+%\newcommand{\ket}[1]{| \, #1 \, \rangle}
+\newcommand{\bracket}[2]{\langle \, #1 \, | \, #2 \, \rangle} 
+\newcommand{\bigbracket}[2]{\left\langle\left. \, #1 \, \right| \, #2 \, \right\rangle}
+%\renewcommand{\arraystretch}{1.2}
+\DeclareMathOperator{\linearspan}{vect}
+\DeclareMathOperator{\card}{card}
+\DeclareMathOperator{\vect}{vect}
+
+
+% Math miscellaneous
+\newcommand{\perm}{\mathfrak{S}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\ens}[1]{\mathcal{#1}}
+\newcommand{\vecteur}[1]{\mathbf{#1}} %\overrightarrow{#1}
+\newcommand{\bicoal}{B}
+\newcommand{\voterset}[1]{|#1|}
+\newcommand{\proba}{\pi}
+\newcommand{\diff}{\mathrm{d}} % Symbole d utilisé dans les intégrales
+\newcommand{\ssi}{iff\xspace}
+\newcommand{\tq}{\;\text{s.t.}\;}
+\newcommand{\intent}[2]{\llbracket #1 , #2 \rrbracket}
+\newcommand{\complexP}{$\ens{P}$}
+\newcommand{\complexNP}{$\ens{NP}$}
+\newcommand{\cond}{\ensuremath{\mathbf{Cond}}}
+\newcommand{\rcond}{\ensuremath{\mathbf{rCond}}}
+\newcommand{\cmign}{\ensuremath{\mathbf{IgnMC}}}
+\newcommand{\cminf}{\ensuremath{\mathbf{InfMC}}}
+\newcommand{\favmaj}{\ensuremath{\mathbf{MajFav}}}
+\newcommand{\bulmaj}{\ensuremath{\mathbf{MajBal}}}
+\newcommand{\bulmajuni}{\ensuremath{\mathbf{MajUniBal}}}
+\newcommand{\renfadm}{\ensuremath{\mathbf{RSNEA}}}
+\newcommand{\renfcond}{\ensuremath{\mathbf{RSNEC}}}
+\newcommand{\eenfadm}{\ensuremath{\mathbf{XSNEA}}}
+\newcommand{\eenfcond}{\ensuremath{\mathbf{XSNEC}}}
+\newcommand{\mcond}{\ensuremath{\ens{M}\mathbf{Cond}}}
+\newcommand{\mcign}{\ensuremath{\ens{M}\mathbf{IgnC}}}
+\newcommand{\mcinf}{\ensuremath{\ens{M}\mathbf{InfC}}}
+\newcommand{\mcigna}{\ensuremath{\ens{M}\mathbf{IgnC\textbf{-}A}}}
+\newcommand{\mcinfa}{\ensuremath{\ens{M}\mathbf{InfC\textbf{-}A}}}
+\newcommand{\mpcinf}{\ensuremath{\ens{M}'\mathbf{InfC}}}
+\newcommand{\mpcinfa}{\ensuremath{\ens{M}'\mathbf{InfC\textbf{-}A}}}
+\newcommand{\mpcign}{\ensuremath{\ens{M}'\mathbf{IgnC}}}
+\newcommand{\mpcigna}{\ensuremath{\ens{M}'\mathbf{IgnC\textbf{-}A}}}
+\newcommand{\mfav}{\ensuremath{\ens{M}\mathbf{Fav}}}
+\newcommand{\lott}{\mathbb{L}}
+\newcommand{\winner}{\mathrm{w}} % WARNING: on pourra mettre mathtt, c'est bien aussi
+\newcommand{\unordre}{p_0}
+\newcommand{\ssss}[1]{{#1}}
+\newcommand{\pole}{\mathbf{n}}
+\newcommand{\nbdim}{n}
+\DeclareMathOperator{\modulo}{mod}
+\DeclareMathOperator{\ppcm}{lcm}
+\DeclareMathOperator{\pgcd}{gcd}
+
+
+% Misc
+\newcommand{\bil}[2]{#2}
+\DeclareRobustCommand{\svvamp}{\mbox{{\normalfont S\hspace{-0.0em}\raisebox{0.12em}{\scalebox{.85}{V}}\hspace{-0.435em}\raisebox{-0.08em}{\scalebox{.85}{V}}\hspace{-0.10em}A\raisebox{0.00em}{M}\hspace{-0.0em}\raisebox{-0.0em}{P}}}\xspace}
+\DeclareRobustCommand{\variantsvvamp}{\mbox{{S\hspace{-0.0em}\raisebox{0.12em}{\scalebox{.85}{V}}\hspace{-0.435em}\raisebox{-0.08em}{\scalebox{.85}{V}}\hspace{-0.10em}A\raisebox{0.00em}{M}\hspace{-0.0em}\raisebox{-0.0em}{P}}}\xspace}
+\lstset{%
+basicstyle={\small\ttfamily},
+%frame=single, 
+%keywordstyle=\color{blue}, 
+language=Python,
+breaklines=true,
+upquote=true
+}
+\def\mylstinline{\lstinline[basicstyle={\ttfamily}]}
+\newcommand{\couleurA}{OliveGreen}
+\newcommand{\couleurB}{Red}
+\newcommand{\couleurC}{BlueViolet}
+\newcommand{\couleurD}{BurntOrange}
+\newcommand{\couleurE}{Sepia} % À la maison
+\newlength{\templength}
+\hyphenation{PrefLib}
+\setlength{\emergencystretch}{50pt} % Pour résoudre quelques overfull hbox
+\newcommand{\boldvarnothing}{\varnothing\hspace{-0.74em}\varnothing}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Macros: preference relations
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\label{macros_preferrences}
+
+% Simple preference relations
+\newcommand{\moinssim}{\precsim}
+\newcommand{\plussim}{\succsim}
+\newcommand{\pareilque}{\sim}
+\newcommand{\moinsque}{\prec}
+\newcommand{\plusque}{\succ}
+\newcommand{\mmoinsque}{\llcurly}
+\newcommand{\pplusque}{\ggcurly}
+
+% Symboles >> et <<
+\DeclareFontFamily{U}{mathb}{\hyphenchar\font45}
+\DeclareFontShape{U}{mathb}{m}{n}{
+      <5> <6> <7> <8> <9> <10> gen * mathb
+      <10.95> mathb10 <12> <14.4> <17.28> <20.74> <24.88> mathb12
+}{}
+\DeclareSymbolFont{mathb}{U}{mathb}{m}{n}
+\DeclareMathSymbol{\llcurly}{3}{mathb}{"CE}
+\DeclareMathSymbol{\ggcurly}{3}{mathb}{"CF}
+
+% Symbole "non comparable"
+\makeatletter
+  \def\moverlay{\mathpalette\mov@rlay}
+  \def\mov@rlay#1#2{\leavevmode\vtop{%
+    \baselineskip\z@skip \lineskiplimit-\maxdimen
+    \ialign{\hfil$#1##$\hfil\cr#2\crcr}}}
+  \newcommand*{\overlap}[2]{\moverlay{#1\cr#2}}
+\makeatother
+\newcommand{\plusmoins}{\mathrel{\overlap{\raisebox{-0.23em}{$\prec$}}{\raisebox{0.23em}{$\succ$}}}}
+\newcommand{\nc}{\not\mathrel{\overlap{\raisebox{-0.23em}{$\prec$}}{\raisebox{0.23em}{$\succ$}}}}
+% Remarque: la commande \mathrel sert à gérer l'espacement correctement (vérifié, ça marche).
+
+% Electoral space preference relations
+\newcommand{\Plusque}[2][v]{\mathrel{\textrm{\normalfont P}_{#1}}}
+\newcommand{\NC}[2][v]{\mathrel{\textrm{\normalfont I}_{#1}}}
+\newcommand{\Plusmoins}[2][v]{\mathrel{\textrm{\normalfont M\hspace{-0.1em}P}_{#1}}}
+\newcommand{\PPlusque}[2][v]{\mathrel{\textrm{\normalfont P\hspace{-0.1em}P}_{#1}}}
+\newcommand{\Plusquefull}[2][v]{\mathrel{\textrm{\normalfont P}_{#1}(#2)}}
+\newcommand{\NCfull}[2][v]{\mathrel{\textrm{\normalfont I}_{#1}(#2)}}
+\newcommand{\Plusmoinsfull}[2][v]{\mathrel{\textrm{\normalfont M\hspace{-0.1em}P}_{#1}(#2)}}
+\newcommand{\PPlusquefull}[2][v]{\mathrel{\textrm{\normalfont P\hspace{-0.1em}P}_{#1}(#2)}}
+
+\newcommand{\et}{\;\textrm{\normalfont and}\;}
+\newcommand{\ou}{\;\textrm{\normalfont or}\;}
+\newcommand{\MC}{\textrm{\normalfont CM}}
+\newcommand{\CM}{\MC}
+\newcommand{\MU}{\textrm{\normalfont UM}}
+\newcommand{\UM}{\MU}
+\newcommand{\MT}{\textrm{\normalfont TM}}
+\newcommand{\TM}{\MT}
+\newcommand{\MCI}{\textrm{\normalfont ICM}}
+\newcommand{\ICM}{\MCI}
+\newcommand{\MI}{\textrm{\normalfont IM}}
+\newcommand{\IM}{\MI}
+
+\DeclareMathOperator{\abs}{abs}
+\DeclareMathOperator{\rel}{rel}
+\DeclareMathOperator{\refsp}{ref} % Pour cultures single-peaked 
+\newcommand{\rc}{{{\ens{R}_\ens{C}}}}
+\newcommand{\wc}{{{\ens{F}_\ens{C}}}}
+\newcommand{\permc}{{{\ens{L}_\ens{C}}}}
+
+\DeclareMathOperator{\ManipOperator}{Manip}
+\DeclareMathOperator{\SincOperator}{Sinc}
+\DeclareMathOperator{\moy}{mean}
+\newcommand{\Manip}[2]{\ManipOperator(#2\rightarrow#1)} % #1 Nouveau candidat, #2 Ancien candidat
+\newcommand{\ManipFull}[2]{\ManipOperator_\omega(#2\rightarrow#1)} % #1 Nouveau candidat, #2 Ancien candidat
+\newcommand{\Sinc}[2]{\SincOperator(#2\rightarrow#1)} % #1 Nouveau candidat, #2 Ancien candidat
+\newcommand{\SincFull}[2]{\SincOperator_\omega(#2\rightarrow#1)} % #1 Nouveau candidat, #2 Ancien candidat
+\newcommand{\SincBig}[2]{\SincOperator\Big(#2\rightarrow#1\Big)} % #1 Nouveau candidat, #2 Ancien candidat
+\DeclareMathOperator{\score}{score}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Macros: 3D rotation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\label{macros_3d}
+
+\newcommand{\savedx}{0}
+\newcommand{\savedy}{0}
+\newcommand{\savedz}{0}
+
+\newcommand{\rotateRPY}[4][0/0/0]% point to be saved to \savedxyz, roll, pitch, yaw
+{   \pgfmathsetmacro{\rollangle}{#2}
+    \pgfmathsetmacro{\pitchangle}{#3}
+    \pgfmathsetmacro{\yawangle}{#4}
+
+    % to what vector is the x unit vector transformed, and which 2D vector is this?
+    \pgfmathsetmacro{\newxx}{cos(\yawangle)*cos(\pitchangle)}% a
+    \pgfmathsetmacro{\newxy}{sin(\yawangle)*cos(\pitchangle)}% d
+    \pgfmathsetmacro{\newxz}{-sin(\pitchangle)}% g
+    \path (\newxx,\newxy,\newxz);
+    \pgfgetlastxy{\nxx}{\nxy};
+
+    % to what vector is the y unit vector transformed, and which 2D vector is this?
+    \pgfmathsetmacro{\newyx}{cos(\yawangle)*sin(\pitchangle)*sin(\rollangle)-sin(\yawangle)*cos(\rollangle)}% b
+    \pgfmathsetmacro{\newyy}{sin(\yawangle)*sin(\pitchangle)*sin(\rollangle)+ cos(\yawangle)*cos(\rollangle)}% e
+    \pgfmathsetmacro{\newyz}{cos(\pitchangle)*sin(\rollangle)}% h
+    \path (\newyx,\newyy,\newyz);
+    \pgfgetlastxy{\nyx}{\nyy};
+
+    % to what vector is the z unit vector transformed, and which 2D vector is this?
+    \pgfmathsetmacro{\newzx}{cos(\yawangle)*sin(\pitchangle)*cos(\rollangle)+ sin(\yawangle)*sin(\rollangle)}
+    \pgfmathsetmacro{\newzy}{sin(\yawangle)*sin(\pitchangle)*cos(\rollangle)-cos(\yawangle)*sin(\rollangle)}
+    \pgfmathsetmacro{\newzz}{cos(\pitchangle)*cos(\rollangle)}
+    \path (\newzx,\newzy,\newzz);
+    \pgfgetlastxy{\nzx}{\nzy};
+
+    % transform the point given by #1
+    \foreach \x/\y/\z in {#1}
+    {   \pgfmathsetmacro{\transformedx}{\x*\newxx+\y*\newyx+\z*\newzx}
+        \pgfmathsetmacro{\transformedy}{\x*\newxy+\y*\newyy+\z*\newzy}
+        \pgfmathsetmacro{\transformedz}{\x*\newxz+\y*\newyz+\z*\newzz}
+        \xdef\savedx{\transformedx}
+        \xdef\savedy{\transformedy}
+        \xdef\savedz{\transformedz}     
+    }
+}
+
+\tikzset{RPY/.style={x={(\nxx,\nxy)},y={(\nyx,\nyy)},z={(\nzx,\nzy)}}}
+
+
+\newcommand\pgfmathsinandcos[3]{%
+  \pgfmathsetmacro#1{sin(#3)}%
+  \pgfmathsetmacro#2{cos(#3)}%
+}
+\newcommand\LongitudePlane[3][current plane]{%
+  \pgfmathsinandcos\sinEl\cosEl{#2} % elevation
+  \pgfmathsinandcos\sint\cost{#3} % azimuth
+  \tikzset{#1/.estyle={cm={\cost,\sint*\sinEl,0,\cosEl,(0,0)}}}
+}
+\newcommand\LatitudePlane[3][current plane]{%
+  \pgfmathsinandcos\sinEl\cosEl{#2} % elevation
+  \pgfmathsinandcos\sint\cost{#3} % latitude
+  \pgfmathsetmacro\yshift{\cosEl*\sint}
+  \tikzset{#1/.estyle={cm={\cost,0,0,\cost*\sinEl,(0,\yshift)}}} %
+}
+\newcommand\DrawLongitudeCircle[2][1]{
+  \LongitudePlane{\angEl}{#2}
+  \tikzset{current plane/.prefix style={scale=#1}}
+   % angle of "visibility"
+  \pgfmathsetmacro\angVis{atan(sin(#2)*cos(\angEl)/sin(\angEl))} %
+  \draw[current plane] (\angVis:1) arc (\angVis:\angVis+180:1);
+  \draw[current plane,dashed] (\angVis-180:1) arc (\angVis-180:\angVis:1);
+}
+\newcommand\DrawLatitudeCircle[2][1]{
+  \LatitudePlane{\angEl}{#2}
+  \tikzset{current plane/.prefix style={scale=#1}}
+  \pgfmathsetmacro\sinVis{sin(#2)/cos(#2)*sin(\angEl)/cos(\angEl)}
+  % angle of "visibility"
+  \pgfmathsetmacro\angVis{asin(min(1,max(\sinVis,-1)))}
+  \draw[current plane] (\angVis:1) arc (\angVis:-\angVis-180:1);
+  \draw[current plane,dashed] (180-\angVis:1) arc (180-\angVis:\angVis:1);
+}
+
+\newcommand{\clearemptydoublepage}{%
+\newpage{\pagestyle{empty}\cleardoublepage}}
+
+\widowpenalty=10000
+\clubpenalty=10000
+\interfootnotelinepenalty=10000
+\brokenpenalty10000\relax
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Begin document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{Towards less manipulable voting systems}
+\author{François Durand}
+
+%\includeonly{introduction_en}
+%\includeonly{formalisme_en, condorcification_en, criteres_majoritaires_en, condorcification_generalisee_en, slicing_en}
+%\includeonly{svvamp_en, simulations_sphere_en, simulations_unidim_en, simulations_expe_en,mds_optimaux_en}
+%\includeonly{conclusion_en, mesurabilite_en, sphere_en, reseaux_en, notations_en}
+\includeonly{conclusion_en, notations_en}
+
+\begin{document}
+\label{begin_document}
+
+\frontmatter
+\pagestyle{front}
+%\maketitle
+
+
+\begin{titlepage}
+{\large\begin{center}
+\phantom{.}\vspace{-2cm}
+
+\includegraphics[height=3cm]{figures/logo-upmc}
+
+{\bf PHD THESIS \\ UNIVERSITY PIERRE AND MARIE CURIE}
+
+\vspace*{0.4cm}
+
+Discipline \\ [0.2ex]
+{\bf Computer Science}\ \\ 
+
+\vspace*{0.2cm}
+
+Doctoral School of Computer Science, \\
+Telecommunications and Electronics (Paris)
+
+\vspace*{0.5cm}
+
+
+Presented by \ \\
+
+
+\vspace*{0.2cm}
+
+
+{\Large {\bf François \textsc{Durand}}}
+
+\vspace*{0.5cm}
+For the title of \ \\[1ex]
+{\bf DOCTOR OF UNIVERSITY \\ PIERRE AND MARIE CURIE} \ \\
+\end{center}
+
+%www.devoloppez.com \hspace*{\stretch{1}} \LaTeX intermédiaire
+%Rubrique \LaTeX\hspace*{\stretch{1}} Tutoriels
+\vspace*{\stretch{1}}
+%\begin{center}
+%%\includegraphics[scale=0.5]{images/logo.png}%
+%\end{center}
+%\vspace*{\stretch{1}}
+\parindent=0pt\hrulefill
+\begin{center}\bfseries\Huge
+    Towards less manipulable voting systems
+\end{center}
+\hrulefill
+%\vspace*{1cm}
+%\begin{center}\bfseries\Large
+%François Durand
+%\end{center}
+%    
+%\begin{center}\bfseries\Large
+%Thèse de doctorat en informatique
+%%
+%%effectuée sous la direction de Sébastien Tixeuil.
+%%
+%%Co-encadrants: Fabien Mathieu et Ludovic Noirie.
+%\end{center}
+\vspace*{\stretch{1.5}}
+
+{\normalsize\begin{bigcenter}
+Defended on September 24, 2015 in front of the jury composed of:\\
+
+\vspace{1em}
+\begin{tabular}{ll}
+Mr. Markus \textsc{Brill}, Postdoctoral Associate, Duke University: & examiner\\
+
+Mr. Jérôme \textsc{Lang}, Research Director, CNRS: & rapporteur\\
+
+Mr. Jean-François \textsc{Laslier}, Research Director, CNRS: & examiner\\
+
+Mr. Fabien \textsc{Mathieu}, Research Engineer, ALBLF: & co-director\\
+
+Mr. Nicolas \textsc{Maudet}, Professor, UPMC: & examiner\\
+
+Mr. Vincent \textsc{Merlin}, Research Director, CNRS: & rapporteur\\
+
+Mr. Ludovic \textsc{Noirie}, Research Engineer, ALBLF: & co-director\\
+
+Mr. Sébastien \textsc{Tixeuil}, Professor, UPMC: & director\\
+\end{tabular}
+\end{bigcenter}
+}
+%\vspace*{\stretch{0.5}}
+%\begin{flushright}
+%       Le \today 
+%\end{flushright}   
+
+\vspace*{\stretch{1}}
+
+~%
+\raisebox{-0.23cm}{\includegraphics[height=1.1cm]{figures/lincs}}%
+\hspace*{\stretch{1}}~~~%
+\raisebox{0.07cm}{\includegraphics[height=0.75cm]{figures/mincs}}%
+\hspace*{\stretch{1}}~~~%
+\raisebox{0cm}{\includegraphics[height=0.9cm]{figures/inria}}%
+\hspace*{\stretch{1}}%
+\raisebox{-0.4cm}{\includegraphics[height=1.4cm]{figures/Logo_ALU_1725x600}}$\!\!$%
+}\end{titlepage}
+
+\thispagestyle{empty}% pour une page sans en-tête ni pieds de page
+\renewcommand{\abstractname}{Note to the reader}
+%\chapter*{Résumés}
+%\addcontentsline{toc}{chapter}{Résumé}%Pour l'ajout dans la table des matières au même rang que chapitre
+\begin{abstract}
+\par{}This is a (rather quick) translation of the original French version of this memoir, which is entitled: ``Vers des modes de scrutin moins manipulables''. I apologize for the possible spelling and grammar mistakes in this English version.
+\end{abstract}
+\thispagestyle{empty}%idem pour la page blanche qui suit
+\selectlanguage{english}% pour un typographie anglaise
+\renewcommand{\abstractname}{Abstract}%pour changer le titre
+\begin{abstract}
+\par{}We investigate the coalitional manipulation of voting systems: is there a subset of voters who, by producing an insincere ballot, can secure an outcome that they strictly prefer to the candidate who wins if all voters provide a sincere ballot?
+
+From a theoretical point of view, we develop a framework that allows us to study all kinds of voting systems: ballots can be linear orders of preferences over the candidates (\emph{ordinal} systems), grades or approval values (\emph{cardinal} systems) or even more general objects. We prove that for almost all voting systems from literature and real life, manipulability can be strictly diminished by adding a preliminary test that elects the Condorcet winner if one exists. Then we define the notion of \emph{decomposable} culture and prove that it is met, in particular, when voters are independent. Under this assumption, we prove that for any voting system, there exists a voting system that is ordinal, has some common properties with the original voting system and is at most as manipulable. As a consequence of these theoretical results, when searching for a voting system whose manipulability is minimal (in a class of reasonable systems), investigation can be restricted to those that are ordinal and meet the Condorcet criterion.
+
+In order to provide a tool to investigate these questions in practice, we present \svvamp{}, a Python package we designed to study voting systems and their manipulability. We use it to compare the coalitional manipulability of several voting systems in a variety of cultures, i.e. probabilistic models generating populations of voters with random preferences. Then we perform the same kind of analysis on real elections. Lastly, we determine voting systems with minimal manipulability for very small values of the number of voters and the number of candidates and we compare them with classical voting systems from literature and real life. Generally speaking, we show that the Borda count, Range voting and Approval voting are especially vulnerable to manipulation. In contrast, we find an excellent resilience to manipulation for the voting system called \emph{IRV} (also known as \emph{STV}) and its variant \emph{Condorcet-IRV}.
+\end{abstract}
+\thispagestyle{empty}%
+\selectlanguage{english}% 
+
+\thispagestyle{empty}
+\renewcommand{\abstractname}{Thanks}
+%\addcontentsline{toc}{chapter}{Remerciements}
+\begin{abstract}
+\par{}Thanks to Sébastien, who accepted to be the director of this thesis. Thanks to Ludovic, who immersed himself with passion in this research area, which was not his main topic initially, and who brought contributions from fields as diverse as optics, quantum mechanics and telecommunications. Thanks to Fabien for his constant support during those years, the inestimable complementarity of our approaches, the thoroughness and the competence with which he lead my work and, most of all, the authenticity of his shirts.
+
+Thanks to my family and friends for their support, especially during the intense stage of writing. Thanks to Émilie for her permanent support and her proofreading of the original French version of this memoir.
+
+Thanks to Anne-Laure and Arvind for our discussions about the lemma of the complementary random variable. Thanks to Laurent for our discussions and for suggesting the voting system IRVD. Thanks to Benoit for accepting to have a look on a paper tablecloth to examine a question that I would have been unable to solve on my own.
+
+Thanks to Displexity members, Carole, Hugues and all the others, who welcomed me and have listened carefully to my talks. Thanks to the organizers of Algotel~2012, to Nicolas and Pierre for contributing to organize our experiments. Thanks to Alix for communicating the database of my favorite brown website.
+
+Thanks to Pupusse and his foster parents for our daily and intense sessions of reflexion about the manipulability of voting systems: Fabien, Rim, Alonso, Jose, Ludovic, Marco, Rémy, Loïc, Stéphane, Pierre, Akram and all others who will recognize themselves.
+%
+%J'en rajoute pas, j'en fais pas des tonnes, mais j'espère surtout que je n'oublie personne\ldots
+\end{abstract}
+\thispagestyle{empty}%
+
+\newpage\thispagestyle{empty}%
+
+
+
+%\include{remerciements}
+\fancypagestyle{plain}{
+		\fancyhead{}
+        \fancyfoot[C]{\thepage}%
+		\renewcommand{\headrulewidth}{0pt}
+}%
+\begingroup%
+\raggedright%
+\tableofcontents%
+\endgroup%
+\fancypagestyle{plain}{
+		\fancyhead{}
+        \fancyfoot{}%
+		\renewcommand{\headrulewidth}{0pt}
+}%
+\clearemptydoublepage%
+
+\renewcommand{\bibname}{Publications}%
+\fancypagestyle{plain}{
+		\fancyhead{}
+        \fancyfoot[C]{\thepage}%
+		\renewcommand{\headrulewidth}{0pt}
+}%
+\begin{thebibliography}{10}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+\expandafter\ifx\csname fonteauteurs\endcsname\relax
+\def\fonteauteurs{\scshape}\fi
+\expandafter\ifx\csname url\endcsname\relax
+  \def\url#1{{\tt #1}}%
+    \message{You should include the url package}\fi
+
+\bibitem[Durand (2015)Durand]{toto01}
+\textbf{\Large Communications in a conference}\vspace{0.1cm}
+
+\bibitem[Durand et~al.(2015)Durand, Kloeckner, Mathieu, and
+  Noirie]{bisdurand2015sphere}
+Fran{\c{c}}ois Durand, Beno\^it Kloeckner, Fabien Mathieu, and Ludovic Noirie.
+\newblock Geometry on the utility sphere.
+\newblock In \emph{Proceedings of the 4th International Conference on
+  Algorithmic Decision Theory (ADT)}, 2015.
+
+\bibitem[Durand et~al.(2014{\natexlab{a}})Durand, Mathieu, and
+  Noirie]{bisdurand2014algotel}
+Fran{\c{c}}ois Durand, Fabien Mathieu, and Ludovic Noirie.
+\newblock {\'E}lection du best paper {A}lgo{T}el 2012: {\'e}tude de la
+  manipulabilit{\'e}.
+\newblock In \emph{{A}lgo{T}el 2014 -- 16{\`e}mes Rencontres Francophones sur
+  les Aspects Algorithmiques des T{\'e}l{\'e}communications},
+  2014.
+
+
+\bibitem[Durand et~al.(2014{\natexlab{c}})Durand, Mathieu, and
+  Noirie]{bisdurand2014networks}
+Fran{\c{c}}ois Durand, Fabien Mathieu, and Ludovic Noirie.
+\newblock {\'E}lection d'un chemin dans un r{\'e}seau: {\'e}tude de la
+  manipulabilit{\'e}.
+\newblock In \emph{{A}lgo{T}el 2014 -- 16{\`e}mes Rencontres Francophones sur
+  les Aspects Algorithmiques des T{\'e}l{\'e}communications},
+  2014.
+
+
+\bibitem[Durand et~al.(2013)Durand, Mathieu, and Noirie]{bisdurand2013networks}
+Fran{\c{c}}ois Durand, Fabien Mathieu, and Ludovic Noirie.
+\newblock On the manipulability of voting systems: application to
+  multi-operator networks.
+\newblock In \emph{Proceedings of the 9th International Conference on Network
+  and Service Management (CNSM)}, pages 292--297. IEEE, 2013.
+
+
+\bibitem[Durand (2015)Durand]{toto02}
+\vspace{0.3cm}\textbf{\Large Poster}\vspace{0.1cm}
+
+\bibitem[Durand et~al.(2014{\natexlab{d}})Durand, Mathieu, and
+  Noirie]{bisdurand2014poster}
+Fran{\c{c}}ois Durand, Fabien Mathieu, and Ludovic Noirie.
+\newblock Reducing manipulability.
+\newblock Poster presented during the 5th International Workshop on Computational Social
+  Choice (COMSOC), 2014.
+
+\bibitem[Durand (2015)Durand]{toto03}
+\vspace{0.3cm}\textbf{\Large Communication in a work group}\vspace{0.1cm}
+
+\bibitem[Durand et~al.(2012)Durand, Mathieu, and
+  Noirie]{bisdurand2012manipulability}
+Fran{\c{c}}ois Durand, Fabien Mathieu, and Ludovic Noirie.
+\newblock Manipulability of voting systems.
+\newblock Work group Displexity,
+  \url{http://www.liafa.univ-paris-diderot.fr/~displexity/docpub/6mois/votes.pdf},
+  2012.
+
+
+\bibitem[Durand (2015)Durand]{toto04}
+\vspace{0.3cm}\textbf{\Large Research reports}\vspace{0.1cm}
+
+\bibitem[Durand et~al.(2014{\natexlab{b}})Durand, Mathieu, and
+  Noirie]{bisdurand2014condorcification}
+Fran{\c{c}}ois Durand, Fabien Mathieu, and Ludovic Noirie.
+\newblock Making most voting systems meet the {C}ondorcet criterion reduces
+  their manipulability.
+\newblock \url{https://hal.inria.fr/hal-01009134}, 2014.
+
+\bibitem[Durand et~al.(2014{\natexlab{e}})Durand, Mathieu, and
+  Noirie]{bisdurand2014slicing}
+Fran{\c{c}}ois Durand, Fabien Mathieu, and Ludovic Noirie.
+\newblock Making a voting system depend only on orders of preference reduces
+  its manipulability rate.
+\newblock \url{https://hal.inria.fr/hal-01009136}, 2014.
+\end{thebibliography}\renewcommand{\bibname}{Bibliography}
+
+\mainmatter
+\pagestyle{back}
+
+\include{introduction_en}
+
+\pagestyle{main}
+
+\part{Theoretical study of manipulability}
+
+\include{formalisme_en}
+\include{condorcification_en}
+\include{criteres_majoritaires_en}
+\include{condorcification_generalisee_en}
+\include{slicing_en}
+
+\clearemptydoublepage\part{Computer-assisted study of manipulability}
+
+\include{svvamp_en}
+\include{simulations_sphere_en}
+\include{simulations_unidim_en}
+\include{simulations_expe_en}
+\include{mds_optimaux_en}
+
+\clearemptydoublepage\include{conclusion_en}
+
+\clearemptydoublepage\part*{Appendices\addcontentsline{toc}{part}{Appendices}}
+
+\appendix
+\clearemptydoublepage\include{mesurabilite_en}
+\clearemptydoublepage\include{sphere_en}
+\clearemptydoublepage\include{reseaux_en}
+%\include{sincerite_en}
+%\clearemptydoublepage\include{mess_en}
+
+\backmatter
+\pagestyle{back}
+
+\clearemptydoublepage\include{notations_en}
+
+\clearemptydoublepage%
+\fancypagestyle{plain}{
+		\fancyhead{}
+        \fancyfoot[C]{\thepage}%
+		\renewcommand{\headrulewidth}{0pt}
+}%
+\bibliographystyle{plainnat}%
+\addcontentsline{toc}{chapter}{Bibliography}%
+\thispagestyle{chapterpage}%
+%\bibliography{../../Bibliographie/biblio_votes/biblio_votes}
+\bibliography{biblio_votes_clean}
+
+\end{document}

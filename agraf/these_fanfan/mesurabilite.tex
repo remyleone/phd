@@ -1,0 +1,72 @@
+% !TeX spellcheck = fr_FR
+\mychapter{Espaces probabilisables et mesurabilité}\label{sec:mesurabilite}
+
+Dans cette annexe, nous examinons la question de la \emph{mesurabilité}, qui est sous-entendue dans toutes les notions probabilistes (par exemple la définition du taux de manipulabilité) et qui essentiellement utilisée dans le chapitre~\ref{sec:slicing} sur le tranchage.
+
+\medskip
+Afin de définir les notions probabilistes de manière rigoureuse, nous considérons des ensembles mesurables, qui sont constitués d'un ensemble $E$ et d'une tribu $\Sigma_E$ sur $E$. Un tel ensemble mesurable est noté $(E,\Sigma_E)$, ou simplement $E$ quand il n'y a pas d'ambiguïté. Un élément de $\Sigma_E$ est appelé un \emph{événement} sur $E$.
+
+Nous munissons toujours l'ensemble $\rc$ des relations binaires sur $\mathcal{C}$ de sa tribu discrète, que nous notons $\Sigma_{\rc}$.
+
+Quand nous considérons un produit cartésien $E$ d'ensembles mesurables $(E_v,\Sigma_{E_v})$, nous le munissons toujours de sa tribu produit. En particulier, l'ensemble $\mathcal{R} = (\rc)^V$ est muni de la tribu produit $\Sigma_\mathcal{R} %= \prod_{v\in\mathcal{V}} \Sigma_{\mathcal{R}_\mathcal{C}} 
+= (\Sigma_{\rc})^V$, qui est simplement sa tribu discrète.
+
+\medskip
+Nous disons que $\Omega$ est un \emph{espace électoral mesurable} \ssi chaque $\Omega_v$ est muni d'une tribu $\Sigma_{\Omega_v}$ et si chaque fonction $\textrm{P}_v: \Omega_v \to \rc$ est mesurable. Quand nous considérons un espace électoral probabilisé (EEP), nous faisons toujours l'hypothèse préalable implicite qu'il s'agit d'un espace électoral mesurable.
+
+%When we consider a probabilized electoral space, we always assume beforehand that each $\Omega_v$ is endowed with a sigma-algebra $\Sigma_{\Omega_v}$ and that the function $\textrm{P}_v: \Omega_v \to \mathcal{R}_\mathcal{C}$ is measurable.
+%
+%\begin{definition}[MES, measurable electoral space]
+%A \emph{measurable electoral space}, or \emph{MES}, is given by an electoral space $(V,C,\Omega,\textrm{P})$ and, for each voter $v \in \mathcal{V}$, a sigma-algebra $\Sigma_{\Omega_v}$ over $\Omega_v$, such that the function $\textrm{P}_v$ is measurable.
+%
+%We will note $\Sigma_\Omega = \prod_{v\in\mathcal{V}} \Sigma_{\Omega_v}$ the product sigma-algebra over $\Omega$.
+%
+%Such an MES is denoted $(V,C,\Omega,\Sigma_\Omega,\textrm{P})$, or just $\Omega$.
+%\end{definition}
+
+Par exemple, considérons l'espace électoral de référence, où $\omega_v = (p_v,u_v,a_v)$. Munissons chaque $\Omega_v$ de la tribu produit de la tribu discrète sur~$\rc$, la tribu de Lebesgue sur $[0,1]^C$ et la tribu discrète sur $\{0,1\}^C$. Alors chaque fonction $\textrm{P}_v$ est manifestement mesurable. Par conséquent, $\Omega$ est un espace électoral mesurable.
+
+\medskip
+Dans le contexte du chapitre~\ref{sec:slicing}, chaque ensemble $\mathcal{Y}_v$ des méthodes de tranchage est doté d'une tribu canonique. En effet, c'est le cas pour l'ensemble ${\Omega_v}^{\Plusquefull{\Omega_v}}$ des fonctions de $\Plusquefull{\Omega_v}$ vers $\Omega_v$: en associant chaque fonction à la liste de ses valeurs% for each value of argument $p_v$%
+, il suffit de considérer la tribu produit $\Sigma_{\Omega_v} \times \ldots \times \Sigma_{\Omega_v}$, avec un nombre de facteurs égal au cardinal de $\Plusquefull{\Omega_v}$. L'espace $\mathcal{Y}_v$, en tant que sous-ensemble de ${\Omega_v}^{\Plusquefull{\Omega_v}}$, hérite de cette tribu.
+
+\medskip
+Le lemme suivant résout les questions de mesurabilité pour le théorème de tranchage~\ref{thm_slicing} et le théorème d'optimalité~\ref{thm:general_optimality}.
+
+\begin{lem}\label{thm_preordres_donc_mesurable}
+Soit $\Omega$ un espace électoral mesurable, $E$ un ensemble mesurable et $g: \Omega \to E$.
+
+On suppose que $g$ ne dépend que des relations binaires de préférence:
+$$
+\forall (\omega,\psi) \in \Omega^2, \textrm{\normalfont P}(\omega) = \textrm{\normalfont P}(\psi) \Rightarrow g(\omega) = g(\psi).
+$$
+
+Alors $g$ est mesurable.
+\end{lem}
+
+\begin{proof}
+Puisque $g$ ne dépend que de $\textrm{P}(\omega)$, on peut définir $h: (\rc)^V \to E$ de telle sorte que $g = h \circ \textrm{P}$. Puisque $(\rc)^V$ est muni de la mesure discrète, $h$ est mesurable; et par définition d'un espace électoral mesurable, $\textrm{P}$ est mesurable. Par conséquent, $g = h \circ \textrm{P}$ est mesurable.
+\end{proof}
+
+%\begin{lem}[measurability of any slice]\label{thm_sliceMesurable}
+%Let $\Omega$ an MES, $f$ an SBVS and $y \in \mathcal{Y}$.
+%
+%Then $f_{y}$ and $M_{f_{y}}$ are measurable.
+%\end{lem}
+%
+%\begin{proof}
+%Immediate consequence of previous lemma.
+%Let us prove a more general result. Let $g$ be a function from $\Omega$ to a measurable set $(E,\Sigma_E)$ that depends only on binary relations of preference:
+%$$
+%\forall (\omega,\psi) \in \Omega^2, R(\omega) = R(\psi) \Rightarrow g(\omega) = g(\psi).
+%$$
+%Then $g$ is measurable. 
+%
+%Indeed, since $g$ depends only on $R(\omega)$, we may define $h: (\mathcal{R}_\mathcal{C})^V \to E$ such that $g = h \circ R$. Since $(\mathcal{R}_\mathcal{C})^V$ is endowed with the discrete measure, $h$ is measurable; and by definition of an electoral space, $R$ is measurable. So, $g = h \circ R$ is measurable.
+%
+%Applying this result to $g = f_{y}$ and $g = M_{f_{y}}$ completes the proof.
+%\end{proof}
+
+Dans le théorème de tranchage~\ref{thm_slicing}, ce lemme assure que, pour tout~$y$, l'indicatrice de manipulabilité~$\MC_{f_y}$ est mesurable. Par conséquent, $\tau_\MC^\proba(f_y)$ est bien défini.
+
+De même, dans le théorème d'optimalité~\ref{thm:general_optimality}, ce lemme assure que $\MC_{g \circ \textrm{\normalfont P}}$ est mesurable. Par conséquent, $\tau_\MC^\proba (g \circ \textrm{\normalfont P})$ est bien défini.

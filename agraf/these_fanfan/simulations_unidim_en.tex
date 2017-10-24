@@ -1,0 +1,953 @@
+% !TeX spellcheck = en_US
+\mychapter{Simulations in cultures based on a political spectrum}\label{sec:simulations_unidim}
+
+%\todo{Intro à rédiger}
+
+%On a vu en culture sphérique / VMF que VTI et ses variantes sont généralement les systèmes les plus résistants à la manipulation: qu'en est-il en culture basée sur un spectre politique?
+%
+%Cf. référence à Black, à JEF (localisation blabla grâce au vote par assentiment).
+
+
+%\section{Puits gaussien}\label{sec:gaussian-well-culture}
+
+In this chapter, we will study cultures based on a \emph{political spectrum}, which we had mentioned in section~\ref{sec:create_pop}. Our reference model will be the \emph{Gaussian well} and we will discuss rapidly another similar model, the \emph{Euclidean box}, in section~\ref{sec:boite_euclidienne}. 
+
+In these models, we use a $\nbdim$-dimensional space (for a given integer~$\nbdim$), which we call the \emph{political spectrum}. In Gaussian well, we take as parameter a vector of nonnegative real numbers $(\sigma_1, \ldots, \sigma_\nbdim)$: each number~$\sigma_i$ is called the \emph{characteristic length} (in short, \emph{length}) of the political spectrum along axis~$i$. For each voter~$v$ (resp. each candidate~$c$), we draw at random a position $\vecteur{x}_v = (x_v^1, \ldots, x_v^\nbdim)$ (resp. $\vecteur{y}_c = (y_c^1, \ldots, y_c^\nbdim)$). Each coordinate $x_v^i$ (resp.~$y_c^i$) is drawn independently according to a normal law of standard deviation~$\sigma_i$. The utility of a voter~$v$ for a candidate~$c$ is $A - \delta(\vecteur{x}_v, \vecteur{y}_c)$, where $\delta$ denotes the usual Euclidean distance and A is a constant such that the average utility is equal to zero. This constant has an impact only on approval voting.
+
+When the political spectrum is unidimensional ($\nbdim = 1$), the culture is obviously single-peaked (definition~\ref{def:single_peaked}). If the number of voters is odd, there is always a Condorcet winner, who is the most liked candidate of the median voter (on the political spectrum). It the number of voters is even, then Condorcet-admissible candidates are the most liked candidates of the two median voters; if it is the same candidate, she is Condorcet winner. As a consequence, the proportion of non-admissible configurations is equal to zero and it cannot give us an interesting lower bound of manipulability, unlike in previous chapter. As a reminder, and for the sake of homogeneity, we will keep on representing this proportion in the figures anyway.
+
+Metaphorically, in a unidimensional political spectrum, Condorcet-admissible candidates will be called \emph{centrists}\footnote{It is only a convention of language, based on an analogy. Even if we accept the assumption that voters' preferences in a political election are approximately single-peaked, the possible Condorcet winner is not necessarily a centrist candidate, in the usual political sense of this word. By the way, we will have the opportunity to discuss the experimental validity of this assumption in~\ref{sec:simulations_expe}.}. Similarly, candidates with a higher (resp. lower) abscissa in the political spectrum will be called \emph{rightist} (resp. \emph{leftist}) candidates.
+
+By the way, in the unidimensional case, it is not needed to give the value of~$\sigma$: indeed, up to changing the unit of length in the political spectrum, all models are equivalent (because utility vectors are defined up to a multiplicative constant, cf. appendix~\ref{sec:sphere}). In contract, as soon as there are two dimensions, the relative lengths of the political spectrum along different axes are important. The experimental validity of such multidimensional models for political elections is notably shown by \cite{laslier2004vote, laslier2006spatial}.
+
+\section{Unidimensional Gaussian well: number of candidates $C$}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\relativewidth\textwidth]{fig_simu/gaussianc_en.eps}
+\spacebeforecaption\caption{CM rate as a function of the number of candidates $C$. Gaussian well, $V=33$, $\nbdim = 1$.}\label{fig:gauss_C}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\relativewidth\textwidth]{fig_simu/gaussiancrestricted_en.eps}
+\spacebeforecaption\caption{CM rate as a function of the number of candidates~$C$, for a selection of voting systems. Gaussian well, $V=33$, $\nbdim = 1$.}\label{fig:gauss_C_restricted}
+\end{figure}
+
+In figure~\ref{fig:gauss_C}, we draw the CM rate as a function of the number of candidates~$C$ in a unidimensional Gaussian well.
+
+The first conclusion from figure~\ref{fig:gauss_C} is that the manipulability rates seem to tend to~1, like in spherical culture. As for CSD and IB, it is difficult to give a conclusion about this possible limit, since we have only lower bounds of manipulability that does not tend obviously to~1. Generally speaking, the convergences we observe to a manipulability rate of~1 seem slower than in spherical culture. In the special case of Veto, the manipulability seem also to tend to~1 but again, we can prove that it is not true (with the lexicographic tie-breaking rule): indeed, we can reason the same way as in proposition~\ref{thm:veto_limite_C_infini_culture_impartiale} because the restriction of a Gaussian well culture to candidates $1, \ldots, V+1$ is also a Gaussian well culture.
+
+\medskip
+We observe that the relative performances of the different voting systems are not the same as in chapter~\ref{sec:simulations_spheroidal}. In particular, now, it is not clear whether CIRV, IRV and EB have a lower manipulability rate than the other voting systems. In order to confirm this observation, figure~\ref{fig:gauss_C_restricted} presents the same curve, with a focus on these three voting systems and those for which the algorithmic uncertainty is less than 1~\% for each point (which includes Borda's method, although the algorithm is not exact).
+
+This time, the margins of uncertainty for CIRV and IRV are sometimes greater than 1~\% because we used the option \mylstinline"fast" in \svvamp{} when the number of candidates~$C$ is greater or equal to~$9$ (hence the star in the legend of figure~\ref{fig:gauss_C_restricted}). However, we used the exact algorithm for EB, so the curve for EB gives an upper bound for those of CIRV and IRV.
+
+In figure~\ref{fig:gauss_C_restricted}, we observe that the two-round system is (slightly) better than CIRV, IRV and EB, unlike what happens in the spheroidal cultures (spherical or VMF). We can propose a qualitative explanation. In IRV, once the candidates of extreme right and left are eliminated, their proponents note for moderate leftist and rightist candidates, and the centrist has the risk of being eliminated because she receives only a few transferred votes. Since IRV meets \cminf{}, this implies that the configuration is manipulable. In contrast, in the two-round system, moderate rightist and leftist candidates have no transferred vote at the moment when the selection for the final round (i.e. the second round) is performed, so the centrist has more chances to get to the second round.
+
+\medskip
+However, we notice in figure~\ref{fig:gauss_C_restricted} that CIRV, IRV and EB remain less manipulable than Coombs' method, which is less manipulable than Plurality, Bucklin's method and the majority judgment, which are themselves less manipulable than Borda's method, range voting, Veto and approval voting. So, the hierarchy that we have already observed for these voting systems seems to be confirmed, except for Coombs' method, which seems to perform better here than in the spheroidal cultures. This could be linked to the fact that in a \emph{single-peaked} culture, Coombs' method meets the Condorcet criterion \citep{grofman2004coombs}.
+
+%En ce qui concerne les modes de scrutin étudiés avec un algorithme non exact, on peut tout de même conclure des données de la figure~\ref{fig:gauss_C} que Maximin et les méthodes de Baldwin, Schulze et Nanson ne peuvent pas être beaucoup moins manipulables que CVTI, VTI et SE. Si l'on examine en détail les tableaux de données utilisés pour tracer les courbes de la figure~\ref{fig:gauss_C}, on peut exhiber le cas où l'écart trouvé est le plus favorable pour un de ces quatre modes de scrutin: pour $C = 4$, le taux de manipulabilité de SE est 37~\% alors que la borne inférieure trouvée pour la méthode de Schulze est 34~\%. Sur l'ensemble de ces courbes, Maximin et les méthodes de Baldwin, Schulze et Nanson ne peuvent donc pas être moins manipulables que CVTI, VTI et SE par un écart supérieur à 3~\% (plus l'incertitude d'origine statistique).
+%
+%Pour la méthode de Kemeny, PO, VTID, BI et surtout CSD,
+For the comparison between CIRV, IRV, EB and the other voting systems, the question remains open. In future works, it would be interesting to develop more efficient algorithms for these voting systems, in order to know whether they are less manipulable than CIRV, IRV and EB in such a culture. In the meta-analyses of sections \ref{sec:comparison_vs_gauss} and~\ref{sec:comparison_vs_synthese}, using TM will allow us to say more about this comparison.
+
+%\begin{figure}[ht]
+%\centering
+%\includegraphics[width=\relativewidth\textwidth]{fig_simu/gaussianc-tm_en.eps}
+%\spacebeforecaption\caption{Taux de MT en fonction du nombre de candidats $C$. Puits gaussien, $V=33$, $\nbdim = 1$.}\label{fig:gauss_C_TM}
+%\end{figure}
+%
+%\medskip
+%Afin d'avoir une indication complémentaire pour l'ensemble des modes de scrutin, on examine la manipulation triviale. Ainsi, la figure~\ref{fig:gauss_C_TM} représente le taux de MT en fonction du nombre de candidats~$C$. On observe que la méthode de Schulze, Maximin, CSD, l'uninominal à deux tours et BI semblent asymptotiquement moins MT que CVTI, VTI et SE quand $C \rightarrow +\infty$. En particulier, les bons comportements de CSD et BI supputés dans la figure~\ref{fig:gauss_C} se confirment dans la figure~\ref{fig:gauss_C_TM}.
+
+
+
+
+
+\section{Unidimensional Gaussian well: number of voters $V$}
+
+\subsection{Number of voters $V$ odd}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\relativewidth\textwidth]{fig_simu/gaussian1dvbig_en.eps}
+\spacebeforecaption\caption{CM rate as a function of the number of voters~$V$. Gaussian well, $C=5$, $\nbdim = 1$, large odd values of $V$.}\label{fig:gauss_V_big}
+\end{figure}
+
+\medskip
+Like we did in spherical culture, figure~\ref{fig:gauss_V_big} represents the CM rate as a function of the number of voters~$V$ for large odd values, for a unidimensional Gaussian well. Like in spherical culture, manipulability rates seem to be increasing functions of the number of voters~$V$ (on the set of odd values). However, they do not seem to tend to~1 for most voting systems, which lead us to the following conjecture.
+
+\begin{conj}
+In unidimensional Gaussian well, for $C \geq 3$ and $V \rightarrow +\infty$, the CM rate tends to~1 for Veto.
+
+In unidimensional Gaussian well, for $C \geq 3$ and $V \rightarrow +\infty$, the CM rate tends to a limit that is strictly between 0 and~1 for all other voting systems under study here. 
+\end{conj}
+
+
+\subsection{Parity of $V$}\label{sec:simus_gauss_V_parite}
+
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\relativewidth\textwidth]{fig_simu/gaussian1dvsmall_en.eps}
+\spacebeforecaption\caption{CM rate as a function of the number of voters~$V$. Gaussian well, $C=5$, $\nbdim = 1$, small values of $V$.}\label{fig:gauss_V_small}
+\end{figure}
+
+In spherical culture, we have seen in figure~\ref{fig:sphere_V_small_restricted} that, for some voting systems, the manipulability rate present oscillations depending on the parity of~$V$ (and sometimes more complicated non-monotony phenomena). In order to examine this kind of phenomenon in Gaussian well, figure~\ref{fig:gauss_V_small} represents the CM rate as a funciton of the number of voters~$V$ for all values between $3$ and~$33$. The oscillatory phenomenon is far more frequent than in spherical culture: it concerns all voting systems under study except Veto, approval voting, Borda's method and range voting.
+
+%Oscillations très nettes:
+%MJ, Bucklin, Coombs, Nanson, EB, Schulze, IB, IRV, CVTI, TR, Kemeny, IRVD, PO, ICRV, CSD
+%
+%Un peu:
+%Plurality, Baldwin, Maximin
+%
+%No oscillations:
+%Veto, Approval, Borda, RV
+
+We can explain it by the fact that, unlike in spherical culture, there is essentially no concurrent effects anymore: the probability of existence for a Condorcet winner or a resistant Condorcet winner, presenting in phase oscillations, make the odd values of~$V$ less favorable to manipulation. In particular, for $V$ odd, less us recall that there is always a Condorcet winner. For the majority judgment and Bucklin's method, their specific mechanisms generate an effect of parity which goes in the same direction, as we explained in section~\ref{sec:simus_sphere_V_parite}. As for the probability of existence for a Condorcet-admissible candidate, it is constant (and equal to~1), unlike in spherical culture where its oscillations, in antiphase with the other effects, were partially canceling them.
+
+In single-peaked culture, by the way, we can notice that the notion of resistant Condorcet winner is equivalent to the notion of majority favorite. Indeed, if it is not an extreme candidate, it is necessary that a majority of voters prefer her simultaneously to the two candidates on her immediate left and right, hence to all other candidates. If it is a extreme-left candidate (for example), simply being a Condorcet winner demands that a majority of voters prefer her to the candidate on her immediate right, hence to all other candidates.
+
+%Cette fois-ci, nous pensons que le phénomène est avant tout lié aux notions Condorcet, en lien avec un phénomène de médiane propre à une telle culture \emph{single-peaked}. En effet, quand le nombre d'électeurs~$V$ est impair, il y a toujours un vainqueur de Condorcet qui est le candidat préféré de l'électeur médian sur le spectre politique. En revanche, quand le nombre d'électeurs~$V$ est pair, les candidats préférés des deux électeurs médians sont Condorcet-admissibles, mais c'est seulement dans le cas où ces candidats sont identiques qu'il y a un vainqueur de Condorcet. Ceci est illustré sur la figure~\ref{fig:gauss_V_small_cond}. 
+
+For $V$ even, we also observe that the probability of existence for a Condorcet winner increases with~$V$, which is easy to understand: with a constant number of candidates, the more voters there are, the less probable it is that the frontier between two most-liked candidates is located precisely between the two median voters. %Sur ces courbes, on remarque aussi une oscillation en fonction de la parité de~$V$ pour la probabilité d'existence d'un vainqueur de Condorcet résistant, en phase avec la probabilité d'existence d'un vainqueur de Condorcet: ceci contribue à ce que les valeurs impaires de $V$ soient moins propices à la manipulation.
+Generally, and with no surprise, parity effects diminish when the number of voters increases, like in spherical culture.
+
+%\begin{figure}[ht]
+%\centering
+%\includegraphics[width=\relativewidth\textwidth]{fig_simu/gaussianvsmall_cond_en.eps}
+%\spacebeforecaption\caption{Taux d'existence d'un candidat spécial en fonction du nombre d'électeurs $V$. Puits gaussien, $C=5$, $\nbdim = 1$, petites valeurs de $V$.}\label{fig:gauss_V_small_cond}
+%\end{figure}
+
+
+
+
+
+
+
+\vspace{-0.4cm}%MAGOUILLE
+\section{Unidimensional Gaussian well: shift~$y_0$}\label{sec:simus_gauss_decalage}
+\vspace{-0.4cm}%MAGOUILLE
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\relativewidth\textwidth]{fig_simu/gaussian1dshift_en.eps}
+\vspace{-0.2cm}%MAGOUILLE
+\spacebeforecaption\caption{CM rate as a function of the shift between voters and candidates. Gaussian well, $V=33$, $C=5$, $\nbdim = 1$, $\sigma = 1$.}\label{fig:gauss_shift}
+\end{figure}
+
+In figure~\ref{fig:gauss_shift}, we consider also a unidimensional Gaussian well of characteristic length $\sigma = 1$. But we add a shift~$y_0$ between the distribution of the candidates and the one of the voters: the normal law that is used for the candidates is not centered in~$0$ anymore but in $y_0$. When this shift tends to $+\infty$, each candidate is on the right of each voter. In particular, the candidate who is most on the right is most liked by each voter\footnote{There is no hidden message in this paragraph. We could have used the opposite convention, but we needed to choose.}. Such a situation is not very realistic because, in that case, some candidates have a strategic interest to move their political offer in order to attract more voters; while being aware of this limitation, we study this case to explore qualitatively the impact of all the parameters for this model.
+
+We explore what happens for a shift varying from 0 to 2. As we could expect, voting systems tend to be less manipulable when the shift increases, i.e. when voters agree more.
+
+The interesting point is the similarity with what we observed in figure~\ref{fig:vmf_kappa}, describing a VMF culture where the concentration $\kappa$ increases. In particular, some voting systems are significantly less reactive to the increasing agreement between the voters, in the sense that their manipulability rates decrease more slowly: approval voting, range voting, Borda's method and especially Veto. It is the same list of voting systems as for figure~\ref{fig:vmf_kappa}, except for Coombs' method, which behaves better in Gaussian well.
+
+From a theoretical point of view, the arguments we exposed in section~\ref{sec:vmf_concentration} remain valid: since the culture tends to a perfect agreement between the voters, the manipulability rate of each unanimous voting system tends to~0 and the manipulability rate of Veto tends (slowly) to $1 - \dfrac{1}{C-1}$.
+
+\vspace{-0.2cm}%MAGOUILLE
+\section{Multidimensional Gaussian well: number of dimensions $\nbdim$}\label{sec:gauss_multidim}
+\vspace{-0.2cm}%MAGOUILLE
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\relativewidth\textwidth]{fig_simu/gaussianxd_en.eps}
+\vspace{-0.2cm}%MAGOUILLE
+\spacebeforecaption\caption{CM rate as a function of the number of dimensions $\nbdim$. Gaussian well, $V=33$, $C=5$, $\sigma = (1, \ldots, 1)$.}\label{fig:gauss_xd}
+\end{figure}
+
+Until now, we have considered political spectra with one dimension only. In figure~\ref{fig:gauss_xd}, we extend this model by considering a multidimensional Gaussian well, with a dimension $\nbdim$ varying from 1 to~10. 
+
+At first glance, one might think that if $\nbdim$ increases, then the culture tends to a spherical culture, like for a VMF culture with an infinite number of poles (section~\ref{sec:vmf_nombre_de_poles}). If that was true, then the CM rates should increase. However, such a belief would be erroneous. Indeed, even with a multidimensional political spectrum, a candidate whose position is close to the origin has more chances to be liked by the voters, hence voters are not independent, even in the limit $\nbdim \rightarrow +\infty$: this is sufficient to prove that the limit culture is not the spherical culture.
+
+As a matter of fact, we observe in figure~\ref{fig:gauss_xd} that when $\nbdim$ increases, the CM rate decreases for most voting systems (except for Coombs' method, and for IB whose variation is small).
+
+\medskip
+Starting from $\nbdim = 2$, CIRV, IRV and EB become less manipulable than the other voting systems. As a consequence, it seems that the (relatively) bad performance of these three voting systems is deeply connected to having a unidimensional political spectrum.
+
+They can even present performances that are better than those observed in the spheroidal cultures from chapter~\ref{sec:simulations_spheroidal}. For comparison, in the reference scenario (figure~\ref{fig:MT}), the manipulability rates of these three voting systems were 44~\%. With the same numbers of voters and candidates, in Gaussian well with $\nbdim = 10$, the rates are about 8~\%.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\relativewidth\textwidth]{fig_simu/gaussian2d_en.eps}
+\spacebeforecaption\caption{CM rate as a funciton of $\sigma_2$. Gaussian well, $V=33$, $C=5$, $\sigma_1 = 1$.}\label{fig:gauss_2d}
+\end{figure}
+
+In order to enrich the previous observation, we explore in figure~\ref{fig:gauss_2d} the transition from a unidimensional culture to a bidimensional culture. For this purpose, we consider a bidimensional Gaussian well whose characteristic lengths are $(1, \sigma_2)$. For $\sigma_2 = 0$, the culture is unidimensional. For $\sigma_2 = 1$, we have a ``square'' culture: both dimensions are equally important.
+
+It is no use continuing the figure for $\sigma_2 \in [1, +\infty]$ because we would get the exact symmetry of the curves represented here. Indeed, up to changing to unit of length and to inverting the axes of the political spectrum, the culture $\sigma = (1, \sigma_2)$ is equivalent to the culture $\sigma' = (1, \frac{1}{\sigma_2})$.
+
+These curves seem to interpolate naturally what happens between dimensions 1 et 2 in figure~\ref{fig:gauss_xd}: the manipulability rates decrease. Like in figure~\ref{fig:gauss_xd}, only the one of Coombs' method is clearly increasing. For $\sigma_2 \geq 0,\!4$ approximately, CIRV, IRV and EB become less manipulable than the other voting systems, like in the spheroidal cultures. Similarly, for $\sigma_2 \geq 0,\!5$ or so, the two-round system has an intermediary manipulability between these three voting systems and the others.
+
+\section{Comparison with a Euclidean box}\label{sec:boite_euclidienne}
+
+We can wonder if the phenomena we observed in Gaussian well are a qualitative consequence of a culture based on a unidimensional politicall spectrum or if they depend on the Gaussian distribution we used fo candidates and voters.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\relativewidth\textwidth]{fig_simu/euclidianvbig_en.eps}
+\spacebeforecaption\caption{CM rate as a function of the number of voters $V$. Euclidean box, $C=5$, $\nbdim = 1$, large odd values of $V$.}\label{fig:euclidienne_V_big}
+\end{figure}
+
+As an example, figure~\ref{fig:euclidienne_V_big} presents the manipulability rates in a unidimensional Euclidean box, for odd values of the number of voters: instead of using a normal law, positions for the voters and the candidates are drawn uniformly in a segment $[-1, 1]$.
+
+We observe a great similarity with figure~\ref{fig:gauss_V_big}, which seems to indicate that our findings have a certain general validity on the cultures based on a unidimensional political spectrum. The main difference concerns the relative performances of TR and IRV (or CIRV), which are even closer than is Gaussian well.
+
+\section{Meta-analysis in unidimensional culture}\label{sec:comparison_vs_gauss}
+
+\subsection{Meta-analysis of CM in unidimensional culture}
+
+\begin{figure}
+\begin{bigcenter}
+%\begin{tikzpicture}[->,>=latex,shorten >=1pt,auto,node distance=3cm,
+%  thick,main node/.style={fill=blue!20,draw},yscale=1] % Avec tolérance = 2~\%
+%
+%  \begin{scope}[xshift=-1.6cm,yshift=-2cm]
+%  \node[main node,minimum width=1.2cm] (CSD) at (-6.4,0) {\strut CSD};
+%  \node[main node,minimum width=1.2cm] (BI) at (-4.8,0) {\strut BI};
+%  \node[main node,minimum width=1.2cm] (PO) at (-3.2,0) {\strut PO};
+%  \node[main node,minimum width=1.2cm] (VTID) at (-1.6,0) {\strut VTID};
+%  \node[main node,minimum width=1.2cm] (U2T) at (0,0) {\strut U2T};
+%  \node[main node,minimum width=1.2cm] (CVTI) at (0,-1) {\strut CVTI};
+%  \node[main node,minimum width=1.2cm] (VTI) at (0,-2) {\strut VTI};
+%  \node[main node,minimum width=1.2cm] (SE) at (0,-3) {\strut SE};
+%  \node[main node,minimum width=1.2cm] (Sch) at (1.6,0) {\strut Sch.};
+%  \node[main node,minimum width=1.2cm] (Max) at (3.6,0) {\strut Max.};
+%  \end{scope}
+%  \begin{scope}[xshift=-1.6cm,yshift=-6.5cm]
+%  \node[main node,minimum width=1.2cm] (Nan) at (-1.6,0) {\strut Nan.};
+%  \node[main node,minimum width=1.2cm] (Bald) at (0,0) {\strut Bald.};
+%  \node[main node,minimum width=1.2cm] (Coo) at (1.6,0) {\strut Coo.};
+%  \end{scope}
+%  \begin{scope}[xshift=-1.6cm,yshift=-8cm]
+%  \node[main node,minimum width=1.2cm] (Buck) at (-1.6,0) {\strut Buck.};
+%  \node[main node,minimum width=1.2cm] (JM) at (0,0) {\strut JM};
+%  \node[main node,minimum width=1.2cm] (Uni) at (1.6,0) {\strut Uni.};
+%  \end{scope}
+%  \begin{scope}[xshift=-1.6cm,yshift=-10cm]
+%  \node[main node,minimum width=1.2cm] (Bor) at (-1.6,0) {\strut Bor.};
+%  \node[main node,minimum width=1.2cm] (VN) at (0,0) {\strut VN};
+%  \node[main node,minimum width=1.2cm] (Veto) at (1.6,0) {\strut Veto};
+%  \end{scope}
+%  \begin{scope}[xshift=-1.6cm,yshift=-11.5cm]
+%  \node[main node,minimum width=1.2cm] (VA) at (-0.8,0) {\strut VA};
+%  \end{scope}
+%
+%  \draw[->] (VTI) -| (Nan);
+%  \path
+%    (U2T.south) edge (CVTI.north)
+%    (CVTI) edge (VTI)
+%    (VTI) edge (SE)
+%%    (VTI.south) edge (Nan.north)
+%    (SE.south) edge (Bald.north)
+%    (SE.south) edge (Coo.north)
+%    (Sch.south) edge (Coo.north)
+%    (Max.south) edge (Coo.north)
+%    (Coo.south) edge (Uni.north)
+%    (Coo.south) edge (Buck.north)
+%    (Buck) edge (JM)
+%    (Uni.south) edge (Bor.north)
+%    (JM.south) edge (Bor.north)
+%    (Uni.south) edge (VN.north)
+%    (JM.south) edge (VN.north)
+%    (Bor.south) edge (VA.north)
+%    (VN.south) edge (VA.north)
+%    (Uni.south) edge (Veto.north)
+%    (JM.south) edge (Veto.north)
+%;
+%  \draw[<->] (Max) -- (Sch)
+%;
+%\end{tikzpicture}
+\begin{tikzpicture}[->,>=latex,shorten >=1pt,auto,node distance=3cm,
+  thick,main node/.style={fill=blue!20,draw},yscale=1]
+
+  \begin{scope}[xshift=0cm,yshift=-4cm]
+  \node[main node,minimum width=1.2cm] (CSD) at (-6.4,0) {\strut CSD};
+  \node[main node,minimum width=1.2cm] (BI) at (-4.8,0) {\strut IB};
+  \node[main node,minimum width=1.2cm] (PO) at (-3.2,0) {\strut RP};
+  \node[main node,minimum width=1.2cm] (VTID) at (-1.6,0) {\strut IRVD};
+  \node[main node,minimum width=1.2cm] (U2T) at (0,0) {\strut TR};
+  \node[main node,minimum width=1.2cm] (Bald) at (0,-2) {\strut Bald.};
+  \node[main node,minimum width=1.2cm] (CVTI) at (1.6,1) {\strut CIRV};
+  \node[main node,minimum width=1.2cm] (VTI) at (1.6,0) {\strut IRV};
+  \node[main node,minimum width=1.2cm] (SE) at (1.6,-2) {\strut EB};
+  \node[main node,minimum width=1.2cm] (Sch) at (3.2,0) {\strut Sch.};
+  \node[main node,minimum width=1.2cm] (Max) at (3.2,-2) {\strut Max.};
+  \node[main node,minimum width=1.2cm] (Coo) at (4.8,-2) {\strut Coo.};
+  \node[main node,minimum width=1.2cm] (Nan) at (4.8,0) {\strut Nan.};
+  \end{scope}
+  \begin{scope}[xshift=0.8cm,yshift=-8cm]
+  \node[main node,minimum width=1.2cm] (Uni) at (0,0) {\strut Plu.};
+  \node[main node,minimum width=1.2cm] (Buck) at (1.6,0) {\strut Buck.};
+  \node[main node,minimum width=1.2cm] (JM) at (3.2,0) {\strut MJ};
+  \end{scope}
+  \begin{scope}[xshift=2.4cm,yshift=-10cm]
+  \node[main node,minimum width=1.2cm] (Bor) at (-1.6,0) {\strut Bor.};
+  \node[main node,minimum width=1.2cm] (VN) at (0,0) {\strut RV};
+  \node[main node,minimum width=1.2cm] (Veto) at (1.6,0) {\strut Veto};
+  \end{scope}
+  \begin{scope}[xshift=2.4cm,yshift=-11cm]
+  \node[main node,minimum width=1.2cm] (VA) at (0,0) {\strut AV};
+  \end{scope}
+
+%  \draw[->] (VTI) -| (Nan);
+  \path
+    (CVTI) edge (VTI)
+    (U2T.south) edge (SE.north)
+    (VTI) edge (SE)
+    (Sch.south) edge (Max.north)
+    (U2T.south) edge (Bald.north)
+    (VTI.south) edge (Bald.north)
+%    (SE.south) edge (Coo.north)
+%    (Max.south) edge (Coo.north)
+    (SE.south) edge (Uni.north)
+    (Max.south) edge (Uni.north)
+    (Max.south) edge (Buck.north)
+    (SE.south) edge (Buck.north)
+    (Coo.south) edge (Buck.north)
+    (Max.south) edge (JM.north)
+    (SE.south) edge (JM.north)
+    (Coo.south) edge (JM.north)
+    (Buck.south) edge (Bor.north)
+    (Uni.south) edge (Bor.north)
+    (JM.south) edge (Bor.north)
+    (Buck.south) edge (VN.north)
+    (Uni.south) edge (VN.north)
+    (JM.south) edge (VN.north)
+    (VN.south) edge (VA.north)
+    (Buck.south) edge (Veto.north)
+    (Uni.south) edge (Veto.north)
+    (JM.south) edge (Veto.north)
+  ;
+%  \path % C'était sans compter la boite euclidienne
+%    (CVTI) edge (VTI)
+%    (U2T.south) edge (SE.north)
+%    (VTI) edge (SE)
+%    (Sch.south) edge (Max.north)
+%    (U2T.south) edge (Bald.north)
+%    (VTI.south) edge (Bald.north)
+%    (SE.south) edge (Coo.north)
+%    (Max.south) edge (Coo.north)
+%    (SE.south) edge (Uni.north)
+%    (Max.south) edge (Uni.north)
+%    (Coo) edge (Buck)
+%    (Coo) edge (JM)
+%    (Buck.south) edge (Bor.north)
+%    (Uni.south) edge (Bor.north)
+%    (JM.south) edge (Bor.north)
+%    (Buck.south) edge (VN.north)
+%    (Uni.south) edge (VN.north)
+%    (JM.south) edge (VN.north)
+%    (VN.south) edge (VA.north)
+%    (Buck.south) edge (Veto.north)
+%    (Uni.south) edge (Veto.north)
+%    (JM.south) edge (Veto.north)
+%;
+%  \draw[<->] (Max) -- (Sch);
+\end{tikzpicture}
+\end{bigcenter}
+\caption{Meta-analysis of CM in all unidimensional cultures under study.}\label{fig:unidim_MC_comparison}
+\end{figure}
+
+Like figure~\ref{fig:sph_vmf_MC_comparison} for spheroidal cultures, figure~\ref{fig:unidim_MC_comparison} presents the comparison of CM between the voting systems in a culture of unidimensional political spectrum, whether in Gaussian well or in Euclidean box. For the moment, we focus on this case because we have seen in section~\ref{sec:gauss_multidim} that in a multidimensional culture, the observed behaviors are relatively similar to those observed in chapter~\ref{sec:simulations_spheroidal}. In section~\ref{sec:comparison_vs_synthese}, we will do a synthesis of all cultures under study, including those from previous chapter.
+
+\medskip
+In the graph of figure~\ref{fig:unidim_MC_comparison}, we see that in unidimensional culture, the two-round system becomes competitive with CIRV and IRV, and even dominates EB in the cultures we studied. As for CSD, IB, RP, IRVD, Schulze and Nanson, the approximate algorithms do not make it possible to conclude in all cases but these voting systems present promising results.
+%Les méthodes de Schulze et de Nanson n'ont pas d'arête entrante non plus mais elle ne dominent jamais l'uninominal à deux tours par une différence supérieure à 2~\% et le scrutin exhaustif par plus de 3~\%.
+Once again, Schulze's method and Maximin present performances that are very close (the gap is always 2~\% or less). Baldwin's method is more manipulable than the two-round system.
+
+The exhaustive ballot (which is more manipulable than the two-round system and IRV), Maximin (which is more manipulable than Schulze's method) and Coombs' method serve as references of manipulability in order to compare to the next two groups, by increasing order of manipulability:
+\begin{itemize}
+\item Plurality, Bucklin's method and the majority judgment;
+\item Borda's method, range voting, Veto and approval voting (which is more manipulable than range voting).
+\end{itemize}
+Like in spheroidal culture, these three last voting systems have often a manipulability rate that is more than the proportion of non-resistant configurations, which makes them more manipulable than any Condorcet voting system in those cases. Coombs' method, which seems to behave better in a unidimensional political spectrum than in spheroidal culture, is not concerned by this bad behavior anymore. This is not obvious \emph{a priori}: even if we recalled that it meets the Condorcet criterion for single-peaked preferences, in particular those obtained by sincere voting in this model, it does not necessarily so for configurations obtained from a manipulation.
+
+Generally speaking, some Condorcet voting systems, especially Schulze's method for which the algorithmic uncertainty is low, seem to behave better in a unidimensional political spectrum than in a spherical culture. Intuitively, we can understand why: in spherical culture, the probability of existence for a Condorcet-admissible candidate is relatively low and we know that it tends to~0 for $V$ odd and $C \to \infty$ \citep{gehrlein2006condorcet}. On the opposite, in a single-peaked culture and in particular in a unidimensional Gaussian well, this probability (which is equal to the probability that there exists a Condorcet winner for $V$ odd) is equal to~1. A non-Condorcet voting system starts the race with a major handicap: for $V$ odd, each time the winner is a non-Condorcet candidate, the configuration is manipulable.
+
+%Maximin et la méthode de Schulze présentent de nouveau des performances très proches et par ailleurs meilleures qu'un certain nombre de modes de scrutin, parmi lesquels on trouve la méthode de Coombs. Celle-ci, qui semble mieux se comporter que dans les culture sphéroïdales, est moins manipulable que l'uninominal et la méthode de Bucklin, laquelle est moins manipulable que le jugement majoritaire. Ces trois derniers modes de scrutin sont moins manipulables que la méthode de Borda, le vote par notation et Veto. Enfin, la méthode de Borda et le vote par notation sont moins manipulables que le vote par assentiment.
+
+\subsection{Meta-analysis of TM in unidimensional culture}
+
+\begin{figure}
+\begin{bigcenter}
+%\begin{tikzpicture}[->,>=latex,shorten >=1pt,auto,node distance=3cm,
+%  thick,main node/.style={fill=blue!20,draw},yscale=1] % Avec tolérance = 2~\%
+%
+%  \begin{scope}[xshift=-0.8cm,yshift=-2cm]
+%  \node[main node,minimum width=1.2cm] (Sch) at (-2.0,0.3) {\strut Sch.};
+%  \node[main node,minimum width=1.2cm] (Max) at (0,0.3) {\strut Max.};
+%  \node[main node,minimum width=1.2cm] (U2T) at (1.6,0.3) {\strut U2T};
+%  \node[main node,minimum width=1.2cm] (CVTI) at (3.2,0.1) {\strut CVTI};
+%  \node[main node,minimum width=1.2cm] (VTI) at (4.8,-0.1) {\strut VTI};
+%  \node[main node,minimum width=1.2cm] (SE) at (6.4,-0.3) {\strut SE};
+%  \end{scope}
+%  \begin{scope}[xshift=0.8cm,yshift=-4cm]
+%  \node[main node,minimum width=1.2cm] (PO) at (0,0) {\strut PO};
+%  \node[main node,minimum width=1.2cm] (BI) at (1.6,0) {\strut BI};
+%  \node[main node,minimum width=1.2cm] (VTID) at (3.2,0) {\strut VTID};
+%  \end{scope}
+%  \begin{scope}[xshift=0cm,yshift=-6cm]
+%  \node[main node,minimum width=1.2cm] (CSD) at (-4.8,0) {\strut CSD};
+%  \node[main node,minimum width=1.2cm] (Buck) at (-3.2,0) {\strut Buck.};
+%  \node[main node,minimum width=1.2cm] (Coo) at (-1.6,0) {\strut Coo.};
+%  \node[main node,minimum width=1.2cm] (Nan) at (0,0) {\strut Nan.};
+%  \node[main node,minimum width=1.2cm] (Bald) at (1.6,0) {\strut Bald.};
+%  \end{scope}
+%  \begin{scope}[xshift=0cm,yshift=-8cm]
+%  \node[main node,minimum width=1.2cm] (Uni) at (-3.2,0) {\strut Uni.};
+%  \node[main node,minimum width=1.2cm] (JM) at (-1.6,0) {\strut JM};
+%  \node[main node,minimum width=1.2cm] (Bor) at (0,0) {\strut Bor.};
+%  \node[main node,minimum width=1.2cm] (Veto) at (5.6,0) {\strut Veto};
+%  \end{scope}
+%  \begin{scope}[xshift=-1.6cm,yshift=-9.5cm]
+%  \node[main node,minimum width=1.2cm] (VN) at (0,0) {\strut VN};
+%  \end{scope}
+%  \begin{scope}[xshift=-1.6cm,yshift=-10.5cm]
+%  \node[main node,minimum width=1.2cm] (VA) at (0,0) {\strut VA};
+%  \end{scope}
+%
+%  \path
+%    (Sch.south) edge (CSD.north)
+%    (Max.south) edge (CSD.north)
+%    (U2T) edge (CVTI)
+%    (Sch.south) edge (BI.north)
+%    (Max.south) edge (BI.north)
+%    (U2T.south) edge (BI.north)
+%    (CVTI) edge (VTI)
+%    (VTI) edge (SE)
+%    (SE.south) edge (PO.north)
+%    (CVTI.south) edge (VTID.north)
+%	(PO.south) edge (Coo.north)
+%	(VTID.south) edge (Coo.north)
+%	(PO.south) edge (Nan.north)
+%	(BI.south) edge (Nan.north)
+%	(BI.south) edge (Bald.north)
+%	(PO.south) edge (Bald.north)
+%	(VTID.south) edge (Bald.north)
+%	(CSD.south) edge (Uni.north)
+%	(Buck.south) edge (Uni.north)
+%	(Coo.south) edge (Uni.north)
+%	(Nan.south) edge (Uni.north)
+%	(Bald.south) edge (Uni.north)
+%	(CSD.south) edge (JM.north)
+%	(Buck.south) edge (JM.north)
+%	(Coo.south) edge (JM.north)
+%	(Nan.south) edge (JM.north)
+%	(Bald.south) edge (JM.north)
+%	(CSD.south) edge (Bor.north)
+%	(Buck.south) edge (Bor.north)
+%	(Coo.south) edge (Bor.north)
+%	(Nan.south) edge (Bor.north)
+%	(Bald.south) edge (Bor.north)
+%	(CSD.south) edge (Veto)
+%	(BI.south) edge (Veto.north)
+%	(SE.south) edge (Veto.north)
+%	(VTID.south) edge (Veto.north)
+%	(Uni.south) edge (VN.north)
+%	(JM.south) edge (VN.north)
+%	(Bor.south) edge (VN.north)
+%	(VN.south) edge (VA.north)
+%;
+%  \draw[<->] (Max) -- (Sch);
+%\end{tikzpicture}
+\begin{tikzpicture}[->,>=latex,shorten >=1pt,auto,node distance=3cm,
+  thick,main node/.style={fill=blue!20,draw},yscale=1]
+
+  \begin{scope}[xshift=0.8cm,yshift=-3cm]
+  \node[main node,minimum width=1.2cm] (Sch) at (-3.2,1) {\strut Sch.};
+  \node[main node,minimum width=1.2cm] (Max) at (-3.2,0) {\strut Max.};
+  \node[main node,minimum width=1.2cm] (PO) at (-1.6,0) {\strut RP};
+  \node[main node,minimum width=1.2cm] (U2T) at (0,0) {\strut TR};
+  \node[main node,minimum width=1.2cm] (VTI) at (1.6,0) {\strut IRV};
+  \node[main node,minimum width=1.2cm] (CVTI) at (1.6,1) {\strut CIRV};
+  \node[main node,minimum width=1.2cm] (SE) at (1.6,-1) {\strut EB};
+  \end{scope}
+  \begin{scope}[xshift=1.6cm,yshift=-6cm]
+  \node[main node,minimum width=1.2cm] (BI) at (-8.0,0) {\strut IB};
+  \node[main node,minimum width=1.2cm] (VTID) at (-6.4,0) {\strut IRVD}; 
+  \node[main node,minimum width=1.2cm] (Buck) at (-4.8,0) {\strut Buck.};
+  \node[main node,minimum width=1.2cm] (CSD) at (-3.2,0) {\strut CSD};
+  \node[main node,minimum width=1.2cm] (Coo) at (-1.6,0) {\strut Coo.}; 
+  \node[main node,minimum width=1.2cm] (Nan) at (0,0) {\strut Nan.};
+  \node[main node,minimum width=1.2cm] (Bald) at (1.6,0) {\strut Bald.};
+  \end{scope}
+  \begin{scope}[xshift=0cm,yshift=-8cm]
+  \node[main node,minimum width=1.2cm] (Uni) at (-3.2,0) {\strut Plu.};
+  \node[main node,minimum width=1.2cm] (JM) at (-1.6,0) {\strut MJ};
+  \node[main node,minimum width=1.2cm] (Bor) at (0,0) {\strut Bor.};
+  \node[main node,minimum width=1.2cm] (Veto) at (4,0) {\strut Veto};
+  \end{scope}
+  \begin{scope}[xshift=-1.6cm,yshift=-9.5cm]
+  \node[main node,minimum width=1.2cm] (VN) at (0,0) {\strut RV};
+  \end{scope}
+  \begin{scope}[xshift=-1.6cm,yshift=-10.5cm]
+  \node[main node,minimum width=1.2cm] (VA) at (0,0) {\strut AV};
+  \end{scope}
+
+\draw[->] (Sch) -| (BI);
+\draw[->] (CVTI) -| (Veto);
+  \path
+    (Sch) edge (Max)
+    (Max.south) edge (CSD.north)
+    (U2T.south) edge (BI.north)
+    (U2T) edge (VTI)
+    (CVTI) edge (VTI)
+    (VTI) edge (SE)
+%    (U2T.south) edge (PO.north)
+	(U2T.south) edge (Coo.north) % Avant c'était SE
+	(PO.south) edge (Coo.north)
+	(Max.south) edge (Nan.north)
+	(SE.south) edge (Nan.north)
+	(PO.south) edge (Nan.north)
+	(SE.south) edge (Bald.north)
+	(BI.south) edge (Uni.north)
+	(VTID.south) edge (Uni.north)
+	(Coo.south) edge (Uni.north)
+	(Nan.south) edge (Uni.north)
+	(Bald.south) edge (Uni.north)
+	(CSD.south) edge (JM.north)
+	(BI.south) edge (JM.north)
+	(VTID.south) edge (JM.north)
+	(Buck.south) edge (JM.north)
+	(Coo.south) edge (JM.north)
+	(Nan.south) edge (JM.north)
+%	(Bald.south) edge (JM.north)
+	(CSD.south) edge (Bor.north)
+	(BI.south) edge (Bor.north)
+	(VTID.south) edge (Bor.north)
+	(Buck.south) edge (Bor.north)
+	(Coo.south) edge (Bor.north)
+	(Nan.south) edge (Bor.north)
+%	(Bald.south) edge (Bor.north)
+	(CSD.south) edge (Veto.north)
+	(BI.south) edge (Veto.north)
+	(Uni.south) edge (VN.north)
+	(JM.south) edge (VN.north)
+	(Bor.south) edge (VN.north)
+	(VN.south) edge (VA.north)
+;
+%  \path % Avant inclusion boîte euclidienne
+%    (Sch) edge (Max)
+%    (Max.south) edge (CSD.north)
+%%    (Sch.south) edge (BI.north)
+%    (U2T.south) edge (BI.north)
+%    (U2T) edge (VTI)
+%    (CVTI) edge (VTI)
+%    (VTI) edge (SE)
+%    (U2T.south) edge (PO.north)
+%	(SE.south) edge (Coo.north)
+%	(PO) edge (Coo)
+%	(Max.south) edge (Nan.north)
+%	(SE.south) edge (Nan.north)
+%	(PO) edge (Nan)
+%	(SE.south) edge (Bald.north)
+%	(BI.south) edge (Uni.north)
+%	(VTID.south) edge (Uni.north)
+%	(Coo.south) edge (Uni.north)
+%	(Nan.south) edge (Uni.north)
+%	(Bald.south) edge (Uni.north)
+%	(CSD.south) edge (JM.north)
+%	(BI.south) edge (JM.north)
+%	(VTID.south) edge (JM.north)
+%	(Buck.south) edge (JM.north)
+%	(Coo.south) edge (JM.north)
+%	(Nan.south) edge (JM.north)
+%	(Bald.south) edge (JM.north)
+%	(CSD.south) edge (Bor.north)
+%	(BI.south) edge (Bor.north)
+%	(VTID.south) edge (Bor.north)
+%	(Buck.south) edge (Bor.north)
+%	(Coo.south) edge (Bor.north)
+%	(Nan.south) edge (Bor.north)
+%	(Bald.south) edge (Bor.north)
+%	(CSD.south) edge (Veto.north)
+%%	(CVTI.south) edge (Veto.north)
+%	(BI.south) edge (Veto.north)
+%	(Uni.south) edge (VN.north)
+%	(JM.south) edge (VN.north)
+%	(Bor.south) edge (VN.north)
+%	(VN.south) edge (VA.north)
+%;
+\end{tikzpicture}
+\end{bigcenter}
+\caption{Meta-analysis of TM in all unidimensional cultures under study}\label{fig:unidim_MT_comparison}
+\end{figure}
+
+Like we did for spheroidal cultures, we present in figure~\ref{fig:unidim_MT_comparison} a similar graph for TM. 
+Since there is no algorithmic uncertainty, we are able to conclude in all cases. Hence, if there is no edge (explicit or implied by transitivity) between two voting systems, it means that one is sometimes less TM than the other, and sometimes the opposite.
+
+Voting systems with no incoming edge are the most performing from a TM point of view: it is Schulze's method (with performances very close to Maximin, but slightly better), RP, the two-round system, CIRV, IRVD and Bucklin's method. %Parmi eux, l'uninominal à deux tours n'est jamais beaucoup plus manipulable que CVTI ou VTID (l'écart en faveur de l'un d'eux ne dépasse jamais 2~\%).
+
+Voting systems with the worst performances are Plurality, the majority judgement and Borda's method, which are less TM than range voting, which is less TM than approval voting.
+
+Once again, Veto is a particular case: it is dominated by some voting systems, such as Schulze's method, the two-round system or CIRV, but it is not comparable to many others.
+
+
+
+
+\section{Meta-analysis in all cultures under study}\label{sec:comparison_vs_synthese}
+
+\subsection{Meta-analysis of CM in all cultures under study}
+
+In order to do a synthesis of this chapter and previous one, we can wonder whether some voting systems are less manipulable than others in all cultures under study in chapters \ref{sec:simulations_spheroidal} and~\ref{sec:simulations_unidim}. This is the subject of the graph in figure~\ref{fig:synthese_MC_comparison}, which relies on all previous curves, except the spherical culture with $V = 3$, for the reasons mentioned in section~\ref{sec:comparison_vs}%, y compris les modèles multidimensionnels de la section~\ref{sec:gauss_multidim}%
+.
+
+\begin{figure}
+\begin{bigcenter}
+%\begin{tikzpicture}[->,>=latex,shorten >=1pt,auto,node distance=3cm,
+%  thick,main node/.style={fill=blue!20,draw},yscale=1] % Tolérance 2~\%, en excluant les multidim
+%
+%  \begin{scope}[xshift=-1.6cm,yshift=-2cm]
+%  \node[main node,minimum width=1.2cm] (CVTI) at (-4.8,2) {\strut CVTI};
+%  \node[main node,minimum width=1.2cm] (VTI) at (-4.8,1) {\strut VTI};
+%  \node[main node,minimum width=1.2cm] (SE) at (-4.8,0) {\strut SE};
+%  \node[main node,minimum width=1.2cm] (U2T) at (-3.2,0) {\strut U2T};
+%  \node[main node,minimum width=1.2cm] (Sch) at (-1.6,0) {\strut Sch.};
+%  \begin{scope}[xshift=0.4cm]
+%  \node[main node,minimum width=1.2cm] (Max) at (0,0) {\strut Max.};
+%  \node[main node,minimum width=1.2cm] (BI) at (1.6,0) {\strut BI};
+%  \node[main node,minimum width=1.2cm] (CSD) at (3.2,0) {\strut CSD};
+%  \node[main node,minimum width=1.2cm] (VTID) at (4.8,0) {\strut VTID};
+%  \node[main node,minimum width=1.2cm] (PO) at (6.4,0) {\strut PO};
+%  \end{scope}
+%  \end{scope}
+%  \begin{scope}[xshift=-1.6cm,yshift=-4cm]
+%  \node[main node,minimum width=1.2cm] (Nan) at (-5.6,0) {\strut Nan.};
+%  \end{scope}
+%  \begin{scope}[xshift=-2.4cm,yshift=-4cm]
+%  \node[main node,minimum width=1.2cm] (Bald) at (-3.2,0) {\strut Bald.};
+%  \node[main node,minimum width=1.2cm] (Uni) at (-1.6,0) {\strut Uni.};
+%  \node[main node,minimum width=1.2cm] (JM) at (0,0) {\strut JM};
+%  \node[main node,minimum width=1.2cm] (Buck) at (1.6,0) {\strut Buck.};
+%  \node[main node,minimum width=1.2cm] (Coo) at (3.2,0) {\strut Coo.};
+%  \end{scope}
+%  \begin{scope}[xshift=-4.0cm,yshift=-6cm]
+%  \node[main node,minimum width=1.2cm] (Veto) at (-2.4,0) {\strut Veto};
+%  \node[main node,minimum width=1.2cm] (Bor) at (0,0) {\strut Bor.};
+%  \node[main node,minimum width=1.2cm] (VN) at (1.6,0) {\strut VN};
+%  \node[main node,minimum width=1.2cm] (VA) at (3.2,0) {\strut VA};
+%  \end{scope}
+%
+%%  \draw[-] (VTI) --(VTI-|Nan);
+%%  \path (VTI-|Nan) edge (Nan);
+%  \draw[->] (VTI) -| (Nan);
+%  \path
+%	(CVTI) edge (VTI)
+%    (VTI) edge (SE)
+%    (SE.south) edge (Bald.north)
+%    (U2T.south) edge (Bald.north)
+%%    (VTI.south) edge (Nan.north)
+%    (U2T.south) edge (Nan.north)
+%    (SE.south) edge (Uni.north)
+%    (U2T.south) edge (Uni.north)
+%    (Sch.south) edge (Uni.north)
+%    (Max.south) edge (Uni.north)
+%    (SE.south) edge (JM.north)
+%    (U2T.south) edge (JM.north)
+%    (Sch.south) edge (JM.north)
+%    (Max.south) edge (JM.north)
+%    (SE.south) edge (Buck.north)
+%    (U2T.south) edge (Buck.north)
+%    (Sch.south) edge (Buck.north)
+%    (Max.south) edge (Buck.north)
+%    (BI.south) edge (Buck.north)
+%    (SE.south) edge (Coo.north)
+%    (U2T.south) edge (Coo.north)
+%    (Sch.south) edge (Coo.north)
+%    (Max.south) edge (Coo.north)
+%    (BI.south) edge (Coo.north)
+%    (Uni.south) edge (Bor.north)
+%    (JM.south) edge (Bor.north)
+%    (Uni.south) edge (VN.north)
+%    (JM.south) edge (VN.north)
+%    (SE.south) edge (Veto.north)
+%    (JM.south) edge (VA.north)
+%    (Buck.south) edge (VA.north)
+%;
+%  \draw[<->] (Max) -- (Sch)
+%;
+%\end{tikzpicture}
+\begin{tikzpicture}[->,>=latex,shorten >=1pt,auto,node distance=3cm,
+  thick,main node/.style={fill=blue!20,draw},yscale=1]
+
+  \begin{scope}[xshift=-1.6cm,yshift=-2cm]
+  \node[main node,minimum width=1.2cm] (Bald) at (-4.8,0) {\strut Bald.};
+  \node[main node,minimum width=1.2cm] (CVTI) at (-3.2,2) {\strut CIRV};
+  \node[main node,minimum width=1.2cm] (VTI) at (-3.2,1) {\strut IRV};
+  \node[main node,minimum width=1.2cm] (SE) at (-3.2,0) {\strut EB};
+  \node[main node,minimum width=1.2cm] (U2T) at (-1.6,0) {\strut TR};
+  \node[main node,minimum width=1.2cm] (Sch) at (-0,0) {\strut Sch.};
+  \begin{scope}[xshift=0cm]
+  \node[main node,minimum width=1.2cm] (Max) at (1.6,0) {\strut Max.};
+  \node[main node,minimum width=1.2cm] (CSD) at (4.0,1) {\strut CSD};
+  \node[main node,minimum width=1.2cm] (VTID) at (5.6,1) {\strut IRVD};
+  \node[main node,minimum width=1.2cm] (PO) at (3.2,0) {\strut RP};
+  \node[main node,minimum width=1.2cm] (Nan) at (4.8,0) {\strut Nan.};
+  \node[main node,minimum width=1.2cm] (BI) at (6.4,0) {\strut IB};
+  \end{scope}
+  \end{scope}
+  \begin{scope}[xshift=-2.4cm,yshift=-4cm]
+  \node[main node,minimum width=1.2cm] (Uni) at (-1.6,0) {\strut Plu.};
+  \node[main node,minimum width=1.2cm] (JM) at (0,0) {\strut MJ};
+  \node[main node,minimum width=1.2cm] (Buck) at (1.6,0) {\strut Buck.};
+  \node[main node,minimum width=1.2cm] (VA) at (3.2,-0.2) {\strut AV};
+  \node[main node,minimum width=1.2cm] (Coo) at (4.8,0) {\strut Coo.};
+  \end{scope}
+  \begin{scope}[xshift=-1.6cm,yshift=-6cm]
+  \node[main node,minimum width=1.2cm] (Veto) at (-3.2,0) {\strut Veto};
+  \node[main node,minimum width=1.2cm] (VN) at (-1.6,0) {\strut RV};
+  \node[main node,minimum width=1.2cm] (Bor) at (0,0) {\strut Bor.};
+  \end{scope}
+
+\draw[->] (VTI) -| (Bald);
+  \path
+	(CVTI) edge (VTI)
+    (VTI) edge (SE)
+%    (VTI.south) edge (Bald.north)
+    (SE.south) edge (Uni.north)
+    (U2T.south) edge (Uni.north)
+    (Sch.south) edge (Uni.north)
+    (Max.south) edge (Uni.north)
+    (SE.south) edge (JM.north)
+    (U2T.south) edge (JM.north)
+    (Sch.south) edge (JM.north)
+    (Max.south) edge (JM.north)
+    (SE.south) edge (Buck.north)
+    (U2T.south) edge (Buck.north)
+    (SE.south) edge (Coo.north)
+    (U2T.south) edge (Coo.north)
+    (Sch.south) edge (Coo.north)
+    (Max.south) edge (Coo.north)
+    (JM.south) edge (Bor.north)
+    (Uni.south) edge (VN.north)
+    (JM.south) edge (VN.north)
+    (SE.south) edge (Veto.north)
+    (Sch.south) edge (VA.north)
+    (Max.south) edge (VA.north)
+    (Buck) edge (VA)
+;
+\end{tikzpicture}
+\end{bigcenter}
+\caption{Meta-analysis of CM in all cultures from chapters \ref{sec:simulations_spheroidal} and~\ref{sec:simulations_unidim} (except spherical culture with $V = 3$).}\label{fig:synthese_MC_comparison}
+\end{figure}
+
+\medskip
+Voting systems with no incoming edge are CIRV, the two-round system, Schulze's method and Maximin (with very close performances from each other), CSD, IRVD, RP, Nanson's method and IB. As for these last five, the approximate algorithm gives essentially a lower bound of manipulability, which makes them incomparable on the set of all experiments. As usual, we will give a complementary point of view with TM.
+
+On the opposite, we have noticed several times the very poor performances of Borda's method, range voting and approval voting, whose manipulability rates are often more than the proportion of non-resistant configurations. In all such cases, it means that these voting systems are more manipulable than any voting system meeting the Condorcet criterion.
+
+Among the voting systems that are wide spread in practice, it is worth noticing that Plurality is dominated by voting systems such as CIRV, IRV, EB, the two-round system, Schulze's method or Maximin. From the point of view of manipulability, this seems to plead for a limited use of Plurality in actual elections and its replacement by one of these voting systems.
+
+\subsection{Meta-analysis of TM in all cultures under study}
+
+
+\begin{figure}
+\begin{bigcenter}
+%\begin{tikzpicture}[->,>=latex,shorten >=1pt,auto,node distance=3cm,
+%  thick,main node/.style={fill=blue!20,draw},yscale=1] % Tolérance = 2~\%, en excluant les multidim
+%
+%  \begin{scope}[xshift=-0.8cm,yshift=-0cm]
+%	  \begin{scope}[xshift=-0.4cm,yshift=-0cm]
+%  \node[main node,minimum width=1.2cm] (Sch) at (-6.8,0) {\strut Sch.};
+%  \node[main node,minimum width=1.2cm] (Max) at (-4.8,0) {\strut Max.};
+%	  \end{scope}
+%	  \begin{scope}[xshift=0.8cm,yshift=-0cm]
+%  \node[main node,minimum width=1.2cm] (U2T) at (-3.2,0) {\strut U2T};
+%  \node[main node,minimum width=1.2cm] (CVTI) at (-1.6,2) {\strut CVTI};
+%  \node[main node,minimum width=1.2cm] (VTI) at (-1.6,1) {\strut VTI};
+%  \node[main node,minimum width=1.2cm] (SE) at (-1.6,0) {\strut SE};
+%  \node[main node,minimum width=1.2cm] (Veto) at (3.2,0.5) {\strut Veto};
+%	  \end{scope}
+%  \end{scope}
+%  \begin{scope}[xshift=-0.8cm,yshift=-2cm]
+%  \node[main node,minimum width=1.2cm] (CSD) at (-4.8,0) {\strut CSD};
+%  \node[main node,minimum width=1.2cm] (VTID) at (-3.2,0) {\strut VTID};
+%  \node[main node,minimum width=1.2cm] (Bald) at (-1.6,0) {\strut Bald.};
+%  \node[main node,minimum width=1.2cm] (PO) at (0,0) {\strut PO};
+%  \node[main node,minimum width=1.2cm] (Nan) at (1.6,0) {\strut Nan.};
+%  \node[main node,minimum width=1.2cm] (Buck) at (3.2,0) {\strut Buck.};
+%  \node[main node,minimum width=1.2cm] (BI) at (4.8,0) {\strut BI};
+%  \end{scope}
+%  \begin{scope}[xshift=-1.6cm,yshift=-4cm]
+%  \node[main node,minimum width=1.2cm] (Uni) at (-5.4,0) {\strut Uni.};
+%  \node[main node,minimum width=1.2cm] (JM) at (-1.6,0) {\strut JM};
+%  \node[main node,minimum width=1.2cm] (Coo) at (0,0) {\strut Coo.};
+%  \node[main node,minimum width=1.2cm] (Bor) at (1.6,0) {\strut Bor.};
+%  \end{scope}
+%  \begin{scope}[xshift=0cm,yshift=-6cm]
+%  \node[main node,minimum width=1.2cm] (VN) at (0,0) {\strut VN};
+%  \node[main node,minimum width=1.2cm] (VA) at (1.6,0) {\strut VA};
+%  \end{scope}
+%
+%  \draw[->] (CVTI) -| (VTID);
+%  \path
+%    (CVTI) edge (VTI)
+%    (VTI) edge (SE)
+%    (SE.south) edge (Bald.north)
+%    (U2T.south) edge (Bald.north)
+%    (Sch.south) edge (CSD.north)
+%    (Max.south) edge (CSD.north)
+%%    (CVTI.south) edge (VTID.north)
+%    (U2T.south) edge (VTID.north)
+%    (SE.south) edge (PO.north)
+%    (U2T.south) edge (PO.north)
+%    (SE.south) edge (Nan.north)
+%    (U2T.south) edge (Nan.north)
+%    (U2T.south) edge (BI.north)
+%	(Sch.south) edge (Uni.north)
+%	(Max.south) edge (Uni.north)
+%	(Bald.south) edge (Uni.north)
+%	(VTID.south) edge (Uni.north)
+%	(PO.south) edge (Uni.north)
+%	(Nan.south) edge (Uni.north)
+%	(Bald.south) edge (JM.north)
+%	(VTID.south) edge (JM.north)
+%	(PO.south) edge (JM.north)
+%	(Nan.south) edge (JM.north)
+%	(PO.south) edge (Coo.north)
+%	(VTID.south) edge (Coo.north)
+%	(SE.south) edge (Coo.north)
+%	(Bald.south) edge (Bor.north)
+%	(CSD.south) edge (Bor.north)
+%	(Buck.south) edge (Bor.north)
+%	(VTID.south) edge (Bor.north)
+%	(PO.south) edge (Bor.north)
+%	(Nan.south) edge (Bor.north)
+%	(Buck.south) edge (VN.north)
+%	(Uni.south) edge (VN.north)
+%	(JM.south) edge (VN.north)
+%	(Buck.south) edge (VA.north)
+%	(BI.south) edge (VA.north)
+%	(Uni.south) edge (VA.north)
+%	(JM.south) edge (VA.north)
+%;
+%  \draw[<->] (Max) -- (Sch);
+%\end{tikzpicture}
+\begin{tikzpicture}[->,>=latex,shorten >=1pt,auto,node distance=3cm,
+  thick,main node/.style={fill=blue!20,draw},yscale=1]
+
+  \begin{scope}[xshift=-0.8cm,yshift=-0cm]
+	  \begin{scope}[xshift=-0.8cm,yshift=-0cm]
+  \node[main node,minimum width=1.2cm] (Sch) at (-6.4,0) {\strut Sch.};
+  \node[main node,minimum width=1.2cm] (Max) at (-4.8,0) {\strut Max.};
+	  \end{scope}
+	  \begin{scope}[xshift=4.0cm,yshift=-0cm]
+  \node[main node,minimum width=1.2cm] (CVTI) at (-1.6,1) {\strut CIRV};
+  \node[main node,minimum width=1.2cm] (VTI) at (-1.6,0) {\strut IRV, EB};
+  \node[main node,minimum width=1.2cm] (SE) at (-1.6,0) {\strut IRV, EB};
+  \node[main node,minimum width=1.2cm] (U2T) at (0,0) {\strut TR};
+  \node[main node,minimum width=1.2cm] (Veto) at (2.4,0.5) {\strut Veto};
+	  \end{scope}
+  \end{scope}
+  \begin{scope}[xshift=-0.8cm,yshift=-2cm]
+  \node[main node,minimum width=1.2cm] (CSD) at (-4.8,0) {\strut CSD};
+  \node[main node,minimum width=1.2cm] (Buck) at (-3.2,0) {\strut Buck.};
+  \begin{scope}[xshift=1.6cm,yshift=0cm]
+  \node[main node,minimum width=1.2cm] (VTID) at (-3.2,0) {\strut IRVD};
+  \node[main node,minimum width=1.2cm] (Bald) at (-1.6,0) {\strut Bald.};
+  \node[main node,minimum width=1.2cm] (Nan) at (0,0) {\strut Nan.};
+  \node[main node,minimum width=1.2cm] (PO) at (1.6,0) {\strut RP};
+  \node[main node,minimum width=1.2cm] (Coo) at (3.2,-0.2) {\strut Coo.};
+  \node[main node,minimum width=1.2cm] (BI) at (4.8,0) {\strut IB};
+  \end{scope}
+  \end{scope}
+  \begin{scope}[xshift=-1.6cm,yshift=-4cm]
+  \node[main node,minimum width=1.2cm] (Uni) at (-4.8,0) {\strut Plu.};
+  \node[main node,minimum width=1.2cm] (VN) at (-3.2,-0.2) {\strut RV};
+  \node[main node,minimum width=1.2cm] (JM) at (-1.6,0) {\strut MJ};
+  \node[main node,minimum width=1.2cm] (Bor) at (0,0) {\strut Bor.};
+  \node[main node,minimum width=1.2cm] (VA) at (1.6,0) {\strut AV};
+  \end{scope}
+  \begin{scope}[xshift=0cm,yshift=-6cm]
+  \end{scope}
+
+  \draw[->] (BI) |- (VA);
+  \path
+    (CVTI) edge (VTI)
+    (SE.south) edge (Bald.north)
+    (U2T.south) edge (Bald.north)
+    (Sch.south) edge (CSD.north)
+    (Max.south) edge (CSD.north)
+    (U2T.south) edge (PO.north)
+    (SE.south) edge (Nan.north)
+    (U2T.south) edge (Nan.north)
+    (U2T.south) edge (BI.north)
+	(Sch.south) edge (Uni.north)
+	(Max.south) edge (Uni.north)
+	(Bald.south) edge (Uni.north)
+	(VTID.south) edge (Uni.north)
+	(PO.south) edge (Uni.north)
+	(Nan.south) edge (Uni.north)
+	(Bald.south) edge (JM.north)
+	(CSD.south) edge (JM.north)
+	(VTID.south) edge (JM.north)
+	(PO.south) edge (JM.north)
+	(Nan.south) edge (JM.north)
+%	(U2T.south) edge (Coo.north)
+	(SE.south) edge (Coo.north)
+	(PO) edge (Coo)
+	(Bald.south) edge (Bor.north)
+	(CSD.south) edge (Bor.north)
+	(Buck.south) edge (Bor.north)
+	(VTID.south) edge (Bor.north)
+	(PO.south) edge (Bor.north)
+	(Nan.south) edge (Bor.north)
+	(Buck.south) edge (VN.north)
+	(Uni) edge (VN)
+	(JM) edge (VN)
+	(Bald.south) edge (VA.north)
+	(CSD.south) edge (VA.north)
+	(Buck.south) edge (VA.north)
+	(VTID.south) edge (VA.north)
+	(Nan.south) edge (VA.north)
+%	(BI.south) edge (VA.north)
+;
+\end{tikzpicture}
+\end{bigcenter}
+\caption{Meta-analysis of TM in all cultures from chapters \ref{sec:simulations_spheroidal} and~\ref{sec:simulations_unidim} (except spherical culture with $V = 3$).}\label{fig:synthese_MT_comparison}
+\end{figure}
+
+\medskip
+Similarly, figure~\ref{fig:synthese_MT_comparison} makes it possible to compare TM of the different voting systems in all cultures from this chapter and previous one (except the spherical culture with $V = 3$). So, an edge from a voting system to another one means that the first one is better than the second one from a TM point of view. Once again, we note that the voting systems with the best performances are CIRV, the two-round system, Schulze's method, Maximin, Bucklin's method. IRVD has no incoming edge either, but its difference of manipulability with the two round system is never favorable with a great amplitude in all cultures under study (it is always less than 2~\%), whereas we have seen that TR is sometimes far less TM than IRVD.
+
+All other voting systems, except Veto, are dominated by at least one of these voting systems. Veto is a connected component on its own, which confirms its being not comparable with all other voting systems under study, amplified by its resistance to trivial manipulation.
+
+At last, we note the poor performances of the following voting systems: Coombs' method, Plurality, range voting, the majority judgment, Borda's method and approval voting.
+
+However, as we discussed in the introduction of this memoir, approval voting has the advantage of proposing a strategy that is quite natural in practice, the \emph{Leader rule} \citep{laslier2009leader}, which makes it possible to reach equilibria with a limited exchange of information. In contrast, the complexity to establish a strategic ballot in IRV seems, experimentally, discourage voters from undertaking such a computation and incite them to vote sincerely \citep{vanderstraeten2010strategic}, which can be seen as an advantage or a drawback, depending on the point of view.
+
+
+%\section{Conclusion}\label{sec:conclusions_simus_gauss}
+%
+%\todo{Conclusion à rédiger...}
+%
+%Nous avons étudié la manipulabilité par coalition de 22 systèmes de vote dans une culture en puits gaussien.
+%
+%Nous avons étudié l'effet de varier divers paramètres, ce qui nous a mené à d'intéressantes conjectures sur le lien entre la culture et le taux de manipulabilité. 
+%
+%Dans les cultures sphéroïdales, nous avions vu que , le scrutin exhaustif, VTI et Condorcet-VTI semblent être les moins manipulables. La principale exception à cette conclusion se manifeste quand la culture est un spectre politique unidimensionnel: alors, les systèmes de la famille VTI ne se comportent par aussi bien que d'autres systèmes de vote, comme l'uninominal à deux tours par exemple.
+%
+%\begin{itemize}
+%\item Le taux de manipulabilité croît avec le nombre de candidats~$C$.
+%\item Pour tous les modes de scrutin étudiés ici, nous conjecturons que comme en culture sphérique, il semble tendre vers 1 quand $V \rightarrow +\infty$ (avec un doute plus prononcé pour CSD et BI).
+%\item Les taux de manipulabilité de certains modes de scrutin présentent des phénomènes oscillatoires en fonction de la parité du nombre d'électeurs, qui sont plus prononcés dans un spectre politique unidimensionnel qu'en culture sphérique.
+%\item Le taux de manipulabilité croît avec le nombre d'électeurs (à parité fixée de celui-ci). En puits gaussien, il ne semble tendre vers 1 que pour Veto, le vote par assentiment, la méthode de Borda et le vote par notation.
+%\item Quand l'accord au sein de la population augmente (puits gaussien avec décalage infini), la manipulabilité décroît et tend vers 0 pour les modes de scrutin unanime. Elle tend vers $1 - \frac{1}{C-1}$ pour Veto (en supposant $V \geq C - 1$).
+%\item Principale exception à la suprématie de CVTI, VTI et SE: spectre politique unidimensionnel, où l'uninominal à deux tours devient meilleur que CVTI, VTI et SE, et où il n'est pas exclu que d'autres modes de scrutin soient meilleurs également (Kemeny, PO, VTID, BI et surtout CSD).
+%\item Alors qu'on sait que CVTI est strictement moins manipulable que VTI, qui est strictement moins manipulable que SE, l'écart est assez faible en pratique, notamment quand on le compare à l'écart généralement assez grand entre VTI et les autres modes de scrutin.
+%\item Le vote par notation, la méthode de Borda et le vote par assentiment ont les performances avérées les plus médiocres. La méthode de Coombs semble un peu mieux se comporter qu'en culture sphéroïdale.
+%\end{itemize}
+%
+%D'où question cruciale: et en vrai? C'est VTI le mieux ou pas? Habile transition vers le chapitre suivant.
+
+
+
+
+
+
+
+
+
+

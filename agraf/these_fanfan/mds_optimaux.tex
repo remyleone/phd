@@ -1,0 +1,990 @@
+% !TeX spellcheck = fr_FR
+\mychapter{Modes de scrutin optimaux}\label{sec:mds_optimaux}
+
+Dans ce chapitre, nous nous intéressons aux système de vote dont le taux de manipulabilité est minimal au sein de l'ensemble de ceux qui vérifient \cminf{}: par commodité de langage, nous dirons qu'un tel système est \emph{optimal}. 
+
+Grâce au corollaire~\ref{thm:minimum_manip_cond} des théorèmes de condorcification, nous savons que pour chercher un tel mode de scrutin, on peut se restreindre aux systèmes Condorcet. Par le théorème d'optimalité~\ref{thm:general_optimality}, nous savons que si la culture est décomposable, en particulier si les électeurs sont indépendants, alors il existe un système optimal et on peut restreindre la recherche aux systèmes qui sont ordinaux et vérifient le critère de Condorcet.
+
+\medskip
+Dans la section~\ref{sec:graphe_dopportunite}, nous présentons la technique employée. En section~\ref{sec:graphe_en_general}, nous définissons le \emph{graphe d'opportunité} d'un espace électoral. Indépendant du système de vote utilisé, celui-ci indique si une configuration est susceptible d'être manipulable vers une autre, en fonction du candidat qui sera choisi comme vainqueur dans les deux configurations par le système de vote qu'on envisage d'utiliser. Dans cette représentation, une culture est simplement représentée par une pondération sur les sommets du graphe. 
+
+Dans les sections \ref{sec:graphe_mds_condorcet}, \ref{sec:graphe_no_semi_cond} et~\ref{sec:graphe_ordinaux}, nous montrons que le problème de la recherche d'un optimum se simplifie si on se restreint aux systèmes Condorcet, si on suppose que les configurations semi-admissibles sont de probabilité nulle et si on se restreint aux systèmes ordinaux.
+
+Dans la section~\ref{sec:graphe_algo_glouton}, nous présentons un algorithme glouton qui permet de rechercher un optimum de façon approchée, mais dont nous verrons qu'il n'est pas exact. Dans la section~\ref{sec:graphe_algo_cplex}, nous montrons que la recherche d'un optimum, avec les hypothèses précédentes, peut être ramenée à un problème d'optimisation en nombres entiers, que le logiciel dédié CPLEX nous permettra de traiter pour des valeurs modérées des paramètres.
+
+Dans la section~\ref{sec:graphe_resultats}, nous nous restreignons à la culture impartiale avec un nombre impair d'électeurs, qui vérifie toutes les hypothèses précédentes. Nous discutons les solutions trouvées pour $V = 3$, 5 ou~7 et $C = 3$, ainsi que pour $V =3$ et $C = 4$ (sections \ref{sec:opti33} à~\ref{sec:opti34}).
+
+Dans la section \ref{sec:opti_comparaison_mds_classiques}, nous concluons ce chapitre en comparant le taux de manipulabilité minimal trouvé (au sein de \cminf) avec ceux des modes de scrutin classiques.
+
+
+\section{Graphe d'opportunité}\label{sec:graphe_dopportunite}
+
+\subsection{Définition}\label{sec:graphe_en_general}
+
+Comme d'habitude, nous nous plaçons dans un espace électoral~$\Omega$. Le \emph{graphe d'opportunité} que nous allons définir dans cette section est entièrement déterminé par~$\Omega$: il exprime une structure de l'espace électoral qui est indépendante du mode de scrutin utilisé par la suite. Dans ce cadre, nous verrons ensuite qu'une culture est simplement représentée par une pondération sur les sommets du graphe.
+
+\medskip
+Pour définir le graphe d'opportunité, nous devons d'abord définir le \emph{$(\winner, c)$-pointage}.
+
+\begin{definition}
+Soit $\omega$ et $\psi$ deux configurations distinctes, $\winner$ et $c$ deux candidats distincts.
+
+On dit que $\omega$ \emph{$(\winner,c)$-pointe} vers $\psi$ si et seulement si:
+$$
+\forall v \in \SincFull{c}{\winner}, \omega_v = \psi_v.
+$$
+Autrement dit:
+$$
+\forall v \in \mathcal{V}, \omega_v \neq \psi_v \Rightarrow c \Plusquefull[v]{\omega_v} \winner.
+$$
+Si un électeur présente un état différent dans $\omega$ et $\psi$, il préfère $c$ à $\winner$ dans $\omega$.
+\end{definition}
+
+Intuitivement, cette propriété signifie que si $\winner$ est vainqueur dans $\omega$ et si $c$ est vainqueur dans $\psi$, alors $\omega$ est manipulable en faveur de $c$ vers $\psi$: en effet, les électeurs qui préfèrent $c$ à~$\winner$ peuvent changer leur bulletin afin de produire la configuration~$\psi$.
+
+Par exemple, considérons les configurations suivantes.
+$$
+\omega: \begin{array}{c|c|c}
+a & b & c \\
+b & c & b \\
+c & a & a \\
+\end{array}
+\hspace{2cm}
+\psi: \begin{array}{c|c|c}
+a & b & c \\
+b & c & \mathbf{a} \\
+c & a & \mathbf{b} \\
+\end{array}
+$$
+La configuration $\omega$ $(b, c)$-pointe vers $\psi$: en effet, le seul électeur qui change d'état préfère $c$ à $b$ dans $\omega$. Il serait donc néfaste pour un mode de scrutin de désigner comme vainqueur~$b$ dans $\omega$ et $c$ dans $\psi$: en effet, comme $\omega$ $(b, c)$-pointe vers $\psi$, cela impliquerait que la configuration $\omega$ soit manipulable.
+
+Dans l'exemple ci-dessus, la configuration $\omega$ $(a, c)$-pointe et $(a, b)$-pointe également vers~$\psi$. Ce $(a, b)$-pointage nous donne l'occasion d'insister sur le fait que chaque électeur modifié (l'unique électeur modifié, en l'occurrence) préfère par hypothèse $b$ à $a$ dans la configuration de départ~$\omega$, mais pas nécessairement dans celle d'arrivée~$\psi$. Ainsi, si un mode de scrutin désignait~$a$ dans $\omega$ et $b$ dans $\psi$, le dernier électeur pourrait manipuler la configuration $\omega$ en faveur de $b$ en faisant descendre $b$ dans son ordre de préférence! Une telle situation n'est pas du tout à exclure: certains modes de scrutin largement répandus, comme l'uninominal à deux tours ou VTI, présentent de tels défauts de monotonie.
+
+\medskip
+Plus généralement, on n'a pas seulement une implication du pointage vers la manipulabilité mais l'équivalence suivante, qui est une simple relecture de la définition de la manipulabilité.
+
+\begin{prop}
+Soit $f: \Omega \to \mathcal{C}$ un SVBE, $\omega$ et $\psi$ deux configurations distinctes.
+
+Le système $f$ est manipulable en $\omega$ vers $\psi$ si et seulement si $\omega$ $(f(\omega),f(\psi))$-pointe vers $\psi$.
+\end{prop}
+
+Cette remarque va nous permettre de reformuler les questions de manipulabilité comme des problèmes de graphe. 
+
+\begin{definition}
+Considérons le multigraphe étiqueté $(\Omega,E,e: E \to \mathcal{C}^2)$ défini de la façon suivante.
+\begin{itemize}
+	\item Les sommets du graphe sont les états $\omega \in \Omega$.
+  \item $E$ est l'ensemble des arêtes (\emph{edges}).
+  \item $e$ est une fonction qui, à chaque arête, associe une étiquette qui est un couple de candidats.
+  \item Un sommet $\omega$ possède une arête étiquetée $(\winner,c)$ vers un sommet $\psi$ si et seulement si la configuration $\omega$ $(\winner,c)$-pointe vers $\psi$.
+\end{itemize}
+
+Le multigraphe étiqueté obtenu est appelé le \emph{graphe d'opportunité} de l'espace électoral~$\Omega$.
+\end{definition}
+
+Il s'agit d'un multigraphe: il est \emph{a priori} tout à fait possible qu'un sommet $\omega$ possède plusieurs arêtes vers un sommet $\psi$ avec des étiquettes différentes, comme nous l'avons déjà vu.
+
+\medskip
+Un SVBE $f:\Omega \to \mathcal{C}$ est alors vu comme une fonction qui, à chaque sommet $\omega$ du graphe d'opportunité, associe un élément de $\mathcal{C}$. L'indicatrice de manipulabilité de $f$ en $\omega$, déjà notée $\MC_f(\omega)$, est une fonction booléenne sur les sommets qui vaut 1 en un sommet $\omega$ si et seulement s'il existe au moins un sommet $\psi$ vers lequel le sommet $\omega$ possède l'arête étiquetée $(f(\omega),f(\psi))$.
+
+Le graphe d'opportunité est une représentation qui permet d'étudier le taux de manipulabilité: si l'on se donne une loi de probabilité $\pi$ sur l'espace électoral, il suffit de pondérer chaque sommet $\omega$ par un poids $\pi(\omega)$. Le taux de manipulabilité de $f$ est alors le poids total des sommets manipulables selon~$f$:
+$$
+\tau_\MC(f) = \sum_{\omega \in \Omega} \MC_f(\omega) \proba(\omega).
+$$
+
+Chercher un mode de scrutin de taux de manipulabilité minimal et respectant une certaine contrainte (par exemple \textbf{Cond}) signifie chercher une fonction $f$ qui minimise le poids total des sommets manipulables parmi celles vérifiant cette contrainte.
+
+\medskip
+Le problème se simplifie au moins dans les trois cas suivants, qui permettent de <<\,nettoyer\,>> le graphe, c'est-à-dire d'enlever des arêtes non pertinentes sans altérer sa validité pour la recherche d'un optimum.
+\begin{itemize}
+	\item Si la contrainte choisie implique qu'une configuration $\omega$ ait pour vainqueur un certain $\winner_0$, alors pour $\winner \neq \winner_0$, il est inutile de considérer les arêtes $(\winner,c)$ sortantes de $\omega$.
+	\item Si on sait qu'une configuration $\omega$ est nécessairement manipulable (à cause de la contrainte choisie), alors il est inutile de considérer les arêtes sortantes de $\omega$.
+	\item Si un événement $A \subset \Omega$ a une probabilité nulle, alors pour toute configuration~$\omega \in A$, il est inutile de considérer ses arêtes sortantes: en effet, rendre $\omega$ manipulable n'augmente pas le taux de manipulabilité. En revanche, ses arêtes entrantes sont importantes car $\omega$ pourrait rendre manipulables certaines configurations $\omega'$ de probabilité non nulle qui pointent vers $\omega$.
+\end{itemize}
+
+
+\subsection{Restriction aux modes de scrutin Condorcet}\label{sec:graphe_mds_condorcet}
+
+Par le corollaire~\ref{thm:minimum_manip_cond} des théorèmes de condorcification, on sait qu'il est intéressant de chercher un mode de scrutin qui, au sein de la classe de ceux qui vérifient \cond{}, possède une manipulabilité minimale. En effet, un tel mode de scrutin présentera un taux de manipulabilité minimal dans la classe plus large des modes de scrutin qui vérifient \cminf{}.
+
+Pour cette contrainte particulière (\cond), les deux premières simplifications vues plus haut deviennent les suivantes.
+\begin{itemize}
+	\item Si $\omega$ possède un vainqueur de Condorcet~$\winner_0$, on sait que $\winner_0$ est nécessairement élu dans~$\omega$ donc pour $\winner \neq \winner_0$, il est inutile de considérer les arêtes sortantes $(\winner, c)$.
+\item Si $\omega$ est une configuration non admissible, on sait qu'elle est nécessairement manipulable, donc il est inutile de considérer ses $(\winner,c)$-pointages sortants.
+\end{itemize}
+De plus, si $\omega$ et $\psi$ possèdent un vainqueur de Condorcet, alors $\omega$ ne peut pas être manipulable vers $\psi$, donc il est inutile de considérer les arêtes de $\omega$ vers~$\psi$.
+	
+La table~\ref{table:pointage_condorcet} récapitule quelles arêtes doivent être considérées pour rechercher un mode de scrutin Condorcet de manipulabilité minimale.
+
+\begin{table}
+\begin{bigcenter}
+\begin{tabular}{IlIc|c|cI}
+\Cline{1pt}{1-4}
+& $\psi$ Condorcet  & $\psi$ semi-Condorcet & $\psi$ non admissible \\ \Cline{1pt}{1-4}
+$\omega$ Condorcet (vainqueur $\winner_0$)			& non & \multicolumn{2}{cI}{pour $\winner = \winner_0$} \\ \hline
+$\omega$ semi-Condorcet				& \multicolumn{3}{cI}{pour tout $\winner$} \\ \hline
+$\omega$ non admissible				& \multicolumn{3}{cI}{non} \\ \Cline{1pt}{1-4}
+\end{tabular}
+%\begin{tabular}{IlIc|c|cI}
+%\Cline{1pt}{1-4}
+%& $\omega$ Condorcet (vainqueur $\winner$) & $\omega$ semi-Condorcet & $\omega$ non admissible \\ \Cline{1pt}{1-4}
+%$\psi$ Condorcet 			& non & oui pour tout $\winner$ & non \\ \hline
+%$\psi$ semi-Condorcet				& oui pour ce $\winner$ & oui pour tout $\winner$ & non \\ \hline
+%$\psi$ non admissible				& oui pour ce $\winner$ & oui pour tout $\winner$ & non \\ \Cline{1pt}{1-4}
+%\end{tabular}
+\end{bigcenter}
+\caption{Recherche d'un mode de scrutin Condorcet optimal: $(\winner, c)$-pointages à considérer de $\omega$ vers $\psi$.}\label{table:pointage_condorcet}
+\end{table}
+
+En résumé, les configurations Condorcet se simplifient parce qu'on connaît déjà le vainqueur; et les configurations non admissibles, parce qu'on connaît déjà leur manipulabilité (égale à~Vrai). On peut, d'ailleurs, remarquer que toute configuration possédant un vainqueur de Condorcet résistant est également un cas simple, puisqu'on connaît aussi sa manipulabilité (égale à~Faux); en pratique, cela se traduit par le fait qu'une telle configuration n'a pas d'arête sortante, une fois le graphe nettoyé comme indiqué.
+
+Les configurations semi-Condorcet (avec au moins un candidat Condorcet-admissible, mais sans vainqueur de Condorcet) sont les plus délicates: en effet, ni leur vainqueur ni leur manipulabilité ne sont connus \emph{a priori}.
+
+
+%Trouver un mode de scrutin optimal se résume alors à:
+%\begin{itemize}
+%	\item pour toute situation $\omega$ blanche, choisir $f(\omega)$ le vainqueur de Condorcet;
+%	\item pour toute situation $\psi$ grise ou noire, choisir un vainqueur $f(\psi)$ de sorte que la mesure des configurations $\omega$ pour lesquelles il existe une configuration $\psi$ telle que $\omega$ possède une arête $(f(\omega),f(\psi))$ vers $\psi$ soit minimale.
+%\end{itemize}
+
+ 
+
+\subsection{Configurations semi-Condorcet de probabilité nulle}\label{sec:graphe_no_semi_cond}
+
+À présent, nous ajoutons l'hypothèse que l'ensemble des configurations semi-Condorcet a une probabilité nulle. C'est le cas, en particulier, si le nombre d'électeurs est impair et si les préférences sont presque sûrement des ordres stricts totaux. Concernant cette dernière hypothèse, il peut en être ainsi soit parce que les autres relations binaires sont considérées comme impossibles dans l'espace électoral considéré, comme dans celui des ordres stricts totaux, soit parce qu'elles sont autorisées mais de probabilité nulle dans la culture étudiée: c'est notamment le cas si les préférences dérivent d'utilités et que la probabilité d'avoir deux utilités égales est nulle, comme dans toutes des cultures des chapitres \ref{sec:simulations_spheroidal} et~\ref{sec:simulations_unidim}. Il s'agit donc d'un cas particulier important.
+
+Comme on le remarquait en section~\ref{sec:graphe_en_general}, cela implique qu'on peut ignorer les arêtes sortantes des configurations semi-Condorcet, puisque leur manipulabilité n'a aucune influence sur le taux de manipulabilité. 
+
+Cependant, \emph{a priori}, une configuration semi-Condorcet $\psi$ pourrait rendre manipulable une configuration $\omega$ de probabilité non nulle. Afin de contourner ce risque, nous ajoutons la contrainte suivante: pour toute configuration semi-Condorcet, le vainqueur est un candidat Condorcet-admissible arbitraire. Ainsi, une configuration semi-Condorcet ne peut rendre manipulable ni une configuration non admissible (qui est manipulable de toute façon) ni une configuration Condorcet (car le bénéficiaire d'une telle manipulation continuerait d'avoir une défaite contre le vainqueur de Condorcet, donc ne pourrait pas être Condorcet-admissible, lemme~\ref{thm_cNonAdm}). En imposant cette propriété supplémentaire, on peut aussi ignorer les arêtes entrantes des configurations semi-Condorcet et finalement ignorer totalement ces configurations.
+
+Pour la recherche d'un mode de scrutin de taux de manipulabilité minimal, cette hypothèse n'altère en rien l'optimalité du système trouvé: en effet, pour tout mode de scrutin optimal, les considérations précédentes montrent que si on le modifie en désignant un candidat Condorcet-admissible pour toute configuration semi-Condorcet, alors le système obtenu possède exactement le même taux de manipulabilité.
+
+La table~\ref{table:pointage_condorcet_no_grise} résume les arêtes qu'on peut se contenter de considérer avec ces nouvelles hypothèses. Il s'agit maintenant d'un graphe étiqueté bipartite, puisque les arêtes proviennent uniquement des configurations Condorcet pour aller uniquement vers des configurations non admissibles.
+
+\begin{table}
+\begin{bigcenter}
+\begin{tabular}{IlIc|c|cI}
+\Cline{1pt}{1-4}
+& $\psi$ Condorcet  & $\psi$ semi-Condorcet & $\psi$ non admissible \\ \Cline{1pt}{1-4}
+$\omega$ Condorcet (vainqueur $\winner_0$)			& \multicolumn{2}{c|}{non} & pour $\winner = \winner_0$ \\ \hline
+$\omega$ semi-Condorcet				& \multicolumn{3}{cI}{non} \\ \hline
+$\omega$ non admissible				& \multicolumn{3}{cI}{non} \\ \Cline{1pt}{1-4}
+\end{tabular}
+%\begin{tabular}{IlIc|c|cI}
+%\Cline{1pt}{1-4}
+%                       & $\omega$ Condorcet (vainqueur $\winner$) & $\omega$ semi-Condorcet & $\omega$  \\ \Cline{1pt}{1-4}
+%$\psi$ Condorcet 	   & non & non & non \\ \hline
+%$\psi$ semi-Condorcet  & non & non & non \\ \hline
+%$\psi$    & oui pour ce $\winner$ & non & non \\ \Cline{1pt}{1-4}
+%\end{tabular}
+\end{bigcenter}
+\caption{Recherche d'un mode de scrutin Condorcet optimal: $(\winner, c)$-pointages à considérer de $\omega$ vers $\psi$, si les configurations semi-Condorcet ont une probabilité nulle. Sans altérer l'optimalité, on impose que le vainqueur de chaque configuration semi-Condorcet soit un candidat Condorcet-admissible arbitraire.}\label{table:pointage_condorcet_no_grise}
+\end{table}
+
+Quand $\omega$ $(\winner, c)$-pointe vers $\psi$, il est à présent inutile de préciser $\winner$, puisque dans le graphe nettoyé, le candidat considéré est nécessairement le vainqueur de Condorcet dans $\omega$. Par conséquent, on dira simplement que $\omega$ $c$-pointe vers $\psi$ (ce qui sous-entend que $\omega$ est une configuration Condorcet et $\psi$ une configuration ).
+%Il n'est à présent plus nécessaire de dire que $\omega$ $(\winner, c)$-pointe vers $\psi$, puisque le candidat $\winner$ considéré est nécessairement le vainqueur de Condorcet dans $\omega$. À la place, on dira simplement que $\omega$ $c$-pointe vers $\psi$ (ce qui sous-entend que $\omega$ est Condorcet et $\psi$ non-Condorcet).
+
+\medskip
+La figure~\ref{fig:graphe_pointage_abstrait} montre une représentation d'un graphe d'opportunité de ce type. Il s'agit d'un exemple simplifié, qui ne correspond pas forcément à un espace électoral particulier. Chaque configuration $\omega^i$ est Condorcet, chaque configuration $\psi^j$ est non-Condorcet. Les configurations semi-Condorcet ou résistantes ne sont pas représentées car elles n'ont aucune importance pour le problème à résoudre. Afin de représenter graphiquement l'arête étiquetée $c$ d'une configuration~$\omega$ vers une configuration~$\psi$, on munit $\psi^j$ d'une <<\,prise\,>> notée $\psi^j.c$ et on <<\,branche\,>> la configuration $\omega^i$ sur la prise $\psi^j.c$.
+
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}
+%\draw (0,0) grid (10,5);
+\node[draw] (X1) at (0,2.8) {$\omega^1$};
+\node[draw] (X2) at (0,2.0) {$\omega^2$};
+\node[draw] (X3) at (0,1.2) {$\omega^3$};
+\node[draw] (X4) at (0,0.4) {$\omega^4$};
+\node[draw] (X5) at (0,-0.4) {$\omega^5$};
+\node[draw] (X6) at (0,-1.2) {$\omega^6$};
+\node[draw] (X7) at (0,-2.0) {$\omega^7$};
+\node[draw] (X8) at (0,-2.8) {$\omega^8$};
+
+\begin{scope}[yshift=2.2cm,xshift=4cm]
+\node[draw] (Y1) at (0,0) {$\psi^1$};
+\node[draw] (Y11) at (-1.5,0.7) {$\psi^1.1$};
+\node[draw] (Y12) at (-1.5,0) {$\psi^1.2$};
+\node[draw] (Y13) at (-1.5,-0.7) {$\psi^1.3$};
+\draw (Y1.west) -- (Y11.east);
+\draw (Y1.west) -- (Y12.east);
+\draw (Y1.west) -- (Y13.east);
+\end{scope}
+
+\begin{scope}[yshift=0cm,xshift=4cm]
+\node[draw] (Y2) at (0,0) {$\psi^2$};
+\node[draw] (Y21) at (-1.5,0.7) {$\psi^2.1$};
+\node[draw] (Y22) at (-1.5,0) {$\psi^2.2$};
+\node[draw] (Y23) at (-1.5,-0.7) {$\psi^2.3$};
+\draw (Y2.west) -- (Y21.east);
+\draw (Y2.west) -- (Y22.east);
+\draw (Y2.west) -- (Y23.east);
+\end{scope}
+
+\begin{scope}[yshift=-2.2cm,xshift=4cm]
+\node[draw] (Y3) at (0,0) {$\psi^3$};
+\node[draw] (Y31) at (-1.5,0.7) {$\psi^3.1$};
+\node[draw] (Y32) at (-1.5,0) {$\psi^3.2$};
+\node[draw] (Y33) at (-1.5,-0.7) {$\psi^3.3$};
+\draw (Y3.west) -- (Y31.east);
+\draw (Y3.west) -- (Y32.east);
+\draw (Y3.west) -- (Y33.east);
+\end{scope}
+
+%\draw (X1.east) -- (Y11.west);
+\draw (X2.east) -- (Y12.west);
+%\draw (X3.east) -- (Y21.west);
+\draw (X6.east) -- (Y23.west);
+%\draw (X7.east) -- (Y32.west);
+\draw (X8.east) -- (Y33.west);
+
+\draw (X4.east) -- (Y13.west);
+\draw (X5.east) -- (Y13.west);
+\draw (X4.east) -- (Y22.west);
+\draw (X5.east) -- (Y22.west);
+\draw (X4.east) -- (Y31.west);
+\draw (X5.east) -- (Y31.west);
+
+\draw[ultra thick,dashed,Blue] (X1.east) -- (Y11.west);
+\draw[ultra thick,dashed,Blue] (X3.east) -- (Y21.west);
+\draw[ultra thick,dashed,Blue] (X7.east) -- (Y32.west);
+
+%\uncover<2->{
+\draw[ultra thick,red] (X4.east) -- (Y13.west);
+\draw[ultra thick,red] (X5.east) -- (Y13.west);
+\draw[ultra thick,red] (X4.east) -- (Y22.west);
+\draw[ultra thick,red] (X5.east) -- (Y22.west);
+\draw[ultra thick,red] (X4.east) -- (Y31.west);
+\draw[ultra thick,red] (X5.east) -- (Y31.west);
+\node[draw,very thick] at (Y13) {$\psi^1.3$};
+\node[draw,very thick] at (Y22) {$\psi^2.2$};
+\node[draw,very thick] at (Y31) {$\psi^3.1$};
+\node[draw,very thick] at (X4) {$\omega^4$};
+\node[draw,very thick] at (X5) {$\omega^5$};
+%}
+\end{tikzpicture}
+\end{center}
+\caption{Type de graphe utilisé pour la recherche d'un mode de scrutin Condorcet optimal, dans un espace électoral discret où les configurations semi-Condorcet sont de mesure nulle. Trait bleu discontinu: un résultat possible de l'algorithme glouton. Trait rouge épais: l'optimum global.}\label{fig:graphe_pointage_abstrait}
+\end{figure}
+
+Le graphe se lit de la façon suivante: par exemple, dans la configuration $\psi^2$, si le candidat~2 est désigné comme vainqueur par un certain mode de scrutin, alors les configuration~$\omega^4$ et $\omega^5$ deviennent manipulables: on dira aussi qu'elles sont \emph{contaminées}. Le problème revient alors à choisir exactement une prise pour chaque configuration~$\psi$ tout en minimisant le poids total des configurations contaminées (ou plus simplement leur cardinal, si les configurations Condorcet sont en nombre fini et munies de la probabilité uniforme).
+
+\subsection{Restriction aux modes de scrutin ordinaux}\label{sec:graphe_ordinaux}
+
+Les théorèmes de tranchage (\ref{thm_slicing} et \ref{thm:slicing_independent}) et leurs combinaisons avec les théorèmes de condorcification (\ref{thm_condorce_et_slice} et \ref{thm:general_optimality}) nous suggèrent de chercher un optimum parmi les modes de scrutin qui, non seulement respectent le critère de Condorcet, mais sont également ordinaux (au sens où ils ne dépendent que des relations binaires de préférence, même si celles-ci ne sont pas des ordres). En effet, si la culture est décomposable, un tel optimum présentera un taux de manipulabilité minimal dans la classe plus large des modes de scrutin qui vérifient \cminf{} et qui ne sont pas nécessairement ordinaux (théorème d'optimalité~\ref{thm:general_optimality}). Nous pouvons donc ajouter l'hypothèse que le graphe d'opportunité est fini. Dans ce cas, il existe un nombre fini de modes de scrutin possibles, donc il existe nécessairement au moins un mode de scrutin dont le taux de manipulabilité est minimal, comme nous l'avons déjà remarqué dans la proposition~\ref{thm_existence_MC_optimal}.
+
+\subsection{Algorithme glouton}\label{sec:graphe_algo_glouton}
+
+Il est facile de concevoir un algorithme de minimisation glouton qui procède par optimisation locale: pour chaque configuration non-Condorcet $\psi^j$, on choisit la prise $\psi^j.c$ qui possède le moins d'arêtes entrantes. Une telle solution approchée est représentée en trait bleu discontinu dans le figure~\ref{fig:graphe_pointage_abstrait}. Dans cet exemple, on choisirait le candidat 1 ou 2 pour la configuration $\psi^1$ (ce qui contamine $\omega^1$ ou $\omega^2$), 1 ou 3 pour la configuration $\psi^2$ (ce qui contamine $\omega^3$ ou $\omega^6$) et 2 ou 3 pour la configuration~$\psi^3$ (ce qui contamine $\omega^7$ ou $\omega^8$). Ainsi, 3 configurations seraient contaminées. 
+
+Cependant, cet algorithme n'est pas optimal pour un graphe général de ce type: sur la figure~\ref{fig:graphe_pointage_abstrait}, on a représenté en rouge et en caractères gras la solution optimale, qui est strictement meilleure. En choisissant le candidat~3 pour~$\psi^1$, 2~pour $\psi^2$ et 1 pour $\psi^3$, on ne contamine que 2 configurations, $\omega^4$ et $\omega^5$.
+
+Dans le cas général d'un multigraphe étiqueté du type présenté dans la figure~\ref{fig:graphe_pointage_abstrait}, il est probable que le problème à résoudre soit \complexNP-difficile. Cela n'exclut pas, \emph{a priori}, que le problème puisse se simplifier, par exemple, pour le sous-ensemble des graphes obtenus comme graphes d'opportunité de chaque espace électoral des ordres stricts totaux (pour tout $V$ impair et tout $C$). Mais il serait tout de même surprenant qu'on échappe à des situations pathologiques comme celle de la figure~\ref{fig:graphe_pointage_abstrait} et on peut d'ores et déjà s'attendre à ce que l'algorithme glouton ne soit pas optimal.
+
+%Il n'est pas évident, \emph{a priori}, qu'une telle configuration pathologique, où l'optimisation locale ne permet pas d'avoir une optimisation globale, survienne dans le cas des graphes particuliers obtenus pour les espaces électoraux. Cependant, nous verrons que c'est le cas.
+
+\subsection{Approche exacte: optimisation linéaire en nombres entiers}\label{sec:graphe_algo_cplex}
+
+Pour résumer, nous recherchons des modes de scrutin vérifiant \cminf{} et dont le taux de manipulabilité soit minimal. On peut restreindre la recherche aux modes de scrutin ordinaux (si la culture est décomposable) et vérifiant le critère de Condorcet. En outre, nous supposons que les configurations semi-Condorcet sont de mesure nulle et, dans celles-ci, nous imposons que le vainqueur soit un candidat Condorcet-admissible arbitraire, sans altérer l'optimalité du mode de scrutin obtenu.
+
+Dans ce cadre, notre problème peut se ramener à un problème d'optimisation linéaire en nombres entiers de la façon suivante.
+\begin{itemize}
+\item Pour chaque couple $(\psi, c)$, où $\psi$ est une configuration non admissible et $c$~un candidat, on déclare la variable entière $W(\psi, c)$ qui vaut 1 si $c$ est choisi comme vainqueur pour $\psi$ et 0 sinon.
+\item Pour chaque configuration Condorcet $\omega$, on déclare la variable entière $\CM(\omega)$ qui vaut 1 si $\omega$ est manipulable et 0 sinon.
+\item Pour chaque configuration non admissible $\psi$, il y a un unique vainqueur, ce qu'on traduit par la contrainte $\sum_c W(\psi, c) = 1$.
+\item Pour chaque triplet $(\omega, \psi, c)$ tel que $\omega$ $c$-pointe vers $\psi$, on sait que si $W(\psi, c) = 1$, alors $\CM(\omega) = 1$, ce qu'on traduit par la contrainte $\CM(\omega) \geq W(\psi, c)$.
+\item L'objectif est de minimiser $\sum_\omega \pi(\omega) \CM(\omega)$.
+\end{itemize}
+
+L'avantage de cette formulation est qu'il existe des logiciels génériques qui implantent des algorithmes performants pour résoudre les problèmes d'optimisation linéaire en nombres entiers. À différents stades de notre travail, nous avons utilisé AIMMS puis IBM ILOG CPLEX Optimization Studio, qui utilisent tous deux le moteur CPLEX.
+
+L'inconvénient de notre problème est qu'il nécessite un nombre de variables élevé. Par exemple, dans l'espace électoral des ordres stricts totaux avec $V$~impair, il est compris entre $(C!)^V$ et $C \times (C!)^V$. En effet, il y a une variable pour chaque configuration Condorcet et $C$ variables pour chaque configuration non admissible (il n'y a pas de configuration semi-Condorcet dans ce cas). Le problème n'est donc raisonnablement traitable que pour de très petites valeurs des paramètres. Cependant, nous allons voir que les cas exploitables en pratique sont déjà riches d'enseignements sur les modes de scrutin optimaux en général. 
+
+\section{Modes de scrutin optimaux pour de faibles valeurs de $V$ et $C$}\label{sec:graphe_resultats}
+
+À présent, nous considérons la culture impartiale: les électeurs ont donc presque sûrement un ordre strict total de préférence, ils sont indépendants, et la culture est neutre (et anonyme). Cette culture vérifie donc bien les hypothèses précédentes. Dans ce cas particulier, il n'y a pas de configuration semi-Condorcet, donc les configurations non admissibles sont exactement les configurations non Condorcet. De plus, les configurations sont équiprobables, donc minimiser le poids total des configurations contaminées revient simplement à minimiser leur cardinal. 
+
+\subsection{$V = 3$ et $C = 3$: des optima comme s'il en pleuvait}\label{sec:opti33}
+
+Pour $V = 3$ électeurs et $C = 3$ candidats, il y a $(C!)^V = 216$ configurations dans l'espace électoral et $C^{\card(\Omega)} \simeq 10^{103}$ modes de scrutin possibles au total (en incluant ceux qui ne vérifient pas le critère de Condorcet). Il est, cependant, possible de traiter le problème à la main, ce qui est intéressant pour forger l'intuition et va nous permettre de prouver un résultat plus général que la simple identification d'un optimum par la force brute de CPLEX. 
+
+\begin{lem}\label{thm:conf_non_cond_33}
+Sur les $(C!)^V = 216$ profils possibles, il y a 12~profils non-Condorcet. Il s'agit du profil suivant:
+$$
+\psi: \begin{array}{c|c|c}
+a & b & c \\
+b & c & a \\
+c & a & b \\
+\end{array}
+%\hspace{2cm}
+%\psi' = \begin{array}{c|c|c}
+%c & b & a \\
+%b & a & c \\
+%a & c & b \\
+%\end{array}
+$$
+et de ses variantes par permutation des électeurs et/ou des candidats.
+\end{lem}
+
+La configuration~$\psi$ est un exemple minimal du classique paradoxe de Condorcet: $a$ bat $b$, qui bat $c$, qui bat $a$.
+
+\begin{proof}
+Pour qu'un profil soit non-Condorcet, il faut que les candidats en tête soient tous distincts, sinon le candidat placé en tête deux fois est vainqueur de Condorcet. Quitte à échanger $b$ et $c$, supposons que l'électeur qui place $a$ en tête préfère $b$ à $c$. En comptant également l'électeur qui place $b$ en tête, $b$~est donc assuré d'une victoire contre $c$; donc il est nécessaire d'avoir une victoire de $a$ contre $b$ et une victoire de $c$ contre $a$. Il est alors facile de conclure qu'on est dans la configuration~$\psi$.
+\end{proof}
+
+Pour chaque mode de scrutin vérifiant le critère de Condorcet, il s'agit uniquement de choisir le vainqueur dans chaque profil non Condorcet. Ainsi, il n'y a <<\,que\,>> $C^{12} = 531\,441$ modes de scrutin vérifiant le critère de Condorcet.
+
+\medskip
+Avant d'aller plus loin sur le cas $V = 3$ et $C = 3$, on remarque le lemme facile suivant, qui est vrai en général, pas seulement pour cette valeur des paramètres.
+
+\begin{lem}\label{thm:cn_de_pointage}
+Pour qu'une configuration $\omega$, de vainqueur de Condorcet~$\winner$, $c$-pointe vers un configuration $\psi$, il est nécessaire que $\winner$ soit préféré à~$c$ dans $\psi$ par une majorité stricte d'électeurs.
+\end{lem}
+
+\begin{proof}
+C'est une simple reformulation du lemme~\ref{thm_cNonAdm}. Dans $\omega$, une majorité d'électeurs préfèrent $\winner$ à $c$. Or, ces électeurs ne peuvent pas changer d'état dans $\psi$.
+\end{proof}
+
+Nous allons, à présent, procéder par une petite série de lemmes assez simples pour traiter le cas $V = 3$ et $C = 3$.
+
+
+\begin{lem}\label{thm:33psiorigine}
+La configuration $\psi$ ci-dessus n'est $a$-pointée que par le profil suivant:
+$$
+\omega: \begin{array}{c|c|c}
+a & b & c \\
+c & c & a \\
+b & a & b \\
+\end{array},
+$$
+dont le vainqueur de Condorcet est $c$.
+\end{lem}
+
+\begin{proof}
+Soit $\omega$ un profil qui $a$-pointe vers $\psi$ et $\winner$ son vainqueur de Condorcet. En vertu du lemme~\ref{thm:cn_de_pointage}, il faut que $\winner$ possède une victoire contre $a$ dans $\psi$: ce candidat $\winner$ est donc nécessairement~$c$. Dans $\omega$, il y a donc au moins deux électeurs qui préfèrent $c$ à $a$, et par $a$-pointage, leur bulletin ne change pas dans~$\psi$. Comme seuls les deux derniers électeurs préfèrent $c$ à $a$ dans $\psi$, il s'agit nécessairement de ceux-là: ils ont donc le même bulletin dans~$\omega$. Reste à déterminer le bulletin du premier électeur, sachant que, par hypothèse, il préfère $a$ à $c$. S'il place $b$ en tête, c'est $b$ qui est vainqueur de Condorcet (exclus) et s'il place $b$ en milieu de liste, il s'agit de la configuration~$\psi$. Il place donc nécessairement $b$ en fin de bulletin.
+\end{proof}
+
+On en déduit immédiatement que $\psi$ n'est $b$-pointée ou $c$-pointée que par un profil, obtenu à partir de $\omega$ par permutation des rôles.
+
+\begin{lem}\label{thm:33omegadestination}
+En reprenant les notations précédentes, la configuration $\omega$, de vainqueur de Condorcet $c$, ne pointe que vers la configuration $\psi$.
+\end{lem}
+
+\begin{proof}
+Supposons que $\omega$ $b$-pointe vers une certaine configuration. Dans celle-ci, le premier et le dernier électeur, qui préfèrent $c$ à $b$, sont conservés. Comme leurs bulletins ne sont pas des permutations circulaires l'un de l'autre, il est impossible d'obtenir un profil non-Condorcet ainsi (lemme~\ref{thm:conf_non_cond_33}).
+
+Supposons, à présent, que $\omega$ $a$-pointe vers une certaine configuration. Dans celle-ci, les deux derniers électeurs, qui préfèrent $c$ à $a$, sont conservés. Or on sait (lemme~\ref{thm:conf_non_cond_33}) que pour obtenir une configuration non-Condorcet, il faut que les bulletins soient des permutations circulaires les uns des autres, donc la seule configuration possible est $\psi$.
+\end{proof}
+
+\begin{prop}
+En culture impartiale, pour $V = 3$ et $C = 3$, tous les SVBE vérifiant le critère de Condorcet ont le même taux de manipulabilité: $\frac{24}{216} = \frac{1}{9} \simeq 11,\!11~\%$ .
+\end{prop}
+
+\begin{proof}
+La composante connexe du profil $\psi$ contient exactement trois profils Condorcet, $\omega$, $\omega'$ et $\omega''$, comme on l'a représenté sur la figure~\ref{fig:graphe33}. En effet, seuls ces trois profils pointent vers~$\psi$ (lemme~\ref{thm:33psiorigine}) et aucun d'eux ne pointe vers un autre profil (lemme~\ref{thm:33omegadestination}).
+
+Par conséquent, le graphe contient exactement 12~composantes connexes non réduites à un singleton. Les autres composantes sont obtenues à partir de la figure~\ref{fig:graphe33} par permutation des électeurs et/ou des candidats.
+
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}
+\node[draw,minimum width=2.6cm,text width=2.5cm] (omegaa) at (-5,2) {\hfill$\omega: \begin{array}{c|c|c}
+a & b & c \\
+c & c & a \\
+b & a & b \\
+\end{array}
+$};
+\node[draw,minimum width=2.6cm,text width=2.5cm] (omegab) at (-5,0) {\hfill$\omega': \begin{array}{c|c|c}
+a & b & c \\
+b & a & a \\
+c & c & b \\
+\end{array}
+$};
+\node[draw,minimum width=2.6cm,text width=2.5cm] (omegac) at (-5,-2) {\hfill$\omega'': \begin{array}{c|c|c}
+a & b & c \\
+b & c & b \\
+c & a & a \\
+\end{array}
+$};
+\node[draw] (psia) at (-2,0.8) {\strut$\psi.a$};
+\node[draw] (psib) at (-2,0) {\strut$\psi.b$};
+\node[draw] (psic) at (-2,-0.8) {\strut$\psi.c$};
+\node[draw] (psi) at (0,0) {$\psi: \begin{array}{c|c|c}
+a & b & c \\
+b & c & a \\
+c & a & b \\
+\end{array}
+$};
+\draw (omegaa) -- (psia);
+\draw (omegab) -- (psib);
+\draw (omegac) -- (psic);
+\draw (psia) -- (psi);
+\draw (psib) -- (psi);
+\draw (psic) -- (psi);
+\end{tikzpicture}
+\end{center}
+\caption{Une composante connexe du graphe pour $V = 3$ et $C = 3$.}\label{fig:graphe33}
+\end{figure}
+
+Dans la composante représentée, quel que soit le vainqueur choisi pour le profil~$\psi$, cela contamine un, et exactement un, profil Condorcet. Ainsi, les profils manipulables sont les 12 profils non-Condorcet et les 12 profils Condorcet contaminés: le taux de manipulabilité est $\frac{24}{216}$.
+\end{proof}
+
+Dans la section~\ref{sec:borne_sup_manip_pour_les_cond}, nous avions affirmé de manière péremptoire que, dans l'espace électoral des ordres stricts totaux, il n'existe pas de SVBE Condorcet qui atteigne la borne supérieure de manipulabilité que nous avions donnée, c'est-à-dire qui soit manipulable dans toutes les configurations non résistantes. La figure~\ref{fig:graphe33} permet de prouver ce fait: en effet, le profil~$\psi$ ne peut pas contaminer en même temps~$\omega$, $\omega'$ et $\omega''$. Comme ces profils n'ont aucun autre moyen d'être contaminés (lemme~\ref{thm:33omegadestination}), il est impossible qu'ils soient manipulables tous les trois. Il est, par ailleurs, facile de montrer que ces profils sont non-résistants, puisqu'en vertu du graphe de la figure~\ref{fig:graphe33}, chacun d'entre eux peut être manipulable.
+
+\subsection{$V = 5$ et $C = 3$: CVTI et c'est tout!}\label{sec:opti53}
+
+Pour $V = 5$ électeurs et $C = 3$ candidats, il est difficile de certifier l'optimum global à la main, mais on peut, au moins, effectuer manuellement l'algorithme glouton. En fait, on va voir que, dans ce cas, le résultat est le même. L'approche manuelle va donc nous permettre d'avoir une meilleure compréhension du mode de scrutin optimal.
+
+\medskip
+Parmi les $(C!)^V = 7\,776$ profils possibles, il est facile de montrer, par énumération manuelle à symétries près, que 540 profils sont non-Condorcet. D'une part, on a le profil suivant:
+$$
+\psi: \begin{array}{c|c|c|c|c}
+a & a & b & b & c \\
+b & b & c & c & a \\
+c & c & a & a & b \\
+\end{array}
+$$
+et ses 180 variantes par permutation des électeurs et/ou des candidats.
+D'autre part, on a le profil suivant:
+$$
+\chi: \begin{array}{c|c|c|c|c}
+a & a & b & b & c \\
+b & c & c & c & a \\
+c & b & a & a & b \\
+\end{array}
+$$
+et ses 360 variantes par permutation des électeurs et/ou des candidats. Le premier profil~$\psi$ possède deux fois moins de variantes que le second~$\chi$ car il a une symétrie interne supplémentaire, celle consistant à échanger les deux premiers électeurs.
+
+En appliquant les mêmes techniques que pour $V = 3$ électeurs, il est humainement possible de prouver qu'il existe un seul profil qui $a$-pointe vers $\psi$, un seul profil qui $a$-pointe vers $\chi$, et qu'il s'agit du même profil $\omega$:
+$$
+\omega: \begin{array}{c|c|c|c|c}
+a & a & b & b & c \\
+c & c & c & c & a \\
+b & b & a & a & b \\
+\end{array},
+$$
+dont le vainqueur de Condorcet est $c$.
+
+Il n'est guère plus difficile de montrer qu'en revanche, il y a strictement plus d'un profil qui $b$-pointe (ou qui $c$-pointe) vers $\psi$ (ou vers $\chi$). Ainsi, en utilisant l'algorithme glouton, on doit avoir $f(\psi) = f(\chi) = a$, ce qui rend manipulable uniquement le profil~$\omega$. On pourra, d'ailleurs, remarquer que ce profil~$\omega$ est également rendu manipulable par le profil obtenu en échangeant les deux premiers électeurs de~$\chi$. Par conséquent, l'algorithme glouton contamine $\omega$ et ses variantes par permutation, c'est-à-dire 180 profils Condorcet. Au total, il y a donc $360+180+180 = 720$ profils manipulables et le taux de manipulabilité est $\frac{720}{7\,776} = \frac{5}{54} \simeq$ 9,26~\%.
+
+\medskip
+L'utilisation de CPLEX permet d'établir qu'il s'agit, en fait, d'un optimum global. Pour savoir si cette optimum est unique, on demande ensuite à CPLEX de trouver l'optimum soit avec la contrainte supplémentaire $W(\psi, a) = 0$, soit avec la contrainte supplémentaire $W(\chi, a) = 0$, c'est-à-dire qu'on interdit au candidat $a$ d'être vainqueur en $\psi$ ou en $\chi$. Dans les deux cas, on constate que le taux de manipulabilité optimal trouvé est strictement supérieur à $\frac{720}{7\,776} = \frac{5}{54}$. Il est donc obligatoire, pour un mode de scrutin optimal, d'élire le candidat $a$ en $\psi$ et en~$\chi$. Par argument de symétrie, il y a donc aussi unicité du vainqueur possible, dans un mode de scrutin optimal, pour tout profil obtenu à partir de $\psi$ ou $\chi$ par permutation des électeurs et/ou des candidats. L'optimum exhibé précédemment est donc unique.
+
+Par ailleurs, on constate que le mode de scrutin obtenu est CVTI: en effet, il suffit de vérifier que, dans les profils~$\psi$ et $\chi$ ci-dessus, le mode de scrutin donne le même résultat que~VTI, ce qui est le cas. Pour $V = 5$ et $C = 3$, comme il n'y a jamais d'égalité entre plusieurs candidats en CVTI (ou en VTI), la question de la règle de départage utilisée ne se pose pas: CVTI définit donc parfaitement la solution de manière non ambiguë, et celle-ci est anonyme et neutre. On résume toutes ces observations par la proposition suivante et son corollaire immédiat.
+
+\begin{prop}
+On considère l'espace électoral des ordres stricts totaux pour $V = 5$ et $C = 3$, muni de la culture impartiale.
+
+Parmi les SVBE vérifiant le critère de Condorcet, CVTI est l'unique système possédant un taux de manipulabilité minimal.
+\end{prop}
+
+\begin{cor}
+On considère un espace électoral probabilisé avec $V = 5$ et $C = 3$. On suppose que la culture est décomposable (par exemple, parce que les électeurs sont indépendants) et que la loi de probabilité induite sur le profil \,$\textrm{\normalfont P}$ est la culture impartiale.
+
+Parmi les modes de scrutin vérifiant \cminf{}, CVTI possède un taux de manipulabilité minimal, qui est égal à $\frac{720}{7\,776} = \frac{5}{54} = \simeq 9,\!26~\%$. C'est le seul système qui possède cette propriété, est un SVBE et vérifie le critère de Condorcet. En outre, il est anonyme et neutre (cf. section~\ref{sec:neutralite}).
+\end{cor}
+
+Par ailleurs, nous allons voir que le mode de scrutin optimal ne peut, dans ce cas, se reposer uniquement sur la matrice des duels. En effet, le profil $\chi$ vu précédemment possède la matrice des duels suivante:
+$$
+\begin{tabular}{IcIc|c|cI}
+\Cline{1pt}{1-4}
+\multicolumn{1}{IcI}{$D(\chi)$} & $a$ & $b$ & $c$ \\ \Cline{1pt}{1-4}
+$a$                     &  -- & 3 & 2  \\ \hline
+$b$                     & 2 & --  & 3  \\ \hline
+$c$                     & 3 & 2 & --   \\ \Cline{1pt}{1-4}
+\end{tabular}
+$$
+Celle-ci est invariante quand on applique aux candidats la permutation circulaire $(a \to b \to c \to a)$. En particulier, c'est la même matrice majoritaire pour le profil:
+$$
+\chi': \begin{array}{c|c|c|c|c}
+b & b & c & c & a \\
+a & c & a & a & b \\
+c & a & b & b & c \\
+\end{array},
+$$
+qui est obtenu à partir de $\chi$ par cette permutation.
+
+Le mode de scrutin optimal, dont nous avons montré qu'il s'agit de CVTI pour ces paramètres, ne peut pas être basé uniquement sur la matrice majoritaire: il désigne comme vainqueur $a$ dans $\chi$ et $b$ dans $\chi'$.
+
+Plus formellement, considérons un mode de scrutin~$f$ dont le résultat ne dépend que de la matrice majoritaire. Ce mode de scrutin peut utiliser une règle de départage basée sur l'identité des candidats et/ou sur la matrice majoritaire, mais pas sur les préférences détaillées des électeurs: par exemple, il peut départager les candidats par ordre alphabétique ou par ordre d'indice, comme dans \svvamp{}. Un tel mode de scrutin~$f$ doit alors désigner le même vainqueur dans $\chi$ et dans $\chi'$ et il n'est donc pas optimal.
+
+À nos yeux, une conséquence importante de cette étude de cas est que dans la classe \cminf{}, aucun mode de scrutin dont le résultat ne dépend que de la matrice des duels ne peut être optimal pour $V = 5$ et $C = 3$. En effet, nous venons de prouver cette affirmation pour les systèmes Condorcet. Pour un système non-Condorcet qui ne dépend que de la matrice majoritaire, il suffit de remarquer que sa condorcification (qu'on sait au plus aussi manipulable que l'original) ne dépend que de la matrice des duels également; donc il ne saurait être optimal. Cette constatation exclut notamment Condorcet-doyen, PO, CSD, Maximin, ainsi que les méthodes de Baldwin, Borda, Black (Condorcet-Borda), Nanson, Kemeny et Schulze.
+
+\subsection{$V = 7$ et $C = 3$: bien choisir la règle de départage de CVTI}\label{sec:opti73}
+
+Pour $V = 7$ électeurs et $C = 3$ candidats, il devient extrêmement douloureux de gérer le problème à la main. Il y a $(C!)^V = 279\,936$ profils au total. Et surtout, il y a 7~types de profils non-Condorcet (à permutation des électeurs et/ou des candidats près), au lieu d'un ou deux types dans les cas précédents. Rappelons que, pour chacun de ces profils non-Condorcet, il faut considérer tous les profils Condorcet qui pointent vers lui. 
+
+Nous avons donc recours à des calculs par ordinateur. L'algorithme glouton trouve un mode de scrutin possédant un taux de manipulabilité de 13,46~\%. CPLEX trouve une solution optimale avec un taux de $\frac{31\,920}{279\,936} = \frac{665}{5832} \simeq $ 11,40~\%. L'algorithme glouton n'est donc pas optimal dans ce cas.
+
+\medskip
+Afin d'étudier les propriétés de l'ensemble des solutions, on peut utiliser CPLEX en imposant des contraintes supplémentaires. Par exemple, on peut imposer la valeur $W(\psi, c) = 0$ pour un certain $\psi$ et un certain $c$: si l'optimum n'est plus atteignable dans ce cas, cela signifie qu'il est nécessaire que $c$ soit vainqueur en $\psi$.
+
+On peut aussi chercher les systèmes de votes qui sont optimaux dans la classe plus restreinte de ceux qui sont anonymes, neutres ou les deux. Par exemple, pour trouver un optimum anonyme, on quotiente le graphe d'opportunité par la relation d'équivalence qui consiste, pour deux configurations, à être déduites l'une de l'autre par permutation des électeurs. Pour trouver un optimum neutre, on quotiente le graphe d'opportunité par permutation des candidats; il faut alors prendre garde à modifier le $c$-pointage en conséquence.
+
+Le taux de manipulabilité minimal trouvé par CPLEX pour un mode de scrutin anonyme et neutre est $\frac{31\,920}{279\,936} = \frac{665}{5832} \simeq $ 11,40~\%: il s'agit donc d'un optimum, même parmi les modes de scrutin qui ne sont pas forcément anonymes et/ou neutres.
+
+\medskip
+La table~\ref{table:solution_optimale_sept_electeurs} résume les principales conclusions de cette étude. Pour chacun des 7~types de profil non-Condorcet (à permutation des électeurs et/ou des candidats près), on donne une condition nécessaire sur le vainqueur pour que le mode de scrutin soit optimal, éventuellement en ajoutant la contrainte d'anonymat et de neutralité.
+
+\begin{table}
+\begin{bigcenter}
+\begin{tabular}{Ic|c|>{\centering}m{.9cm}|>{\centering}m{.9cm}|>{\centering}m{0.9cm}I}
+\Cline{1pt}{1-5}
+Profil non Condorcet & Matrice des duels & $\;\;f\;\;$ & $\;f_{\text{a\&n}}\;$ & CVTI \tabularnewline\Cline{1pt}{1-5}
+$\psi_1: \begin{array}{c|c|c|c|c|c|c} % Profil E dans les brouillons
+a & a & a & b & c & c & c \\
+c & c & c & a & b & b & b \\
+b & b & b & c & a & a & a \\
+\end{array}$ &
+\begin{tabular}{IcIc|c|cI}
+\Cline{1pt}{1-4}
+$D(\psi_1)$ & $a$ & $b$ & $c$ \\ \Cline{1pt}{1-4}
+$a$       &  -- & 3 & 4  \\ \hline
+$b$       & 4 & --  & 1  \\ \hline
+$c$       & 3 & 6 & --   \\ \Cline{1pt}{1-4}
+\end{tabular} &
+\rule[-1.13cm]{0pt}{2.4cm}$a$ & $a$ & $a$ \tabularnewline\Cline{1pt}{1-5}
+
+$\psi_2: \begin{array}{c|c|c|c|c|c|c} % Profil F dans les brouillons
+a & a & a & b & c & c & c \\
+b & c & c & a & b & b & b \\
+c & b & b & c & a & a & a \\
+\end{array}$ &
+\begin{tabular}{IcIc|c|cI}
+\Cline{1pt}{1-4}
+$D(\psi_2)$ & $a$ & $b$ & $c$ \\ \Cline{1pt}{1-4}
+$a$       &  -- & 3 & 4  \\ \hline
+$b$       & 4 & --  & 2  \\ \hline
+$c$       & 3 & 5 & --   \\ \Cline{1pt}{1-4}
+\end{tabular} &
+\rule[-1.13cm]{0pt}{2.4cm}$a$ & $a$ & $a$ \tabularnewline\Cline{1pt}{1-5}
+
+$\psi_3: \begin{array}{c|c|c|c|c|c|c} % Profil G dans les brouillons
+a & a & a & b & c & c & c \\
+b & b & c & a & b & b & b \\
+c & c & b & c & a & a & a \\
+\end{array}$ &
+\begin{tabular}{IcIc|c|cI}
+\Cline{1pt}{1-4}
+$D(\psi_3)$ & $a$ & $b$ & $c$ \\ \Cline{1pt}{1-4}
+$a$       &  -- & 3 & 4  \\ \hline
+$b$       & 4 & --  & 3  \\ \hline
+$c$       & 3 & 4 & --   \\ \Cline{1pt}{1-4}
+\end{tabular} &
+\rule[-1.13cm]{0pt}{2.4cm}$a$ & $a$ & $a$ \tabularnewline\Cline{1pt}{1-5}
+
+$\psi_4: \begin{array}{c|c|c|c|c|c|c} % Profil B dans les brouillons
+a & a & a & b & b & c & c \\
+c & c & c & a & c & b & b \\
+b & b & b & c & a & a & a \\
+\end{array}$ &
+\begin{tabular}{IcIc|c|cI}
+\Cline{1pt}{1-4}
+$D(\psi_4)$ & $a$ & $b$ & $c$ \\ \Cline{1pt}{1-4}
+$a$       &  -- & 3 & 4  \\ \hline
+$b$       & 4 & --  & 2  \\ \hline
+$c$       & 3 & 5 & --   \\ \Cline{1pt}{1-4}
+\end{tabular} &
+\rule[-1.13cm]{0pt}{2.4cm}$a, b$ & $b$ & $a, b$ \tabularnewline\Cline{1pt}{1-5}
+
+$\psi_5: \begin{array}{c|c|c|c|c|c|c} % Profil D dans les brouillons
+a & a & a & b & b & c & c \\
+b & c & c & a & c & b & b \\
+c & b & b & c & a & a & a \\
+\end{array}$ &
+\begin{tabular}{IcIc|c|cI}
+\Cline{1pt}{1-4}
+$D(\psi_5)$ & $a$ & $b$ & $c$ \\ \Cline{1pt}{1-4}
+$a$       &  -- & 3 & 4  \\ \hline
+$b$       & 4 & --  & 3  \\ \hline
+$c$       & 3 & 4 & --   \\ \Cline{1pt}{1-4}
+\end{tabular} &
+\rule[-1.13cm]{0pt}{2.4cm}$a, b$ & $b$ & $a, b$ \tabularnewline\Cline{1pt}{1-5}
+
+$\psi_6: \begin{array}{c|c|c|c|c|c|c} % Profil A dans les brouillons
+a & a & a & b & b & c & c \\
+c & c & c & a & a & b & b \\
+b & b & b & c & c & a & a \\
+\end{array}$ &
+\begin{tabular}{IcIc|c|cI}
+\Cline{1pt}{1-4}
+$D(\psi_6)$ & $a$ & $b$ & $c$ \\ \Cline{1pt}{1-4}
+$a$       &  -- & 3 & 5  \\ \hline
+$b$       & 4 & --  & 2  \\ \hline
+$c$       & 2 & 5 & --   \\ \Cline{1pt}{1-4}
+\end{tabular} &
+\rule[-1.13cm]{0pt}{2.4cm}$a, b$ & $a, b$ & $a, b$ \tabularnewline\Cline{1pt}{1-5}
+
+$\psi_7: \begin{array}{c|c|c|c|c|c|c} % Profil C dans les brouillons
+a & a & a & b & b & c & c \\
+b & c & c & a & a & b & b \\
+c & b & b & c & c & a & a \\
+\end{array}$ &
+\begin{tabular}{IcIc|c|cI}
+\Cline{1pt}{1-4}
+$D(\psi_7)$ & $a$ & $b$ & $c$ \\ \Cline{1pt}{1-4}
+$a$       &  -- & 3 & 5  \\ \hline
+$b$       & 4 & --  & 3  \\ \hline
+$c$       & 2 & 4 & --   \\ \Cline{1pt}{1-4}
+\end{tabular} &
+\rule[-1.13cm]{0pt}{2.4cm}$a, b$ & $a, b$ & $a, b$ \tabularnewline\Cline{1pt}{1-5}
+\end{tabular}
+\end{bigcenter}
+\caption{Solutions optimales pour $V = 7$ et $C = 3$. $f$: optimum quelconque. $f_\text{a\&n}$: optimum anonyme et neutre. Lecture: pour que $f$ soit un optimum, il faut que $f(\psi_4)$ soit $a$ ou $b$, mais les conditions présentées ne sont pas suffisantes. Pour que $f_\text{a\&n}$ soit un optimum anonyme et neutre, il faut et il suffit de vérifier les conditions de la colonne $f_\text{a\&n}$ (et leurs variantes par anonymat et neutralité).}\label{table:solution_optimale_sept_electeurs}
+\end{table}
+
+Prenons l'exemple du profil $\psi_4$. Pour un mode de scrutin optimal, on lit dans la colonne $f$ de la table~\ref{table:solution_optimale_sept_electeurs} qu'il est nécessaire que le vainqueur soit $a$ ou~$b$. Si, en outre, on exige que le mode de scrutin soit anonyme et neutre, alors on lit dans la colonne $f_\text{a\&n}$ de la table~\ref{table:solution_optimale_sept_electeurs} que le vainqueur est nécessairement~$b$. C'est loin d'être une évidence, puisque le profil $\psi_4$ ne possède aucune symétrie par rapport aux candidats. Cependant, si on impose $a$ comme vainqueur pour un mode de scrutin anonyme et neutre, alors on constate, par utilisation de CPLEX, qu'il n'est plus possible d'atteindre le minimum de manipulabilité. Par ailleurs, nous verrons que les conditions de la colonne $f_\text{a\&n}$ sont, en fait, des conditions suffisantes pour obtenir un optimum.
+
+\medskip
+Pour un optimum quelconque, les conditions indiquées dans la colonne $f$ de la table~\ref{table:solution_optimale_sept_electeurs} sont seulement nécessaires: il est possible que toutes ces conditions soient vérifiées, ainsi que leurs variantes par permutation des électeurs et/ou des candidats, mais que le mode de scrutin obtenu ne soit pas optimal. C'est le cas, par exemple, de CVTI muni de la règle de départage par ordre lexicographique sur les candidats utilisée dans \svvamp{}, comme nous le verrons dans la table~\ref{table:MC_exact_impartial} de la section~\ref{sec:opti_comparaison_mds_classiques}. Ces conditions nécessaires sont ajustées, dans le sens suivant: pour chacune d'elles, il existe un optimum qui la vérifie. Par exemple, il existe au moins un optimum~$f$ tel que $f(\psi_4) = a$ et il en existe au moins un tel que $f(\psi_4) = b$. Ces conditions nécessaires permettent d'établir la proposition suivante.
+
+\begin{prop}\label{thm:optim_7_qq}
+On considère l'espace électoral des ordres stricts totaux pour $V = 7$ et $C = 3$, muni de la culture impartiale.
+
+Quelle que soit la règle de départage utilisée, les modes de scrutin suivants ne sont pas optimaux parmi les systèmes Condorcet: Condorcet-Bucklin, Condorcet-Borda (méthode de Black), Condorcet-Coombs et Condorcet-BI.
+
+Aucun mode de scrutin basé uniquement sur la matrice des duels ne peut être optimal.
+
+Tout mode de scrutin Condorcet optimal possède un taux de manipulabilité de $\frac{31\,920}{279\,936} = \frac{665}{5832} \simeq 11,\!40~\%$ et peut être vu comme CVTI, muni d'une règle de départage adéquate.
+\end{prop}
+
+\begin{proof}
+D'après la table~\ref{table:solution_optimale_sept_electeurs}, pour que le mode de scrutin soit optimal, il faut que le candidat~$a$ soit élu en $\psi_1$. Or en Condorcet-Bucklin ou Condorcet-Borda (Black), $c$~est vainqueur.
+
+De même, il faut que $a$ soit vainqueur en $\psi_2$. Or en Condorcet-Coombs ou en BI, $c$ est vainqueur. 
+
+Toujours d'après la table~\ref{table:solution_optimale_sept_electeurs}, il est nécessaire que le candidat $a$ soit vainqueur en $\psi_3$. Ce profil possède une matrice des duels symétrique par la permutation $(a \to b \to c \to a)$, mais le profil lui-même ne possède pas de symétrie par rapport aux candidats. Notons $\psi_3'$ le profil obtenu en appliquant à $\psi_3$ cette permutation circulaire. Si le mode de scrutin ne dépend que de la matrice majoritaire, alors il doit aussi désigner $a$ en $\psi_3'$. Mais s'il est optimal, alors le vainqueur doit être l'image de $a$ par la permutation effectuée, c'est-à-dire~$b$. Ces deux hypothèses sont donc incompatibles.
+
+Dans la table~\ref{table:solution_optimale_sept_electeurs}, on constate que les vainqueurs autorisés pour un mode de scrutin optimal sont toujours exactement les vainqueurs possibles par CVTI, le vainqueur effectif dépendant de la règle de départage utilisée pour ce dernier. Ceci garantit que tout optimum est une variante de CVTI (mais pas la réciproque).
+\end{proof}
+ 
+Pour un optimum anonyme et neutre, CPLEX permet de s'assurer que les conditions présentées dans la colonne $f_\text{a\&n}$ de la table~\ref{table:solution_optimale_sept_electeurs} sont non seulement nécessaires mais aussi suffisantes. On en déduit la proposition suivante.
+
+\begin{prop}\label{thm:optim_7_an}
+On considère l'espace électoral des ordres stricts totaux pour $V = 7$ et $C = 3$, muni de la culture impartiale.
+
+Quelle que soit la règle de départage anonyme et neutre utilisée, les modes de scrutin suivants ne sont pas optimaux parmi les systèmes Condorcet:  VTID, PO, CSD, Maximin, Condorcet-Uninominal, méthodes de Baldwin, Nanson, Schulze ou Kemeny.
+
+Parmi les SVBE Condorcet, il en existe 4~qui sont optimaux, anonymes et neutres. Ils peuvent tous être vus comme CVTI, muni d'une règle de départage adéquate.
+\end{prop}
+
+\begin{proof}
+D'après la table~\ref{table:solution_optimale_sept_electeurs}, pour qu'un mode de scrutin anonyme et neutre soit optimal, il est nécessaire que $b$ soit élu en $\psi_4$. Or ce n'est le cas ni en VTID ($b$ affronte $c$ dans le premier duel et perd), ni en PO (la première victoire validée est celle de $c$ contre $b$), ni en CSD ou Maximin ($b$ a le score le plus bas), ni en Condorcet-Uninominal ($a$ est vainqueur), ni en méthode de Baldwin ou Nanson ($b$ est éliminé au premier tour), ni en méthode de Schulze ($c$ est \emph{meilleur} que $b$), ni en méthode de Kemeny ($b$ est nécessairement derrière~$c$).
+
+Pour définir un mode de scrutin optimal, anonyme et neutre, il est nécessaire et suffisant de choisir le vainqueur parmi deux possibilités pour les profils $\psi_6$ et $\psi_7$. Il y a donc 4~modes de scrutin possibles. Tous les autres profils non-Condorcet se déduisent de ceux de la table~\ref{table:solution_optimale_sept_electeurs} par anonymat et neutralité. Le fait qu'ils soient tous une variante de CVTI est un simple cas particulier de la proposition~\ref{thm:optim_7_qq}, que nous rappelons par souci d'exhaustivité.
+\end{proof}
+
+Les propositions~\ref{thm:optim_7_qq} et \ref{thm:optim_7_an} excluent tous les modes de scrutin Condorcet que nous avons étudiés hormis CVTI, quelle que soit la règle de départage utilisée si celle-ci est anonyme et neutre. CVTI, s'il est muni d'une règle de départage anonyme et neutre, est optimal si et seulement la règle de départage vérifie les conditions indiquées dans la colonne $f_\text{a\&n}$ de la table~\ref{table:solution_optimale_sept_electeurs}.
+
+\medskip
+Il serait intéressant de formuler une telle règle de départage, non pas par une énumération extensive des cas, mais par une propriété que nous pourrions tenter d'appliquer à d'autres cas que $V = 7$ et $C = 3$ (définition intensive). Ceci permettrait peut-être d'identifier une version de CVTI particulièrement résistante à la manipulation dans le cas général.
+
+Faisons un premier essai avec la règle suivante: en cas d'égalité entre deux candidats à un tour d'élimination, on organise un duel virtuel et on élimine le perdant\footnote{En cas d'égalité entre davantage de candidats, on peut choisir le candidat éliminé en utilisant une règle de départage dont le duel électoral est un cas particulier: par exemple, on élimine le candidat ayant le plus faible score de Borda dans la matrice des duels restreinte aux candidats ex-aequo.}. Mais cette règle ne fonctionne pas. En effet, dans les profils~$\psi_4$, $\psi_5$, $\psi_6$ et $\psi_7$, les candidats $b$ et $c$ sont en position d'élimination au premier tour et c'est~$b$, le perdant du duel, qui est éliminé; puis $a$ est vainqueur. Par permutation des électeurs et/ou des candidats, on en déduit que cette règle de départage permet de fixer le vainqueur de façon unique dans toute situation non-Condorcet et que le mode de scrutin obtenu est anonyme et neutre. Mais, dans ce cas, le vainqueur en $\psi_4$ devrait être $b$ et non $a$ (table~\ref{table:solution_optimale_sept_electeurs}). Donc le système ne peut pas être optimal.
+
+Considérons une autre règle de départage: si deux vainqueurs sont possibles par CVTI, alors on organise un duel virtuel et on élit le vainqueur\footnote{En cas d'égalité entre davantage de candidats, on peut choisir le candidat vainqueur en utilisant une règle de départage dont le duel électoral est un cas particulier: par exemple, on élit le candidat ayant le score de Borda le plus élevé dans la matrice des duels restreinte aux vainqueurs potentiels.}. Dans $\psi_4$, $\psi_5$, $\psi_6$ et $\psi_7$, le vainqueur obtenu est $b$, donc le mode de scrutin est effectivement optimal.
+
+Cependant, cette solution n'est pas parfaitement satisfaisante. Pour qu'un mode de scrutin anonyme et neutre soit optimal, il est nécessaire que $b$ soit vainqueur en $\psi_4$ et $\psi_5$; mais en $\psi_6$ ou $\psi_7$, choisir $a$ convient également. La règle de départage exhibée est donc suffisante mais pas nécessaire: pour couvrir exactement les solutions anonymes et neutres, il faudrait identifier une règle de départage <<\,naturelle\,>> (c'est-à-dire définie de façon intensive et aussi concise que possible) qui choisisse le candidat $b$ dans les profils $\psi_4$ et $\psi_5$ mais qui reste indécise entre $a$ et $b$ dans les profils $\psi_6$ et $\psi_7$. Nous laissons cette question pour des travaux futurs.
+ 
+ 
+ 
+\subsection{$V = 3$ et $C = 4$: un complexe ensemble d'optima}\label{sec:opti34}
+
+Pour $V = 3$ candidats et $C = 4$ candidats, on pourrait croire que le problème est plus simple car il n'y a <<\,que\,>> $(C!)^V = 13\,824$ profils au total. Cependant, il y a 12~types de profils non-Condorcet (à permutation des électeurs et/ou des candidats près), au lieu de~7 dans le cas précédent. En outre, nous allons voir qu'il n'y a aucun optimum anonyme et neutre et que l'espace des solutions est, par conséquent, plus difficile à explorer.
+
+L'algorithme glouton trouve un mode de scrutin possédant un taux de manipulabilité de 21,09~\%. CPLEX trouve une solution optimale avec un taux de $\frac{2\,688}{13\,824} = \frac{7}{36} \simeq$ 19,44~\%. L'algorithme glouton n'est donc de nouveau pas optimal dans ce cas. En étudiant de façon détaillée la solution que CPLEX exhibe par défaut, nous avons pu montrer qu'elle n'était ni anonyme ni neutre. Celui-ci est nécessairement non unique: en effet, tout mode de scrutin qui en est déduit par permutation des candidats en est distinct et il est également optimal.
+
+Si on impose que la solution soit neutre, on trouve le même taux de manipulabilité. Si on impose que la solution soit anonyme, on obtient un taux de $\frac{2\,712}{13\,824} = \frac{113}{576} \simeq$ 19,62~\%. Si on impose que la solution soit anonyme et neutre, on obtient un taux de $\frac{3\,264}{13\,824} = \frac{17}{72} \simeq$ 23,61~\%.
+
+Il est difficile d'étudier l'espace des solutions quelconques dans ce cas. En effet, leur multiplicité entraîne qu'il y a généralement 2 voire 3~candidats vainqueurs possibles pour chaque profil non-Condorcet\footnote{Dans un mode de scrutin optimal, il y a 2~vainqueurs possibles dans 8~types de profils non-Condorcet et 3~vainqueurs possibles dans 4~types de profils non-Condorcet. Ceci reste vrai même si on impose la neutralité de la solution.}.
+
+\medskip
+On peut, cependant, en dire davantage sur les solutions neutres. Pour cela, considérons les profils suivants.
+$$
+\psi_1:
+\begin{array}{c|c|c}
+a & c & b \\
+b & a & c \\
+c & b & a \\
+d & d & d \\
+\end{array}
+\hspace{1cm}
+\psi_2:
+\begin{array}{c|c|c}
+a & b & c \\
+b & c & a \\
+c & a & b \\
+d & d & d \\
+\end{array}
+$$
+Par permutation des candidats, ces deux profils couvrent tous les cas où les électeurs placent le même candidat en dernier et réalisent un exemple minimal de paradoxe de Condorcet entre les trois autres candidats. Ces profils se déduisent l'un de l'autre par permutation des deux électeurs de droite.
+
+En utilisant CPLEX, on constate qu'un optimum ne peut élire $d$ en $\psi_1$, ce qui est assez intuitif puisque c'est le candidat placé en dernier par tous les électeurs. Par symétrie du profil, tout candidat $a$, $b$ ou $c$ peut être désigné par un mode de scrutin optimal. Cela revient à privilégier l'électeur 1, 2 ou 3 dans cette situation~$\psi_1$ et celles qui s'en déduisent par permutation des candidats. Pour fixer les idées, supposons que $a$ est désigné. Ceci désigne l'électeur~1 comme privilégié en $\psi_1$ et rompt également la symétrie  entre les deux autres électeurs: l'électeur~2 (resp.~3) est celui pour lequel le candidat vainqueur est en seconde (resp. troisième) position.
+
+Dans le profil~$\psi_2$, l'utilisation de CPLEX nous informe qu'il n'y a alors plus que deux vainqueurs possibles: $a$ ou $b$. Autrement dit, on favorise soit le même électeur que dans le profil~$\psi_1$, soit l'électeur dont le second candidat préféré est élu en $\psi_1$. Quand on fixe l'une ou l'autre option, CPLEX permet de déterminer que l'optimum neutre est unique.
+
+Comme il y a 3 choix possibles pour $\psi_1$ et ensuite 2~choix pour $\psi_2$, il y a 6 solutions possibles. En voyant ce chiffre, on pourrait penser qu'il s'agit d'un certain mode de scrutin et de ses variantes par les $3! = 6$ permutations des électeurs. Mais ce n'est pas le cas. En effet, considérons l'unique mode de scrutin optimal neutre $f$ obtenu pour $f(\psi_1) = a$ et $f(\psi_2) = a$. Si on échange les deux derniers électeurs, alors le mode de scrutin optimal obtenu est le même. Ainsi, l'orbite de $f$ par permutation des électeurs ne possède que 3~éléments et non~$6$. De même, si on considère l'unique mode de scrutin optimal neutre~$g$ obtenu pour $g(\psi_1) = a$ et $g(\psi_2) = b$, son orbite ne possède que 3~éléments par permutation des candidats. Il y a donc exactement deux solutions neutres distinctes à permutation près des électeurs.
+
+Les profils~$\psi_1$ et $\psi_2$ ci-dessus permettent également de comprendre intuitivement pourquoi l'optimum anonyme et neutre est sensiblement plus manipulable que l'optimum général. En effet, si on impose l'anonymat et la neutralité, il est nécessaire d'élire le candidat~$d$ dans ces deux profils, alors qu'il est placé dernier par tous les électeurs. On pourra rapprocher ce résultat du fait que, pour ces valeurs des paramètres, il n'existe pas de mode de scrutin neutre, anonyme et efficient (voir section~\ref{sec:anonymat}).
+
+La proposition suivante va nous permettre de résumer les constatations faites à ce stade.
+
+\begin{prop}\label{thm:optim_4_qq}
+On considère l'espace électoral des ordres stricts totaux pour $V = 3$ et $C = 4$, muni de la culture impartiale.
+
+Tout mode de scrutin Condorcet optimal possède un taux de manipulabilité de $\frac{2\,688}{13\,824} = 19,\!44~\%$. Il existe au moins un optimum non neutre (et il n'y a pas unicité). 
+
+Il existe exactement 6~modes de scrutin optimaux qui sont neutres. À permutation des électeurs près, il y a 2 solutions distinctes. Chacune possède 3~variantes par permutation des électeurs.
+
+Il n'existe pas d'optimum qui soit anonyme.
+\end{prop}
+
+À présent, nous allons présenter quelques résultats qui permettent de mettre les solutions en rapport avec les modes de scrutin classiques.
+
+\begin{prop}
+On considère l'espace électoral des ordres stricts totaux pour $V = 3$ et $C = 4$, muni de la culture impartiale.
+
+Quelle que soit la règle de départage neutre utilisée, les modes de scrutin suivants ne sont pas optimaux parmi les systèmes Condorcet: CVTI, Condorcet-Uninominal, CSD, Condorcet-Borda (méthode de Black), VTID, Condorcet-Coombs, méthodes de Baldwin, Nanson et Kemeny.
+\end{prop}
+
+\begin{proof}
+Comme ci-dessus, notons $f$ le mode de scrutin optimal neutre obtenu pour $f(\psi_1) = a$ et $f(\psi_2) = a$ % Deuxième solution dans les brouillons.
+et $g$ le mode de scrutin optimal neutre obtenu pour $g(\psi_1) = a$ et $g(\psi_2) = b$. % Solution de base dans les brouillons.
+
+Considérons le profil suivant. % Profil 377 dans les notes (réécrit par perm des cand)
+\begin{center}
+\begin{tabular}{lcl}
+$
+\psi: \begin{array}{c|c|c}
+b & a & d \\
+c & c & a \\
+d & b & b \\ 
+a & d & c \\
+\end{array}
+$ 
+& &
+\begin{tabular}{IcIc|c|c|cI}
+\Cline{1pt}{1-5}
+\multicolumn{1}{IcI}{$D(\psi)$} & $a$ & $b$ & $c$ & $d$ \\ \Cline{1pt}{1-5}
+$a$                     &  -- & 2 & 2 & 1 \\ \hline
+$b$                     & 1 & --  & 2 & 2 \\ \hline
+$c$                     & 1 & 1 & --  & 2 \\ \hline
+$d$                     & 2 & 1 & 1 & -- \\ \Cline{1pt}{1-5}
+\end{tabular}
+\end{tabular}
+\end{center}
+Grâce à l'optimisation réalisée par CPLEX, nous avons pu déterminer que le vainqueur doit être~$c$, aussi bien dans $f$ que dans $g$. 
+
+Or il n'est élu ni en CVTI ($c$ est éliminé au premier tour), ni en Condorcet-Uninominal ($c$ n'a aucun vote), ni en CSD ($c$ a le score le plus faible), ni en Condorcet-Borda ou en méthode de Nanson ($c$ a le score de Borda le plus faible), ni en méthode de Kemeny (si on réarrange la matrice des duels avec $c$ en première position, il y a deux défaites d'une amplitude d'une voix au-dessus de la diagonale, au lieu d'une seule défaite d'une seule voix si on dispose les candidats par ordre alphabétique comme ci-dessus).
+
+En VTID, comme $c$ ne possède aucune voix et que tous les autres en ont au moins une, $c$ participe à tous les duels éliminatoires. Comme il n'est pas vainqueur de Condorcet, il est impossible qu'il gagne chacun d'eux. Donc $c$ ne peut pas être élu.
+
+En méthode de Baldwin ou en Condorcet-Coombs, pour que $c$ soit vainqueur, il est nécessaire qu'il soit opposé à $d$ au dernier tour car c'est le seul candidat qu'il peut vaincre en duel électoral. Au premier tour, il ne faut donc éliminer ni $c$ ni $d$.
+
+Or, en Condorcet-Coombs, il y a une égalité entre $a$, $c$ et $d$ au premier tour; mais comme ni $c$ ni $d$ ne doit être éliminé, c'est $a$ qui doit être éliminé. Dans ce cas, $d$ est éliminé, puis $c$ et c'est $b$ qui est vainqueur. Donc $c$ ne peut gagner.
+
+En méthode de Baldwin, c'est précisément $c$ ou $d$ qui est éliminé au premier tour. Donc $c$ ne peut pas être élu.
+\end{proof}
+
+\begin{prop}
+On considère l'espace électoral des ordres stricts totaux pour $V = 3$ et $C = 4$, muni de la culture impartiale.
+
+Tout mode de scrutin optimal parmi les systèmes Condorcet peut être vu comme Condorcet-Bucklin, Condorcet-BI, la méthode de Schulze, PO ou Maximin, muni(e) d'une règle de départage adéquate.
+\end{prop}
+
+\begin{proof}
+Afin de ne pas alourdir l'exposé, nous donnons simplement la méthode suivie. Pour chacun des 12 types de profil non-Condorcet (à permutation des électeurs et/ou des candidats près), on détermine à l'aide de CPLEX quels sont les candidats qui peuvent être vainqueurs dans un mode de scrutin optimal, comme on l'avait fait dans la table~\ref{table:solution_optimale_sept_electeurs} pour $V = 7$ et $C = 3$.
+
+Dans chaque cas, on constate en pratique que l'ensemble des vainqueurs possibles est le même avec ou sans l'hypothèse de neutralité et qu'il est égal à l'ensemble des candidats qui peuvent gagner en Condorcet-Bucklin. On vérifie manuellement que cet ensemble est inclus, d'ailleurs strictement, dans l'ensemble des candidats qui peuvent gagner en Condorcet-BI (resp. méthode de Schulze, PO, Maximin). Nous insistons sur le fait que cela signifie que tout optimum est Condorcet-Bucklin muni d'une certaine règle de départage, mais pas nécessairement que toute règle de départage rende Condorcet-Bucklin optimal (comme nous le verrons dans la table~\ref{table:MC_exact_impartial}).
+\end{proof}
+
+La proposition précédente peut être comprise comme un argument en faveur des cinq modes de scrutin cités. Cependant, parmi ceux-ci, certains entraînent plus d'égalités que d'autres. Ainsi, Condorcet-Bucklin laisse le moins de marge de man\oe uvre à la règle de départage: sur les 12~types de profils non-Condorcet (à permutation près des électeurs et/ou des candidats), elle cause une 3-égalité (c'est-à-dire une égalité entre 3~candidats) dans 4~profils et une 2-égalité dans 8~profils. Le système BI cause toujours une 3-égalité. La méthode de Schulze et PO causent une 4-égalité (c'est-à-dire une égalité entre tous les candidats!) dans 6 profils et une 3-égalité dans 6~profils. Enfin, Maximin cause une 4-égalité dans 7~profils et une 3-égalité dans 5~profils. Il n'est donc pas si étonnant que tout mode de scrutin optimal puisse être vu comme Maximin muni d'une règle de départage adéquate, puisque Maximin ne restreint que très peu l'ensemble des vainqueurs possibles dans le cas $V = 3$ et $C = 4$.
+
+
+
+
+
+%Afin d'appréhender qualitativement les propriétés du mode de scrutin optimal~$f$ identifié par CPLEX, examinons les profils suivants et leurs vainqueurs dans~$f$. Les matrices des duels sont données à titre indicatif.
+%\begin{center}
+%\begin{tabular}{ccc}
+%\begin{tabular}{c}
+%$\psi^1: \begin{array}{c|c|c}
+%b & a & c \\
+%d & d & a \\
+%c & b & d \\
+%a & c & b \\
+%\end{array}$ \\
+%\\
+%$f(\psi^1) = a$ \\
+%\end{tabular}
+%\hspace{0cm}
+%\begin{tabular}{c}
+%$\psi^2: \begin{array}{c|c|c}
+%b & c & a \\
+%d & a & d \\
+%c & d & b \\
+%a & b & c \\
+%\end{array}$ \\
+%\\
+%$f(\psi^2) = d$ \\
+%\end{tabular}
+%& \hspace{0.5cm} & 
+%\begin{tabular}{c}
+%$\psi^3: \begin{array}{c|c|c}
+%c & b & d \\
+%a & a & b \\
+%d & c & a \\
+%b & d & c \\
+%\end{array}$ \\
+%\\
+%$f(\psi^3) = a$ \\
+%\end{tabular}
+%\\
+%\\
+%\begin{tabular}{IcIc|c|c|cI}
+%\Cline{1pt}{1-5}
+%\multicolumn{1}{IcI}{$D(\psi^1) = D(\psi^2)$} & $a$ & $b$ & $c$ & $d$ \\ \Cline{1pt}{1-5}
+%$a$                     & -- & 2  & 1  & 2  \\ \hline
+%$b$                     & 1  & -- & 2  & 1  \\ \hline
+%$c$                     & 2  & 1  & -- & 1  \\ \hline
+%$d$                     & 1  & 2  & 2  & -- \\ \Cline{1pt}{1-5}
+%\end{tabular}
+%& & 
+%\begin{tabular}{IcIc|c|c|cI}
+%\Cline{1pt}{1-5}
+%\multicolumn{1}{IcI}{$D(\psi^3)$} & $a$ & $b$ & $c$ & $d$ \\ \Cline{1pt}{1-5}
+%$a$                     & -- & 1  & 2  & 2  \\ \hline
+%$b$                     & 2  & -- & 2  & 1  \\ \hline
+%$c$                     & 1  & 1  & -- & 2  \\ \hline
+%$d$                     & 1  & 2  & 1  & -- \\ \Cline{1pt}{1-5}
+%\end{tabular}
+%\end{tabular}
+%\end{center}
+%
+%Le profil $\psi^2$ est obtenu à partir de $\psi^1$ en échangeant les deux derniers électeurs. On a $f(\psi^1) = a$ et $f(\psi^2) = d$, donc $f$ n'est pas anonyme. En particulier, $f$ n'est pas un mode de scrutin ne dépendant que de la matrice des duels.
+%
+%Le profil $\psi^3$ est obtenu à partir de $\psi^1$ en appliquant aux candidats la permutation circulaire $(a \to b \to c \to d \to a)$. Si $f$ était neutre, le vainqueur devrait être l'image de $f(\psi^1) = a$ par cette permutation, c'est-à-dire $b$. Or on a $f(\psi^3) = a$, donc $f$ n'est pas neutre.
+%
+%L'absence d'anonymat, tout comme l'absence de neutralité, prouve que l'optimum n'est pas unique, puisque les modes de scrutin déduits de $f$ par une permutation des électeurs ou des candidats ont également un taux de manipulabilité minimal et que certains sont distincts de~$f$.
+
+\medskip
+Ainsi, nous avons pu déterminer le taux de manipulabilité minimal pour un mode de scrutin Condorcet, et plus généralement pour un mode de scrutin vérifiant \cminf{}, en culture impartiale dans quatre cas: $V =3, 5$ ou 7 électeurs et $C= 3$ candidats; $V = 3$ électeurs et $C = 4$ candidats. Pour davantage d'électeurs ou de candidats, le problème est trop volumineux pour être traité sur la machine utilisée\footnote{Dell Precision M6600, Intel Core I7-2820QM à 2,30 GHz, 8 Mo de cache, 16 Go de RAM à 1,33 GHz en DDR3.}.
+
+
+
+\section{Comparaison entre l'optimum et les modes de scrutin classiques}\label{sec:opti_comparaison_mds_classiques}
+
+À présent, nous allons comparer le taux optimum de manipulabilité (au sein de la classe \cminf) à celui de divers modes de scrutin. On remarquera que si on dispose du graphe d'opportunité, on peut déterminer facilement le taux de manipulabilité de n'importe quel mode de scrutin Condorcet: en effet, il suffit de reporter dans le graphe les vainqueurs des configurations non-Condorcet et de contaminer les configurations Condorcet correspondantes.
+
+\newcommand{\darkgreen}{OliveGreen}
+\newcommand{\darkred}{Red}
+\begin{table}
+\begin{bigcenter}
+\begin{tabular}{Il|r|r|r|rI}
+\Cline{1pt}{1-5}
+\multicolumn{5}{IlI}{\textbf{Populations}} \\\Cline{1pt}{1-5}
+Nombre d'électeurs $V$ &	$3$ & 	$5$ & 	$7$ & 	$3$ \\\hline
+Nombre de candidats $C$ &	$3$ & 	$3$ & 	$3$ & 	$4$ \\\hline
+Situations non Condorcet (\%) & 	5,56 & 	6,94 & 	7,50 & 	11,11 \\\Cline{1pt}{1-5}
+\multicolumn{5}{IlI}{\textbf{Taux de MC (\%)}} \\\Cline{1pt}{1-5}
+Optimum & 	\textcolor{\darkgreen}{\textbf{11,11}} & 	\textcolor{\darkgreen}{\textbf{9,26}} & 	\textcolor{\darkgreen}{\textbf{11,40}} & 	\textcolor{\darkgreen}{\textbf{19,44}} \\\hline
+Optimum neutre & 	\textcolor{\darkgreen}{\textbf{11,11}} & 	\textcolor{\darkgreen}{\textbf{9,26}} & 	\textcolor{\darkgreen}{\textbf{11,40}} & 	\textcolor{\darkgreen}{\textbf{19,44}} \\\hline
+Optimum anonyme & 	\textcolor{\darkgreen}{\textbf{11,11}} & 	\textcolor{\darkgreen}{\textbf{9,26}} & 	\textcolor{\darkgreen}{\textbf{11,40}} & 	19,62 \\\hline
+Optimum anonyme neutre & 	--- &	\textcolor{\darkgreen}{\textbf{9,26}} & 	\textcolor{\darkgreen}{\textbf{11,40}} & 	\textcolor{\darkred}{\emph{\textbf{23,61}}} \\\hline
+Optimum approché (glouton) & 	\textcolor{\darkgreen}{\textbf{11,11}} & 	\textcolor{\darkgreen}{\textbf{9,26}} & 	13,46 & 	21,09 \\\Cline{1pt}{1-5}
+CVTI & 	\textcolor{\darkgreen}{\textbf{11,11}} & 	\textcolor{\darkgreen}{\textbf{9,26}} & 	12,38 & 	21,35 \\\hline
+VTI & 	\textcolor{\darkgreen}{\textbf{11,11}} & 	\textcolor{\darkgreen}{\textbf{9,26}} & 	12,38 & 	21,35 \\\hline
+SE & 	\textcolor{\darkgreen}{\textbf{11,11}} & 	\textcolor{\darkgreen}{\textbf{9,26}} & 	12,53 & 	21,35 \\\hline
+U2T & 	\textcolor{\darkgreen}{\textbf{11,11}} & 	\textcolor{\darkgreen}{\textbf{9,26}} & 	12,53 & 	21,35 \\\hline
+PO & 	\textcolor{\darkgreen}{\textbf{11,11}} & 	18,52 & 	26,56 & 	21,09 \\\hline
+Bald. & 	\textcolor{\darkgreen}{\textbf{11,11}} & 	17,75 & 	24,26 & 	22,27 \\\hline
+CBuck. & 	\textcolor{\darkgreen}{\textbf{11,11}} & 	18,52 & 	24,98 & 	22,22 \\\Cline{1pt}{1-5}
+CDoy. & 	\textcolor{\darkgreen}{\textbf{11,11}} & 	20,06 & 	27,31 & 	22,83 \\\Cline{1pt}{1-5}
+Nan. & 	\textcolor{\darkgreen}{\textbf{11,11}} & 	\textcolor{\darkred}{\emph{\textbf{20,83}}} & 	\textcolor{\darkred}{\emph{\textbf{27,86}}} & 	\textcolor{\darkred}{\emph{\textbf{22,92}}} \\\hline
+CDict. & 	\textcolor{\darkgreen}{\textbf{11,11}} & 	\textcolor{\darkred}{\emph{\textbf{20,37}}} & 	27,28 & 	\textcolor{\darkred}{\emph{\textbf{23,96}}} \\\hline
+Kem. & 	\textcolor{\darkgreen}{\textbf{11,11}} & 	\textcolor{\darkred}{\emph{\textbf{21,60}}} & 	\textcolor{\darkred}{\emph{\textbf{29,26}}} & 	\textcolor{\darkred}{\emph{\textbf{22,92}}} \\\hline
+CSD & 	\textcolor{\darkgreen}{\textbf{11,11}} & 	\textcolor{\darkred}{\emph{\textbf{21,60}}} & 	\textcolor{\darkred}{\emph{\textbf{29,26}}} & 	\textcolor{\darkred}{\emph{\textbf{22,92}}} \\\hline
+Sch. & 	\textcolor{\darkgreen}{\textbf{11,11}} & 	\textcolor{\darkred}{\emph{\textbf{21,60}}} & 	\textcolor{\darkred}{\emph{\textbf{29,26}}} & 	\textcolor{\darkred}{\emph{\textbf{23,09}}} \\\hline
+VTID & 	\textcolor{\darkgreen}{\textbf{11,11}} & 	\textcolor{\darkred}{\emph{\textbf{22,38}}} & 	\textcolor{\darkred}{\emph{\textbf{30,76}}} & 	22,57 \\\hline
+CCoo. & 	\textcolor{\darkgreen}{\textbf{11,11}} & 	\textcolor{\darkred}{\emph{\textbf{22,38}}} & 	\textcolor{\darkred}{\emph{\textbf{36,16}}} & 	22,22 \\\hline
+Max. & 	\textcolor{\darkgreen}{\textbf{11,11}} & 	\textcolor{\darkred}{\emph{\textbf{21,60}}} & 	\textcolor{\darkred}{\emph{\textbf{29,26}}} & 	\textcolor{\darkred}{\emph{\textbf{24,05}}} \\\hline
+CUni. & 	\textcolor{\darkgreen}{\textbf{11,11}} & 	\textcolor{\darkred}{\emph{\textbf{22,38}}} & 	\textcolor{\darkred}{\emph{\textbf{30,76}}} & 	\textcolor{\darkred}{\emph{\textbf{24,83}}} \\\hline
+BI & 	\textcolor{\darkgreen}{\textbf{11,11}} & 	\textcolor{\darkred}{\emph{\textbf{22,38}}} & 	\textcolor{\darkred}{\emph{\textbf{36,16}}} & 	\textcolor{\darkred}{\emph{\textbf{23,26}}} \\\hline
+CBor. & 	\textcolor{\darkgreen}{\textbf{11,11}} & 	\textcolor{\darkred}{\emph{\textbf{27,01}}} & 	\textcolor{\darkred}{\emph{\textbf{37,76}}} & 	\textcolor{\darkred}{\emph{\textbf{27,78}}} \\\hline
+Uni. & 	\textcolor{\darkred}{\emph{\textbf{16,67}}} & 	\textcolor{\darkred}{\emph{\textbf{26,23}}} & 	\textcolor{\darkred}{\emph{\textbf{33,01}}} & 	\textcolor{\darkred}{\emph{\textbf{30,21}}} \\\hline
+Buck. & 	\textcolor{\darkred}{\emph{\textbf{13,89}}} & 	\textcolor{\darkred}{\emph{\textbf{28,16}}} & 	\textcolor{\darkred}{\emph{\textbf{40,13}}} & 	\textcolor{\darkred}{\emph{\textbf{23,61}}} \\\hline
+Veto & 	\textcolor{\darkred}{\emph{\textbf{26,39}}} & 	\textcolor{\darkred}{\emph{\textbf{32,83}}} & 	\textcolor{\darkred}{\emph{\textbf{35,54}}} & 	\textcolor{\darkred}{\emph{\textbf{50,20}}} \\\hline
+Coo. & 	\textcolor{\darkred}{\emph{\textbf{22,22}}} & 	\textcolor{\darkred}{\emph{\textbf{38,58}}} & 	\textcolor{\darkred}{\emph{\textbf{53,41}}} & 	\textcolor{\darkred}{\emph{\textbf{39,84}}} \\\hline
+Bor. & 	\textcolor{\darkred}{\emph{\textbf{23,61}}} & 	\textcolor{\darkred}{\emph{\textbf{44,37}}} & 	\textcolor{\darkred}{\emph{\textbf{53,36}}} & 	\textcolor{\darkred}{\emph{\textbf{51,39}}} \\\Cline{1pt}{1-5}
+\end{tabular}
+\end{bigcenter}
+\caption{Taux de MC exacts, en pourcents (culture impartiale). On utilise la règle de départage par ordre d'indice, qui est celle implantée dans \svvamp.}\label{table:MC_exact_impartial}
+\end{table}
+
+Dans la table~\ref{table:MC_exact_impartial}, on a indiqué les taux de manipulabilité exacts d'une variété de modes de scrutin.
+\begin{itemize}
+\item L'optimum est obtenu par optimisation linéaire dans CPLEX, de même que l'optimum dans la classe restreinte des systèmes Condorcet qui sont anonymes, neutres ou les deux à la fois. Pour $V = 3$ et $C = 3$, il n'est pas possible d'avoir un mode de scrutin anonyme et neutre car le choix du vainqueur dans l'exemple minimal de paradoxe de Condorcet brise au moins une symétrie (voir proposition~\ref{thm:neutr_anon_cns}). 
+\item L'optimum approché est obtenu par l'algorithme glouton présenté précédemment. 
+\item Pour les modes de scrutin respectant le critère de Condorcet, on utilise le graphe d'opportunité pour déterminer exactement la manipulabilité. Pour ceux qui sont implantés dans \svvamp{}, on peut également utiliser celui-ci avec l'option~\mylstinline$CM_option = 'exact'$, ce qui permet de vérifier la cohérence des résultats obtenus.
+\item Pour les autres modes de scrutin, par exemple Borda ou Veto, on utilise \svvamp{} avec l'option \mylstinline$CM_option = 'exact'$.
+\end{itemize}
+
+\medskip
+Dans cette table, il est important de remarquer que les règles de départage utilisées sont importantes, car on considère un faible nombre d'électeurs. Ainsi, il est abusif de dire qu'on a représenté le taux de manipulabilité de VTI: il s'agit de celui de VTI muni de la règle de départage utilisée dans \svvamp{}, c'est-à-dire par ordre d'indice sur les candidats. Ainsi, nous avons constaté que certains modes de scrutin connus (notamment CVTI pour $V = 7$ et $C = 3$; Condorcet-Bucklin pour $V = 3$ et $C = 4$) pouvaient être optimaux s'ils étaient munis d'une règle de départage adéquate, mais cela n'apparaît pas dans la table~\ref{table:MC_exact_impartial}. Pour des travaux futurs, il serait intéressant de faire varier cette règle de départage.
+
+Pour chaque valeur des paramètres, on a également indiqué le taux de profils non-Condorcet, ce qui fournissait une première borne inférieure du taux de manipulabilité pour les modes de scrutin vérifiant \cminf{} quand nous ne connaissions pas encore le taux optimal. 
+
+%\medskip
+%On notera que pour $V = 7$ et $C = 3$, ou pour $V = 3$ et $C = 4$, l'algorithme glouton n'est pas optimal. Dans le premier cas, il a un taux de manipulabilité de 13,46~\% alors que certains modes de scrutin étudiés présentent de meilleures performances: CVTI et VTI (12,38~\%) ou SE (12,53~\%), qui est équivalent à l'uninominal à deux tours puisqu'il y a 3~candidats. Dans le second cas, comme nous l'avons mentionné en section~\ref{sec:opti34}, l'optimum global trouvé par CPLEX (19,44~\%) est meilleur que l'optimum approché (21,09\%).
+
+\medskip
+Chaque taux de manipulabilité est indiqué en caractères gras et verts s'il est égal au taux de manipulabilité minimal dans \cminf.
+
+Pour $V = 3$ et $C = 3$, de nombreux modes de scrutin sont optimaux, en particulier tous ceux qui vérifient le critère de Condorcet, comme nous l'avons montré en section~\ref{sec:opti33}.
+
+Pour $V = 5$ et $C = 3$, les modes de scrutin optimaux sont CVTI (qui coïncide avec le résultat de l'algorithme glouton et qui est le seul optimal Condorcet, comme nous l'avons montré en section~\ref{sec:opti53}), ainsi que VTI et SE (qui coïncide avec l'uninominal à deux tours puisqu'il y a 3~candidats). Ce n'est pas contradictoire avec ce que nous avons vu dans la section~\ref{sec:opti53}: en effet, nous avons montré que, parmi les modes de scrutin vérifiant \cminf, CVTI est l'unique optimum qui est un SVBE Condorcet. Mais VTI et SE ne respectent pas le critère de Condorcet et SE n'est pas un SVBE. Il est donc impossible qu'ils soient moins manipulables que CVTI, mais il n'est pas interdit qu'ils aient la même manipulabilité. Par ailleurs, \cite{green2014statistical} ont prouvé que, quand il y a 3~candidats, CVTI et VTI ont la même manipulabilité.
+
+Pour $V = 7$ et $C = 3$, nous avons montré qu'il existe 4~modes de scrutin qui sont optimaux parmi les systèmes Condorcet et qui sont également anonymes et neutres. Ils peuvent tous être vus comme CVTI, muni d'une règle de départage adéquate.
+
+Pour $V = 3$ et $C = 4$, nous avons vu que CVTI ne peut pas être optimal, même avec une règle de départage bien choisie. En revanche, tout mode de scrutin optimal parmi les systèmes Condorcet peut être vu comme Condorcet-Bucklin, Condorcet-BI, la méthode de Schulze, PO ou Maximin, muni(e) d'une règle de départage adéquate.
+
+%\medskip
+%Cette question est particulièrement importante quand il n'y a que 3~électeurs. Par exemple, pour $V = 3$ et $C = 4$, voici un des rares profils où CVTI et PO ne donnent pas le même vainqueur.
+%\begin{center}
+%\begin{tabular}{lcl}
+%$
+%\begin{array}{c|c|c}
+%a & b & c \\
+%d & d & a \\
+%c & c & d \\
+%b & a & b \\
+%\end{array}
+%$ 
+%& &
+%\begin{tabular}{IcIc|c|c|cI}
+%\Cline{1pt}{1-5}
+%\multicolumn{1}{IcI}{$D(\omega)$} & $a$ & $b$ & $c$ & $d$ \\ \Cline{1pt}{1-5}
+%$a$                     &  -- & 2 & 1 & 2 \\ \hline
+%$b$                     & 1 & --  & 1 & 1 \\ \hline
+%$c$                     & 2 & 2 & --  & 1 \\ \hline
+%$d$                     & 1 & 2 & 2 & -- \\ \Cline{1pt}{1-5}
+%\end{tabular}
+%\end{tabular}
+%\end{center}
+%En CVTI (ou en VTI), $d$ est éliminé en premier de toute façon. Puis, avec la règle de départage utilisée dans \svvamp{}, $c$ est éliminé (car il est dernier par ordre lexicographique) puis $a$ est élu. Avec d'autres règles de départage, c'est $a$ ou $b$ qui est éliminé et $c$ qui est élu. En PO, avec la règle de \svvamp, on valide d'abord toutes les victoires de~$a$, puis celles de~$c$, puis celle de $d$ contre $b$. Celle de $d$ contre~$c$, qui viole la transitivité, n'est pas retenue. Finalement, c'est $c$ qui est élu. Avec une autre règle de départage, le candidat élu pourrait être~$a$ ou $d$ (mais pas $b$).
+
+\medskip
+Comme le mode de scrutin Condorcet-doyen est intuitivement le plus simple des modes de scrutin Condorcet (avec Condorcet-dictature), il nous semble fournir une bonne référence pour la manipulabilité: en effet, un mode de scrutin plus manipulable que celui-ci présente la propriété néfaste d'être moins performant que ce mode de scrutin, somme toute, assez peu subtil. À titre indicatif, les taux de manipulabilité supérieurs à celui de Condorcet-doyen sont représentés en caractères italiques et rouges dans la table. Il est notable que de nombreux modes de scrutin (Nanson, Condorcet-dictature, Kemeny, CSD, Schulze, VTID, Condorcet-Coombs, Maximin, Condorcet-Uninominal, Bucklin itéré, Condorcet-Borda, Uninominal, Bucklin, Veto, Coombs et Borda) sont généralement plus manipulables que Condorcet-doyen sur les valeurs considérées. Les seuls modes de scrutin qui ont toujours un taux de manipulabilité plus faible dans cette table sont celui obtenu par l'algorithme glouton, CVTI, VTI, SE, l'uninominal à deux tours, PO, la méthode de Baldwin et Condorcet-Bucklin.
+
+%\section{Conclusion}
+%
+%\todo{A rediger}
+%
+%En particulier, nous avons vu qu'aucun des modes de scrutin étudiés précédemment n'est optimal pour toutes les valeurs des paramètres, quelle que soit la règle de départage utilisée. Nous avons également montré qu'il n'existe pas toujours une solution anonyme. En revanche, il existe une solution neutre dans tous les cas que nous avons étudiés.
+
+
+
+%\section{Résultats avec quasi-symétrie imposée}
+%
+%À voir.
+
+

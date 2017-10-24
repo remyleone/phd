@@ -1,0 +1,437 @@
+% !TeX spellcheck = fr_FR
+\mychapter{Trucs en vrac \emph{a priori} inutiles}\label{sec:mess}
+
+\section{Graphe de méta-analyse des cultures sphéroïdales et multidimensionnelles}
+
+J'ai pris les cultures du chapitre~\ref{sec:simulations_spheroidal} (sauf sphérique avec $V = 3$), auxquelles j'ai ajouté les multidimensionnelles, c'est-à-dire le puits gaussien en fonction du nombre de dimensions pour $\nbdim \geq 2$ (figure~\ref{fig:gauss_xd}). J'ai exclu le puits à deux dimension de ratio variable, qui explore la transition d'une à deux dimensions (figure~\ref{fig:gauss_2d}).
+
+Le graphe de méta-analyse obtenu est essentiellement le même que celui de la figure~\ref{fig:sph_vmf_MC_comparison}. La seule différence est qu'il n'y a plus les arêtes de Maximin et Schulze vers CSD.
+
+Pour le même prix, j'ai fait le graphe en français et en anglais.
+
+\begin{figure}
+\begin{bigcenter}
+\begin{tikzpicture}[->,>=latex,shorten >=1pt,auto,node distance=3cm,
+  thick,main node/.style={fill=blue!20,draw},yscale=1]
+
+  \node[main node,minimum width=1.2cm] (CVTI) at (0,2) {\strut CVTI};
+  \node[main node,minimum width=1.2cm] (VTI) at (0,1) {\strut VTI};
+  \node[main node,minimum width=1.2cm] (SE) at (0,0) {\strut SE};
+  \begin{scope}[xshift=0cm]
+  \node[main node,minimum width=1.2cm] (U2T) at (-4.8,-2) {\strut U2T};
+  \node[main node,minimum width=1.2cm] (Nan) at (-4.8,-3.5) {\strut Nan.};
+  \node[main node,minimum width=1.2cm] (Bald) at (-3.2,-2) {\strut Bald.};
+  \node[main node,minimum width=1.2cm] (VTID) at (-1.6,-2) {\strut VTID};
+  \node[main node,minimum width=1.2cm] (PO) at (0,-2) {\strut PO};
+  \node[main node,minimum width=1.2cm] (BI) at (1.6,-2) {\strut BI};
+  \node[main node,minimum width=1.2cm] (Sch) at (3.2,-2) {\strut Sch.};
+  \node[main node,minimum width=1.2cm] (Max) at (4.8,-2) {\strut Max.};
+  \end{scope}
+  \begin{scope}[xshift=-0.8cm,yshift=4cm]
+  \node[main node,minimum width=1.2cm] (CSD) at (-1.6,-8) {\strut CSD};
+  \node[main node,minimum width=1.2cm] (JM) at (0,-8) {\strut JM};
+  \node[main node,minimum width=1.2cm] (Uni) at (1.6,-8) {\strut Uni.};
+  \node[main node,minimum width=1.2cm] (Buck) at (3.2,-8) {\strut Buck.};
+  \end{scope}
+  \begin{scope}[xshift=0cm,yshift=1cm]
+  \node[main node,minimum width=1.2cm] (Bor) at (-1.6,-7) {\strut Bor.};
+  \node[main node,minimum width=1.2cm] (VN) at (0,-7) {\strut VN};
+  \node[main node,minimum width=1.2cm] (Coo) at (1.6,-7) {\strut Coo.};
+  \node[main node,minimum width=1.2cm] (VA) at (3.2,-7) {\strut VA};
+  \node[main node,minimum width=1.2cm] (Veto) at (5.6,-7) {\strut Veto};
+  \end{scope}
+
+  \draw[->] (SE) -| (Veto);
+  \path
+    (CVTI) edge (VTI)
+    (VTI) edge (SE)
+	(SE.south) edge (U2T.north)
+    (SE.south) edge (Bald.north)
+    (SE.south) edge (VTID.north)
+    (SE.south) edge (PO.north)
+    (U2T.south) edge (Nan.north)
+    (SE.south) edge (Sch.north)
+    (SE.south) edge (Max.north)
+	(U2T.south) edge (CSD.north)
+	(U2T.south) edge (Uni.north)
+	(Sch.south) edge (Uni.north)
+	(Max.south) edge (Uni.north)
+%	(Sch.south) edge (CSD.north)
+%	(Max.south) edge (CSD.north)
+    (SE.south) edge (BI.north)
+	(U2T.south) edge (JM.north)
+	(Sch.south) edge (JM.north)
+	(Max.south) edge (JM.north)
+	(U2T.south) edge (Buck.north)
+	(JM.south) edge (Bor.north)
+	(Uni.south) edge (VN.north)
+	(JM.south) edge (VN.north)
+	(Sch.south) edge (VA.north)
+	(Max.south) edge (VA.north)
+	(Buck.south) edge (VA.north)
+	(Uni.south) edge (Coo.north)
+	(Buck.south) edge (Coo.north)
+;
+\end{tikzpicture}
+\end{bigcenter}
+\caption{Méta-analyse de MC dans les cultures sphéroïdales étudiées (sauf $V = 3$) et les cultures de spectre politique multidimensionnel.}\label{fig:sph_vmf_multidim_MC_comparison}
+\end{figure}
+
+\begin{figure}
+\begin{bigcenter}
+\begin{tikzpicture}[->,>=latex,shorten >=1pt,auto,node distance=3cm,
+  thick,main node/.style={fill=blue!20,draw},yscale=1]
+
+  \node[main node,minimum width=1.2cm] (CVTI) at (0,2) {\strut CIRV};
+  \node[main node,minimum width=1.2cm] (VTI) at (0,1) {\strut IRV};
+  \node[main node,minimum width=1.2cm] (SE) at (0,0) {\strut EB};
+  \begin{scope}[xshift=0cm]
+  \node[main node,minimum width=1.2cm] (U2T) at (-4.8,-2) {\strut TR};
+  \node[main node,minimum width=1.2cm] (Nan) at (-4.8,-3.5) {\strut Nan.};
+  \node[main node,minimum width=1.2cm] (Bald) at (-3.2,-2) {\strut Bald.};
+  \node[main node,minimum width=1.2cm] (VTID) at (-1.6,-2) {\strut IRVD};
+  \node[main node,minimum width=1.2cm] (PO) at (0,-2) {\strut RP};
+  \node[main node,minimum width=1.2cm] (BI) at (1.6,-2) {\strut IB};
+  \node[main node,minimum width=1.2cm] (Sch) at (3.2,-2) {\strut Sch.};
+  \node[main node,minimum width=1.2cm] (Max) at (4.8,-2) {\strut Max.};
+  \end{scope}
+  \begin{scope}[xshift=-0.8cm,yshift=4cm]
+  \node[main node,minimum width=1.2cm] (CSD) at (-1.6,-8) {\strut CSD};
+  \node[main node,minimum width=1.2cm] (JM) at (0,-8) {\strut MJ};
+  \node[main node,minimum width=1.2cm] (Uni) at (1.6,-8) {\strut Plu.};
+  \node[main node,minimum width=1.2cm] (Buck) at (3.2,-8) {\strut Buck.};
+  \end{scope}
+  \begin{scope}[xshift=0cm,yshift=1cm]
+  \node[main node,minimum width=1.2cm] (Bor) at (-1.6,-7) {\strut Bor.};
+  \node[main node,minimum width=1.2cm] (VN) at (0,-7) {\strut RV};
+  \node[main node,minimum width=1.2cm] (Coo) at (1.6,-7) {\strut Coo.};
+  \node[main node,minimum width=1.2cm] (VA) at (3.2,-7) {\strut AV};
+  \node[main node,minimum width=1.2cm] (Veto) at (5.6,-7) {\strut Veto};
+  \end{scope}
+
+  \draw[->] (SE) -| (Veto);
+  \path
+    (CVTI) edge (VTI)
+    (VTI) edge (SE)
+	(SE.south) edge (U2T.north)
+    (SE.south) edge (Bald.north)
+    (SE.south) edge (VTID.north)
+    (SE.south) edge (PO.north)
+    (U2T.south) edge (Nan.north)
+    (SE.south) edge (Sch.north)
+    (SE.south) edge (Max.north)
+	(U2T.south) edge (CSD.north)
+	(U2T.south) edge (Uni.north)
+	(Sch.south) edge (Uni.north)
+	(Max.south) edge (Uni.north)
+%	(Sch.south) edge (CSD.north)
+%	(Max.south) edge (CSD.north)
+    (SE.south) edge (BI.north)
+	(U2T.south) edge (JM.north)
+	(Sch.south) edge (JM.north)
+	(Max.south) edge (JM.north)
+	(U2T.south) edge (Buck.north)
+	(JM.south) edge (Bor.north)
+	(Uni.south) edge (VN.north)
+	(JM.south) edge (VN.north)
+	(Sch.south) edge (VA.north)
+	(Max.south) edge (VA.north)
+	(Buck.south) edge (VA.north)
+	(Uni.south) edge (Coo.north)
+	(Buck.south) edge (Coo.north)
+;
+\end{tikzpicture}
+\end{bigcenter}
+\caption{Méta-analyse de MC dans les cultures sphéroïdales étudiées (sauf $V = 3$) et les cultures de spectre politique multidimensionnel.}\label{fig:sph_vmf_multidim_MC_comparison_en}
+\end{figure}
+
+
+\section{Critiques du vainqueur de Condorcet}
+
+\subsection{Critique 1: le centriste inconnu}
+
+Exemple 1:
+\begin{itemize}
+	\item 49 électeurs: A, B, C.
+	\item 2 électeurs: B, A, C.
+	\item 49 électeurs: C, B, A.
+\end{itemize}
+Alors B est vainqueur de Condorcet.
+
+Exemple 2:
+\begin{itemize}
+	\item 49 électeurs: A, C, B.
+	\item 2 électeurs: B, A, C.
+	\item 49 électeurs: C, A, B.
+\end{itemize}
+Alors A est vainqueur de Condorcet.
+
+On peut interpréter ces résultats en disant que deux critères sont pris en compte par les partisans de A et C: d'une part, leur préférence politique pour la droite ou la gauche, qui tendrait à leur faire préférer le centre à leur adversaire politique direct; d'autre part, le critère de <<réputation>>, qui tendrait à leur faire préférer leur adversaire direct doté de plus de reconnaissance publique (potentiellement, d'expérience de précédents mandats, donc d'une supposée compétence, etc.) au centriste. Dans l'exemple 1, les partisans de A et C jugent que le critère <<politique>> est plus important; dans l'exemple 2, que c'est le critère <<de réputation>>. Les résultats des vainqueurs de Condorcets ne sont donc pas si choquants. La critique du <<centriste inconnu>> n'est donc pas si grave.
+
+\subsection{Critique 2: favoriserait l'existence d'un parti dominant?}
+
+Influence supposée des modes de scrutin sur le paysage politique.
+\begin{itemize}
+	\item Uninominal 1 tour: bipartisme strict.
+	\item Uninominal 2 tours: bipartisme avec multitude de petits partis.
+	\item Condorcet et variantes: monopartisme avec multitude de petits partis?
+\end{itemize}
+
+Cette critique est-elle grave? <<L'alternance>> actuelle est-elle une bonne chose, etc.? À quel point est-elle artificielle? Dans le cadre d'un Condorcet, la menace représentée par les <<petits partis>> serait-elle suffisante pour que le parti <<central>> se maintienne spontanément autour d'une ligne politique qui représenterait plus ou moins la <<médiane>> des souhaits des électeurs?
+
+\subsection{Critique 3: la dictature de la majorité}
+
+Cf. article wikipedia \emph{Borda count}.
+
+Cependant, même dans l'exemple mentionné, la méthode de Borda a de nombreux autres défauts: forte instabilité à l'ajout ou la suppression de nouveaux candidats, manque de légitimité du vainqueur s'il n'est pas le vainqueur de Condorcet (dans le cas où il en existe un), etc.
+
+Résoudre simultanément ces problèmes est impossible dans un mode de scrutin ordinal... Vers un mode de scrutin cardinal?
+
+
+\section{Modes de scrutin positionnels}
+
+\begin{center}
+\includegraphics[width=\textwidth]{../../Photos_notes/20130417_114919}
+\end{center}
+
+Algo de manipulation
+
+Condition sous lesquelles ces mds vérifient \cminf ou \cmign.
+
+Le vecteur des poids est noté $(w_1,\ldots,w_m)$; il est trié par ordre croissant.
+
+Le nombre d'électeurs est noté $2p + \varepsilon$, où $p \in \N$ et $\varepsilon \in \{1,2\}$.
+
+L'indice $i$ sert à numéroter les manipulateurs.
+
+Le candidat $m$ sera celui qu'on veut faire gagner.
+
+$S_i(j)$ est le score du candidat $j$ après l'ajout du manipulateur $i$.
+
+$r_i(j)$ est le rang attribué par le manipulateur $i$ au candidat $j$, en partant de la fin; c'est-à-dire que $r_i(j) = 1$ pour le candidat $j$ placé en dernier sur son bulletin. Ainsi, le manipulateur $i$ donne au candidat $j$ un poids $w_{r_i(j)}$.
+
+L'indice $v \in \N$ sert à numéroter les versions de la liste $L_v$ ci-dessous.
+
+$L_v$ est une liste croissante d'indices qui représente les frontières entre les clusters de candidats. On aura toujours $L_v(1) = 1$ et $L_v(|L_v|) = m$. Un indice appartenant à $L_v$ représente le \emph{début} d'un cluster.
+
+Pour $q \in \intent{1}{|L_v|-1}$, on note $\mathcal{C}_v(q) = \intent{L_v(q)}{L_v(q+1)-1}$.
+
+On utilise l'algorithme \ref{alg:manipule}. On notera que la liste $L_v$ ne sert que pour la preuve; par conséquent, la seconde boucle while est inutile pour l'implantation.
+
+
+\begin{algorithm}
+\caption{Manipule($S_0,w,p+\varepsilon$)}
+\label{alg:manipule}
+\begin{algorithmic}[1]
+\STATE \COMMENT{Initialisations}
+\STATE Quitte à renuméroter les candidats, on suppose que $m$ est le candidat qu'on veut faire gagner et que les autres candidats $j$ sont ordonnés par score initial $S_0(j)$ décroissant. \label{algoline:tri_initial}
+\STATE $i := 0$
+\STATE $v := 0$
+\STATE $L_0 := (1)$
+\FOR{$j = 2$ \TO $m-1$}
+	\IF{$S_0(j) \neq S_0(j-1)$} \label{algoline:ini_L_test}
+		\STATE Ajouter $j$ à la fin de la liste $L_0$
+	\ENDIF
+\ENDFOR
+\STATE Ajouter $m$ à la fin de la liste $L_0$\vspace{0.5em} \label{algoline:fin_initialisation}
+
+\WHILE{$i < p + \varepsilon$} \label{algoline:grand_while_debut}
+	\STATE $i := i + 1$\vspace{0.5em}
+	\STATE \COMMENT{Vote du $i$-ième manipulateur}
+	\STATE On attribue un rang $r_i(j)$ à chaque candidat $j \in \intent{1}{m-1}$, qui les classe par score $S_{i-1}(j)$ décroissant. \label{algoline:rij}
+	\FOR{$j = 1$ \TO $m-1$}
+		\STATE $S_{i}(j) := S_{i-1}(j) + w_{r_i(j)}$ 
+	\ENDFOR
+	\STATE $S_{i}(m) := S_{i-1}(m) + w_m$\vspace{0.5em} \label{algoline:fin_ajout_manipulateur}
+	
+	\STATE \COMMENT{Mises à jour de la liste $L_v$}
+	\WHILE{$\exists q \in \intent{2}{|L_v|-1}$ t.q. $\max_{j' \in \mathcal{C}_v(q)}{S_i(j')} \geq \min_{j \in \mathcal{C}_v(q-1)}{S_i(j)}$}
+		\STATE $v := v + 1$
+		\STATE $L_v := L_{v-1} \setminus \{L_{v-1}(q)\}$ \label{algoline:fin_une_maj_de_L}
+	\ENDWHILE \label{algoline:fin_les_maj_de_L}\vspace{0.5em}
+\ENDWHILE \label{algoline:grand_while_fin}
+\end{algorithmic}
+\end{algorithm}
+
+\paragraph{Invariants de boucle.}
+On définit les propriétés suivantes.
+
+Poids($i,v$): jusqu'à présent, les candidats du cluster $\mathcal{C}_v(q) = \intent{L_v(q)}{L_v(q+1)-1}$ ont toujours reçu des manipulateurs les poids numérotés $L_v(q)$ à $L_v(q+1)-1$, éventuellement dans le désordre. Formellement:
+$$
+\forall q \in \intent{1}{|L_v|-1}, \forall j \in \mathcal{C}_v(q), \forall i' \in \intent{1}{i}, r_{i'}(j) \in \intent{L_v(q)}{L_v(q+1)-1}.
+$$
+
+Diff($i,v$): la différence entre les scores de deux candidats du même cluster $\mathcal{C}_v(q) = \intent{L_v(q)}{L_v(q+1)-1}$ est majorée par $w_{L_v(q+1)-1} - w_{L_v(q)}$. Formellement:
+$$
+\forall q \in \intent{1}{|L_v|-1}, \max_{j \in \mathcal{C}_v(q)}{S_i(j)} - \min_{j \in \mathcal{C}_v(q)}{S_i(j)} \leq w_{L_v(q+1)-1} - w_{L_v(q)}.
+$$
+
+Decr($i,v$): les scores sont strictement décroissants d'un cluster au suivant. Formellement:
+$$
+\forall (q,q') \in \intent{1}{|L_v|-1}^2, \text{ si $q < q'$ alors } \min_{j \in \mathcal{C}_v(q)}{S_i(j)} > \max_{j' \in \mathcal{C}_v(q')}{S_i(j')}.
+$$
+
+\paragraph{Hypothèse de récurrence} Au début et à la fin de la grande boucle while (lignes \ref{algoline:grand_while_debut} et \ref{algoline:grand_while_fin}), les invariants Poids($i,v$), Diff($i,v$) et Decr($i,v$) sont vérifiés.
+
+
+\paragraph{Tous les invariants sont vérifiés après la ligne \ref{algoline:fin_initialisation} (fin de l'initialisation).} À ce stade, on a $i=0$ et $v=0$.
+
+Comme $i = 0$, l'intervalle $\intent{1}{i}$ est vide donc la condition Poids($0,0$) est vérifiée.
+
+Soit $q \in \intent{1}{|L_0|-1}$. Si on considère $j \in \intent{L_0(q)+1}{L_0(q+1)-1}$, alors par définition, $j$ n'est pas dans $L_0$; donc, par construction de $L_0$ (ligne \ref{algoline:ini_L_test}), $S_0(j) = S_0(j-1)$. Par une récurrence immédiate, on en déduit que pour tout $j \in \intent{L_0(q)}{L_0(q+1)-1}$, on a $S_0(j) = S_0(L_0(q))$. Ainsi, $\max_{j \in \mathcal{C}_0(q)}{S_0(j)} = S_0(L_0(q)) = \min_{j \in \mathcal{C}_0(q)}{S_0(j)}$. En particulier, Diff($0,0$) est vérifiée.
+
+Soit $(q,q') \in \intent{1}{|L_0|-1}^2$ avec $q < q'$. Comme les candidats sont triés par score initial décroissant, on a:
+\begin{align*}
+\min_{j \in \mathcal{C}_0(q)}{S_0(j)} - \max_{j' \in \mathcal{C}_0(q')}{S_0(j')} 
+&= S_0(L_0(q+1) - 1) - S_0(L_0(q')) \\
+&\geq S_0(L_0(q') - 1) - S_0(L_0(q')) \\
+&\geq 0.
+\end{align*}
+Et comme $L_0(q') \in L_0$, on sait (par construction de $L_0$, ligne \ref{algoline:ini_L_test}) que cette dernière inégalité est stricte. Donc Decr($0,0$) est vérifiée.
+
+
+\paragraph{Poids(i,v) et Diff(i,v) sont vérifiées après la ligne \ref{algoline:fin_ajout_manipulateur} (ajout du $i$-ième manipulateur).}
+
+Soit $q \in \intent{1}{|L_0|-1}$. Comme Decr($i-1,v$) est vraie, on en déduit qu'à la ligne~\ref{algoline:rij}, les membres de $\mathcal{C}_v(q)$ sont classés entre les rangs $L_v(q)$ et $L_v(q+1)-1$, c'est-à-dire: $\forall j \in \mathcal{C}_v(q), r_i(j) \in \intent{L_v(q)}{L_v(q+1)-1}$. Or on sait aussi que Poids($i-1,v$) est vérifiée. Donc Poids($i,v$) est vérifiée.
+
+Soit $q \in \intent{1}{|L_0|-1}$ et $(j,j') \in {\mathcal{C}_v(q)}^2$. Quitte à échanger les rôles, on peut supposer que $r_i(j') \leq r_i(j)$. On note qu'on a alors $S_{i-1}(j') \geq S_{i-1}(j)$, par définition des $r_i$ à la ligne \ref{algoline:rij}. On a donc:
+\begin{align*}
+|S_i(j') - S_i(j)| &= | \underbrace{S_{i-1}(j') - S_{i-1}(j)}_{\geq 0} - \underbrace{(w_{r_i(j)} - w_{r_i(j')})}_{\geq 0}| \\
+&\leq \max(S_{i-1}(j') - S_{i-1}(j),w_{r_i(j)} - w_{r_i(j')}).
+\end{align*}
+On peut majorer le premier argument du maximum par $w_{L_v(q+1)-1} - w_{L_v(q)}$ car Diff($i-1,v$) est vraie. Et le second aussi, car Poids($i,v$) est vérifiée. Par conséquent:
+$$
+|S_i(j') - S_i(j)| \leq w_{L_v(q+1)-1} - w_{L_v(q)}.
+$$
+Ainsi, Diff($i,v$) est vérifiée.
+
+
+
+\paragraph{Poids(i,v) et Diff(i,v) sont vérifiées après la ligne \ref{algoline:fin_une_maj_de_L} (une mise à jour de $L_v$).} Remarquons que lors de cette mise à jour, on a créé un cluster par fusion en supprimant la frontière $L_{v-1}(q)$. Ce nouveau cluster est:
+\begin{align*}
+\mathcal{C}_{v}(q-1) 
+&= \intent{L_{v}(q-1)}{L_{v}(q)-1} \\
+&= \intent{L_{v-1}(q-1)}{L_{v-1}(q+1)-1} \\ 
+&= \mathcal{C}_{v-1}(q-1) \cup \mathcal{C}_{v-1}(q).
+\end{align*}
+Les autres clusters n'ont pas changé (à translation d'indice près).
+
+Soit $j$ un candidat du nouveau cluster $\mathcal{C}_{v}(q-1) = \mathcal{C}_{v-1}(q-1) \cup \mathcal{C}_{v-1}(q)$. Comme Poids($i,v-1$) est vérifiée, le candidat $j$ a toujours reçu un poids numéroté dans $\intent{L_{v-1}(q-1)}{{L_{v-1}(q)-1}}$ ou dans $\intent{L_{v-1}(q)}{{L_{v-1}(q+1)-1}}$; autrement dit, dans $\intent{L_{v-1}(q-1)}{L_{v-1}(q+1)-1} = \intent{L_{v}(q-1)}{{L_{v}(q)-1}}$. Donc Poids($i,v$) est vérifiée.
+
+Pour Diff($i,v$), la seule question qui se pose concerne le nouveau cluster $\mathcal{C}_{v}(q-1) = \mathcal{C}_{v-1}(q-1) \cup \mathcal{C}_{v-1}(q)$. Il y a deux cas.
+\begin{enumerate}
+\item $\min_{j \in \mathcal{C}_{v-1}(q)}{S_i(j)} \geq \max_{j \in \mathcal{C}_{v-1}(q-1)}{S_i(j)}$ (le second cluster est passé entièrement au-dessus du premier). Alors, en utilisant Poids($i,v-1$):
+\begin{align*}
+\max_{j \in \mathcal{C}_v(q-1)}{S_i(j)} 
+&= \max_{j \in \mathcal{C}_{v-1}(q)}{S_i(j)} \\
+&\leq \max_{j \in \mathcal{C}_{v-1}(q)}{(S_{i-1}(j))} + w_{L_{v-1}(q+1)-1}.
+\end{align*}
+Et de même:
+\begin{align*}
+\min_{j \in \mathcal{C}_v(q-1)}{S_i(j)} 
+&= \min_{j \in \mathcal{C}_{v-1}(q-1)}{S_i(j)} \\
+&\geq \min_{j \in \mathcal{C}_{v-1}(q-1)}{(S_{i-1}(j))} + w_{L_{v-1}(q-1)}.
+\end{align*}
+Donc:
+\begin{align*}
+\max_{j \in \mathcal{C}_v(q-1)}{S_i(j)} - \min_{j \in \mathcal{C}_v(q-1)}{S_i(j)} 
+&\leq w_{L_{v-1}(q+1)-1} - w_{L_{v-1}(q-1)} \\
+&\quad - \left(\min_{j \in \mathcal{C}_{v-1}(q-1)}{S_{i-1}(j)} - \max_{j \in \mathcal{C}_{v-1}(q)}{S_{i-1}(j)}\right) \\
+\end{align*}
+Or on sait qu'il existe $v' < v$ tel que Decr($i-1,v'$) est vérifiée. On en déduit aisément que Decr($i-1,v-1$) est vérifiée aussi, ce qui permet d'établir:
+\begin{align*}
+\max_{j \in \mathcal{C}_v(q-1)}{S_i(j)} - \min_{j \in \mathcal{C}_v(q-1)}{S_i(j)} 
+&\leq w_{L_{v-1}(q+1)-1} - w_{L_{v-1}(q-1)} \\
+&\leq w_{L_{v}(q)-1} - w_{L_{v}(q-1)}. \\
+\end{align*}
+
+\item $\min_{j \in \mathcal{C}_{v-1}(q)}{S_i(j)} < \max_{j \in \mathcal{C}_{v-1}(q-1)}{S_i(j)}$ (le second cluster n'est pas passé entièrement au-dessus du premier). Alors:
+\begin{align*}
+\max_{j \in \mathcal{C}_v(q-1)}{S_i(j)} - \min_{j \in \mathcal{C}_v(q-1)}{S_i(j)} 
+&\leq \left(\max_{j \in \mathcal{C}_{v-1}(q)}{S_i(j)} - \min_{j \in \mathcal{C}_{v-1}(q)}{S_i(j)}\right) \\
+&\quad + \left(\max_{j \in \mathcal{C}_{v-1}(q-1)}{S_i(j)} - \min_{j \in \mathcal{C}_{v-1}(q-1)}{S_i(j)}\right) \\
+\end{align*}
+Donc, comme Diff($i,v-1$) est vérifiée:
+\begin{align*}
+\max_{j \in \mathcal{C}_v(q-1)}{S_i(j)} - \min_{j \in \mathcal{C}_v(q-1)}{S_i(j)} 
+&\leq w_{L_{v-1}(q+1) - 1} - w_{L_{v-1}(q)} \\
+&\quad + w_{L_{v-1}(q) - 1} - w_{L_{v-1}(q-1)} \\
+&\leq w_{L_{v-1}(q+1) - 1} - w_{L_{v-1}(q-1)} \\
+&\leq w_{L_{v}(q) - 1} - w_{L_{v}(q-1)}.
+\end{align*}
+\end{enumerate}
+Dans les deux cas, Diff($i,v$) est vérifiée.
+
+
+
+%\max_{j \in \mathcal{C}_v(q)}{S_i(j)} - \min_{j \in \mathcal{C}_v(q)}{S_i(j)}
+
+
+
+
+\paragraph{Decr($i,v$) est verifiée après la ligne \ref{algoline:fin_les_maj_de_L} (fin des mises à jour de $L_v$).}
+
+Cette boucle while termine, puisque la taille de la liste $L_v$ décroît strictement à chaque pas. Quand elle termine, on a par définition:
+$$
+\forall q \in \intent{2}{|L_v|-1}, \min_{j \in \mathcal{C}_v(q-1)}{S_i(j)} > \max_{j' \in \mathcal{C}_v(q)}{S_i(j')}.
+$$
+Par une récurrence immédiate sur $q$, on en déduit que Decr($i,v$) est vérifiée.
+
+
+
+
+
+\section{Todo's en vrac}
+
+À la fin: 
+\begin{itemize}
+\item Y'a plus rien!!!
+\end{itemize}
+
+
+
+
+%Pour info, voici les équations numérotées:
+%
+%\eqref{eq:cond_victoire}
+%\eqref{eq:cond_no_defaite}
+%
+%\eqref{eq:cond_resist_non_oui}
+%\eqref{eq:cond_resist_non_non}
+%
+%\eqref{eq:M_cond_victoire}
+%\eqref{eq:M_cond_no_defaite}
+%
+%\eqref{eq:cn_decompos_ES}
+%\eqref{eq:cn_decompos_general}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

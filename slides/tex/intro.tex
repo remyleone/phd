@@ -1,42 +1,5 @@
 \section{Introduction \& contexte}
 
-\begin{frame}{Contexte}
-  \begin{block}{Wireless Sensor Network \& Low-Power and Lossy Network}
-    \begin{itemize}
-      \item Systèmes embarqués comprenant des capteurs, actionneurs
-      \item Réseau utilisant une radio pour communiquer
-    \end{itemize}
-  \end{block}
-
-  \begin{block}{Raisons technologiques}
-    \begin{itemize}
-      \item Réduction des coûts de fabrication.
-      \item Réduction des besoins énergétiques
-    \end{itemize}
-  \end{block}
-
-  \begin{block}{Raisons d'usages}
-    \begin{itemize}
-      \item Ajout de fonctionnalités de services a des objets courants
-      \item Analyse des données pour fournir de l'aide à la décision
-      \item Intégration centralisée
-    \end{itemize}
-  \end{block}
-
-  \pnote{
-    - Système embarqué existent depuis longtemps c'est quoi la différence ?
-    => Approche systématique pour chaque objet car les coûts sont faibles.
-    => Avec des batteries standards le système peut tenir suffisamment longtemps
-    }
-  \pnote{
-    - L'interconnexion avec des systèmes existant est aussi clé.
-  }
-  \pnote{
-    - Les objets sont des sources d'informations et d'actions en temps réel.
-  }
-
-\end{frame}
-
 \begin{frame}{Nœuds capteurs}
 
   \begin{figure}[tb]
@@ -56,23 +19,6 @@
 
 \end{frame}
 
-
-\begin{frame}{Plateformes de test}
-
-  \begin{figure}[tb]
-    \centering
-    \includegraphics[width=\textwidth]{figures/iotlab.jpg}
-  \end{figure}
-
-  \pnote{
-    - Testbed où on teste les protocoles sur des plateformes matérielles diverses
-  }
-  \pnote{
-    - Déploiement simplifié permettant un passage à l'échelle plus simple.
-  }
-
-\end{frame}
-
 \begin{frame}\frametitle{Domaines d'application}
 
     \begin{block}{Applications industrielles}
@@ -87,6 +33,14 @@
       Alarmes, chauffage, lumière, surveillance, fermeture des portes
     \end{block}
 
+  \begin{alertblock}{Objectifs}
+    \begin{itemize}
+      \item Connectivité à des objets $\implies$ Services
+      \item Analyse de données pour fournir de l'aide à la décision
+    \end{itemize}
+  \end{alertblock}
+
+
   % \begin{itemize}
   %   \item Applications industrielles
   %   \item Villes intelligentes
@@ -100,138 +54,133 @@
 
 \end{frame}
 
-\begin{frame}{Smart Parking}
-  \begin{columns}
-      \begin{column}{0.48\textwidth}
-        \begin{figure}
-          % \centering
-          \includegraphics[width=0.8\textwidth]{figures/smart_parking.jpg}
-        \end{figure}
-      \end{column}
-      \begin{column}{0.48\textwidth}
-        \begin{block}{Avantages}
-          \begin{itemize}
-            \item Diminue le temps nécessaire pour trouver une place libre.
-          \end{itemize}
-        \end{block}
-        \begin{alertblock}{Projet Calipso}
-          \begin{itemize}
-            \item Déploiement à Barcelone
-          \end{itemize}
-        \end{alertblock}
-        \begin{figure}
-          \centering
-          \includegraphics[width=.7\textwidth]{figures/installation_smart_parking.jpg}
-        \end{figure}
-      \end{column}
-  \end{columns}
-\end{frame}
-
-\begin{frame}{Architecture d'un nœud}
-  \begin{figure}
-    \centering
-    \input{figures/node_architecture}
-  \end{figure}
-  \begin{block}{Contraintes et solutions}
+\begin{frame}{Contexte}
+  \begin{block}{Low-Power and Lossy Network (LLN)}
     \begin{itemize}
-      \item Faibles ressources matérielles (Processeur, mémoire, stockage) $\to$ Système d'exploitation et applications adaptés.
-      \item Réserve d'énergie limitée $\to$ Cycle de sommeil.
+      \item Systèmes embarqués comprenant des capteurs et actionneurs
+      \item Réseau utilisant une radio pour communiquer
     \end{itemize}
   \end{block}
+
+  \begin{block}{Raisons technologiques}
+    \begin{itemize}
+      \item Réduction des coûts de fabrication.
+      \item Composants basse consommation.
+    \end{itemize}
+  \end{block}
+
+
   \pnote{
-    OpenMote Proc 32 MHz, 32 Kbytes of RAM and 512 Kbytes of Flash,
+    - Système embarqué existent depuis longtemps c'est quoi la différence ?
+    => Approche systématique pour chaque objet car les coûts sont faibles.
+    => Avec des batteries standards le système peut tenir suffisamment longtemps
+    }
+  \pnote{
+    - L'interconnexion avec des systèmes existant est aussi clé.
   }
   \pnote{
-    Portée de quelques dizaines de mètres à plusieurs kilomètres selon les technologies
+    - Les objets sont des sources d'informations et d'actions en temps réel.
   }
-  \pnote{
-    - L'hétérogéneité provient de la profusion des acteurs et du faible cout d'entrée dans les marchés
-  }
-  \pnote{
-  Composants variés et généralement peu onéreux.
-    - Dire que les progrès technologiques visent à rendre les composants moins chers au lieu de performants
-  }
-  \pnote{
-    Modèle de programmation qui évite les allocations mémoire
-  }
-  \pnote{
-    On peut mentionner aussi l'énergy harvesting
-  }
-  \pnote{
-    - Faible puissance d'émission
-  }
-  \pnote{
-    - Liens assez mauvais et bruité
-  }
-  \pnote{
-    - Mentionner les problèmes de multi-path fading
-  }
+
 \end{frame}
 
-\begin{frame}{Architecture générale d'un réseau de capteurs}
+\begin{frame}{Smart Parking}
   \begin{figure}
     \centering
-    \includegraphics[scale=.75]{figures/schema_passerelle_slides.pdf}
+    \includegraphics[width=.7\textwidth]{figures/smart_parking.png}
   \end{figure}
+  \begin{block}{Objectifs}
+    Diminue le temps nécessaire pour trouver une place libre.
+  \end{block}
+\end{frame}
+
+% \begin{frame}{Plateformes de test}
+
+%   \begin{figure}[tb]
+%     \centering
+%     \includegraphics[width=\textwidth]{figures/iotlab.jpg}
+%   \end{figure}
+
+%   \pnote{
+%     - Testbed où on teste les protocoles sur des plateformes matérielles diverses
+%   }
+%   \pnote{
+%     - Déploiement simplifié permettant un passage à l'échelle plus simple.
+%   }
+
+% \end{frame}
+
+
+% \begin{frame}{Smart Parking}
+%   \begin{columns}
+%       \begin{column}{0.48\textwidth}
+%         \begin{figure}
+%           % \centering
+%           \includegraphics[width=0.8\textwidth]{figures/smart_parking.jpg}
+%         \end{figure}
+%       \end{column}
+%       \begin{column}{0.48\textwidth}
+%         \begin{block}{Avantages}
+%           \begin{itemize}
+%             \item Diminue le temps nécessaire pour trouver une place libre.
+%           \end{itemize}
+%         \end{block}
+%         \begin{alertblock}{Projet Calipso}
+%           \begin{itemize}
+%             \item Déploiement à Barcelone
+%           \end{itemize}
+%         \end{alertblock}
+%         \begin{figure}
+%           \centering
+%           \includegraphics[width=.7\textwidth]{figures/installation_smart_parking.jpg}
+%         \end{figure}
+%       \end{column}
+%   \end{columns}
+% \end{frame}
+
+
+\begin{frame}{Contraintes et enjeux}
   \begin{block}{Contraintes}
     \begin{itemize}
-      \item Faible bande passante et connexions intermittentes $\to$ Protocoles compacts et sans connexions
-      \item Faible puissance d'émission $\to$ Réseaux maillés et multi-sauts
-      % \item Canaux fortement bruités (ISM) $\to$ Couche MAC adaptée
-      % \item Passage à l'échelle
+      \item Faible cout $\implies$ économie d'énergie
+      \item Capteurs hétérogènes et nombreux
+      \item Longs déploiements (mois, années)
     \end{itemize}
   \end{block}
-
-  \pnote{
-    - Quand ces systèmes ne sont pas autonomes il faut une interconnexion on appelle cela une passerelle.
-  }
-
-\end{frame}
-
-\begin{frame}{Problématiques}
-  \begin{block}{Connaître l'état des nœuds}
+  \begin{alertblock}{Enjeux}
     \begin{itemize}
-      \item Diagnostiquer ou anticiper des pannes
-      \item Mesurer les grandeurs caractéristiques
-      \item Provisionner le réseau contraint
-    \end{itemize}
-  \end{block}
-
-  \begin{block}{Comment optimiser l'utilisation des ressources de ces réseaux contraints ?}
-    \begin{itemize}
-      \item Limiter la charge sur les nœuds contraints
-      \item Conserver un niveau de service suffisant
-    \end{itemize}
-  \end{block}
-
-\end{frame}
-
-\begin{frame}{Axes des contributions}
-  \begin{block}{Passerelle}
-    \begin{itemize}
-      \item Interface entre les réseaux contraints et classiques
-      \item Services pour le réseau de capteurs
-    \end{itemize}
-  \end{block}
-
-  \begin{alertblock}{Axes de contributions}
-    \begin{itemize}
-      \item Ajout de fonctionnalités transparentes pour le réseau de capteurs et les utilisateurs
+      \item Connecter ces objets à l'Internet
+      \item Fournir du service à valeur ajouté
     \end{itemize}
   \end{alertblock}
-
-  \pnote{
-    - Position clé à mi-chemin entre le monde contraint et le monde non contraint.
-    Plus facile d'y accéder qu'aux nœuds contraints.
-  }
-
-  \pnote{
-    Plus ressources car doit par exemple fournir une connectivité permanente par réseaux cellulaires, Ethernet.
-    Services supplémentaires: Pare-feux, sauvegarde des données collectées, mises à jour firmware, synchronisation d'horloge,
-    routeur de sortie, etc.
-  }
-  \pnote{
-    - Comment ajouter des fonctionnalités utiles et transparentes pour les noeuds ?
-  }
-
 \end{frame}
+
+% \begin{frame}{Axes des contributions}
+%   \begin{block}{Passerelle}
+%     \begin{itemize}
+%       \item Interface entre les réseaux contraints et classiques
+%       \item Services pour le réseau de capteurs
+%     \end{itemize}
+%   \end{block}
+
+%   \begin{alertblock}{Axes de contributions}
+%     \begin{itemize}
+%       \item Ajout de fonctionnalités transparentes pour le réseau de capteurs et les utilisateurs
+%     \end{itemize}
+%   \end{alertblock}
+
+%   \pnote{
+%     - Position clé à mi-chemin entre le monde contraint et le monde non contraint.
+%     Plus facile d'y accéder qu'aux nœuds contraints.
+%   }
+
+%   \pnote{
+%     Plus ressources car doit par exemple fournir une connectivité permanente par réseaux cellulaires, Ethernet.
+%     Services supplémentaires: Pare-feux, sauvegarde des données collectées, mises à jour firmware, synchronisation d'horloge,
+%     routeur de sortie, etc.
+%   }
+%   \pnote{
+%     - Comment ajouter des fonctionnalités utiles et transparentes pour les noeuds ?
+%   }
+
+% \end{frame}

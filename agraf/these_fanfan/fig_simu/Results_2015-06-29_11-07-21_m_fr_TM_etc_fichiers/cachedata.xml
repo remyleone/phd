@@ -1,0 +1,2626 @@
+<xml xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:dt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"
+ xmlns:s="uuid:BDC6E3F0-6DA3-11d1-A2A3-00AA00C14882"
+ xmlns:rs="urn:schemas-microsoft-com:rowset" xmlns:z="#RowsetSchema">
+ <x:PivotCache>
+  <x:CacheIndex>1</x:CacheIndex>
+  <s:Schema id="RowsetSchema">
+   <s:ElementType name="row" content="eltOnly">
+    <s:attribute type="Col1"/>
+    <s:attribute type="Col2"/>
+    <s:attribute type="Col3"/>
+    <s:attribute type="Col4"/>
+    <s:attribute type="Col5"/>
+    <s:attribute type="Col6"/>
+    <s:attribute type="Col7"/>
+    <s:attribute type="Col8"/>
+    <s:attribute type="Col9"/>
+    <s:attribute type="Col10"/>
+    <s:attribute type="Col11"/>
+    <s:attribute type="Col12"/>
+    <s:attribute type="Col13"/>
+    <s:attribute type="Col14"/>
+    <s:attribute type="Col15"/>
+    <s:attribute type="Col16"/>
+    <s:attribute type="Col17"/>
+    <s:attribute type="Col18"/>
+    <s:extends type="rs:rowbase"/>
+   </s:ElementType>
+   <s:AttributeType name="Col1" rs:name="Voting system">
+    <s:datatype dt:maxLength="255"/>
+   </s:AttributeType>
+   <s:AttributeType name="Col2" rs:name="Criterion">
+    <s:datatype dt:maxLength="255"/>
+   </s:AttributeType>
+   <s:AttributeType name="Col3" rs:name="Algorithm parameters">
+    <s:datatype dt:maxLength="255"/>
+   </s:AttributeType>
+   <s:AttributeType name="Col4" rs:name="Computation time">
+    <s:datatype dt:type="float"/>
+   </s:AttributeType>
+   <s:AttributeType name="Col5" rs:name="Rate (lower bound)">
+    <s:datatype dt:type="float"/>
+   </s:AttributeType>
+   <s:AttributeType name="Col6" rs:name="Rate (upper bound)">
+    <s:datatype dt:type="float"/>
+   </s:AttributeType>
+   <s:AttributeType name="Col7" rs:name="Number of populations">
+    <s:datatype dt:type="int"/>
+   </s:AttributeType>
+   <s:AttributeType name="Col8" rs:name="V">
+    <s:datatype dt:type="int"/>
+   </s:AttributeType>
+   <s:AttributeType name="Col9" rs:name="C">
+    <s:datatype dt:type="int"/>
+   </s:AttributeType>
+   <s:AttributeType name="Col10" rs:name="Culture type">
+    <s:datatype dt:maxLength="255"/>
+   </s:AttributeType>
+   <s:AttributeType name="Col11" rs:name="Culture parameter 1">
+    <s:datatype dt:maxLength="255"/>
+   </s:AttributeType>
+   <s:AttributeType name="Col12" rs:name="Culture parameter 1 value">
+    <s:datatype dt:type="int"/>
+   </s:AttributeType>
+   <s:AttributeType name="Col13" rs:name="Culture parameter 2">
+    <s:datatype dt:maxLength="255"/>
+   </s:AttributeType>
+   <s:AttributeType name="Col14" rs:name="Culture parameter 2 value">
+    <s:datatype dt:maxLength="255"/>
+   </s:AttributeType>
+   <s:AttributeType name="Col15" rs:name="Culture parameter 3">
+    <s:datatype dt:maxLength="255"/>
+   </s:AttributeType>
+   <s:AttributeType name="Col16" rs:name="Culture parameter 3 value">
+    <s:datatype dt:maxLength="255"/>
+   </s:AttributeType>
+   <s:AttributeType name="Col17" rs:name="Culture parameter 4">
+    <s:datatype dt:maxLength="255"/>
+   </s:AttributeType>
+   <s:AttributeType name="Col18" rs:name="Culture parameter 4 value">
+    <s:datatype dt:maxLength="255"/>
+   </s:AttributeType>
+  </s:Schema>
+  <rs:data>
+   <z:row Col1="Population" Col2="exists_condorcet_admissible"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Population" Col2="exists_weak_condorcet_winner"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Population" Col2="exists_condorcet_winner_rk_ctb"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Population" Col2="exists_condorcet_winner_rk"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Population" Col2="exists_condorcet_winner_ut_rel_ctb"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Population" Col2="exists_condorcet_winner_ut_rel"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Population" Col2="exists_condorcet_winner_ut_abs_ctb"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Population" Col2="exists_condorcet_winner_ut_abs"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Population" Col2="exists_resistant_condorcet_winner"
+    Col5="3.7000000000000002E-3" Col6="3.7000000000000002E-3" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Population" Col2="exists_condorcet_order_rk_ctb"
+    Col5="0.53410000000000002" Col6="0.53410000000000002" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Population" Col2="exists_condorcet_order_rk"
+    Col5="0.53410000000000002" Col6="0.53410000000000002" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Population" Col2="exists_condorcet_order_ut_rel_ctb"
+    Col5="0.53410000000000002" Col6="0.53410000000000002" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Population" Col2="exists_condorcet_order_ut_rel"
+    Col5="0.53410000000000002" Col6="0.53410000000000002" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Population" Col2="exists_condorcet_order_ut_abs_ctb"
+    Col5="0.53410000000000002" Col6="0.53410000000000002" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Population" Col2="exists_condorcet_order_ut_abs"
+    Col5="0.53410000000000002" Col6="0.53410000000000002" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Population" Col2="exists_majority_favorite_rk_ctb"
+    Col5="4.0000000000000002E-4" Col6="4.0000000000000002E-4" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Population" Col2="exists_majority_favorite_rk"
+    Col5="4.0000000000000002E-4" Col6="4.0000000000000002E-4" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Population" Col2="exists_majority_favorite_ut_ctb"
+    Col5="4.0000000000000002E-4" Col6="4.0000000000000002E-4" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Population" Col2="exists_majority_favorite_ut"
+    Col5="4.0000000000000002E-4" Col6="4.0000000000000002E-4" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Population" Col2="not_exists_condorcet_admissible"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Population" Col2="not_exists_weak_condorcet_winner"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Population" Col2="not_exists_condorcet_winner_rk_ctb"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Population" Col2="not_exists_condorcet_winner_rk"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Population" Col2="not_exists_condorcet_winner_ut_rel_ctb"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Population" Col2="not_exists_condorcet_winner_ut_rel"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Population" Col2="not_exists_condorcet_winner_ut_abs_ctb"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Population" Col2="not_exists_condorcet_winner_ut_abs"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Population" Col2="not_exists_resistant_condorcet_winner"
+    Col5="0.99629999999999996" Col6="0.99629999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Population" Col2="not_exists_condorcet_order_rk_ctb"
+    Col5="0.46589999999999998" Col6="0.46589999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Population" Col2="not_exists_condorcet_order_rk"
+    Col5="0.46589999999999998" Col6="0.46589999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Population" Col2="not_exists_condorcet_order_ut_rel_ctb"
+    Col5="0.46589999999999998" Col6="0.46589999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Population" Col2="not_exists_condorcet_order_ut_rel"
+    Col5="0.46589999999999998" Col6="0.46589999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Population" Col2="not_exists_condorcet_order_ut_abs_ctb"
+    Col5="0.46589999999999998" Col6="0.46589999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Population" Col2="not_exists_condorcet_order_ut_abs"
+    Col5="0.46589999999999998" Col6="0.46589999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Population" Col2="not_exists_majority_favorite_rk_ctb"
+    Col5="0.99960000000000004" Col6="0.99960000000000004" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Population" Col2="not_exists_majority_favorite_rk"
+    Col5="0.99960000000000004" Col6="0.99960000000000004" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Population" Col2="not_exists_majority_favorite_ut_ctb"
+    Col5="0.99960000000000004" Col6="0.99960000000000004" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Population" Col2="not_exists_majority_favorite_ut"
+    Col5="0.99960000000000004" Col6="0.99960000000000004" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Approval" Col2="w_is_condorcet_admissible"
+    Col5="0.46450000000000002" Col6="0.46450000000000002" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Approval" Col2="w_is_not_condorcet_admissible"
+    Col5="0.53549999999999998" Col6="0.53549999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Approval" Col2="w_missed_condorcet_admissible"
+    Col5="0.28989999999999999" Col6="0.28989999999999999" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Approval" Col2="w_is_weak_condorcet_winner"
+    Col5="0.46450000000000002" Col6="0.46450000000000002" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Approval" Col2="w_is_not_weak_condorcet_winner"
+    Col5="0.53549999999999998" Col6="0.53549999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Approval" Col2="w_missed_weak_condorcet_winner"
+    Col5="0.28989999999999999" Col6="0.28989999999999999" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Approval" Col2="w_is_condorcet_winner_rk_ctb"
+    Col5="0.46450000000000002" Col6="0.46450000000000002" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Approval" Col2="w_is_not_condorcet_winner_rk_ctb"
+    Col5="0.53549999999999998" Col6="0.53549999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Approval" Col2="w_missed_condorcet_winner_rk_ctb"
+    Col5="0.28989999999999999" Col6="0.28989999999999999" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Approval" Col2="w_is_condorcet_winner_rk"
+    Col5="0.46450000000000002" Col6="0.46450000000000002" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Approval" Col2="w_is_not_condorcet_winner_rk"
+    Col5="0.53549999999999998" Col6="0.53549999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Approval" Col2="w_missed_condorcet_winner_rk"
+    Col5="0.28989999999999999" Col6="0.28989999999999999" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Approval" Col2="w_is_condorcet_winner_ut_rel_ctb"
+    Col5="0.46450000000000002" Col6="0.46450000000000002" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Approval" Col2="w_is_not_condorcet_winner_ut_rel_ctb"
+    Col5="0.53549999999999998" Col6="0.53549999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Approval" Col2="w_missed_condorcet_winner_ut_rel_ctb"
+    Col5="0.28989999999999999" Col6="0.28989999999999999" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Approval" Col2="w_is_condorcet_winner_ut_rel"
+    Col5="0.46450000000000002" Col6="0.46450000000000002" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Approval" Col2="w_is_not_condorcet_winner_ut_rel"
+    Col5="0.53549999999999998" Col6="0.53549999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Approval" Col2="w_missed_condorcet_winner_ut_rel"
+    Col5="0.28989999999999999" Col6="0.28989999999999999" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Approval" Col2="w_is_condorcet_winner_ut_abs_ctb"
+    Col5="0.46450000000000002" Col6="0.46450000000000002" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Approval" Col2="w_is_not_condorcet_winner_ut_abs_ctb"
+    Col5="0.53549999999999998" Col6="0.53549999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Approval" Col2="w_missed_condorcet_winner_ut_abs_ctb"
+    Col5="0.28989999999999999" Col6="0.28989999999999999" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Approval" Col2="w_is_condorcet_winner_ut_abs"
+    Col5="0.46450000000000002" Col6="0.46450000000000002" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Approval" Col2="w_is_not_condorcet_winner_ut_abs"
+    Col5="0.53549999999999998" Col6="0.53549999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Approval" Col2="w_missed_condorcet_winner_ut_abs"
+    Col5="0.28989999999999999" Col6="0.28989999999999999" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Approval" Col2="w_is_resistant_condorcet_winner"
+    Col5="3.5999999999999999E-3" Col6="3.5999999999999999E-3" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Approval" Col2="w_is_not_resistant_condorcet_winner"
+    Col5="0.99639999999999995" Col6="0.99639999999999995" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Approval" Col2="w_missed_resistant_condorcet_winner" Col5="1E-4"
+    Col6="1E-4" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Approval" Col2="TM" Col3="CM_option = exact"
+    Col4="2.8631959999999999" Col5="0.99560000000000004"
+    Col6="0.99560000000000004" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Approval" Col2="UM" Col3="CM_option = exact"
+    Col4="0.24501400000000001" Col5="0.99560000000000004"
+    Col6="0.99560000000000004" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Approval" Col2="ICM" Col3="ICM_option = exact" Col4="0.93006"
+    Col5="0.53549999999999998" Col6="0.53549999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Approval" Col2="CM" Col3="CM_option = exact" Col4="0.227016"
+    Col5="0.99560000000000004" Col6="0.99560000000000004" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Baldwin" Col2="w_is_condorcet_admissible"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Baldwin" Col2="w_is_not_condorcet_admissible"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Baldwin" Col2="w_missed_condorcet_admissible" Col5="0" Col6="0"
+    Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Baldwin" Col2="w_is_weak_condorcet_winner"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Baldwin" Col2="w_is_not_weak_condorcet_winner"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Baldwin" Col2="w_missed_weak_condorcet_winner" Col5="0" Col6="0"
+    Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Baldwin" Col2="w_is_condorcet_winner_rk_ctb"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Baldwin" Col2="w_is_not_condorcet_winner_rk_ctb"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Baldwin" Col2="w_missed_condorcet_winner_rk_ctb" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Baldwin" Col2="w_is_condorcet_winner_rk"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Baldwin" Col2="w_is_not_condorcet_winner_rk"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Baldwin" Col2="w_missed_condorcet_winner_rk" Col5="0" Col6="0"
+    Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Baldwin" Col2="w_is_condorcet_winner_ut_rel_ctb"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Baldwin" Col2="w_is_not_condorcet_winner_ut_rel_ctb"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Baldwin" Col2="w_missed_condorcet_winner_ut_rel_ctb" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Baldwin" Col2="w_is_condorcet_winner_ut_rel"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Baldwin" Col2="w_is_not_condorcet_winner_ut_rel"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Baldwin" Col2="w_missed_condorcet_winner_ut_rel" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Baldwin" Col2="w_is_condorcet_winner_ut_abs_ctb"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Baldwin" Col2="w_is_not_condorcet_winner_ut_abs_ctb"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Baldwin" Col2="w_missed_condorcet_winner_ut_abs_ctb" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Baldwin" Col2="w_is_condorcet_winner_ut_abs"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Baldwin" Col2="w_is_not_condorcet_winner_ut_abs"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Baldwin" Col2="w_missed_condorcet_winner_ut_abs" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Baldwin" Col2="w_is_resistant_condorcet_winner"
+    Col5="3.7000000000000002E-3" Col6="3.7000000000000002E-3" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Baldwin" Col2="w_is_not_resistant_condorcet_winner"
+    Col5="0.99629999999999996" Col6="0.99629999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Baldwin" Col2="w_missed_resistant_condorcet_winner" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Baldwin" Col2="TM" Col3="TM_option = exact" Col4="19.753719"
+    Col5="0.87050000000000005" Col6="0.87050000000000005" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Baldwin" Col2="UM" Col3="UM_option = exact"
+    Col4="823.62704399999996" Col5="0.86580000000000001"
+    Col6="0.86580000000000001" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Baldwin" Col2="ICM" Col3="ICM_option = exact"
+    Col4="0.91205599999999998" Col5="0.24560000000000001"
+    Col6="0.24560000000000001" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Baldwin" Col2="CM"
+    Col3="CM_option = lazy, UM_option = exact, TM_option = exact"
+    Col4="2.8666700000000001" Col5="0.88280000000000003"
+    Col6="0.99629999999999996" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Borda" Col2="w_is_condorcet_admissible"
+    Col5="0.64439999999999997" Col6="0.64439999999999997" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Borda" Col2="w_is_not_condorcet_admissible"
+    Col5="0.35560000000000003" Col6="0.35560000000000003" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Borda" Col2="w_missed_condorcet_admissible" Col5="0.11"
+    Col6="0.11" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Borda" Col2="w_is_weak_condorcet_winner"
+    Col5="0.64439999999999997" Col6="0.64439999999999997" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Borda" Col2="w_is_not_weak_condorcet_winner"
+    Col5="0.35560000000000003" Col6="0.35560000000000003" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Borda" Col2="w_missed_weak_condorcet_winner" Col5="0.11"
+    Col6="0.11" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Borda" Col2="w_is_condorcet_winner_rk_ctb"
+    Col5="0.64439999999999997" Col6="0.64439999999999997" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Borda" Col2="w_is_not_condorcet_winner_rk_ctb"
+    Col5="0.35560000000000003" Col6="0.35560000000000003" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Borda" Col2="w_missed_condorcet_winner_rk_ctb" Col5="0.11"
+    Col6="0.11" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Borda" Col2="w_is_condorcet_winner_rk"
+    Col5="0.64439999999999997" Col6="0.64439999999999997" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Borda" Col2="w_is_not_condorcet_winner_rk"
+    Col5="0.35560000000000003" Col6="0.35560000000000003" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Borda" Col2="w_missed_condorcet_winner_rk" Col5="0.11"
+    Col6="0.11" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Borda" Col2="w_is_condorcet_winner_ut_rel_ctb"
+    Col5="0.64439999999999997" Col6="0.64439999999999997" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Borda" Col2="w_is_not_condorcet_winner_ut_rel_ctb"
+    Col5="0.35560000000000003" Col6="0.35560000000000003" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Borda" Col2="w_missed_condorcet_winner_ut_rel_ctb" Col5="0.11"
+    Col6="0.11" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Borda" Col2="w_is_condorcet_winner_ut_rel"
+    Col5="0.64439999999999997" Col6="0.64439999999999997" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Borda" Col2="w_is_not_condorcet_winner_ut_rel"
+    Col5="0.35560000000000003" Col6="0.35560000000000003" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Borda" Col2="w_missed_condorcet_winner_ut_rel" Col5="0.11"
+    Col6="0.11" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Borda" Col2="w_is_condorcet_winner_ut_abs_ctb"
+    Col5="0.64439999999999997" Col6="0.64439999999999997" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Borda" Col2="w_is_not_condorcet_winner_ut_abs_ctb"
+    Col5="0.35560000000000003" Col6="0.35560000000000003" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Borda" Col2="w_missed_condorcet_winner_ut_abs_ctb" Col5="0.11"
+    Col6="0.11" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Borda" Col2="w_is_condorcet_winner_ut_abs"
+    Col5="0.64439999999999997" Col6="0.64439999999999997" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Borda" Col2="w_is_not_condorcet_winner_ut_abs"
+    Col5="0.35560000000000003" Col6="0.35560000000000003" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Borda" Col2="w_missed_condorcet_winner_ut_abs" Col5="0.11"
+    Col6="0.11" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Borda" Col2="w_is_resistant_condorcet_winner"
+    Col5="3.7000000000000002E-3" Col6="3.7000000000000002E-3" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Borda" Col2="w_is_not_resistant_condorcet_winner"
+    Col5="0.99629999999999996" Col6="0.99629999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Borda" Col2="w_missed_resistant_condorcet_winner" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Borda" Col2="TM" Col3="TM_option = exact" Col4="15.964473"
+    Col5="0.997" Col6="0.997" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Borda" Col2="UM" Col3="UM_option = exact"
+    Col4="2.7371639999999999" Col5="0.99080000000000001"
+    Col6="0.99080000000000001" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Borda" Col2="ICM" Col3="ICM_option = fast"
+    Col4="2.6867049999999999" Col5="2.9999999999999997E-4"
+    Col6="2.9999999999999997E-4" Col7="10000" Col8="33" Col9="5"
+    Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Borda" Col2="CM"
+    Col3="CM_option = fast, UM_option = exact, TM_option = exact"
+    Col4="1.241571" Col5="0.997" Col6="0.997" Col7="10000" Col8="33" Col9="5"
+    Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Bucklin" Col2="w_is_condorcet_admissible"
+    Col5="0.54949999999999999" Col6="0.54949999999999999" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Bucklin" Col2="w_is_not_condorcet_admissible"
+    Col5="0.45050000000000001" Col6="0.45050000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Bucklin" Col2="w_missed_condorcet_admissible" Col5="0.2049"
+    Col6="0.2049" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Bucklin" Col2="w_is_weak_condorcet_winner"
+    Col5="0.54949999999999999" Col6="0.54949999999999999" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Bucklin" Col2="w_is_not_weak_condorcet_winner"
+    Col5="0.45050000000000001" Col6="0.45050000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Bucklin" Col2="w_missed_weak_condorcet_winner" Col5="0.2049"
+    Col6="0.2049" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Bucklin" Col2="w_is_condorcet_winner_rk_ctb"
+    Col5="0.54949999999999999" Col6="0.54949999999999999" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Bucklin" Col2="w_is_not_condorcet_winner_rk_ctb"
+    Col5="0.45050000000000001" Col6="0.45050000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Bucklin" Col2="w_missed_condorcet_winner_rk_ctb" Col5="0.2049"
+    Col6="0.2049" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Bucklin" Col2="w_is_condorcet_winner_rk"
+    Col5="0.54949999999999999" Col6="0.54949999999999999" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Bucklin" Col2="w_is_not_condorcet_winner_rk"
+    Col5="0.45050000000000001" Col6="0.45050000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Bucklin" Col2="w_missed_condorcet_winner_rk" Col5="0.2049"
+    Col6="0.2049" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Bucklin" Col2="w_is_condorcet_winner_ut_rel_ctb"
+    Col5="0.54949999999999999" Col6="0.54949999999999999" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Bucklin" Col2="w_is_not_condorcet_winner_ut_rel_ctb"
+    Col5="0.45050000000000001" Col6="0.45050000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Bucklin" Col2="w_missed_condorcet_winner_ut_rel_ctb"
+    Col5="0.2049" Col6="0.2049" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Bucklin" Col2="w_is_condorcet_winner_ut_rel"
+    Col5="0.54949999999999999" Col6="0.54949999999999999" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Bucklin" Col2="w_is_not_condorcet_winner_ut_rel"
+    Col5="0.45050000000000001" Col6="0.45050000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Bucklin" Col2="w_missed_condorcet_winner_ut_rel" Col5="0.2049"
+    Col6="0.2049" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Bucklin" Col2="w_is_condorcet_winner_ut_abs_ctb"
+    Col5="0.54949999999999999" Col6="0.54949999999999999" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Bucklin" Col2="w_is_not_condorcet_winner_ut_abs_ctb"
+    Col5="0.45050000000000001" Col6="0.45050000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Bucklin" Col2="w_missed_condorcet_winner_ut_abs_ctb"
+    Col5="0.2049" Col6="0.2049" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Bucklin" Col2="w_is_condorcet_winner_ut_abs"
+    Col5="0.54949999999999999" Col6="0.54949999999999999" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Bucklin" Col2="w_is_not_condorcet_winner_ut_abs"
+    Col5="0.45050000000000001" Col6="0.45050000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Bucklin" Col2="w_missed_condorcet_winner_ut_abs" Col5="0.2049"
+    Col6="0.2049" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Bucklin" Col2="w_is_resistant_condorcet_winner"
+    Col5="3.7000000000000002E-3" Col6="3.7000000000000002E-3" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Bucklin" Col2="w_is_not_resistant_condorcet_winner"
+    Col5="0.99629999999999996" Col6="0.99629999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Bucklin" Col2="w_missed_resistant_condorcet_winner" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Bucklin" Col2="TM" Col3="TM_option = exact"
+    Col4="16.140965000000001" Col5="0.93569999999999998"
+    Col6="0.93569999999999998" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Bucklin" Col2="UM" Col3="UM_option = exact"
+    Col4="3.7112400000000001" Col5="0.93100000000000005"
+    Col6="0.93100000000000005" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Bucklin" Col2="ICM" Col3="ICM_option = exact" Col4="0.953569"
+    Col5="0.45050000000000001" Col6="0.45050000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Bucklin" Col2="CM" Col3="CM_option = exact"
+    Col4="2.0386150000000001" Col5="0.97160000000000002"
+    Col6="0.97160000000000002" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Condorcet Sum Defeats" Col2="w_is_condorcet_admissible"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Condorcet Sum Defeats" Col2="w_is_not_condorcet_admissible"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Condorcet Sum Defeats" Col2="w_missed_condorcet_admissible"
+    Col5="0" Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Condorcet Sum Defeats" Col2="w_is_weak_condorcet_winner"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Condorcet Sum Defeats" Col2="w_is_not_weak_condorcet_winner"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Condorcet Sum Defeats" Col2="w_missed_weak_condorcet_winner"
+    Col5="0" Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Condorcet Sum Defeats" Col2="w_is_condorcet_winner_rk_ctb"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Condorcet Sum Defeats" Col2="w_is_not_condorcet_winner_rk_ctb"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Condorcet Sum Defeats" Col2="w_missed_condorcet_winner_rk_ctb"
+    Col5="0" Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Condorcet Sum Defeats" Col2="w_is_condorcet_winner_rk"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Condorcet Sum Defeats" Col2="w_is_not_condorcet_winner_rk"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Condorcet Sum Defeats" Col2="w_missed_condorcet_winner_rk"
+    Col5="0" Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Condorcet Sum Defeats" Col2="w_is_condorcet_winner_ut_rel_ctb"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Condorcet Sum Defeats"
+    Col2="w_is_not_condorcet_winner_ut_rel_ctb" Col5="0.24560000000000001"
+    Col6="0.24560000000000001" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Condorcet Sum Defeats"
+    Col2="w_missed_condorcet_winner_ut_rel_ctb" Col5="0" Col6="0" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Condorcet Sum Defeats" Col2="w_is_condorcet_winner_ut_rel"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Condorcet Sum Defeats" Col2="w_is_not_condorcet_winner_ut_rel"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Condorcet Sum Defeats" Col2="w_missed_condorcet_winner_ut_rel"
+    Col5="0" Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Condorcet Sum Defeats" Col2="w_is_condorcet_winner_ut_abs_ctb"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Condorcet Sum Defeats"
+    Col2="w_is_not_condorcet_winner_ut_abs_ctb" Col5="0.24560000000000001"
+    Col6="0.24560000000000001" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Condorcet Sum Defeats"
+    Col2="w_missed_condorcet_winner_ut_abs_ctb" Col5="0" Col6="0" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Condorcet Sum Defeats" Col2="w_is_condorcet_winner_ut_abs"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Condorcet Sum Defeats" Col2="w_is_not_condorcet_winner_ut_abs"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Condorcet Sum Defeats" Col2="w_missed_condorcet_winner_ut_abs"
+    Col5="0" Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Condorcet Sum Defeats" Col2="w_is_resistant_condorcet_winner"
+    Col5="3.7000000000000002E-3" Col6="3.7000000000000002E-3" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Condorcet Sum Defeats"
+    Col2="w_is_not_resistant_condorcet_winner" Col5="0.99629999999999996"
+    Col6="0.99629999999999996" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Condorcet Sum Defeats"
+    Col2="w_missed_resistant_condorcet_winner" Col5="0" Col6="0" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Condorcet Sum Defeats" Col2="TM" Col3="TM_option = exact"
+    Col4="13.772829" Col5="0.95820000000000005" Col6="0.95820000000000005"
+    Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Condorcet Sum Defeats" Col2="UM" Col3="UM_option = exact"
+    Col4="125.739721" Col5="0.97099999999999997" Col6="0.97099999999999997"
+    Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Condorcet Sum Defeats" Col2="ICM" Col3="ICM_option = lazy"
+    Col4="0.91904600000000003" Col5="0.24560000000000001"
+    Col6="0.24560000000000001" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Condorcet Sum Defeats" Col2="CM"
+    Col3="CM_option = lazy, UM_option = exact, TM_option = exact"
+    Col4="1.7720990000000001" Col5="0.97099999999999997"
+    Col6="0.99629999999999996" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Coombs" Col2="w_is_condorcet_admissible" Col5="0.6784"
+    Col6="0.6784" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Coombs" Col2="w_is_not_condorcet_admissible" Col5="0.3216"
+    Col6="0.3216" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Coombs" Col2="w_missed_condorcet_admissible"
+    Col5="7.5999999999999998E-2" Col6="7.5999999999999998E-2" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Coombs" Col2="w_is_weak_condorcet_winner" Col5="0.6784"
+    Col6="0.6784" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Coombs" Col2="w_is_not_weak_condorcet_winner" Col5="0.3216"
+    Col6="0.3216" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Coombs" Col2="w_missed_weak_condorcet_winner"
+    Col5="7.5999999999999998E-2" Col6="7.5999999999999998E-2" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Coombs" Col2="w_is_condorcet_winner_rk_ctb" Col5="0.6784"
+    Col6="0.6784" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Coombs" Col2="w_is_not_condorcet_winner_rk_ctb" Col5="0.3216"
+    Col6="0.3216" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Coombs" Col2="w_missed_condorcet_winner_rk_ctb"
+    Col5="7.5999999999999998E-2" Col6="7.5999999999999998E-2" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Coombs" Col2="w_is_condorcet_winner_rk" Col5="0.6784"
+    Col6="0.6784" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Coombs" Col2="w_is_not_condorcet_winner_rk" Col5="0.3216"
+    Col6="0.3216" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Coombs" Col2="w_missed_condorcet_winner_rk"
+    Col5="7.5999999999999998E-2" Col6="7.5999999999999998E-2" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Coombs" Col2="w_is_condorcet_winner_ut_rel_ctb" Col5="0.6784"
+    Col6="0.6784" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Coombs" Col2="w_is_not_condorcet_winner_ut_rel_ctb"
+    Col5="0.3216" Col6="0.3216" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Coombs" Col2="w_missed_condorcet_winner_ut_rel_ctb"
+    Col5="7.5999999999999998E-2" Col6="7.5999999999999998E-2" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Coombs" Col2="w_is_condorcet_winner_ut_rel" Col5="0.6784"
+    Col6="0.6784" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Coombs" Col2="w_is_not_condorcet_winner_ut_rel" Col5="0.3216"
+    Col6="0.3216" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Coombs" Col2="w_missed_condorcet_winner_ut_rel"
+    Col5="7.5999999999999998E-2" Col6="7.5999999999999998E-2" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Coombs" Col2="w_is_condorcet_winner_ut_abs_ctb" Col5="0.6784"
+    Col6="0.6784" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Coombs" Col2="w_is_not_condorcet_winner_ut_abs_ctb"
+    Col5="0.3216" Col6="0.3216" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Coombs" Col2="w_missed_condorcet_winner_ut_abs_ctb"
+    Col5="7.5999999999999998E-2" Col6="7.5999999999999998E-2" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Coombs" Col2="w_is_condorcet_winner_ut_abs" Col5="0.6784"
+    Col6="0.6784" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Coombs" Col2="w_is_not_condorcet_winner_ut_abs" Col5="0.3216"
+    Col6="0.3216" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Coombs" Col2="w_missed_condorcet_winner_ut_abs"
+    Col5="7.5999999999999998E-2" Col6="7.5999999999999998E-2" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Coombs" Col2="w_is_resistant_condorcet_winner"
+    Col5="3.7000000000000002E-3" Col6="3.7000000000000002E-3" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Coombs" Col2="w_is_not_resistant_condorcet_winner"
+    Col5="0.99629999999999996" Col6="0.99629999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Coombs" Col2="w_missed_resistant_condorcet_winner" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Coombs" Col2="TM" Col3="TM_option = exact" Col4="11.410631"
+    Col5="0.99990000000000001" Col6="0.99990000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Coombs" Col2="UM" Col3="CM_option = exact"
+    Col4="1.2430829999999999" Col5="1" Col6="1" Col7="10000" Col8="33" Col9="5"
+    Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Coombs" Col2="ICM" Col3="ICM_option = exact"
+    Col4="0.90305599999999997" Col5="0.3216" Col6="0.3216" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Coombs" Col2="CM" Col3="CM_option = exact"
+    Col4="0.25551600000000002" Col5="1" Col6="1" Col7="10000" Col8="33" Col9="5"
+    Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Average" Col2="w_is_condorcet_admissible"
+    Col5="0.64800000000000002" Col6="0.64800000000000002" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Average" Col2="w_is_not_condorcet_admissible"
+    Col5="0.35199999999999998" Col6="0.35199999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Average" Col2="w_missed_condorcet_admissible"
+    Col5="0.10639999999999999" Col6="0.10639999999999999" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Average" Col2="w_is_weak_condorcet_winner"
+    Col5="0.64800000000000002" Col6="0.64800000000000002" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Average" Col2="w_is_not_weak_condorcet_winner"
+    Col5="0.35199999999999998" Col6="0.35199999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Average" Col2="w_missed_weak_condorcet_winner"
+    Col5="0.10639999999999999" Col6="0.10639999999999999" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Average" Col2="w_is_condorcet_winner_rk_ctb"
+    Col5="0.64800000000000002" Col6="0.64800000000000002" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Average" Col2="w_is_not_condorcet_winner_rk_ctb"
+    Col5="0.35199999999999998" Col6="0.35199999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Average" Col2="w_missed_condorcet_winner_rk_ctb"
+    Col5="0.10639999999999999" Col6="0.10639999999999999" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Average" Col2="w_is_condorcet_winner_rk"
+    Col5="0.64800000000000002" Col6="0.64800000000000002" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Average" Col2="w_is_not_condorcet_winner_rk"
+    Col5="0.35199999999999998" Col6="0.35199999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Average" Col2="w_missed_condorcet_winner_rk"
+    Col5="0.10639999999999999" Col6="0.10639999999999999" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Average" Col2="w_is_condorcet_winner_ut_rel_ctb"
+    Col5="0.64800000000000002" Col6="0.64800000000000002" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Average" Col2="w_is_not_condorcet_winner_ut_rel_ctb"
+    Col5="0.35199999999999998" Col6="0.35199999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Average" Col2="w_missed_condorcet_winner_ut_rel_ctb"
+    Col5="0.10639999999999999" Col6="0.10639999999999999" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Average" Col2="w_is_condorcet_winner_ut_rel"
+    Col5="0.64800000000000002" Col6="0.64800000000000002" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Average" Col2="w_is_not_condorcet_winner_ut_rel"
+    Col5="0.35199999999999998" Col6="0.35199999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Average" Col2="w_missed_condorcet_winner_ut_rel"
+    Col5="0.10639999999999999" Col6="0.10639999999999999" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Average" Col2="w_is_condorcet_winner_ut_abs_ctb"
+    Col5="0.64800000000000002" Col6="0.64800000000000002" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Average" Col2="w_is_not_condorcet_winner_ut_abs_ctb"
+    Col5="0.35199999999999998" Col6="0.35199999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Average" Col2="w_missed_condorcet_winner_ut_abs_ctb"
+    Col5="0.10639999999999999" Col6="0.10639999999999999" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Average" Col2="w_is_condorcet_winner_ut_abs"
+    Col5="0.64800000000000002" Col6="0.64800000000000002" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Average" Col2="w_is_not_condorcet_winner_ut_abs"
+    Col5="0.35199999999999998" Col6="0.35199999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Average" Col2="w_missed_condorcet_winner_ut_abs"
+    Col5="0.10639999999999999" Col6="0.10639999999999999" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Average" Col2="w_is_resistant_condorcet_winner"
+    Col5="3.7000000000000002E-3" Col6="3.7000000000000002E-3" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Average" Col2="w_is_not_resistant_condorcet_winner"
+    Col5="0.99629999999999996" Col6="0.99629999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Average" Col2="w_missed_resistant_condorcet_winner" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="IRV Average" Col2="TM" Col3="TM_option = exact" Col4="21.988875"
+    Col5="0.36" Col6="0.36" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Average" Col2="UM" Col3="UM_option = exact"
+    Col4="1476.94001" Col5="0.36" Col6="0.36" Col7="10000" Col8="33" Col9="5"
+    Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Average" Col2="ICM" Col3="ICM_option = lazy"
+    Col4="0.93505199999999999" Col5="0.35199999999999998"
+    Col6="0.35199999999999998" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Average" Col2="CM"
+    Col3="CM_option = lazy, UM_option = exact, ICM_option = lazy, TM_option = exact"
+    Col4="11.577677" Col5="0.36" Col6="0.99960000000000004" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Duels" Col2="w_is_condorcet_admissible"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Duels" Col2="w_is_not_condorcet_admissible"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Duels" Col2="w_missed_condorcet_admissible" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="IRV Duels" Col2="w_is_weak_condorcet_winner"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Duels" Col2="w_is_not_weak_condorcet_winner"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Duels" Col2="w_missed_weak_condorcet_winner" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="IRV Duels" Col2="w_is_condorcet_winner_rk_ctb"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Duels" Col2="w_is_not_condorcet_winner_rk_ctb"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Duels" Col2="w_missed_condorcet_winner_rk_ctb" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="IRV Duels" Col2="w_is_condorcet_winner_rk"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Duels" Col2="w_is_not_condorcet_winner_rk"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Duels" Col2="w_missed_condorcet_winner_rk" Col5="0" Col6="0"
+    Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="IRV Duels" Col2="w_is_condorcet_winner_ut_rel_ctb"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Duels" Col2="w_is_not_condorcet_winner_ut_rel_ctb"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Duels" Col2="w_missed_condorcet_winner_ut_rel_ctb" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="IRV Duels" Col2="w_is_condorcet_winner_ut_rel"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Duels" Col2="w_is_not_condorcet_winner_ut_rel"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Duels" Col2="w_missed_condorcet_winner_ut_rel" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="IRV Duels" Col2="w_is_condorcet_winner_ut_abs_ctb"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Duels" Col2="w_is_not_condorcet_winner_ut_abs_ctb"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Duels" Col2="w_missed_condorcet_winner_ut_abs_ctb" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="IRV Duels" Col2="w_is_condorcet_winner_ut_abs"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Duels" Col2="w_is_not_condorcet_winner_ut_abs"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Duels" Col2="w_missed_condorcet_winner_ut_abs" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="IRV Duels" Col2="w_is_resistant_condorcet_winner"
+    Col5="3.7000000000000002E-3" Col6="3.7000000000000002E-3" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Duels" Col2="w_is_not_resistant_condorcet_winner"
+    Col5="0.99629999999999996" Col6="0.99629999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Duels" Col2="w_missed_resistant_condorcet_winner" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="IRV Duels" Col2="TM" Col3="TM_option = exact"
+    Col4="22.987404000000002" Col5="0.89700000000000002"
+    Col6="0.89700000000000002" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Duels" Col2="UM" Col3="UM_option = exact" Col4="461.617908"
+    Col5="0.93159999999999998" Col6="0.93159999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Duels" Col2="ICM" Col3="ICM_option = exact"
+    Col4="0.91104700000000005" Col5="0.24560000000000001"
+    Col6="0.24560000000000001" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV Duels" Col2="CM"
+    Col3="CM_option = lazy, UM_option = exact, TM_option = exact"
+    Col4="2.2961369999999999" Col5="0.93159999999999998"
+    Col6="0.99629999999999996" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Iterated Bucklin" Col2="w_is_condorcet_admissible"
+    Col5="0.70599999999999996" Col6="0.70599999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Iterated Bucklin" Col2="w_is_not_condorcet_admissible"
+    Col5="0.29399999999999998" Col6="0.29399999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Iterated Bucklin" Col2="w_missed_condorcet_admissible"
+    Col5="4.8399999999999999E-2" Col6="4.8399999999999999E-2" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Iterated Bucklin" Col2="w_is_weak_condorcet_winner"
+    Col5="0.70599999999999996" Col6="0.70599999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Iterated Bucklin" Col2="w_is_not_weak_condorcet_winner"
+    Col5="0.29399999999999998" Col6="0.29399999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Iterated Bucklin" Col2="w_missed_weak_condorcet_winner"
+    Col5="4.8399999999999999E-2" Col6="4.8399999999999999E-2" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Iterated Bucklin" Col2="w_is_condorcet_winner_rk_ctb"
+    Col5="0.70599999999999996" Col6="0.70599999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Iterated Bucklin" Col2="w_is_not_condorcet_winner_rk_ctb"
+    Col5="0.29399999999999998" Col6="0.29399999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Iterated Bucklin" Col2="w_missed_condorcet_winner_rk_ctb"
+    Col5="4.8399999999999999E-2" Col6="4.8399999999999999E-2" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Iterated Bucklin" Col2="w_is_condorcet_winner_rk"
+    Col5="0.70599999999999996" Col6="0.70599999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Iterated Bucklin" Col2="w_is_not_condorcet_winner_rk"
+    Col5="0.29399999999999998" Col6="0.29399999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Iterated Bucklin" Col2="w_missed_condorcet_winner_rk"
+    Col5="4.8399999999999999E-2" Col6="4.8399999999999999E-2" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Iterated Bucklin" Col2="w_is_condorcet_winner_ut_rel_ctb"
+    Col5="0.70599999999999996" Col6="0.70599999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Iterated Bucklin" Col2="w_is_not_condorcet_winner_ut_rel_ctb"
+    Col5="0.29399999999999998" Col6="0.29399999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Iterated Bucklin" Col2="w_missed_condorcet_winner_ut_rel_ctb"
+    Col5="4.8399999999999999E-2" Col6="4.8399999999999999E-2" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Iterated Bucklin" Col2="w_is_condorcet_winner_ut_rel"
+    Col5="0.70599999999999996" Col6="0.70599999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Iterated Bucklin" Col2="w_is_not_condorcet_winner_ut_rel"
+    Col5="0.29399999999999998" Col6="0.29399999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Iterated Bucklin" Col2="w_missed_condorcet_winner_ut_rel"
+    Col5="4.8399999999999999E-2" Col6="4.8399999999999999E-2" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Iterated Bucklin" Col2="w_is_condorcet_winner_ut_abs_ctb"
+    Col5="0.70599999999999996" Col6="0.70599999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Iterated Bucklin" Col2="w_is_not_condorcet_winner_ut_abs_ctb"
+    Col5="0.29399999999999998" Col6="0.29399999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Iterated Bucklin" Col2="w_missed_condorcet_winner_ut_abs_ctb"
+    Col5="4.8399999999999999E-2" Col6="4.8399999999999999E-2" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Iterated Bucklin" Col2="w_is_condorcet_winner_ut_abs"
+    Col5="0.70599999999999996" Col6="0.70599999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Iterated Bucklin" Col2="w_is_not_condorcet_winner_ut_abs"
+    Col5="0.29399999999999998" Col6="0.29399999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Iterated Bucklin" Col2="w_missed_condorcet_winner_ut_abs"
+    Col5="4.8399999999999999E-2" Col6="4.8399999999999999E-2" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Iterated Bucklin" Col2="w_is_resistant_condorcet_winner"
+    Col5="3.7000000000000002E-3" Col6="3.7000000000000002E-3" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Iterated Bucklin" Col2="w_is_not_resistant_condorcet_winner"
+    Col5="0.99629999999999996" Col6="0.99629999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Iterated Bucklin" Col2="w_missed_resistant_condorcet_winner"
+    Col5="0" Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Iterated Bucklin" Col2="TM" Col3="TM_option = exact"
+    Col4="21.58681" Col5="0.9657" Col6="0.9657" Col7="10000" Col8="33" Col9="5"
+    Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Iterated Bucklin" Col2="UM" Col3="UM_option = exact"
+    Col4="148.397109" Col5="0.99070000000000003" Col6="0.99070000000000003"
+    Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Iterated Bucklin" Col2="ICM" Col3="ICM_option = lazy"
+    Col4="0.94255900000000004" Col5="0.29399999999999998"
+    Col6="0.29399999999999998" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Iterated Bucklin" Col2="CM"
+    Col3="CM_option = lazy, UM_option = exact, ICM_option = lazy, TM_option = exact"
+    Col4="1.6760999999999999" Col5="0.99080000000000001"
+    Col6="0.99960000000000004" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kemeny" Col2="w_is_condorcet_admissible"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kemeny" Col2="w_is_not_condorcet_admissible"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kemeny" Col2="w_missed_condorcet_admissible" Col5="0" Col6="0"
+    Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Kemeny" Col2="w_is_weak_condorcet_winner"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kemeny" Col2="w_is_not_weak_condorcet_winner"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kemeny" Col2="w_missed_weak_condorcet_winner" Col5="0" Col6="0"
+    Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Kemeny" Col2="w_is_condorcet_winner_rk_ctb"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kemeny" Col2="w_is_not_condorcet_winner_rk_ctb"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kemeny" Col2="w_missed_condorcet_winner_rk_ctb" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Kemeny" Col2="w_is_condorcet_winner_rk"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kemeny" Col2="w_is_not_condorcet_winner_rk"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kemeny" Col2="w_missed_condorcet_winner_rk" Col5="0" Col6="0"
+    Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Kemeny" Col2="w_is_condorcet_winner_ut_rel_ctb"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kemeny" Col2="w_is_not_condorcet_winner_ut_rel_ctb"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kemeny" Col2="w_missed_condorcet_winner_ut_rel_ctb" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Kemeny" Col2="w_is_condorcet_winner_ut_rel"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kemeny" Col2="w_is_not_condorcet_winner_ut_rel"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kemeny" Col2="w_missed_condorcet_winner_ut_rel" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Kemeny" Col2="w_is_condorcet_winner_ut_abs_ctb"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kemeny" Col2="w_is_not_condorcet_winner_ut_abs_ctb"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kemeny" Col2="w_missed_condorcet_winner_ut_abs_ctb" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Kemeny" Col2="w_is_condorcet_winner_ut_abs"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kemeny" Col2="w_is_not_condorcet_winner_ut_abs"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kemeny" Col2="w_missed_condorcet_winner_ut_abs" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Kemeny" Col2="w_is_resistant_condorcet_winner"
+    Col5="3.7000000000000002E-3" Col6="3.7000000000000002E-3" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kemeny" Col2="w_is_not_resistant_condorcet_winner"
+    Col5="0.99629999999999996" Col6="0.99629999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kemeny" Col2="w_missed_resistant_condorcet_winner" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Kemeny" Col2="TM" Col3="TM_option = exact" Col4="117.538736"
+    Col5="0.96230000000000004" Col6="0.96230000000000004" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kemeny" Col2="UM" Col3="UM_option = exact"
+    Col4="411.15593100000001" Col5="0.96609999999999996"
+    Col6="0.96609999999999996" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kemeny" Col2="ICM" Col3="ICM_option = exact"
+    Col4="0.97304800000000002" Col5="0.24560000000000001"
+    Col6="0.24560000000000001" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kemeny" Col2="CM"
+    Col3="CM_option = lazy, UM_option = exact, TM_option = exact"
+    Col4="1.8691009999999999" Col5="0.96609999999999996"
+    Col6="0.99629999999999996" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kim-Roush" Col2="w_is_condorcet_admissible"
+    Col5="0.63170000000000004" Col6="0.63170000000000004" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kim-Roush" Col2="w_is_not_condorcet_admissible"
+    Col5="0.36830000000000002" Col6="0.36830000000000002" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kim-Roush" Col2="w_missed_condorcet_admissible" Col5="0.1227"
+    Col6="0.1227" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kim-Roush" Col2="w_is_weak_condorcet_winner"
+    Col5="0.63170000000000004" Col6="0.63170000000000004" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kim-Roush" Col2="w_is_not_weak_condorcet_winner"
+    Col5="0.36830000000000002" Col6="0.36830000000000002" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kim-Roush" Col2="w_missed_weak_condorcet_winner" Col5="0.1227"
+    Col6="0.1227" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kim-Roush" Col2="w_is_condorcet_winner_rk_ctb"
+    Col5="0.63170000000000004" Col6="0.63170000000000004" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kim-Roush" Col2="w_is_not_condorcet_winner_rk_ctb"
+    Col5="0.36830000000000002" Col6="0.36830000000000002" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kim-Roush" Col2="w_missed_condorcet_winner_rk_ctb" Col5="0.1227"
+    Col6="0.1227" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kim-Roush" Col2="w_is_condorcet_winner_rk"
+    Col5="0.63170000000000004" Col6="0.63170000000000004" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kim-Roush" Col2="w_is_not_condorcet_winner_rk"
+    Col5="0.36830000000000002" Col6="0.36830000000000002" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kim-Roush" Col2="w_missed_condorcet_winner_rk" Col5="0.1227"
+    Col6="0.1227" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kim-Roush" Col2="w_is_condorcet_winner_ut_rel_ctb"
+    Col5="0.63170000000000004" Col6="0.63170000000000004" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kim-Roush" Col2="w_is_not_condorcet_winner_ut_rel_ctb"
+    Col5="0.36830000000000002" Col6="0.36830000000000002" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kim-Roush" Col2="w_missed_condorcet_winner_ut_rel_ctb"
+    Col5="0.1227" Col6="0.1227" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kim-Roush" Col2="w_is_condorcet_winner_ut_rel"
+    Col5="0.63170000000000004" Col6="0.63170000000000004" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kim-Roush" Col2="w_is_not_condorcet_winner_ut_rel"
+    Col5="0.36830000000000002" Col6="0.36830000000000002" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kim-Roush" Col2="w_missed_condorcet_winner_ut_rel" Col5="0.1227"
+    Col6="0.1227" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kim-Roush" Col2="w_is_condorcet_winner_ut_abs_ctb"
+    Col5="0.63170000000000004" Col6="0.63170000000000004" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kim-Roush" Col2="w_is_not_condorcet_winner_ut_abs_ctb"
+    Col5="0.36830000000000002" Col6="0.36830000000000002" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kim-Roush" Col2="w_missed_condorcet_winner_ut_abs_ctb"
+    Col5="0.1227" Col6="0.1227" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kim-Roush" Col2="w_is_condorcet_winner_ut_abs"
+    Col5="0.63170000000000004" Col6="0.63170000000000004" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kim-Roush" Col2="w_is_not_condorcet_winner_ut_abs"
+    Col5="0.36830000000000002" Col6="0.36830000000000002" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kim-Roush" Col2="w_missed_condorcet_winner_ut_abs" Col5="0.1227"
+    Col6="0.1227" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kim-Roush" Col2="w_is_resistant_condorcet_winner"
+    Col5="3.5999999999999999E-3" Col6="3.5999999999999999E-3" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kim-Roush" Col2="w_is_not_resistant_condorcet_winner"
+    Col5="0.99639999999999995" Col6="0.99639999999999995" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kim-Roush" Col2="w_missed_resistant_condorcet_winner"
+    Col5="1E-4" Col6="1E-4" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kim-Roush" Col2="TM" Col3="TM_option = exact"
+    Col4="16.872002999999999" Col5="0.94869999999999999"
+    Col6="0.94869999999999999" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kim-Roush" Col2="UM" Col3="UM_option = exact"
+    Col4="818.80789000000004" Col5="0.95179999999999998"
+    Col6="0.95179999999999998" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kim-Roush" Col2="ICM" Col3="ICM_option = lazy"
+    Col4="5.6973760000000002" Col5="0" Col6="1" Col7="10000" Col8="33" Col9="5"
+    Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Kim-Roush" Col2="CM"
+    Col3="CM_option = lazy, UM_option = exact, ICM_option = lazy, TM_option = exact"
+    Col4="1.9691240000000001" Col5="0.95179999999999998" Col6="1" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Majority Judgment" Col2="w_is_condorcet_admissible"
+    Col5="0.50029999999999997" Col6="0.50029999999999997" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Majority Judgment" Col2="w_is_not_condorcet_admissible"
+    Col5="0.49969999999999998" Col6="0.49969999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Majority Judgment" Col2="w_missed_condorcet_admissible"
+    Col5="0.25409999999999999" Col6="0.25409999999999999" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Majority Judgment" Col2="w_is_weak_condorcet_winner"
+    Col5="0.50029999999999997" Col6="0.50029999999999997" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Majority Judgment" Col2="w_is_not_weak_condorcet_winner"
+    Col5="0.49969999999999998" Col6="0.49969999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Majority Judgment" Col2="w_missed_weak_condorcet_winner"
+    Col5="0.25409999999999999" Col6="0.25409999999999999" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Majority Judgment" Col2="w_is_condorcet_winner_rk_ctb"
+    Col5="0.50029999999999997" Col6="0.50029999999999997" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Majority Judgment" Col2="w_is_not_condorcet_winner_rk_ctb"
+    Col5="0.49969999999999998" Col6="0.49969999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Majority Judgment" Col2="w_missed_condorcet_winner_rk_ctb"
+    Col5="0.25409999999999999" Col6="0.25409999999999999" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Majority Judgment" Col2="w_is_condorcet_winner_rk"
+    Col5="0.50029999999999997" Col6="0.50029999999999997" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Majority Judgment" Col2="w_is_not_condorcet_winner_rk"
+    Col5="0.49969999999999998" Col6="0.49969999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Majority Judgment" Col2="w_missed_condorcet_winner_rk"
+    Col5="0.25409999999999999" Col6="0.25409999999999999" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Majority Judgment" Col2="w_is_condorcet_winner_ut_rel_ctb"
+    Col5="0.50029999999999997" Col6="0.50029999999999997" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Majority Judgment" Col2="w_is_not_condorcet_winner_ut_rel_ctb"
+    Col5="0.49969999999999998" Col6="0.49969999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Majority Judgment" Col2="w_missed_condorcet_winner_ut_rel_ctb"
+    Col5="0.25409999999999999" Col6="0.25409999999999999" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Majority Judgment" Col2="w_is_condorcet_winner_ut_rel"
+    Col5="0.50029999999999997" Col6="0.50029999999999997" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Majority Judgment" Col2="w_is_not_condorcet_winner_ut_rel"
+    Col5="0.49969999999999998" Col6="0.49969999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Majority Judgment" Col2="w_missed_condorcet_winner_ut_rel"
+    Col5="0.25409999999999999" Col6="0.25409999999999999" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Majority Judgment" Col2="w_is_condorcet_winner_ut_abs_ctb"
+    Col5="0.50029999999999997" Col6="0.50029999999999997" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Majority Judgment" Col2="w_is_not_condorcet_winner_ut_abs_ctb"
+    Col5="0.49969999999999998" Col6="0.49969999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Majority Judgment" Col2="w_missed_condorcet_winner_ut_abs_ctb"
+    Col5="0.25409999999999999" Col6="0.25409999999999999" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Majority Judgment" Col2="w_is_condorcet_winner_ut_abs"
+    Col5="0.50029999999999997" Col6="0.50029999999999997" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Majority Judgment" Col2="w_is_not_condorcet_winner_ut_abs"
+    Col5="0.49969999999999998" Col6="0.49969999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Majority Judgment" Col2="w_missed_condorcet_winner_ut_abs"
+    Col5="0.25409999999999999" Col6="0.25409999999999999" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Majority Judgment" Col2="w_is_resistant_condorcet_winner"
+    Col5="3.7000000000000002E-3" Col6="3.7000000000000002E-3" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Majority Judgment" Col2="w_is_not_resistant_condorcet_winner"
+    Col5="0.99629999999999996" Col6="0.99629999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Majority Judgment" Col2="w_missed_resistant_condorcet_winner"
+    Col5="0" Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Majority Judgment" Col2="TM" Col3="TM_option = exact"
+    Col4="6.8724410000000002" Col5="0.98450000000000004"
+    Col6="0.98450000000000004" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Majority Judgment" Col2="UM" Col3="CM_option = exact"
+    Col4="1.28356" Col5="0.98450000000000004" Col6="0.98450000000000004"
+    Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Majority Judgment" Col2="ICM" Col3="ICM_option = exact"
+    Col4="0.90506600000000004" Col5="0.49969999999999998"
+    Col6="0.49969999999999998" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Majority Judgment" Col2="CM" Col3="CM_option = exact"
+    Col4="0.239012" Col5="0.98450000000000004" Col6="0.98450000000000004"
+    Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Maximin" Col2="w_is_condorcet_admissible"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Maximin" Col2="w_is_not_condorcet_admissible"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Maximin" Col2="w_missed_condorcet_admissible" Col5="0" Col6="0"
+    Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Maximin" Col2="w_is_weak_condorcet_winner"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Maximin" Col2="w_is_not_weak_condorcet_winner"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Maximin" Col2="w_missed_weak_condorcet_winner" Col5="0" Col6="0"
+    Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Maximin" Col2="w_is_condorcet_winner_rk_ctb"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Maximin" Col2="w_is_not_condorcet_winner_rk_ctb"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Maximin" Col2="w_missed_condorcet_winner_rk_ctb" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Maximin" Col2="w_is_condorcet_winner_rk"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Maximin" Col2="w_is_not_condorcet_winner_rk"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Maximin" Col2="w_missed_condorcet_winner_rk" Col5="0" Col6="0"
+    Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Maximin" Col2="w_is_condorcet_winner_ut_rel_ctb"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Maximin" Col2="w_is_not_condorcet_winner_ut_rel_ctb"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Maximin" Col2="w_missed_condorcet_winner_ut_rel_ctb" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Maximin" Col2="w_is_condorcet_winner_ut_rel"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Maximin" Col2="w_is_not_condorcet_winner_ut_rel"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Maximin" Col2="w_missed_condorcet_winner_ut_rel" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Maximin" Col2="w_is_condorcet_winner_ut_abs_ctb"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Maximin" Col2="w_is_not_condorcet_winner_ut_abs_ctb"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Maximin" Col2="w_missed_condorcet_winner_ut_abs_ctb" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Maximin" Col2="w_is_condorcet_winner_ut_abs"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Maximin" Col2="w_is_not_condorcet_winner_ut_abs"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Maximin" Col2="w_missed_condorcet_winner_ut_abs" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Maximin" Col2="w_is_resistant_condorcet_winner"
+    Col5="3.7000000000000002E-3" Col6="3.7000000000000002E-3" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Maximin" Col2="w_is_not_resistant_condorcet_winner"
+    Col5="0.99629999999999996" Col6="0.99629999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Maximin" Col2="w_missed_resistant_condorcet_winner" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Maximin" Col2="TM" Col3="TM_option = exact"
+    Col4="19.800733999999999" Col5="0.91269999999999996"
+    Col6="0.91269999999999996" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Maximin" Col2="UM" Col3="UM_option = exact"
+    Col4="11.920699000000001" Col5="0.92589999999999995"
+    Col6="0.92589999999999995" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Maximin" Col2="ICM" Col3="ICM_option = exact"
+    Col4="0.85455300000000001" Col5="0.24560000000000001"
+    Col6="0.24560000000000001" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Maximin" Col2="CM"
+    Col3="CM_option = fast, UM_option = exact, TM_option = exact"
+    Col4="3.9947569999999999" Col5="0.93079999999999996"
+    Col6="0.93169999999999997" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Nanson" Col2="w_is_condorcet_admissible"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Nanson" Col2="w_is_not_condorcet_admissible"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Nanson" Col2="w_missed_condorcet_admissible" Col5="0" Col6="0"
+    Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Nanson" Col2="w_is_weak_condorcet_winner"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Nanson" Col2="w_is_not_weak_condorcet_winner"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Nanson" Col2="w_missed_weak_condorcet_winner" Col5="0" Col6="0"
+    Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Nanson" Col2="w_is_condorcet_winner_rk_ctb"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Nanson" Col2="w_is_not_condorcet_winner_rk_ctb"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Nanson" Col2="w_missed_condorcet_winner_rk_ctb" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Nanson" Col2="w_is_condorcet_winner_rk"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Nanson" Col2="w_is_not_condorcet_winner_rk"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Nanson" Col2="w_missed_condorcet_winner_rk" Col5="0" Col6="0"
+    Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Nanson" Col2="w_is_condorcet_winner_ut_rel_ctb"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Nanson" Col2="w_is_not_condorcet_winner_ut_rel_ctb"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Nanson" Col2="w_missed_condorcet_winner_ut_rel_ctb" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Nanson" Col2="w_is_condorcet_winner_ut_rel"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Nanson" Col2="w_is_not_condorcet_winner_ut_rel"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Nanson" Col2="w_missed_condorcet_winner_ut_rel" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Nanson" Col2="w_is_condorcet_winner_ut_abs_ctb"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Nanson" Col2="w_is_not_condorcet_winner_ut_abs_ctb"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Nanson" Col2="w_missed_condorcet_winner_ut_abs_ctb" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Nanson" Col2="w_is_condorcet_winner_ut_abs"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Nanson" Col2="w_is_not_condorcet_winner_ut_abs"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Nanson" Col2="w_missed_condorcet_winner_ut_abs" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Nanson" Col2="w_is_resistant_condorcet_winner"
+    Col5="3.7000000000000002E-3" Col6="3.7000000000000002E-3" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Nanson" Col2="w_is_not_resistant_condorcet_winner"
+    Col5="0.99629999999999996" Col6="0.99629999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Nanson" Col2="w_missed_resistant_condorcet_winner" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Nanson" Col2="TM" Col3="TM_option = exact" Col4="15.314396"
+    Col5="0.95550000000000002" Col6="0.95550000000000002" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Nanson" Col2="UM" Col3="UM_option = exact"
+    Col4="202.45024000000001" Col5="0.96060000000000001"
+    Col6="0.96060000000000001" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Nanson" Col2="ICM" Col3="ICM_option = exact"
+    Col4="0.89305199999999996" Col5="0.24560000000000001"
+    Col6="0.24560000000000001" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Nanson" Col2="CM"
+    Col3="CM_option = lazy, UM_option = exact, TM_option = exact" Col4="1.92011"
+    Col5="0.96060000000000001" Col6="0.99629999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Plurality" Col2="w_is_condorcet_admissible"
+    Col5="0.45429999999999998" Col6="0.45429999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Plurality" Col2="w_is_not_condorcet_admissible"
+    Col5="0.54569999999999996" Col6="0.54569999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Plurality" Col2="w_missed_condorcet_admissible"
+    Col5="0.30009999999999998" Col6="0.30009999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Plurality" Col2="w_is_weak_condorcet_winner"
+    Col5="0.45429999999999998" Col6="0.45429999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Plurality" Col2="w_is_not_weak_condorcet_winner"
+    Col5="0.54569999999999996" Col6="0.54569999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Plurality" Col2="w_missed_weak_condorcet_winner"
+    Col5="0.30009999999999998" Col6="0.30009999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Plurality" Col2="w_is_condorcet_winner_rk_ctb"
+    Col5="0.45429999999999998" Col6="0.45429999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Plurality" Col2="w_is_not_condorcet_winner_rk_ctb"
+    Col5="0.54569999999999996" Col6="0.54569999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Plurality" Col2="w_missed_condorcet_winner_rk_ctb"
+    Col5="0.30009999999999998" Col6="0.30009999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Plurality" Col2="w_is_condorcet_winner_rk"
+    Col5="0.45429999999999998" Col6="0.45429999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Plurality" Col2="w_is_not_condorcet_winner_rk"
+    Col5="0.54569999999999996" Col6="0.54569999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Plurality" Col2="w_missed_condorcet_winner_rk"
+    Col5="0.30009999999999998" Col6="0.30009999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Plurality" Col2="w_is_condorcet_winner_ut_rel_ctb"
+    Col5="0.45429999999999998" Col6="0.45429999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Plurality" Col2="w_is_not_condorcet_winner_ut_rel_ctb"
+    Col5="0.54569999999999996" Col6="0.54569999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Plurality" Col2="w_missed_condorcet_winner_ut_rel_ctb"
+    Col5="0.30009999999999998" Col6="0.30009999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Plurality" Col2="w_is_condorcet_winner_ut_rel"
+    Col5="0.45429999999999998" Col6="0.45429999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Plurality" Col2="w_is_not_condorcet_winner_ut_rel"
+    Col5="0.54569999999999996" Col6="0.54569999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Plurality" Col2="w_missed_condorcet_winner_ut_rel"
+    Col5="0.30009999999999998" Col6="0.30009999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Plurality" Col2="w_is_condorcet_winner_ut_abs_ctb"
+    Col5="0.45429999999999998" Col6="0.45429999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Plurality" Col2="w_is_not_condorcet_winner_ut_abs_ctb"
+    Col5="0.54569999999999996" Col6="0.54569999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Plurality" Col2="w_missed_condorcet_winner_ut_abs_ctb"
+    Col5="0.30009999999999998" Col6="0.30009999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Plurality" Col2="w_is_condorcet_winner_ut_abs"
+    Col5="0.45429999999999998" Col6="0.45429999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Plurality" Col2="w_is_not_condorcet_winner_ut_abs"
+    Col5="0.54569999999999996" Col6="0.54569999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Plurality" Col2="w_missed_condorcet_winner_ut_abs"
+    Col5="0.30009999999999998" Col6="0.30009999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Plurality" Col2="w_is_resistant_condorcet_winner"
+    Col5="3.7000000000000002E-3" Col6="3.7000000000000002E-3" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Plurality" Col2="w_is_not_resistant_condorcet_winner"
+    Col5="0.99629999999999996" Col6="0.99629999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Plurality" Col2="w_missed_resistant_condorcet_winner" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Plurality" Col2="TM" Col3="CM_option = exact"
+    Col4="3.1686960000000002" Col5="0.98560000000000003"
+    Col6="0.98560000000000003" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Plurality" Col2="UM" Col3="CM_option = exact" Col4="0.263015"
+    Col5="0.98560000000000003" Col6="0.98560000000000003" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Plurality" Col2="ICM" Col3="ICM_option = exact" Col4="0.925064"
+    Col5="0.54569999999999996" Col6="0.54569999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Plurality" Col2="CM" Col3="CM_option = exact"
+    Col4="0.22300800000000001" Col5="0.98560000000000003"
+    Col6="0.98560000000000003" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Range voting with average" Col2="w_is_condorcet_admissible"
+    Col5="0.58609999999999995" Col6="0.58609999999999995" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Range voting with average" Col2="w_is_not_condorcet_admissible"
+    Col5="0.41389999999999999" Col6="0.41389999999999999" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Range voting with average" Col2="w_missed_condorcet_admissible"
+    Col5="0.16830000000000001" Col6="0.16830000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Range voting with average" Col2="w_is_weak_condorcet_winner"
+    Col5="0.58609999999999995" Col6="0.58609999999999995" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Range voting with average" Col2="w_is_not_weak_condorcet_winner"
+    Col5="0.41389999999999999" Col6="0.41389999999999999" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Range voting with average" Col2="w_missed_weak_condorcet_winner"
+    Col5="0.16830000000000001" Col6="0.16830000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Range voting with average" Col2="w_is_condorcet_winner_rk_ctb"
+    Col5="0.58609999999999995" Col6="0.58609999999999995" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Range voting with average"
+    Col2="w_is_not_condorcet_winner_rk_ctb" Col5="0.41389999999999999"
+    Col6="0.41389999999999999" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Range voting with average"
+    Col2="w_missed_condorcet_winner_rk_ctb" Col5="0.16830000000000001"
+    Col6="0.16830000000000001" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Range voting with average" Col2="w_is_condorcet_winner_rk"
+    Col5="0.58609999999999995" Col6="0.58609999999999995" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Range voting with average" Col2="w_is_not_condorcet_winner_rk"
+    Col5="0.41389999999999999" Col6="0.41389999999999999" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Range voting with average" Col2="w_missed_condorcet_winner_rk"
+    Col5="0.16830000000000001" Col6="0.16830000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Range voting with average"
+    Col2="w_is_condorcet_winner_ut_rel_ctb" Col5="0.58609999999999995"
+    Col6="0.58609999999999995" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Range voting with average"
+    Col2="w_is_not_condorcet_winner_ut_rel_ctb" Col5="0.41389999999999999"
+    Col6="0.41389999999999999" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Range voting with average"
+    Col2="w_missed_condorcet_winner_ut_rel_ctb" Col5="0.16830000000000001"
+    Col6="0.16830000000000001" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Range voting with average" Col2="w_is_condorcet_winner_ut_rel"
+    Col5="0.58609999999999995" Col6="0.58609999999999995" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Range voting with average"
+    Col2="w_is_not_condorcet_winner_ut_rel" Col5="0.41389999999999999"
+    Col6="0.41389999999999999" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Range voting with average"
+    Col2="w_missed_condorcet_winner_ut_rel" Col5="0.16830000000000001"
+    Col6="0.16830000000000001" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Range voting with average"
+    Col2="w_is_condorcet_winner_ut_abs_ctb" Col5="0.58609999999999995"
+    Col6="0.58609999999999995" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Range voting with average"
+    Col2="w_is_not_condorcet_winner_ut_abs_ctb" Col5="0.41389999999999999"
+    Col6="0.41389999999999999" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Range voting with average"
+    Col2="w_missed_condorcet_winner_ut_abs_ctb" Col5="0.16830000000000001"
+    Col6="0.16830000000000001" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Range voting with average" Col2="w_is_condorcet_winner_ut_abs"
+    Col5="0.58609999999999995" Col6="0.58609999999999995" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Range voting with average"
+    Col2="w_is_not_condorcet_winner_ut_abs" Col5="0.41389999999999999"
+    Col6="0.41389999999999999" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Range voting with average"
+    Col2="w_missed_condorcet_winner_ut_abs" Col5="0.16830000000000001"
+    Col6="0.16830000000000001" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Range voting with average"
+    Col2="w_is_resistant_condorcet_winner" Col5="3.7000000000000002E-3"
+    Col6="3.7000000000000002E-3" Col7="10000" Col8="33" Col9="5"
+    Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Range voting with average"
+    Col2="w_is_not_resistant_condorcet_winner" Col5="0.99629999999999996"
+    Col6="0.99629999999999996" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Range voting with average"
+    Col2="w_missed_resistant_condorcet_winner" Col5="0" Col6="0" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Range voting with average" Col2="TM" Col3="CM_option = exact"
+    Col4="3.1826859999999999" Col5="0.99680000000000002"
+    Col6="0.99680000000000002" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Range voting with average" Col2="UM" Col3="CM_option = exact"
+    Col4="0.24951000000000001" Col5="0.99680000000000002"
+    Col6="0.99680000000000002" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Range voting with average" Col2="ICM" Col3="ICM_option = exact"
+    Col4="0.87505500000000003" Col5="0.41389999999999999"
+    Col6="0.41389999999999999" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Range voting with average" Col2="CM" Col3="CM_option = exact"
+    Col4="0.24551200000000001" Col5="0.99680000000000002"
+    Col6="0.99680000000000002" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Ranked Pairs" Col2="w_is_condorcet_admissible"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Ranked Pairs" Col2="w_is_not_condorcet_admissible"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Ranked Pairs" Col2="w_missed_condorcet_admissible" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Ranked Pairs" Col2="w_is_weak_condorcet_winner"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Ranked Pairs" Col2="w_is_not_weak_condorcet_winner"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Ranked Pairs" Col2="w_missed_weak_condorcet_winner" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Ranked Pairs" Col2="w_is_condorcet_winner_rk_ctb"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Ranked Pairs" Col2="w_is_not_condorcet_winner_rk_ctb"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Ranked Pairs" Col2="w_missed_condorcet_winner_rk_ctb" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Ranked Pairs" Col2="w_is_condorcet_winner_rk"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Ranked Pairs" Col2="w_is_not_condorcet_winner_rk"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Ranked Pairs" Col2="w_missed_condorcet_winner_rk" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Ranked Pairs" Col2="w_is_condorcet_winner_ut_rel_ctb"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Ranked Pairs" Col2="w_is_not_condorcet_winner_ut_rel_ctb"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Ranked Pairs" Col2="w_missed_condorcet_winner_ut_rel_ctb"
+    Col5="0" Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Ranked Pairs" Col2="w_is_condorcet_winner_ut_rel"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Ranked Pairs" Col2="w_is_not_condorcet_winner_ut_rel"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Ranked Pairs" Col2="w_missed_condorcet_winner_ut_rel" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Ranked Pairs" Col2="w_is_condorcet_winner_ut_abs_ctb"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Ranked Pairs" Col2="w_is_not_condorcet_winner_ut_abs_ctb"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Ranked Pairs" Col2="w_missed_condorcet_winner_ut_abs_ctb"
+    Col5="0" Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Ranked Pairs" Col2="w_is_condorcet_winner_ut_abs"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Ranked Pairs" Col2="w_is_not_condorcet_winner_ut_abs"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Ranked Pairs" Col2="w_missed_condorcet_winner_ut_abs" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Ranked Pairs" Col2="w_is_resistant_condorcet_winner"
+    Col5="3.7000000000000002E-3" Col6="3.7000000000000002E-3" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Ranked Pairs" Col2="w_is_not_resistant_condorcet_winner"
+    Col5="0.99629999999999996" Col6="0.99629999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Ranked Pairs" Col2="w_missed_resistant_condorcet_winner"
+    Col5="0" Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Ranked Pairs" Col2="TM" Col3="TM_option = exact"
+    Col4="22.639845000000001" Col5="0.9274" Col6="0.9274" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Ranked Pairs" Col2="UM" Col3="UM_option = exact"
+    Col4="485.623152" Col5="0.93379999999999996" Col6="0.93379999999999996"
+    Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Ranked Pairs" Col2="ICM" Col3="ICM_option = exact"
+    Col4="0.87305100000000002" Col5="0.24560000000000001"
+    Col6="0.24560000000000001" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Ranked Pairs" Col2="CM"
+    Col3="CM_option = lazy, UM_option = exact, TM_option = exact"
+    Col4="2.0861299999999998" Col5="0.93379999999999996"
+    Col6="0.99629999999999996" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Schulze" Col2="w_is_condorcet_admissible"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Schulze" Col2="w_is_not_condorcet_admissible"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Schulze" Col2="w_missed_condorcet_admissible" Col5="0" Col6="0"
+    Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Schulze" Col2="w_is_weak_condorcet_winner"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Schulze" Col2="w_is_not_weak_condorcet_winner"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Schulze" Col2="w_missed_weak_condorcet_winner" Col5="0" Col6="0"
+    Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Schulze" Col2="w_is_condorcet_winner_rk_ctb"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Schulze" Col2="w_is_not_condorcet_winner_rk_ctb"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Schulze" Col2="w_missed_condorcet_winner_rk_ctb" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Schulze" Col2="w_is_condorcet_winner_rk"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Schulze" Col2="w_is_not_condorcet_winner_rk"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Schulze" Col2="w_missed_condorcet_winner_rk" Col5="0" Col6="0"
+    Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Schulze" Col2="w_is_condorcet_winner_ut_rel_ctb"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Schulze" Col2="w_is_not_condorcet_winner_ut_rel_ctb"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Schulze" Col2="w_missed_condorcet_winner_ut_rel_ctb" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Schulze" Col2="w_is_condorcet_winner_ut_rel"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Schulze" Col2="w_is_not_condorcet_winner_ut_rel"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Schulze" Col2="w_missed_condorcet_winner_ut_rel" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Schulze" Col2="w_is_condorcet_winner_ut_abs_ctb"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Schulze" Col2="w_is_not_condorcet_winner_ut_abs_ctb"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Schulze" Col2="w_missed_condorcet_winner_ut_abs_ctb" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Schulze" Col2="w_is_condorcet_winner_ut_abs"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Schulze" Col2="w_is_not_condorcet_winner_ut_abs"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Schulze" Col2="w_missed_condorcet_winner_ut_abs" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Schulze" Col2="w_is_resistant_condorcet_winner"
+    Col5="3.7000000000000002E-3" Col6="3.7000000000000002E-3" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Schulze" Col2="w_is_not_resistant_condorcet_winner"
+    Col5="0.99629999999999996" Col6="0.99629999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Schulze" Col2="w_missed_resistant_condorcet_winner" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Schulze" Col2="TM" Col3="TM_option = exact" Col4="14.076373"
+    Col5="0.91469999999999996" Col6="0.91469999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Schulze" Col2="UM" Col3="UM_option = fast"
+    Col4="43.828724999999999" Col5="0.93059999999999998"
+    Col6="0.94869999999999999" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Schulze" Col2="ICM" Col3="ICM_option = exact"
+    Col4="0.88754900000000003" Col5="0.24560000000000001"
+    Col6="0.24560000000000001" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Schulze" Col2="CM" Col3="CM_option = fast, TM_option = exact"
+    Col4="0.30851600000000001" Col5="0.93059999999999998"
+    Col6="0.94869999999999999" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Two Round" Col2="w_is_condorcet_admissible"
+    Col5="0.62849999999999995" Col6="0.62849999999999995" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Two Round" Col2="w_is_not_condorcet_admissible" Col5="0.3715"
+    Col6="0.3715" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Two Round" Col2="w_missed_condorcet_admissible"
+    Col5="0.12590000000000001" Col6="0.12590000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Two Round" Col2="w_is_weak_condorcet_winner"
+    Col5="0.62849999999999995" Col6="0.62849999999999995" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Two Round" Col2="w_is_not_weak_condorcet_winner" Col5="0.3715"
+    Col6="0.3715" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Two Round" Col2="w_missed_weak_condorcet_winner"
+    Col5="0.12590000000000001" Col6="0.12590000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Two Round" Col2="w_is_condorcet_winner_rk_ctb"
+    Col5="0.62849999999999995" Col6="0.62849999999999995" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Two Round" Col2="w_is_not_condorcet_winner_rk_ctb" Col5="0.3715"
+    Col6="0.3715" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Two Round" Col2="w_missed_condorcet_winner_rk_ctb"
+    Col5="0.12590000000000001" Col6="0.12590000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Two Round" Col2="w_is_condorcet_winner_rk"
+    Col5="0.62849999999999995" Col6="0.62849999999999995" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Two Round" Col2="w_is_not_condorcet_winner_rk" Col5="0.3715"
+    Col6="0.3715" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Two Round" Col2="w_missed_condorcet_winner_rk"
+    Col5="0.12590000000000001" Col6="0.12590000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Two Round" Col2="w_is_condorcet_winner_ut_rel_ctb"
+    Col5="0.62849999999999995" Col6="0.62849999999999995" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Two Round" Col2="w_is_not_condorcet_winner_ut_rel_ctb"
+    Col5="0.3715" Col6="0.3715" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Two Round" Col2="w_missed_condorcet_winner_ut_rel_ctb"
+    Col5="0.12590000000000001" Col6="0.12590000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Two Round" Col2="w_is_condorcet_winner_ut_rel"
+    Col5="0.62849999999999995" Col6="0.62849999999999995" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Two Round" Col2="w_is_not_condorcet_winner_ut_rel" Col5="0.3715"
+    Col6="0.3715" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Two Round" Col2="w_missed_condorcet_winner_ut_rel"
+    Col5="0.12590000000000001" Col6="0.12590000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Two Round" Col2="w_is_condorcet_winner_ut_abs_ctb"
+    Col5="0.62849999999999995" Col6="0.62849999999999995" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Two Round" Col2="w_is_not_condorcet_winner_ut_abs_ctb"
+    Col5="0.3715" Col6="0.3715" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Two Round" Col2="w_missed_condorcet_winner_ut_abs_ctb"
+    Col5="0.12590000000000001" Col6="0.12590000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Two Round" Col2="w_is_condorcet_winner_ut_abs"
+    Col5="0.62849999999999995" Col6="0.62849999999999995" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Two Round" Col2="w_is_not_condorcet_winner_ut_abs" Col5="0.3715"
+    Col6="0.3715" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Two Round" Col2="w_missed_condorcet_winner_ut_abs"
+    Col5="0.12590000000000001" Col6="0.12590000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Two Round" Col2="w_is_resistant_condorcet_winner"
+    Col5="3.7000000000000002E-3" Col6="3.7000000000000002E-3" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Two Round" Col2="w_is_not_resistant_condorcet_winner"
+    Col5="0.99629999999999996" Col6="0.99629999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Two Round" Col2="w_missed_resistant_condorcet_winner" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Two Round" Col2="TM" Col3="TM_option = exact"
+    Col4="27.988703999999998" Col5="0.3871" Col6="0.3871" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Two Round" Col2="UM" Col3="UM_option = exact"
+    Col4="8.0225109999999997" Col5="0.3871" Col6="0.3871" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Two Round" Col2="ICM" Col3="ICM_option = exact"
+    Col4="0.87756000000000001" Col5="0.3715" Col6="0.3715" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Two Round" Col2="CM" Col3="CM_option = exact" Col4="11.768734"
+    Col5="0.69189999999999996" Col6="0.69189999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Veto" Col2="w_is_condorcet_admissible"
+    Col5="0.37669999999999998" Col6="0.37669999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Veto" Col2="w_is_not_condorcet_admissible"
+    Col5="0.62329999999999997" Col6="0.62329999999999997" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Veto" Col2="w_missed_condorcet_admissible"
+    Col5="0.37769999999999998" Col6="0.37769999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Veto" Col2="w_is_weak_condorcet_winner"
+    Col5="0.37669999999999998" Col6="0.37669999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Veto" Col2="w_is_not_weak_condorcet_winner"
+    Col5="0.62329999999999997" Col6="0.62329999999999997" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Veto" Col2="w_missed_weak_condorcet_winner"
+    Col5="0.37769999999999998" Col6="0.37769999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Veto" Col2="w_is_condorcet_winner_rk_ctb"
+    Col5="0.37669999999999998" Col6="0.37669999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Veto" Col2="w_is_not_condorcet_winner_rk_ctb"
+    Col5="0.62329999999999997" Col6="0.62329999999999997" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Veto" Col2="w_missed_condorcet_winner_rk_ctb"
+    Col5="0.37769999999999998" Col6="0.37769999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Veto" Col2="w_is_condorcet_winner_rk" Col5="0.37669999999999998"
+    Col6="0.37669999999999998" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Veto" Col2="w_is_not_condorcet_winner_rk"
+    Col5="0.62329999999999997" Col6="0.62329999999999997" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Veto" Col2="w_missed_condorcet_winner_rk"
+    Col5="0.37769999999999998" Col6="0.37769999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Veto" Col2="w_is_condorcet_winner_ut_rel_ctb"
+    Col5="0.37669999999999998" Col6="0.37669999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Veto" Col2="w_is_not_condorcet_winner_ut_rel_ctb"
+    Col5="0.62329999999999997" Col6="0.62329999999999997" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Veto" Col2="w_missed_condorcet_winner_ut_rel_ctb"
+    Col5="0.37769999999999998" Col6="0.37769999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Veto" Col2="w_is_condorcet_winner_ut_rel"
+    Col5="0.37669999999999998" Col6="0.37669999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Veto" Col2="w_is_not_condorcet_winner_ut_rel"
+    Col5="0.62329999999999997" Col6="0.62329999999999997" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Veto" Col2="w_missed_condorcet_winner_ut_rel"
+    Col5="0.37769999999999998" Col6="0.37769999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Veto" Col2="w_is_condorcet_winner_ut_abs_ctb"
+    Col5="0.37669999999999998" Col6="0.37669999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Veto" Col2="w_is_not_condorcet_winner_ut_abs_ctb"
+    Col5="0.62329999999999997" Col6="0.62329999999999997" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Veto" Col2="w_missed_condorcet_winner_ut_abs_ctb"
+    Col5="0.37769999999999998" Col6="0.37769999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Veto" Col2="w_is_condorcet_winner_ut_abs"
+    Col5="0.37669999999999998" Col6="0.37669999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Veto" Col2="w_is_not_condorcet_winner_ut_abs"
+    Col5="0.62329999999999997" Col6="0.62329999999999997" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Veto" Col2="w_missed_condorcet_winner_ut_abs"
+    Col5="0.37769999999999998" Col6="0.37769999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Veto" Col2="w_is_resistant_condorcet_winner" Col5="2.3E-3"
+    Col6="2.3E-3" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Veto" Col2="w_is_not_resistant_condorcet_winner"
+    Col5="0.99770000000000003" Col6="0.99770000000000003" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Veto" Col2="w_missed_resistant_condorcet_winner" Col5="1.4E-3"
+    Col6="1.4E-3" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Veto" Col2="TM" Col3="TM_option = exact"
+    Col4="6.5989199999999997" Col5="3.44E-2" Col6="3.44E-2" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Veto" Col2="UM" Col3="TM_option = exact"
+    Col4="0.23150899999999999" Col5="3.44E-2" Col6="3.44E-2" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Veto" Col2="ICM" Col3="ICM_option = exact"
+    Col4="5.8683019999999999" Col5="0" Col6="0" Col7="10000" Col8="33" Col9="5"
+    Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Veto" Col2="CM" Col3="CM_option = exact"
+    Col4="4.3072629999999998" Col5="0.90790000000000004"
+    Col6="0.90790000000000004" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="ICRV" Col2="w_is_condorcet_admissible"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="ICRV" Col2="w_is_not_condorcet_admissible"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="ICRV" Col2="w_missed_condorcet_admissible" Col5="0" Col6="0"
+    Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="ICRV" Col2="w_is_weak_condorcet_winner"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="ICRV" Col2="w_is_not_weak_condorcet_winner"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="ICRV" Col2="w_missed_weak_condorcet_winner" Col5="0" Col6="0"
+    Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="ICRV" Col2="w_is_condorcet_winner_rk_ctb"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="ICRV" Col2="w_is_not_condorcet_winner_rk_ctb"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="ICRV" Col2="w_missed_condorcet_winner_rk_ctb" Col5="0" Col6="0"
+    Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="ICRV" Col2="w_is_condorcet_winner_rk" Col5="0.75439999999999996"
+    Col6="0.75439999999999996" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="ICRV" Col2="w_is_not_condorcet_winner_rk"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="ICRV" Col2="w_missed_condorcet_winner_rk" Col5="0" Col6="0"
+    Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="ICRV" Col2="w_is_condorcet_winner_ut_rel_ctb"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="ICRV" Col2="w_is_not_condorcet_winner_ut_rel_ctb"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="ICRV" Col2="w_missed_condorcet_winner_ut_rel_ctb" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="ICRV" Col2="w_is_condorcet_winner_ut_rel"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="ICRV" Col2="w_is_not_condorcet_winner_ut_rel"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="ICRV" Col2="w_missed_condorcet_winner_ut_rel" Col5="0" Col6="0"
+    Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="ICRV" Col2="w_is_condorcet_winner_ut_abs_ctb"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="ICRV" Col2="w_is_not_condorcet_winner_ut_abs_ctb"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="ICRV" Col2="w_missed_condorcet_winner_ut_abs_ctb" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="ICRV" Col2="w_is_condorcet_winner_ut_abs"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="ICRV" Col2="w_is_not_condorcet_winner_ut_abs"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="ICRV" Col2="w_missed_condorcet_winner_ut_abs" Col5="0" Col6="0"
+    Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="ICRV" Col2="w_is_resistant_condorcet_winner"
+    Col5="3.7000000000000002E-3" Col6="3.7000000000000002E-3" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="ICRV" Col2="w_is_not_resistant_condorcet_winner"
+    Col5="0.99629999999999996" Col6="0.99629999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="ICRV" Col2="w_missed_resistant_condorcet_winner" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="ICRV" Col2="TM" Col3="TM_option = exact"
+    Col4="49.941473000000002" Col5="0.27239999999999998"
+    Col6="0.27239999999999998" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="ICRV" Col2="UM" Col3="UM_option = exact"
+    Col4="2982.7663819999998" Col5="0.27289999999999998"
+    Col6="0.27289999999999998" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="ICRV" Col2="ICM" Col3="ICM_option = exact"
+    Col4="0.96757800000000005" Col5="0.24560000000000001"
+    Col6="0.24560000000000001" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="ICRV" Col2="CM"
+    Col3="CM_option = lazy, UM_option = exact, TM_option = exact"
+    Col4="9.4910890000000006" Col5="0.27289999999999998"
+    Col6="0.99629999999999996" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Exhaustive Ballot" Col2="w_is_condorcet_admissible"
+    Col5="0.67620000000000002" Col6="0.67620000000000002" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Exhaustive Ballot" Col2="w_is_not_condorcet_admissible"
+    Col5="0.32379999999999998" Col6="0.32379999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Exhaustive Ballot" Col2="w_missed_condorcet_admissible"
+    Col5="7.8200000000000006E-2" Col6="7.8200000000000006E-2" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Exhaustive Ballot" Col2="w_is_weak_condorcet_winner"
+    Col5="0.67620000000000002" Col6="0.67620000000000002" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Exhaustive Ballot" Col2="w_is_not_weak_condorcet_winner"
+    Col5="0.32379999999999998" Col6="0.32379999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Exhaustive Ballot" Col2="w_missed_weak_condorcet_winner"
+    Col5="7.8200000000000006E-2" Col6="7.8200000000000006E-2" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Exhaustive Ballot" Col2="w_is_condorcet_winner_rk_ctb"
+    Col5="0.67620000000000002" Col6="0.67620000000000002" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Exhaustive Ballot" Col2="w_is_not_condorcet_winner_rk_ctb"
+    Col5="0.32379999999999998" Col6="0.32379999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Exhaustive Ballot" Col2="w_missed_condorcet_winner_rk_ctb"
+    Col5="7.8200000000000006E-2" Col6="7.8200000000000006E-2" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Exhaustive Ballot" Col2="w_is_condorcet_winner_rk"
+    Col5="0.67620000000000002" Col6="0.67620000000000002" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Exhaustive Ballot" Col2="w_is_not_condorcet_winner_rk"
+    Col5="0.32379999999999998" Col6="0.32379999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Exhaustive Ballot" Col2="w_missed_condorcet_winner_rk"
+    Col5="7.8200000000000006E-2" Col6="7.8200000000000006E-2" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Exhaustive Ballot" Col2="w_is_condorcet_winner_ut_rel_ctb"
+    Col5="0.67620000000000002" Col6="0.67620000000000002" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Exhaustive Ballot" Col2="w_is_not_condorcet_winner_ut_rel_ctb"
+    Col5="0.32379999999999998" Col6="0.32379999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Exhaustive Ballot" Col2="w_missed_condorcet_winner_ut_rel_ctb"
+    Col5="7.8200000000000006E-2" Col6="7.8200000000000006E-2" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Exhaustive Ballot" Col2="w_is_condorcet_winner_ut_rel"
+    Col5="0.67620000000000002" Col6="0.67620000000000002" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Exhaustive Ballot" Col2="w_is_not_condorcet_winner_ut_rel"
+    Col5="0.32379999999999998" Col6="0.32379999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Exhaustive Ballot" Col2="w_missed_condorcet_winner_ut_rel"
+    Col5="7.8200000000000006E-2" Col6="7.8200000000000006E-2" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Exhaustive Ballot" Col2="w_is_condorcet_winner_ut_abs_ctb"
+    Col5="0.67620000000000002" Col6="0.67620000000000002" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Exhaustive Ballot" Col2="w_is_not_condorcet_winner_ut_abs_ctb"
+    Col5="0.32379999999999998" Col6="0.32379999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Exhaustive Ballot" Col2="w_missed_condorcet_winner_ut_abs_ctb"
+    Col5="7.8200000000000006E-2" Col6="7.8200000000000006E-2" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Exhaustive Ballot" Col2="w_is_condorcet_winner_ut_abs"
+    Col5="0.67620000000000002" Col6="0.67620000000000002" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Exhaustive Ballot" Col2="w_is_not_condorcet_winner_ut_abs"
+    Col5="0.32379999999999998" Col6="0.32379999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Exhaustive Ballot" Col2="w_missed_condorcet_winner_ut_abs"
+    Col5="7.8200000000000006E-2" Col6="7.8200000000000006E-2" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Exhaustive Ballot" Col2="w_is_resistant_condorcet_winner"
+    Col5="3.7000000000000002E-3" Col6="3.7000000000000002E-3" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Exhaustive Ballot" Col2="w_is_not_resistant_condorcet_winner"
+    Col5="0.99629999999999996" Col6="0.99629999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Exhaustive Ballot" Col2="w_missed_resistant_condorcet_winner"
+    Col5="0" Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Exhaustive Ballot" Col2="TM" Col3="TM_option = exact"
+    Col4="24.363489999999999" Col5="0.33050000000000002"
+    Col6="0.33050000000000002" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Exhaustive Ballot" Col2="UM" Col3="UM_option = exact"
+    Col4="55.090912000000003" Col5="0.33050000000000002"
+    Col6="0.33050000000000002" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Exhaustive Ballot" Col2="ICM" Col3="ICM_option = exact"
+    Col4="1.061059" Col5="0.32379999999999998" Col6="0.32379999999999998"
+    Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="Exhaustive Ballot" Col2="CM" Col3="CM_option = exact"
+    Col4="85.013594999999995" Col5="0.44030000000000002"
+    Col6="0.44030000000000002" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV" Col2="w_is_condorcet_admissible" Col5="0.67620000000000002"
+    Col6="0.67620000000000002" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV" Col2="w_is_not_condorcet_admissible"
+    Col5="0.32379999999999998" Col6="0.32379999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV" Col2="w_missed_condorcet_admissible"
+    Col5="7.8200000000000006E-2" Col6="7.8200000000000006E-2" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV" Col2="w_is_weak_condorcet_winner"
+    Col5="0.67620000000000002" Col6="0.67620000000000002" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV" Col2="w_is_not_weak_condorcet_winner"
+    Col5="0.32379999999999998" Col6="0.32379999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV" Col2="w_missed_weak_condorcet_winner"
+    Col5="7.8200000000000006E-2" Col6="7.8200000000000006E-2" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV" Col2="w_is_condorcet_winner_rk_ctb"
+    Col5="0.67620000000000002" Col6="0.67620000000000002" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV" Col2="w_is_not_condorcet_winner_rk_ctb"
+    Col5="0.32379999999999998" Col6="0.32379999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV" Col2="w_missed_condorcet_winner_rk_ctb"
+    Col5="7.8200000000000006E-2" Col6="7.8200000000000006E-2" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV" Col2="w_is_condorcet_winner_rk" Col5="0.67620000000000002"
+    Col6="0.67620000000000002" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV" Col2="w_is_not_condorcet_winner_rk"
+    Col5="0.32379999999999998" Col6="0.32379999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV" Col2="w_missed_condorcet_winner_rk"
+    Col5="7.8200000000000006E-2" Col6="7.8200000000000006E-2" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV" Col2="w_is_condorcet_winner_ut_rel_ctb"
+    Col5="0.67620000000000002" Col6="0.67620000000000002" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV" Col2="w_is_not_condorcet_winner_ut_rel_ctb"
+    Col5="0.32379999999999998" Col6="0.32379999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV" Col2="w_missed_condorcet_winner_ut_rel_ctb"
+    Col5="7.8200000000000006E-2" Col6="7.8200000000000006E-2" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV" Col2="w_is_condorcet_winner_ut_rel"
+    Col5="0.67620000000000002" Col6="0.67620000000000002" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV" Col2="w_is_not_condorcet_winner_ut_rel"
+    Col5="0.32379999999999998" Col6="0.32379999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV" Col2="w_missed_condorcet_winner_ut_rel"
+    Col5="7.8200000000000006E-2" Col6="7.8200000000000006E-2" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV" Col2="w_is_condorcet_winner_ut_abs_ctb"
+    Col5="0.67620000000000002" Col6="0.67620000000000002" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV" Col2="w_is_not_condorcet_winner_ut_abs_ctb"
+    Col5="0.32379999999999998" Col6="0.32379999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV" Col2="w_missed_condorcet_winner_ut_abs_ctb"
+    Col5="7.8200000000000006E-2" Col6="7.8200000000000006E-2" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV" Col2="w_is_condorcet_winner_ut_abs"
+    Col5="0.67620000000000002" Col6="0.67620000000000002" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV" Col2="w_is_not_condorcet_winner_ut_abs"
+    Col5="0.32379999999999998" Col6="0.32379999999999998" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV" Col2="w_missed_condorcet_winner_ut_abs"
+    Col5="7.8200000000000006E-2" Col6="7.8200000000000006E-2" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV" Col2="w_is_resistant_condorcet_winner"
+    Col5="3.7000000000000002E-3" Col6="3.7000000000000002E-3" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV" Col2="w_is_not_resistant_condorcet_winner"
+    Col5="0.99629999999999996" Col6="0.99629999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV" Col2="w_missed_resistant_condorcet_winner" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="IRV" Col2="TM" Col3="TM_option = exact"
+    Col4="0.30752200000000002" Col5="0.33050000000000002"
+    Col6="0.33050000000000002" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV" Col2="UM" Col3="UM_option = exact" Col4="2.250162"
+    Col5="0.33050000000000002" Col6="0.33050000000000002" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV" Col2="ICM" Col3="ICM_option = exact"
+    Col4="0.29802200000000001" Col5="0.32379999999999998"
+    Col6="0.32379999999999998" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="IRV" Col2="CM" Col3="CM_option = exact"
+    Col4="8.4895320000000005" Col5="0.43940000000000001"
+    Col6="0.43940000000000001" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Absolute-Condorcet IRV" Col2="w_is_condorcet_admissible"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Absolute-Condorcet IRV" Col2="w_is_not_condorcet_admissible"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Absolute-Condorcet IRV" Col2="w_missed_condorcet_admissible"
+    Col5="0" Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Absolute-Condorcet IRV" Col2="w_is_weak_condorcet_winner"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Absolute-Condorcet IRV" Col2="w_is_not_weak_condorcet_winner"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Absolute-Condorcet IRV" Col2="w_missed_weak_condorcet_winner"
+    Col5="0" Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Absolute-Condorcet IRV" Col2="w_is_condorcet_winner_rk_ctb"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Absolute-Condorcet IRV" Col2="w_is_not_condorcet_winner_rk_ctb"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Absolute-Condorcet IRV" Col2="w_missed_condorcet_winner_rk_ctb"
+    Col5="0" Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Absolute-Condorcet IRV" Col2="w_is_condorcet_winner_rk"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Absolute-Condorcet IRV" Col2="w_is_not_condorcet_winner_rk"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Absolute-Condorcet IRV" Col2="w_missed_condorcet_winner_rk"
+    Col5="0" Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Absolute-Condorcet IRV" Col2="w_is_condorcet_winner_ut_rel_ctb"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Absolute-Condorcet IRV"
+    Col2="w_is_not_condorcet_winner_ut_rel_ctb" Col5="0.24560000000000001"
+    Col6="0.24560000000000001" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Absolute-Condorcet IRV"
+    Col2="w_missed_condorcet_winner_ut_rel_ctb" Col5="0" Col6="0" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Absolute-Condorcet IRV" Col2="w_is_condorcet_winner_ut_rel"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Absolute-Condorcet IRV" Col2="w_is_not_condorcet_winner_ut_rel"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Absolute-Condorcet IRV" Col2="w_missed_condorcet_winner_ut_rel"
+    Col5="0" Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Absolute-Condorcet IRV" Col2="w_is_condorcet_winner_ut_abs_ctb"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Absolute-Condorcet IRV"
+    Col2="w_is_not_condorcet_winner_ut_abs_ctb" Col5="0.24560000000000001"
+    Col6="0.24560000000000001" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Absolute-Condorcet IRV"
+    Col2="w_missed_condorcet_winner_ut_abs_ctb" Col5="0" Col6="0" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Absolute-Condorcet IRV" Col2="w_is_condorcet_winner_ut_abs"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Absolute-Condorcet IRV" Col2="w_is_not_condorcet_winner_ut_abs"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Absolute-Condorcet IRV" Col2="w_missed_condorcet_winner_ut_abs"
+    Col5="0" Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Absolute-Condorcet IRV" Col2="w_is_resistant_condorcet_winner"
+    Col5="3.7000000000000002E-3" Col6="3.7000000000000002E-3" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Absolute-Condorcet IRV"
+    Col2="w_is_not_resistant_condorcet_winner" Col5="0.99629999999999996"
+    Col6="0.99629999999999996" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Absolute-Condorcet IRV"
+    Col2="w_missed_resistant_condorcet_winner" Col5="0" Col6="0" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="Absolute-Condorcet IRV" Col2="TM" Col3="TM_option = exact"
+    Col4="83.114549999999994" Col5="0.27239999999999998"
+    Col6="0.27239999999999998" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Absolute-Condorcet IRV" Col2="UM" Col3="UM_option = exact"
+    Col4="4761.0893649999998" Col5="0.27289999999999998"
+    Col6="0.27289999999999998" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Absolute-Condorcet IRV" Col2="ICM" Col3="ICM_option = exact"
+    Col4="0.84604999999999997" Col5="0.24560000000000001"
+    Col6="0.24560000000000001" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="Absolute-Condorcet IRV" Col2="CM"
+    Col3="CM_option = almost_exact, TM_option = exact" Col4="4.346762"
+    Col5="0.43940000000000001" Col6="0.43940000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="VTB-Condorcet IRV" Col2="w_is_condorcet_admissible"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="VTB-Condorcet IRV" Col2="w_is_not_condorcet_admissible"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="VTB-Condorcet IRV" Col2="w_missed_condorcet_admissible" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="VTB-Condorcet IRV" Col2="w_is_weak_condorcet_winner"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="VTB-Condorcet IRV" Col2="w_is_not_weak_condorcet_winner"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="VTB-Condorcet IRV" Col2="w_missed_weak_condorcet_winner"
+    Col5="0" Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="VTB-Condorcet IRV" Col2="w_is_condorcet_winner_rk_ctb"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="VTB-Condorcet IRV" Col2="w_is_not_condorcet_winner_rk_ctb"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="VTB-Condorcet IRV" Col2="w_missed_condorcet_winner_rk_ctb"
+    Col5="0" Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="VTB-Condorcet IRV" Col2="w_is_condorcet_winner_rk"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="VTB-Condorcet IRV" Col2="w_is_not_condorcet_winner_rk"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="VTB-Condorcet IRV" Col2="w_missed_condorcet_winner_rk" Col5="0"
+    Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching"
+    Col12="1"/>
+   <z:row Col1="VTB-Condorcet IRV" Col2="w_is_condorcet_winner_ut_rel_ctb"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="VTB-Condorcet IRV" Col2="w_is_not_condorcet_winner_ut_rel_ctb"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="VTB-Condorcet IRV" Col2="w_missed_condorcet_winner_ut_rel_ctb"
+    Col5="0" Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="VTB-Condorcet IRV" Col2="w_is_condorcet_winner_ut_rel"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="VTB-Condorcet IRV" Col2="w_is_not_condorcet_winner_ut_rel"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="VTB-Condorcet IRV" Col2="w_missed_condorcet_winner_ut_rel"
+    Col5="0" Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="VTB-Condorcet IRV" Col2="w_is_condorcet_winner_ut_abs_ctb"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="VTB-Condorcet IRV" Col2="w_is_not_condorcet_winner_ut_abs_ctb"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="VTB-Condorcet IRV" Col2="w_missed_condorcet_winner_ut_abs_ctb"
+    Col5="0" Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="VTB-Condorcet IRV" Col2="w_is_condorcet_winner_ut_abs"
+    Col5="0.75439999999999996" Col6="0.75439999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="VTB-Condorcet IRV" Col2="w_is_not_condorcet_winner_ut_abs"
+    Col5="0.24560000000000001" Col6="0.24560000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="VTB-Condorcet IRV" Col2="w_missed_condorcet_winner_ut_abs"
+    Col5="0" Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="VTB-Condorcet IRV" Col2="w_is_resistant_condorcet_winner"
+    Col5="3.7000000000000002E-3" Col6="3.7000000000000002E-3" Col7="10000"
+    Col8="33" Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="VTB-Condorcet IRV" Col2="w_is_not_resistant_condorcet_winner"
+    Col5="0.99629999999999996" Col6="0.99629999999999996" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+   <z:row Col1="VTB-Condorcet IRV" Col2="w_missed_resistant_condorcet_winner"
+    Col5="0" Col6="0" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="VTB-Condorcet IRV" Col2="TM" Col3="TM_option = exact"
+    Col4="65.179501999999999" Col5="0.27239999999999998"
+    Col6="0.27239999999999998" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="VTB-Condorcet IRV" Col2="UM" Col3="UM_option = exact"
+    Col4="3325.3509180000001" Col5="0.27289999999999998"
+    Col6="0.27289999999999998" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="VTB-Condorcet IRV" Col2="ICM" Col3="ICM_option = exact"
+    Col4="0.88854900000000003" Col5="0.24560000000000001"
+    Col6="0.24560000000000001" Col7="10000" Col8="33" Col9="5" Col10="Spheroid"
+    Col11="Stretching" Col12="1"/>
+   <z:row Col1="VTB-Condorcet IRV" Col2="CM"
+    Col3="CM_option = almost_exact, TM_option = exact" Col4="31.269362000000001"
+    Col5="0.43940000000000001" Col6="0.43940000000000001" Col7="10000" Col8="33"
+    Col9="5" Col10="Spheroid" Col11="Stretching" Col12="1"/>
+  </rs:data>
+ </x:PivotCache>
+</xml>

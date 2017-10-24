@@ -1,0 +1,115 @@
+Voting system;Criterion;Result;Number of populations;V;C;Culture type;Culture parameter 1;Culture parameter 1 value;Culture parameter 2;Culture parameter 2 value;Culture parameter 3;Culture parameter 3 value;Culture parameter 4;Culture parameter 4 value
+Population;mean_u_min_min;-0,305706;10000;33,000000;5,000000;Spheroid;Stretching;1
+Population;mean_u_min_max;0,087969;10000;33,000000;5,000000;Spheroid;Stretching;1
+Population;mean_u_min_mean;-0,090963;10000;33,000000;5,000000;Spheroid;Stretching;1
+Population;mean_u_min_std;0,051381;10000;33,000000;5,000000;Spheroid;Stretching;1
+Population;mean_u_max_min;-0,089320;10000;33,000000;5,000000;Spheroid;Stretching;1
+Population;mean_u_max_max;0,299677;10000;33,000000;5,000000;Spheroid;Stretching;1
+Population;mean_u_max_mean;0,090527;10000;33,000000;5,000000;Spheroid;Stretching;1
+Population;mean_u_max_std;0,051461;10000;33,000000;5,000000;Spheroid;Stretching;1
+Population;mean_u_mean_min;-0,128139;10000;33,000000;5,000000;Spheroid;Stretching;1
+Population;mean_u_mean_max;0,139873;10000;33,000000;5,000000;Spheroid;Stretching;1
+Population;mean_u_mean_mean;0,000087;10000;33,000000;5,000000;Spheroid;Stretching;1
+Population;mean_u_mean_std;0,034604;10000;33,000000;5,000000;Spheroid;Stretching;1
+Population;nb_condorcet_admissible_mean;0,754400;10000;33,000000;5,000000;Spheroid;Stretching;1
+Population;nb_weak_condorcet_winners_mean;0,754400;10000;33,000000;5,000000;Spheroid;Stretching;1
+Approval;mean_u_max;0,299677;10000;33,000000;5,000000;Spheroid;Stretching;1
+Approval;mean_u_min;-0,138557;10000;33,000000;5,000000;Spheroid;Stretching;1
+Approval;mean_u_mean;0,075514;10000;33,000000;5,000000;Spheroid;Stretching;1
+Approval;mean_u_std;0,060435;10000;33,000000;5,000000;Spheroid;Stretching;1
+Baldwin;mean_u_max;0,299677;10000;33,000000;5,000000;Spheroid;Stretching;1
+Baldwin;mean_u_min;-0,118828;10000;33,000000;5,000000;Spheroid;Stretching;1
+Baldwin;mean_u_mean;0,077754;10000;33,000000;5,000000;Spheroid;Stretching;1
+Baldwin;mean_u_std;0,058661;10000;33,000000;5,000000;Spheroid;Stretching;1
+Borda;mean_u_max;0,299677;10000;33,000000;5,000000;Spheroid;Stretching;1
+Borda;mean_u_min;-0,106708;10000;33,000000;5,000000;Spheroid;Stretching;1
+Borda;mean_u_mean;0,084935;10000;33,000000;5,000000;Spheroid;Stretching;1
+Borda;mean_u_std;0,055059;10000;33,000000;5,000000;Spheroid;Stretching;1
+Bucklin;mean_u_max;0,299677;10000;33,000000;5,000000;Spheroid;Stretching;1
+Bucklin;mean_u_min;-0,151689;10000;33,000000;5,000000;Spheroid;Stretching;1
+Bucklin;mean_u_mean;0,074634;10000;33,000000;5,000000;Spheroid;Stretching;1
+Bucklin;mean_u_std;0,060760;10000;33,000000;5,000000;Spheroid;Stretching;1
+Condorcet Sum Defeats;mean_u_max;0,299677;10000;33,000000;5,000000;Spheroid;Stretching;1
+Condorcet Sum Defeats;mean_u_min;-0,112294;10000;33,000000;5,000000;Spheroid;Stretching;1
+Condorcet Sum Defeats;mean_u_mean;0,080497;10000;33,000000;5,000000;Spheroid;Stretching;1
+Condorcet Sum Defeats;mean_u_std;0,056895;10000;33,000000;5,000000;Spheroid;Stretching;1
+Coombs;mean_u_max;0,299677;10000;33,000000;5,000000;Spheroid;Stretching;1
+Coombs;mean_u_min;-0,146286;10000;33,000000;5,000000;Spheroid;Stretching;1
+Coombs;mean_u_mean;0,076109;10000;33,000000;5,000000;Spheroid;Stretching;1
+Coombs;mean_u_std;0,059991;10000;33,000000;5,000000;Spheroid;Stretching;1
+IRV Average;mean_u_max;0,299677;10000;33,000000;5,000000;Spheroid;Stretching;1
+IRV Average;mean_u_min;-0,142324;10000;33,000000;5,000000;Spheroid;Stretching;1
+IRV Average;mean_u_mean;0,074034;10000;33,000000;5,000000;Spheroid;Stretching;1
+IRV Average;mean_u_std;0,061176;10000;33,000000;5,000000;Spheroid;Stretching;1
+IRV Duels;mean_u_max;0,299677;10000;33,000000;5,000000;Spheroid;Stretching;1
+IRV Duels;mean_u_min;-0,158409;10000;33,000000;5,000000;Spheroid;Stretching;1
+IRV Duels;mean_u_mean;0,078106;10000;33,000000;5,000000;Spheroid;Stretching;1
+IRV Duels;mean_u_std;0,058766;10000;33,000000;5,000000;Spheroid;Stretching;1
+Iterated Bucklin;mean_u_max;0,299677;10000;33,000000;5,000000;Spheroid;Stretching;1
+Iterated Bucklin;mean_u_min;-0,124000;10000;33,000000;5,000000;Spheroid;Stretching;1
+Iterated Bucklin;mean_u_mean;0,077213;10000;33,000000;5,000000;Spheroid;Stretching;1
+Iterated Bucklin;mean_u_std;0,059185;10000;33,000000;5,000000;Spheroid;Stretching;1
+Kemeny;mean_u_max;0,299677;10000;33,000000;5,000000;Spheroid;Stretching;1
+Kemeny;mean_u_min;-0,118828;10000;33,000000;5,000000;Spheroid;Stretching;1
+Kemeny;mean_u_mean;0,079658;10000;33,000000;5,000000;Spheroid;Stretching;1
+Kemeny;mean_u_std;0,057374;10000;33,000000;5,000000;Spheroid;Stretching;1
+Kim-Roush;mean_u_max;0,299677;10000;33,000000;5,000000;Spheroid;Stretching;1
+Kim-Roush;mean_u_min;-0,160435;10000;33,000000;5,000000;Spheroid;Stretching;1
+Kim-Roush;mean_u_mean;0,075087;10000;33,000000;5,000000;Spheroid;Stretching;1
+Kim-Roush;mean_u_std;0,061123;10000;33,000000;5,000000;Spheroid;Stretching;1
+Majority Judgment;mean_u_max;0,299677;10000;33,000000;5,000000;Spheroid;Stretching;1
+Majority Judgment;mean_u_min;-0,115305;10000;33,000000;5,000000;Spheroid;Stretching;1
+Majority Judgment;mean_u_mean;0,080069;10000;33,000000;5,000000;Spheroid;Stretching;1
+Majority Judgment;mean_u_std;0,057603;10000;33,000000;5,000000;Spheroid;Stretching;1
+Maximin;mean_u_max;0,299677;10000;33,000000;5,000000;Spheroid;Stretching;1
+Maximin;mean_u_min;-0,103762;10000;33,000000;5,000000;Spheroid;Stretching;1
+Maximin;mean_u_mean;0,079743;10000;33,000000;5,000000;Spheroid;Stretching;1
+Maximin;mean_u_std;0,057485;10000;33,000000;5,000000;Spheroid;Stretching;1
+Nanson;mean_u_max;0,299677;10000;33,000000;5,000000;Spheroid;Stretching;1
+Nanson;mean_u_min;-0,118828;10000;33,000000;5,000000;Spheroid;Stretching;1
+Nanson;mean_u_mean;0,078559;10000;33,000000;5,000000;Spheroid;Stretching;1
+Nanson;mean_u_std;0,058000;10000;33,000000;5,000000;Spheroid;Stretching;1
+Plurality;mean_u_max;0,299677;10000;33,000000;5,000000;Spheroid;Stretching;1
+Plurality;mean_u_min;-0,200285;10000;33,000000;5,000000;Spheroid;Stretching;1
+Plurality;mean_u_mean;0,064360;10000;33,000000;5,000000;Spheroid;Stretching;1
+Plurality;mean_u_std;0,065810;10000;33,000000;5,000000;Spheroid;Stretching;1
+Range voting with average;mean_u_max;0,299677;10000;33,000000;5,000000;Spheroid;Stretching;1
+Range voting with average;mean_u_min;-0,089320;10000;33,000000;5,000000;Spheroid;Stretching;1
+Range voting with average;mean_u_mean;0,089197;10000;33,000000;5,000000;Spheroid;Stretching;1
+Range voting with average;mean_u_std;0,052332;10000;33,000000;5,000000;Spheroid;Stretching;1
+Ranked Pairs;mean_u_max;0,299677;10000;33,000000;5,000000;Spheroid;Stretching;1
+Ranked Pairs;mean_u_min;-0,103762;10000;33,000000;5,000000;Spheroid;Stretching;1
+Ranked Pairs;mean_u_mean;0,079909;10000;33,000000;5,000000;Spheroid;Stretching;1
+Ranked Pairs;mean_u_std;0,057197;10000;33,000000;5,000000;Spheroid;Stretching;1
+Schulze;mean_u_max;0,299677;10000;33,000000;5,000000;Spheroid;Stretching;1
+Schulze;mean_u_min;-0,103762;10000;33,000000;5,000000;Spheroid;Stretching;1
+Schulze;mean_u_mean;0,079915;10000;33,000000;5,000000;Spheroid;Stretching;1
+Schulze;mean_u_std;0,057287;10000;33,000000;5,000000;Spheroid;Stretching;1
+Two Round;mean_u_max;0,299677;10000;33,000000;5,000000;Spheroid;Stretching;1
+Two Round;mean_u_min;-0,153708;10000;33,000000;5,000000;Spheroid;Stretching;1
+Two Round;mean_u_mean;0,073379;10000;33,000000;5,000000;Spheroid;Stretching;1
+Two Round;mean_u_std;0,061716;10000;33,000000;5,000000;Spheroid;Stretching;1
+Veto;mean_u_max;0,299677;10000;33,000000;5,000000;Spheroid;Stretching;1
+Veto;mean_u_min;-0,182766;10000;33,000000;5,000000;Spheroid;Stretching;1
+Veto;mean_u_mean;0,058631;10000;33,000000;5,000000;Spheroid;Stretching;1
+Veto;mean_u_std;0,067233;10000;33,000000;5,000000;Spheroid;Stretching;1
+ICRV;mean_u_max;0,299677;10000;33,000000;5,000000;Spheroid;Stretching;1
+ICRV;mean_u_min;-0,147420;10000;33,000000;5,000000;Spheroid;Stretching;1
+ICRV;mean_u_mean;0,077208;10000;33,000000;5,000000;Spheroid;Stretching;1
+ICRV;mean_u_std;0,059372;10000;33,000000;5,000000;Spheroid;Stretching;1
+Exhaustive Ballot;mean_u_max;0,299677;10000;33,000000;5,000000;Spheroid;Stretching;1
+Exhaustive Ballot;mean_u_min;-0,147420;10000;33,000000;5,000000;Spheroid;Stretching;1
+Exhaustive Ballot;mean_u_mean;0,074886;10000;33,000000;5,000000;Spheroid;Stretching;1
+Exhaustive Ballot;mean_u_std;0,060680;10000;33,000000;5,000000;Spheroid;Stretching;1
+IRV;mean_u_max;0,299677;10000;33,000000;5,000000;Spheroid;Stretching;1
+IRV;mean_u_min;-0,147420;10000;33,000000;5,000000;Spheroid;Stretching;1
+IRV;mean_u_mean;0,074886;10000;33,000000;5,000000;Spheroid;Stretching;1
+IRV;mean_u_std;0,060680;10000;33,000000;5,000000;Spheroid;Stretching;1
+Absolute-Condorcet IRV;mean_u_max;0,299677;10000;33,000000;5,000000;Spheroid;Stretching;1
+Absolute-Condorcet IRV;mean_u_min;-0,147420;10000;33,000000;5,000000;Spheroid;Stretching;1
+Absolute-Condorcet IRV;mean_u_mean;0,077297;10000;33,000000;5,000000;Spheroid;Stretching;1
+Absolute-Condorcet IRV;mean_u_std;0,059359;10000;33,000000;5,000000;Spheroid;Stretching;1
+VTB-Condorcet IRV;mean_u_max;0,299677;10000;33,000000;5,000000;Spheroid;Stretching;1
+VTB-Condorcet IRV;mean_u_min;-0,147420;10000;33,000000;5,000000;Spheroid;Stretching;1
+VTB-Condorcet IRV;mean_u_mean;0,077297;10000;33,000000;5,000000;Spheroid;Stretching;1
+VTB-Condorcet IRV;mean_u_std;0,059359;10000;33,000000;5,000000;Spheroid;Stretching;1

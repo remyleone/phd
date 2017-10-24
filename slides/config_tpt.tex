@@ -121,12 +121,12 @@ rectangle, rounded corners, inner sep=10pt, inner ysep=20pt]
   \MyLogo
   \begin{tikzpicture}
     \fill [color=white, fill=redbox] (-1, -0.05) rectangle (1, 0.30);
-    \node[white, right] (note1) at (-1, 0.10) {\insertframenumber/\inserttotalframenumber};
+    \node[white, right] (note1) at (-1, 0.10) {\insertframenumber/57};
     % \node[white, left] (note1bis) at (0.98, 0.10) {\theDate};
     \fill [color=white, fill=blackbox] (1.05, -0.05) rectangle (4.5, 0.30);
     \node[white, align=center] (note2) at (2.77, 0.12) {Institut Mines-Telecom};
     \fill [color=red, fill=brownbox] (4.55, -0.05) rectangle (10.75, 0.30);
-    \node[white, align = center] (note3) at (7.65, 0.10) {\theTitle};
+    \node[white, align = center] (note3) at (7.65, 0.10) {Passerelle intelligente pour les LLNs};
 
     %\node[white] (note3) at (7.5, 0.10) {\theTitle};
   \end{tikzpicture}

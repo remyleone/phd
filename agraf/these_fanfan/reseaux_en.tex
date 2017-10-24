@@ -1,0 +1,371 @@
+% !TeX spellcheck = en_US
+\mychapter{Voting systems applied to telecommunication networks}\label{sec:reseaux}
+
+Nous considérons un modèle simplifié où des n\oe uds d'un réseau veulent établir un chemin pour transmettre des paquets, avec un revenu partagé également entre les participants et un coût qui dépend du chemin utilisé. Nous examinons la possibilité que les n\oe uds utilisent un système de vote pour déterminer le chemin suivi. 
+
+Si les n\oe uds votent sincèrement, le vote par notation donne par définition l'optimum économique. Mais les n\oe uds ont intérêt à voter tactiquement: en vote par notation, nous montrons que les performances s'effondrent alors. En revanche, si on utilise VTI, le système est bien moins manipulable et les chemins choisis sont tout de même proches de l'optimum économique.
+
+Cette annexe reprend pour l'essentiel les travaux présentés par \cite{durand2013networks, durand2014networks}.
+
+
+%\begin{center}
+%\includegraphics[width=0.5\textwidth]{figures/network}
+%\end{center}
+
+\medskip
+Internet est devenu un écosystème économique où interviennent de nombreux acteurs concurrents. Afin de prendre des décisions pertinentes, tout en empêchant les acteurs économiques de manipuler le résultat naturel du processus de décision, la théorie des jeux est un cadre naturel. Les systèmes de vote représentent une alternative intéressante qui, à notre connaissance, n'a pas encore été considérée. Ils permettent à des entités concurrentes de décider entre différentes options. Dans ce chapitre, nous examinons leur utilisation pour la sélection d'un chemin d'un point à un autre dans un réseau qui fait intervenir plusieurs opérateurs, et nous analysons leur manipulabilité par vote tactique et leur efficacité économique.
+Nous montrons que VTI est bien plus efficace et résistant au vote tactique que le système de vote naturel pour trouver l'optimum économique, c'est-à-dire le vote par notation.
+
+L'émergence de nouveaux services, couplée à la croissance constante des services existants, a mené à une explosion du trafic internet.
+Le réseaux des réseaux est devenu un énorme écosystème économique dont de nombreuses entreprises tirent des revenus. Ceci inclut des opérateurs de réseau, qui interconnectent leurs infrastructures pour constituer l'Internet, mais aussi des fournisseurs de service, qui monnaient leurs prestations au sein d'Internet.
+Dans ce contexte, il est important d'assurer la justesse des décisions qui impliquent de nombreux acteurs concurrents, avec le but d'atteindre une forme d'optimum économique global.
+
+En effet, les participants d'un réseau décentralisé ont souvent à prendre des décisions globales basées sur des intérêts particuliers. Par exemple, les routes internet s'étendent sur plusieurs Systèmes Autonomes (AS) alors qu'elles résultent de décisions locales et en partie arbitraires.
+De nombreux champs de la théorie des jeux ont été proposés afin de mieux comprendre la prise de décision distribuée \citep{nisan2007algorithmic}. 
+Cependant, à notre connaissance, un de ces champs reste à explorer: les systèmes de vote, qui permettent à des entités concurrentes de prendre une décision entre plusieurs options.
+
+% \vspace{-.1cm}
+% \subsection{Contribution}
+% \vspace{-.1cm}
+
+Le but principal de ce chapitre est d'examiner l'utilisation de systèmes de vote au sein de l'écosystème économique d'Internet sur un cas d'usage donné. En particulier, nous nous concentrons sur la question de la manipulabilité, qui est cruciale dans un contexte de prise de décision. Nous savons qu'à part des cas dégénérés, tous les systèmes de vote sont manipulables \citep{gibbard1973manipulation,satterthwaite1975strategyproofness}.
+Cependant, les modes de scrutin ne sont pas égaux devant la manipulabilité.
+
+La section \ref{sec:intercarrier-model} définit et modélise le cas d'utilisation de cette annexe: l'établissement d'un chemin dans un réseau à plusieurs opérateurs.  Il s'agit d'un modèle simplifié initialement élaboré par Ludovic Noirie, dont le but est avant tout d'étudier qualitativement les comportements des différents systèmes de vote sans s'appesantir sur la complexité technologique du système. 
+Enfin, en section \ref{sec:intercarrier-results}, nous analysons les résultats obtenus, en illustrant comment et pourquoi les systèmes de votes peuvent être très intéressants pour une utilisation pratique dans un écosystème économique tel que celui d'un réseau à plusieurs opérateurs.
+
+\section{Presenting the model of multi-operator path establishment}\label{sec:intercarrier-model}
+
+Dans cette section, on définit le problème que nous souhaitons résoudre: l'établissement de chemin d'un point à un autre par plusieurs opérateurs.
+Nous expliquons comment les systèmes de vote peuvent être utilisés à cette fin, et comment les chemins candidats sont pré-sélectionnés. Puis nous définissons la modélisation des coûts et des gains et nous présentons comment les systèmes de vote sont utilisés et comment la manipulabilité est calculée.
+
+\subsection{Voting systems for multi-operator path establishment}
+
+Le problème à résoudre est le suivant: dans un réseau à plusieurs opérateurs, étant donné un n\oe ud de départ (ingress) et un n\oe ud d'arrivée (egress), quel chemin devrait être choisi si on prend en compte les préférences des opérateurs?
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=0.5\textwidth]{figures/Fig_InteroperatorNetworkExample.png}
+\caption{Exemple de réseau de connections entre plusieurs opérateurs}
+\label{fig_icn}
+%\vspace{-.5cm}
+\end{figure}
+
+La figure~\ref{fig_icn} représente un exemple\footnote{Cet exemple n'est pas représentatif d'un véritable réseau à plusieurs opérateurs. Par exemple, une telle topologie plate de connexion diffère de la topologie hiérarchique BGP historique d'Internet. Néanmoins, notre but ici est de donner un modèle simple où les coûts dérivent d'une forme de métrique sous-jacente. C'est pourquoi se baser sur la géographie du réseau est un choix naturel. On notera que certaines études récentes montrent une évolution vers des topologies plus plates que dans le passé \citep{labovitz2010internet,dhamdhere2010flat}.} d'interconnexion pour un réseau à plusieurs opérateurs, avec un opérateur par pays européen connecté aux membres d'un certain voisinage géographique. 
+
+% LN: replaced by the footnot above
+%We are aware that this example is not representative of a real multi-operator network interconnection. For instance, such a flat interconnection topology differs from the historical BGP hierarchical topology of Internet\footnote{Note that some recent studies show an evolution towards flatter topologies (\cite{Labovitz2010,Dhamdhere2010}).}. Nevertheless, our goal here is to give a simple model where costs derive from some sort of underlying metric, so a geographical basis is a natural choice.
+
+% LN: replacement by the following paragraph
+%Because the operators are in competition and can express their preferences, voting systems are well-adapted to model the decision process in the end-to-end path selection. We propose the following identification between the inter-operator problem and the voting system modeling: 
+
+Nous utilisons des systèmes de vote en utilisant le modèle suivant:
+\begin{itemize}
+	\item Les électeurs sont les opérateurs.
+	% LN: réduction / simplification
+	%In our present study, we only consider one elector per operator, but one may envisage some variants (e.g.,  
+	%give different weights to different operators, include the end-users, etc).  
+	\item Les candidats sont les chemins de routage possibles pour une certaine demande ou un sous-ensemble d'entre eux.
+	% LN: réduction / simplification
+	% They are an input of the problem: issues related to	their identification or Quality of Service (QoS) are out of the scope of this study.
+	\item Les préférences de chaque opérateur sont représentées par un vecteur d'utilité, à partir duquel un bulletin est défini.   
+	\item Le résultat de l'élection est le chemin sélectionné pour la requête client. N'importe quel système de vote peut être utilisé. Ici, nous supposons qu'il existe une entité fiable et indépendante, appelée le \emph{superviseur}, en charge du processus de l'élection. Le superviseur collecte les bulletins de tous les opérateurs et calcule la fonction de dépouillement pour décider le chemin vainqueur (mais d'autres options sont possibles; par exemple, les opérateurs peuvent participer coopérativement à l'ensemble du dépouillement).
+	% LN: réduction / simplification
+%Ensuring the integrity of the supervisor is beyond the scope of this paper.
+\end{itemize}
+
+Il est possible que certains opérateurs possèdent de l'information sur les utilités de leurs concurrents:
+\begin{itemize}
+\item par connaissance publique des utilités;
+\item par coopération entre certains opérateurs (coalition); 
+\item par inférence à partir des scrutins précédents (apprentissage);
+\item par espionnage ou interception d'information. 
+\end{itemize}
+Les opérateurs peuvent utiliser leur connaissance pour mentir à propos de leurs propres préférences, de façon à améliorer leurs bénéfices, potentiellement au détriment de l'intérêt général.
+Par conséquent, étudier la manipulabilité des systèmes de vote est important dans ce contexte.
+
+\subsection{Candidate paths}
+
+Dans notre cas d'étude, nous considérons l'interconnexion de $V=38$ opérateurs de la figure~\ref{fig_icn}.
+
+Une \emph{demande} est une requête de connexion avec la seule contrainte de démarrer à un opérateur donné (ingress) et de terminer à un autre opérateur donné (egress).
+
+Pour chaque demande, si l'on considère l'ensemble de tous les chemins possibles sans boucle, la taille de cet ensemble croît exponentiellement avec le nombre de n\oe uds dans le réseau.
+% LN: simplification / reduction
+%, so we want the supervisor to limit the number of candidates.
+%The only information the supervisor should use for selecting candidates is the multi-operator interconnection topology, because operators may wish to avoid any cost information diffusion before the actual vote, the rule we applied to limit the number of candidate paths is the following:
+Pour pallier ce problème, nous appliquons la règle suivante pour limiter le nombre de chemins proposés. Pour appliquer cette règle, seule la connaissance de la topologie du réseau est nécessaire.
+\begin{itemize}
+\item Le superviseur fixe un nombre minimal de chemin candidats $C_{\min}$ et un seuil initial $\varepsilon_{\min}$.
+\item Il connaît la topologie des liens (mais pas les coûts). Il calcule le nombre minimal de sauts $h_{\min}$ nécessaires pour satisfaire la demande.
+\item Il considère tous les chemins sans boucle possédant un nombre de sauts inférieur ou égal à $h_{\min}+\varepsilon$, où $\varepsilon$ est le plus petit seuil supérieur ou égal à $\varepsilon_{\min}$ qui sélectionne au moins $C_{\min}$ candidats.
+\end{itemize}  
+
+Il est important de noter que:
+\begin{itemize}
+\item Les chemins candidats sont complètement déterminés par la demande et par les paramètres $(C_{\min},\varepsilon_{\min})$. Leur nombre exact dépend de la demande.
+\item Pour chaque chemin candidat $c$, seul un sous-ensemble $\mathcal{V}_c$ des opérateurs $v \in \mathcal{V}$ est concerné par le chemin candidat.
+\item Parmi les opérateurs, certains peuvent être concernés par seulement un sous-ensemble des candidats.
+\end{itemize} 
+
+% LN: pour l'étude on pourrait se limiter à un seul cas ? 
+Pour les évaluations numériques, nous utilisons deux jeux de paramètres: $(C_{\min},\varepsilon_{\min}) \in \left\{ (5,0); (10,1) \right\}$. Le premier réglage donne une moyenne de $9,94$ chemins candidats par requête (minimum 5, maximum 43), et le second réglage donne une moyenne de $21,25$ chemins par requête (minimum 10, maximum 127).
+
+
+\subsection{Multi-operator cost and gain modeling}
+\label{subsec:gainmodeling}
+
+% LN: reformulation
+%We need to define the utilities in order to derive the preferences and ballots of the operators.
+%From an economical point of view, the natural definition is to take the difference between the gains and costs that operators have for each possible paths. 
+
+Nous définissons les utilités de chaque opérateur comme la différence entre ses gains et ses coûts pour chaque chemin possible.
+%As the focus of our study is the interest of voting systems, we limit ourselves to a very simplified cost and gain model.
+Divers modèles de coûts et de gains pourraient être définis, mais le but principal de cette étude est d'évaluer la manipulabilité des systèmes de vote dans ce contexte, donc nous utilisons les modèles simplifiés suivants. Si on souhaitait tester des modèles plus proches de la réalité, il n'y aurait aucun obstacle technique à le faire. Selon notre intuition, cela n'apporterait que des changements mineurs aux tendances observées, mais il serait intéressant de valider cette intuition dans des travaux futurs.
+
+% LN: numerous simplifications / reductions in the following
+
+\subsubsection{Cost}
+
+Le coût pour un opérateur $v$ de $\mathcal{V}_c$ pour porter le chemin $c$ est noté $\alpha_{v,c}$.
+%There are numerous ways to value $\alpha_{i,j}$, but for the sake of simplicity, we 
+Nous définissons $\alpha_{v,c}$ comme la somme de la moitié du coût de la connexion entrante (nulle pour l'opérateur ingress) et de la moitié du coût de la connexion sortante (nulle pour l'opérateur egress).
+Pour le coût d'un connexion entre deux opérateurs adjacents $v$ et $v'$, nous choisissons une fonction linéaire $X_0 + \delta(v,v') / \delta_0$ de la distance géographique $\delta(v, v')$ entre $v$ et $v'$ ($v$ et $v'$ étant les capitales des pays dans notre exemple de réseau). 
+% LN: suite à simplifier ?
+Dans notre étude numérique, nous considérons trois options pour le coût: dominé par le coût constant $X_0$ ($X_0 = 1$ et $\delta_0 = 100\times\max(d(v, v'))$), purement linéaire ($X_0 = 0$, $\delta_0 = \max(\delta(v, v'))$) et intermédiaire ($X_0 = 1$, $\delta_0=\max(\delta(v, v')) / 3$). 
+
+\subsubsection{Gain}
+
+Concernant le gain pour les opérateurs, nous considérons que le client paie un montant fixé~$A$ pour une demande donnée
+%(flat cost model for the client point of view). 
+(\emph{flat fare}).
+Si le chemin $c$ est sélectionné, ce montant $A$ est distribué également entre les opérateurs concernés (c'est-à-dire les membres de $\mathcal{V}_c$).
+%\begin{itemize}
+%\item This flat-fare approach is similar to what happens for some city metropolitan transportation systems, where the ticket price is a fixed fare not depending on the distance between the departure and the arrival stations. Other choices are of course possible, but the important assumption is that 
+%the price to pay for a connection is known in advance. In our study, with a flat rate, the benefit for the operator to set up the connection may be negative for long paths, but on average, concerning short and long paths, he will obtain a positive benefit. 
+%\item The client fare may be non-equally distributed. But the question on how the revenue is distributed between the operators is out of the scope of our study. For the sake of simplicity, we thus choose the equal repartition.  
+%\end{itemize}
+Nous avons fixé la valeur de $A$ du prix utilisateur de telle sorte que, quand on considère le chemin de moindre coût pour chaque requête, le revenu global moyen représente 140\% du coût global moyen (ce qui se traduit par un bénéfice de 40\%). 
+%How to decide $A$ in the real world is out of the scope of this study. %that focuses on manipulability.
+
+\subsubsection{Utility}
+La valeur sincère d'utilité pour l'opérateur~$v$ pour porter le chemin candidat $c$ est définie comme le revenu net (positif ou négatif) pour l'opérateur dans le cas où ce chemin candidat est sélectionné\:
+\begin{itemize}
+\item	$u_{v,c} = \dfrac{A}{card(\mathcal{V}_c)} - \alpha_{v,c}$ si $v \in \mathcal{V}_c$,
+\item	$u_{v,c} = 0$ si $v \notin \mathcal{V}_c$ (un opérateur est donc indifférent entre les chemins auxquels il ne participe pas).
+\end{itemize}
+
+\subsubsection{Global income}
+
+Le revenu total d'un opérateur donné (par unité de temps) dépend de la distribution des demandes. 
+%While intensity only scales the result, the distribution can change its nature.
+Dans notre étude, nous considérons que les demandes sont uniformément distribuées sur les paires d'opérateurs ingress et egress.
+%Of course, results can be straightforwardly generalized to any kind of distributions, related to country population or to some traffic matrix.
+
+
+\subsection{Voting systems under study}\label{voting-systems-network}
+
+Parmi les systèmes de vote présentés dans le chapitre~\ref{sec:formalisme}, nous en considérons deux en particulier, que nous rappelons tout en indiquant les spécificités de leur application à l'établissement d'un chemin dans le réseau.
+
+\subsubsection{Range voting (RV)} Avec les utilités définies précédemment, le système de vote le plus naturel est celui qui maximise le revenu global, c'est-à-dire la somme des utilités de tous les opérateurs qui contribuent au chemin sélectionné.
+Ceci correspond exactement au vote par notation, c'est pourquoi celui-ci sera le système de référence naturel. En détails:
+\begin{itemize}
+\item Les opérateurs donnent leurs utilités au superviseur;
+\item Le superviseur calcule la somme des notes pour chaque chemin candidat et sélectionne le chemin avec la valeur maximale.
+\end{itemize}
+Un des inconvénients de VN est que les opérateurs doivent donner toute l'information à propos de leurs coûts au superviseur. Même s'il s'agit d'une entité fiable et indépendante, il est possible qu'ils préfèrent éviter divulguer ce type d'information.
+
+\subsubsection{IRV} De nombreux autres systèmes de vote peuvent être appliqués.
+Des travaux précédents (par exemple \cite{chamberlin1984observed} ou \cite{walsh2010empirical}), ainsi que ceux de cette thèse, suggèrent que VTI fait partie des systèmes de vote connus les moins manipulables. C'est pourquoi nous utilisons VTI comme deuxième système de vote pour notre cas d'étude\footnote{En réalité, nous avons aussi essayé d'autre systèmes de vote dans des expériences qui ne sont pas présentées ici, et vérifié que VTI était le système de vote le plus prometteur en termes de manipulabilité, à part notamment Condorcet-VTI qui est plus complexe et dont les performances sont similaires.}. La sélection de chemin avec \emph{VTI} fonctionne de la façon suivante.
+\begin{itemize}
+\item Chaque électeur (opérateur) donne son ordre de préférence sur les chemins candidats qui le concernent et, pour chacun d'entre eux, si elle l'approuve (gain financier) ou le désapprouve (perte financière) de façon à les placer par rapport aux chemins auxquels il ne participe pas. De cette façon, chaque opérateur est forcé d'exprimer une indifférence entre les chemins auxquels il ne participe pas.
+\item Le superviseur calcule le dépouillement selon la règle habituelle de VTI, avec la règle suivante en cas d'indifférence entre plusieurs candidats: lors de chaque tour de VTI, pour un opérateur donné, son vote est divisé également entre les candidats encore en lice qui sont à égalité en tête de son bulletin.
+À chaque tour, le superviseur élimine le chemin candidat avec le moins de votes (le nombre de votes n'est pas nécessairement entier). En cas d'égalité, on élimine le chemin candidat de plus grand indice.
+\end{itemize}
+
+\subsection{Manipulation algorithms}
+\label{subsec:manipAlgo}
+
+Tout d'abord, pour les deux systèmes de vote, la manipulation du scrutin par un opérateur est limitée aux chemins candidats qui le concernent: l'opérateur ne peut pas prétendre aimer ou ne pas aimer un chemin candidat pour lequel il devrait manifestement être indifférent.
+
+\subsubsection{RV} %In range voting, when 
+Quand les électeurs préférant $c$ à $\winner$ essaient de faire gagner $c$, leur meilleure stratégie est manifestement la stratégie triviale: donner la note maximale à $c$ et la note minimale aux autres candidats,
+%For our use case, the only adaptation we made is that a operator must give a null utility to the paths it does not belong to (this can be enforced by the supervisor, which knows the topology), but it is still the best strategy to make $c$ win.
+% LN: replaced by:
+sauf pour les chemins auxquels ils ne participent pas, pour lesquels ils sont contraints de donner une note égale à 0.
+Pour cette raison, la manipulation par coalition (MC) et la manipulation triviale (MT) sont équivalentes. Dans notre étude, la note maximale est fixée à $A$ et la note minimale autorisée est $-A$.
+
+\subsubsection{IRV}
+Décider s'il existe une façon de manipuler VTI est bien plus difficile. En fait, le problème est connu pour être \complexNP-difficile \citep{bartholdi1991stv}. 
+Par conséquent, nous utilisons des méthodes simples pour tester la manipulabilité d'une demande donnée. Quand les tests ne sont pas conclusifs pour une demande donnée, on peut seulement répondre \emph{peut-être}, mais quand on considère toutes les demandes, cela permet de donner des bornes inférieure et supérieure de la manipulabilité.
+
+Afin de prouver que VTI est manipulable, nous essayons uniquement la manipulation triviale. Ceci donne une borne inférieure de la manipulabilité.
+
+Afin de prouver que VTI n'est pas manipulable, notre algorithme est une adaptation de \cite{coleman2007complexity}. La difficulté provient du fait que les électeurs ont des égalités imposées (pour les chemins candidats auxquelles ils ne participent pas) et qu'il est possible que leur voix soit divisée entre plusieurs candidats à un tour de dépouillement donné. L'idée de notre adaptation est d'utiliser une variante du système de vote qui donne davantage de pouvoir aux manipulateurs et pour laquelle MC peut être calculée exactement. Si le système modifié ne peut pas être manipulé, alors VTI ne peut pas être manipulé non plus.
+% LN: il faudrait simplifier ce qui suit...
+En détails:
+\begin{itemize}
+	\item À chaque tour, on autorise les manipulateurs à changer leur vote (comme dans le scrutin exhaustif). L'intérêt est qu'éliminer le candidat $c$ puis $d$ ou $d$ puis $c$ mène à la même situation, quel que soit l'historique pour y parvenir. Ceci facilite le fait d'avoir une approche itérative au lieu d'une approche récursive.
+	\item À chaque tour, chaque manipulateur peut diviser son vote entre plusieurs candidats, y compris de manière non égale, par exemple $\frac{1}{3}$ vote pour un candidat et $\frac{2}{3}$ vote pour un autre. Ceci permet une approche en \emph{water-filling} et évite les problèmes de type sac à dos.
+	\item On autorise les électeurs à mentir, y compris à propos des chemins auxquels ils ne participent pas. Par conséquent, tous les manipulateurs sont égaux en droit et on n'a pas besoin de les gérer individuellement.
+\end{itemize}
+Avec ces modifications, on peut gérer le groupe des manipulateurs globalement: à chaque tour, on peut diviser leurs votes comme on le souhaite entre les candidats, de façon à éliminer le candidat voulu.
+
+Quand la manipulation est impossible avec ces règles adaptées, elle est aussi impossible avec les règles données en \ref{voting-systems-network}: ceci fournit une borne supérieure pour la manipulabilité de VTI.
+
+Comme nous le verrons dans la prochaine section, les bornes inférieure et supérieure ont tendance à être proches l'une de l'autre, ce qui donne une bonne estimation de la manipulabilité.
+
+
+\paragraph*{Remarque} En fait, l'algorithme précédent reste très coûteux (potentiellement d'ordre $2^C$). Quand il y a plus de 25 candidats et que la manipulation triviale ne fonctionne pas, nous n'essayons pas de prouver l'impossibilité et nous considérons directement le test non conclusif.
+
+\section{Manipulability and efficiendy of the voting systems under study}\label{sec:intercarrier-results}
+
+Dans cette section, nous analysons les résultats obtenus sur le cas de réseaux à plusieurs opérateurs décrit dans la section~\ref{sec:intercarrier-model}.
+
+Aussi bien pour \emph{VN} que pour \emph{VTI}, nous nous concentrons d'abord sur un scénario spécifique qui servira de référence, puis nous étendons les résultats en changeant divers paramètres. Nous observons la manipulabilité et l'efficacité économique, avec des bulletins sincères et non-sincères.
+
+
+\subsection{Reference scenario}
+
+Notre scénario de référence est le cas avec $(C_{\min},\varepsilon_{\min})=(5,0)$ (en moyenne $9,94$ chemins candidats par demande) et le modèle de coût intermédiaire ($X_0 = 1$, $\delta_0=\max(d(v, v')) / 3$). Pour ce scénario, on mesure:
+\begin{itemize}
+	\item \emph{Efficacité sincère}: revenu net global, en pourcentage du revenu net global optimal.
+	\item \emph{Manipulabilité}: proportion des demandes qui sont MC. Pour le vote par notation, le calcul est exact. Pour VTI, nous utilisons MT comme borne inférieure et la variante présentée en section \ref{subsec:manipAlgo} pour donner une borne supérieure.
+	\item \emph{Efficacité manipulée}: efficacité du système quand des manipulations sont permises. Pour une demande donnée, plusieurs manipulations peuvent se produire. Nous pouvons mesure l'efficacité manipulée moyenne, quand un chemin bénéficiant d'une manipulation possible est choisi au hasard, ou la pire situation si pour chaque demande manipulable, on choisit la manipulation qui minimise le revenu global net (on se souviendra cependant que par définition, le revenu net de chaque manipulateur est nécessairement augmenté).
+\end{itemize}
+
+\begin{table}[!t]
+\begin{center}
+\begin{tabular}{|p{5.0cm}|c|c|}
+%\begin{tabular}{|p{4cm}|c|c|}
+\hline
+Système de vote & VN & VTI \\
+\hline
+Efficacité sincère & 100\% & 95 \% \\
+\hline
+Manipulabilité & 96\% & $<$ 20\% (MT: 18\%)\\
+\hline
+Efficacité manipulée (moyenne) & 37\% & 90\% \\
+\hline
+Efficacité manipulée (pire cas) & -75\% & 89\% \\
+\hline
+\end{tabular}
+\caption{Résultats principaux pour le scénario de référence ($(C_{\min},\varepsilon_{\min})=(5,0), (C_0,\delta_0)=(1,\max(d(v, v')) / 3)$ )}
+\label{tab:reference}
+\end{center}
+%\vspace{-1.2cm}
+\end{table}
+
+Les résultats sont présentés dans la table~\ref{tab:reference}. VTI présente de nombreux avantages par rapport au vote par notation:
+\begin{itemize}
+	\item En vote sincère, VN donne l'optimum économique par définition. Bien que VTI n'ait pas pour cible intrinsèque l'optimum économique, ce système parvient à atteindre 95\% de l'optimum. Cette légère perte d'efficacité peut être vue comme le prix de la robustesse, comme nous allons le voir.
+	\item Presque toutes les demandes (96\%) peuvent être manipulées si le vote par notation est utilisé, contre moins de 20\% pour VTI. 
+	\item En ce qui concerne l'impact sur l'efficacité, la dégradation est très élevée pour le vote par notation: elle descend à 37\% de l'optimum en moyenne, et à -75\% dans le pire scénario. De son côté, VTI maintient un robuste $90\%$ en moyenne ($89\%$ dans le pire scénario).
+\end{itemize}
+
+Par conséquent, on retiendra que VTI est bien moins sujet à manipulation que le vote par notation, et que, même quand une manipulation existe, son impact sur le bien-être global est supportable.
+
+\subsection{Impact of parameters}
+
+Nous avons proposé en section~\ref{sec:intercarrier-model} deux paramètres de limitation des chemins candidats et trois modèles de coût, donc nous avons six paramétrages possibles. 
+
+\subsubsection{Manipulability}
+
+La figure~\ref{fig_manip} indique la manipulabilité des scénarios considérés.
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=0.9\textwidth]{figures/Fig_Manipulability.png}
+%\vspace{-.2cm}
+\caption{Manipulabilité de VTI comparée au vote par notation}
+\label{fig_manip}
+%\vspace{-.2cm}
+\end{figure}
+
+Pour les deux systèmes de vote, plus il y a de candidats, plus c'est manipulable. Ceci ne nous surprend guère, puisque plus de candidats signifie qu'il y a plus de chemins pouvant bénéficier de manipulation et aussi plus d'espace d'expression dans les bulletins.
+Par conséquent, il est recommandable que le superviseur limite le nombre de candidats proposés afin de diminuer la manipulabilité, tout en conservant assez de candidats pour permettre la sélection juste et pertinente d'un chemin.
+
+En ce qui concerne le modèle de coût, on observe que plus il est plat, plus la manipulabilité est basse (pour les deux systèmes de vote). Mais le résultat le plus intéressant est que la manipulabilité de VTI est bien plus basse que celle du vote par notation dans tous les cas.
+Alors que la manipulation de VN est toujours supérieure à 85\%, celle de VTI est aux environs de 30\% ou moins sauf pour un scénario (entre 40\% et 48\% pour le plus grand nombre de chemins candidats et avec un coût purement linéaire).
+
+On notera que pour VTI, les bornes inférieure et supérieure de manipulabilité sont relativement proches. La différence croît avec le nombre de chemins candidats, mais c'est dû à la méthode utilisée pour calculer la borne supérieure (voir la section~\ref{sec:intercarrier-model}), qui consiste à abandonner l'évaluation pour les demandes qui donnent lieu à trop de chemins candidats. 
+
+\subsubsection{Sincere economic ef?ciency}  
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=0.9\textwidth]{figures/Fig_SincereEfficiency.png}
+%\vspace{-.2cm}
+\caption{Efficacité de VTI et du vote par notation en vote sincère}
+\label{fig_eff_sincere}
+%\vspace{-.5cm}
+\end{figure}
+
+La figure~\ref{fig_eff_sincere} donne l'efficacité sincère de chaque système de vote pour les scénarios considérés.
+Par définition, VN donne 100\% d'efficacité économique. Mais VTI donne une efficacité économique proche de cet optimum.
+Que ce soit pour un nombre de chemins candidats faible ou élevé, cette efficacité est d'environ 80\% pour le modèle de coût purement linéaire, environ 95\% pour le modèle de coût intermédiaire, et plus de 99\% pour le modèle de coût constant.
+Ceci confirme que, même s'il est possible que VTI donne un chemin qui n'est pas optimal pour le revenu économique global, le chemin sélectionné est relativement proche du choix optimal.
+
+À titre de référence, la figure~\ref{fig_eff_sincere} indique également l'efficacité obtenue quand le chemin est choisi au hasard parmi les candidats, et quand le pire candidat est choisi.
+
+\subsubsection{Efficiency after manipulation}
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=0.9\textwidth]{figures/Fig_ManipulatedEfficiency.png}
+%\vspace{-.2cm}
+\caption{Efficacité de VTI et du vote par notation avec manipulation}
+\label{fig_eff_manip}
+%\vspace{-.5cm}
+\end{figure}
+
+La figure~\ref{fig_eff_manip} montre les efficacités manipulées.
+Pour tous les scénarios, on observe un gain spectaculaire en choisissant VTI plutôt que le vote par notation.
+Pour VTI, l'efficacité économique n'est que légèrement dégradée par rapport au cas sincère, et le pire cas n'est jamais loin du cas moyen.
+% LN: reduction...
+%Numerically, insincere efficiencies range between 60 to 70\% for the purely linear link cost model (vs. about 80\% for the sincere preferences), about 90\% for the intermediate link cost model (vs. about 95\% for the sincere preferences), and it is even slightly improved for the constant link cost model (not visible on the graph, above 99\% in all cases).
+Pour le vote par notation, l'efficacité économique est largement dégradée par rapport au vote sincère:
+alors que l'efficacité économique sincère est par définition de 100\%, la manipulation la fait descendre à environ 0\% en moyenne et de grandes valeurs négatives en pire cas pour le modèle de coût purement linéaire; environ 35\% en moyenne et environ 8\% en pire cas pour le modèle de coût intermédiaire; et à environ 60\% en moyenne et 50\% en pire cas pour le modèle de coût constant.
+
+Tous ces résultats confirment que VTI est vraiment plus sûr pour préserver les bénéfices économiques que le vote par notation.
+
+
+\section{Conclusion}
+
+Les résultats théoriques existants montrent que, sauf pour quelques cas dégénérés, tout système de vote est susceptible, dans certains scénarios, d'être manipulé, même par un seul électeur.
+Dans ce chapitre, nous avons proposé de quantifier la manipulabilité dans des scénarios pratiques et de mesurer ses effets par rapport au bien-être global. Nous nous sommes concentrés sur l'établissement d'un chemin d'un point à un autre dans un réseau à plusieurs opérateurs.
+Nous avons comparé deux systèmes de vote:
+\begin{itemize}
+\item \emph{Vote par notation}: VN 
+%corresponds to what classical game theory approach where participants are suppose to try and optimize the global welfare. Indeed, range voting 
+maximise le revenu net global du système, à condition que les opérateurs (les électeurs) donnent leurs utilités sincères (leurs revenus nets) sur les chemins candidats proposés.
+\item \emph{VTI}: basé sur des ordres faibles de préférence avec des tours d'élimination successifs, VTI a la réputation d'être moins manipulable \citep{chamberlin1984observed,walsh2010empirical}, ce que nous avons pu confirmer dans nos travaux. 
+\end{itemize}
+
+Notre étude souligne l'intérêt des systèmes de vote dans le contexte de l'écosystème économique d'Internet où de nombreux joueurs concurrents sont impliqués, avec le cas d'usage pratique d'une sélection de chemin d'un point à un autre.
+
+Nous avons aussi observé que tous les systèmes de vote ne sont pas équivalents, loin de là. Quand les opérateurs peuvent mentir sur leurs préférences, VTI est nettement meilleur que le vote par notation pour maximiser le gain économique:
+\begin{itemize}
+\item Le taux de manipulabilité de VTI peut être aussi bas que 20\% alors que, dans le même scénario, VN est proche de 100\%.  
+\item Avec VTI, les opérateurs n'ont pas besoin de donner toute l'information pour que le scrutin soit dépouillé, l'ordre de préférence avec limite d'approbation suffit, alors que pour VN, ils doivent donner toute l'information sur leurs coûts.
+%So not only is VTI less manipulable, but it also limits the diffusion of knowledge that could be used for manipulation.
+\item Bien que VTI ne soit pas conçu intrinsèquement pour viser le choix économiquement optimal, il en est très proche en pratique. Le prix de la non-manipulabilité est faible (de l'ordre de~5\% dans notre étude).
+\item En ce qui concerne les manipulations, la dégradation de l'efficacité économique est limitée avec VTI, alors qu'elle est très importante avec VN.
+%, which reinforces the interest of STV.
+\end{itemize} 
+
+\subsection*{Travaux futurs}
+
+% LN: several reductions...
+
+Les travaux présentés dans cette annexe ouvrent de nombreuses opportunités pour des travaux futurs:
+\begin{itemize}
+\item Analyse de la sensibilité des résultats par rapport à divers paramètres, divers modèles de coûts et de revenu.
+%: in our use-case, we started to analyze the sensibility to the link cost structure and number of proposed candidate paths. But lot of other parameters could be tested: changes in the revenue model for the carriers (e.g., user's fare proportional to the length of the path instead of flat fare in our study), other multi-carrier topologies (e.g., more hierarchical topologies as one can have in the today's Internet), etc. 
+\item Analyse d'autres systèmes de vote.
+\item Identification d'autres cas d'usage dans le contexte d'Internet, avec d'autres types d'écosystèmes. 
+%Here is a non-exhaustive list of such use cases: service composition at the application layer with many service providers, full service offer involving all the actors of the economical chain from end-users to operators and service providers, selection of master nodes in peer-to-peer networks, etc. 
+\end{itemize}
+
+En effet, le cadre des systèmes de vote peut être utile dans toute situation où on peut identifier des électeurs qui ont besoin de se décider entre plusieurs options. Nous avons montré dans notre cas d'étude qu'en choisissant correctement le système de vote, on peut limiter la manipulabilité par vote tactique d'une coalition des électeurs et préserver le revenu pour l'écosystème économique global.
+

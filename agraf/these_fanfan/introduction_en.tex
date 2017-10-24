@@ -1,0 +1,429 @@
+% !TeX spellcheck = en_US
+\chapterstar{Introduction}\label{sec:introduction}
+\markboth{Introduction}{}
+
+When voting systems are mentioned, it evokes immediately the elections giving pace to our public life. However, elections are far from limited to the political field: they can be used in any situation where a given set of agents, the \emph{voters}, want to choose collectively one option among several possibilities, the \emph{candidates}. Thus, elections can be used to designate the best restaurant or the best movie. They can be used in associations of professional organizations. And the development of organizations crossing the physical borders thanks to the Internet and also needing to designate representatives makes public life richer and leads to form of democracy that are independent of States.
+  %Et le développement d'organisations passant les frontières physiques grâce à internet, comme la fondation Wikipédia par exemple, rend d'autant plus vivante la vie publique et une forme de démocratie.
+For example, the Debian project\footnote{\url{www.debian.org/}.}, the Ubuntu community\footnote{\url{www.ubuntu-fr.org/}.}, Wikipedia France fundation\footnote{\url{fr.wikipedia.org/}.}, the website \url{www.boardgamegeek.com} and many others use Schulze's method, a voting system developed in 1997, and are for this reason at the cutting edge of experimentation for innovating voting systems.
+
+In a time where there is an increasing abstention, even the country where the Declaration of the Rights of Man and of the Citizen came from, whereas, in other countries, people fight for their right to vote; in a time where voters from our developed countries show an increasing mistrust about the political class, and where classic voting systems do not seem to satisfy all desires of expression; finally, in a time where the possibilities offered by electronic voting, still in their infancy, make it possible to consider, in the near future, the use of voting system whose counting is more complex, it seems more urgent than ever to take time to think about the procedures that are used to vote, i.e. voting systems themselves.
+
+
+\sectionstar{Simple majority vote}
+
+In this memoir, we will always use the word \emph{candidates} to designate the different options that are proposed to the voters, even when they are not persons aspiring to a position. The simplest situation happens when voters are to answer to a binary question by \emph{yes} or \emph{no}.
+
+Since at least the Athenian democracy, during the Age of Pericles (\textsc{v}\textsuperscript{th} century B.C.), such decisions have been made using the simple majority vote. It was so in the main Athenian assemblies:
+\begin{itemize}
+\item The \emph{Ecclésia} (\textgreek{kklhs'ia}), the assembly of all citizens, meeting on the Pnyx Hill about 40~times a year;
+\item The \emph{Boulè} (\textgreek{boul'h}), a restrict council consisting of 50~members drawn at random who meet daily to deal with current matters;
+\item And the \emph{dikastéria} (\textgreek{dikast'hria}), popular jurors drawn at random, responsible to judge specific litigations and also to discuss the legality of decrees, thus prefiguring the current jurors as well as institutions such as the current Constitutional Council (for France) or the European Court of Human Rights Rights (for the EU).
+\end{itemize}
+In the case of a closed question, the simple majority vote was very soon presented as evidence.
+
+\medskip
+Of course, there is another case where there are only two candidates: when two real candidates in the usual sense, that is to say two human beings, are placed in competition and subject to the opinion of the voters.
+
+\cite{may1952plurality} has formalized this superiority of simple majority vote by an axiomatic approach: if there are two candidates, it is the only voting system that has the following properties.
+\begin{enumerate}
+\item It is \emph{anonymous}, that is to say, it treats all voters equally. %En termes techniques, la fonction utilisée est invariante par permutation des arguments.
+\item It is \emph{neutral}, that is to say, it treats both candidates equally. %Si on applique une permutation des candidats dans les bulletins, alors le candidat élu est le résultat de cette même permutation.
+\item It is \emph{positively responsive}, that is to say, if a voter prefers candidate~$a$ to candidate~$b$, there exists no case where it is a better strategy for her to vote for~$b$.
+\item Implicitly, May assumes that the voting system is \emph{ordinal}. This word meands that a voter can establish a order of preference over the candidates: either she prefers candidate~$a$ to $b$, or the opposite, or she likes them equally. But she cannot express a more nuanced opinion: it is thus impossible for her to express herserlf differently depending on the fact that she prefers~$a$ to $b$ strongly or slightly.
+\end{enumerate}
+
+The two first assumptions, anonymity and neutrality, seem obvious in practice, at least in the application contexts in which voters on the one hand, and the candidates, on the other hand, are assumed equal. 
+It is not always so, and sometimes it is arguable, as in a meeting of shareholders or a federation of states of varying sizes. However, there is a wide field of application where these assumptions are simply common sense.
+
+The third assumption, positive responsiveness, also appears to arise from common sense. It involves, in particular, that for any voter, whatever her opinions, she can emit a ballot that will defend them best, whatever the ballots of other voters: in the terminology of game theory, we say that she always has a \emph{dominant} strategy. We will return to this concept because it is deeply linked to the manipulability, which will be the central issue of this study.
+
+The fourth assumption, which is almost implicit in the formulation of May, is ordinality. It seems fairly intuitive, also for strategic considerations: imagine that a voter can strengthen her vote for~$ a $ by affirming that she strongly prefers $a$ to~$ b $. If it slightly prefers~$a$ to $ b $, she might state that she strongly prefers her, simply to give better chances to his opinion to prevail. Using such a system, it may result in two situations.
+\begin{itemize}
+\item If all voters think this way, we reach a situation where the ballots proclaiming a slight preference are no longer used at all, and it is reduced to an ordinal system where the ballot ``I prefer strongly'' is simply used to mean ``I prefer''.
+\item Alternatively, if some voters but not all reason this way, the situation is even worse, since the first, who vote strategically, have more power than the latter, who vote naively; such a situation undermines \emph{de facto}  the principle of equality between voters.
+\end{itemize} 
+It is also possible to justify ordinality by other very deep arguments. We will come back to this point.
+
+\sectionstar{Paradoxes of social choice}
+
+We have seen that when there are two candidates, we have a voting system, the simple majority vote, which has satisfactory properties, and that this voting system is unique under fairly reasonable assumptions. But when there are three candidates, things go wrong.
+
+\subsectionstar{Condorcet's paradox}
+
+The question is: since we have a system with good properties for two candidates and that it is unique in some way, how to extend it satisfactorily in cases where there are more candidates?
+
+To answer this question, a natural idea is to require the \emph{independence of irrelevant alternatives} (IIA), which intuitively means that the presence or absence of losing candidates does not influence the election results. More specifically, this principle can be formulated in two equivalent ways.
+\begin{enumerate}
+\item If you remove a losing candidate and the election is carried again (with the same voters having the same opinions), then the winner should not change.
+\item If you add a candidate and the election is carried again (with the same voters having the same opinions), then the new winner must be the same as in the initial election, or the candidate added.
+\end{enumerate}
+
+Again, this principle seems full of common sense. If the community of voters believe candidate~$ a $ is the best option among $ a $, $ b $ and $ c $, then it seems clear that when removing the irrelevant alternative~$ c $, the community should estimate that $ a $ is the best option if we must choose between $ a $ and $ b $.
+
+To illustrate this principle, we often use the following joke%\footnote{Si cette plaisanterie vous fait sourire, attention, vous êtes peut-être atteint du virus du choix social. Des institutions compétentes peuvent vous accueillir.}%
+. In a restaurant, the server informs the customer that she can choose between chicken and beef. The customer then orders the chicken. A few minutes later, the server returns: ``By the way, I forgot to tell you that there is also fish''. And the customer replies: ``Right, then I will take the beef''. Here the customer seems to prefer the beef when the three options are available, but the chicken when only beef and chicken are offered, violating the assumption of IIA.
+
+This joke can both show the relatively natural appearance of assuming IIA and give an opportunity to discuss its exact meaning. In this particular case, we could, for example, imagine that the customer has simply changed his mind during the five minutes of absence from the server, regardless of the addition of fish on the menu. In this case, the change of decision does not seem absurd. But IIA is about a more restricted and natural case: it simply demands that if voters retain the same opinions, the absence or presence of a non-selected candidate does not influence the result.
+
+One could also imagine that the presence of fish on the menu informs the customer that this is a top restaurant and that, in this case, she prefers beef. With this interpretation, the customer's opinion does not vary over time, these are the options considered that are changing: initially, she thinks she has the choice between ``chicken in any restaurant'' and ``beef in any restaurant''; but in the second time, she thinks she has the choice between ``chicken in a top restaurant'', ``beef in a top restaurant'' and ``fish in a top restaurant''. So there is nothing contradictory in her change of decision and it violates only in appearance the principle of IIA.
+
+The customer's behavior could also be motivated by various other explanations, involving, for example, non-transitive preferences. We will see another possible interpretation of this thought experiment in example~\ref{ex:preferences_multicriteres}. That said, IIA still seems a desirable property in general, which ensures consistency in the choices made.
+
+\medskip
+To extend the simple majority vote, while respecting the principle of IIA, it is necessary to elect a candidate $\winner$ which, compared to any other candidate~$ c $, is preferred by a majority of voters. Indeed, if we remove all other irrelevant candidates, then by principle of IIA, it is necessary that $\winner$ wins simple majority vote against~$ c $. When a candidate satisfies this condition, she is said to be a \emph{Condorcet winner}.
+
+Ramon Llull, Majorcan scholar from the \textsc{xiii}\textsuperscript{th} century, seems to have been the first to describe voting systems that have the property to elect the Condorcet winner, as analyzed especially by \cite{mclean1990borda}, basing on the original writings by \cite{llull1283blanquerna, llull1299arte}. But, to our knowledge, this is Nicolas of \cite{condorcet1785essai} who first appears to have explicitly formulated this guiding principle and especially have noticed that there is not always such a candidate. Indeed, consider three voters with the following preferences.
+$$
+\begin{array}{c|c|c}
+a & b & c \\
+b & c & a \\
+c & a & b \\
+\end{array}
+$$
+In the notation above, each column represents a voter. For example, the first voter prefers candidate $a$ to candidate $b$, which she prefers to candidate~$c$.
+With the preferences above, a majority of voters prefer $ a $ to $ b $; a majority (that is not composed of the same voters) prefers to $ b $ to $ c $ and a majority prefers $ c $ to $ a $. There is no Condorcet winner: it is called a \emph{Condorcet paradox}. This phenomenon has such importance in social choice that is sometimes called simply the \emph{Voting paradox}.
+
+In particular, the above example shows that it is impossible to extend the simple majority vote, while respecting the principle of IIA (which was neither named nor as explicitly stated in Condorcet's time). For example, if it is decided that $ a $ is the winner, then that is not consistent with the outcome of an election that would be held between $ a $ and $ c $, since the candidate~$ c $ would win this electoral duel. Similarly, no candidate is a consistent winner with simple majority vote and the principle of IIA.
+
+\subsectionstar{Arrow's Theorem}
+
+\cite{arrow1950difficulty} has somehow generalized the observation of Condorcet. Even if his original theorem covers social welfare functions, which allow to completely classify the proposed options to the agents, it has an immediate transcription for voting systems, which merely designate an option based on the preferences of the community\footnote{We will not use the term \emph{social choice function} because it is usually reserved for systems that are ordinals. As we develop in section~\ref{sec:systemes_de_vote_generaux}, we use the term \emph{voting system} in a broader sense, which includes non-ordinal systems.}.
+
+Being relatively modest in our demands, we may ask that a voting system has the following properties.
+\begin{enumerate}
+\item It meets IIA.
+\item It is \emph{unanimous}: if all voters prefer candidate~$a$, the she must be elected.
+\item It it not \emph{dictatorial}: there is not a voter who has the power to decide the outcome on her own.
+\item Implicitly, Arrow assumes that the voting system is \emph{ordinal}.
+\item Explicitly, Arrow assumes that the voting system is \emph{universal}, in that it identifies a winning candidate for any combination of authorized ballots. In this memoir, we will always make this assumption implicitly.
+\end{enumerate}
+
+Thus, we ask the same question as before: how to get a voting system that meets IIA? But assuming that the voting system is reduced to simple majority vote when there are two candidates, one makes assumptions \emph{a priori} less demanding\footnote{The assumptions listed are \emph{a priori} less demanding because IIA was assumed. This is not the case otherwise.} that it is unanimous, not dictatorial and ordinal.
+
+Yet even with these lower requirements, Arrow's theorem tells us that there is no voting system that satisfies them (for a number of candidates greater than or equal to 3)\footnote{See especially \cite{geanakoplos2005threeproofs} for elegant proofs of Arrow's theorem, which have also inspired several variants of the proof of Gibbard-Satterthwaite theorem, which we will discuss in a moment. By the way, \cite{mossel2012quantitative} and \cite{keller2012quantitativearrow}  provide ``quantitative'' versions of Arrow's theorem that discuss how likely a violation of the required properties is observed.}.
+
+Regarding unanimity and non-dictatorship, these assumptions seem very difficult to give up. For ordinality, we will come back to it. Remains the property of IIA, which seems to have to be sacrificed to preserve other assumptions. In practice, all common ordinal voting systems actually violate the same assumption: IIA\footnote{For a discussion of the assumptions of Arrow's theorem, see \cite{gibbard2014social}.}.
+
+It is important not to reduce Arrow's theorem to a simple procedural issue, excluding the existence of a voting system perfectly satisfactory in practice. The deepest consequence is that in an ordinal approach, there is no canonical notion of ``candidate preferred by the people'' if we emit the understandable wish that this notion has natural properties.
+
+
+\subsectionstar{Interpersonal comparison of utilities}
+
+To solve the problems above, it would seem that removing the assumption of ordinality is a good angle of attack. A simple way to model the intensity of preferences of a voter is to use cardinal utilities: the interest of each voter for each candidate is represented by a real number. The term \emph{cardinal} here means not only that the comparison between two utilities (which is higher) reveals which candidate is preferred by the voter but also that the numerical value of utilities reflect an intensity of preference.
+
+Several variants of this model exist, but the most common is the one by ~\cite{vonneumann1944games}. In this model, the utilities of a voter are defined up to an additive constant and a strictly positive multiplicative constant. Intuitively, if we make the analogy between the measurement of the position of a candidate on the abstract axis of a voter's preferences (that is to say, the axis of utilities) and measuring the position of a concrete object on a line, the voter can arbitrarily choose where she places the origin of the frame (hence the additive constant) and what length unit she uses (hence the multiplicative constant).
+
+In the case of a length measurement, an agent can lend his ruler to another, which enables at least to use the same unit. But in the case of preferences, the measurement instrument remains in the mental universe of each agent, and it is impossible to know if one uses the same length unit as another. The question does not even make sense, since it is impossible to place the preference axes of two agents in the same mental universe in order to compare the measured distances.
+
+More generally, achieving an interpersonal comparison of utilities, that is to say intensities of preferences between agents, is impossible without adding a arbitrary additional hypothesis that \emph{ultimately}, is to promote this or that type of agent. We will not further develop these complex questions; for a good overview, the reader is invited to consult \cite{hammond1991interpersonal}\footnote{\cite{chichilnisky1985cardinal} also proves, by other arguments, that it is essentially impossible to aggregate cardinal preferences by a method possessing reasonable properties.}.
+
+We will retain, in any case, that getting rid of the ordinality assumption is far from being as harmless as it seems. Furthermore, we will see other reasons to favor ordinal voting systems in the rest of the memoir \footnote{One may in particular consult the theoretical results from chapter ~\ref{sec:slicing}, simulations from chapters~\ref{sec:simulations_spheroidal} and~\ref{sec:simulations_unidim} and experiments from chapter~\ref{sec:simulations_expe}.}.
+
+\subsectionstar{Gibbard-Satterthwaite theorem}
+
+From our point of view, the main conclusion of Arrow's theorem and of the fundamental problems of an interpersonal comparison of utilities is that there is no canonical and indisputable notion of ``candidate preferred by the people''. We can ask the question from another point of view: in practice, how does the voting system behave? In particular, does it give the same power to all voters depending on their level of information? From a perspective of game theory, is it easy to reach equilibrium situations?
+
+More precisely, we say that a voting system is \emph{manipulable} in some configuration of voter preferences if, and only if, a subset of voters, by voting not sincerely, can get elected a candidate they like better than the result of sincere vote (assuming other voters still vote sincerely). It seems intuitively obvious that manipulability is a negative property and we will soon discuss in more details why.
+
+Unfortunately, \cite{gibbard1973manipulation} showed that whenever there are~3 or more eligible candidates, for any non-dictatorial voting system, there is at least one configuration where the voting system is not only manipulable, but by a coalition consisting of one single voter!
+
+We will comply with the tradition of naming this result: Gibbard-Satterthwaite theorem. However, the result by Gibbard is both earlier and stronger than that by \cite{satterthwaite1975strategyproofness}: in fact, it applies to any type of electoral system (or \emph{game form}, see~\ref{sec:systemes_de_vote_generaux}), while that of Satterthwaite only applies to ordinal voting methods.
+
+
+\subsectionstar{Non-deterministic Gibbard's theorem}
+
+If we accept completely the principle of an appeal to chance, then there are satisfactory systems, unlike in the deterministic case where we saw that the road is paved with impossibility theorems.
+
+First, we can use randomness unconditionally, without taking into account the preferences of voters. Again, there are examples in ancient Athenian democracy, where many offices were allocated by lottery from a pool of eligible candidates.
+
+Second, we can combine voters' preferences and chance. In this case, it is natural to require that the voting system is not manipulable, unanimous and anonymous. \cite{gibbard1977chance, gibbard1978lotteries} showed, first for ordinal voting systems then in general, that the only voting system that verifies these assumptions is \emph{random dictatorship}: each voter votes for a candidate, then a random ballot is chosen in an equiprobable way and the candidate indicated in the bulletin is declared the winner\footnote{More generally, \cite{gibbard1978lotteries} shows, when allowing non-deterministic voting systems, what are all non-manipulable systems. The anonymous and unanimous case we cite to simplify is only a corollary of this general result.}.
+
+For some applications, this system may be interesting. In particular, if it is a collective decision entailing modest consequences and/or to be renewed frequently, for example the choice of a restaurant by a group of friends, then it allows a balance of power while eliminating the issue of strategic voting.
+
+However, in other contexts, such use of chance will always be debated, except as a supplementary rule to break ties between candidates in case of perfect equality in the ballots of voters. In this memoir, we will focus exclusively on \emph{deterministic} voting systems, that is to say that the winning candidate only depends on the ballots of voters, without using an element of randomness.
+
+
+\sectionstar{Manipulation is good. Manipulability is bad.}
+
+We quickly said that manipulability was a bad property of a voting system. We will now discuss this fundamental question.
+
+What we call \emph{manipulation} is the practice by some voters to vote strategically. It seems important to distinguish the \emph{manipulability}, which is the fact that the manipulation works, that is to say, lead to a different result from the sincere vote. In other words, the manipulability of a voting system in a certain configuration of voter preferences is the fact that sincere voting is not a \emph{strong Nash equilibrium} (SNE): a coalition of voters may deviate from sincere voting and get a result they deem best to the winner resulting from sincere voting.
+
+\subsectionstar{Defense of manipulation}
+
+Manipulation, that is to say the practice of strategic voting, is sometimes seen with suspicion. Here are the main arguments of this point of view, which we will discuss.
+\begin{enumerate}
+\item\label{enumi:manipulateurs_tricheurs} Manipulators are cheaters.
+\item\label{enumi:manipulation_resultat_incorrect} Manipulation leads to an ``incorrect'' result for the election.
+\item\label{enumi:manipulation_nuit_communaute} Manipulation is exercised at the expense of the community.
+\end{enumerate}
+
+Argument~\ref{enumi:manipulateurs_tricheurs} is arguable if we attach a moral dimension to the sincere vote, but it is opposed to all modern views on \emph{mechanism design} and \emph{Nash-implementability}\footnote{See e.g. \cite{feldman1980welfare}.}. In general, it is considered today that agents are strategic and that the problem is to find a set of rules that will lead to a satisfactory outcome for the social well-being, accepting --- and most of the time, exploiting --- this strategic behavior. In economics, such a perspective essentially dates back to the ``invisible hand'' by Adam Smith, and this idea can be naturally transposed into voting theory: from our perspective, the strategist voter is not a cheater but an agent that helps to find and perhaps to get a Nash equilibrium.
+
+Regarding argument~\ref{enumi:manipulation_resultat_incorrect}, one can oppose to it Arrow's theorem (in an ordinal framework) and the fundamental problems of interpersonal comparison of utilities (in a cardinal framework): there is no canonical notion of ``candidate preferred by the people''. Talking about ``incorrect result'' therefore does not really make sense.
+
+Argument~\ref{enumi:manipulation_nuit_communaute} has similarities with the previous one. But while argument~\ref{enumi:manipulation_resultat_incorrect} implies the existence of some sort of higher truth (``correct result'', given the sincere preferences of the population), argument~\ref{enumi:manipulation_nuit_communaute} is more pragmatic and eventually comes back to the question: what voters prefer the winner of the sincere election, and which ones prefer the winner resulting from manipulation?
+
+\medskip
+In the general case, it is clearly possible that some voters are less satisfied with the alternative than with the sincere winner. But this can not be the case for all voters: in fact, at least the manipulators prefer the alternate winner by definition. However, we will see that the opposite can happen: it is possible that all voters prefer the alternative winner to the sincere winner (that is to say that the first \emph{Pareto-dominates} the second).
+
+Indeed, consider the following example. It has 26 candidates, designated by the letters of the alphabet. We use the voting system Veto, with the alphabetical tie-breaking rule.
+\begin{enumerate}
+\item Each voter emits a veto\footnote{In this memoir, we call \emph{veto}, with a lowercase, a negative vote against a candidate. The word \emph{Veto}, with a capital letter, means the voting system described above, also known as \emph{Antiplurality}.}, i.e. votes against one candidate.
+\item The candidate receiving the least number of vetoes is elected.
+\item In case of a tie, the first tied candidate in alphabetical order is declared the winner.
+\end{enumerate}
+Suppose there are 25~voters and they unanimously prefer candidates in alphabetical reverse order (they prefer $ z $ and hate $ a $). If they vote sincerely, they all emit a veto against $ a $, by tie-breaking rule, $ b $ is elected: this is the second worst candidate for all voters!
+
+If a voter is aware of this fact, she may decide to vote strategically against~$ b $ and $ c $ is then to be elected, improving the fate of the entire community. This manipulation is not harmful. We can even go further: if voters skillfully coordinate to vote against all candidates except~$ z $, then this one is elected, which best satisfies all voters.
+
+To summarize, it is possible that manipulation is exercised for the benefit of the whole community. Conversely, even if it is possible it occurs at the expense of a part of the community, it can not affect the whole community. So,  argument~\ref{enumi:manipulation_nuit_communaute} is quite circumstantial and questionable in general.
+
+\subsectionstar{Manipulability and strong Nash equilibria (SNE)}
+
+Let us continue with a more practical example, since it now belongs to History. The French presidential election in 2002 was conducted using the two-round system. In the first round, Jacques Chirac (right) received 19.9\% of the votes, Jean-Marie Le Pen (extreme right) 16.9\%, Lionel Jospin (left) 16.2\% and 13 various candidates shared the rest. In the second round, Chirac was the winner by 82.2\% of the votes against Le Pen.
+
+However, according to some of the polls from these days, Jospin would have won the second round against any opponent, that is to say, he was the Condorcet winner. It is impossible to verify whether this was the case throughout the French electorate; but it helps to know that the reality was close enough to this case so that we can consider as a realistic example a situation where the observed votes were sincere and where Jospin was Condorcet winner.
+
+Under this assumption, there was a possibility of manipulation: if all voters preferring Jospin to Chirac voted for Jospin in the first round, then Jospin would have directly been elected in the first round. In other words, sincere vote was not a strong Nash equilibrium (SNE). But voters have not achieved this manipulation, and that is a key observation which we will discuss.
+
+This mainly poses two kinds ot problems:
+\begin{enumerate}
+\item The feeling of voters \emph{a posteriori};%Si on n'est pas dans un équilibre de Nash fort au départ, regret du bulletin / sentiment d'injustice (mon bulletin sincère n'a pas eu le pouvoir qu'il méritait).
+\item The legitimacy of the result. %Légitimité du résultat. Si vote sincère est meilleur, alors manipulation cause un risque de changer de vainqueur. Si vainqueur sincère est meilleur, alors manipulabilité cause un risque de rester avec le vainqueur sincère.
+\end{enumerate}
+
+On one hand, after the election, some sincere voters may experience regret about the choice of their ballots and also a feeling of injustice: since insincere ballots would have better defended their opinions, they may feel that their sincere bulletins have not had the impact they deserved. They can draw from this a distrust of the voting system used itself: the fast that a sincere bulletin does not defend best the views it expresses appears as a \emph{bug} of the system\footnote{Forgive me a personal anecdote: when I became interested in the theory of voting, after this famous April 21$^\text{st}$, 2002, I had withdrawn from the election the firm belief that the two-round system was a catastrophic one in terms of manipulability. However, we will see in the chapters \ref{sec:simulations_spheroidal}, \ref{sec:simulations_unidim} and~\ref{sec:simulations_expe} that, even if it is not the least manipulable voting system in general, it is far from being the worst, even for fifteen candidates.}. This experience can even develop or reinforce their distrust of elective practice in general.
+
+On the other hand, there is concern for the result of such an election. On this aspect, this example can receive two interpretations, but they both lead to condemn the manipulability. If it is estimated that the result of sincere voting, by definition, represents best the views of the voters, then Chirac was the legitimate winner; but in this case, the manipulability of the situation might have lead to the election of Jospin if the voters concerned had been more skillful. At the opposite, if it is considered that a manipulable result is better in terms of social welfare (as in this case would defend the supporters of the Condorcet criterion), then the manipulation itself is not undesirable but the \emph{manipulability} of the situation is so all the same: indeed, it makes this ``better'' outcome harder to identify and produce. For example, if the entire voting population votes sincerely, it is not reached.
+
+\medskip
+So it seems that in this case there was a difference between the observed result of the election and that of a possible SNE. It is amusing to note that, in other contexts of game theory, it may happen to study the SNE because we think that these are the configurations to which the agents will naturally converge. In voting theory, we think that the situation is slightly different: these are situations to which it would be desirable to converge for the reasons given above; but in practice, this can be difficult to achieve because the sincere vote does not necessarily lead to an SNE. This problem is precisely the definition of manipulability.
+
+Like any real example, the French presidential election of~2002 should be examined more carefully than an artificial example, which can be adjusted at will to illustrate an argument paradigmatically. In particular, it is necessary here to distinguish the fact that the situation is not an SNE from the fact that the winner is not the Condorcet winner (although the two aspects are connected). The first can cause a variety of problems, which we have described; the second can also be a problem of legitimacy of the winner, since a majority of voters prefer the Condorcet winner to the candidate elected. Fortunately, we will see (especially in chapter~\ref{sec:condorcification}) that acting against these two problems is not incompatible, quite the contrary.
+
+By the way, the situation we have described also had an important symbolic dimension, linked to the practical running of the two-round system and its analogy in principle with some sports competitions. Thus, it seemed shocking to some voters that a candidate of the extreme right reaches the ``final'' of the competition and appears in some way as second in the final ``ranking''. However, we will not develop this point beyond measure: while keeping in mind that the symbolic dimension and the public perception of events is always important, especially for a political election, we will consider in this memoir that the main result of an election is the choice of the winning candidate.
+
+
+\subsectionstar{Manipulability and \emph{straightforwardness}}
+
+By definition, the manipulability of a voting system means that the situation of sincere voting is not necessarily an SNE. This poses several problems.
+\begin{enumerate}
+\item Before the election, the voter faces a dilemma: to vote sincerely or strategically? If she attributes a moral virtue to sincere voting, it can be a matter of conscience. Otherwise, there still remains a practical problem: how to choose a strategic voting that is best adapted to the situation?
+\item These strategic aspects induce {\em de facto} asymmetry of power between informed and strategist voters and those who are neither one nor the other. As Dodgson said in a phrase made famous by \cite{black1958theory}, the vote becomes ``more of a game of skill than a real test of the wishes of the electors''.
+\item As seen in the example of Veto, if the situation is manipulable, then voters may need information, computing power and coordination to achieve a SNE (even in a situation that is \emph{a priori} favorable, where they all agree). In contrast, if the situation is not manipulable, voting sincerely simply achieves such an equilibrium; no exchange of information, no calculations and no coordination is therefore necessary.
+\item This individual or collective need for information gives a questionable power to the sources of information, such as the media and pollsters.
+\end{enumerate}
+
+We will show that these problems are deeply related to an issue intimately connected to the manipulability, the \emph{straightforwardness}. It is said that a voting system is \emph{straightforward} \citep{gibbard1973manipulation} if any voter, whatever her opinions, has a dominant strategy. To understand the distinction between this concept and non-manipulability, consider the simple case where there are only two candidates and examine the three following voting methods. The last two are rather theoretical curiosities, but they will allow us to illustrate our point of view.
+\begin{description}
+\item[Simple majority vote] Each voter is supposed to announce her preferred candidate, $ a $ or $ b $, and the candidate receiving the most votes is elected.
+\item[Inversed majority vote] Each voter is supposed to announce her preferred candidate, $ a $ or $ b $, but the vote is counted in favor of the other candidate.
+\item[Parity voting] Each elector put a white ball or a black ball in the ballot box. If there are an odd number of black balls, then $ a $ is elected. Otherwise, $ b $ is elected.
+\end{description}
+
+Simple majority vote is not manipulable. In particular, as we have already noticed, each voter always has a dominant strategy (which is simply the sincere vote). In other words, this voting system is \emph{straightforward}.
+
+As for the inversed majority vote, it is generally manipulable: indeed, if a voter prefers $ a $, she has an interest in abandoning a ballot with label $a$ and preferring a ballot with label~$ b $, since it will be counted for~$ a $. However, this voting system is \emph{straightforward}: a voter who prefers~$ a $ is always better using a ballot~$ b $ and vice versa. Although this voting system can cause some confusion, it does not pose the other problems mentioned: it is easy to find SNE without calculation, without exchange of information and without particular coordination. Therefore, these problems are linked to defects in straightforwardness and not to manipulability. Moreover, we see in this example that the notion of sincere voting is partly conventional: we could have, instead, interpret the ballot with label~$a$ as a veto against~$a$. With this convention of language, we would have found that this method of voting is never manipulable.
+
+Now consider parity voting. If a voter knows the ballots of other voters, then she can always decide the winning candidate. Most often, this method of voting is manipulable. And it is especially not \emph{straightforward}: if a voter prefers~$ a $, she has essentially no indication of whether a white or black ball best defends her opinion. In this voting method, all the problems mentioned above are exacerbated: for example, even if all voters prefer the same candidate, they need perfect coordination to elect her. Moreover, the balance of power between voters is particularly destroyed: a voter having perfect information has absolute power, while an ignorant voter has essentially no power of decision.
+
+To summarize: we examined a non-manipulable voting system (which is thus straightforward), a voting system that is straightforward but manipulable, and a voting system that is not straightforward (and thus manipulable). And we found that the problems mentioned are actually more related to a defect in straightforwardness than to manipulability, because these problems are absent from the second voting system that we have examined.
+
+\medskip
+However, there is a deep connection between manipulability and straightforwardness. Indeed, up to conventionally define sincere voting as the use of the dominant strategy (as we did by transforming the inversed majority vote into Veto), a straightforward voting system is not manipulable. Conversely, if a voting system is not straightforward, then there is no way to define sincere voting that makes it non-manipulable.
+
+In summary, by a suitable choice of the \emph{sincerity function}, that is to say, the conventional way one associates a vote deemed sincere to an opinion, the issue of straightforwardness, which the fundamental point, can therefore be reduced to the question of manipulability, more comfortable to handle in practice.
+
+%\subsectionstar{Divers}
+%
+%Instabilité. Mais mauvais arguments car stabilité = Condorcet. Le problème n'est pas l'existence d'équilibre, mais la capacité à les trouver.
+%
+%Deuxième argument moins débile: instabilité. Mais ce n'est pas tant que ça un argument: pour une large classe de modes de scrutin, ils sont stables (i.e. ils ont un équilibre de Nash fort) quand il y a un vainqueur de Condorcet, instables sinon, fin de l'histoire. D'ailleurs certaines études (Tideman par exemple) tendent à montrer que dans la vraie vie, il y a un vainqueur de Condorcet, donc où est le problème?
+%
+% Censored by Fabien
+%Thirdly, in practice, the choice of the winning candidate is not the only outcome of an election, especially in a political context: for example, the detailed results of losing candidates may have consequences on the public funding for their political party. Also, the election provides a picture of the public opinion, which will be analyzed, commented and may legitimately influence the policies actually implemented by the candidate who is finally elected. But if the ballots are distorted by manipulation attempts, then the democratic soundness of all these processes is also in jeopardy.
+
+%It may be a core mechanism leading to Duverger's law: in some voting system, after a while, only two political parties survive (cf. Myersson).
+%
+%Finally, it may be argued that resistance to manipulation is a prerequisite for the other desirable properties of a voting system. Indeed, most of such classical properties\footnote{\cite{tideman2006collective} provides an overview of such classical desirable properties, such as independence of irrelevant alternatives, consistency, etc.} relate ballots and candidates; but if ballots do not reflect the true opinions of voters, then these properties become hard to interpret. On the opposite, when there is no possibility of manipulation, the practical relevance of other properties is perfectly clear.
+
+
+
+\sectionstar{Manipulability indicators}
+
+Gibbard's theorem teaches us that no non-trivial voting system\footnote{Here, we use the language shortcut \emph{non-trivial} to mean: not reduced to two eligible candidates and not dictatorial.}, whether ordinal or cardinal, can be straightforward. In other words, irrespective of the sincerity function used, a non-trivial voting system is necessarily manipulable.
+
+All we can hope is therefore to limit the scope of the problem, studying to what extend classic voting systems are manipulable and identifying methods for designing less manipulable voting systems.
+
+To this end, our reference indicator will be the manipulability rate of a voting system: depending on the \emph{culture}, that is to say, the probability distribution of preferences of the population, this rate is defined as the likelihood that the voting system is manipulable in a randomly drawn configuration. In other words, it is the probability that voting without any exchange of information leads to a SNE.
+
+In the literature, there are mainly two ways to estimate the manipulability of a voting system:
+\begin{enumerate}
+\item The necessary number of manipulators, and other similar types of indicators quantifying the manipulability when it is possible\footnote{One can read \cite{chamberlin1984observed, saari1990susceptibility, lepelley1999kimroush, slinko2004large, favardin2006further, pritchard2006averagesize, pritchard2007exact, xia2008generalized, lepelley2008ehrhart, reyhani2009anewmeasure, reyhani2013strategic, green2014strategic}. For several manipulability indicators connected to manipulation by a single voter, one can read in particular \cite{aleskerov1999degree}.}.
+\item La algorithmic complexity of manipulation\footnote{This research area was initiated by \cite{bartholdi1989computational, bartholdi1991stv}. Since then, various results about the complexity of manipulation have been proven for several classic voting systems, which we will discuss later. Similarly, \cite{conitzer2003tweak}, \cite{elkind2005hybrid} and \cite{elkind2005coalitions} propose methods to transform a voting system so as to increase the complexity of manipulation. However, \cite{conitzer2006nonexistence, procaccia2006junta, procaccia2007tractability, faliszewski2010AIwar} show that it is essentially impossible to have a voting system that has reasonable properties and is algorithmically difficult to manipulate on average.}.
+\end{enumerate}
+
+In both cases, it is generally estimated that the more difficult the manipulation, the more it is a desirable property of the voting system. While understanding and respecting this point of view, we find interesting and relevant to defend precisely the opposite opinion.
+
+Indeed, we have argued that reaching easily an SNE is a good property for a voting system. For this, the best case is where the electoral system is not manipulable, since it means that we are able to reach an equilibrium without any exchange of information and any particular calculation. But in other cases, to have the best chance of achieving an equilibrium, it is better that voting strategically is inexpensive in number of voters, information, computational complexity and communication.
+
+Think back to the example mentioned earlier of Veto. In the situation we described, to achieve an equilibrium, we need that 24 out of 25~voters vote strategically. Some may feel that this is a good thing, because this manipulation is very difficult to perform. On the contrary, we think it is a bad property, since it takes a lot of effort to achieve the only reasonable outcome!
+
+Consider another example, approval voting. Each voter votes for as many candidates as she wishes, and the candidate receiving the most votes is declared the winner. In practice, we will see, in this memoir, that this voting method is often manipulable. However, it has at least the advantage that the strategic question is relatively simple: as explained by \cite{laslier2009leader}, it is sufficient to have access to surveys giving the two favorite candidates to use an effective strategy, the \emph{Leader rule}. In addition, the use of this strategic behavior leads to elect the Condorcet winner if she exists. Thus, even in cases where a sincere vote does not result in an equilibrium, it is possible to find one with a relatively low cost\footnote{One may also consult \cite{myerson1999comparisons}.}.
+
+In summary, we believe that a good property is that manipulation is easy. And the ideal manipulation, since it does not require any information, is simply sincere voting.
+
+%Both these objections can be bypassed by considering the manipulability rate as a worst-case indicator: if we could identify voting systems where manipulable situations are very unlikely, then the practical impact of manipulability would be negligible, \emph{a fortiori} with coalitions having limited powers.
+
+\sectionstar{Our main objectives}
+
+With all these considerations exposed, it is time to present the main goals that guided our research.
+
+First, we want to quantify the manipulability. Is it common in practice? Among the voting systems, which are less manipulable? Are the differences significant?
+
+Second, by studying the manipulability rates, we quickly observed the following problem: we do not know the minimum rate that can be achieved in a given class of voting systems\footnote{Whenever we mention the concept of minimal manipulability, it is in a certain class of ``reasonable'' voting systems, which we will define later. Indeed, if we considered all electoral systems, the question would be trivial, since the dictatorship is not manipulable at all.}. Therefore, we can compare the voting systems between them, but we can not say whether the observed manipulability rates are far from optimum. Ideally, we would like to identify a minimum manipulability voting system, or at least estimate the corresponding manipulability rate: even if the resulting voting system was too complex to be used in practice, it would provide us with a yardstick to gauge the manipulability rate of other voting systems.
+
+
+
+%\sectionstar{Ordinalité et cardinalité (on verra où on case ça)}
+%
+%Approche générale ordinale / cardinale de Gibbard. Peu reprise, pourquoi?
+%
+%Approval voting grand succès. Mais souvent analysé soit un peu à part, soit avec des hypothèses grotesques (genre 2-assentiment, etc.)
+%
+%Groupes de lobbying: rangevoting.org, stv.pied, radada et michou (terra nova).
+
+
+\sectionstar{Contributions and plan}
+
+\subsectionstar{Theoretical study of manipulability}
+
+Chapter~\ref{sec:formalism} develops the formalism of \emph{electoral spaces}, which makes it possible to capture all types of voting systems, including cardinals systems and even other types of systems. We use the opportunity of this chapter to recall the formal definition of Condorcet notions and to present the voting systems studied in this memoir. In particular, we present the system \emph{IRV}, also known as \emph{STV}, which plays an important role in the following chapters. We also introduce the system \emph{IRVD}, a variant of IRV that was suggested to us by Laurent Viennot. Finally, systems \emph{CSD} and \emph{IB} are, to our knowledge, original contributions.
+
+In chapter~\ref{sec:condorcification}, we show that for all classic voting methods except Veto, we can make the system less manipulable by adding a preliminary test to elect the Condorcet winner if there exists one\footnote{Another voting system, which is slightly less classic, is not concerned by this result, just like Veto: Kim-Roush's method, which is inspired by Veto and whose definition will be recalled. In the following, we will see that most of the theorems that do not apply to Veto does not apply to Kim-Roush's method either.}. We call this system the \emph{Condorcification} of the initial voting system.
+We precisely discuss with what Condorcet notions this result is valid and we show that the reduction of manipulability achieved is strict for all classic voting systems except Veto, using a concept that we introduce and characterize, the \emph{resistant Condorcet winner}.
+
+Condorcification theorems assume that the voting system under study meets a property we call \emph{informed majority coalition criterion} (\cminf), which means that a strict majority of voters always have the power to choose the outcome of the election, if they know the ballots emitted by the other voters. In practice, all classic voting systems meet this assumption, except Veto. In chapter~\ref{sec:criteres_majoritaires}, we define several other majority criteria, some of which are original contributions, and we study their link to the difficulty of finding SNE. For all classic voting methods, we study what criteria are met.
+
+Even if a broad category of systems meet the assumption \cminf{}, this is not always the case. In chapter~\ref{sec:condorcification_generalisee}, we study how to reduce manipulability in general, through a process we call \emph{generalized Condorcification}, using an approach based on the theory of \emph{simple games}. For classic systems meeting \cminf{}, we use this formalism to show that Condorcification in the usual sense, that is to say based on the Condorcet winner, is, in some sense, optimal.
+  
+In chapter~\ref{sec:slicing}, we study the influence of the ordinal nature of the voting system on its manipulability. We show that for any non-ordinal voting system, there is an ordinal voting system that has some properties in common with the original voting system and is at most as manipulable, provided that culture meets a condition that we introduce: \emph{decomposability}. In particular, we show that this theorem is applicable when voters are independent in the probabilistic sense. Combining this result with the Condorcification theorems, we conclude that the search for a voting system of minimal manipulability (within the class of systems meeting \cminf) can be restricted to voting systems that are ordinal and meet the Condorcet criterion.
+
+
+
+\subsectionstar{Computer assisted study of manipulability}
+
+
+Starting from chapter~\ref{sec:svvamp}, we temporarily put aside the search for a voting system of minimal manipulability and we try to quantify the manipulability of classic voting systems. For that purpose, we present \svvamp{}, a Python package of our own dedicated to the study of voting systems and their manipulation. Its software architecture is modular, allowing rapid implementation of new voting systems. Using the criteria defined in chapter~\ref{sec:criteres_majoritaires}, \svvamp{} has generic manipulation algorithms and specific algorithms for some voting systems, either from the literature or designed for this software package. \svvamp{} will be used in all the following chapters.
+
+In chapter~\ref{sec:simulations_spheroidal}, we study the manipulability rates of different voting systems in \emph{spheroidal} cultures, which generalize the model commonly known as \emph{impartial culture} \citep[see for example][]{nitzan1985vulnerability}. In particular, we use, for the first time, Von Mises-Fisher model to draw preferences and we explain the reasons for this choice. We study the effect of changes in various parameters and we introduce diagrams of \emph{meta-analysis}, which compare the manipulability of all electoral systems under study. We show in particular that the voting system \emph{CIRV}, obtained by Condorcification of IRV, is usually the least manipulable.
+
+In chapter~\ref{sec:simulations_unidim}, we study another model, based on an abstract political spectrum and generalizing the notion of \emph{single-peaked} culture introduced by \cite{black1958theory}. This different framework allows us to qualify our conclusion on CIRV system: indeed, its supremacy is then more questionable than in spheroidal cultures. In particular, other voting systems have interesting performances, such as CSD, IB, the two-round system and others.
+
+In chapter~\ref{sec:simulations_expe}, we analyze real experiments, coming from very different contexts, including contexts of preference revelation that are not elections. These experiments allow us to confirm previous findings that there is frequently a Condorcet winner \citep[e.g.][]{tideman2006collective} and establish that the system CIRV is distinguished by its low manipulability.
+
+Chapter~\ref{sec:mds_optimaux} resumes looking for a voting system of minimum manipulability (in the class of systems meeting \cminf{}). We define the \emph{opportunity graph} of an electoral space and show that the issue can be reduced to a problem of integer linear programming, which can be studied for very small values of the parameters by combining a theoretical approach and the use of a dedicated software (CPLEX). Finally, \svvamp{} is used to compare the classic voting systems with the optimum.
+
+\subsectionstar{Appendices}
+
+In appendix~\ref{sec:mesurabilite}, we study issues of measurability, that is to say, a technical point related to the use of probability spaces, mainly useful for chapter~\ref{sec:slicing} about slicing.
+
+In appendix~\ref{sec:sphere}, we present a work done in collaboration with Benoît Kloeckner on the geometry of the utility space. This motivates our use of spheroidal cultures in chapter~\ref{sec:simulations_spheroidal}.
+
+In appendix~\ref{sec:reseaux}, we illustrate how the study of voting systems and their manipulability can provide answers to the issues of telecommunications, using a model originally designed by Ludovic Noirie. In particular, we show that the system IRV reconciles non-manipulability and economic efficiency.
+
+In the \hyperref[sec:notations]{glossary} (page~\pageref{sec:notations}), the reader will find a summary of the main notations and acronyms used in this memoir.
+
+We wish you a good reading!
+
+%\section{Old stuff}
+%
+%%Unfortunately, \cite{gibbard1973manipulation} proved that any non-dictatorial voting system with three eligible candidates or more is manipulable. Although this result is frequently cited under the form of Gibbard-Satterthwaite theorem \citep{satterthwaite1975strategyproofness}, which deals only with \emph{ordinal} voting systems (i.e. whose ballots are orders of preferences), it is worth remembering that Gibbard's fundamental theorem applies to any \emph{game form}, where available strategies may be objects of any kind, including grades for example.
+%%
+%%Once this negative result is known, the only hope is to limit the damage, by investigating in what extent classical voting systems are manipulable, and by identifying processes to design less manipulable voting systems.
+%
+%To quantify the degree of coalitional manipulability of a voting system, several indicators have been defined and studied, for example by \cite{lepelley1987proportion}, \cite{saari1990susceptibility}, \cite{lepelley1999kimroush}, \cite{slinko2004large}, \cite{favardin2006further}, \cite{pritchard2006averagesize}, \cite{tideman2006collective} and \cite{reyhani2009anewmeasure}. A very common one is the \emph{manipulability rate}, which is the probability that a configuration is coalitionaly manipulable, under a given assumption on the probabilistic structure of the population (or \emph{culture}). It is an important indicator because it is an upper bound for the others: if we could identify reasonable voting systems with close-to-zero manipulability rates in realistic cultures, then the practical impact of manipulability would be negligible.
+%
+%Several authors have used a theoretical approach \citep{lepelley1987proportion,lepelley1994vulnerability,kim1996manipulability,lepelley1999kimroush, huang2000analytical,favardin2002bordacopeland,lepelley2003homogeneity,favardin2006further,pritchard2007exact,lepelley2008ehrhart}, computer simulations \citep{lepelley1987proportion,pritchard2007exact,reyhani2009anewmeasure,green2011four,green2014strategic,green2014statistical} or experimental results \citep{chamberlin1984observed,tideman2006collective,green2014strategic,green2014statistical} to evaluate the manipulability rates of several voting systems, according to various assumptions about the structure of the population. 
+%
+%Among the studies above, some, like those of \cite{chamberlin1984observed}, \cite{lepelley1994vulnerability}, \cite{lepelley2003homogeneity} or \cite{green2011four,green2014strategic} suggest that Instant-Runoff Voting (IRV) is one of the least manipulable voting systems known. On the other hand, authors like \cite{chamberlin1984observed}, \cite{smith1999measures}, \cite{favardin2002bordacopeland}, \cite{lepelley2003homogeneity}, \cite{favardin2006further} or \cite{tideman2006collective} emit the intuition that voting systems meeting the Condorcet criterion have a general trend to be less manipulable than others.
+%
+%Combining both ideas, \cite{green2014statistical} introduce an alteration of IRV that meets the Condorcet criterion. Then they prove, independently of us \citep{durand2012manipulability}, that for a large class of voting systems, making them meet the Condorcet criterion cannot worsen their manipulability. The main difference between their approach and ours is that \cite{green2014statistical} do not make perfectly clear what assumptions are made about the preferences of voters, despite the fact that their proof is valid only when preferences are strict total orders, whereas we provide the result in a wider framework that encompasses all kinds of profiles. We also improve this result by proving that for a large class of voting systems, making them meet the Condorcet criterion \emph{strictly} reduces their manipulability.
+%
+%Although most studies use an ordinal framework, some voting systems are not ordinal, especially Approval voting, Range voting and variants such as Majority Judgment. According to \cite{balinski2010majority}, one of the motivations for the latter is resistance to manipulation. However, simulations results by \cite{durand2014newsimulation} suggest that non-ordinal voting systems perform quite badly in terms of manipulation. In this paper, we will investigate this question from a theoretical point of view: given a non-ordinal voting system, is it always outperformed by a well-chosen ordinal voting system?
+%
+%%Some authors circumvent this problem, for example by studying Approval voting with a fixed number of approvals \citep{chamberlin1984observed}, but doing so does not take into account the very specificities of such a voting system.
+%
+%\medskip
+%
+%%Another promising lead was to investigate algorithmic complexity as a barrier to plan manipulation \citep{bartholdi1991stv,elkind2005hybrid} but recent results suggest that polynomial manipulation heuristics perform well in the average case \citep{procaccia2007tractability,faliszewski2009shield,faliszewski2010AIwar}. So, our main hope remains to decrease the manipulability itself.
+%
+%%By definition, all experimental and simulation results have been published for some particular values of the parameters. And, to the best of our knowledge, most of previous theoretical results on the manipulability rate are applicable only to some particular values of the number of voters, the number of candidates, or both. So, it would be interesting to derive theoretical results allowing to decrease the manipulability rate in the general case.
+%
+%%Projet de minimiser la manipulabilité (whatever that means) \cite{saari1990susceptibility} (p.22): peu d'avancée depuis Gibbard
+%%
+%%- réputation du mds: si réputé peu manipulable, peut-etre que les électeurs n'essaieront pas. À l'inverse, si réputé manip, peut-être que les électeurs essaieront même quand ce n'est pas le cas
+%
+%%Un argument pour minimiser le problème de la manipulation par coalition (de taille arbitraire): difficulté de coordination; cf. par exemple \cite{saari1990susceptibility}. Mais dans les cas réels (cf. uninominal à un ou deux tours), en réalité, les électeurs n'ont pas vraiment besoin de se coordonner pour ``voter utile''.
+%
+%%Approval avec un nombre fixe d'assentiments: \cite{chamberlin1984observed}, aleskerov 1999
+%%
+%%Approval avec un nombre libre d'assentiments, mais pas de notion de bulletin sincère: \cite{saari1990susceptibility}.
+%
+%
+%%\medskip
+%%A classical argument against a high manipulability rate is that it threatens the sincere outcome and may lead to an ``incorrect'' result for the election.
+%%
+%%However, this is debatable. First, it presupposes an identity between the sincere outcome and a ``correct'' outcome%, which is not obvious
+%%. Secondly, it assumes that manipulating coalitions benefit from infinite information, computational power, communication, coordination and mutual trust.
+%%%no barrier of information, computation, communication or coordination. However,
+%%%in practice, a configuration may occur where the voting system is manipulable, but no coalition has the ability to find a manipulation, by lack of information or computational power; or to implement it, by lack of communication or mutual trust.
+%%
+%%Both these objections can be bypassed by considering the manipulability rate as a worst-case indicator: if we could identify voting systems where manipulable configurations are very unlikely, then the practical impact of manipulability would be negligible, \emph{a fortiori} with coalitions having limited powers.
+%%
+%%\medskip
+%%Besides this, there is a totally different point of view against manipulability that should be emphasized. It seems natural, and it has been extensively discussed, that strong Nash equilibria have many desirable properties: for example, after the election, voters will have no regrets about the ballots they chose, even when seeing themselves as elements belonging to socio-cultural, political or any other kind of groups or communities. The outcome is also more acceptable, because no part of the population can contest it with great legitimacy. 
+%%
+%%As a consequence, manipulation, which is a first step in the search for strong Nash equilibria, should not necessarily be considered as a dishonest behavior, and the outcome of the manipulation might finally seem more consensual and legitimate than the sincere result would have been. However, manipulation has an important informational cost, and it is far from sure that a strong Nash equilibrium will be found, even if it exists.
+%%
+%%%In short, and in a deliberately provocative wording: the main problem with manipulability is precisely that voters may fail to find the manipulation!
+%%
+%%\medskip
+%%%The main problem of manipulability (= sincere voting is not a SNE) is that voters may not find the manipulation: they are more likely to miss the SNE.
+%%
+%%On the opposite, a non-manipulable configuration has a very interesting property: it precisely means that without any dependence on the sources of information, any computational barrier, any communication process, any coordination issue, voters can find a strong Nash equilibrium, simply by voting sincerely.
+%%
+%%This link between non-manipulability and voting without prior communication is also discussed in appendix \ref{sec:append_GVS}.
+%
+%%Our motivation: voters without information before the vote (or with dubious information), or with limited communication, coordination, etc. Then sincere voting is the only option (cf. appendix for discussion of that).
+%%But with information after the vote. Problems of regrets, etc. SNE are good (legitimacy, no regret even as part of a group).
+%
+%%Inequality of power between voters having good and bad information about others. 
+%
+%
+%Both these objections can be bypassed by considering the manipulability rate as a worst-case indicator: if we could identify voting systems where manipulable situations are very unlikely, then the practical impact of manipulability would be negligible, \emph{a fortiori} with coalitions having limited powers.
+%
+%\medskip
+%Besides this, there is a totally different point of view against manipulability that should be emphasized. It seems natural, and it has been extensively discussed, that strong Nash equilibria have many desirable properties: for example, after the election, voters will have no regrets about the ballots they chose, even when seeing themselves as elements belonging to socio-cultural, political or any other kind of groups or communities. The outcome is also more acceptable, because no part of the population can contest it with great legitimacy. 
+%
+%As a consequence, manipulation, which is a first step in the search for strong Nash equilibria, should not necessarily be considered as a dishonest behavior, and the outcome of the manipulation might finally seem more consensual and legitimate than the sincere result would have been. However, manipulation has an important informational cost, and it is far from sure that a strong Nash equilibrium will be found, even if it exists.
+%
+%%In short, and in a deliberately provocative wording: the main problem with manipulability is precisely that voters may fail to find the manipulation!
+%
+%\medskip
+%%The main problem of manipulability (= sincere voting is not a SNE) is that voters may not find the manipulation: they are more likely to miss the SNE.
+%
+%On the opposite, a non-manipulable situation has a very interesting property: it precisely means that without any dependence on the sources of information, any computational barrier, any communication process, any coordination issue, voters can find a strong Nash equilibrium, simply by voting sincerely.
+%
+%This link between non-manipulability and voting without prior communication is also discussed in appendix \ref{sec:append_GVS}.
+%
+%Dire ce dont on ne va pas parler? Bribery, security issues, etc. Cf. slides d'une présentation quelconque.
+%
+%
+
+
+
+
+
+

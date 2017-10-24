@@ -1,0 +1,913 @@
+% !TeX spellcheck = en_US
+\mychapter{Simulations in spheroidal cultures}\label{sec:simulations_spheroidal}
+
+In this chapter and the two following ones, we study two issues that were among our core motivations to develop \svvamp{}.
+\begin{enumerate}
+\item Whereas manipulability is a theoretic necessity shown by the theorem proved by \cite{gibbard1973manipulation} and \cite{satterthwaite1975strategyproofness}, is it a common phenomenon in practice? 
+\item What are the compared performances of different voting systems from this point of view?
+\end{enumerate}
+These are the main motivations for this chapter and the two following ones. A secondary motivation is to illustrate the possibilities offered by \svvamp{}.
+
+Generally, we focus on the coalitional manipulability (CM), which is the central subject of this memoir and which we call also \emph{manipulability} with no more precision. However, since \svvamp{} does not have exact specific algorithm for the CM of each voting system, we will also use the trivial manipulation (TM) as a point of comparison between the voting systems. As we discussed in section~\ref{sec:variants-of-coalitional-manipulation}, TM has the advantage of being easy to compute (in polynomial time, up the time needed to compute the winner). Moreover, when manipulation is possible, TM gives an indicative measure of the cases where manipulation is relatively cheap to implement in terms of communication.
+
+Given the variety of the culture under study, reading these chapters \ref{sec:simulations_spheroidal} and~\ref{sec:simulations_unidim} might be tedious for the impatient reader, but this an issue we did not manage to avoid. For a quicker overview, we suggest to read section~\ref{sec:presentation_cultures_spheroidales} which defines the cultures under study in this chapter, section~\ref{sec:simus_methodo} which presents our reference scenario, section~\ref{sec:sphere_C} which familiarizes with the conventions used for the curves, section~\ref{sec:comparison_vs} concluding this chapter, the introduction of chapter~\ref{sec:simulations_unidim} and sections \ref{sec:comparison_vs_gauss} and~\ref{sec:comparison_vs_synthese} concluding it, before going on with chapter~\ref{sec:simulations_expe}, analyzing data from real-life elections.
+
+\section{Presentation of the spheroidal cultures}\label{sec:presentation_cultures_spheroidales}
+
+In voting theory, it is classic to consider the impartial culture (definition~\ref{def:culture_impartiale}), which is defined for preferences that are strict total orders. Since we want to study together some ordinal and cardinal voting systems, the first question that naturally arises is the way to extend this model to voters that are characterized by their utilities over the candidates. In this section, we briefly describe our approach, which is presented in a more detailed and formal way in appendix~\ref{sec:sphere} and in the paper by \cite{durand2015sphere}.
+
+\medskip
+Without adopting all assumptions from the model of expected utilites by \cite{vonneumann1944games}, we will draw inspiration from it. We will not necessarily assume that voters' preferences are characterized by expected utilities, because there is no random element after the population is drawn: voting systems under study compute the winner in a deterministic way and manipulators use only pure strategies, not mixed strategies.
+
+However, we keep an important property of this model: to begin with, a voter's utility vector $\vecteur{u}_v \in \R^C$ over the candidates is defined up to an additive constant and up to a positive multiplicative constant, which means that vector $\vecteur{u}_v$ represents the same preferences as a vector $\alpha \vecteur{u}_v + \beta \vecteur{1}$, where $\alpha$ is a positive real number, $\beta$ any real number and where $\vecteur{1}$ denotes the vector whose all coordinates are equal to~1. This choice is motivated by the fact that each voter has no canonical way, neither to fix her point~0 of utility, nor to choose the ``unit of measurement'' that is used to evaluate utility values: she is only able to measure their respective intensities.
+
+In a second time, to have a complete model for approval voting, we add the assumption that utility~0 is an \emph{approval limit} (see section~\ref{sec:ellipse_bigsection}): a voter approves of the candidates with a nonnegative utility and disapproves those with a negative utility. With this additional assumption, a voter's utility vector is defined only up to a positive multiplicative constant~$\alpha$. So, the utility space is the one of semi-lines in~$\R^C$ and all the vectors in a given semi-line represent the same preferences in practice and are indistinguishable, even by the voter herself.
+
+Intuitively, a natural way to represent this space consists of normalize each utility vector so that its Euclidean noram is equal to~1. So the utility space, i.e. the set of all semi-lines, is represented by the unit sphere of~$\R^C$. In appendix~\ref{sec:sphere}, we prove, by arguments of projective and differential geometry, that this representation is essentially the only one having good properties\footnote{More precisely, in the model with approval limit, the suitable representations are spheroids that are the image of the unit sphere by a stretching along direction $\vecteur{1}$, which constitue a family with one real parameter. The choice of this parameter has an impact only on approval voting: with exterme values of this stretching factor, we favor either utility vectors with a lot of elements having the same sign, or utility vectors whose sum of elements is zero and have therefore always elements of both signs. To simplify, we always consider the spherical model, which is intermediary between these two extreme cases.}.
+
+Then, we have a canonical way to generalize the impartial culture: we draw a vector on the surface of the unit sphere of~$\R^C$ with a uniform probability law (in the sense of the usual Euclidean measure): this is what we call the \emph{spherical culture}. Each voter has almost surely a strict total of preference, voters are independent and the culture is neutral: as a consequence, the ordinal image of this culture (definition~\ref{def:image_ordinale}) is the impartial culture indeed. So, for ordinal voting systems, this culture is simply equivalent to the impartial culture; but in addition, it makes it possible to study ordinal and cardinal systems in a common natural model.
+
+\medskip
+After studying this model, it will be interesting to extend it further by introducing a correlation between voters. For that purpose, we the the Von Mises-Fisher or VMF model \citep{downs1966vonmises}. This kind of culture makes it possible to model populations tending to have similar preferences, but with a certain dispersion. First, a unit vector $\pole$ is fixed and called the \emph{pole} of the distribution. Then, independently for each voter, a unit vector $\vecteur{u}$ is drawn in $\R^C$ according to a VMF distribution:
+$$
+p(\vecteur{u}) = X_\kappa e^{\kappa \bracket{\vecteur{u}}{\pole}},
+$$
+where $\pole$ is the pole of the distribution, $\kappa$ its concentration, $X_\kappa$ a normalization constant and where $\bracket{\vecteur{u}}{\pole}$ denotes the canonical inner product.
+
+Qualitatively, the VMF model is similar to Mallows' model \citep{mallows1957nonnull}, which is used for ordinal preferences. Not only the first one is better adapted to cardinal preferences than the second one, but it has other advantages that are discussed in section~\ref{sec:pratique_sphere}.
+
+We can check that it extends the spherical culture: indeed, for $\kappa = 0$, the VMF model is equivalent to the spherical culture. For $\kappa = + \infty$, we obtain the other degenerate case of VMF culture: a Dirac peak on the pole~$\pole$. 
+
+We gather the VMF model and the spherical culture, which is one of its particular cases, under the name of \emph{spheroidal} cultures, because of the underlying spherical model for the utility space.
+
+%\medskip
+%Dans la section~\ref{sec:simus_methodo}, nous présentons notre méthodologie pour ce chapitre et le suivant, ainsi que notre scénario de référence: il s'agit de la culture sphérique avec $V = 33$ électeurs et $C = 5$ candidats. Nous expliquons les raisons de ce choix: loin d'être motivé par des contraintes techniques, comme nous le verrons par la suite, il est lié au fait que pour ces valeurs des paramètres, les taux de manipulabilité observés sont relativement éloignés de~1, ce qui permet d'observer les différences entre les systèmes de vote étudiés.
+%
+%Dans les sections \ref{sec:sphere_C} et \ref{sec:sphere_V}, nous étudions la culture sphérique, c'est-à-dire le cas dégénéré de modèle de VMF avec une concentration nulle. Il n'y a alors que deux paramètres libres: $C$ et~$V$.
+%
+%Dans la section~\ref{sec:sphere_C}, nous étudions l'effet du nombre de candidats~$C$. Nous observons que les taux de manipulabilité sont généralement croissants et semblent tendre vers~1 quand $C \to +\infty$. Nous démontrons cette dernière affirmation pour les systèmes vérifiant \cminf{}, dans le cas où le nombre d'électeurs~$V$ est impair. 
+%
+%Dans la section~\ref{sec:sphere_V}, nous faisons varier le nombre d'électeurs~$V$. Tout d'abord, nous observons l'allure générale des courbes: les taux de manipulabilité semblent globalement croître et tendre vers~1 quand $V \to +\infty$, sauf pour Veto ainsi que pour SE, VTI et CVTI. Nous rappelons les résultats théoriques connus sur la question et nous en conjecturons une généralisation. Dans un second temps, nous étudions l'effet de la parité de $V$ sur des phénomènes oscillatoires du taux de manipulabilité.
+%
+%Dans les sections \ref{sec:vmf_concentration} et~\ref{sec:vmf_position_pole}, nous étudions le modèle de VMF non dégénéré, c'est-à-dire avec une concentration non nulle. 
+%
+%Dans la section \ref{sec:vmf_concentration}, nous étudions l'effet de la concentration~$\kappa$. De manière peu surprenante, on constate que la manipulabilité décroît généralement quand croît la concentration, c'est-à-dire l'accord au sein de la population. Le phénomène plus subtil observé est que certains systèmes de vote réagissent bien moins rapidement à cet accord croissant, c'est-à-dire que leur manipulabilité reste élevée pour davantage de valeurs de~$\kappa$. Nous montrons que les taux de manipulabilité tendent vers~0 quand $\kappa \to +\infty$, hormis celui de Veto, pour lequel nous déterminons la valeur limite.
+%
+%Dans la section~\ref{sec:vmf_position_pole}, nous étudions l'effet de la position du pôle de la distribution et nous montrons qu'il peut avoir une influence importante sur la manipulabilité, que nous discutons.
+%
+%Dans les sections \ref{sec:vmf_nombre_de_poles} et~\ref{sec:vmf_positions_des_poles}, nous généralisons le modèle de VMF au cas où il y a plusieurs groupes sociaux d'électeurs qui possèdent chacun un certain pôle et une certaine concentration.
+%
+%Dans la section~\ref{sec:vmf_nombre_de_poles}, nous étudions l'effet du nombre de pôles. Plus celui-ci est élevé et plus la manipulabilité croît. Quand il est infini, nous montrons que la culture tend vers la culture impartiale.
+%
+%Dans la section~\ref{sec:vmf_positions_des_poles}, nous étudions l'effet des positions relatives entre les pôles. Pour cela, nous choisissons le modèle le plus simple possible, avec deux pôles seulement. De manière peu surprenante, quand les pôles s'éloignent, la manipulabilité croît. Mais là encore, ce sont les comportements comparés des différents systèmes de vote qui retiennent l'attention: certains deviennent rapidement très manipulables, alors que d'autres conservent une manipulabilité relativement faible.
+%
+%Dans la section~\ref{sec:comparison_vs}, nous effectuons une \emph{méta-analyse} des cas précédents en comparant les différents systèmes de vote entre eux. On voit ainsi que dans presque toutes les cultures étudiées, certains systèmes sont toujours moins manipulables que tous les autres hormis Veto: il s'agit, par ordre croissant de manipulabilité, de CVTI, VTI, SE et l'uninominal à deux tours. À l'inverse, le vote par notation, le jugement majoritaire, le vote par assentiment et les méthodes de Borda et de Coombs sont généralement très manipulables. Le système Veto est non comparable aux autres, confirmant sa place à part dans notre zoologie des modes de scrutin dits classiques.
+
+
+
+%\bigskip
+%\bigskip
+%\todo{Intro à rédiger}
+
+%Mettre plus de TM?
+%
+%Il faudra éventuellement alléger un peu 6.1 en fonction de ce qu'on vient de dire dans le chapitre précédent sur \svvamp{}.
+
+%En utilisant \svvamp, nous présentons de nouveaux résultats sur la manipulation par coalition pour 22 systèmes de vote, en utilisant des modèles aléatoires pour la génération de populations, avec différents jeux de paramètres. Nos observations mènent à plusieurs conjectures qualitatives, pour lesquelles pour avançons des explications intuitives.
+
+%La principale conclusion est que VTI et ses variantes sont généralement les systèmes les plus résistants à la manipulation en culture sphérique / VMF.
+
+%Une motivation secondaire de ce chapitre et des deux suivants est d'illustrer les possibilités offertes par \svvamp{}.
+%
+%Étant donné l'espace à explorer, la lecture de ce chapitre pourrait s'avérer fastidieuse pour le lecteur impatient, mais c'est un défaut que nous n'avons pas réussi à éviter. Une lecture possible pour aller vite: Méthodologie; Conclusion provisoire sphère et VMF; Conclusion spectre politique.
+
+%La culture sphérique généralise la Culture Impartiale aux populations caractérisées par des utilités. Formellement, on tire au le vecteur d'utilité de chaque électeur indépendamment et uniformément sur la sphère unité de $\R^C$. Rappelons que pour les modes de scrutin ordinaux, ce modèle est équivalent à la Culture Impartiale. \todo{Réf sphère dans le mémoire + biblio ADT.}
+
+
+
+%\section{Condorcet-efficience}
+
+%Et cohérence entre les modes de scrutin? Bof
+
+\section{Reference scenario}\label{sec:simus_methodo}
+
+In this section, we present our methodology and our reference scenario. It is the spherical culture with $V = 33$ voters and $C = 5$ candidates. For this reference case, we choose an odd number of voters to avoid some questions of ties, for example the subtleties between the different Condorcet notions: in particular, the notions of Condorcet winner and Condorcet-admissible candidate are equivalent. In order to choose the values of $V$ and $C$, we have explored the values $V = 2^k + 1$ for $k \in \intent{1}{10}$ (so, for $V$ between 3 and~1025) and the values $C \in \intent{3}{15}$. In sections \ref{sec:sphere_C} and~\ref{sec:sphere_V}, we will see that, for most voting systems, in spherical culture, the manipulability rate seems to increase and tend to~1 when either one of these parameters increases. Our choice of $V = 33$ and $C = 5$ gives manipulability rates that are reasonably far from~1 and, as a consequence, facilitates the comparison between the voting systems under study.
+
+\begin{figure*}
+\begin{bigcenter}
+\includegraphics[width=1.1\textwidth]{fig_simu/TM_en.png}
+\end{bigcenter}
+\vspace{-0.5cm}\caption{Coalitional manipulation (CM) and variants. Spherical culture, $V=33$, $C=5$.}\label{fig:MT}
+\end{figure*}
+
+\medskip
+Figure~\ref{fig:MT} illustrates the performances of several voting systems in this reference scenario. We can see CM and its variants TM, UM and ICM. For this figure, we have drawn 10\,000 random populations with the culture under study.
+
+The proportion of CM (resp. TM, UM, ICM) configurations for a voting system in these 10\,000 random experiments gives an estimator of the CM (resp. TM, UM, ICM) rate for the culture. This induces an margin of uncertainty, which we will say \emph{statistical}, of order $\frac{1}{\sqrt{10\,000}} = 1\%$ on the CM (resp. TM, UM, ICM) rate. By convention, this part of the uncertainty is not represented, neither in figure~\ref{fig:MT} nor in the following ones.
+
+By the way, for some of the voting systems, the algorithm used to determine CM is not exact. Histograms in figure~\ref{fig:MT} represent a lower bound of the proportion of manipulable configurations, which is given by the cases where \svvamp was able to prove CM. The uncertainty bar (for example, for Baldwin's method) indicates an upper bound of this proportion, which is given by the cases where \svvamp was able to prove that CM is impossible. We will call the difference between these bounds the \emph{algorithmic uncertainty}.
+
+\medskip
+Let us seize the occasion to examine the performances of the algorithms that are implemented in 
+\svvamp for CM.
+
+For Maximin, Schulze and Borda, we use an approximate algorithm but most of time, it seems that \svvamp can decide wether these systems are manipulable or not: in figure~\ref{fig:MT}, the algorithmic uncertainty is 1,8~\% for Schulze's method and equal to zero for Maximin and Borda.
+
+For Baldwin, VTID, PO, Nanson, CSD, Kemeny and IB\footnote{In this chapter and the following ones, we do not include Kim-Roush and IRVA, which were implemented in \svvamp{} after realizing these simulations and use also generic algorithms for the manipulation problem. For reasons of computation time and in order to avoid last-minutes mistakes in this memoir, we decided to stick to what we had, and we apologize to the reader for that. That being said, based on the first tests we did with these systems, the performances of Kim-Roush method for the manipulability seem to be quite bad. As for IRVA, by contrast, results are quite good and we will discuss this point when concluding this memoir.}, \svvamp uses only its generic manipulation methods, essentially based on preliminary tests and TM. In that case, we have essentially a lower bound of manipulability, which will be sufficient in many cases to prove that these systems are more manipulable that some others. In this reference scenario of figure~\ref{fig:MT}, for example, we know that these systems are more manipulable than CIRV and IRV.
+
+For EB, we will always use the exact algorithm. For IRV, we use the exact algorithm also, except in section~\ref{sec:sphere_C}, where we use the slow option (section~\ref{sec:algos_vti}) when the number of candidates is greater or equal to~9 in order to limit the computation time. For CIRV, we use the heuristic presented in section~\ref{sec:algos_cvti}: despite its not being an exact algorithm, it appears in the specific case of figure~\ref{fig:MT} that the algorithmic uncertainty is equal to zero. It means also that in practice, CIRV has a manipulability rate that is very close to IRV, even if we know that in general, it is strictly lower by the strong Condorcification theorem~\ref{thm:cond_strictement_meilleur}.
+
+\medskip
+In figure~\ref{fig:MT}, however, we can remark a non-negligible difference: CIRV is significantly less vulnerable to ICM, TM and UM than IRV, even if is CM rate is very close. So, manipulation looks more difficult in CIRV than in IRV. 
+
+By contract, IRV and EB present very similar performances, even if the example of table~\ref{table:u2t_manip_not_u2ti} (section~\ref{sec:reducation_general_vers_svbe}) proves that EB is strictly more manipulable than IRV (since they are respectively equivalent to TR and ITR in this example with 3~candidates).
+
+\medskip
+Veto is the only voting system for which the TM rate (3\%) is very different from the CM rate (91~\%). It is easy to explain since the trivial strategy is very bad in Veto: it is certainly optimal to avoid a victory for the sincere winner~$\winner$, but manipulators forfeit any kind of control on the winning candidate. On the contrary, the optimal strategy is to coordinate in order to balance the total number of negative votes on all candidates, except the one we wish to get elected.
+
+\medskip
+Lastly, we note that IRVD is significantly more manipulable than CIRV, IRV and EB. However, at first glance, this voting system is based on a similar mechanism. We can try to understand why with an example where there are 3~candidates (possibly, after some eliminations took place). If the sincere winner~$\winner$ is not a Condorcet winner, then the profile is manipulable anyway, so the interesting case is when $\winner$ is a Condorcet winner. Let us note~$c$ the candidate for whom we want to manipulable and $d$ the third candidate.
+
+In IRVD, $c$ must never be confronted to $\winner$ in duel, otherwise she loses. So, here is the only possible scenario: $\winner$ has a duel against $d$ and loses, then $c$ has a duel against $d$ and wins. So, it is necessary that $\winner$ and $d$ are selected for the first electoral duel: for this purpose, the best strategy is to defend~$c$ by placing her on top of each manipulator's ballot. By the way, $\winner$ must lose against~$d$: for that purpose, the best strategy is to attack~$\winner$ by placing her in the bottom. %Si cela fonctionne, alors le duel suivant se déroule entre $c$ et $d$ et la stratégie des manipulateurs est déjà optimale, puisque nous avons vu qu'ils placent~$c$ en tête, suivi de $d$. 
+So, the different imperatives, i.e. defending~$c$ and attacking the dangerous candidate~$\winner$, are perfectly compatible.
+
+Now, let us examine the situation in EB or IRV. In each elimination round, some of the manipulators must defend~$c$ in order to prevent her elimination. Moreover, as long as $\winner$ is not eliminated, no sincere voter votes for~$c$: manipulators can only rely on themselves for this purpose. By the way, manipulators must avoid a last round between $c$ and $\winner$, for the same reasons as before. So, they must attack~$\winner$ to eliminate her immediately. But for this, they may need to share their votes between $c$ and $d$, which is more difficult, \emph{a priori}, than in VTID where defending~$c$ is sufficient. 
+
+\medskip
+This leads us to another remark: although IRV is the PSR-SE for Plurality, it present a similarity with Veto (and, conversely, Commbs' method has a similarity with Plurality). Indeed, the choice of the eliminated candidate in IRV is done in Veto: each voter, by voting for one candidate, emits a veto against her elimination and the candidate with least vetos against her elimination (i.e. with most votes) is designated (i.e. eliminated). Now let us recall that the maximal family in Veto is, up to questions of tie, the family of threshold $V \frac{C-1}{C}$ (proposition~\ref{thm:condorcification_maximale_veto}): so, it is especially difficult to choose the eliminated candidate in IRV, which may explain the low manipulability of this voting system, although it meets \cminf{} if we consider the system in whole and not each round separately.
+
+
+
+\section{Spherical culture: number of candidates $C$}\label{sec:sphere_C}
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[width=\relativewidth\textwidth]{fig_simu/spherec_en.eps}
+\end{center}
+\spacebeforecaption\caption{CM rate as a function of the number of candidates~$C$. Spherical culture, $V = 33$.}\label{fig:sphere_C}
+\end{figure}
+
+In this section and the following one, we will consider variants for the reference scenario, by varying each time a specific parameter. To begin with, we keep the spherical culture of the reference scenario, i.e. the particular case where the concentration~$\kappa$ is equal to zero, we leave the number of voters $V = 33$ constant and we represent in figure~\ref{fig:sphere_C} the CM rate as a function of the number of candidates~$C$.
+
+\medskip
+These first curves are the occasion to precise our graphic conventions for the rest of this chapter and the following one. When the name of a voting system is accompanied by a star in the legend, it means that, for some points of the curve, the approximate algorithm used by \svvamp{} found a difference between the lower and the upper bounds that is greater than 1~\%. In that case, given the number of voting systems under study, we draw only the CM rate found by \svvamp{}, i.e. the lower bound. For example, it is so for Baldwin's method in figure~\ref{fig:sphere_C}.
+
+When there is no star in the legend, it does not necessarily mean that the algorithm is exact but that, for each point of the curve, \svvamp{} found an algorithmic uncertainty that is lower than 1~\%. So, for CIRV or Maximin, although approximate algorithms are used, the algorithmic uncertainty is lower than 1~\% for each point in figure~\ref{fig:sphere_C}.
+%Étant donné le nombre de système de vote et de paramètres que nous souhaitons considérer, nous traçons uniquement le taux de MC trouvé par \svvamp{}, c'est-à-dire une borne inférieure du taux de MC. Pour chaque système de vote, quand la différence entre la borne inférieure et la borne supérieure de MC est supérieure à 1~\%, le nom du système de vote est signalé par une astérisque (*) dans la légende. Par exemple, dans la figure~\ref{fig:sphere_C}, la courbe de la méthode de Baldwin ne fournit qu'une borne inférieure du taux de MC; en revanche, pour CVTI, l'incertitude d'origine algorithmique est inférieure à 1~\%.
+
+In order to facilitate the comparison of voting systems in all the figures, we assign to each voting system a unique graphic style. These styles are gathered in families: systems based on grades use tones of red with diamond markers; PSR use tones of green with circle markers; ``natural'' Condorcet systems use tones of brown with cross markers; systems of IRV family use tones of blue without marker; other systems use tones of rose and violet with markers the shape of big points.
+
+In order to facilitate the correspondence with the curves, the legend presents the voting systems by decreasing order or the manipulability rate found (on average, on the points of the curve).
+
+As a reference, we represent the proportion of non-resistant configurations (i.e. where there is no resistant Condorcet winner), in black with triangles oriented downward; according to theorem~\ref{thm:Condorcet_resistant_caracterisation}, this gives an upper bound for the manipulability rate for all voting systems meeting the Condorcet criterion. Similarly, we represent the proportion of non-admissible configurations (i.e. where there is no Condorcet-admissible candidate), in black with triangles oriented upward, which gives a lower bound of the manipulability rate for all voting systems meeting \cminf{} (lemma~\ref{thm_NonAdmManip}). 
+
+When the number of voters is even, we will represent also the proportion of non-Condorcet configurations (i.e. where there is no Condorcet winner), in black dotted line with the same triangle marker. However, when the number of candidates is odd, as in figure~\ref{fig:sphere_C} and most of the others, it is useless to draw this curve: since we consider cultures where preferences are almost surely strict total orders, the notions of Condorcet-admissible candidate and Condorcet winner are equivalent, which is not the case when the number of candidates is even.
+
+\medskip
+The first observation drawn from figure~\ref{fig:sphere_C} is the following conjecture.
+
+\begin{conj}\label{conj:sph_MC_croit_avec_C}
+In spherical culture, for $V \geq 3$, the manipulability rate of each voting system under study here is an increasing function of the number of candidates~C.
+\end{conj}
+
+In order to understand this fact qualitatively, let us note also that the probability to have a non-admissible configuration, i.e. a non-Condorcet configuration since $V$ is odd, seems to increase with the number of candidates. 
+
+\cite{kelly1974voting} conjectured that, for $V = 3$ or $V \geq 5$ voters, the probability that there exists a weak Condorcet winner (i.e. a Condorcet-admissible candidate) is a decreasing function of~$C$; this has been proved by \cite{fishburn1979condorcet} for $V = 3$~voters. Similarly, \cite{kelly1974voting} conjectured that, for $V \geq 3$, the probability that there exists a Condorcet winner decreases; this has been proved for $V \to +\infty$ \citep{gehrlein2006condorcet}. To the best of our knowledge, others cases remain conjectures. In the same kind of idea, figure~\ref{fig:sphere_C} leads us to the following conjecture and proposition.
+
+\begin{conj}\label{conj:sph_resist_decroit_avec_C}
+In spherical culture, for $V \geq 3$, the probability that there exists a resistant Condorcet winner is a decreasing function of the number of candidates~C.
+\end{conj}
+
+\begin{prop}\label{conj:sph_resist_tend_vers_zero_avec_C}
+In spherical culture, for $V \geq 3$ and $C \to +\infty$, the probability that there exists a resistant Condorcet winner tends to~0.
+\end{prop}
+
+It is easy to prove this proposition with a previous result: indeed, in impartial culture et with a constant number of voters, the probability that there exists a Condorcet winner tends to~0 when $C$ tends to $+\infty$~\citep{may1971paradox}. So, it is also true for the resistant Condorcet winner.
+
+\medskip
+In figure~\ref{fig:sphere_C}, we also observe the following phenomenon, which we will be able to demonstrate partially.
+
+\begin{conj}\label{conj:sph_MC_limite_C_infini}
+In spherical culture, for $V \geq 3$ and $C \rightarrow +\infty$, the manipulability rate of any voting system meeting \cminf{} tends to~$1$. 
+\end{conj}
+
+The assumption \cminf{} concerns all voting systems studied here, except Veto, which we will discuss soon. It is easy to prove conjecture~\ref{conj:sph_MC_limite_C_infini} for an odd number of voters. Indeed, in impartial culture and with a constant number of voters, we have also recalled that the probability that there exists a Condorcet winner tends to~0 when $C$ tends to $+\infty$~\citep{may1971paradox}. But, for $V$ off, the notions of Condorcet winner and Condorcet-admissible candidate are equivalent. So, the sincere winner~$\winner$ is not Condorcet-admissible with high probability. For a voting system meeting \cminf{}, lemma~\ref{thm_NonAdmManip} ensures that the configuration is manipulable.
+
+For an even number of voters, to the best of our knowledge, it is not proven that the probability to have a Condorcet-admissible candidate (i.e. a weak Condorcet winner, given the assumptions) tends to~0 when $C$~tends to $+\infty$. If it is true, then our proof of conjecture \ref{conj:sph_MC_limite_C_infini} is also valid for an even number of voters.
+
+\medskip
+By contract, although the CM rate of Veto seems also to tend to~1 in figure~\ref{fig:sphere_C}, we can prove that this limit behavior is not true for Veto, when it uses the tie-breaking rule implemented in \svvamp{}.
+
+\begin{prop}\label{thm:veto_limite_C_infini_culture_impartiale}
+In impartial culture, for $V$ constant and $C \rightarrow +\infty$, the manipulability rate of Veto (with the lexicographical tie-breaking rule on candidates) does not tend to~$1$. 
+\end{prop}
+
+\begin{proof}
+For $C > V$, let us consider the restriction of the impartial culture for~$C$ to the $V + 1$ candidates with lowest indexes: it is also an impartial culture. As a consequence, with a probability equal to $\frac{1}{((V+1)!)^V}$, all the voters have the following order of preference over the $V + 1$ first candidates: $(1 \plusque 2 \plusque \ldots \plusque V+1)$. Their relations of preferences over the other candidates has no impact on our demonstration.
+
+With such preferences, no voter votes against candidate~1, so she is declared the winner. There is no possible manipulation for candidates 2, \ldots, $V + 1$ because no voter is interested. Lastly, because of the tie-breaking rule, no candidate among $V+2, \ldots, C$ can be the winner: even if each of the first $V$ candidates receives a veto, candidate~$V+1$ is elected. So, manipulation is impossible.
+
+As a consequence, with a probability at least $\frac{1}{((V+1)!)^V}$, the profile is not manipulable.
+\end{proof}
+
+In figure~\ref{fig:sphere_C}, we also note that CIRV, IRV and EB are significantly less manipulable than the others and that the two-round system presents performances that are intermediary between these three IRV-like systems and the other voting systems, except for large values of~$C$. Indeed, the theoretical results above prove that TR is (slightly) more manipulable than Veto for a large enough number of candidates.
+
+We also observe that the curves for CIRV, IRV and EB are almost the same. The difference of manipulability between CIRV and IRV is not detectable in this figure: the difference in the proportion of observed manipulable configurations is always equal to zero. As for the difference between IRV and EB, \svvamp{} find slightly less manipulations for IRV for $C = 9$ and higher: this corresponds to the value where we started to use the approximate algorithm for IRV, whereas we kept on using the exact algorithm for EB. The algorithmic uncertainty for IRV, of order 1~\%, corresponds precisely to the difference between the curves of IRV and EB. This difference should not be over-interpreted: it is a combination, in unknown proportions, of a (slight) difference of manipulability between IRV and EB and a (slight) loss of performance for the approximate algorithm for IRV when the number of candidates increases.
+
+So, even if we proved theoretically that CIRV is strictly less manipulable than IRV (by corollary~\ref{thm:classical_voting_systems_not_Cond_resist} of the Condorcification theorems) and that IRV is itself strictly less manipulable that EB (section~\ref{sec:reducation_general_vers_svbe}), the differences are, in fact, of very small amplitude, especially when we compare them with the other voting systems under study here.
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[width=\relativewidth\textwidth]{fig_simu/spherec_sur_adm_en.eps}
+\end{center}
+\spacebeforecaption\caption{Normalized CM rate (relative to admissible configurations) as a function of the number of candidates~$C$. Spherical culture, $V = 33$.}\label{fig:sphere_C_sur_adm}
+\end{figure}
+
+\medskip
+In order to explain all these phenomena, we can propose the explanation that they are essentially linked to the degradation of the ``quality'' of the population, to its growing disunity. In particular, for the voting systems meeting \cminf{} (all those under study here, except Veto), we know, by lemma~\ref{thm_NonAdmManip}, that the non-admissible configurations are doomed to be manipulable anyway. So, we can wonder if the increase of the rate of non-admissible configurations is the only factor explaining the increase of the manipulability rates. In order to test this idea, we have indicated in figure~\ref{fig:sphere_C_sur_adm} the \emph{normalized CM rate}, i.e. relative to the proportion of non-admissible configurations. For the voting systems meeting \cminf{}, it is their manipulability rate for the restriction of the impartial culture to the admissible configurations. The interesting observation is that, even so, the phenomena seen above remain true, which leads us to the following conjecture.
+
+\begin{conj}\label{conj:sph_MC_comportement_C_sur_adm}
+We consider the spherical culture with $V \geq 3$.
+
+The normalized manipulability rate of each voting system under study here is an increasing function of the number of candidates~C.
+
+For $C \rightarrow +\infty$, the normalized manipulability rate of each voting system under study here, except Veto, tends to~$1$. 
+\end{conj}
+
+This conjecture does not invalid our intuitive explanation concerning the increase of the manipulability rates. The fast that Condorcet-admissible candidates are less frequent is, in our opinion, only a symptom of a more general phenomenon of increasing disunity, which give an intuitive picture explaining that some voting systems that does not meet \cminf{}, such as Veto, are also concerned. %Par exemple, on constate sur la figure~\ref{fig:sphere_C_sur_adm} que la probabilité d'existence d'un vainqueur de Condorcet résistant, même conditionnée au fait que la configuration soit admissible, décroît et tend vers~0, ce qui fournit un autre indicateur signifiant que la désunion de la population s'aggrave, même en se restreignant aux configurations admissibles.
+
+
+
+
+
+\section{Spherical culture: number of voters~$V$}\label{sec:sphere_V}
+
+\subsection{Odd number of voters $V$}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\relativewidth\textwidth]{fig_simu/spherevbig_en.eps}
+\caption{CM rate as a function of the number of voters~$V$. Spherical culture, $C=5$, large odd values of~$V$.}\label{fig:sphere_V_big}
+\end{figure}
+
+In figure~\ref{fig:sphere_V_big}, we draw the CM rates for odd numbers of voters~$V$. The parity of the number of voters can create particular phenomena, which we will examine in section~\ref{sec:simus_sphere_V_parite}.
+
+\medskip
+For most voting systems, the CM rate seems to be an increasing function of the number of voters~$V$ (on the set of odd values). In the particular case of EB, the seeming non-monotony between $V = 9$ and $V = 13$ is less than the statistical uncertainty of 1~\% so, even in that case, it is not excluded that the CM rate is an increasing function of the number of voters.
+
+\medskip
+For CIRV, IRV and SE, we observe in figure~\ref{fig:sphere_V_big} that the CM rate are, once again, significantly lower that for the other systems and that the differences between these three systems are very small. This time, we used the exact algorithm for IRV. Since we know that IRV is at most as manipulable as EB in the set-theoretic sense (section~\ref{sec:reducation_general_vers_svbe}), the small difference between IRV and EB (at its maximum, slightly more than 1~\%) is only due to an actueal difference of manipulability, i.e. to profile where EB is manipulable but where IRV is not. This difference seems to tend to~0 when the number of voters tends to~$+\infty$. As for the difference between CIRV and IRV, it is, once again, extremely small\footnote{Our approximate algorithm for CIRV was not able to decide manipulability for 2 cases out of 10\,000 for $V = 5$ and 1 case out of 10\,000 for $V = 13$ and $V = 17$. In all other cases, the manipulability, true or false, could be decided and it is equal to the one of IRV.}. 
+
+Apart from these systems, the two-round system behaves better thanb the other systems, except for about a hundred voters or more, where Veto becomes less manipulable.
+
+
+\medskip
+For all voting systems except CIRV, IRV, EB and Veto, the CM rate seems to tend to~1 when the number of voters~$V$ tends to~$+\infty$. But, unlike the case $C \rightarrow +\infty$, the probability of existence for a Condorcet winner does not tend to~0 when $V$ tends to $+ \infty$ \citep{gehrlein2006condorcet}, hence we cannot prove this observation by the same means. However, there exists theoretical results on this matter. On one hand, \cite{kim1996manipulability} show the following results.
+\begin{itemize}
+\item For Veto, if $C = 3$ and $V \rightarrow +\infty$, the CM rate tends to $\frac{1}{2}$.
+\item For Veto, if $C > 3$ and $V \rightarrow +\infty$, the CM rate tends to a limit that is strictly between 0 and 1.
+\item For all PSR except Veto, if $C \geq 3$ and $V \rightarrow +\infty$, the CM rate tends to~$1$.
+\item For Maximin, if $C \geq 3$ and $V \rightarrow +\infty$, the CM rate tends to~$1$.
+\item For Coombs' method, if $C = 3$ and $V \rightarrow +\infty$, the CM rate tends to~$1$.
+\end{itemize}
+On the other hand, \cite{lepelley1999kimroush} show that for EB, if $C = 3$ and $V \rightarrow +\infty$, the CM rate tends to $0.16887$ (approximate value): in particular, it is a value strictly between 0 and~1.
+
+With these theoretical results in mind and observing figure~\ref{fig:sphere_V_big}, we propose the following conjectures.
+
+\begin{conj}\label{conj:V_infini_MC_tend_vers_1}
+In impartial culture, for $C \geq 3$ and $V \rightarrow +\infty$, the CM rate tends to~1 for Baldwin, Bucklin, Coombs, CSD, IB, IRVD, Kemeny, Nanson, RP, Schulze and the two-round system.
+
+In spherical culture, this is also true for range voting, approval voting and majority judgment.
+\end{conj}
+
+Let us recall that this result is proven for Maximin and all PSR except Veto..
+
+\begin{conj}\label{conj:V_infini_MC_tend_pas_vers_1}
+In impartial culture, for $C \geq 3$ and $V \rightarrow +\infty$, the CM rate tends to a limit that is strictly between 0 and 1 for CVTI, VTI and SE. 
+\end{conj}
+
+Let us recall that this result is proven for Veto.
+
+\medskip
+In spherical culture, it seems that CIRV, IRV, EB and Veto are the only voting systems, among those under study here, whose manipulability rate does not tend to~1 when the number of voters~$V$ tends to $+\infty$.
+
+
+
+\subsection{Parity of $V$}\label{sec:simus_sphere_V_parite}
+
+
+%\begin{figure}[ht]
+%\centering
+%\includegraphics[width=\relativewidth\textwidth]{fig_simu/spherevsmall_en.eps}
+%\spacebeforecaption\caption{Taux de MC en fonction du nombre d'électeurs $V$. Culture sphérique, $C=5$, petites valeurs de $V$.}\label{fig:sphere_V_small}
+%\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\relativewidth\textwidth]{fig_simu/spherevsmallrestricted_en.eps}
+\spacebeforecaption\caption{CM rate as a function of the number of voters~$V$ for voting systems with oscillatory behaviors. Spherical culture, $C=5$, small values of~$V$.}\label{fig:sphere_V_small_restricted}
+\end{figure}
+
+%On observe une fois encore les performances de CVTI, VTI et SE, bien meilleures que celles des autres modes de scrutin et similaires entre elles. 
+%Enfin, on observe que l'uninominal à deux tours présente de nouveau des taux de manipulabilité intermédiaires entre ces trois variantes de VTI et les autres modes de scrutin, lesquels sont nettement plus manipulables.
+
+If we use odd and even values of~$V$, we can observe non-monotone phenomena for the CM rate of some of the voting systems. In figure~\ref{fig:sphere_V_small_restricted}, we consider all values of the number of voters from 3 to 33 and we represent the CM rate of the affected voting systems; other ones are omitted in order to lighten the figure.
+
+\medskip
+First of all, let us examine the majority judgment or Bucklin's method, whose CM rate has oscillations without algorithmic uncertainty between even and odd values of~$V$. 
+
+This oscillatory behavior could be linked to fact that the probability of existence for a Condorcet winner or a Condorcet-admissible candidate oscillate also between even and odd values of~$V$. However, as proven by \cite{gehrlein2006condorcet} with theoretical arguments, these oscillations are in antiphase. When $V$ is odd, the two notions are equivalents. When $V$ go from an odd value to an adjacent even value, the probability to have at least a Condorcet-admissible candidate increases, whereas the probability to have a Condorcet winner decreases. In the curves we obtained by computer simulation, we observe also oscillations for the probability of existence of a resistant Condorcet winner, in phase with the Condorcet winner\footnote{It is also known \citep{gehrlein2006condorcet} that for a given parity, the probability of existence of a Condorcet winner is monotone. At first glance, it does not seem true in figure~\ref{fig:sphere_V_small_restricted} between $V = 28$, $V = 30$ and $V = 32$. However, the observed difference between $V = 30$ and $V = 32$ is less than 2~\% and it is purely statistical. Let us recall that this uncertainty, of order 1~\% for one value and $\sqrt{2} \times 1$~\% for the difference between two values, is only an order of magnitude, which may sometimes be overcome.}. But, as we saw, the probability of existence of a Condorcet-admissible candidate, of a Condorcet winner (which was equivalent in previous curves) or a resistant Condorcet winner are indicators with an impact on manipulability.
+
+However, if this explanation is correct, it is surprising that other voting systems meeting \cminf{} do not present the same kind of oscillatory behavior. We can propose the idea that there are two concurrent effects: the larger probability to have a Condorcet-admissible candidate is a better protection against manipulation for $V$ even, but the probability to have a Condorcet winner or even a resistant one is a better protection for $V$ odd. So, the two effects may cancel each other partially, which may explain that a few voting systems present oscillations. We will se that this phenomenon is far more frequent in a Gaussian well culture and we will explain why (section~\ref{sec:simus_gauss_V_parite}).
+
+This explanation leaves an additional question. For the voting systems meeting \cminf{}, the usual lower bound on the manipulability rate is given by the proportion of non-admissible configurations; so, we might think that the oscillations of the curves will be in phase. But we observe the opposite: oscillations of majority judgment and Bucklin's method are in phase with the proportion of Condorcet configurations. 
+
+%\begin{figure}[ht]
+%\centering
+%\includegraphics[width=\relativewidth\textwidth]{fig_simu/spherevsmall_cond_en.eps}
+%\spacebeforecaption\caption{Taux d'existence d'un candidat spécial en fonction du nombre d'électeurs $V$. Culture sphérique, $C=5$, petites valeurs de $V$.}\label{fig:sphere_V_small_cond}
+%\end{figure}
+
+
+\medskip
+For these reasons, we propose another explanation, which does not exclude the previous one. The majority judgment and Bucklin's method rely on the notion of median, which has a slightly different definition depending on the parity of the number of voters. More precisely, let us examine what may happen with an even number of voter, if there are exactly $\frac{V}{2}$ voters who prefer a candidate~$c$ to the sincere winner~$\winner$. Generally, the typical sincere voter gives $\winner$ neither the maximal rank nor the maximal grade; and she gives $c$ neither the minimal rank nor the minimal grade. After the manipulation, we obtain the kind of profile represented in table~\ref{table:exemple_JM_Buck}.
+\begin{table}\label{table:exemple_JM_Buck}
+$$
+\begin{array}{r@{~:~}l|r@{~:~}l}
+\multicolumn{2}{c|}{\frac{V}{2} \text{ (sincères)}} & \multicolumn{2}{c}{\frac{V}{2} \text{ (manipulateurs)}} \\ \hline
+\text{Divers}  & 1     & c & 1 \phantom{\vdots} \\
+\winner & 0,\!9 & \multicolumn{2}{c}{\vdots} \\
+\text{Divers}  & 0,\!5 & \text{Divers} & 0,\!5 \phantom{\vdots} \\
+c       & 0,\!2 & \multicolumn{2}{c}{\vdots} \\
+\text{Divers}  & 0     & \winner & 0 \phantom{\vdots} \\
+\end{array}
+$$
+\caption{Explanatory example for the majority judgment and Bucklin's method.}
+\end{table}
+
+In majority judgment or in Bucklin's method, by convention, the unfavorable median is used, i.e. the lower median grade in majority judgment and the upper median rank in Bucklin's method. So the median grade considered by the majority judgment (resp. the median rank considered by Bucklin's method) for $\winner$ is~-0 (resp. $C$), whereas the median grade (resp. the median rank) for $c$ is 0.2 (resp. $C-1$ for example). Then, a coalition having half of the voters may generally manipulate. In contract, if we consider a profile similar to the above simplified example but with an odd number of voters, a strict majority of voters is necessary to make~$c$ win. This may explain the fact that the manipulability rate is higher for an even number of voters.
+
+\medskip
+For CSD, the oscillatory phenomenon remains to be confirmed, because the curve is only a lower bound of the MC rate (in practice, it is the TM rate). However, we can note that the rule of CSD has a behavior depending on the parity of~$V$: indeed, the penalty for a defeat of~$c$ against $d$ is $1 + D_{dc} - \frac{V}{2}$ when $V$ is even, but only $\frac{1}{2} + D_{dc} - \frac{V}{2}$ when $V$ is odd.
+
+For CIRV, IRV and EB, we observe only effects of non-monotony, whose amplitude is more than the margin of uncertainty. However, they do not seem to have an obvious pseudo-period. Given the way these systems are counted, we propose the explanation that several effects combine with one another, depending on the modulo of~$V$ by all integers from $2$ to~$C$.
+
+For IB, as for CSD, the surve is only a lower bound, but it can be commented upon as a curve of the TM rate. This time, there seems to be a transition about $V = 8$ or $V = 9$: oscillations remain but the phase of the curve gets reversed! For smaller values of $V$, the manipulability is greater for $V$ even (than for adjacent odd values); for larger values, it is greater for $V$ odd. Since it is a multiround voting systems, it is possible to imagine effects of modulo as for CIRV, IRV and EB and parity effects as for Bukclin's method. Anyway, the complex rule of this voting systems makes the perspective of a simple explanation quite optimistic.
+
+\medskip
+Lastly, we remark that the non-monotony phenomena have a decreasing amplitude when the number of voters~$V$ increases. This is easy to explain: when the number of voters is large, phenomena of ties, implying exactly half of the voters, are quite rare. As a joke, we can sum up this observation by the saying: ``infinity is odd''. Or: <<\,when infinity is even, she does not notice\,>>.
+
+
+\section{Monopolar culture: concentration $\kappa$}\label{sec:vmf_concentration}
+
+Now, we consider non-degenerated VMF cultures, i.e. with a concentration~$\kappa$ that is not equal to zero. Let us recall that we first choose a unit vector $\pole$, called the \emph{pole} of the distribution. Then, independently for each voter, we draw a unit vector $\vecteur{u}$ in $\R^C$ according to a VMF distribution:
+$$
+p(\vecteur{u}) = X_\kappa e^{\kappa \bracket{\vecteur{u}}{\pole}},
+$$
+where $X_\kappa$ is a normalization constant.
+
+%Qualitativement, le modèle de VMF est similaire au modèle de Mallows, qui est utilisé pour des préférences ordinales \citep{mallows1957nonnull}. Outre le fait que le premier est mieux adapté aux préférences cardinales que le second, il possède d'autres avantages qui sont discutés dans la section~\ref{sec:pratique_sphere}.
+%
+%Les cas dégénérés de culture de VMF sont la culture sphérique pour $\kappa = 0$ et un pic de Dirac sur le pôle pour $\kappa = + \infty$. 
+
+Since we have already studied the impact of the number of candidates or the number of voters, we will study the effect of concentration and position of the pole. Then, we will extend the model to several poles, in order to represent several social groups, each one with a typical opinion.
+
+% Note: il s'agit de VMF à C-1 dimensions ici.
+
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\relativewidth\textwidth]{fig_simu/vmfconcentration_en.eps}
+\spacebeforecaption\caption{CM rate as a function of concentration $\kappa$. VMF culture, $V=33$, $C=5$, one pole of random position.}\label{fig:vmf_kappa}
+\end{figure}
+
+In figure \ref{fig:vmf_kappa}, for each population, the pole $\pole$ is drawn at random, then voters are drawn with a given concentration $\kappa$. 
+Let us note that voters are not independent. More precisely, once the pole is chosen, they are independent; but, on the set of all possible populations (with all possible positions of the pole), voters are not independent. Indeed, \emph{a priori}, a voter has a uniform probability on the unit sphere of~$\R^C$; but if we know, for example, that the first $V - 1$ voters are close to a given point of the utility space, then the last voters has a higher probability to be close to this point too.
+ 
+As we could expect, the higher the concentration~$\kappa$, the lower the CM rates for most voting systems. In the degenerated case $\kappa = +\infty$, all voters always have the same utility vector, hence any unanimous voting system (section \ref{sec:unanimite}) is non-manipulable: it is the case for all systems under study here, except Veto (see below).
+
+However, some voting systems seem to be significantly less reactive than others to an increase of~$\kappa$: Veto, approval voting, Borda's method, range voting and, to a lesser extent, Coombs' method. It means that, even when voters have relatively similar opinions, these voting systems keep a high manipulability.
+
+For Veto, the CM is not even monotone. And we will show that it does not tend to~0, unlike what happens for unanimous voting systems.
+
+\begin{prop}
+We consider Veto, with a tie-breaking rule that uses no other information about preferences but the candidate against which each voter emits her ballot.
+
+We assume $V \geq C - 1$.
+
+In VMF culture with a pole drawn uniformly at random, when $\kappa \rightarrow +\infty$, the manipulability rate tends to $1 - \dfrac{1}{C-1}$.
+\end{prop}
+
+The assumption on the tie-breaking rule is met, in particular, when ties are broken by lexicographical order on candidates, as in \svvamp{}. By the way, in figure~\ref{fig:vmf_kappa}, since $C = 5$, the limit CM rate is $\dfrac{3}{4}$; but it is far from reached: convergence seems to be quite slow.
+
+\begin{proof}
+In the limit case where all voters have the same order of preference, they all vote against the same candidate and only the tie-breaking rule designates the winner among all the other candidates. Since the pole is drawn in a neutral way, there is one chance out of $C - 1$ that the elected candidate is the one preferred by the voters. In all other cases, all the voters may form a coalition and manipulate in order to make their favorite candidate win: indeed, since $V \geq C - 1$, it is possible that at least one voter votes against each other candidate.
+\end{proof}
+
+Once again, we remark the small and extremely similar CM rates for CIRV, IRV and EB, followed by intermediary performances for TR, which is less manipulable than the other voting systems.
+
+\section{Monopolar culture: position of the pole}\label{sec:vmf_position_pole}
+
+Now, we will work with a constant concentration~$\kappa$ and vary the position of the voters.
+We keep the same order of preference over candidates $1 \plusque 2 \plusque \ldots \plusque 5$ but we vary the shape of the opinion for the typical voter (i.e. located exactly on the pole of the distribution). First, we consider the limit case where the typical voter prefers candidate~1 and where she is indifferent between the other candidates; and we perform a transition to a relatively balanced state where her utilities are Borda scores (figure~\ref{fig:vmf_pole_position}). Then, we move the typical voter from a Borda-like state to another limit case where she hates candidate~5 and where she is indifferent between the other candidates (figure~\ref{fig:vmf_pole_position_hate}).
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\relativewidth\textwidth]{fig_simu/vmfpoleposition_en.eps}
+\spacebeforecaption\caption{CM rate as a function of the position of the pole $\pole$. VMF culture, $V=33$, $C=5$, one pole of concentration $\kappa = 2$. For $\theta = 0$, we have $\pole = \pole_0 = \frac{1}{\sqrt{20}} (4, -1, -1, -1, -1)$. For $\theta = \theta_{\max}$, we have $\pole = \pole_1 = \frac{1}{\sqrt{10}} (2, 1, 0, -1, -2)$.}\label{fig:vmf_pole_position}
+\end{figure}
+
+So, in figure~\ref{fig:vmf_pole_position}, concentration $\kappa = 2$ is constant, but the position of the pole $\pole$ is imposed and not drawn at random. Let us consider two unit utility vectors $\pole_0 = \frac{1}{\sqrt{20}} (4, -1, -1, -1, -1)$ and $\pole_1 = \frac{1}{\sqrt{10}} (2, 1, 0, -1, -2)$. Denoting $\theta_{\max}$ the angle between $\pole_0$ and $\pole_1$, we have $\theta_{\max} = 45\degree$. We explore the geodesic of the unit sphere going from $\pole_0$ to $\pole_1$, taking as parameter the polar angle~$\theta$ since $\pole_0$. When $\theta = 0$, we have $\pole = \pole_0$: the typical voters prefers candidate~1 and she is indifferent between the other candidates. When $\theta = \theta_{\max}$, we have $\pole = \pole_1$: the typical voter has a clear order of preference $1 \plusque 2 \plusque 3 \plusque 4 \plusque 5$, with utilities that are Borda scores, up to normalization.
+
+We observe that all voting systems become more manipulablt when the pole of the distribution gets closer to $\pole_1$ (with very different amplitudes for this phenomenon, depending on the voting system). We propose the following explanation. With a given value of $\kappa$, when the pole is $\pole_0$, the population is strongly polarized in favor of candidate~1, hence it is unlikely that a voter prefers another candidate to candidate~1. But, when the pole is $\pole_1$, it is closer to points of the hypersphere where voters prefer candidate~2 to candidate~1. As a consequence, coalitions for candidate~2 have more members and get better chances to succeed in manipulation.
+
+Like before, we note the good performances of CIRV, IRV and EB, followed by the two-round system.
+
+\medskip
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\relativewidth\textwidth]{fig_simu/vmfpolepositionhate_en.eps}
+\spacebeforecaption\caption{CM rate as a function of the position of the pole $\pole$ (continued). VMF culture, $V=33$, $C=5$, one pole of concentration $\kappa = 2$. For $\theta' = 0$, we have $\pole = \pole_1 = \frac{1}{\sqrt{10}} (2, 1, 0, -1, -2)$. For $\theta' = \theta'_{\max}$, we have $\pole = \pole_2 = \frac{1}{\sqrt{20}} (1, 1, 1, 1, -4)$.}\label{fig:vmf_pole_position_hate}
+\end{figure}
+
+In figure~\ref{fig:vmf_pole_position_hate}, we continue our investigation by moving toward the pole~$\pole_2 = \frac{1}{\sqrt{20}} (1, 1, 1, 1, -4)$. Denoting $\theta'_{\max}$ the angle between $\pole_1$ and $\pole_2$, we have again $\theta'_{max} = 45\degree$. We take $\theta'$ as parameter, the polar angle since~$\pole_1$. For $\theta' = 0$, we have $\pole = \pole_1$: the typical voter has a well-established order of preference $1 \plusque 2 \plusque 3 \plusque 4 \plusque 5$. For $\theta' = \theta'_{max}$, we have $\pole = \pole_2$: the typical voter dislikes candidate~5 and she is indifferent between the other candidates.
+
+One may notice that the path from $\pole_0$ to $\pole_1$ then from $\pole_1$ to $\pole_2$ is not a geodesic of the sphere\footnote{For information, if we continue the arc from $\pole_0$ to $\pole_1$ until $\theta = 90\degree$, we obtain $\pole = \frac{1}{\sqrt{20}} (0, 3, 1, -1, -3)$, which does not represent the same order of preference.}: indeed, as shown in appendix~\ref{sec:sphere}, geodesics in the utility space are unanimity zones. But in $\pole_0$ and $\pole_2$, the typical voter is indifferent between candidates 2, 3 and 4, which is not the case in $\pole_1$. So, the path followed by the pole~$\pole$ on the sphere in figure~\ref{fig:vmf_pole_position} then in figure~\ref{fig:vmf_pole_position_hate} is a broken line from $\pole_0$ to $\pole_1$ then from $\pole_1$ to~$\pole_2$.
+
+In figure~\ref{fig:vmf_pole_position_hate}, we observe that the CM rates and the rates of non-admissible configurations and non-resistant configurations keep on increasing. The culture becomes similar to a uniform culture over the four reasonable candidates (all of them except candidate~5), except the fact that there is an additional candidate, less liked by all voterws. This candidate has no chance of winning in any reasonable voting system (even Veto) but she may disturb voting systems that are the most sensitive to adding an irrelevant candidate, for example Borda's method: for a manipulation, this candidate makes it possible to add an additional point in the difference between the desired candidate~$c$ and the sincere winner~$\winner$, so she increases the possibility of manipulation, compared to a uniform culture for only 4~candidates.
+
+
+
+\section{Monopolar culture: number of poles}\label{sec:vmf_nombre_de_poles}
+
+Until now, we have considered culture with only one pole~$\pole$. However, in practice, a population of agents generally has preference that are not centered around one typical opinion. Especially, we can imagine that there are several social groups, each of them having some kind of cohesion. We use the words \emph{social group} with a very comprehensive sense: for example, in a political election, it may designate a socio-professional group or a community of interest; in other contexts, such as a professional or associative organization, it may designate a group of individuals with a certain cohesion, whether it relies on ideological or personal reasons. 
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\relativewidth\textwidth]{fig_simu/vmfnumberpole_en.eps}
+\spacebeforecaption\caption{CM rate as a function of the number of poles. VMF culture, $V=33$, $C=5$, equiprobable poles with random positions, $\kappa = 2$.}\label{fig:vmf_number_poles}
+\end{figure}
+
+In figure~\ref{fig:vmf_number_poles}, we extend VMF model by considering a multipolar culture composed of several social groups. Formally, we take a parameter $k$ representing the number of groups. Here is how we draw a population. First, we draw $k$ unit vectors $\pole_1, \ldots, \pole_k$ independently and uniformly, which will be the poles of the distribution, i.e. the utility vector of the typical voter for each social group.
+Then, for each voter independently, we draw an integer $i$ between $1$ and $k$ with equiprobability, which represents her social group, then we draw her utility vector according to a VMF distribution of pole $\pole_i$ and concentration~$\kappa$. In order to simplify, we consider only social group with comparable size (since $i$ is drawn with equiprobability) and with the same constant concentration~$\kappa$, even if \svvamp{} makes it possible to vary these parameters also.
+
+As we could expect, we observe in figure~\ref{fig:vmf_number_poles} that the CM rate increase with the number of poles (except for Veto).
+
+With $V$ and $C$ fixed, when the number of poles $k$ tends to $+\infty$, the probability that there exists a couple of voters who are in the same social group tends to~0, so the distribution becomes uniform on the hypersphere: hence, the limit distribution is simply the spherical culture. The curves confirm this theoretical remark: for $k = 16$, CM rate are slightly smaller but already comparable to those observed in a spherical culture for $V = 33$ et $C = 5$ (cf. figure~\ref{fig:sphere_C} for example).
+
+\section{Multipolar culture: relative positions of the poles}\label{sec:vmf_positions_des_poles}
+
+Lastly, we will investigate the relative positions of the social groups in the utility space.
+The most simple example to study this phenomenon consists in considering two social groups with comparable sizes (each voter is equiprobably in one or the other) and the same concentration~$\kappa$.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\relativewidth\textwidth]{fig_simu/vmfangle_en.eps}
+\spacebeforecaption\caption{CM rate as a function of the angle between poles. VMF culture, $V=33$, $C=5$, two equiprobable poles, $\kappa = 2$. The first pole is $\pole_0 = \frac{1}{\sqrt{20}} (4, -1, -1, -1, -1)$. For $\theta = 0$, the second pole is the same. For $\theta = \theta_{max}$, the second pole is $\pole_1 = \frac{1}{\sqrt{20}} (-1, 4, -1, -1, -1)$.}\label{fig:vmf_angle}
+\end{figure}
+
+Let us consider the two utility vectors $\pole_0 = \frac{1}{\sqrt{20}} (4, -1, -1, -1, -1)$ and $\pole_1 = \frac{1}{\sqrt{20}} (-1, 4, -1, -1, -1)$. Denoting $\theta_{\max}$ the angle between $\pole_0$ and $\pole_1$, we have $\cos(\theta_{\max}) = - \frac{1}{4}$ hence $\theta_{max} \simeq 104\degree$.
+
+The first pole under consideration is always $\pole_0$. The second pole explores the arc of circle from $\pole_0$ to $\pole_1$, using the angle $\theta$ as parameter. When $\theta = 0$, both poles coincide in $\pole_0$: the typical voter prefers candidate~1 and she is indifferent between the other candidates. When $\theta = \theta_{\max}$, the second pole is $\pole_1$; the typical voter in the second group prefers candidate~2 and she is indifferent between the other candidates
+
+We observe in figure~\ref{fig:vmf_angle} that the CM rate increases for all voting systems under study when $\theta$ increases. This is not surprising: when disunity grows in the population, motivation to manipulate grows also.
+
+Once again, we note the remarkable performances for CIRV, IRV and EB, followed by the two-round system.
+
+
+\section{Meta-analysis in spheroidal cultures}\label{sec:comparison_vs}
+
+
+
+
+
+
+
+
+%\begin{itemize}
+%\item Coombs, VA, Borda et VN,
+%\item JM, uninominal et Bucklin,
+%\item BI, CSD et Kemeny,
+%\item Nanson, Maximin et Schulze,
+%\item PO, VTI-D, Baldwin, U2T, SE, VTI et C-VTI.
+%\end{itemize}
+%
+%\begin{figure}
+%\begin{bigcenter}
+%\begin{tikzpicture}[->,>=latex,shorten >=1pt,auto,node distance=3cm,
+%  thick,main node/.style={fill=blue!20,draw},yscale=1]
+%
+%  \node[main node,minimum width=1.2cm] (CVTI) at (0,-0) {\strut CVTI};
+%  \node[main node,minimum width=1.2cm] (VTI) at (0,-1) {\strut VTI};
+%  \node[main node,minimum width=1.2cm] (SE) at (0,-2) {\strut SE};
+%  \node[main node,minimum width=1.2cm] (U2T) at (0,-3) {\strut U2T};
+%  \node[main node,minimum width=1.2cm] (Bald) at (0,-4) {\strut Bald.*, VTID*, PO*};
+%  \node[main node,minimum width=1.2cm] (Sch) at (1,-5) {\strut Sch.*, Max., Nan.*};
+%  \node[main node,minimum width=1.2cm] (Kem) at (2,-6) {\strut Kem.*, CSD*, BI*};
+%  \node[main node,minimum width=1.2cm] (Buck) at (3,-7) {\strut Buck., JM, Uni.};
+%  \node[main node,minimum width=1.2cm] (VN) at (3,-8) {\strut VN, Bor., VA, Coo.};
+%  \node[main node,minimum width=1.2cm] (Veto) at (-3,-5.5) {\strut Veto};
+%
+%  \path
+%  	(CVTI) edge (VTI)
+%    (VTI) edge (SE)
+%    (SE) edge (U2T)
+%    (SE) edge[bend right=37] (Veto)
+%    (U2T) edge (Bald)
+%    (U2T) edge[bend left=35] (Sch.15)
+%    (U2T) edge[bend left=40] (Kem.15)
+%    (U2T) edge[bend left=45] (Buck.15)
+%%    (Bald) edge (Sch)
+%%    (Sch) edge (Kem)
+%%    (Kem) edge (Buck)
+%    (Buck) edge (VN)
+%;
+%\end{tikzpicture}
+%\end{bigcenter}
+%\caption{Comparaison de la MC pour les cultures sphériques et VMF}\label{fig:sph_vmf_MC_comparison}
+%\end{figure}
+
+In order not to make this study longer, we show mercy to the meritorious reader and we do not make other parameters vary: so, we will not vary the relative sizes of the social groups and we will not study the case where concentrations~$\kappa$ are different from one group to another. The results in these cases are similar and each one can do such experiments with \svvamp{}.
+
+From all the previous curves, a general trend seems to appears. Some of the voting systems are almost always less manipulable than the others: CIRV, IRV and EB. The only exception was for $V = 3$ voters (figure~\ref{fig:sphere_V_big}), where the lower bound found for some voting systems is smaller than the rate found for CIRV, IRV and EB. However, with 3~voters, the tie-breaking rule plays a role that is so important that it is difficult to draw meaningful conclusions about the voting systems themselves. So, we choose to ignore the particular case $V = 3$ in the rest of this section.
+
+In this chapter and the following ones, we will often perform a \emph{meta-analysis}, which makes it possible to present in a compact way the results we obtained for a set of cultures that may be heterogeneous, and to examine the compared performances of different voting systems.
+
+\subsection{Meta-analysis of CM in spheroidal cultures}
+
+\begin{figure}
+\begin{bigcenter}
+%\begin{tikzpicture}[->,>=latex,shorten >=1pt,auto,node distance=3cm,
+%  thick,main node/.style={fill=blue!20,draw},yscale=1] % Avec tolérance 2~\%
+%
+%  \node[main node,minimum width=1.2cm] (CVTI) at (0,2.5) {\strut CVTI};
+%  \node[main node,minimum width=1.2cm] (VTI) at (0,1.5) {\strut VTI};
+%  \node[main node,minimum width=1.2cm] (SE) at (0,0.5) {\strut SE};
+%  \node[main node,minimum width=1.2cm] (U2T) at (0,-0.5) {\strut U2T};
+%  \begin{scope}[xshift=-2.4cm]
+%	  \begin{scope}[xshift=-0.2cm]
+%  \node[main node,minimum width=1.2cm] (Bald) at (-3.2,-2) {\strut Bald.};
+%  \node[main node,minimum width=1.2cm] (VTID) at (-1.6,-2) {\strut VTID};
+%  \node[main node,minimum width=1.2cm] (PO) at (0,-2) {\strut PO};
+%  \node[main node,minimum width=1.2cm] (Nan) at (1.6,-2) {\strut Nan.};
+%  \node[main node,minimum width=1.2cm] (Sch) at (3.2,-2) {\strut Sch.};
+%	  \end{scope}
+%	  \begin{scope}[xshift=0.2cm]
+%  \node[main node,minimum width=1.2cm] (Max) at (4.8,-2) {\strut Max.};
+%  \node[main node,minimum width=1.2cm] (BI) at (6.4,-2) {\strut BI};
+%	  \end{scope}
+%  \end{scope}
+%  \begin{scope}[xshift=0cm,yshift=4cm]
+%  \node[main node,minimum width=1.2cm] (Uni) at (-1.6,-8) {\strut Uni.};
+%  \node[main node,minimum width=1.2cm] (CSD) at (0,-8) {\strut CSD};
+%  \node[main node,minimum width=1.2cm] (JM) at (1.6,-8) {\strut JM};
+%  \node[main node,minimum width=1.2cm] (Buck) at (3.2,-8) {\strut Buck.};
+%  \end{scope}
+%  \begin{scope}[xshift=0cm,yshift=1cm]
+%  \node[main node,minimum width=1.2cm] (Bor) at (-1.6,-7) {\strut Bor.};
+%  \node[main node,minimum width=1.2cm] (VN) at (0,-7) {\strut VN};
+%  \node[main node,minimum width=1.2cm] (VA) at (1.6,-7) {\strut VA};
+%  \node[main node,minimum width=1.2cm] (Coo) at (3.2,-7) {\strut Coo.};
+%  \node[main node,minimum width=1.2cm] (Veto) at (5.6,-7) {\strut Veto};
+%  \end{scope}
+%
+%  \draw[->] (SE) -| (Veto);
+%  \path
+%    (CVTI) edge (VTI)
+%    (VTI) edge (SE)
+%	(SE) edge (U2T)
+%    (U2T.south) edge (Bald.north)
+%    (U2T.south) edge (VTID.north)
+%    (U2T.south) edge (PO.north)
+%    (U2T.south) edge (Nan.north)
+%    (U2T.south) edge (Sch.north)
+%    (U2T.south) edge (Max.north)
+%    (U2T.south) edge (BI.north)
+%	(Sch.south) edge (Uni.north)
+%	(Sch.south) edge (CSD.north)
+%	(Sch.south) edge (JM.north)
+%	(Sch.south) edge (Buck.north)
+%	(Max.south) edge (Uni.north)
+%	(Max.south) edge (CSD.north)
+%	(Max.south) edge (JM.north)
+%	(Max.south) edge (Buck.north)
+%	(Uni.south) edge (Bor.north)
+%	(Uni.south) edge (VN.north)
+%	(Uni.south) edge (VA.north)
+%	(Uni.south) edge (Coo.north)
+%	(JM.south) edge (Bor.north)
+%	(JM.south) edge (VN.north)
+%	(JM.south) edge (VA.north)
+%	(JM.south) edge (Coo.north)
+%	(Buck.south) edge (VA.north)
+%	(Buck.south) edge (Coo.north)
+%%    (SE) edge[bend left=37] (Veto)
+%;
+%  \draw[<->] (Max) -- (Sch);
+%\end{tikzpicture}
+\begin{tikzpicture}[->,>=latex,shorten >=1pt,auto,node distance=3cm,
+  thick,main node/.style={fill=blue!20,draw},yscale=1]
+
+  \node[main node,minimum width=1.2cm] (CVTI) at (0,2) {\strut CIRV};
+  \node[main node,minimum width=1.2cm] (VTI) at (0,1) {\strut IRV};
+  \node[main node,minimum width=1.2cm] (SE) at (0,0) {\strut EB};
+  \begin{scope}[xshift=0cm]
+  \node[main node,minimum width=1.2cm] (U2T) at (-4.8,-2) {\strut TR};
+  \node[main node,minimum width=1.2cm] (Nan) at (-4.8,-3.5) {\strut Nan.};
+  \node[main node,minimum width=1.2cm] (Bald) at (-3.2,-2) {\strut Bald.};
+  \node[main node,minimum width=1.2cm] (VTID) at (-1.6,-2) {\strut IRVD};
+  \node[main node,minimum width=1.2cm] (PO) at (0,-2) {\strut RP};
+  \node[main node,minimum width=1.2cm] (BI) at (1.6,-2) {\strut IB};
+  \node[main node,minimum width=1.2cm] (Sch) at (3.2,-2) {\strut Sch.};
+  \node[main node,minimum width=1.2cm] (Max) at (4.8,-2) {\strut Max.};
+  \end{scope}
+  \begin{scope}[xshift=-0.8cm,yshift=4cm]
+  \node[main node,minimum width=1.2cm] (CSD) at (-1.6,-8) {\strut CSD};
+  \node[main node,minimum width=1.2cm] (JM) at (0,-8) {\strut MJ};
+  \node[main node,minimum width=1.2cm] (Uni) at (1.6,-8) {\strut Plu.};
+  \node[main node,minimum width=1.2cm] (Buck) at (3.2,-8) {\strut Buck.};
+  \end{scope}
+  \begin{scope}[xshift=0cm,yshift=1cm]
+  \node[main node,minimum width=1.2cm] (Bor) at (-1.6,-7) {\strut Bor.};
+  \node[main node,minimum width=1.2cm] (VN) at (0,-7) {\strut RV};
+  \node[main node,minimum width=1.2cm] (Coo) at (1.6,-7) {\strut Coo.};
+  \node[main node,minimum width=1.2cm] (VA) at (3.2,-7) {\strut AV};
+  \node[main node,minimum width=1.2cm] (Veto) at (5.6,-7) {\strut Veto};
+  \end{scope}
+
+  \draw[->] (SE) -| (Veto);
+  \path
+    (CVTI) edge (VTI)
+    (VTI) edge (SE)
+	(SE.south) edge (U2T.north)
+    (SE.south) edge (Bald.north)
+    (SE.south) edge (VTID.north)
+    (SE.south) edge (PO.north)
+    (U2T.south) edge (Nan.north)
+    (SE.south) edge (Sch.north)
+    (SE.south) edge (Max.north)
+	(U2T.south) edge (Uni.north)
+	(Sch.south) edge (Uni.north)
+	(Max.south) edge (Uni.north)
+	(U2T.south) edge (CSD.north)
+	(Sch.south) edge (CSD.north)
+	(Max.south) edge (CSD.north)
+    (SE.south) edge (BI.north)
+	(U2T.south) edge (JM.north)
+	(Sch.south) edge (JM.north)
+	(Max.south) edge (JM.north)
+	(U2T.south) edge (Buck.north)
+	(JM.south) edge (Bor.north)
+	(Uni.south) edge (VN.north)
+	(JM.south) edge (VN.north)
+	(Sch.south) edge (VA.north)
+	(Max.south) edge (VA.north)
+	(Buck.south) edge (VA.north)
+	(Uni.south) edge (Coo.north)
+	(Buck.south) edge (Coo.north)
+%%    (SE) edge[bend left=37] (Veto)
+;
+\end{tikzpicture}
+\end{bigcenter}
+\caption{Meta-analysis of CM in all spheroidal cultures under study (except $V = 3$).}\label{fig:sph_vmf_MC_comparison}
+\end{figure}
+
+The graph in figure~\ref{fig:sph_vmf_MC_comparison} illustrates this method for the CM rate. Each vertex represents a voting system. An edge from a voting system~$f$ to another one~$g$ means that, for all cultures observed in this chapter (except $V = 3$), i.e. for each point of each curve of this chapter, voting system~$f$ is proven at most as manipulable as~$g$. %On accepte comme différence l'incertitude d'origine statistique (faible) mais on exclut l'incertitude d'origine algorithmique liée à l'utilisation éventuelle d'algorithmes approchés (potentiellement importante).
+
+More precisely, for a voting system $f$ and a given culture (i.e. a fixed set of parameters), let us note $\underline{\tau_\CM(f)}$ the lower bound found by \svvamp{} and $\overline{\tau_\CM(f)}$ the upper bound. For two distinct voting systems $f$ and $g$, we draw an edge from $f$ to $g$ iff we always have $\overline{\tau_\CM(f)} \leq \underline{\tau_\CM(g)}$. 
+
+In all our meta-analyses, we exclude the statistical uncertainty, i.e. we consider the \emph{proportion of manipulable configurations} in each drawing of 10\,000 experiments, and not the exact \emph{manipulability rate} in the underlying culture. The motivation is the following. Imagine that a voting system is generally far less manipulable than another one; but that in a specific culture, both systems have a rate close to 100~\%. Because of this last case only, since there is a statistical uncertainty of order 1~\%, it is impossible to conclude that the first system always has a lower manipulability rate than the second one in the cultures under study. By considering the proportion of manipulable configurations in the actual drawings, we can conclude more often. So, one need to stay aware that this meta-analysis gives results on a set of random experiments, not on a set of cultures. Despite this limitation, it gives a compact representation of the results, which provides a qualitative indication about what happens in the cultures under study.
+
+The other advantage of ignoring the statistical uncertainty is that the meta-analysis graph we obtain is necessarily transitive (otherwise, we could have a binary relation of the same type as in example~\ref{ex:interval_graph}). For the sake of readability, we represent only the minimal set of edges that makes it possible to deduce the graph in whole by transitivity (i.e. its \emph{transitive reduction}).
+
+For some voting systems, such as Baldwin's method, the approximate algorithm gives essentially a lower bound of manipulability, so it is not possible to establish that the voting system is at most as manipulable as another one. On the opposite, it is possible to show that is is more manipulable: for this reason, Baldwin's method, for example, has incoming edges by no outgoing edges, although its lower bound of manipulability, represented in the curves, is generally quite small in general. For Maximin, Schulze and Borda, the upper bound is precise enough to establish their eventual superiority compared to some other systems, even if that case does not happen in practice ofr Borda's method.
+
+\medskip
+The main conclusion of figure~\ref{fig:sph_vmf_MC_comparison} is that CIRV, IRV and EB are generally less manipulable that the other voting systems. Although we know, by theoretical arguments, that CIRV is strictly less manipulable than IRV, which is strictly less manipulable than EB, the observed difference are generally very small: for each group of 10\,000 experiment drawn for the curves of this chapter, the difference between the proportions of manipulable profiles is 0,02~\% or less between CIRV and IRV and 1,3~\% or less between CIRV and EB.
+
+In these simulations, these three voting systems are followed by the two-round system, which is generally (but not always) less manipulable than the other voting systems under study. For example, the difference of manipulability in favor of IRVD against the two-round system is never more than 1,3~\%; on the opposite, the difference of manipulability in favor of the two-round system against IRVD may by more than~57~\%%\footnote{$\underline{\rho_\CM(VTID) - \overline{\rho_\CM(U2T)}}$}
+. The two-round system can only be clearly dominated by Veto, and only for a large number of voters.
+Then, we can informally distinguish several groups, gathered by line in the figure.
+
+For Balwin, IRVD, RP and IB, the manipulability rates are generally quite similar, by they are only lower bounds that permit only to establish their defeats against EB and their quasi-domination by the two-round system. As for Nanson's method, it is always more manipulable than the two-round system in all the curves of this chapter. Maximin and Schulze's method have performances that are very similar (the observed difference is always less than 1~\%) and better than Plurality, CSD and the majority judgment. They are often better than Bucklin's method (the difference of manipulability, when in favor of the later, is never more than~1~\%).
+
+The approximate algorithm for CSD does not make it possible to establish whether it is less manipulable than the voting systems in the group below; we simly notice that it was not proven more manipulable than Plurality, the majority judgment or Bucklin's method, hence its indicative position in the figure.
+
+Voting systems with the worst performances are Borda's method (more manipulable than the majority judgment), range voting (more manipulable than the majority judgment or Plurality), Coombs's method (more manipulable than Plurality or Bucklin's method) and approval voting (more manipulable than Bucklin's method). In many figures of this chapter, the manipulability curves of these four voting systems are higher that the proportion of non-resistant configurations: in these cases, this means that any Condorcet voting system is less manipulable.
+
+Veto may be considered as a group of its own, since it behaves very differently according to the cases. On one hand, it has a rare advantage: in impartial culture, its manipulability rate does not tend to~1 when the number of voters~$V$ tends to~$+\infty$, unlike all PSR and Maximin. Based on our simulations, we even conjecture that, among the voting systems under study here, it shares this desirable property only with CIRV, IRV and EB. On the other hand, Veto has a very unfortunate disadvantage: in a popultion where all the voters have the same preferences, its manipulability rate does not tend to~0, unlike all voting systems under study here and more generally all unanimous ones.
+
+%De toutes les courbes précédentes, il semble se dégager une tendance générale: en fonction du taux de MC avéré (c.à.d. de la borne inférieure trouvée par \svvamp{}), on peut grossièrement classifier les systèmes de vote en plusieurs groupes représentés dans la figure \ref{fig:sph_vmf_MC_comparison}. Dans ce graphe, une flèche d'un mode de scrutin vers un autre signifie que le premier est généralement moins manipulable que le second. 
+
+%Dans l'ensemble, il ne faut pas sur-interpréter cette figure: il ne s'agit pas ici d'établir une vérité absolue mais simplement de dégager des comportements généraux afin d'avoir une base de comparaison pour les expériences futures. \todo{Il faut détailler comment on décide une flèche.}
+
+%Pour les modes de scrutin représentés avec une astérisque, ces constatations se basent sur des bornes inférieures: elles permettent de montrer que ces modes de scrutin sont plus manipulables que certains autres, mais pas qu'ils le sont moins: c'est pourquoi ils n'ont pas de flèche sortante dans le graphe.
+
+%La principale conclusion, jusqu'à présent, est que CVTI, VTI et SE sont généralement moins manipulables que les autres modes de scrutin. Ensuite, l'uninominal à deux tours est généralement moins manipulable que tous les autres modes de scrutin (hormis Veto dans certains cas). Les courbes précédentes permettent également d'établir, sur les cultures étudiées, que la méthode de Bucklin, le jugement majoritaire et l'uninominal sont moins manipulables que le vote par notation, la méthode de Borda, le vote par assentiment et la méthode de Coombs.
+
+%Sur la base des bornes inférieures trouvées, on peut conjecturer que la méthode de Baldwin, VTID et PO sont généralement moins manipulables que la méthode de Schulze, Maximin et la méthode de Nanson, eux-mêmes généralement moins manipulables que la méthode de Kemeny, CSD et BI, eux-mêmes généralement moins manipulables que la méthode de Bucklin, le jugement majoritaire et l'uninominal. Mais il ne s'agit que de conjectures. \todo{D'où les positions relatives haut/bas mais l'absence de flèche dans la figure.}
+
+
+\subsection{Meta-analysis of MT in spheroidal cultures}
+
+Figure~\ref{fig:sph_vmf_MC_comparison} has the virtue of dealing with CM in all generality, but with the drawback not to be able to give complete conclusions for some of the voting systems using the approximate algorithm. In order to have a complementary indication of manipulability for all voting systems, we represent a similar graph for TM in figure~\ref{fig:sph_vmf_MT_comparison}. Moreover, TM gives an indicative measure of realistic manipulations, which can be performed with a limited exchange of information. For TM, we do not give the detailed curves and we skip directly to the meta-analysis.
+
+\begin{figure}
+\begin{bigcenter}
+%\begin{tikzpicture}[->,>=latex,shorten >=1pt,auto,node distance=3cm,
+%  thick,main node/.style={fill=blue!20,draw},yscale=1] % Avec tolérance = 2~\%
+%
+%  \node[main node,minimum width=1.2cm] (CVTI) at (0,2.5) {\strut CVTI};
+%  \node[main node,minimum width=1.2cm] (VTI) at (0,1.5) {\strut VTI};
+%  \node[main node,minimum width=1.2cm] (SE) at (0,0.5) {\strut SE};
+%  \node[main node,minimum width=1.2cm] (U2T) at (0,-0.5) {\strut U2T};
+%  \node[main node,minimum width=1.2cm] (Veto) at (4.0,0) {\strut Veto};
+%  \begin{scope}[xshift=0cm,yshift=-2cm]
+%  \node[main node,minimum width=1.2cm] (Bald) at (-0.8,0) {\strut Bald.};
+%  \node[main node,minimum width=1.2cm] (VTID) at (0.8,0) {\strut VTID};
+%  \end{scope}
+%  \begin{scope}[xshift=0.8cm,yshift=-4cm]
+%  \node[main node,minimum width=1.2cm] (Max) at (-3.2,0) {\strut Max.};
+%  	\begin{scope}[xshift=0.4cm]
+%  \node[main node,minimum width=1.2cm] (Sch) at (-1.6,0) {\strut Sch.};
+%  \node[main node,minimum width=1.2cm] (PO) at (0,0) {\strut PO};
+%  \node[main node,minimum width=1.2cm] (Nan) at (1.6,0) {\strut Nan.};
+%	  \end{scope}
+%  \end{scope}
+%  \begin{scope}[xshift=0cm,yshift=-6cm]
+%  \node[main node,minimum width=1.2cm] (Buck) at (-3.2,0) {\strut Buck.};
+%  \node[main node,minimum width=1.2cm] (CSD) at (-1.6,0) {\strut CSD};
+%  \node[main node,minimum width=1.2cm] (Uni) at (0,0) {\strut Uni.};
+%  \node[main node,minimum width=1.2cm] (BI) at (1.6,0) {\strut BI};
+%  \end{scope}
+%  \begin{scope}[xshift=0cm,yshift=-8cm]
+%  \node[main node,minimum width=1.2cm] (VN) at (-3.2,-0.2) {\strut VN};
+%  \node[main node,minimum width=1.2cm] (JM) at (-1.6,0) {\strut JM};
+%  \node[main node,minimum width=1.2cm] (VA) at (0,-0.2) {\strut VA};
+%  \node[main node,minimum width=1.2cm] (Bor) at (1.6,0) {\strut Bor.};
+%  \node[main node,minimum width=1.2cm] (Coo) at (3.2,0) {\strut Coo.};
+%%  \end{scope}
+%%  \begin{scope}[xshift=-0.8cm,yshift=-10cm]
+%  \end{scope}
+%
+%  \draw[->] (U2T) -| (Buck);
+%  \path
+%    (CVTI) edge (VTI)
+%    (VTI) edge (SE)
+%	(SE) edge (U2T)
+%    (U2T.south) edge (Bald.north)
+%    (U2T.south) edge (VTID.north)
+%	(VTID.south) edge (Max.north)
+%	(Bald.south) edge (Max.north)
+%	(VTID.south) edge (Sch.north)
+%	(Bald.south) edge (Sch.north)
+%	(VTID.south) edge (PO.north)
+%	(Bald.south) edge (PO.north)
+%	(Bald.south) edge (Nan.north)
+%	(Max.south) edge (CSD.north)
+%	(Sch.south) edge (CSD.north)
+%	(PO.south) edge (CSD.north)
+%	(Nan.south) edge (CSD.north)
+%	(Max.south) edge (Uni.north)
+%	(Sch.south) edge (Uni.north)
+%	(PO.south) edge (Uni.north)
+%	(Nan.south) edge (Uni.north)
+%	(PO.south) edge (BI.north)
+%	(Nan.south) edge (BI.north)
+%	(CSD.south) edge (JM.north)
+%	(Buck.south) edge (Bor.north)
+%	(CSD.south) edge (Bor.north)
+%	(Uni.south) edge (Bor.north)
+%	(Buck.south) edge (VN.north)
+%	(Uni.south) edge (VN.north)
+%	(JM) edge (VN)
+%	(Buck.south) edge (VA.north)
+%	(Uni.south) edge (VA.north)
+%	(BI.south) edge (VA.north)
+%	(JM) edge (VA)
+%	(CSD.south) edge (Coo.north)
+%	(Uni.south) edge (Coo.north)
+%	(BI.south) edge (Coo.north)
+%;
+%  \draw[<->] (Max) -- (Sch);
+%\end{tikzpicture}
+\begin{tikzpicture}[->,>=latex,shorten >=1pt,auto,node distance=3cm,
+  thick,main node/.style={fill=blue!20,draw},yscale=1]
+
+  \node[main node,minimum width=1.2cm] (CVTI) at (0,2.5) {\strut CIRV};
+  \node[main node,minimum width=1.2cm] (VTI) at (0,1.5) {\strut IRV};
+  \node[main node,minimum width=1.2cm] (SE) at (0,0.5) {\strut EB};
+  \node[main node,minimum width=1.2cm] (U2T) at (0,-0.5) {\strut TR};
+  \node[main node,minimum width=1.2cm] (Veto) at (4.0,0.5) {\strut Veto};
+  \begin{scope}[xshift=-1.6cm,yshift=-2.5cm]
+  \node[main node,minimum width=1.2cm] (Max) at (0,0.5) {\strut Max.};
+  \node[main node,minimum width=1.2cm] (Sch) at (0,-0.5) {\strut Sch.};
+  \node[main node,minimum width=1.2cm] (PO) at (1.6,0) {\strut RP};
+  \node[main node,minimum width=1.2cm] (Bald) at (3.2,0) {\strut Bald.};
+  \end{scope}
+  \begin{scope}[xshift=-0.8cm,yshift=-4.5cm]
+  \node[main node,minimum width=1.2cm] (Buck) at (-3.2,0) {\strut Buck.};
+  \node[main node,minimum width=1.2cm] (CSD) at (-1.6,0) {\strut CSD};
+  \node[main node,minimum width=1.2cm] (BI) at (0,0) {\strut IB};
+  \node[main node,minimum width=1.2cm] (Nan) at (1.6,0) {\strut Nan.};
+  \node[main node,minimum width=1.2cm] (Uni) at (3.2,0) {\strut Plu.};
+  \node[main node,minimum width=1.2cm] (VTID) at (4.8,0) {\strut IRVD};
+  \end{scope}
+  \begin{scope}[xshift=0cm,yshift=-6.5cm]
+  \node[main node,minimum width=1.2cm] (VN) at (-3.2,0) {\strut RV};
+  \node[main node,minimum width=1.2cm] (JM) at (-1.6,0) {\strut MJ};
+  \node[main node,minimum width=1.2cm] (VA) at (0,0) {\strut AV};
+  \node[main node,minimum width=1.2cm] (Bor) at (1.6,0) {\strut Bor.};
+  \node[main node,minimum width=1.2cm] (Coo) at (3.2,0) {\strut Coo.};
+%  \end{scope}
+%  \begin{scope}[xshift=-0.8cm,yshift=-10cm]
+  \end{scope}
+
+  \draw[->] (U2T) -| (Buck);
+  \draw[->] (U2T) -| (VTID);
+  \path
+    (CVTI) edge (VTI)
+    (VTI) edge (SE)
+	(SE) edge (U2T)
+    (U2T.south) edge (Bald.north)
+%    (U2T.south) edge (VTID.north)
+	(U2T.south) edge (Max.north)
+	(Max) edge (Sch)
+	(U2T.south) edge (PO.north)
+	(Bald.south) edge (Nan.north)
+	(Bald.south) edge (CSD.north)
+	(Sch.south) edge (CSD.north)
+	(PO.south) edge (CSD.north)
+	(VTID) edge (Uni)
+	(Sch.south) edge (Uni.north)
+	(PO.south) edge (Uni.north)
+	(Nan) edge (Uni)
+	(Bald.south) edge (BI.north)
+	(VTID.south) edge (JM.north)
+	(Nan.south) edge (JM.north)
+	(CSD.south) edge (JM.north)
+	(Buck.south) edge (Bor.north)
+	(VTID.south) edge (Bor.north)
+	(Nan.south) edge (Bor.north)
+	(CSD.south) edge (Bor.north)
+	(Buck.south) edge (VN.north)
+	(Uni.south) edge (VN.north)
+	(JM) edge (VN)
+	(Buck.south) edge (VA.north)
+	(VTID.south) edge (VA.north)
+	(Nan.south) edge (VA.north)
+	(CSD.south) edge (VA.north)
+	(BI.south) edge (VA.north)
+	(Buck.south) edge (Coo.north)
+	(VTID.south) edge (Coo.north)
+	(Nan.south) edge (Coo.north)
+	(CSD.south) edge (Coo.north)
+	(BI.south) edge (Coo.north)
+;
+%  \draw[<->] (Max) -- (Sch);
+\end{tikzpicture}\vspace{-0.5cm}%MAGOUILLE
+\end{bigcenter}
+\caption{Meta-analysis of TM in all spheroidal cultures under study (except $V = 3$).}\label{fig:sph_vmf_MT_comparison}
+\end{figure}
+
+First, let us notice that most of the edges in figure~\ref{fig:sph_vmf_MC_comparison} (explicitly drawn or implied by transitivity) are included in the ones in figure~\ref{fig:sph_vmf_MT_comparison}: so, TM gives a reasonable indicator about the hierarchy of manipulability between voting systems.
+
+We observe that Veto constitutes an isolated connected component: it is sometimes more TM and sometimes less TM than any other voting system here.
+
+For TM as well as for CM, voting systems CIRV, IRV, EB (in that order) are always less manipulable than all the order voting systems under study, except Veto. There are always followed by the two-round system, which presents intermediary performances. Then, we may indicatively distinguish three groups, by increasing TM:
+\begin{itemize}
+\item Maximin and Schulze's method (with very similar performances), RP and Baldwin's method;
+\item CSD, IB, Nanson's method and Plurality (even if Nanson's method is less TM than Plurality);
+\item Range voting, the majority judgment, approval voting, Borda and Coombs (while noticing that majority judgment is less TM than range voting).
+\end{itemize}
+Bucklin's method is a bit isolated in the figure: it is always always more TM than the two-round system and always less than range voting, but it is comparable to no voting system in the intermediary groups. The case of IRVD is similar: always more TM than the two-round system, less TM than Plurality and all voting systems in the last group, but not comparable to the others.
+
+
+%\section{Conclusion}\label{sec:conclusion_simus_sphere}
+%
+%\todo{Conclusion à rédiger}
+%
+%Nous avons étudié la manipulabilité par coalition de 22 systèmes de vote dans le modèle de Von-Mises Fisher, dont le modèle sphérique est un cas dégénéré.
+%
+%Nous avons étudié l'effet de varier divers paramètres, ce qui nous a mené à d'intéressantes conjectures sur le lien entre la culture et le taux de manipulabilité. Nous avons aussi vu qu'en Culture Impartiale, pour tous les systèmes de vote vérifiant \cminf{}, le taux de manipulabilité tends vers 1 quand le nombre de candidat~$C$ tend vers $+\infty$, ce que nous avons pu prouver théoriquement pour un nombre impair d'électeurs. D'autres conjectures fournissent des défis théoriques intéressants pour de travaux futurs.
+%
+%\begin{itemize}
+%\item Le taux de manipulabilité croît avec le nombre de candidats~$C$.
+%\item Pour tous les modes de scrutin étudiés ici, en culture sphérique, il semble tendre vers 1 quand $V \rightarrow +\infty$ (nous l'avons prouvé pour les modes de scrutin vérifiant \cminf{}, avec $V$ impair). 
+%\item Les taux de manipulabilité de certains modes de scrutin présentent des phénomènes oscillatoires en fonction de la parité du nombre d'électeurs. 
+%\item Le taux de manipulabilité croît avec le nombre d'électeurs (à parité fixée de celui-ci). En culture sphérique, il semble tendre vers 1 sauf pour CVTI, VTI, SE et Veto. 
+%\item Quand l'accord au sein de la population augmente (VMF avec concentration infinie), la manipulabilité décroît et tend vers 0 pour les modes de scrutin unanime. Elle tend vers $1 - \frac{1}{C-1}$ pour Veto (en supposant $V \geq C - 1$).
+%\item Inversement, quand le désaccord au sein de la population augmente (VMF à deux pôles ou davantage), la manipulabilité augmente.
+%\item CVTI, VTI et SE sont généralement moins manipulables que l'uninominal à deux tours, qui est généralement moins manipulable que les autres modes de scrutin présentés ici.
+%\item Alors qu'on sait que CVTI est strictement moins manipulable que VTI, qui est strictement moins manipulable que SE, l'écart est assez faible en pratique, notamment quand on le compare à l'écart généralement assez grand entre VTI et les autres modes de scrutin.
+%\item Le vote par notation, la méthode de Borda et le vote par assentiment ont les performances avérées les plus médiocres. En culture sphérique ou VMF, c'est également le cas de la méthode de Coombs.
+%\item Systèmes Condorcet meilleurs (cf. théorèmes \ref{thm_Condorcifie_aussi_bon}, \ref{thm:cond_strictement_meilleur})? Conclusion à nuancer.
+%\item Systèmes ordinaux meilleurs (cf. théorème~\ref{thm_slicing})? Assez vrai en pratique.
+%\end{itemize}
+%
+%Cependant, il est possible que la classification indicative des figures~\ref{fig:sph_vmf_MC_comparison} et \ref{fig:sph_vmf_MT_comparison} repose sur les hypothèses faites sur la culture. Pour cette raison, nous allons explorer un autre type de population, basé sur un modèle très différent utilisant un spectre politique.
+
+
+
+
+

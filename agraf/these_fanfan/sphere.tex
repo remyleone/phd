@@ -1,0 +1,1535 @@
+% !TeX spellcheck = fr_FR
+\mychapter{Géométrie de l'espace des utilités}\label{sec:sphere}
+
+%Collaboration with Benoît Kloeckner.
+
+%Afin de choisir des mesures de probabilités judicieuses sur l'espace des utilités, nous cherchons à définir une métrique canonique sur celui-ci. Nous montrons que cet espace a une structure projective, qu'il peut être vu comme un quotient de dual de l'espace des paires de loteries sur les candidats, et qu'il est naturellement doté d'un opérateur somme dont nous donnons l'interprétation en termes de préférences et qui définit des droites projectives dans cet espace. Nous concluons en montrant l'existence d'une mesure canonique: la seule métrique riemannienne dont les géodésiques coïncident avec les droites projectives est la métrique de la sphère ronde.
+
+%Nous étendons ces résultats au modèle où les utilités ne sont pas définies à deux constantes près, comme dans le modèle classique de Von Neumann--Morgenstern, mais à une seule constante près. Dans ce cas, il y a une famille d'ellipsoïdes à un paramètre qui donnent une représentation riemannienne fidèle.
+
+
+Dans cette annexe, qui résulte d'une collaboration avec Benoît Kloeckner, nous examinons les propriétés géométriques de l'espace des utilités espérées sur un nombre fini d'options, qui est couramment utilisé pour modéliser les préférences d'un agent en situation d'incertitude.
+Nous nous concentrons sur le cas où le modèle est neutre vis-à-vis des options disponibles, c'est-à-dire qu'il les traite, \emph{a priori}, comme symétriques les unes des autres.
+En particulier, nous prouvons que la seule métrique riemannienne qui respecte les propriétés géométriques et les symétries naturelles de l'espace des utilités est la métrique ronde.
+Cette métrique canonique nous permet de définir une probabilité uniforme sur l'espace des utilités et de généraliser la culture impartiale à un modèle impliquant des utilités espérées. De manière générale, elle est à la base de toutes les cultures dites \emph{sphéroïdales} que nous étudions au chapitre~\ref{sec:simulations_spheroidal}. Cette annexe reprend et développe les idées exposées par \cite{durand2015sphere}.
+
+
+
+\medskip
+Dans la littérature traditionnelle du choix social arrovien~\citep{arrow1950difficulty}, et particulièrement en théorie du vote, les préférences d'un agent sont souvent représentées par de l'information ordinale uniquement: un ordre strict total sur les options disponibles, ou parfois une relation binaire de préférence qui peut ne pas être un ordre strict total (par exemple, si l'indifférence est autorisée). Cependant, il peut être intéressant de considérer des préférences cardinales, au moins pour deux raisons.
+
+D'une part, certains systèmes de vote ne sont pas seulement basés sur de l'information ordinale, comme le vote par assentiment ou le vote par notation.
+
+D'autre part, les électeurs peuvent être dans une situation d'incertitude, soit parce que la règle du système de vote implique une part de hasard, soit parce que chaque électeur possède une information incomplète sur les préférences des autres électeurs et les bulletins qu'ils s'apprêtent à choisir.
+Afin d'exprimer les préférences dans une situation d'incertitude, un modèle classique et élégant est celui des utilités espérées~\citep{vonneumann1944games, fishburn1970utility, kreps1990microeconomic, mascolell1995microeconomic}. 
+Pour chaque agent, une utilité numérique est associée à chaque option; l'utilité d'une loterie sur les options est calculée comme une espérance. Par conséquent, le vecteur d'utilité~$\vecteur{u}$ représentant les préférences d'un agent est un élément de $\R^C$, où $C$ est le nombre d'options ou \emph{candidats}.
+
+Pour un large spectre d'applications en économie, les options considérées sont des récompenses financières ou des quantités d'un ou plusieurs biens économiques, ce qui a une conséquence importante: il existe une structure naturelle sur l'espace des options. Par exemple, si les options sont des récompenses financières, alors, il y a un ordre naturel sur les montants possibles, qui est défini avant les préférences des agents.
+%More generally, the space of options has often the structure of the real line (for one good) or of a multi-dimensional vector space (for several goods).
+%\bil{Il est alors naturel d'examiner, par exemple, les dérivées successives éventuelles de l'utilité par rapport au gain: croissance, concavité ou convexité (attitude par rapport au risque), etc.}{In such cases, it is natural to exploit this structure, for example by studying possible derivatives of the utility with respect to the rewards (monotony, concavity or convexity, etc.).}
+
+Nous considérons le scénario opposé, où les options sont symétriques \emph{a priori}. Cette hypothèse de symétrie est particulièrement pertinente en théorie du vote, par un principe normatif de neutralité, mais elle peut aussi s'appliquer à d'autres contextes de choix en situation d'incertitude quand il n'y a pas de structure naturelle préexistante sur l'espace des options disponibles.
+
+La motivation de ce chapitre est venue des généralisations possibles pour la culture impartiale à des agents ayant des utilités espérées. La culture impartiale est un modèle probabiliste classique en théorie du vote où chaque agent tire indépendamment son ordre strict total de préférence avec une probabilité uniforme sur l'ensemble des ordres possibles.
+
+La difficulté n'est pas de définir une loi de probabilité sur les utilités telle que sa projection sur l'information ordinale soit la culture impartiale. En effet, il est suffisant de définir une distribution où les électeurs sont indépendants et tous les candidats sont traités symétriquement. La problématique est d'en choisir une en particulier: une infinité de distributions vérifient ces conditions et on peut se demander si l'une de ces généralisations a des raisons canoniques d'être choisie plutôt que les autres.
+
+Afin de répondre à cette question, nous avons besoin de prendre en compte un point technique important. Sous les hypothèses du théorème de Von Neumann--Morgenstern (que nous rappellerons), le vecteur d'utilité d'un agent est défini à deux constantes près, et choisir une normalisation particulière est arbitraire. En conséquence, l'espace des utilités est un espace quotient de $\R^C$ et, \emph{a priori}, il n'y a pas de façon canonique de pousser une métrique de $\R^C$ vers cet espace quotient. Par conséquent, à première vue, il semble qu'il n'y ait pas de définition naturelle d'une distribution uniforme de probabilité sur cet espace.
+
+Plus largement, chercher une généralisation naturelle de la culture impartiale à l'espace des utilités mène à explorer divers aspects de la géométrie de cet espace quotient et à mieux comprendre ses propriétés liées à l'algèbre, la topologie et la théorie de la mesure.
+
+\medskip
+Le reste de cette annexe est organisé comme suit. En section~\ref{sec:modele_VNM}, nous présentons le formalisme de Von Neumann--Morgenstern et nous définissons l'espace des utilités. En section~\ref{sec:dualite_sphere}, nous montrons que l'espace des utilités peut être vu comme le quotient du dual de l'espace des paires de loteries sur les candidats.
+En section~\ref{sec:operateurs_sphere}, nous définissons naturellement un opérateur opposé, qui correspond à inverser les préférences tout en préservant leurs intensités, et un opérateur somme, qui est caractérisé par le fait qu'il préserve les préférences unanimes.
+
+Puisque l'espace des utilités est une variété, il est naturel de vouloir le munir d'une métrique riemannienne. En section~\ref{sec:riemann_sphere}, nous prouvons que la seule représentation riemannienne qui préserve les propriétés projectives naturelles et la symétrie \emph{a priori} entre les candidats est la métrique ronde. En section~\ref{sec:pratique_sphere}, nous utilisons ce résultat pour donner une généralisation canonique de la culture impartiale et pour suggérer l'utilisation du modèle de Von Mises--Fisher pour représenter des cultures polarisées. En section~\ref{sec:conclusion_provisoire_sphere}, nous résumons brièvement nos conclusions pour le modèle classique de Von Neumann-Morgenstern.
+
+En section~\ref{sec:ellipse_bigsection}, nous généralisons ces résultats à un modèle d'utilités avec \emph{limite d'approbation}, c'est-à-dire que la valeur d'utilité~0 possède un sens particulier. Dans ce cas, le vecteur d'utilité d'un agent est défini à une constante multiplicative positive près, mais il n'y a plus de degré de liberté en translation. Nous montrons que, dans ce modèle, les seules représentations qui respectent les propriétés naturelles de l'espace des utilités et la neutralité forment une famille d'ellipsoïdes de révolution à un paramètre réel.
+
+
+\section{Modèle de Von Neumann-Morgenstern}\label{sec:modele_VNM} %
+
+Dans cette section, nous définissons quelques notations et nous rappelons le théorème classique de Von Neumann-Morgenstern qui permet de représenter les préférences d'un agent sur des options probabilisées en introduisant la notion d'utilité espérée.
+
+Soit $C \in \N \setminus \{0\}$. Nous considérerons $C$ options mutuellement exclusives appelées \emph{candidats}, chacune d'entre elles étant représentée par un indice appartenant à $\ens{C} = \intent{1}{C}$.
+
+Une \emph{loterie} sur les candidats est un $C$-uplet $(L_1,\ldots,L_C) \in {\R_{+}}^C$ tel que $\sum_{c=1}^{C}{L_c} = 1$. L'ensemble des loteries est noté $\mathbb{L}$.
+Pour toute paire de loteries $L = (L_1,\ldots,L_C)$ et $M = (M_1,\ldots,M_C)$, pour tout $\lambda \in [0,1]$, on définit naturellement leur \emph{loterie composée réduite} comme un barycentre:
+$$
+\lambda L + (1-\lambda) M = \Big(\lambda L_1 + (1-\lambda) M_1,\ldots,\lambda L_C + (1-\lambda) M_C\Big).
+$$
+
+Les préférences d'un agent sur les loteries sont représentées par une relation binaire $\moinssim$ sur $\mathbb{L}$. On note $\moinsque$ la relation stricte associée à $\moinssim$, définie par: $L \moinsque M \Leftrightarrow L \moinssim M$ et non $M \moinssim L$.
+
+Rappelons les hypothèses du théorème de Von Neumann--Morgenstern.
+On dit que la relation $\moinssim$ est \emph{complète} ssi $\forall (L,M) \in {\mathbb{L}}^2$:
+$
+L \moinssim M \text{ ou } M \moinssim L.
+$
+Elle est \emph{transitive} ssi $\forall (L,M,N) \in {\mathbb{L}}^3$,
+$
+L \moinssim M \text{ et } M \moinssim N \Rightarrow L \moinssim N.
+$
+Elle est \emph{archimédienne} ssi $\forall (L,M,N) \in {\mathbb{L}}^3$:
+$$
+L \moinsque M \text{ et } M \moinsque N
+\Rightarrow \exists \varepsilon \in \mathopen]0,1\mathclose\lbrack \tq
+ (1-\varepsilon)L + \varepsilon N \moinsque M \moinsque \varepsilon L + (1-\varepsilon) N.
+$$
+Et elle est \emph{indépendante des alternatives non pertinentes} ssi $\forall (L,M,N) \in {\mathbb{L}}^3, \forall \lambda \in \mathopen]0,1]$:
+$$
+L \moinsque M \Rightarrow \lambda L + (1-\lambda) N \moinsque \lambda M + (1-\lambda) N.
+$$
+
+%\begin{notations}[\bil{algèbre linéaire}{linear algebra}]
+%\bil{On note $\vecteur{1}$ le vecteur dont les $C$ coordonnées valent 1 et $J$ la matrice de taille $C \times C$ dont tous les coefficients valent 1.}{We denote $\vecteur{1}$ the vector whose $C$ coordinates are 1 and $J$ the $C \times C$ matrix whose $C^2$ coefficients are 1.}
+%
+%\bil{Quand $E$ est une partie d'un espace vectoriel, on note $\text{vect}(E)$ le sous-espace vectoriel engendré par $E$.}{When $E$ is a part of a vector space, we denote $\text{vect}(E)$ the linear span of~$E$.}
+%
+%\bil{Le produit scalaire canonique de $\vecteur{u}$ et $\vecteur{v}$ est noté $\bracket{\vecteur{u}}{\vecteur{v}}$. La norme euclidienne canonique de $\vecteur{u}$ est notée $\| u \|$.}{The canonical inner product of $\vecteur{u}$ and $\vecteur{v}$ is denoted $\bracket{\vecteur{u}}{\vecteur{v}}$. The canonical Euclidean norm of $\vecteur{u}$ is denoted $\| \vecteur{u} \|$.}
+%\end{notations}
+
+%\begin{definition}[\bil{vecteur d'utilité}{utility vector}]
+%\bil{Soit $\moinssim$ une relation binaire sur $\mathbb{L}$. Soit $\vecteur{u} = (u_1,\dots,u_C) \in \R^C$.}{Let $\vecteur{u} = (u_1,\dots,u_C) \in \R^C$.}
+On dit que $\vecteur{u} = (u_1,\dots,u_C) \in \R^C$ est un \emph{vecteur d'utilité} représentant $\moinssim$ ssi suivre la relation $\moinssim$ est équivalent à maximiser l'utilité espérée au sens de $\vecteur{u}$; c'est-à-dire, ssi pour tout couple de loteries $(L, M)$:
+$$
+L \moinssim M \Leftrightarrow \sum_{c=1}^{C}{L_c u_c} \leq \sum_{c=1}^{C}{M_c u_c}.
+$$
+%\end{definition}
+
+
+\begin{thm}[Von Neumann et Morgenstern]
+\label{thmVNM}
+Pour une relation binaire $\moinssim$ sur $\mathbb{L}$, les conditions suivantes sont équivalentes.
+\begin{enumerate}
+	\item La relation $\moinssim$ est complète, transitive, archimédienne et indépendante des alternatives non pertinentes.
+	\item\label{u_exists}Il existe un vecteur d'utilité $\vecteur{u} \in \R^C$ représentant $\moinssim$.
+\end{enumerate}
+
+Quand elles sont vérifiées, $\vecteur{u}$ est défini à une constante additive et une constante multiplicative strictement positive près. Formellement, soit $\vecteur{u} \in \R^C$ un vecteur d'utilité représentant $\moinssim$. Un vecteur $\vecteur{v} \in \R^C$ est aussi un vecteur d'utilité représentant $\moinssim$ ssi $\exists \alpha \in \mathopen]0,+\infty\mathclose\lbrack, \exists \beta \in \R$ t.q. $\vecteur{v} = \alpha \vecteur{u} + \beta \vecteur{1}$, où $\vecteur{1}$ est une notation pour le vecteur dont les $C$ coordonnées sont égales à 1.
+\end{thm}
+
+Ce n'est pas notre but ici de donner une preuve de ce théorème \citep{vonneumann2007games,mascolell1995microeconomic,kreps1990microeconomic} ni de discuter si ses hypothèses sont valides expérimentalement  \citep{fishburn1988nonlinear,mascolell1995microeconomic}.
+
+%\bil{Pour une démonstration, on renvoie par exemple à \cite{vonneumann2007games}, \cite{mascolell1995microeconomic} ou \cite{kreps1990microeconomic}.}{For a proof, see \cite{vonneumann2007games,mascolell1995microeconomic,kreps1990microeconomic}.}
+%\bil{Discuter la validité expérimentale des conditions de complétude, transitivité, caractère archimédien et indépendance des alternatives non pertinentes dépasse la portée de ce papier \cite{fishburn1988nonlinear}.}{Discussing whether the assumptions of this theorem are experimentally valid is out of the scope of this paper; such discussion can be found in \cite{fishburn1988nonlinear,mascolell1995microeconomic} for example.}
+%\bil{Remarquons simplement que, tout en conservant une élégante simplicité, ce modèle est assez sophistiqué pour prendre en compte les intensités relatives des préférences de l'agent, ce qui donne plus d'information que se limiter à un préordre ou un ordre de préférence entre les candidats.}{Let us note that, while keeping a sheer simplicity, this model is sophisticated enough to deal with relative intensities of the agent's preferences. This gives more information than just a total preorder over the candidates.}
+
+%\begin{definition}[\bil{espace des utilités}{utility space}]
+Afin de définir l'espace des utilités, tous les vecteurs représentant les mêmes préférences doivent être identifiés en un seul et même point.
+On note $\approx$ la relation d'équivalence définie par $\forall (\vecteur{u},\vecteur{v}) \in (\R^C)^2$:
+$$
+\vecteur{u} \approx \vecteur{v} \Leftrightarrow \exists \alpha \in \mathopen]0,+\infty\mathclose\lbrack, \exists \beta \in \R \tq \vecteur{v} = \alpha \vecteur{u} + \beta \vecteur{1}.
+$$
+L'\emph{espace des utilités} sur $\ens{C}$, noté $\mathbb{U}$, est défini comme l'ensemble quotient $\R^C / \approx$.
+On appelle \emph{projection canonique} de $\R^C$ vers $\mathbb{U}$ la fonction:
+$$
+\vectutil{\pi}:
+\begin{array}{|cll}
+\R^C & \to & \mathbb{U} \\
+\vecteur{u} & \to & \vectutil{u} = \{\vecteur{v} \in \R^C \tq \vecteur{v} \approx \vecteur{u}\}.
+\end{array}
+$$
+%\bil{Pour $\vecteur{u} \in \R^C$ et $\vectutil{u} = \vectutil{\pi}(\vecteur{u})$, on note  sans ambiguïté $\moinssim_{\vectutil{u}}$ la relation binaire sur $\mathbb{L}$ représentée par $\vecteur{u}$ au sens du théorème \ref{thmVNM} (Von Neumann-Morgenstern).}{For any $\vecteur{u} \in \R^C$ and $\vectutil{u} = \vectutil{\pi}(\vecteur{u})$, we denote without ambiguity $\moinssim_{\vectutil{u}}$ the binary relation over $\mathbb{L}$ represented by $\vecteur{u}$ in the sense of theorem \ref{thmVNM} (Von Neumann--Morgenstern).}
+Pour tout $\vecteur{u} \in \R^C$, on note sans ambiguïté $\moinssim_{\vectutil{u}}$ la relation binaire sur $\mathbb{L}$ représentée par $\vecteur{u}$ au sens du théorème~\ref{thmVNM} (Von Neumann--Morgenstern).
+%\end{definition}
+
+
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}[scale=3,z={(-0.6,-0.3)}]
+% Utilités
+% theta = -pi/4
+% phi =  -> 
+\fill[lightgray,path fading=east, fading angle=0] (1.3,1.3,1.3) -- ++(1,-0.3,0) -- (-1.3+1,-1.3-0.3,-1.3) -- (-1.3,-1.3,-1.3);
+\draw[>=latex,->] (0,0,0)-- (1,1,1) node[left,yshift=-.1cm,xshift=0.03cm] {$\vecteur{1}$};
+\draw[>=latex,->] (0,0,0)--(1.3+1,1.3-0.3,1.3) node[right,black,inner sep=2pt] {$\vecteur{u}_{2}$};
+\draw[>=latex,->,scale=0.7] (0,0,0)--(1.3+1,1.3-0.3,1.3) node[below right,black,inner sep=1pt] {$\vecteur{u}_{3}$};
+\draw[>=latex,->,scale=0.7] (0,0,0)--(1.3+1+0.55,1.3-0.3+0.55,1.3+0.55) node[above,black,inner sep=2pt] {$\vecteur{u}_{1}$};
+\draw[>=latex,->] (0,0,0)--(-1.3+1,-1.3-0.3,-1.3) node[right,black,inner sep=3pt] {$\vecteur{u}_{4}$};
+\draw (-1.2,0,0)--(1.2,0,0);
+\draw (0,-1.2,0)--(0,1.2,0);
+\draw (0,0,0)--(0,0,1.3);
+\draw[>=latex,->]  (0,0,0)--(0,0,1) node[above left,inner sep=1pt] {$\vecteur{e}_1$};
+\draw[>=latex,->]  (0,0,0)--(1,0,0) node[below] {$\vecteur{e}_2$};
+\draw[>=latex,->]  (0,0,0)--(0,1,0) node[left] {$\vecteur{e}_3$};
+\node at (0.9,-0.7) {$\vectutil{u}$};
+%\draw (0,0,0) circle (1);
+%%\draw [domain=0:2*pi,  samples=80,  smooth] plot  ({cos(\x r)}, {sin(\x r)}, 0)  ;
+%\draw [domain=0:pi,  samples=80,  smooth] plot  (0, {cos(\x r)}, {sin(\x r)})  ;
+%\draw [domain=-pi/2:pi/2,  samples=80,  smooth] plot  ({sin(\x r)}, 0, {cos(\x r)})  ;
+%\node[fill=black,shape=circle,inner sep=1.5pt] at (0,0,0) {};
+\end{tikzpicture}
+\end{center}
+\caption{Espace $\R^3$ des vecteurs d'utilité pour 3~candidats (sans passage au quotient).}\label{fig:halfplane}
+\end{figure}
+
+La figure~\ref{fig:halfplane} représente l'espace $\R^3$ des vecteurs d'utilité pour 3~candidats, avant la projection sur l'espace quotient. La base canonique de $\R^3$ est notée $(\vecteur{e}_1, \vecteur{e}_2, \vecteur{e}_3)$. 
+Les vecteurs d'utilité $\vecteur{u}_{1}$ à $\vecteur{u}_{4}$ représentent les mêmes préférences que tout autre vecteur dans le demi-plan $\vectutil{u}$, représenté en grisé.
+Plus généralement, tout point non-trivial $\vectutil{u}$ de l'espace quotient correspond à un demi-plan de $\R^C$ délimité par la droite $\linearspan(\vecteur{1})$, le sous-espace vectoriel engendré par $\vecteur{1}$.
+La seule exception est le point de totale indifférence $\vectutil{0}$. Dans $\R^C$, il ne correspond pas à un demi-plan mais à la droite $\linearspan(\vecteur{1})$ elle-même.
+
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}[scale=2,z={(-0.6,-0.3)}]
+\draw (-1.2,0,0)--(1.2,0,0);
+\draw (0,-1.2,0)--(0,1.2,0);
+\draw (0,0,0)--(0,0,1.3);
+\draw[gray!50] (1,1,1) -- (-1,1,1);
+\draw[gray!50] (1,1,1) -- (1,-1,1);
+\draw[gray!50] (1,1,1) -- (1,1,-1);
+\draw[gray!50] (-1,-1,-1) -- (-1,-1,1);
+\draw[gray!50] (-1,-1,-1) -- (1,-1,-1);
+\draw[gray!50] (-1,-1,-1) -- (-1,1,-1);
+\draw[gray!50] (-1,1,0) -- (1,1,0) -- (1,-1,0) -- (-1,-1,0) -- cycle;
+\draw[gray!50] (-1,0,1) -- (1,0,1) -- (1,0,-1) -- (-1,0,-1) -- cycle;
+\draw[gray!50] (0,-1,1) -- (0,1,1) -- (0,1,-1) -- (0,-1,-1) -- cycle;
+\draw[>=latex,->] (0,0,0)-- (1,1,1) node[right] {$\vecteur{1}$};
+\draw[>=latex,->]  (0,0,0)--(1,0,0) node[below right] {$\vecteur{e}_2$};
+\draw[>=latex,->]  (0,0,0)--(0,1,0) node[left] {$\vecteur{e}_3$};
+\draw[>=latex,->]  (0,0,0)--(0,0,1) node[below left] {$\vecteur{e}_1$};
+\draw[ultra thick] (1,-1,-1) -- (1,1,-1) -- (-1,1,-1) -- (-1,1,1) -- (-1,-1,1) -- (1,-1,1) -- cycle;
+\end{tikzpicture}
+\end{center}
+\caption{Avec 3~candidats, représentation de $\mathbb{U}$ comme des arêtes du cube unité dans $\R^3$.}\label{fig:cubic}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\tikzset{
+	MyPersp/.style={scale=1,x={(-0.866cm,-0.7cm)},y={(0.866cm,-0.7cm)},
+    z={(0cm,0.7cm)}},
+%  MyPersp/.style={scale=1.5,x={(0cm,0cm)},y={(1cm,0cm)},
+%    z={(0cm,1cm)}}, % uncomment the two lines to get a lateral view
+	MyPoints/.style={fill=white,draw=black,thick}
+		}
+\begin{tikzpicture}[MyPersp]
+\begin{scope}[scale=2.5]
+	\foreach \t in {0,30,...,180}% meridians
+%	\foreach \t in {0,90,...,270}% meridians
+		{\draw[gray!50] ({cos(\t)},{sin(\t)},0)
+			\foreach \rho in {5,10,...,360}
+				{--({cos(\t)*cos(\rho)},{sin(\t)*cos(\rho)},
+      {sin(\rho)})}--cycle;
+		}
+%	\foreach \t in {-75,-60,...,75}% parallels
+	\foreach \t in {-90,-60,...,90}% parallels
+		{\draw[gray!50] ({cos(\t)},0,{sin(\t)})
+			\foreach \rho in {5,10,...,360}
+				{--({cos(\t)*cos(\rho)},{cos(\t)*sin(\rho)},
+      {sin(\t)})}--cycle;
+		}
+%				\draw[orange,very thick] (1,0,0)% Equators
+	\foreach \t in {5,10,...,360}
+		{--({cos(\t)},{sin(\t)},0)}--cycle;
+\draw[>=latex,->]  (0,0,0)--(1,0,0) node[below left=3pt] {$\vecteur{e}_1$};
+\draw[>=latex,->]  (0,0,0)--(0,1,0) node[below right=3pt] {$\vecteur{e}_2$};
+\draw[>=latex,->]  (0,0,0)--(0,0,1) node[right=3pt] {$\vecteur{e}_3$};
+\end{scope}
+
+\rotateRPY{0}{-35.26}{45}
+\begin{scope}[RPY,scale=2.5]
+\draw[->,>=latex] (0,0,0) -- (1,0,0) node[below=-1pt] {$\vecteur{1}$};
+\draw[ultra thick] [domain=0:pi,  samples=80,  smooth] plot (0, {cos(\x r)}, {sin(\x r)})  ;
+\draw[thick,dashed] [domain=pi:2*pi,  samples=80,  smooth] plot (0, {cos(\x r)}, {sin(\x r)})  ;
+\end{scope}
+\end{tikzpicture}
+\end{center}
+\caption{Avec 3~candidats, représentation de $\mathbb{U}$ comme un cercle de $\R^3$.}\label{fig:circle}
+\end{figure}
+
+Afin de manipuler les utilités, en théorie et en pratique, il serait avantageux d'avoir un représentant canonique $\vecteur{u}$ pour chaque classe d'équivalence~$\vectutil{u}$.
+Dans la figure~\ref{fig:cubic}, pour chaque $\vectutil{u}$ non indifférent, nous choisissons son représentant vérifiant $\min(u_i) = -1$ et $\max(u_i) = 1$. L'espace des utilités $\mathbb{U}$ (hormis le point d'indifférence) est représenté dans $\R^3$ par six arêtes du cube unité.
+Dans la figure~\ref{fig:circle}, nous choisissons le représentant vérifiant $\sum u_i = 0$ et $\sum {u_i}^2 = 1$. Dans ce cas, $\mathbb{U} \setminus \{\vectutil{0}\}$ est représenté dans $\R^3$ par le cercle unité du plan vectoriel qui est orthogonal à $\vecteur{1}$.
+
+Si nous choisissons une telle représentation, l'espace quotient $\mathbb{U}$ peut hériter de la distance euclidienne de $\R^C$; par exemple, on peut évaluer les distances le long des arêtes du cube dans la figure~\ref{fig:cubic}, ou le long du cercle unité dans la figure~\ref{fig:circle}. Mais il est clair que le résultat dépendra de la représentation choisie. Par conséquent, une question intéressante est de savoir si l'une de ces deux représentations, ou une autre encore, a des raisons canoniques d'être utilisée. Mais avant de répondre à cette question, nous avons besoin d'explorer plus généralement les propriétés géométriques de l'espace des utilités.
+
+\section{Dualité avec l'hyperplan tangent aux loteries}\label{sec:dualite_sphere}
+
+Dans cette section, nous remarquons que l'espace des utilités est un dual de l'espace des paires de loteries.
+Non seulement cela donne un point de vue différent sur l'espace des utilités (ce qui nous semble intéressant en soi), mais ce sera également utile pour prouver le théorème~\ref{thm:unanimite}, qui caractérise l'opérateur comme que nous définirons dans la section~\ref{sec:operateurs_sphere}.
+
+Dans l'exemple représenté en figure~\ref{fig:duality}, on considère $C=3$ candidats et $\vecteur{u} = (\frac{5}{3}\,;-\frac{1}{3}\,;-\frac{4}{3})$.
+Le grand triangle, ou simplexe, est l'espace des loteries $\mathbb{L}$.
+Les hachures sont des lignes d'indifférence de l'agent: celui-ci est indifférent entre tout couple de loteries se trouvant sur la même ligne d'indifférence (cf. \cite{mascolell1995microeconomic}, section 6.B).
+Le vecteur d'utilité $\vecteur{u}$ représenté ici est dans le plan du simplexe mais ce n'est pas obligatoire: en effet, $\vecteur{u}$ peut être choisi arbitrairement dans sa classe d'équivalence $\vectutil{u}$. Cependant, c'est un choix assez naturel, puisque la composante de $\vecteur{u}$ dans la direction $\vecteur{1}$ (orthogonale au simplexe) n'a aucune importance pour les préférences.
+
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}[scale=2]
+\draw[>=latex,->]  (0,0,0)--(1.2,0,0) node[right] {$L_1$};
+\draw[>=latex,->]  (0,0,0)--(0,1.2,0) node[above] {$L_2$};
+\draw[>=latex,->]  (0,0,0)--(0,0,1.2) node[left] {$L_3$};
+\draw (1,0,0) node[above right]{1} --(0,1,0) node[above right]{1} --(0,0,1) node[below right]{1}--cycle;
+\node[above right,inner sep=1pt] at (0.4,0.6,0) {$\mathbb{L}$};
+\foreach  \c  in  {-1,-0.8,...,-0.2}  {
+\draw (0,1+\c,-\c)--({(1+\c)/3},0,{(2-\c)/3});
+}
+\foreach  \c  in  {0,0.2,...,2}  {
+\draw (\c/2,1-\c/2,0)--({(1+\c)/3},0,{(2-\c)/3});
+}
+\foreach  \c  in  {0.4}  {
+\draw[>=latex,->] ({(2+5*\c)/12},{(2-\c)/4},{(2-\c)/6}) -- +(5/15,-1/15,-4/15) node[above right] {$\vecteur{u}$};
+\draw ({(2+5*\c)/12},{(2-\c)/4},{(2-\c)/6}) ++(5/150,-1/150,-4/150) -- ++(3/150/1.73,-9/150/1.73,6/150/1.73) -- ++(-5/150,+1/150,+4/150);
+}
+\end{tikzpicture}
+\end{center}
+\vspace{-0.5cm}\caption{Espace $\mathbb{L}$ des loteries pour 3~candidats.}\label{fig:duality}
+\end{figure}
+
+Le vecteur d'utilité $\vecteur{u}$ peut être vu comme un gradient de préférence\footnote{Plus précisément, il s'agit d'un gradient uniforme: il est le même en chaque point du simplexe.}: en chaque point, il permet de savoir dans quelles directions trouver des loteries que l'agent préfère.
+Cependant, seuls la direction et le sens de $\vecteur{u}$ sont importants, tandis que sa norme n'a pas de signification particulière. Par conséquent, l'espace des utilités n'est pas tout à fait un dual mais un quotient de dual, comme nous allons le formaliser.
+
+%\bil{Pour l'espace des utilités avec limite d'approbation, nous verrons une interprétation similaire, en tant que quotient de l'espace des formes affines sur $\mathbb{L}$.}{For the utility space with approval limit, we will see a similar interpretation, as a quotient of the space of affine forms on $\mathbb{L}$.}
+
+%\begin{definition}[\bil{bipoint}{bipoint}]
+Pour toute paire de loteries $L = (L_1,\ldots,L_C)$ et $M = (M_1,\ldots,M_C)$, on appelle \emph{bipoint} de $L$ à $M$ le vecteur:
+$
+\bipoint{LM} = (M_1-L_1,\ldots,M_C-L_C).
+$
+%\end{definition}
+%
+%
+%\begin{remark}[\bil{interprétation géométrique}{geometrical interpretation}]
+%\bil{Dans la figure, pour deux loteries quelconques de $\mathbb{L}'$, les points $L$ et $M$ sont identifiés aux points $(L_1,\ldots,L_C)$ et $(M_1,\ldots,M_C)$ du tétraèdre plein qui est délimité par le triangle et les axes du repère.}{In figure~\ref{fig:duality}, for any two lotteries $L$ and $M$ in $\mathcal{L}_m$, points $L$ and $M$ are identified to the points $(L_1,\ldots,L_C)$ and $(M_1,\ldots,M_C)$ in the solid tetrahedron delimited by the great triangle and the axes.}
+%%\bil{Ces loteries sont dans $\mathbb{L}$ si et seulement si ces points appartiennent au triangle.}{A lottery is in $\mathbb{L}$ iff the corresponding point belongs to the great triangle.}
+%\end{remark}
+%
+%\begin{definition}[\bil{polytopes et hyperplan tangents}{tangent polytope and hyperplane}]
+On appelle \emph{polytope tangent} de $\mathbb{L}$ l'ensemble $\ens{T}$ des bipoints de $\mathbb{L}$.
+%$$
+%\ens{T} = \{\bipoint{LM}, (L,M) \in {\mathbb{L}}^2\}.
+%$$
+
+%\bil{On appelle \emph{polytope tangent} de $\mathbb{L}'$ l'ensemble $\ens{T}'$ des bipoints de $\mathbb{L}'$:}{We call \emph{tangent polytope} of $\mathbb{L}'$ the set $\ens{T}'$ of bipoints of $\mathbb{L}'$:}
+%$$
+%\ens{T}' = \{\bipoint{LM}, (L,M) \in {\mathbb{L}'}^2\}.
+%$$
+
+On appelle \emph{hyperplan tangent} de $\mathbb{L}$:
+$$
+\ens{H} = \{(\Delta_1,\ldots,\Delta_C) \in \R^C \tq \sum_{c=1}^{C} \Delta_c = 0\}.
+$$
+%\end{definition}
+
+%\begin{remark}[\bil{interprétation géométrique}{geometrical interpretation}]
+Dans la figure~\ref{fig:duality}, le polytope tangent $\mathcal{T}$ est l'ensemble des bipoints du grand triangle, vu comme une partie d'espace vectoriel (alors que $\mathbb{L}$ est moralement affine).
+L'hyperplan $\mathcal{H}$ est tout le plan vectoriel qui contient $\mathcal{T}$.
+
+Notons $\bracket{\vecteur{u}}{\vecteur{v}}$ le produit scalaire canonique de $\vecteur{u}$ et $\vecteur{v}$.
+On appelle \emph{demi-hyperplan positif associé à $\vecteur{u}$} l'ensemble
+$
+\vecteur{u}^{+\ens{H}} = \{\vecteur{\Delta} \in \ens{H} \tq \bracket{\vecteur{u}}{\vecteur{\Delta}} \geq 0\}.
+$
+Par définition, une loterie $M$ est préférée à une loterie $L$ ssi le bipoint $\bipoint{LM}$ appartient à ce demi-hyperplan positif:
+$$
+L \moinssim_{\vectutil{u}} M \Leftrightarrow \bracket{\vecteur{u}}{\bipoint{LM}} \geq 0 \Leftrightarrow \bipoint{LM} \in \vecteur{u}^{+\ens{H}}.
+$$
+
+%\begin{definition}[\bil{formes linéaires}{linear forms on $\ens{H}$}]
+Soit $\ens{H}^\star$ l'espace dual de $\ens{H}$, c'est à dire l'ensemble des formes linéaires sur $\ens{H}$.
+Pour tout $\vecteur{u} \in \R^C$, on appelle \emph{forme linéaire associée à $\vecteur{u}$} l'élément suivant de $\ens{H}^\star$:
+$$
+\bra{\vecteur{u}}:
+\begin{array}{|cll}
+\mathcal{H} & \to & \R \\
+\vecteur{\Delta} & \to & \bracket{\vecteur{u}}{\vecteur{\Delta}}.
+\end{array}
+$$
+Nous avons déjà observé que le vecteur d'utilité peut être vu comme un gradient, à ceci près que seuls sa direction et son sens ont une importance, pas sa norme. Formalisons cette idée.
+Pour $(f,g) \in (\ens{H}^\star)^2$, on note $f \approx g$ ssi ces deux formes linéaires sont des multiples positifs l'une de l'autre, c'est-à-dire ssi $\exists \alpha \in \mathopen]0,+\infty\mathclose[$ t.q. $g = \alpha f$. On note $\classelin{\pi}(f) = \{g \in \ens{H}^\star \tq f \approx g\}$: c'est la classe d'équivalence de $f$ à multiplication positive près.
+
+
+\begin{prop}%[\bil{espace des utilités et espace des formes linéaires}{utility space and linear forms}]
+\label{thm:dualite_utilites_formes_lineaires}%
+Pour tout couple $(\vecteur{u},\vecteur{v}) \in (\R^C)^2$, on a:
+$$
+\vecteur{u} \approx \vecteur{v} \Leftrightarrow \bra{\vecteur{u}} \approx \bra{\vecteur{v}}.
+$$
+
+L'application suivante est une bijection:
+$$
+\Theta:
+\begin{array}{|cll}
+\mathbb{U} & \to & \ens{H}^\star / \approx \\
+\vectutil{\pi}(\vecteur{u}) & \to & \classelin{\pi}(\bra{\vecteur{u}}). 
+\end{array}
+$$
+\end{prop}
+
+\begin{proof}
+$\vecteur{u} \approx \vecteur{v}$
+
+$\Leftrightarrow \exists \alpha \in \mathopen(0,+\infty\mathclose), \exists \beta \in \R \tq 
+\vecteur{v} - \alpha \vecteur{u} = \beta \vecteur{1}$
+
+$\Leftrightarrow \exists \alpha \in \mathopen(0,+\infty\mathclose) \tq 
+\vecteur{v} - \alpha \vecteur{u}$ est orthogonal à $\ens{H}$
+
+%$\Leftrightarrow \exists \alpha \in \mathopen(0,+\infty\mathclose) \tq 
+%\forall \vecteur{\Delta} \in \ens{H}, \sum_{c=1}^{C} (v_c - \alpha u_c) \Delta_c = 0$
+
+$\Leftrightarrow \exists \alpha \in \mathopen(0,+\infty\mathclose) \tq 
+\forall \vecteur{\Delta} \in \ens{H}, \bracket{\vecteur{v}}{\vecteur{\Delta}} = \alpha \bracket{\vecteur{u}}{\vecteur{\Delta}}$
+
+$\Leftrightarrow \bra{\vecteur{u}} \approx \bra{\vecteur{v}}$.
+
+Le sens $\Rightarrow$ prouve que $\Theta$ est bien définie: en effet, si $\vectutil{\pi}(\vecteur{u}) = \vectutil{\pi}(\vecteur{v})$, alors $\classelin{\pi}(\bra{\vecteur{u}}) = \classelin{\pi}(\bra{\vecteur{v}})$.
+Le sens $\Leftarrow$ assure que $\Theta$ est injective. Enfin, il est clair que $\Theta$ est surjective.
+\end{proof}
+
+%\begin{remark}[\bil{interprétation}{interpretation}]
+L'espace des utilités peut donc être vu comme un quotient du dual $\mathcal{H}^\star$ de l'espace tangent $\mathcal{H}$ des loteries $\mathbb{L}$.
+Un vecteur d'utilité peut être vu, à une constante strictement positive près, comme un gradient uniforme, c'est-à-dire une forme linéaire sur $\mathcal{H}$ qui révèle, pour tout point de l'espace des loteries, dans quelles directions l'agent peut trouver des loteries qu'il préfère.
+%\end{remark}
+
+
+
+
+
+\section{Opérateurs opposé et somme}\label{sec:operateurs_sphere}
+
+En tant que quotient de $\R^C$, l'espace des utilités hérite d'opérations naturelles sur $\R^C$, la prise de l'opposé et la somme.
+Nous allons voir que ces deux opérations quotient ont une signification intuitive concernant les préférences.
+La somme permettra aussi de définir des \emph{droites} dans la section~\ref{sec:riemann_sphere}, 
+ce qui sera une notion-clé pour le théorème~\ref{thm_sphere}, caractérisant les métriques riemanniennes convenables pour l'espace des utilités.
+
+%\begin{definition}[\bil{opposé dans l'espace des utilités}{inversion}]
+On définit  l'opérateur \emph{opposé} de $\mathbb{U}$ par:
+$$
+-: 
+\begin{array}{|cll}
+\mathbb{U} & \to & \mathbb{U} \\
+\vectutil{\pi}(\vecteur{u}) & \to & \vectutil{\pi}(-\vecteur{u}).
+\end{array}
+$$
+%\end{definition}
+%\begin{remark}[\bil{l'opérateur opposé est une bijection}{the inversion operator is a bijection}]
+Cet opérateur est correctement défini et c'est une bijection: en effet, on a par exemple $\vectutil{\pi}(\vecteur{u}) = \vectutil{\pi}(\vecteur{v})$ ssi $\vectutil{\pi}(-\vecteur{u}) = \vectutil{\pi}(-\vecteur{v})$.
+%\end{remark}
+%\begin{remark}[\bil{interprétation en termes de préférences}{interpretation in terms of preferences}]
+Considérer l'opposé correspond à renverser les préférences de l'agent, sans modifier leurs intensités relatives.
+%\end{remark}
+
+On souhaite, à présent, pousser l'opérateur somme de $\R^C$ vers le quotient $\mathbb{U}$.
+On utilise une méthode générique pour pousser un opérateur vers l'espace quotient: étant donné $\vectutil{u}$ et $\vectutil{v}$ dans $\mathbb{U}$, on prend leurs antécédents dans $\R^C$ grâce à $\vectutil{\pi}^{-1}$, on calcule la somme dans $\R^C$, puis le résultat est converti dans l'autre sens vers l'espace quotient $\mathbb{U}$ grâce à $\vectutil{\pi}$.
+
+Cependant, il n'y a pas unicité du résultat.
+En effet, désignons arbitrairement des représentants $\vecteur{u} \in \vectutil{u}$ et $\vecteur{v} \in \vectutil{v}$.
+Pour calculer la somme, on peut envisager de prendre n'importe quels représentants. Donc les sommes possibles sont $\alpha \vecteur{u} + \alpha' \vecteur{v} + \beta + \beta'$, où $\alpha$ et $\alpha'$ sont strictement positifs et où $\beta + \beta'$ est un réel quelconque.
+%
+En repassant au quotient, on obtiendra par exemple $\vectutil{\pi}(2 \vecteur{u} + \vecteur{v})$ et $\vectutil{\pi}(\vecteur{u} + 3 \vecteur{v})$, qui sont généralement distincts.
+Par conséquent, le résultat n'est pas un point de l'espace des utilités $\mathbb{U}$ mais un ensemble de points, c'est-à-dire un élément de $\mathcal{P}(\mathbb{U})$.
+
+%\bil{Par ailleurs, nous pourrions définir d'abord la somme de deux éléments, c'est-à-dire l'addition ($+$), puis généraliser à davantage d'éléments, c'est-à-dire de définir l'opérateur somme ($\Sigma$).}{By the way, we could define the sum of two elements first (addition operator~$+$) then extend to more elements (summation operator $\Sigma$).}
+%\bil{Afin d'économiser une étape, nous allons directement définir la somme d'une partie de $\mathbb{U}$, c'est-à-dire prendre également $\mathcal{P}(\mathbb{U})$ comme ensemble de départ.}{In order to get it shorter, we will define the sum of a subset of $\mathbb{U}$ directly: we also take $\mathcal{P}(\mathbb{U})$ as the set of inputs.}
+
+Cet exemple montre comment on peut définir la somme de deux éléments $ \vectutil{u} $ et $ \vectutil{v} $. Pour plus de généralité, nous allons définir la somme d'un nombre quelconque d'élément de $\mathbb{U}$. Par conséquent, nous prendrons aussi $\mathcal{P}(\mathbb{U})$ comme ensemble de départ.
+
+
+%\begin{definition}[\bil{somme dans l'espace des utilités}{summation}]
+On définit l'opérateur \emph{somme} de $\mathbb{U}$ par:
+$$
+\sum:
+\begin{array}{|cll}
+\mathcal{P}(\mathbb{U}) & \to & \mathcal{P}(\mathbb{U}) \\
+A & \to & \left\{ \vectutil{\pi}\left(\sum_{i=1}^{n} \vecteur{u}_{i}\right), n \in \N,
+(\vecteur{u}_{1},\ldots,\vecteur{u}_{n}) \in \left(\vectutil{\pi}^{-1}(A)\right)^n
+ \right\}.
+\end{array}
+$$
+%\end{definition}
+
+%\shorthandoff{:;}
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}[scale=1.7]
+% Utilités
+% theta = -pi/4
+% phi =  -> 
+\foreach  \theta  in  {20}  {
+\fill[lightgray,path fading=south, fading angle=120] ({1.5*cos(\theta) * sin(20)}, {1.5*cos(20)}, {1.5*sin(\theta) * sin(20)}) -- (0,0,0)--({1.7*cos(\theta) * sin(70)}, {1.7*cos(70)}, {1.7*sin(\theta) * sin(70)});
+\draw[>=latex,->] (0,0,0)--({cos(\theta) * sin(20)}, {cos(20)}, {sin(\theta) * sin(20)}) node[left,yshift=-.1cm,xshift=0.03cm] {$\vecteur{u}$};
+\draw[>=latex,->] (0,0,0)--({cos(\theta) * sin(70)}, {cos(70)}, {sin(\theta) * sin(70)}) node[right,yshift=-.18cm,xshift=-0.15cm] {$\vecteur{v}$};
+\draw [variable=\phi,domain=20:70,  samples=50,  smooth, very thick, dotted] plot  ({cos(\theta) * sin(\phi)}, {cos(\phi)}, {sin(\theta) * sin(\phi)},) ;
+%\draw (0,0,0)-- ({1.4*cos(\theta) * sin(50)}, {1.4*cos(50)}, {1.4*sin(\theta) * sin(50)},);
+%\draw ({cos(\theta) * sin(45)}, {cos(45)}, {sin(\theta) * sin(45)})-- ({1.4*cos(\theta) * sin(50)}, {1.4*cos(50)}, {1.4*sin(\theta) * sin(50)},) node[right] {$\sum \{\vectutil{u},\vectutil{v}\}$};
+\node[right] at ({1.5*cos(\theta) * sin(40)}, {1.5*cos(40)}, {1.5*sin(\theta) * sin(40)},) {$\sum \{\vectutil{u},\vectutil{v}\}$};
+}
+\draw (-1.2,0,0)--(1.2,0,0);
+\draw (0,-1.2,0)--(0,1.2,0);
+\draw (0,0,0)--(0,0,1.3);
+\draw[>=latex,->]  (0,0,0)--(1,0,0) node[below right] {$\vecteur{h}_1$};
+\draw[>=latex,->]  (0,0,0)--(0,1,0) node[above left] {$\vecteur{h}_2$};
+\draw[>=latex,->]  (0,0,0)--(0,0,1) node[above left] {$\vecteur{h}_3$};
+\draw (0,0,0) circle (1);
+%%\draw [domain=0:2*pi,  samples=80,  smooth] plot  ({cos(\x r)}, {sin(\x r)}, 0)  ;
+\draw [domain=0:pi,  samples=80,  smooth] plot  (0, {cos(\x r)}, {sin(\x r)})  ;
+\draw [domain=-pi/2:pi/2,  samples=80,  smooth] plot  ({sin(\x r)}, 0, {cos(\x r)})  ;
+\node[fill=black,shape=circle,inner sep=1.5pt] at (0,0,0) {};
+\end{tikzpicture}
+\end{center}
+\vspace{-0.5cm}\caption{Somme de deux vecteurs d'utilité dans l'espace des utilités $\ens{U}_4$.}\label{fig:sum_vectors}
+\end{figure}
+%\shorthandon{:;}
+
+\begin{exemple}%[\bil{somme de deux vecteurs d'utilité}{sum of two utility vectors}]
+Considérons $\mathbb{U}$ pour $C = 4$ candidats. Dans la figure~\ref{fig:sum_vectors}, à des fins de visualisation, on représente sa projection dans $\mathcal{H}$, ce qui est rendu possible par le choix de la constante de normalisation $\beta$. Comme $\mathcal{H}$ est un espace à 3 dimensions, on peut en considérer une base orthonormale $(\vecteur{h}_1,\vecteur{h}_2,\vecteur{h}_3)$.
+
+Pour deux vecteurs d'utilité non triviaux $\vectutil{u}$ et $\vectutil{v}$, le choix des multiplicateurs de normalisation~$\alpha$ permet de choisir des représentants $\vecteur{u}$ et $\vecteur{v}$ dont la norme euclidienne vaut~1.
+
+Dans cette représentation, la somme $\sum \{\vectutil{u},\vectutil{v}\}$ est constituée des utilités correspondant aux vecteurs $\alpha \vecteur{u} + \alpha' \vecteur{v}$, où $\alpha$ et $\alpha'$ sont des réels positifs ou nuls. En effet, on a pris une représentation dans~$\mathcal{H}$, donc toutes les constantes de normalisation $\beta$ disparaissent. De plus, $\alpha$, $\alpha'$ ou les deux peuvent être nulles car notre définition autorise à ignorer $\vecteur{u}$, $\vecteur{v}$ ou les deux.
+Quitte à prendre des représentants de norme unitaire pour les vecteurs d'utilité non triviaux, remarquons que la somme $\sum \{\vectutilapprob{u},\vectutilapprob{v}\}$ peut être représentée par la ligne pointillée et le point d'indifférence $\vecteur{0}$.
+\end{exemple}
+
+
+
+%\begin{remark}[\bil{interprétation géométrique}{geometrical interpretation}]
+Géométriquement, la somme est le quotient de l'enveloppe convexe des arguments. On notera que cette enveloppe convexe est, en fait, un cône convexe. Nous verrons plus loin son interprétation en termes de préférences.
+%\end{remark}
+
+%\begin{remark}[\bil{cône fermé}{closed cone}]
+Étant donné notre définition de l'opérateur somme, on considère le cône fermé: par exemple, les arguments eux-mêmes (par exemple $\vectutil{u}$) répondent à notre définition, de même que le point d'indifférence $\vectutil{\pi}(\vecteur{0})$.
+Ce ne serait généralement pas le cas si on se contentait des $\vectutil{\pi}(\alpha \vecteur{u} + \alpha' \vecteur{v} + \beta \vecteur{1})$, où $\alpha > 0$ et $\alpha' > 0$.
+Cette convention a pour but avoué d'obtenir un énoncé concis pour le théorème~\ref{thm:unanimite} que nous allons énoncer.
+%\end{remark}
+
+%Let $A \in \ens{P}(\mathbb{U})$. By considering $n = 0$ or $n = 1$ in the definition, we immediately deduce the two following properties.
+%%\begin{prop}[\bil{propriétés élémentaires de la somme dans l'espace des utilités}{basic properties of the sum}]
+%%\bil{Soit $A \in \mathbb{U}$. Alors:}{For $A \in \ens{P}(\mathbb{U})$, it is trivial that:}
+%\begin{enumerate}
+%	\item The indifference point belongs to the sum: $\vectutil{\pi}(\vecteur{0}) \in \sum A$;
+%	\item The set $A$ itself belongs to its sum: $A \subset \sum A$.
+%\end{enumerate}
+%%\end{prop}
+
+
+
+%\begin{proof}
+%%\bil{La preuve est la même pour les deux propositions.}{The proof is the same for both propositions.}
+%\begin{enumerate}
+%	\item \bil{Il suffit de prendre $n=0$ dans la définition.}{Consider $n=0$ in the definition.}
+%	\item \bil{Pour $\vectutil{u} \in A$ (resp. $\vectutilapprob{u} \in A$), il suffit de prendre $n=1$ et $\vecteur{u}_1 \in \vectutil{\pi}^{-1}(\vectutil{u})$ (resp. $\vecteur{u}_1 \in \vectutilapprob{\pi}^{-1}(\vectutilapprob{u})$) pour prouver que $\vectutil{u} \in \sum A$ (resp. $\vectutilapprob{u} \in \sum A$ ).}{For $\vectutil{u} \in A$, if it sufficient to consider $n=1$ and $\vecteur{u}_1 \in \vectutil{\pi}^{-1}(\vectutil{u})$ in order to prove that $\vectutil{u} \in \sum A$.}%
+%\end{enumerate}
+%\end{proof}
+
+Nous allons maintenant montrer que, si $A$ est l'ensemble des vecteurs d'utilités d'une population, alors $\sum A$ est le lieu des vecteurs d'utilité qui respectent les préférences unanimes de la population.
+
+
+
+
+\begin{thm}[caractérisation de la somme]\label{thm:unanimite}
+Soit $A \in \mathcal{P}(\mathbb{U})$ et $\vectutil{v} \in \mathbb{U}$.
+
+Les conditions suivantes sont équivalentes.
+\begin{enumerate}
+	\item $\vectutil{v} \in \sum A$.
+	\item $\forall (L,M) \in {\mathbb{L}}^2$:
+$
+\left(
+\forall \vectutil{u} \in A, L \moinssim_{\vectutil{u}} M
+\right)
+\Rightarrow L \moinssim_{\vectutil{v}} M.
+$
+\end{enumerate}
+\end{thm}
+
+%\begin{lem}[\bil{$\ens{T}$ génère $\ens{H}$}{$\ens{T}$ generates $\ens{H}$}]
+%\label{T_genere_H}
+%$
+%\forall \vecteur{\Delta} \in \ens{H}, \exists \bipoint{LM} \in \ens{T}, \exists \lambda \in \mathopen(0,+\infty\mathclose)
+%\tq \vecteur{\Delta} = \lambda \bipoint{LM}.
+%$
+%\end{lem}
+%
+%\begin{proof}
+%%\bil{En notant que les polytopes $\mathcal{T}$ et $\mathcal{T}'$ contiennent un voisinage de l'origine dans les espaces vectoriels qu'ils engendrent, on obtient les deux observations suivantes.}{Remarking that polytope $\mathcal{T}$ contains a neighborhood of the origin in vector space $\ens{H}$, we get the following fact.}
+%Polytope $\mathcal{T}$ contains a neighborhood of the origin in vector space $\ens{H}$.
+%\end{proof}
+
+\begin{proof}
+Premièrement, remarquons que le polytope tangent~$\mathcal{T}$ engendre l'hyperplan tangent $\ens{H}$ par multiplication positive. C'est-à-dire: 
+$$
+\forall \vecteur{\Delta} \in \ens{H}, \exists \bipoint{LM} \in \ens{T}, \exists \lambda \in \mathopen]0,+\infty\mathclose[
+\tq \vecteur{\Delta} = \lambda \bipoint{LM}.
+$$
+En effet, $\mathcal{T}$ contient un voisinage de l'origine dans l'espace vectoriel~$\ens{H}$.
+
+Soit $\vecteur{v} \in \vectutil{\pi}^{-1}(\vectutil{v})$. On a les équivalences suivantes.
+\begin{itemize}
+	\item $\forall (L,M) \in {\mathbb{L}}^2, \left( \forall \vectutil{u} \in A, L \moinssim_{\vectutil{u}} M \right) \Rightarrow L \moinssim_{\vectutil{v}} M$,
+	\item $\forall \bipoint{LM} \in \ens{T}, \left( \forall \vecteur{u} \in \vectutil{\pi}^{-1}(A), \bracket{\vecteur{u}}{\bipoint{LM}} \geq 0 \right) \Rightarrow \bracket{\vecteur{v}}{\bipoint{LM}} \geq 0$,
+	\item $\forall \vecteur{\Delta} \in \ens{H}, \left( \forall \vecteur{u} \in \vectutil{\pi}^{-1}(A), \bracket{\vecteur{u}}{\vecteur{\Delta}} \geq 0 \right) \Rightarrow \bracket{\vecteur{v}}{\vecteur{\Delta}} \geq 0$ (car $\ens{T}$ engendre $\ens{H}$),
+	\item $\bigcap_{\vecteur{u} \in \vectutil{\pi}^{-1}(A)} \vecteur{u}^{+\ens{H}} \subset \vecteur{v}^{+\ens{H}}$,
+	\item $\vecteur{v}$ est dans le cône convexe de $\vectutil{\pi}^{-1}(A)$ (à cause de la dualité vue en section~\ref{sec:dualite_sphere}),
+	\item $\vectutil{v} \in \sum A$.
+\end{itemize}\end{proof}
+
+\begin{exemple}%[\bil{un vecteur d'utilité et son opposé}{a utility vector and its inverse}]
+Considérons un $\vectutil{u}$ non indifférent et examinons le cas particulier de la somme de $\vectutil{u}$ et de son opposé $-\vectutil{u}$.
+Par application directe de la définition, on voit que la somme est constituée de $\vectutil{u}$, $-\vectutil{u}$ et $\vectutil{0}$.
+
+Or, nous venons de prouver que la somme est le lieu des vecteurs d'utilité qui conservent les préférences unanimes sur les loteries. Intuitivement, on pourrait penser que, puisque $\vectutil{u}$ et $-\vectutil{u}$ ne semblent jamais d'accord, tout vecteur d'utilité $\vectutil{v}$ respecte l'ensemble vide de leurs préférences communes; par conséquent, leur somme devrait être l'espace entier. Mais cette intuition n'est pas correcte.
+
+En effet, examinons l'exemple de $\vecteur{u} = (1,0,\ldots,0)$.
+Pour deux loteries $L$ et $M$, les deux opinions opposées $\vectutil{u}$ et $-\vectutil{u}$ sont en accord si et seulement si $L_1 = M_1$: dans ce cas, toutes deux sont indifférentes entre $L$ et $M$.
+Les seuls points de l'espace des utilités qui vérifient cette propriété commune sont $\vectutil{u}$ et $-\vectutil{u}$ eux-mêmes, ainsi que le point d'indifférence~$\vectutil{0}$.
+%\bil{Donc $\vectutil{u}$ et $-\vectutil{u}$ ont bien un point commun caractéristique: ils n'accordent d'importance qu'au candidat 1, même si leurs opinion à son sujet sont opposées.}{Hence, $\vectutil{u}$ and $-\vectutil{u}$ do have a characteristic common feature: they pay attention to candidate~1 only, even if their opinions about her are diverging.}
+\end{exemple}
+
+
+
+
+
+%\bil{\section{Topologie}}{\section{Topology of the Utility Space}}\label{sec:topologie}
+%
+%\bil{Dans cette section, nous remarquons que l'espace des utilités a une topologie pathologique si on conserve le point d'indifférence mais une topologie sphérique si on le supprime.}{In this short section, we remark that the utility space has a pathological topology when keeping the indifference point, but a spherical topology when removing it.} This will be used in section \ref{sec:riemann} to demonstrate theorem \ref{thm_sphere}.
+% 
+%The utility space $\mathbb{U} = \R^C / \approx$ is canonically endowed with the quotient topology.
+%
+%%\begin{definition}[\bil{espace $T_0$}{$T_0$ space}]
+%\bil{On dit qu'un espace topologique est un \emph{espace $T_0$} ou un \emph{espace de Kolmogorov} si et seulement si pour toute paire de points distincts, au moins l'un d'entre eux possède un voisinage ouvert qui ne contient pas l'autre \cite{guenard1985complements}.}{We say that a topological space is a \emph{$T_0$ space} or a \emph{Kolmogorov space} iff, for any two distinct points, at least one of them has an open neighborhood not containing the other.}
+%%\end{definition}
+%
+%%\begin{definition}[\bil{espace $T_1$}{$T_1$ space}]
+%\bil{On dit qu'un espace topologique est un \emph{espace $T_1$} si et seulement si pour toute paire de points distincts, \emph{chacun} d'eux possède un voisinage ouvert qui ne contient pas l'autre \cite{guenard1985complements}.}{We say that a topological space is a \emph{$T_1$ space} iff, for any two distinct points, \emph{each} of them has an open neighborhood not containing the other. For both these definitions, see \cite{guenard1985complements}.}
+%%\end{definition}
+%
+%\begin{prop}%[\bil{topologie de l'espace des utilités}{topology of the utility space}]
+%\bil{On suppose $C \geq 2$. L'espace des utilités $\mathbb{U} = \R^C / \approx$ est muni de la topologie quotient.}{We assume $C \geq 2$.}
+%
+%\bil{$\mathbb{U} \setminus \{\vectutil{0}\}$ a la topologie de la sphère de dimension $C-2$. En particulier, c'est un espace $T_1$.}{$\mathbb{U} \setminus \{\vectutil{0}\}$ has the same topology as the sphere of dimension $C-2$. In particular it is a $T_1$ space.}
+%
+%\bil{$\mathbb{U}$ est un espace $T_0$ mais pas un espace $T_1$.}{$\mathbb{U}$ is a $T_0$ space but not a $T_1$ space.}
+%\end{prop}
+%
+%\begin{proof}
+%\bil{Soit}{Let} $\ens{S}_{C-2}$ be the unit sphere in hyperplane $\ens{H}$. That is: $\ens{S}_{C-2} = \{\vecteur{u} = (u_1,\ldots,u_C) \in \R^C \tq \sum_{c=1}^{C} u_c = 0, \sum_{c=1}^{C} u_c^2 = 1 \}$. \bil{Alors:}{Then:}
+%$$
+%\Theta:
+%\begin{array}{|cll}
+%\ens{S}_{C-2} & \to & \mathbb{U} \setminus \{\vectutil{0}\} \\
+%\vecteur{u}	& \to & \vectutil{\pi}(\vecteur{u})
+%\end{array}
+%$$
+%\bil{est un homéomorphisme.}{is a homeomorphism.}
+%
+%\bil{Dans $\mathbb{U}$, le seul nouveau cas concerne le point $\vectutil{0}$ et un point $\vectutil{u} \neq \vectutil{0}$.}{In $\mathbb{U}$, the only new case concerns $\vectutil{0}$ and any point $\vectutil{u} \neq \vectutil{0}$.}
+%\bil{Alors $\vectutil{u}$ possède bien un voisinage ouvert qui ne contient pas $\vectutil{0}$. Mais le seul voisinage ouvert de $\vectutil{0}$ est $\mathbb{U}$ tout entier, qui contient $\vectutil{u}$.}{Then $\vectutil{u}$ does have an open neighborhood not containing $\vectutil{0}$. But $\vectutil{0}$ has a unique open neighborhood: $\mathbb{U}$ in whole, which contains $\vectutil{u}$.}
+%\end{proof}
+%
+%As a consequence, in $\mathbb{U}$, the limit of a sequence is not necessarily unique. Each sequence has the indifference point $\vectutil{0}$ as limit and, in addition, at most one limit in $\mathbb{U} \setminus \{\vectutil{0}\}$. For example, with $\vecteur{u} = (1, 0, \ldots, 0)$, let us consider the constant sequence $\vectutil{u}_{n} = \vectutil{\pi}(\vecteur{u})$. Obviously, it tends to $\vectutil{\pi}(\vecteur{u})$ when $n$ tends to infinity. But the definition of the sequence is equivalent to $\vectutil{u}_{n} = \vectutil{\pi}(\dfrac{1}{n} \vecteur{u})$, which proves that it also tends to the indifference point~$\vectutil{0}$.
+
+\section{Représentation riemannienne de l'espace des utilités}\label{sec:riemann_sphere}
+
+Comme l'espace des utilités est une variété, il est naturel de vouloir le munir d'une métrique riemannienne.
+Dans cette section, nous prouvons qu'il existe un choix limité de métriques qui soient cohérentes avec les propriétés naturelles de l'espace et la symétrie \emph{a priori} entre les candidats.
+
+Tout d'abord, notons que le point d'indifférence $\vectutil{0}$ doit être exclus. En effet, son seul voisinage ouvert est $\mathbb{U}$ tout entier, et aucune distance n'est cohérente avec cette propriété\footnote{Techniquement, cette remarque prouve que $\mathbb{U}$ (muni de la topologie quotient) n'est pas un \emph{espace $T_1$}~\citep{guenard1985complements}.}. En revanche, $\mathbb{U} \setminus \{\vectutil{0} \}$ possède la même topologie que la sphère de dimension $C-2$, donc on peut le munir d'une distance.
+
+%Indeed, we say that a topological space is a \emph{$T_1$ space} iff, for any two distinct points, each of them has an open neighborhood not containing the other \cite{guenard1985complements}. The utility space $\mathbb{U}$ (with its natural quotient topology) is not a $T_1$ space, because $\vectutil{0}$ has a unique open neighborhood: $\mathbb{U}$ in whole. For this reason, $\mathbb{U}$ cannot be endowed with a distance that is coherent with its topology. In contrast, $\mathbb{U} \setminus \{\vectutil{0} \}$ has the same topology as a sphere of dimension $C-2$, so it can be endowed with a distance.
+
+Une propriété naturelle de la distance serait que ses géodésiques coïncident avec les segments d'unanimité définis par la somme.
+En effet, considérons un agent avec le vecteur d'utilité $\vectutil{u}_0$ --- disons $(-10, 0, 1, 2)$, qui est progressivement convaincu par un autre agent avec le vecteur d'utilité $\vectutil{u}_1$ --- disons $(10, 0, 1, 2)$, le long d'une courbe paramétrée $\vectutil{u}_t$. 
+Si les géodésiques coïncident avec les segments d'unanimité, cela signifie que si l'agent suit le plus court chemin pour la métrique choisie, ses préférences vont progressivement changer à propos de leurs points de désaccord, sans jamais dévier à propos des points sur lesquels ils sont déjà d'accord (dans l'exemple, toutes les paires de loteries qui ont la même probabilité pour le candidat~1).
+Une telle déviation pourrait se produire dans la vie réelle, mais peut raisonnablement ne pas être considérée comme un plus court chemin.
+
+%\begin{notations}[\bil{métrique ronde sur l'espace des utilités}{round metric}]
+À présent, définissons la métrique ronde.
+Le quotient $\R^C / \linearspan(\vecteur{1})$ est identifié à $\ens{H}$ et muni du produit scalaire issu de celui canonique de $\R^C$.
+L'espace des utilités $\mathbb{U} \setminus \{\vectutil{0} \}$ est identifié à la sphère unitaire de $\ens{H}$ et muni de la structure riemannienne induite.
+On note $\xi_0$ cette métrique riemannienne sur $\mathbb{U} \setminus \{\vectutil{0} \}$.
+%\end{notations}
+
+%\begin{remark}[\bil{interprétation géométrique}{geometrical interpretation}]
+Pour s'en faire une représentation intuitive, on peut représenter toute position $ \vectutil{u} $ par un vecteur $ \vecteur{u} $ qui vérifie $\sum u_i = 0$ et $\sum {u_i}^2 = 1$.
+%$$
+%\left\{
+%\begin{array}{l}
+%\sum u_i = 0, \\
+%\sum u_i^2 = 1.
+%\end{array}
+%\right.
+%$$
+On obtient la sphère unité de $\ens{H}$, de dimension $C-2$, et on considère la métrique induite par la métrique euclidienne canonique de $\R^C$. C'est-à-dire qu'on mesure les distances sur la surface de la sphère en utilisant sur chaque espace tangent la restriction du produit scalaire canonique. Pour $C = 3$, une telle représentation a déjà été illustrée dans la figure~\ref{fig:circle}.
+%\end{remark}
+
+Avec cette représentation à l'esprit, on peut donner une formule pour calculer des distances au sens de~$\xi_0$.
+On note $I$ la matrice identité de taille $C$, $J$ la matrice de taille $C \times C$ dont tous les coefficients valent 1 et
+%\begin{notations}[\bil{projection orthogonale sur $\ens{H}$}{orthogonal projection on $\ens{H}$}]
+$D_0$ la matrice de la projection orthogonale sur $\mathcal{H}$:
+$$
+D_0 = I - \dfrac{1}{C} J.
+$$
+%\end{notations}
+La norme euclidienne canonique de $\vecteur{u}$ est notée $\| \vecteur{u} \|$.
+Pour deux vecteurs d'utilités non indifférents $\vectutil{u}$ et $\vectutil{v}$, la distance entre $\vectutil{u}$ et $\vectutil{v}$ au sens de la métrique $\xi_0$ est:
+$$
+\delta(\vectutil{u},\vectutil{v}) = \arccos \bigbracket{%
+\dfrac{D_0 \vecteur{u}}{\| D_0 \vecteur{u} \|} 
+}{%
+\dfrac{D_0 \vecteur{v}}{\| D_0 \vecteur{v} \|}
+}.
+$$
+Si $\vecteur{u}$ et $\vecteur{v}$ sont déjà des vecteurs unitaires de $\ens{H}$, c'est-à-dire des représentants canoniques de leurs classes d'équivalence $\vectutil{u}$ et $\vectutil{v}$, alors la formule se simplifie en  $d(\vectutil{u}, \vectutil{v}) = \arccos\bracket{\vecteur{u}}{\vecteur{v}}$. 
+
+
+%\bil{Notons que tout produit scalaire sur $\R^C$ induit de la même façon une métrique riemannienne sur $\mathbb{U} \setminus \{\vectutil{0} \}$, et que ces différentes métriques sont isométriques entre elles ; cependant, elles ne sont pas égales sauf quand on considère deux produits scalaires multiples l'un de l'autre.}{Let us remark that any inner product on $\R^C$ induces a Riemannian metric on $\mathbb{U} \setminus \{\vectutil{0} \}$ by the same process and that any two of these metrics are isometric; however, they are not equal, except if these inner products are multiple of each other.}
+%\bil{La différence entre isométrie et égalité est essentiellement la même qu'entre deux courbes fermées de même longueur: il existe une application de la première vers la deuxième qui préserve les distances le long de la courbe mais celles-ci ne sont pas égales pour autant.}{The difference between isometry and equality is essentially the same as between two loops of equal length: there exists an application from one to the other that preserves distances along the curve, but they are not generally equal.}
+
+Nous allons, maintenant, prouver que pour $C\geq 4$, la représentation sphérique est la seule qui soit cohérente avec les propriétés naturelles de l'espace et qui respecte la symétrie \emph{a priori} entre les candidats.
+
+\begin{thm}[représentation riemannienne de l'espace des utilités]\label{thm_sphere}
+On suppose $C \geq 4$. Soit $\xi$ une métrique riemannienne sur $\mathbb{U} \setminus \{\vectutil{0} \}$.
+
+Les conditions \ref{enumi:hypotheses_spheres} et \ref{enumi:sphere} suivantes sont équivalentes.
+\begin{enumerate}
+\item\label{enumi:hypotheses_spheres}
+\begin{enumerate}
+	\item\label{enumi:geodesics} Pour tout couple de points non antipodaux $\vectutil{u},\vectutil{v} \in \mathbb{U} \setminus \{\vectutil{0} \}$ (c.à.d. $\vectutil{v}\neq -\vectutil{u}$), l'ensemble $\sum\{\vectutil{u},\vectutil{v}\}$ des éléments respectant les préférences unanimes de $\vectutil{u}$ et $\vectutil{v}$ est un segment de géodésique de $\xi$; et
+	\item\label{enumi:permutations} pour toute permutation $\sigma$ de $\intent{1}{C}$, l'action $\Phi_\sigma$ induite sur $\mathbb{U} \setminus \{\vectutil{0} \}$ par
+$$
+(u_1,\ldots,u_C) \to (u_{\sigma(1)},\ldots,u_{\sigma(C)})
+$$
+est une isométrie.
+\end{enumerate}
+\item\label{enumi:sphere} $\exists \lambda \in \mathopen]0,+\infty\mathclose[ \tq \xi = \lambda \xi_0$.
+\end{enumerate}
+\end{thm}
+
+\begin{proof}
+Le sens \ref{enumi:sphere} $\Rightarrow$ \ref{enumi:hypotheses_spheres} étant évident, nous allons prouver \ref{enumi:hypotheses_spheres} $\Rightarrow$ \ref{enumi:sphere}. Le résultat profond sous-jacent est un théorème classique de Beltrami, qui date du milieu du dix-neuvième siècle \cite{beltrami1866resolution} (voir aussi \cite{beltrami1869essai}).
+
+L'image d'un sous-espace de dimension~2 de $\ens{H}$ dans $\mathbb{U} \setminus \{\vectutil{0} \}$ par la projection canonique $\vectutil{\pi}$ est appelée une \emph{droite}\footnote{Le lecteur non expert en géométrie projective pourra s'y familiariser avec \cite{kloeckner2012bref}.} de $\mathbb{U} \setminus \{\vectutil{0} \}$. Cette notion est profondément liée à l'opérateur somme: en effet, la somme de deux points non antipodaux de $\mathbb{U} \setminus \{\vectutil{0} \}$ est un segment de la droite qui les relie. La condition~\ref{enumi:geodesics} signifie précisément que les géodésiques de $\xi$ sont les droites de 
+$\mathbb{U}\setminus\{\vectutil{0}\}$.
+Le théorème de Beltrami assure, ensuite, que $\mathbb{U} \setminus \{\vectutil{0} \}$ a une courbure constante. Remarquons que ce résultat est, en fait, plus subtil en dimension~2 (c'est-à-dire pour $C=4$) que dans les dimensions supérieures; voir \cite{spivak1979vol3}, théorème 1.18 et \cite{spivak1979vol4}, théorème 7.2 pour des preuves.
+
+Puisque $\mathbb{U} \setminus \{\vectutil{0} \}$ est une sphère topologique, cette courbure constante est nécessairement positive. Quitte à multiplier $\xi$ par une constante, nous pouvons supposer que cette courbure constante vaut $1$. Par conséquent, il existe une isométrie $\Psi:\ens{S}_{C-2}\to \mathbb{U} \setminus \{\vectutil{0} \}$, où $\ens{S}_{C-2}$ est la sphère unité de $\R^{C-1}$ munie de sa métrique ronde usuelle.
+%\bil{%
+%La fonction $\Psi$ envoie les géodésiques sur des géodésiques et, par un argument standard de géométrie projective, il existe une fonction linéaire $\Lambda:\mathbb{R}^{C-1}\to \ens{H}$ induisant $\Psi$, c'est-à-dire telle que:
+%\[\Psi\circ \Pi = \Pi \circ \Lambda,\]
+%où $\Pi$ représente aussi bien les deux projections $\R^{C-1}\to \ens{S}_{C-2}$ et $\ens{H}\to \mathbb{U} \setminus \{\vectutil{0} \}$.%
+%}{}%
+La fonction $\Psi$ envoie manifestement les géodésiques sur des géodésiques. On va en déduire le lemme suivant.
+\begin{lem}
+Il existe une application linéaire $\Lambda:\mathbb{R}^{C-1}\to \ens{H}$
+qui induit $\Psi$, c'est-à-dire telle que:
+$$\Psi\circ \Pi = \Pi \circ \Lambda,$$
+où $\Pi$ désigne aussi bien la projection $\R^{C-1}\to \ens{S}_{C-2}$ que la projection
+$\ens{H}\to \mathbb{U} \setminus \{\vectutil{0} \}$.%
+\end{lem}
+
+\begin{proof}
+Tout d'abord, $\Psi$ envoie tout couple de points antipodaux de $\ens{S}_{C-2}$ vers un couple de points antipodaux de $\mathbb{U}\setminus \{\vectutil{0}\}$: 
+en effet, dans les deux cas, les couples antipodaux sont caractérisés par le fait qu'il existe plus d'une géodésique qui les contient tous les deux. 
+Il s'ensuit que $\Psi$ induit une fonction $\Psi'$ de l'espace projectif $\mathbb{P}(\mathbb{R}^{C-1})$ (qui est l'ensemble des droites passant par l'origine dans $\mathbb{R}^{C-1}$, identifié avec l'ensemble des couples de points antipodaux de~$\ens{S}_{C-2}$) vers l'espace projectif~$\mathbb{P}(\ens{H})$ (qui est l'ensemble des droites passant par l'origine dans $\ens{H}$, identifié avec l'ensemble des couples de points antipodaux de~$\mathbb{U}\setminus \{\vectutil{0}\}$).
+
+Le fait que $\Psi$ envoie les géodésiques de~$\ens{S}_{C-2}$ vers des géodésiques de~$\mathbb{U}\setminus \{\vectutil{0}\}$, combiné avec la condition
+\ref{enumi:geodesics}, implique que $\Psi'$ envoie les droites projectives vers des droites projectives.
+
+Or il est bien connu qu'un bijection $\mathbb{R}^n\to\mathbb{R}^n$
+qui envoie les droites sur des droites est nécessairement une application affine; un résultat similaire est vrai en géométrie projective, ce qui implique que
+$\Psi'$ est une application projective.
+Voir par exemple \cite{audin2003geometry} pour les deux résultats cités.
+
+Le fait que $\Psi'$ soit projective signifie précisément qu'il existe une application linéaire $\Lambda:\mathbb{R}^{C-1}\to \ens{H}$ qui induit $\Psi'$,
+laquelle induit à son tour
+$\Psi:\ens{S}_{C-2} \to\mathbb{U}\setminus\{\vectutil{0}\}$.
+\end{proof}
+
+En utilisant $\Lambda$ pour pousser le produit scalaire canonique de $\R^{C-1}$, nous en déduisons qu'il existe un produit scalaire $(\vecteur{u},\vecteur{v}) \to \phi(\vecteur{u},\vecteur{v})$ sur $\ens{H}$ qui induit $\xi$, dans le sens que $\xi$ est la métrique riemannienne obtenue en identifiant $\mathbb{U} \setminus \{\vectutil{0} \}$ avec la sphère unité définie dans $\ens{H}$ par $\phi$ et en y restreignant $\phi$.
+
+Il nous reste à prouver que $\phi$ est le produit scalaire induit par le produit scalaire canonique de $\R^C$. Remarquons que l'hypothèse \ref{enumi:permutations} est obligatoire, puisque n'importe quel produit scalaire sur $\ens{H}$ induit sur $\mathbb{U} \setminus \{\vectutil{0} \}$ une métrique riemannienne qui satisfait \ref{enumi:geodesics}.
+
+Chaque vecteur de la base canonique $\vecteur{e}_c=(0,\dots,1,\dots,0)$ définit un point de $\mathbb{U} \setminus \{\vectutil{0} \}$ et une demi-droite $\ell_c$ de $\ens{H}$.
+La condition \ref{enumi:permutations} garantit que ces demi-droites sont permutées par des isométries de $(\ens{H},\phi)$.
+En particulier, il existe des vecteurs $\vecteur{u}_c\in\ell_c$ dont les distances deux à deux sont toutes égales (au sens de~$\phi$).
+%\bil{Par un argument standard de géométrie projective, $\vecteur{u}_1,\dots,\vecteur{u}_{C-1}$ est, à multiplication par un scalaire près, la seule base de $\ens{H}$ telle que $\vecteur{u}_j\in\ell_j$ et $\sum_{c<C} \vecteur{u}_c \in -\ell_m$.}{By a standard projective geometry argument, $\vecteur{u}_1,\dots,\vecteur{u}_{C-1}$ is up to multiplication by a scalar the unique basis of $\ens{H}$ such that $\vecteur{u}_j\in\ell_j$ and $\sum_{c<C} \vecteur{u}_c \in -\ell_m$.}
+\begin{lem}
+La famille $\vecteur{u}_1,\dots,\vecteur{u}_{C-1}$ est, à multiplication près par un scalaire, la seule base de $\ens{H}$ telle que
+$\vecteur{u}_c\in\ell_c$ et $\sum_{c<C} \vecteur{u}_c\in -\ell_C$.
+\end{lem}
+
+\begin{proof}
+Tout d'abord, par définition des $\vecteur{u}_c$, ces vecteurs forment un simplexe régulier et $\sum_c \vecteur{u}_c=\vecteur{0}$. Il s'ensuit que 
+$\vecteur{u}_1,\dots,\vecteur{u}_{C-1}$ a la propriété désirée et il nous reste à montrer l'unicité.
+
+Supposons que $\vecteur{v}_1,\dots,\vecteur{v}_{C-1}$ est une base de
+$\ens{H}$ telle que 
+$\vecteur{v}_c\in\ell_c$ et $\sum_{c<C} \vecteur{v}_c\in -\ell_c$. Alors il existe des scalaires positifs $a_1,\dots, a_C$ tels que
+$\vecteur{v}_c = a_c \vecteur{u}_c$ pour tout $c<C$, et
+$\sum_{c<C} \vecteur{v}_c = a_C \sum_{c<C} \vecteur{u}_c$.
+
+Alors $\sum_{c<C} a_c \vecteur{u}_c = \sum_{c<C} a_c \vecteur{u}_c$,
+et comme les $u_c$ forment une base, on a nécessairement $a_c=a_C$ pour tout $c$.
+\end{proof}
+
+À présent, considérons le produit scalaire canonique $\phi_0$ sur $\ens{H}$ induit par le produit scalaire canonique de $\R^C$.
+Puisque les permutations de coordonnées sont des isométries, nous déduisons que les vecteurs $\vecteur{v_c}=\Pi(\vecteur{e}_c)$ (où $\Pi$ désigne maintenant la projection orthogonale de $\mathbb{R}^C$ sur $\mathcal{H}$) forment un simplexe régulier pour $\phi_0$, tel que $\sum_c \vecteur{v_c}=\vecteur{0}$.
+Par conséquent, $\vecteur{u}_c=\lambda \vecteur{v_c}$ pour un certain $\lambda>0$ et pour tout $c$.
+On en déduit que les vecteurs $\vecteur{u}_c$ forment un simplexe régulier à la fois pour $\phi$ et $\phi_0$, qui sont donc multiples l'un de l'autre.
+Ceci achève la preuve du théorème~\ref{thm_sphere}.
+\end{proof}
+
+%\begin{remark}[\bil{espace des utilités pour trois candidats}{utility space for three candidates}]
+En revanche, l'implication \ref{enumi:hypotheses_spheres} $\Rightarrow$ \ref{enumi:sphere} du théorème est fausse pour $C=3$.
+Pour chaque vecteur d'utilité non indifférent, considérons son représentant qui vérifie $\min(u_i) = 0$ et $\max(u_i) = 1$.
+On identifie ainsi $\mathbb{U} \setminus \{\vectutil{0} \}$ à des arêtes du cube unité de $\R^3$, comme dans la figure~\ref{fig:cubic}.
+On utilise cette identification pour munir $\mathbb{U} \setminus \{\vectutil{0} \}$ de la métrique induite sur ces arêtes par le produit scalaire canonique de $\R^3$.
+Alors les conditions \ref{enumi:geodesics} et \ref{enumi:permutations} du théorème sont vérifiées, mais pas la condition~\ref{enumi:sphere}.
+
+%\begin{figure}
+%\begin{center}
+%\begin{tikzpicture}[x=  {(-0.866cm,-0.5cm)},  y={(0.866cm,-0.5cm)},  z={(0cm,1cm)}]
+%\draw[->,>=latex] (0,0,0)--(1.4,0,0) node[left] {$u_1$};
+%\draw[->,>=latex] (0,0,0)--(0,1.4,0) node[right] {$u_2$};
+%\draw[->,>=latex] (0,0,0)--(0,0,1.4) node[right] {$u_3$};
+%\draw (1,0,0)--(1,1,0)--(0,1,0)--(0,1,1) node[right] {$(0,1,1)$}--(0,0,1)--(1,0,1)--cycle;
+%\end{tikzpicture}
+%\end{center}
+%\caption{A non-circular representation of the utility space for 3~candidates.}\label{fig:cube}
+%\end{figure}
+%\end{remark}
+
+\medskip
+Ce théorème amène une autre remarque importante. Comme nous avons un représentant canonique $\vecteur{u}$ pour chaque classe d'équivalence $\vectutil{u}$ qui est un vecteur unité de $\ens{H}$, nous pourrions être tentés de l'utiliser pour comparer les utilités de différents agents.
+
+Nous insistons sur le fait que cette représentation ne peut pas être utilisée pour des comparaisons interpersonnelles de différences d'utilités.
+
+Par exemple, pour deux agents, considérons les représentants suivants:
+$$
+\left\{
+\begin{array}{l}
+\vecteur{u} = \left( 0,00 ; 0,71 ; -0,71 \right), \\
+\vecteur{v} = \left( 0,57 ; 0,22 ; -0,79 \right).
+\end{array}
+\right.
+$$
+
+Le fait que $v_3 < u_3$ ne signifie pas qu'un agent avec les préférences $\vectutil{v}$ a davantage d'aversion pour le candidat~3 qu'un agent avec des préférences $\vectutil{u}$.
+%\end{remark}
+De même, quand on passe du candidat 1 au candidat 2, le gain pour l'agent $\vectutil{u}$ ($+0.71$) ne peut pas être comparé à la perte pour l'agent $\vectutil{v}$ ($-0.35$).
+
+Le théorème~\ref{thm_sphere} ne contient aucun message pour la comparaison interpersonnelle des utilités. En effet, des utilités appartenant à deux agents sont essentiellement incomparables en l'absence d'hypothèses supplémentaires \citep{hammond1991interpersonal}. Prendre des représentants canoniques dans la sphère à $(C-2)$ dimensions est seulement utilisé pour calculer des distances entre deux points de l'espace des utilités.
+
+
+\section{Application: mesures de probabilité sur l'espace des utilités}\label{sec:pratique_sphere}
+
+Une fois l'espace muni d'une métrique, il est muni d'une mesure de probabilité naturelle: la mesure uniforme au sens de cette métrique (ce qui est possible parce que l'espace a une mesure totale finie).
+Nous noterons $\mu_0$ cette mesure, qui est donc le volume riemannien normalisé défini par la métrique $\xi_0$.
+
+En pratique, pour tirer des vecteurs selon une probabilité uniforme sur $\mathbb{U} \setminus \{\vectutil{0} \}$, il suffit d'utiliser une loi uniforme sur la sphère unité de~$\mathcal{H}$.
+Autrement dit, une fois qu'on a identifié $\mathbb{U} \setminus \{\vectutil{0} \}$ avec la sphère unité de~$\ens{H}$, alors $\mu_0$ est exactement la mesure uniforme usuelle.
+
+En l'occurrence, le fait que la sphère ronde possède de nombreuses symétries implique des propriétés agréables supplémentaires pour~$\mu_0$, que nous pouvons résumer en une proposition.
+\begin{prop}
+Soit $\mu$ une mesure de probabilité sur 
+$\mathbb{U}\setminus \{\vectutil{0}\}$.
+\begin{enumerate}
+\item Supposons que pour tout $r>0$, $\mu$ donne la même probabilité à toutes les boules de $\mathbb{U}\setminus\{\vectutil{0}\}$ de rayon $r$
+(selon la métrique $\xi_0$); alors $\mu=\mu_0$.
+\item Si $\mu$ est invariante par toute isométrie de la métrique $\xi_0$, alors $\mu=\mu_0$.
+\end{enumerate}
+\end{prop}
+
+Les deux caractérisations sont classiques. La première est (une version forte de) la définition du volume riemannien. La seconde découle de la première et du fait que deux points quelconques de la sphère ronde peuvent être envoyés l'un vers l'autre par une isométrie.
+
+\begin{figure}
+\subfigure[Uniforme (culture impartiale).]{
+\begin{tikzpicture}[scale=1]
+\node at (0,0) {\includegraphics[width=4cm]{figures/uniform}};
+\node[shape=circle,fill=black,inner sep=1pt] (A) at (0.2,-1.23) {};
+\draw (A) -- (2.2,-1.23) node[right] {Vertex $1 \plusque 2, 3, 4$};
+%\node[shape=circle,fill=black,inner sep=1pt] (B) at (-0.18,-0.77) {};
+%\draw (B) -- (-2.5,-0.77) node[left] {Vertex $2 > 1, 3, 4$};
+%\node[shape=circle,fill=black,inner sep=1pt] (C) at (-1.41,0.99) {};
+%\draw (C) -- (-2.5,0.99) node[left] {Vertex $3 > 1, 2, 4$};
+%\node[shape=circle,fill=black,inner sep=1pt] (D) at (1.41,1.01) {};
+%\draw (D) -- (2.5,1.01) node[right] {Vertex $4 > 1, 2, 3$};
+\node[shape=circle,fill=black,inner sep=1pt] (E) at (1.41,-0.16) {};
+\draw (E) -- (2.2,-0.16) node[right] {Vertex $1, 4 \plusque 2, 3$};
+\draw[fill=black,opacity=0.4] (0.2,0.82) ..controls (0.25,-.2) .. (0.2,-1.23) .. controls (0.55,-1.08) and (0.95,-0.87) .. (1.41,-0.16) .. controls (1.17,.19) and (0.86,.46) .. (0.2,0.82) -- cycle;
+\draw (0.9,-0.2) |- (2.2,0.80) node[right] {Face $1 \plusque 4 \plusque 3 \plusque 2$};
+(0.2,0.82) -- cycle;
+\draw (1,-0.69) -- (2.2,-0.69) node[right] {Edge $1 \plusque 4 \plusque 2, 3$};
+\end{tikzpicture}\label{fig:spherical_culture}
+}
+\hspace{0.cm}
+\subfigure[Von Mises--Fisher.]{
+\begin{tikzpicture}
+\node at (0,0) {\includegraphics[width=4cm]{figures/vmf}};
+%\node[shape=circle,fill=black,inner sep=1pt] (A) at (0.16,-1.2) {};
+%\draw (A) -- (2.5,-1.2) node[right] {Vertex $1 > 2, 3, 4$};
+%\node[shape=circle,fill=black,inner sep=1pt] (B) at (-0.17,-0.77) {};
+%\draw (B) -- (-2.5,-0.77) node[left] {Vertex $2 > 1, 3, 4$};
+%\node[shape=circle,fill=black,inner sep=1pt] (C) at (-1.36,0.98) {};
+%\draw (C) -- (-2.5,0.98) node[left] {Vertex $3 > 1, 2, 4$};
+%\node[shape=circle,fill=black,inner sep=1pt] (D) at (1.35,1.0) {};
+%\draw (D) -- (2.5,1.0) node[right] {Vertex $4 > 1, 2, 3$};
+\end{tikzpicture}\label{fig:vmf_pop_example_in_apdx_sphere}
+}
+\caption{Deux distributions de 100~agents sur $\mathbb{U}$ avec 4 candidats.}
+\end{figure}
+
+Dans la figure~\ref{fig:spherical_culture}, réalisée avec \svvamp{}, on représente une distribution de 100~agents tirés uniformément et indépendamment sur la sphère, avec 4~candidats.
+Comme pour la figure~\ref{fig:sum_vectors}, on a représenté uniquement la sphère unité de~$\mathcal{H}$.
+
+Les lignes bleues forment le \emph{permutoèdre}, une figure géométrique représentant l'aspect ordinal de ces préférences. Chaque \emph{face} est constituée de tous les points qui partagent le même ordre strict total de préférence. Un vecteur d'utilité appartient à une \emph{arête} s'il a seulement 3~utilités distinctes: par exemple, si un agent préfère le candidat 1 à 4, 4 à 2 et 3, mais est indifférent entre les candidats 2 et 3. Enfin, un point est un \emph{sommet} s'il a seulement deux utilités distinctes: par exemple, si l'agent préfère le candidat 1 à tous les autres mais est indifférent entre ceux-ci.
+
+Dans cette distribution, chaque agent a presque sûrement un ordre strict total de préférence. Chaque ordre a la même probabilité et les agents sont indépendants, donc cette distribution est une généralisation naturelle de la culture impartiale quand on considère des utilités espérées.
+
+%\begin{remark}[\bil{point d'indifférence}{indifference point}]
+Puisque le point $\vectutil{0}$ est une singularité géométrique, il est difficile de l'inclure naturellement dans une telle mesure. Si on souhaite le prendre en compte, la solution la plus simple consiste à le tirer avec une certaine probabilité et à utiliser la distribution sur $\mathbb{U} \setminus \{ \vectutil{0} \}$ dans les autres cas.
+%\end{remark}
+Ceci dit, nous venons de remarquer que tous les autres ordres stricts non totaux ont une mesure égale à 0; donc pour un modèle théorique canonique, un choix naturel est d'attribuer également une mesure 0 au point d'indifférence.
+
+Avoir une distance, et donc une mesure uniforme, permet également de définir d'autres mesures par leur densité par rapport à la mesure uniforme.
+Voici un exemple de loi définie par sa densité.
+Étant donné un vecteur $\vecteur{u}_0$ de la sphère unité de $\mathcal{H}$ et $\kappa$ un réel positif ou nul, la distribution de Von Mises--Fisher (VMF) de pôle $\pole$ et de concentration $\kappa$ est définie par la densité de probabilité suivante par rapport à la loi uniforme de la sphère unité de $\mathcal{H}$:
+$$
+p(\vecteur{u}) = X_\kappa e^{\kappa \bracket{\vecteur{u}}{\vecteur{u}_0}},
+$$
+où $X_\kappa$ est une constante de normalisation.
+Étant donné le vecteur résultant d'une distribution sur la sphère, la distribution de VMF maximise l'entropie tout comme, dans l'espace euclidien, la loi gaussienne maximise l'entropie parmi les lois possédant une moyenne et un écart-type donnés \citep{mardia1975statistics}.
+Par conséquent, en l'absence d'information supplémentaire, c'est la distribution <<\,naturelle\,>> qui devrait être utilisée. Cette culture est implantée dans \svvamp{} (section~\ref{sec:create_pop}) et elle est étudiée en détail au chapitre~\ref{sec:simulations_spheroidal}.
+%\bil{À des fins de simulation, on peut réaliser des tirages aléatoires suivant cette loi grâce à l'algorithme d'Ulrich \cite{ulrich1984computer} modifié par Wood \cite{wood1994simulation}.}{For simulation purposes, it is possible to generate data according to this law, using Ulrich algorithm modified by Wood: see \cite{ulrich1984computer} and \cite{wood1994simulation}.}
+La figure~\ref{fig:vmf_pop_example_in_apdx_sphere} représente une telle distribution, avec les mêmes conventions que dans la figure~\ref{fig:spherical_culture}. Pour tirer une distribution de VMF, on utilise l'algorithme d'Ulrich révisé par Wood \citep{ulrich1984computer,wood1994simulation}.
+
+Qualitativement, le modèle de VMF est similaire au modèle de Mallows, qui est utilisé pour des préférences ordinales \citep{mallows1957nonnull}. Dans ce dernier, la probabilité d'un ordre de préférence $\sigma$ est:
+$$
+p(\sigma) = X_\kappa' e^{- \kappa \delta(\sigma, \sigma_0)},
+$$
+où $\sigma_0$ est le mode de la distribution, $\delta(\sigma,\sigma_0)$ une distance entre $\sigma$ et $\sigma_0$ (typiquement la distance tau de Kendall), $\kappa$ un réel positif ou nul (concentration) et $X_k'$ une constante de normalisation. Les modèles de VMF et de Mallows décrivent tous deux une culture où la population est polarisée, c'est-à-dire dispersée autour d'un point central, avec plus ou moins de concentration.
+
+Cependant, il y a plusieurs différences.
+\begin{itemize}
+\item La distribution de VMF permet de tirer un point particulier de l'espace des utilités, alors que celle de Mallows choisit seulement une face du permutoèdre.
+\item En particulier, le pôle d'une distribution de VMF peut être situé en un point quelconque de ce continuum. Par exemple, même si le pôle est sur la face $1 \plusque 4 \plusque 3 \plusque 2$, il peut être plus proche de la face $1 \plusque 4 \plusque \mathbf{2 \plusque 3}$ que de la face $\mathbf{4 \plusque 1} \plusque 3 \plusque 2$. Une telle nuance n'est pas possible dans le modèle de Mallows.
+\item Au voisinage du pôle, la probabilité de VMF décroît comme l'exponentielle du carré de la distance (car le produit scalaire est le cosinus de la distance sur la sphère), alors que la probabilité de Mallows décroît comme l'exponentielle de la distance (sans le carré).
+\item VMF est la distribution d'entropie maximale, étant donné la moyenne sphérique et la dispersion (tout comme une distribution gaussienne dans un espace euclidien).
+\end{itemize}
+
+L'existence d'une mesure canonique permet de définir d'autres mesures de probabilité facilement, en plus des deux mesures que nous venons de décrire. De telles mesures peuvent générer des populations artificielles d'agent à des fins de simulations. Elles peuvent aussi être utilisées pour faire correspondre des données d'expériences réelles à un modèle théorique et servir de point de comparaison neutre pour de telles données.
+
+Pour développer ce dernier point, insistons sur le fait qu'étant donné une distribution (raisonnablement régulière) $\mu$ sur un espace tel que 
+$\mathbb{U}\setminus\{\vectutil{0}\}$, il n'y a \emph{a priori} aucune façon de définir ce que signifie, pour un élément $\vectutil{u}$, d'être plus probable qu'un autre élément $\vectutil{v}$. 
+En effet, les deux ont une probabilité nulle et ce qui aurait un sens, c'est de comparer les probabilités d'être proche $\vectutil{u}$ ou de $\vectutil{v}$. 
+Mais il faut alors comparer des voisinages de la même taille, ce qui n'a de sens que si on dispose d'une métrique.
+En d'autres termes, si on possède une distribution de référence comme $\mu_0$, 
+alors il est censé de considérer la densité $p=\frac{\diff\mu}{\diff\mu_0}$,
+qui est une fonction (disons continue) sur $\mathbb{U}\setminus\{\vectutil{0}\}$. 
+Alors, on peut comparer $p(\vectutil{u})$ et $p(\vectutil{v})$ pour dire si l'un de ces éléments est plus probable que l'autre selon $\mu$. 
+On remarquera qu'en l'occurrence, comparer la probabilité de $r$-voisinages
+pour la métrique $\xi_0$ ou la densité relativement à $\mu_0$
+donne le même résultat dans la limite $r\to 0$, ce qui est précisément la définition du volume riemannien.
+
+
+\section{Conclusion}\label{sec:conclusion_provisoire_sphere}
+
+Nous avons étudié les propriétés géométriques du modèle classique des utilités espérées introduit par Von Neumann et Morgenstern, quand les candidats proposés sont \emph{a priori} considérés comme symétriques.
+Nous avons remarqué que l'espace des utilités peut être vu comme un dual de l'espace des loteries, que les opérateurs opposé et somme hérités de $\R^C$ ont une interprétation naturelle en termes de préférences et que l'espace a une topologie sphérique quand on supprime le point d'indifférence.
+
+Nous avons prouvé que la seule représentation riemannienne qui respecte les droites projectives définies naturellement par l'opérateur somme et la symétrie entre les candidats est une sphère ronde.
+%\bil{Pour le modèle avec limite d'approbation, nous avons dégagé une famille de représentations qui sont des ellipsoïdes de révolution.}{In the model with approval limit, we have proved that the suitable metrics constitute a set of spheroidal representations.}
+
+Toutes nos considérations se reposent sur le principe consistant à ajouter le minimum d'information dans le système, notamment en respectant la symétrie \emph{a priori} entre les candidats.
+Cela n'implique pas que la représentation sphérique de l'espace des utilités $\mathbb{U}$ soit la plus adaptée à l'étude de telle ou telle situation particulière.
+En effet, dès qu'on dispose d'une information supplémentaire (par exemple, un modèle de placement des candidats sur un spectre politique), il paraît naturel de la prendre en compte dans le modèle choisi.
+Cependant, si on souhaite, par exemple, étudier un mode de scrutin en toute généralité, sans se concentrer sur son application dans tel ou tel domaine, il paraît naturel de considérer un espace d'utilité avec une métrique aussi neutre que possible, comme celle définie dans ce chapitre par la représentation sphérique.
+
+\section{Extension: espace des utilités avec limite d'approbation}\label{sec:ellipse_bigsection}
+
+Le modèle que nous venons d'étudier correspond à une situation où il existe deux degrés de liberté dans le choix de la représentation des utilités. Dans cette section, qui n'a pas encore été publiée, nous présentons une variation légèrement différente, où la valeur d'utilité~0 possède un sens particulier, ce qui supprime le degré de liberté en translation. La motivation principale de ce modèle est de se donner un cadre naturel dans lequel on puisse étudier non seulement les systèmes de vote ordinaux et le vote par notation mais également le vote par assentiment.
+
+\subsection{Modèles avec options virtuelles}\label{sec:modele_approb}
+
+Étant donné la position $\vectutil{u}$ d'un agent dans l'espace des utilités, on peut choisir indifféremment un vecteur $\vecteur{u} \in \vectutil{u}$ pour représenter ses préférences.
+Cette liberté offre l'opportunité, en choisissant un vecteur $\vecteur{u}$ particulier, de stocker de l'information supplémentaire qu'on estime pertinente.
+Nous allons donner plusieurs méthodes: dans certaines applications particulières, elles permettent de choisir un représentant spécifique de $\vectutil{u}$ d'une manière qui est pertinente dans le contexte.
+Ceci nous amènera à la notion \emph{d'options virtuelles} et finalement au modèle avec \emph{limite d'approbation}.
+
+Avant de formaliser ces concepts, nous présentons quelques exemples où le choix d'un vecteur d'utilité spécifique permet de stocker une information supplémentaire.
+
+
+\begin{exemple}[fête foraine]\label{ex:foraine}
+À un stand de fête foraine, on peut ne rien gagner ($\varnothing$), gagner une peluche de lynx (L) ou d'ornithorynque (O), ou les deux (LO). L'ensemble des candidats est $\ens{C} = \{\varnothing, \text{L}, \text{O}, \text{LO}\}$.
+
+Si on écrit le vecteur d'utilité d'un joueur, quitte à ajuster les paramètres $\alpha$ et $\beta$ du théorème \ref{thmVNM} et en supposant que tout joueur préfère gagner les deux peluches plutôt que rien, on peut adopter la convention que l'utilité de ne rien gagner sera 0 et que celle de gagner les deux peluches sera 1.
+Par exemple, on peut avoir pour un joueur en particulier:
+$$
+(u_{\varnothing},u_{\text{L}},u_{\text{O}},u_{\text{LO}}) = \left(0\,;0,\!3\,;0,\!9\,;1\right).
+$$
+
+Dans ce cas, on a choisi une convention de normalisation en utilisant deux options réelles (disponibles dans le jeu) et fixées: si on exprimait les préférences d'un deuxième joueur, on utiliserait ces mêmes options réelles comme points de référence.
+\end{exemple}
+
+\begin{exemple}[carrefour routier]
+Alice et Bob envisagent de voyager ensemble. Ils se trouvent à un croisement routier où les directions possibles sont les points cardinaux Nord-Est (NE), Sud-Est (SE) et Ouest (O).
+
+Dans l'absolu, la meilleure option pour Alice serait Sud (S) et la pire serait Nord (N).
+Si les hypothèses du théorème \ref{thmVNM} sont vérifiées, alors nous pouvons l'utiliser pour représenter ses préférences sur l'ensemble $\{\text{NE},\text{SE},\text{O},\text{S},\text{N}\}$.
+Comme les utilités sont définies à deux constantes près, nous pouvons prendre pour convention que l'utilité de la pire option (N) sera 0 et que l'utilité de la meilleure option (S) sera~1. Par exemple:
+$$
+(u_{\text{NE}},u_{\text{SE}},u_{\text{O}},u_{\text{S}},u_{\text{N}}) = \left(\frac{1}{4}\,;\frac{3}{4}\,;\frac{1}{2}\,;1\,;0\right).
+$$
+\begin{figure}[H]
+\begin{center}
+\begin{tikzpicture}[scale=0.5]
+\draw (0,0) circle (1);
+\draw[->,>=latex] (0,0)--(45:1.4) node[right] {NE ($\frac{1}{4}$)};
+\draw[->,>=latex] (0,0)--(-45:1.4) node[right] {SE ($\frac{3}{4}$)};
+\draw[->,>=latex] (0,0)--(180:1.4) node[left] {O ($\frac{1}{2}$)};
+\draw[->,>=latex] (0,0)--(-90:1.4) node[below] {S (1)};
+\draw[->,>=latex] (0,0)--(90:1.4) node[above] {N (0)};
+\end{tikzpicture}
+\end{center}
+\caption{Carrefour routier: utilités d'Alice.}\label{fig:crossroad_alice}
+\end{figure}
+
+Finalement, les préférences d'Alice sur $\{\text{NE},\text{SE},\text{O}\}$ peuvent être représentées dans $[0,1]^3$ par le vecteur $(u_{\text{NE}},u_{\text{SE}},u_{\text{O}}) = (\frac{1}{4}\,;\frac{3}{4}\,;\frac{1}{2})$, comme on le représente sur la figure~\ref{fig:crossroad_alice}.
+
+Dans ce cas, les utilités comportent des informations supplémentaires par rapport à la situation du théorème~\ref{thmVNM}.
+En effet, dans le cadre du théorème~\ref{thmVNM}, un vecteur d'utilité comme $(u_{\text{NE}},u_{\text{SE}},u_{\text{O}}) = (0\,;1\,;\frac{1}{2})$ aurait exactement le même sens que $(\frac{1}{4}\,;\frac{3}{4}\,;\frac{1}{2})$: dans les deux cas, l'agent préfère SE puis O puis NE et elle est indifférente entre O et une combinaison équiprobable de SE et NE.
+Mais, grâce à notre choix particulier, nous avons aussi enregistré, par exemple, qu'il est indifférent entre NE et une combinaison probabiliste de sa meilleure option imaginable avec probabilité $\frac{1}{4}$ et de sa pire option imaginable avec probabilité $\frac{3}{4}$. En particulier, Nord-Est est sa pire option \emph{disponible}, mais pas sa pire option \emph{imaginable}.
+
+Du pur point de vue de la théorie des jeux, cela revient au même: qu'on prenne la représentation $(\frac{1}{4}\,;\frac{3}{4}\,;\frac{1}{2})$ ou $(0\,;1\,;\frac{1}{2})$, les préférences d'Alice sur les loteries de $\{\text{NE},\text{SE},\text{O}\}$ sont identiques, tout comme ses intérêts stratégiques dans un jeu dont les résultats possibles sont $\{\text{NE},\text{SE},\text{O}\}$.
+
+%Additional information embedded in our choice makes sense only in an extended framework, not only taking into account the available options and the (hypothetical) strategically optimal behavior.
+Cependant, l'information que nous avons ajoutée prend sens dans un cadre étendu, ne se limitant pas aux seules options proposées et aux éventuels comportements stratégiquement optimaux.
+Par exemple, elle peut se révéler utile à la modélisation si nous estimons que, dans le problème étudié, deux personnes de vecteurs d'utilité respectifs $(\frac{1}{4}\,;\frac{3}{4}\,;\frac{1}{2})$ et $(0\,;1\,;\frac{1}{2})$, avec la convention ci-dessus, ne se comportent pas de la même façon, même si leurs intérêts stratégiques sont les mêmes.
+\end{exemple}
+
+\begin{exemple}[carrefour routier, suite]
+Poursuivons l'exemple précédent. Imaginons, à présent, que pour Bob, la meilleure option imaginable soit Ouest (O) et que la pire soit Est (E).
+Si on utilise le même procédé que précédemment, il est possible qu'on obtienne le vecteur d'utilité $(v_{\text{NE}},v_{\text{SE}},v_{\text{O}}) = (\frac{1}{4}\,;\frac{1}{4}\,;1)$, mais ces valeurs ne sont plus relatives à Sud et Nord (comme pour Alice), mais à Ouest et Est. 
+
+\begin{figure}[H]
+\begin{center}
+\begin{tikzpicture}[scale=0.5]
+\draw (0,0) circle (1);
+\draw[->,>=latex] (0,0)--(45:1.4) node[right] {NE ($\frac{1}{4}$)};
+\draw[->,>=latex] (0,0)--(-45:1.4) node[right] {SE ($\frac{1}{4}$)};
+\draw[->,>=latex] (0,0)--(180:1.4) node[left] {O (1)};
+\draw[->,>=latex] (0,0)--(0:1.4) node[right] {E (0)};
+\end{tikzpicture}
+\end{center}
+\caption{Carrefour routier: utilités de Bob.}\label{fig:crossroad_bob}
+\end{figure}
+
+Ce double exemple illustre ce que nous appelons une normalisation avec \emph{options virtuelles meilleure et pire}.
+Plutôt que prendre pour références deux options concrètes et communes comme dans l'exemple \ref{ex:foraine}, cette normalisation suppose que tous les joueurs peuvent comprendre et appliquer des notions abstraites qui permettent d'établir une unité de mesure pour chacun qui est subjective mais repose sur des concepts concertés.
+Chaque agent considère les meilleure et pire options imaginables, même si elle ne sont pas disponibles, et normalise ses utilités par rapport à ces deux options virtuelles et subjectives.
+Bien sûr, la notion <<\,d'imaginable\,>> n'est pas une propriété mathématique: avant d'utiliser ce modèle pour un problème particulier, il faut définir ce qu'on considère <<\,imaginable\,>> par chaque joueur.
+De plus, déterminer de telles options virtuelles peut ne pas être suffisant pour une normalisation cohérente, comme le montre l'exemple suivant.
+\end{exemple}
+
+\begin{exemple}[jeu avec récompense financière]
+On propose un jeu où l'on peut perdre 5 pièces ou gagner 10 ou 20 pièces: $\ens{C} = \{-5\,;10\,;20\}$.
+On s'intéresse à des agents qui jouent toujours selon l'espérance de gain financier.
+Ces agents ont donc une utilité pour chaque option qui est exactement (une fonction linéaire positive de) la récompense monétaire\footnote{Au moins, ils se comportent comme si c'était le cas, ce qui revient au même de notre point de vue d'observateur.}.
+
+Considérons que, pour un agent, la meilleure option imaginable est de gagner une infinité de pièces et la pire, d'en perdre une infinité.
+Par conséquent, si nous voulons utiliser une normalisation avec options virtuelles meilleure et pire, nous devons avoir $u_{+\infty} = 1$ et $u_{-\infty} = 0$.
+Mais alors, il est manifestement impossible de normaliser les utilités de -5, 10 et 20.
+En effet, les différences d'utilité entre -5, 10 et 20 sont infinitésimales par rapport à celle entre $+\infty$ et $-\infty$, de sorte qu'on aurait la même utilité pour ces trois options: les préférences de l'agent se seraient pas représentées correctement.
+Le c\oe ur du problème est que les préférences de l'agent, bien qu'archimédiennes sur $\{-5\,;10\,;20\}$, ne le sont pas sur $\{-5\,;10\,;20\,;+\infty\,;-\infty\}$.
+
+Même si l'infinité n'est pas <<\,imaginable\,>>, la capacité de concevoir une quantité arbitrairement grande d'argent (gagné ou perdu) mène à la même impossibilité d'utiliser un modèle avec options virtuelles meilleure et pire.
+\end{exemple}
+
+Afin de résumer les leçons des exemples précédents, une normalisation naturelle apparaît à chaque fois qu'il est pertinent de définir deux options virtuelles spéciales pour chaque agent (correspondant au meilleur et au pire dans nos exemples, mais ce n'est pas obligatoire) telles que:
+\begin{itemize}
+	\item l'agent préfère strictement une option spéciale à l'autre;
+	\item même en incluant ces deux options spéciales, les préférences respectent encore les hypothèses du théorème \ref{thmVNM}.
+\end{itemize}
+Alors, on peut choisir un vecteur d'utilité sur l'ensemble des options réelles et spéciales de telle sorte que ces dernières reçoivent les valeurs 0 et 1. Ceci donne une représentation normalisée des utilités des options réelles dans $\R^C$ (ou simplement $[0,1]^C$ quand les options spéciales correspondent à des options virtuelles meilleure et pire).
+Cet espace d'utilité $\R^C$ est doté d'une géométrie naturelle évidente, c'est pourquoi nous ne l'étudierons pas davantage, préférant nous concentrer sur le modèle où il y a une seule option spéciale, que nous allons introduire dans l'exemple suivant.
+
+
+\begin{exemple}[élection et limite d'approbation]
+À une élection, plusieurs candidats sont proposés: $\ens{C} = \{\text{A},\text{B},\text{C}\}$.
+Supposons qu'un électeur ait pour vecteur d'utilité $\vecteur{u} = (1\,;\frac{1}{3}\,;0)$ à normalisation près.
+
+Pour chaque candidat, on pose à l'électeur la question suivante: <<\,vous considérez-vous globalement favorable ou défavorable à ce candidat?\,>>.
+Quitte à choisir un vecteur particulier de $\vectutil{u}$ pour représenter les préférences de l'électeur, il peut être intéressant de garder trace de la réponse à cette question, par exemple si notre but est d'étudier le mode de scrutin par assentiment.
+Nous pouvons envisager une convention simple: l'utilité est positive si et seulement si la réponse est positive.
+Par exemple, si l'électeur répond oui uniquement pour le candidat A, nous pouvons choisir comme vecteur d'utilité $(1\,;-1\,;-2)$.
+
+On peut aller plus loin: supposons que l'électeur soit capable d'imaginer un candidat-type imaginaire S (candidat spécial) pour lequel il hésiterait entre une réponse positive ou négative.
+Si ses préférences sur $\{\text{A},\text{B},\text{C},\text{S}\}$ respectent les hypothèses du théorème \ref{thmVNM}, on peut écrire des utilités et ajuster le $\beta$ du théorème pour fixer par convention l'utilité du candidat spécial à 0.
+Par exemple:
+$$
+(u_{\text{A}},u_{\text{B}},u_{\text{C}},u_{\text{S}}) = (3\,;-1\,;-3\,;0).
+$$
+La dernière coordonnée n'apporte aucune information puisqu'elle est purement conventionnelle: on peut simplement écrire $(u_{\text{A}},u_{\text{B}},u_{\text{C}}) = (3\,;-1\,;-3)$.
+Remarquons qu'avec cette convention, ce vecteur n'a plus le même sens que $(1\,;-1\,;-2)$: par exemple, avec $(3\,;-1\,;-3)$, l'électeur préfère strictement une combinaison équiprobable de A et B plutôt que le candidat spécial S.
+
+Nous appelons cette convention: normalisation avec pour option virtuelle la \emph{limite d'approbation}.
+Dans ce cadre, le vecteur d'utilité est défini à une constante multiplicative strictement positive près, comme nous allons le formaliser ci-dessous.
+Là encore, l'information enregistrée par notre choix ne change rien aux stratégies optimales du joueur, mais on peut l'utiliser comme information comportementale dans un contexte d'application particulier.
+
+De manière générale, on peut étendre ces idées à toute situation où on estime pertinent de définir une option virtuelle spéciale pour chaque agent, qui peut être subjective, telle qu'en incluant cette option spéciale, ses préférences respectent encore les hypothèses du théorème \ref{thmVNM}.
+\end{exemple}
+
+En résumé, les méthodes présentées dans cette section ont pour but de prendre en compte divers facteurs additionnels, dont voici quelques exemples.
+\begin{itemize}
+	\item En-dehors de son résultat principal, comme le candidat élu dans une élection, le jeu peut avoir un résultat secondaire, par exemple le <<\,message\,>> transmis par les électeurs, comme une satisfaction ou un mécontentement global à l'égard des candidats.
+	Certes, on pourrait prendre comme espace des résultats le produit cartésien de l'espace des candidats et de celui des messages et appliquer le théorème \ref{thmVNM}, mais cela complexifierait le modèle de façon importante.
+	Plus simplement, on peut faire la différence entre un électeur $(-1\,;-0,\!9\,;-0,\!8)$, souhaitant exprimer son mécontentement, et un électeur $(0,\!8\,;0,\!9\,;1)$, globalement satisfait, même si leurs préférences sur les loteries de candidats et leurs stratégies optimales sont les mêmes.
+	\item Les joueurs peuvent savoir que d'autres options auraient pu être proposées par les instances qui organisent le jeu.
+	Cette connaissance peut avoir une influence sur leur façon de jouer, indépendamment de la nature de leurs stratégies optimales.
+	\item Les joueurs peuvent avoir une variable comportementale, par exemple bonne ou mauvaise humeur, qui influence également leur façon de jouer, indépendamment de leurs préférences sur les loteries.
+\end{itemize}
+Ainsi, les normalisations proposées permettent d'ajouter dans la modélisation des agents des informations supplémentaires, notamment contextuelles ou comportementales, en exploitant les deux degrés de liberté laissés par le théorème \ref{thmVNM}.
+
+Pour conclure cette section, nous allons, à présent, donner un cadre mathématique du modèle avec limite d'approbation.
+
+\medskip
+On note $\ens{C}' = \intent{0}{C}$. Les éléments de $\ens{C} = \intent{1}{C}$ sont toujours appelés \emph{candidats}. L'élément 0 est appelé \emph{candidat spécial}.
+
+On note $\mathbb{L}' = \{(L_0,\ldots,L_C) \in {\R_+}^{(C+1)} \tq \sum_{c=0}^{C} L_c = 1 \}$. Les éléments de $\mathbb{L}$ sont identifiés à ceux de $\mathbb{L}'$ dont la coordonnée d'indice 0 est nulle.
+Le mélange probabiliste de deux loteries de $\mathbb{L}'$ est défini de façon naturelle.
+
+Pour une relation binaire $\moinssim$ sur $\mathbb{L}'$, les notions précédemment définies de complétude, transitivité, caractère archimédien et indépendance des alternatives non pertinentes s'étendent de manière évidente.
+
+\medskip
+On dit que $\vecteur{u} = (u_1,\dots,u_C) \in \R^C$ est un \emph{vecteur d'utilité avec limite d'approbation} représentant la relation binaire $\moinssim$ si et seulement si, pour toute paire de loteries $L = (L_0,\ldots,L_C)$ et $M = (M_0,\ldots,M_C)$ de $\mathbb{L}'$:
+$$
+L \moinssim M \Leftrightarrow \sum_{c=1}^{C}{L_c u_c} \leq \sum_{c=1}^{C}{M_c u_c}.
+$$
+On notera que les sommes ne prennent pas l'indice 0, ce qui revient à fixer conventionnellement l'utilité du candidat spécial à 0.
+
+\medskip
+Nous allons, à présent, traduire le théorème de Von Neumann-Morgenstern~\ref{thmVNM} dans ce nouveau modèle.
+
+\begin{prop}\label{thmVNMapprob}
+Soit $\moinssim$ une relation binaire sur $\mathbb{L}'$.
+
+Les conditions suivantes sont équivalentes.
+\begin{enumerate}
+	\item La relation binaire $\moinssim$ est complète, transitive, archimédienne et indépendante des alternatives non pertinentes.
+	\item Il existe $\vecteur{u} \in \R^C$ un vecteur d'utilité avec limite d'approbation représentant~$\moinssim$.
+\end{enumerate}
+
+Quand elles sont vérifiées, $\vecteur{u}$ est défini à une constante multiplicative strictement positive près: si $\vecteur{u} \in \R^C$ est un vecteur d'utilité avec limite d'approbation représentant $\moinssim$, alors $\vecteur{v} \in \R^C$ est un vecteur d'utilité avec limite d'approbation représentant $\moinssim$ si et seulement si $\exists \alpha \in \mathopen]0,+\infty\mathclose\lbrack$ t.q. $\vecteur{v} = \alpha \vecteur{u}$.
+\end{prop}
+
+\begin{proof}
+C'est une conséquence du théorème \ref{thmVNM}: fixer l'utilité du candidat spécial à 0 est possible grâce au choix de $\beta$, mais on perd le degré de liberté en translation.
+\end{proof}
+
+De manière similaire à la relation d'équivalence~$\approx$ dans le modèle classique, on définit, à présent, la relation d'équivalence $\sim$ par $\forall (\vecteur{u},\vecteur{v}) \in (\R^C)^2$:
+$$
+\vecteur{u} \sim \vecteur{v} \Leftrightarrow \exists \alpha \in \mathopen]0,+\infty\mathclose\lbrack \tq \vecteur{v} = \alpha \vecteur{u}.
+$$
+
+On appelle \emph{espace des utilités sur $C$ candidats avec limite d'approbation}, et on note $\mathbb{V}$, l'ensemble quotient $\R^C / \sim$. Il s'agit de l'espace des demi-droites de~$\R^C$ (auxquelles on ajoute le point d'indifférence), qui est similaire au modèle de \emph{géométrie projective orientée} présenté par exemple par \cite{stolfi1987oriented, laveau1996oriented}.
+
+On appelle \emph{projection canonique} de $\R^C$ vers $\mathbb{V}$ la fonction:
+$$
+\vectutilapprob{\pi}:
+\begin{array}{|cll}
+\R^C & \to & \mathbb{V} \\
+\vecteur{u} & \to & \{\vecteur{v} \in \R^C \tq \vecteur{v} \sim \vecteur{u}\}.
+\end{array}
+$$
+
+Pour $\vecteur{u} \in \R^C$ et $\vectutilapprob{u} = \vectutilapprob{\pi}(\vecteur{u})$, on note sans ambiguïté $\moinssim_{\vectutilapprob{u}}$ la relation binaire sur~$\mathbb{L}'$ représentée par $\vecteur{u}$ au sens de la proposition \ref{thmVNMapprob}.
+
+
+\subsection{Correspondance entre les utilités avec limite d'approbation et les formes affines}\label{sec:dualite_ellipse}
+
+De même que l'espace des utilités classiques correspond aux formes linéaires sur des bipoints de loteries (section~\ref{sec:dualite_sphere}), nous allons montrer que l'espace des utilités avec limite d'approbation correspond aux formes affines sur les loteries.
+
+\medskip
+Pour toute paire de loteries $L = (L_0,L_1,\ldots,L_C)$ et $M = (M_0,M_1,\ldots,M_C)$, on appelle \emph{bipoint} de $L$ à $M$ le vecteur de $\R^{C}$:
+$$
+\bipoint{LM} = (M_1-L_1,\ldots,M_C-L_C).
+$$
+Nous avons choisi de le définir comme un vecteur de $\R^C$ et non de $\R^{C+1}$. En effet, comme $\sum_{c=0}^{C} (M_c-L_c) = 0$, la coordonnée d'indice 0 n'apporterait aucune information supplémentaire.
+
+En reprenant la figure~\ref{fig:duality}, pour deux loteries quelconques $L$ et $M$ de $\mathbb{L}'$, les points $L$ et $M$ sont identifiés aux points $(L_1,\ldots,L_C)$ et $(M_1,\ldots,M_C)$ du tétraèdre plein qui est délimité par le grand triangle (simplexe) et les axes du repère. Une loterie appartient à $\mathbb{L}$ si et seulement si le point correspondant appartient au simplexe.
+
+\medskip
+On appelle \emph{polytope tangent} de $\mathbb{L}'$ l'ensemble $\ens{T}'$ des bipoints de $\mathbb{L}'$:
+$$
+\ens{T}' = \{\bipoint{LM}, (L,M) \in {\mathbb{L}'}^2\}.
+$$
+Le polytope tangent $\mathcal{T}'$ est l'ensemble des bipoints du tétraèdre, vu comme une partie d'espace vectoriel.
+
+\medskip
+En notant que le polytope $\mathcal{T}'$ contient un voisinage de l'origine dans l'espace vectoriel qu'il engendre, on obtient les deux observations suivantes.
+
+\begin{lem}[$\ens{T'}$ génère $\R^C$]
+\label{Tp_genere_Rn}
+$
+\forall \vecteur{\Delta} \in \R^C, \exists \bipoint{LM} \in \ens{T}', \exists \lambda \in \mathopen]0,+\infty\mathclose\lbrack
+\tq \vecteur{\Delta} = \lambda \bipoint{LM}.
+$
+\end{lem}
+
+\begin{lem}[$\mathbb{L}$ génère $\R^C$]
+\label{vectL}
+$\mathbb{L}$ étant vu comme une partie de l'espace vectoriel $\R^C$, on a $\textrm{vect}(\mathbb{L}) = \R^C.$
+\end{lem}
+
+De même que nous avons noté $\ens{H}^\star$ l'ensemble des formes linéaires sur l'espace vectoriel~$\ens{H}$, notons ${\mathbb{L}}^\star$ l'ensemble des formes affines\footnote{Nous faisons un léger abus de vocabulaire pour simplifier : ${\mathbb{L}}^\star$ est l'ensemble des restrictions à $\mathbb{L}$ des formes de l'espace affine engendré par $\mathbb{L}$. Comme les formes affines et leur restrictions sont en bijection évidente, il n'y a pas de risque de confusion.} sur $\mathbb{L}$. 
+
+Pour $\vecteur{u} = (u_1,\ldots,u_C) \in \R^C$, on appelle \emph{forme affine associée à $\vecteur{u}$} l'élément suivant\footnote{Nous utilisons la même notation que pour la forme linéaire associée à $\vecteur{u}$. Comme leurs expressions sont identiques, il n'y a pas de risque de confusion.} de ${\mathbb{L}}^\star$:
+$$
+\bra{\vecteur{u}}:
+\begin{array}{|cll}
+\mathbb{L} & \to & \R \\
+L = (L_1,\ldots,L_C) & \to & \bracket{\vecteur{u}}{L} = \sum_{c=1}^{C} u_c L_c.
+\end{array}
+$$
+
+On appelle \emph{demi-espace positif associé à $\vecteur{u}$}:
+$$
+\vecteur{u}^{+} = \{\vecteur{\Delta} \in \R^C \tq \bracket{\vecteur{u}}{\vecteur{\Delta}} \geq 0\}.
+$$
+
+\medskip
+Par simple relecture des définitions, on notera que pour $(L,M) \in {\mathbb{L}}^2$ et $\vecteur{u} \in \R^C$, on a les propriétés suivantes.
+\begin{enumerate}
+	\item 
+$
+L \moinssim_{\vectutilapprob{u}} M \Leftrightarrow \bracket{\vecteur{u}}{\bipoint{LM}} \geq 0 \Leftrightarrow \bipoint{LM} \in \vecteur{u}^{+\mathcal{H}}.
+$
+	\item 
+$
+L \plussim_{\vectutilapprob{u}} (0,\ldots,0) \Leftrightarrow \bracket{\vecteur{u}}{L} \geq 0.
+$
+\end{enumerate}
+
+\medskip
+Nous pouvons, à présent, énoncer la proposition suivante, qui présente un résultat de dualité similaire à celui donné par la proposition~\ref{thm:dualite_utilites_formes_lineaires} pour le modèle classique sans limite d'approbation.
+
+\begin{prop}
+Pour $(f,g) \in ({\mathbb{L}}^\star)^2$, on note $f \sim g$ si et seulement si $\exists \alpha \in \mathopen]0,+\infty\mathclose\lbrack$ t.q. $g = \alpha f$. On note $\classeaff{\pi}(f) = \{g \in {\mathbb{L}}^\star, f \sim g\}$.
+
+Pour $(\vecteur{u},\vecteur{v}) \in (\R^C)^2$, on a:
+$$
+\vecteur{u} \sim \vecteur{v} \Leftrightarrow \bra{\vecteur{u}} \sim \bra{\vecteur{v}}.
+$$
+
+L'application suivante est une bijection:
+$$
+\Theta:
+\begin{array}{|cll}
+\mathbb{V} & \to & {\mathbb{L}}^\star / \sim \\
+\vectutilapprob{\pi}(\vecteur{u}) & \to & \classeaff{\pi}(\bra{\vecteur{u}}). 
+\end{array}
+$$
+\end{prop}
+
+\begin{proof}
+$\vecteur{u} \sim \vecteur{v}$
+
+$\Leftrightarrow \exists \alpha \in \mathopen]0,+\infty\mathclose\lbrack \tq 
+\vecteur{v} - \alpha \vecteur{u} = \vecteur{0}$
+
+$\Leftrightarrow \exists \alpha \in \mathopen]0,+\infty\mathclose\lbrack \tq 
+\forall L \in \mathbb{L}, \bracket{\vecteur{v} - \alpha\vecteur{u}}{L} = 0$ (cf. lemme~\ref{vectL})
+
+$\Leftrightarrow \bra{\vecteur{u}} \sim \bra{\vecteur{v}}$.
+
+L'implication $\Rightarrow$ prouve que $\Theta$ est bien définie: en effet, si $\vectutilapprob{\pi}(\vecteur{u}) = \vectutilapprob{\pi}(\vecteur{v})$, alors $\classeaff{\pi}(\bra{\vecteur{u}}) = \classeaff{\pi}(\bra{\vecteur{v}})$.
+L'implication $\Leftarrow$ assure que $\Theta$ est injective. Enfin, il est clair que $\Theta$ est surjective.
+\end{proof}
+
+L'espace des utilités avec limite d'approbation peut donc être vu comme un quotient de l'espace ${\mathbb{L}}^\star$ des formes affines sur les loteries $\mathbb{L}$.
+Un vecteur d'utilité avec limite d'approbation peut être vu, à une constante strictement positive près, comme une forme affine déterminant, pour tout point de l'espace des loteries, avec quelle intensité il est apprécié par l'agent (par rapport à un niveau 0 qui est le candidat spécial).
+
+\subsection{Opérateurs opposé et somme dans l'espace des utilités avec limite d'approbation}\label{sec:operateurs_ellipse}
+
+En tant que quotient de $\R^C$, l'espace des utilités hérite d'opérations naturelles sur $\R^C$, la prise de l'opposé et la somme.
+Nous allons voir que, comme pour le modèle sans limite d'approbation, ces deux opérations quotient ont une signification intuitive concernant les préférences.
+
+\medskip
+Dans $\mathbb{V}$, on définit l'opérateur \emph{opposé} par:
+$$
+-: 
+\begin{array}{|cll}
+\mathbb{V} & \to & \mathbb{V} \\
+\vectutilapprob{\pi}(\vecteur{u}) & \to & \vectutilapprob{\pi}(-\vecteur{u}).
+\end{array}
+$$
+L'opérateur opposé est correctement défini et c'est une bijection. En effet, on a $\vectutil{\pi}(\vecteur{u}) = \vectutil{\pi}(\vecteur{v})$ si et seulement si $\vectutil{\pi}(-\vecteur{u}) = \vectutil{\pi}(-\vecteur{v})$. Comme dans l'espace des utilités habituel $\mathbb{U}$, considérer l'opposé correspond à renverser les préférences de l'agent, sans modifier leurs intensités relatives. Dans $\mathbb{V}$, en outre, l'opposé préserve les intensités relatives par rapport à la limite d'approbation.
+
+\medskip
+Sur les parties de $\mathbb{V}$, on définit l'opérateur \emph{somme} par:
+$$
+\sum:
+\begin{array}{|cll}
+\mathcal{P}(\mathbb{V}) & \to & \mathcal{P}(\mathbb{V}) \\
+A & \to & \left\{ \vectutilapprob{\pi}\left(\sum_{i=1}^{n} \vecteur{u}_i\right), n \in \N,
+(\vecteur{u}_1,\ldots,\vecteur{u}_n) \in \left(\vectutilapprob{\pi}^{-1}(A)\right)^n
+ \right\}.
+\end{array}
+$$
+
+%\begin{prop}[propriétés élémentaires de la somme dans l'espace des utilités avec limite d'approbation]
+%Soit $A \in \mathbb{V}$. Alors:
+%\begin{enumerate}
+%	\item $\vectutilapprob{\pi}(\vecteur{0}) \in \sum A$;
+%	\item $A \subset \sum A$.
+%\end{enumerate}
+%\end{prop}
+%
+%La preuve est la même que pour l'espace des utilités habituel $\mathbb{U}$.
+
+De même que dans le modèle sans limite d'approbation, nous allons montrer que la somme est le lieu des vecteurs d'utilité qui préservent les préférences unanimes de la population.
+
+\begin{thm}[caractérisation de la somme dans l'espace des utilités avec limite d'approbation]\label{thm:unanimite_approb}
+Soit $A \in \mathcal{P}(\mathbb{V})$ et $\vectutilapprob{v} \in \mathbb{V}$.
+
+Les conditions suivantes sont équivalentes.
+\begin{enumerate}
+	\item $\vectutilapprob{v} \in \sum A$.
+	\item 
+	$\forall (L,M) \in {\mathbb{L}'}^2$:
+$
+\left(
+\forall \vectutilapprob{u} \in A, L \moinssim_{\vectutilapprob{u}} M
+\right)
+\Rightarrow L \moinssim_{\vectutilapprob{v}} M.
+$
+\end{enumerate}
+\end{thm}
+
+\begin{proof}
+Soit $\vecteur{v} \in \vectutilapprob{\pi}^{-1}(\vectutilapprob{v})$. On a les équivalences suivantes.
+\begin{itemize}
+	\item $\forall (L,M) \in {\mathbb{L}'}^2, \left( \forall \vectutilapprob{u} \in A, L \moinssim_{\vectutilapprob{u}} M \right) \Rightarrow L \moinssim_{\vectutilapprob{v}} M$,
+	\item $\forall \bipoint{LM} \in \ens{T}', \left( \forall \vecteur{u} \in \vectutilapprob{\pi}^{-1}(A), \bracket{\vecteur{u}}{\bipoint{LM}} \geq 0 \right) \Rightarrow \bracket{\vecteur{v}}{\bipoint{LM}} \geq 0$,
+	\item $\forall \vecteur{\Delta} \in \R^C, \left( \forall \vecteur{u} \in \vectutilapprob{\pi}^{-1}(A), \bracket{\vecteur{u}}{\vecteur{\Delta}} \geq 0 \right) \Rightarrow \bracket{\vecteur{v}}{\vecteur{\Delta}} \geq 0$ (cf. lemme~\ref{Tp_genere_Rn}),
+	\item $\bigcap_{\vecteur{u} \in \vectutilapprob{\pi}^{-1}(A)} \vecteur{u}^+ \subset \vecteur{v}^+$,
+	\item $\vecteur{v}$ est dans le cône convexe de $\vectutilapprob{\pi}^{-1}(A)$,
+	\item $\vectutilapprob{v} \in \sum A$.
+\end{itemize}
+\end{proof}
+
+%\subsection{Topologie (à supprimer au final)}\label{sec:topologie}
+%
+%\begin{prop}[topologie de l'espace des utilités avec limite d'approbation]
+%L'espace des utilités avec limite d'approbation $\mathbb{V} = \R^C / \sim$ est muni de la topologie quotient.
+%
+%$\mathbb{V} \setminus \{\vectutilapprob{0}\}$ a la topologie de la sphère de dimension $C-1$. En particulier, c'est un espace $T_1$.
+%
+%$\mathbb{V}$ est un espace $T_0$ mais pas un espace $T_1$.
+%\end{prop}
+%
+%\begin{proof}
+%Soit $\ens{S}_{C-1} = \{\vecteur{u} = (u_1,\ldots,u_C) \in \R^C \tq \sum_{c=1}^{C} {u_c}^2 = 1 \}$. Alors:
+%$$
+%\Theta:
+%\begin{array}{|cll}
+%\ens{S}_{C-1} & \to & \mathbb{V} \setminus \{\vectutilapprob{0}\} \\
+%\vecteur{u}	& \to & \vectutilapprob{\pi}(\vecteur{u})
+%\end{array}
+%$$
+%est un homéomorphisme.
+%
+%Dans $\mathbb{V}$, le seul nouveau cas concerne le point $\vectutilapprob{0}$ et un point $\vectutilapprob{u} \neq \vectutilapprob{0}$.
+%Alors $\vectutilapprob{u}$ possède bien un voisinage ouvert qui ne contient pas $\vectutilapprob{0}$. Mais le seul voisinage ouvert de $\vectutilapprob{0}$ est $\mathbb{V}$ tout entier, qui contient $\vectutilapprob{u}$.
+%\end{proof}
+
+\subsection{Représentation riemannienne de l'espace des utilités avec limite d'approbation}\label{sec:riemann_ellipse}
+
+Tout comme pour le modèle classique, nous allons exhiber les représentations riemanniennes qui sont cohérentes avec les propriétés naturelles de l'espace des utilités avec limite d approbation et avec la symétrie \emph{a priori} entre les candidats (hormis le candidat spécial).
+
+Pour les mêmes raisons que précédemment, le point d'indifférence~$\vectutilapprob{0}$ doit être exclu: en effet, son seul voisinage ouvert est~$\mathbb{V}$ tout entier et aucune distance n'est compatible avec cette propriété. En revanche, $\mathbb{V}$ possède la même topologie que la sphère de dimension $C - 1$, donc on peut le munir d'une distance.
+
+%\begin{notations}[métriques ellipsoïdales sur l'espace des utilités avec limite d'approbation]
+\medskip
+La situation étant, ici, moins symétrique que dans le cas de $\mathbb{U} \setminus \{\vectutil{0} \}$, nous avons besoin d'une famille de métriques plus diverses.
+Plutôt que de ne considérer que les produits scalaires proportionnels au produit canonique, on va considérer tous ceux qui:
+\begin{itemize}
+	\item rendent $\mathcal{H}$ orthogonal à la direction $\vecteur{1}$ ;
+	\item ont une restriction à $\mathcal{H}$ proportionnelle à la restriction du produit canonique;
+\end{itemize}
+c'est-à-dire les $\lambda \psi_\rho$, où $\psi_\rho$ est le produit scalaire qui coïncide sur $\mathcal{H}$ avec le produit canonique, tel que $\vecteur{1}$ soit orthogonal à $\mathcal{H}$ et que $\psi_\rho(\vecteur{1},\vecteur{1}) = \rho^2$.
+ 
+On note $\zeta_\rho$ la métrique sur $\mathbb{V} \setminus \{\vectutilapprob{0} \}$ induite par $\psi_\rho$.
+%\end{notations}
+
+\medskip
+Pour s'en faire une image, il suffit d'imaginer que les vecteurs d'utilité sont normalisés de façon à appartenir à l'ellipsoïde qui est l'image de la sphère unité par l'affinité orthogonale de facteur $\rho$ le long de la direction $\vecteur{1}$.
+Ensuite, on mesure la distance entre deux points, non pas en utilisant la métrique induite par le produit scalaire canonique de $\R^C$, mais la métrique induite par le produit scalaire pour lequel cet ellipsoïde est la sphère de diamètre $\lambda$.
+
+Par exemple, la distance entre deux points diamétralement opposés sera toujours $\lambda \pi$ (où $\pi$ désigne l'habituel nombre pi, c'est-à-dire le demi-périmètre d'un cercle unité), ce qui ne serait pas le cas avec la métrique issue du produit scalaire canonique.
+Nous reviendrons sur cette construction dans la section \ref{sec:pratique_ellipse}.
+
+Le réel $\rho \in \mathopen]0,+\infty\mathclose\lbrack$ est donc le facteur de distorsion qui définit l'élongation ou l'aplatissement de l'ellipsoïde dans la direction $\vecteur{1}$.
+Le réel $\lambda \in \mathopen]0,+\infty\mathclose\lbrack$ est un facteur de dilatation global qui multiplie toutes les distances.
+
+
+\begin{thm}[représentation riemannienne de l'espace des utilités avec limite d'approbation]\label{thm_ellipse}
+On suppose $C \geq 3$.
+Soit $\zeta$ une métrique riemannienne sur $\mathbb{V} \setminus \{\vectutilapprob{0} \}$.
+
+Les conditions \ref{enumi:hypotheses_ellipse} et \ref{enumi:sphere2} suivantes sont équivalentes.
+\begin{enumerate}
+\item\label{enumi:hypotheses_ellipse}
+\begin{enumerate}
+	\item\label{enumi:geodesics2} Pour tout couple de points non antipodaux $\vectutilapprob{u}, \vectutilapprob{v} \in \mathbb{V}\setminus\{\vectutilapprob{0}\}$ (c.à.d. $\vectutilapprob{v} \neq - \vectutilapprob{u}$), l'ensemble $\sum\{\vectutilapprob{u}, \vectutilapprob{v}\}$ des éléments respectant les préférences unanimes de $\vectutilapprob{u}$ et $\vectutilapprob{v}$ est un segment de géodésique de~$\zeta$; et
+%	Les droites de $\mathbb{V} \setminus \{\vectutilapprob{0} \}$ sont des géodésiques de $\zeta$; et
+	\item\label{enumi:permutations2} pour toute permutation $\sigma$ de $\intent{1}{C}$, l'action $\Phi_\sigma$ induite sur $\mathbb{V} \setminus \{\vectutilapprob{0} \}$ par 
+$$
+(u_1,\ldots,u_C) \to (u_{\sigma(1)},\ldots,u_{\sigma(C)})
+$$
+est une isométrie.
+\end{enumerate}
+\item\label{enumi:sphere2} $\exists \rho \in \mathopen]0,+\infty\mathclose\lbrack, \exists \lambda \in \mathopen]0,+\infty\mathclose\lbrack \tq \zeta = \lambda \zeta_\rho$.
+\end{enumerate}
+\end{thm}
+
+\begin{proof}
+%On suppose $C \geq 2$. L'image d'un sous-espace de dimension 2 de $\R^C$ dans $\mathbb{V} \setminus \{\vectutilapprob{0} \}$ par la projection canonique $\vectutilapprob{\pi}$ est appelée une \emph{droite} de $\mathbb{V} \setminus \{\vectutilapprob{0} \}$.
+Comme dans le théorème \ref{thm_sphere}, on déduit de la condition \ref{enumi:geodesics2} l'existence d'un produit scalaire $\psi$ sur $\R^C$ induisant $\zeta$.
+
+Par la condition \ref{enumi:permutations2}, la direction $\vecteur{1}$ est orthogonale (au sens de $\psi$) à $\mathcal{H}$.
+En effet, le vecteur $(1,-1,0,\dots,0)$ est envoyé par la transposition $\Phi_{(12)}$ sur son opposé, et celle-ci étant une isométrie, l'angle entre $\vecteur{1}$ et $(1,-1,0,\dots,0)$ est droit.
+Le même argument s'applique à toutes les permutations de ce vecteur, lesquelles engendrent~$\mathcal{H}$.
+
+En particulier, les projections orthogonales sur $\mathcal{H}$ au sens de $\psi$ et du produit scalaire canonique de $\R^C$ coïncident.
+Il s'ensuit que les $\Phi_\sigma$ permutent les projections des vecteurs de la base canonique sur $\mathcal{H}$.
+On peut donc raisonner comme dans la démonstration du théorème \ref{thm_sphere} pour conclure que la restriction de $\psi$ à $\mathcal{H}$ est proportionnelle au produit canonique.
+\end{proof}
+
+\subsection{La représentation riemannienne en pratique}\label{sec:pratique_ellipse}
+
+%\begin{notations}[affinités orthogonales le long de $\vecteur{1}$]
+Pour tout réel $\rho \neq 0$, on note $D_\rho$ la matrice de l'affinité orthogonale qui dilate d'un facteur $\rho$ dans la direction de $\vecteur{1}$:
+$$
+D_\rho = D_0 + \rho \dfrac{1}{C} J = I + \dfrac{\rho - 1}{C} J.
+$$
+La représentation ellipsoïdale du théorème \ref{thm_ellipse} est alors l'image de la sphère unité par $D_\rho$ (dont la bijection réciproque est $D_{(\rho^{-1})}$).
+%\end{notations}
+
+
+Pour $(\vecteur{u},\vecteur{v}) \in \left( \R^C \setminus \{\vecteur{0}\} \right)^2$, la distance entre $\vectutilapprob{u}$ et $\vectutilapprob{v}$ au sens de la métrique $\lambda \zeta_\rho$ du théorème \ref{thm_ellipse} est:
+$$
+d(\vectutilapprob{u},\vectutilapprob{v}) = \lambda \arccos \bigbracket{%
+\dfrac{D_{(\rho^{-1})} \vecteur{u}}{\| D_{(\rho^{-1})} \vecteur{u} \|}
+}{%
+\dfrac{D_{(\rho^{-1})} \vecteur{v}}{\| D_{(\rho^{-1})} \vecteur{v} \|}
+}.
+$$
+En effet, on a deux possibilités:
+\begin{itemize}
+	\item calculer le représentant de $\vectutilapprob{u}$ qui appartient à l'ellipsoïde puis le ramener sur la sphère par l'affinité $D_{(\rho^{-1})}$;
+	\item calculer l'image $\vecteur{u}'$ de $\vecteur{u}$ par l'affinité $D_{(\rho^{-1})}$ puis le normaliser, c'est-à-dire calculer l'intersection de la demi-droite définie par $\vecteur{u}'$ avec la sphère unité.
+\end{itemize}
+Comme la sphère unité est l'image de l'ellipsoïde par l'affinité $D_{(\rho^{-1})}$, ces deux possibilités sont équivalentes. Choisir la seconde prouve immédiatement la formule proposée.
+
+\medskip
+Si on veut tirer des vecteurs suivant une loi de probabilité uniforme sur $\mathbb{V} \setminus \{\vectutilapprob{0} \}$ (muni de la métrique $\lambda \zeta_\rho$), il suffit de tirer $\vecteur{u}$ selon une loi uniforme sur la sphère unité de $\R^C$ puis de renvoyer
+$
+D_{\rho} \vecteur{u}.
+$
+
+Afin de nous forger une intuition correcte de cette représentation ellipsoïdale, la principale difficulté est qu'il ne faut pas considérer la métrique euclidienne canonique sur l'ellipsoïde en question, mais une métrique pour laquelle cette ellipse est une sphère, comme nous allons le voir sur la page suivante.
+
+\newpage%MAGOUILLE
+
+\begin{figure}[H]
+\begin{center}
+\begin{tikzpicture}[scale=1.5]
+\draw[->,>=latex] (-2.5,0)--(2.5,0) node[above] {$u_1$};
+\draw[->,>=latex] (0,-2.5)--(0,2.5) node[above] {$u_2$};
+\draw (-2.3,-2.3)--(2.3,2.3) node[above right] {$\textrm{vect}(\vecteur{1})$};
+\draw (-2.3,2.3)--(2.3,-2.3) node[right] {$\mathcal{H}$};
+\draw[name path=cercle] (0,0) circle (1);
+\draw[name path=grande,color=blue] (0,	0) ellipse [x radius=2,y radius=1,rotate=45];
+\node[blue] at (-1.25,-0.7) {$\rho = 2$};
+\node[red] at (-2.15,-0.7) {$\rho = 3$};
+\draw[name path=tresgrande,color=red] (0,	0) ellipse [x radius=3,y radius=1,rotate=45];
+%% Utilité ~u
+\draw[name path=u] (0,0)--(2.4,1.4) node[right] {$\vectutilapprob{u}$};
+% Intersection de u avec la grande ellipse
+\path [name intersections={of=grande and u, by=u-grande}];
+% Support (invisible) de la projection sur le cercle
+\path [name path=u-grande-droite] (u-grande)--+(-2,-2);
+\path [name intersections={of=cercle and u-grande-droite, by={u-grande-cercle,whocares}}];
+% Segment de projection
+\draw[dashed,blue] (u-grande-cercle)--(u-grande);
+\node [fill=blue,inner sep=1pt] at (u-grande) {};
+\node [fill=blue,inner sep=1pt] at (u-grande-cercle) {};
+% Intersection de u avec la très grande ellipse
+\path [name intersections={of=tresgrande and u, by=u-tresgrande}];
+% Support (invisible) de la projection sur le cercle
+\path [name path=u-tresgrande-droite] (u-tresgrande)--+(-2,-2);
+\path [name intersections={of=cercle and u-tresgrande-droite, by={u-tresgrande-cercle,whocares}}];
+% Segment de projection
+\draw[dashed,red] (u-tresgrande-cercle)--(u-tresgrande);
+\node [fill=red,inner sep=1pt] at (u-tresgrande) {};
+\node [fill=red,inner sep=1pt] at (u-tresgrande-cercle) {};
+%%
+%% Utilité ~v
+\draw[name path=v] (0,0)--(-0.4,-2.4) node[right] {$\vectutilapprob{v}$};
+% Intersection de u avec la grande ellipse
+\path [name intersections={of=grande and v, by=v-grande}];
+% Support (invisible) de la projection sur le cercle
+\path [name path=v-grande-droite] (v-grande)--+(2,2);
+\path [name intersections={of=cercle and v-grande-droite, by={v-grande-cercle,whocares}}];
+% Segment de projection
+\draw[dashed,blue] (v-grande-cercle)--(v-grande);
+\node [fill=blue,inner sep=1pt] at (v-grande) {};
+\node [fill=blue,inner sep=1pt] at (v-grande-cercle) {};
+% Intersection de u avec la très grande ellipse
+\path [name intersections={of=tresgrande and v, by=v-tresgrande}];
+% Support (invisible) de la projection sur le cercle
+\path [name path=v-tresgrande-droite] (v-tresgrande)--+(2,2);
+\path [name intersections={of=cercle and v-tresgrande-droite, by={v-tresgrande-cercle,whocares}}];
+% Segment de projection
+\draw[dashed,red] (v-tresgrande-cercle)--(v-tresgrande);
+\node [fill=red,inner sep=1pt] at (v-tresgrande) {};
+\node [fill=red,inner sep=1pt] at (v-tresgrande-cercle) {};
+%%
+%% Utilité ~w
+\draw[name path=w] (0,0)--(1.6,2.4) node[right] {$\vectutilapprob{w}$};
+% Intersection de u avec la grande ellipse
+\path [name intersections={of=grande and w, by=w-grande}];
+% Support (invisible) de la projection sur le cercle
+\path [name path=w-grande-droite] (w-grande)--+(-2,-2);
+\path [name intersections={of=cercle and w-grande-droite, by={w-grande-cercle,whocares}}];
+% Segment de projection
+\draw[dashed,blue] (w-grande-cercle)--(w-grande);
+\node [fill=blue,inner sep=1pt] at (w-grande) {};
+\node [fill=blue,inner sep=1pt] at (w-grande-cercle) {};
+% Intersection de u avec la très grande ellipse
+\path [name intersections={of=tresgrande and w, by=w-tresgrande}];
+% Support (invisible) de la projection sur le cercle
+\path [name path=w-tresgrande-droite] (w-tresgrande)--+(-2,-2);
+\path [name intersections={of=cercle and w-tresgrande-droite, by={w-tresgrande-cercle,whocares}}];
+% Segment de projection
+\draw[dashed,red] (w-tresgrande-cercle)--(w-tresgrande);
+\node [fill=red,inner sep=1pt] at (w-tresgrande) {};
+\node [fill=red,inner sep=1pt] at (w-tresgrande-cercle) {};
+%%
+%% Distances
+\draw[<->,>=latex,blue] (16:0.9) arc (16:67:0.9);
+\draw[<->,>=latex,blue] (-79:0.9) arc (-79:15:0.9);
+\node[blue,rectangle,fill=white,inner sep=0.5pt] at (0.43,-0.4) {$d(\vectutilapprob{u},\vectutilapprob{v})$};
+\node[blue,rectangle,fill=white,inner sep=0.5pt] at (0.3,0.5) {$d(\vectutilapprob{u},\vectutilapprob{w})$};
+\end{tikzpicture}
+\end{center}
+\caption{Représentations ellipsoïdales de l'espace des utilités avec limite d'approbation.}\label{fig:ellipsoide}
+\end{figure}
+
+
+Dans la figure~\ref{fig:ellipsoide}, on montre comment la distance est calculée, par exemple entre $\vectutilapprob{u}$ et $\vectutilapprob{v}$.
+Le cas $\rho = 2$ est en bleu et $\rho = 3$ en rouge.
+Dans chaque cas, on prend l'intersection de la demi-droite $\vectutilapprob{u}$ avec l'ellipsoïde, puis on utilise l'affinité $D_{(\rho^{-1})}$ pour ramener ce point sur la sphère.
+On fait de même avec $\vectutilapprob{v}$ puis on mesure la distance à la surface de la sphère.
+
+Quand $\rho$ tend vers l'infini, on voit que $d(\vectutilapprob{u},\vectutilapprob{v})$ tend vers 0 alors que $d(\vectutilapprob{u},\vectutilapprob{w})$ tend vers un réel strictement positif (qui est $\lambda\pi$).
+Dans ce cas dégénéré, la distance entre deux points ne dépend que des utilités relatives sur les candidats, sans considérer la position par rapport à la limite d'approbation: de ce point de vue, cela ressemble au modèle sphérique à $C-2$ dimensions.
+Cependant, cela signifie également qu'une distance $\lambda\pi$ se trouve concentrée entre $\vectutilapprob{u}$ et $\vectutilapprob{w}$, et de manière générale entre tout couple de demi-droites situées de part et d'autre de $\textrm{vect}(\vecteur{1})$: finalement, si on utilise la loi de probabilité uniforme, on obtient presque sûrement $-\vecteur{1}$ ou $\vecteur{1}$.
+
+Quand $\rho$ tend vers 0, on obtient le comportement inverse: la distance entre deux points ne dépend que de l'approbation ou de la désapprobation globale (c'est-à-dire dans quel demi-espace on est par rapport à l'hyperplan $\mathcal{H}$), pas des appréciations relatives entre candidats. Cependant, si on utilise la loi de probabilité uniforme, on obtient presque sûrement un vecteur appartenant à $\mathcal{H}$.
+
+Dans les applications pratiques du chapitre~\ref{sec:simulations_spheroidal}, nous choisissons toujours $\rho = 1$, c'est-à-dire une représentation sphérique. Il s'agit d'un cas intermédiaire entre les deux cas limites présentés ci-dessus, qui favorisent soit les utilités de même signe, soit des vecteurs d'utilités de somme nulle (donc avec presque sûrement des utilités des deux signes).
+

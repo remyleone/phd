@@ -1,0 +1,3 @@
+coef_rx,coef_tx,diff_rx_noinfo,diff_rx_route,diff_tx_noinfo,diff_tx_route,epsilon_rx_noinfo,epsilon_rx_route,epsilon_tx_noinfo,epsilon_tx_route,error_rx_noinfo,error_rx_route,error_tx_noinfo,error_tx_route,estimation_rx_noinfo,estimation_rx_route,estimation_tx_noinfo,estimation_tx_route,real_rx,real_tx,time,bin_start,delta_T
+0.0,0.0,,,,,0.0,0.0,0.0,0.0,,,,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
+0.002104055736708984,0.013652192759802685,0.207764,0.204596,1.3090766,1.2932366,0.051941,0.051149,0.32726915,0.32330915,0.9849809417252954,0.9699618834505906,0.9564833575058361,0.9449097823744095,0.0031679999999999994,0.00633600000000001,0.059558400000000004,0.07539840000000002,0.210932,1.368635,100.250196,100.0,100.250196

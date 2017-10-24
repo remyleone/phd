@@ -1,0 +1,1030 @@
+% !TeX spellcheck = fr_FR
+\mychapter{Analyses de données expérimentales}\label{sec:simulations_expe}%
+\newcommand{\minispace}{\hspace{0.05mm}}
+
+Dans les chapitres précédents, nous avons étudié la manipulabilité des divers modes de scrutin dans des cultures artificielles sphéroïdales (chapitre~\ref{sec:simulations_spheroidal}) ou basées sur un spectre politique (chapitre~\ref{sec:simulations_unidim}).
+
+Une conclusion importante de ces chapitres était la faible manipulabilité de CVTI, VTI et SE, sauf dans les cultures de spectre politique unidimensionnel où certains modes de scrutin, par exemple l'uninominal à deux tours et la méthode de Schulze, présentent des performances intéressantes. Il est donc naturel de se demander ce qu'il en est dans le monde réel, et c'est l'objet du présent chapitre.
+
+Nous nous basons sur un corpus de 168~expériences issues de différents contextes. Afin de pouvoir utiliser l'algorithme exact pour VTI tout en conservant un temps de calcul raisonnable, nous nous limitons à des élections comportant 3~à 14~candidats. La méthode de Kemeny sera exclue des analyses de ce chapitre en raison du temps de calcul nécessaire pour déterminer le vainqueur.
+
+
+%\begin{itemize}
+%\item Biblio associée
+%\item Problématiques du chapitre: présence de Condorcet, manipulabilité...
+%\end{itemize}
+
+%Nous nous basons sur les bulletins exprimés pour fournir une étude quantitative de la manipulabilité du résultat en fonction du mode de scrutin. Nous montrons que même dans une situation où il existe \emph{a priori} un vainqueur canonique, les possibilités de manipulation sont nombreuses et varient suivant le mode de scrutin choisi. Nous observons aussi qu'un mode de scrutin se démarque nettement des autres par sa faible manipulabilité : le vote à tours instantanés.
+
+%De façon générale, nombre de candidats limité à 14 pour des raisons techniques.
+
+
+\section{Présentation des données expérimentales}
+
+
+\subsection{Expériences réalisées}
+
+Les trois jeux de données suivants ont été obtenus selon des modalités relativement similaires, avec notre participation directe pour l'établissement des modalités de vote et la collecte des bulletins. 
+
+\paragraph{Algotel} Lors de la conférence Algotel 2012\footnote{\url{http://algotel2012.ens-lyon.fr/}}, le comité de programme a pré-sélectionné 5 papiers, nommés ici arbitrairement $ A $, $ B $, $ C $, $ D $ et $ E $, 
+pour l'élection du meilleur papier de la conférence. Pour les départager, il a été demandé à chaque participant de voter par écrit en donnant des notes entre 0 et 10 évaluant la qualité des articles et leur présentation. Il était possible de ne noter qu'une partie des papiers, l'absence de note valant 0. Sur 72 participants à la conférence, il y a eu 57 suffrages exprimés, 1~vote blanc et 2 votes nuls.
+
+Les participants avaient été avertis que leurs bulletins seraient testés sur plusieurs modes de scrutin, mais ils ne savaient pas lequel serait finalement utilisé pour désigner le papier vainqueur. En cas de désaccord entre les modes de scrutin, nous aurions eu la possibilité de récompenser tous les papiers désignés par au moins un mode de scrutin testé. Cependant, en pratique, on verra que tous les modes de scrutin désignaient le même vainqueur, donc la question ne s'est pas posée.
+
+Les conclusions de cette expérience, qui sont en partie reprises dans ce chapitre, sont également disponibles dans l'article de \cite{durand2014algotel}.
+
+\paragraph{Bordeaux} Lors de la journée de l'École Doctorale de Mathématiques et d'Informatique de Bordeaux\footnote{\url{http://www.math.u-bordeaux1.fr/ED/ecole_doctorale/}} en novembre 2014, un vote a été organisé pour élire le meilleur poster parmi 11 posters proposés par des doctorants en dernière année. Les modalités étaient similaires à Algotel 2012, mais les notes autorisées allaient de 0 à 20. Il y a eu 86~suffrages exprimés pour autant de participants.
+
+\paragraph{Paris VII} En avril 2015, un sondage interne a été organisé pour orienter le choix du nom du nouveau laboratoire d'informatique de l'université Paris~VII--Paris Diderot\footnote{\url{http://www.univ-paris-diderot.fr/}}. 10 noms possibles étaient proposés. Cette fois, les électeurs n'attribuaient pas des notes mais des appréciations: \emph{Bien}, \emph{Plutôt bien}, \emph{Ni bien ni mal}, \emph{Plutôt mal} ou \emph{Mal}. Il y a eu 95~suffrages exprimés pour autant de participants.
+
+\medskip
+Nous remercions les organisateurs de ces événements d'avoir rendu ces expériences possibles.
+
+
+\subsection{Site internet www.bdtheque.com}
+
+Le site \url{www.bdtheque.com} est un site collaboratif consacré à la bande dessinée. Les internautes y sont invités à noter les séries de bandes dessinées selon l'échelle présentée dans le tableau~\ref{table:echelle_bdtheque}, qui est, à la fois, une échelle de notes et une échelle d'appréciations.
+\begin{table}
+\begin{center}
+\begin{tabular}{Il|lI}
+\Cline{1pt}{1-2}
+Note & Appréciation \\\Cline{1pt}{1-2}
+5 étoiles & Culte! \\\hline
+4 étoiles & Franchement bien \\\hline
+3 étoiles & Pas mal \\\hline
+2 étoiles & Bof, sans plus \\\hline
+1 étoile & Vraiment pas aimé! \\\Cline{1pt}{1-2}
+\end{tabular}
+\end{center}
+\caption{Échelle de notes et d'appréciations du site \url{www.bdtheque.com}.}\label{table:echelle_bdtheque}
+\end{table}
+
+En juin 2012, le webmestre du site, Alix Bergeret, que nous remercions, a eu l'amabilité de nous transmettre la base de données du site, à condition de l'utiliser sous une clause d'anonymat des internautes.
+
+Nous en avons tiré 12~expériences de la façon suivante. Pour chaque entier $C \in \intent{3}{14}$, nous souhaitions choisir $C$ séries candidates et sélectionner l'intersection des internautes les ayant toutes notées. En outre, notre but était d'avoir un nombre d'électeurs significatif voire de le maximiser si possible. Or ce problème, connu sous le nom de \emph{Maximum Subset Intersection Problem}, a été récemment démontré \complexNP-complet par \cite{xavier2012note}.
+
+En guise d'approximation, nous avons utilisé un algorithme glouton. On part de $C = 0$ (c'est-à-dire $\mathcal{C} = \varnothing$) et on initialise l'ensemble $\mathcal{V}$ à l'ensemble des internautes. À chaque incrémentation de $C$, on sélectionne la série ayant le plus de notes parmi les internautes encore présents dans $\mathcal{V}$ et on l'ajoute à l'ensemble des candidats~$\mathcal{C}$, puis on élimine de $\mathcal{V}$ les internautes n'ayant pas noté la dernière série ajoutée. La table~\ref{tab:bdtheque_C_V} montre la correspondance entre le nombre de séries candidates et le nombre d'internautes obtenu par cet algorithme\footnote{Pour le lecteur curieux: les séries obtenues sont, dans l'ordre, \emph{XIII}, \emph{Lanfeust De Troy}, \emph{Blacksad}, \emph{La Quête de l'Oiseau du Temps}, \emph{Universal War One}, \emph{Le Troisième Testament}, \emph{Largo Winch}, \emph{De Cape et de Crocs}, \emph{Les aventures de Tintin}, \emph{Thorgal}, \emph{Astérix}, \emph{Peter Pan}, \emph{Sillage} et \emph{Lanfeust Des Étoiles}.}.
+
+%Pour chaque entier $C \in \intent{3}{14}$, on sélectionne les $C$ séries ayant reçu le plus de notes d'internautes\footnote{Pour le lecteur curieux: à l'époque, les trois séries possédant le plus de notes étaient \emph{XIII}, \emph{De Cape et de Crocs} et \emph{Blacksad}.}. Puis la population considérée est l'intersection des internautes qui ont noté chacune de ces séries. 
+
+La particularité de ce jeu de données est qu'au moment d'attribuer chaque note, l'internaute n'est pas placé dans un contexte d'élection: en effet, le but de l'opération n'est pas de sélectionner collectivement une unique option parmi un ensemble d'options candidates, comme c'est le cas quand il s'agit d'attribuer un prix ou d'élire une personne à un poste. De plus, cette évaluation n'a pas d'enjeu ou de conséquence pratique sur la vie des électeurs, contrairement à une élection politique par exemple. Enfin, il y a une façon de limiter et dans une certaine mesure de contrôler le vote tactique: en effet, la politique du site exige que toute note soit accompagnée d'un commentaire suffisamment étoffé pour la justifier. Si un internaute souhaite attribuer une note artificiellement basse ou haute à une série à des fins purement tactiques, il doit donc payer un coût cognitif et un coût en temps pour le faire. Pour toutes ces raisons, on peut espérer ---~mais on ne peut qu'espérer~--- que ces données sont relativement peu entachées de vote tactique.
+
+%\begin{table}
+%\begin{center}
+%\begin{tabular}{IcI*{11}{c|}cI}
+%\Cline{1pt}{1-13}
+%$C$ & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 \\\hline
+%$V$ & 24 & 22 & 19 & 16 & 12 & 12 & 12 & 11 & 10 & 10 & 10 & 10 \\\Cline{1pt}{1-13}
+%\end{tabular}
+%\end{center}
+%\caption{Bdtheque: nombres de candidats et d'électeurs ($C$ séries les plus notées)}\label{tab:bdtheque_C_V}
+%\end{table}
+
+\begin{table}
+\begin{center}
+\begin{tabular}{IcI*{11}{c|}cI}
+\Cline{1pt}{1-13}
+$C$ & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 \\\hline
+$V$ & 33 & 24 & 21 & 19 & 18 & 15 & 14 & 14 & 13 & 13 & 12 & 12 \\\Cline{1pt}{1-13}
+\end{tabular}
+\end{center}
+\caption{Bdtheque: nombres de candidats et d'électeurs}\label{tab:bdtheque_C_V}%algo glouton
+\end{table}
+
+
+\subsection{Jugement de Paris}
+
+En 1976, 11 experts (9 français et 2 américains) se réunirent pour deux dégustations à l'aveugle: tout d'abord, 10~vins blancs de cépage Chardonnay, puis 10~vins rouges à base de Cabernet Sauvignon. Chacune de ces deux dégustations mena à une notation par les experts et à un palmarès.
+
+Les notes allaient de 0 à 20, avec demi-point autorisé. Les experts savaient à l'avance que le vote par notation serait utilisé, ce qui est une différence avec les expériences que nous avons mentionnées ci-dessus. En effet, pour Algotel, Bordeaux et Paris VII, on avait informé les électeurs que leurs bulletins <<\,seraient testés sur plusieurs modes de scrutin\,>>, sans davantage de précision. Et pour bdtheque, comme nous l'avons dit, il ne s'agit pas vraiment d'une situation d'élection.
+
+À la surprise générale, dans chacune des deux catégories, ce fut un vin californien qui remporta la première place, malgré un jury en grande majorité français. Cette victoire amena à de nombreux commentaires dans la presse sur les modalités du vote et eut un impact important sur la réputation et le développement des vins américains.
+
+Les données que nous utilisons pour le Jugement de Paris proviennent de la page \url{www.liquidasset.com/lindley.htm}.
+
+\subsection{Base de données PrefLib}
+
+PrefLib (\url{http://www.preflib.org/}) est une base de données collaborative qui collecte des données de préférences collectives afin de les mettre à la disposition des spécialistes du choix social \citep{mattei2013preflib}. À la différence des expériences présentées ci-dessus, il s'agit exclusivement de données ordinales: il peut s'agir d'ordres faibles (avec égalités) ou stricts (sans égalité), complets ou incomplets. Quand les ordres sont incomplets, nous supposons que tous les candidats non classés sont placés derrière les candidats classés\footnote{Quand on n'a accès qu'à des préférences incomplètes, une autre possibilité étudiée par \cite{konczak2005voting} consiste à considérer l'ensemble des complétions possibles par des ordres complets. On peut, alors, déterminer l'ensemble des vainqueurs de Condorcet possibles, l'ensemble des vainqueurs possibles par un mode de scrutin donné, etc. Cependant, les auteurs montrent qu'on s'expose alors à de difficiles problèmes de complexité algorithmique, avec toutefois d'importantes exceptions comme la détermination des vainqueurs possibles d'une RPS ou des vainqueurs de Condorcet possibles.}.
+
+Pour la présente étude, nous considérons \emph{a priori} tous les fichiers d'élection de {PrefLib}, avec les exceptions suivantes.
+\begin{itemize}
+\item Afin de pouvoir utiliser l'algorithme exact de VTI tout en conservant un temps de calcul raisonnable, nous excluons les élections avec strictement plus de 14~candidats.
+\item Nous excluons les élections dont les préférences dérivent de préférences cardinales (notes ou approbations) puisque celles-ci ne sont pas fournies dans PrefLib. En effet, nous serions amenés à extrapoler arbitrairement des notes à partir des préférences ordinales, comme nous le verrons en section~\ref{sec:expe_reelles_methodo}, et celles-ci ne seraient \emph{a priori} pas conformes à l'expérience originale.
+\item Nous excluons les élections obtenues par échantillon aléatoire sur de grandes données (PrefLib 4, 11 et 15), considérant que la réalisation particulière de ce tirage aléatoire est propre à leurs auteurs.
+\end{itemize}
+
+Dans PrefLib, les fichiers sont organisés en jeux de données qui regroupent des élections tenues dans un contexte similaire et issues d'une même source. Par exemple, le jeu de données PrefLib~1 regroupe des élections politiques tenues à Dublin en 2002.
+
+Dans cette étude, nous utilisons 151~expériences issues du monde politique (PrefLib 1, 5, 8, 16 à~23), du monde professionnel et associatif (PrefLib 2, 7, 9 et~12) ou d'expériences de cognition (PrefLib 24 et~25). Le jeu de données PrefLib~1 est une donation de Jeffrey O'Neill, qui gère le site \url{http://www.openstv.org/}. PrefLib 5, 8 et 16 à~23 proviennent de ce même site. PrefLib~2 provient de \url{http://www.debian.org/vote/}. PrefLib 7, 9 et~12 sont respectivement des donations de Nicolaus Tideman, Piotr Faliszewski et Carleton Coffrin. PrefLib 24 et~25 proviennent de \cite{mao2013better}. Pour plus d'informations sur ces jeux de données, nous encourageons le lecteur à consulter le site \url{http://www.preflib.org/}.
+
+\medskip
+La table~\ref{table:recap_expes} présente une vue d'ensemble de toutes les expériences utilisées dans ce chapitre. Au total, nous nous basons sur 168 expériences, de 10 à presque 300\,000 électeurs et de 3 à 14 candidats.
+
+\begin{table}
+\begin{bigcenter}
+\begin{tabular}{Il|c|r@{--}l|r@{--}l|lI}
+	\Cline{1pt}{1-7}
+	Données                   & Expériences & \multicolumn{2}{c|}{$V$} & \multicolumn{2}{c|}{$C$} & Bulletins                 \\ \Cline{1pt}{1-7}
+	Algotel                   &         1          & \multicolumn{2}{c|}{57} & \multicolumn{2}{c|}{5} & Notes 0--10               \\ \hline
+	Bordeaux                  &         1          & \multicolumn{2}{c|}{86} & \multicolumn{2}{c|}{11} & Notes 0--20               \\ \hline
+	Paris VII                 &         1          & \multicolumn{2}{c|}{95} & \multicolumn{2}{c|}{10} & Appréciations             \\ \hline
+	Bdtheque                  &         12         &      12       & 33 & 3 & 14 & Notes 1--5                \\ \hline
+	Jugement de Paris         &         2	       & \multicolumn{2}{c|}{11} & \multicolumn{2}{c|}{10} & Notes 0--20 * \\ \hline
+	PrefLib 1: Dublin        &         3          & 29\,988  & 64\,081& 9 & 14 & OSI \\ \hline
+	PrefLib 2: Debian        &         8          &     143      & 504 & 4 & 9  & OSI \\ \hline
+	PrefLib 5: Burlington    &         2          &    8\,980     & 9\,788 & \multicolumn{2}{c|}{6}   & OFI \\ \hline
+	PrefLib 7: ERS           &         75         &    32     & 3\,419 & 3 & 14 & OSI \\ \hline
+	PrefLib 8: Glasgow       &         21         &  5\,199  & 12\,744 & 8 & 13 & OSI \\ \hline
+	PrefLib 9: AGH Course    &         2          &     146      & 153 & 7 & 9  & OSC   \\ \hline
+	PrefLib 12: T-shirt       &         1          & \multicolumn{2}{c|}{30} &  \multicolumn{2}{c|}{11} & OSC   \\ \hline
+	PrefLib 16: Aspen         &         2          &    2\,487     & 2\,528 & 5 & 11 & OFI \\ \hline
+	PrefLib 17: Berkley       &         1          & \multicolumn{2}{c|}{4\,189} & \multicolumn{2}{c|}{4} & OFI \\ \hline
+	PrefLib 18: Minneapolis   &         2          & 32\,086 & 36\,655 & 7 & 9  & OSI \\ \hline
+	PrefLib 19: Oakland       &         7          & 11\,358 & 145\,443 & 4 & 11 & OFI \\ \hline
+	PrefLib 20: Pierce        &         4          & 40\,031 & 299\,664 & 4 & 7  & OFI \\ \hline
+	PrefLib 21: San Francisco &         11         & 24\,180 & 184\,046 & 4 & 10 & OFI \\ \hline
+	PrefLib 22: San Leandro   &         3          & ~22\,539 & 25\,564 & ~4 & 7  & OFI \\ \hline
+	PrefLib 23: Takoma        &         1          & \multicolumn{2}{c|}{204} & \multicolumn{2}{c|}{4} & OFI \\ \hline
+	PrefLib 24: MT Dots       &         4          &     794      & 800 & \multicolumn{2}{c|}{4}   & OSC   \\ \hline
+	PrefLib 25: MT Puzzle     &         4          &     793      & 797 & \multicolumn{2}{c|}{4}   & OSC   \\ \Cline{1pt}{1-7}
+	Total                     &        168         & 10      & 299\,664 & 3 & 14 &  \\ \Cline{1pt}{1-7} 
+\end{tabular}
+\end{bigcenter}
+\caption{Récapitulatif des expériences analysées. OSC: ordres stricts complets. OSI: ordres stricts incomplets. OFI: ordres faibles incomplets. *~Demi-points autorisés.}\label{table:recap_expes}
+\end{table}
+
+
+
+
+\section{Méthodologie}\label{sec:expe_reelles_methodo}
+
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}[remember picture]
+\node (A) {\includegraphics[width=3cm]{figures/scroll}};
+\node at (0,-0.15) {\bf\begin{tabular}{c@{\ \ \ \ }r}
+\textcolor{OliveGreen}{A} & \textcolor{OliveGreen}{10} \\
+\textcolor{Red}{B} & \textcolor{Red}{10} \\
+\textcolor{BlueViolet}{C} & \textcolor{BlueViolet}{7} \\
+\textcolor{BurntOrange}{D} & \textcolor{BurntOrange}{3} \\
+\textcolor{Sepia}{E} & \textcolor{Sepia}{0} \\
+\end{tabular}};
+\node at (0,1.9) {\emph{Expérience}};
+\end{tikzpicture}\hspace{3cm}
+\begin{tikzpicture}[remember picture]
+\node (B) {\includegraphics[width=3cm]{figures/scroll}};
+\node at (0,-0.15) {\bf\begin{tabular}{c@{\ \ }r@{}l}
+\textcolor{OliveGreen}{A} & \textcolor{OliveGreen}{10,} & \textcolor{OliveGreen}{014} \\
+\textcolor{Red}{B} & \textcolor{Red}{9,} & \textcolor{Red}{991} \\
+\textcolor{BlueViolet}{C} & \textcolor{BlueViolet}{6,} & \textcolor{BlueViolet}{997} \\
+\textcolor{BurntOrange}{D} & \textcolor{BurntOrange}{3,} & \textcolor{BurntOrange}{009} \\
+\textcolor{Sepia}{E} & \textcolor{Sepia}{0,} & \textcolor{Sepia}{007} \\
+\end{tabular}};
+\node at (0,1.9) {\emph{Réalisation}};
+\end{tikzpicture}
+\begin{tikzpicture}[remember picture,overlay]
+\draw[->,>=latex,blue,ultra thick] (A) -- (B);
+\end{tikzpicture}
+\end{center}
+\caption{Ajout d'un bruit aléatoire aux bulletins}\label{fig:ajout_bruit}
+\end{figure}
+
+Considérons une expérience donnée, par exemple l'élection du meilleur papier Algotel. Comme l'illustre la figure~\ref{fig:ajout_bruit}, par rapport aux bulletins bruts, nous ajoutons aux notes un bruit aléatoire uniforme d'amplitude négligeable par rapport aux écarts entre les notes. Une fois ce bruit ajouté, nous obtenons une configuration pour la population entière, que nous appelons une \emph{réalisation}. Ainsi, si un électeur plaçait un candidat strictement devant un autre dans son bulletin original (par exemple D devant E dans la figure~\ref{fig:ajout_bruit}), cet ordre reste toujours respecté car l'amplitude du bruit est négligeable. En revanche, si un électeur mettait plusieurs candidats à égalité (par exemple A et B dans la figure~\ref{fig:ajout_bruit}), ceux-ci sont placés dans un ordre aléatoire après l'ajout du bruit.
+
+Pour chaque expérience, nous tirons aléatoirement plusieurs réalisations. L'objectif est double: évaluer la cohérence des résultats sur un espace rendu plus riche que l'unique expérience initiale et casser les égalités pour simplifier l'analyse des modes de scrutin basés sur les ordres de préférence. Ainsi, quand nous mentionnons, par exemple, le taux de MC de l'uninominal pour l'expérience Algotel, il s'agit du taux de MC de l'uninominal pour une culture qui consiste à tirer une configuration aléatoire dans un petit voisinage de l'expérience Algotel.
+
+\medskip
+Pour les données purement ordinales de chaque expérience PrefLib, nous effectuons une étape de pré-traitement supplémentaire: avant toute chose, les préférences ordinales sont converties en préférences cardinales en utilisant les scores de Borda. On notera que ce choix particulier n'a d'importance que pour le vote par assentiment et le vote par notation. En effet, pour les modes de scrutin ordinaux, notre technique revient de toute façon à conserver les préférences strictes des électeurs et à départager leurs indifférences de manière impartiale, c'est-à-dire symétrique par rapport aux candidats. Quant au jugement majoritaire, seul compte l'ordre topologique sur l'espace des notes ou des appréciations; les valeurs numériques potentielles n'ont pas d'importance.
+
+Pour l'expérience Paris~VII, une étape de pré-traitement est également ajoutée. Chacune des cinq appréciations possibles est convertie en valeur entière comprise entre $-2$ et $+2$. Là encore, ce choix particulier n'a d'importance que pour le vote par assentiment et le vote par notation.
+
+\medskip
+Dans ce chapitre, nous travaillons à deux niveaux:
+\begin{itemize}
+\item Nous utilisons l'élection du meilleur papier Algotel comme \emph{exemple récurrent}. Quand nous analysons cet exemple, nous utilisons 10\,000 réalisations.
+\item Nous menons également des \emph{méta-analyses} sur l'ensemble des expériences: dans ce cas, nous nous basons sur 100~réalisations pour chacune des 168~expériences.
+\end{itemize}
+Dans les deux cas, l'aspect aléatoire du bruit induit une incertitude statistique de l'ordre du pourcent sur les taux mesurés ($\sqrt{1/10\,000}$ ou $\sqrt{1/16\,800}$).
+
+\medskip
+Pour les méta-analyses, nous donnerons, d'une part, des histogrammes représentant des moyennes sur les 168~expériences réalisées. Ces résultats ne doivent pas être interprétés comme des vérités quantitatives précises mais plutôt comme des indications qualitatives: en effet, accorder le même poids aux 168~expériences considérées est un choix arbitraire en soi. En particulier, cela donne un poids relativement important (45~\%) aux expériences du jeu de données PrefLib~7. À l'inverse, donner un poids égal à chaque jeu de données PrefLib conduirait à donner autant d'importance aux jeux de données qui ne contiennent qu'une expérience, comme PrefLib~12 ou PrefLib~17, qu'à PrefLib~7 dont on analyse 75~élections. Il n'y a donc pas de solution parfaite.
+
+D'autre part, nous établirons aussi des graphes de méta-analyse (voir section~\ref{sec:comparison_vs}). Ils indiqueront qu'un mode de scrutin est moins manipulable qu'un autre dans la totalité des expériences. ce qui est indépendant de toute pondération sur celles-ci. On verra alors que des tendances similaires se dégagent sur l'ensemble des expériences. 
+
+\medskip
+Enfin, il est impossible de déterminer \emph{a posteriori} si un bulletin correspond à une opinion sincère ou à une stratégie plus élaborée. Nous sommes donc obligés de supposer que les participants ont joué le jeu et que tous les bulletins (bruités) sont sincères. Sans faire cette hypothèse, il est très difficile d'analyser quantitativement l'impact des manipulations. Ceci dit, comme nous l'avons noté, certains jeux de données sont plus vraisemblablement exempts de vote tactique, en particulier les expériences bdtheque.
+
+\section{Résultats <<\,sincères\,>> et notions Condorcet}
+
+
+Pour l'expérience Algotel, la table~\ref{tab:majoritaire} donne la matrice des duels, le score de Borda et le nombre de bulletins où chaque candidat est classé en tête, en moyenne observée sur les bulletins bruités. Dans la matrice des duels, les victoires sont représentées en caractères gras. On observe, en particulier, que $ A $ remporte tous ses duels en moyenne: il est donc vainqueur de Condorcet moyen. En fait, on a même observé une propriété plus forte: $A$ est vainqueur de Condorcet dans toutes les réalisations que nous avons testées. 
+
+En ce qui concerne les autres candidats, $A$ est suivi de $ B $ qui ne perd que contre $ A $, puis $C$ qui ne perd que contre les deux premiers, et ainsi de suite. On a donc en moyenne un \emph{ordre strict total de Condorcet} $ A \plusque B \plusque C \plusque D \plusque E $. En pratique, cet ordre strict total a été observé dans 99~\% des réalisations.
+
+\begin{table}
+\centering
+\begin{tabular}{IcIc|c|c|c|cIc|cI}
+	\Cline{1pt}{1-8}
+	  &   A   &  B   &  C   &  D   &   E   & Score de Borda & Têtes de bulletin \\ \Cline{1pt}{1-8}
+	A &   ---   &  \textbf{35,5}  & \textbf{36,0} &  \textbf{36,5}  & \textbf{39,0} &     147,0 & 16,5     \\ \hline
+	B &  21,5   &  ---   &  \textbf{29,5}  & \textbf{33,0}  &  \textbf{33,0}  &     117,0 & 14,7     \\ \hline
+	C & 21,0  &  27,5  &  ---   & \textbf{32,0} &  \textbf{31,5}   &     111,9   & ~9,8   \\ \hline
+	D &  20,5   & 24,0 & 25,0 &  ---   &  \textbf{29,5}   &     ~99,0 &     10,3 \\ \hline
+	E & 18,0 & 24,0 &  25,5  &  27,5  &   ---   &     ~95,1 & ~5,7     \\ \Cline{1pt}{1-8}
+\end{tabular}
+\caption{Algotel: matrice majoritaire moyenne, score de Borda et nombre de têtes de bulletin.}
+\label{tab:majoritaire}
+\end{table}
+
+\medskip
+Il est donc tentant de dire que $ A $ devrait être élu, et c'est ce qui se passe dans la quasi-totalité des cas.
+La principale exception est le mode de scrutin uninominal, qui élit $ B $ dans 18\% des cas : comme $ B $ est classé en tête presque autant de fois que $ A $ (table~\ref{tab:majoritaire}), le bruit aléatoire est susceptible de faire varier le résultat. De manière beaucoup plus marginale, les autres exceptions concernent les modes de scrutin Bucklin, uninominal à deux tours et VTI, qui peuvent élire $ B $ ou $ C $ avec une probabilité très faible (moins de $ 1 $\textperthousand\ des réalisations testées).
+
+Ces résultats sont relativement inattendus: comme c'était la première fois que nous menions une expérience de ce type, nous pensions initialement qu'il y aurait plus de diversité dans les vainqueurs possibles\footnote{Par exemple, en culture impartiale avec 3~candidats, \cite{merlin2000probability} ont montré que la probabilité qu'une certaine collection de modes de scrutin classiques choisissent le même vainqueur était d'environ 50~\%. Puisque que l'hypothèse $C = 3$ semble plutôt favorable de ce point de vue, la différence entre ce résultat théorique et l'observation montre à quel point la culture impartiale doit avant tout être vue comme un pire cas.}. Ils montrent que si les bulletins sont sincères, $ A $ semble être un vainqueur canonique qui atteste un choix clair des participants.
+
+%\begin{table}[H]
+%\begin{center}
+%\begin{tabular}{IlIr|r|rI}
+%\Cline{1pt}{1-4}
+%Critère & 	Minimum & 	Moyenne & 	Maximum \\\Cline{1pt}{1-4}
+%Candidat Condorcet-admissible & 	32 & 	99 & 	100 \tabularnewline\hline 
+%Vainqueur de Condorcet & 	0 & 	96 & 	100 \tabularnewline\hline 
+%Ordre strict total de Condorcet & 	0 & 	79 & 	100 \tabularnewline\hline 
+%Vainqueur de Condorcet résistant & 	0 & 	16 & 	100 \tabularnewline\hline 
+%Favori majoritaire & 	0 & 	13 & 	100 \tabularnewline\Cline{1pt}{1-4} 
+%\end{tabular}
+%\begin{tabular}{IlIrI}
+%\Cline{1pt}{1-2}
+%Critère & 	Moyenne \\\Cline{1pt}{1-2}
+%Candidat Condorcet-admissible & 	99 \tabularnewline\hline 
+%Vainqueur de Condorcet & 	96 \tabularnewline\hline 
+%Ordre strict total de Condorcet & 	79 \tabularnewline\hline 
+%Vainqueur de Condorcet résistant & 	16 \tabularnewline
+%Favori majoritaire & 	13 \tabularnewline\Cline{1pt}{1-2} 
+%\end{tabular}
+%\end{center}
+%\caption{Taux d'existence d'un vainqueur de Condorcet et variantes, en pourcents}
+%%\end{table}
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth]{figures/mea_exists_cond.png}
+\end{center}
+\caption{Méta-analyse: taux d'apparition de certaines structures dans les préférences de la population.}\label{fig:mea_exists_cond}
+\end{figure}
+
+\medskip
+On peut donc se demander si ces phénomènes sont exceptionnels. Pour y répondre, passons à la méta-analyse: pour rappel, il s'agit d'étudier les 168~expériences, chacune avec 100~réalisations. Comme le montre la figure~\ref{fig:mea_exists_cond}, il y a, en fait, presque toujours au moins un candidat Condorcet-admissible (99~\%) et il est très fréquent d'avoir un vainqueur de Condorcet (96~\%). Ces résultats confirment et étendent ceux de \cite{tideman2006collective}, basés sur des données qui sont dorénavant regroupées dans le jeu de données PrefLib~7 et qui sont donc incluses dans notre propre étude\footnote{Les résultats de Tideman sont réalisés avec une méthodologie différente, sans ajout de bruit. Nos résultats, menant à la même conclusion qualitative, sont donc complémentaires. À titre de comparaison, en excluant les données de PrefLib~7 afin d'obtenir une étude indépendante, les taux d'existence obtenus sont similaires: 98~\% pour un candidat Condorcet-admissible et 95~\% pour un vainqueur de Condorcet.}. 
+
+Nous avons aussi évalué le taux d'apparition de phénomènes plus forts (au sens où chacun d'entre eux implique l'existence d'un vainqueur de Condorcet). Ainsi, dans 79~\% des réalisations, il y a un ordre strict total de Condorcet, ce qui en fait un phénomène assez fréquent malgré le caractère très structurant de cette propriété pour la population\footnote{%
+La probabilité d'existence de paradoxe d'intransitivité (absence de vainqueur de Condorcet, absence d'ordre total de Condorcet) a fait l'objet d'intenses études par la théorie ou par des simulations informatiques. Outre l'ouvrage de référence de \cite{gehrlein2006condorcet}, on peut notamment citer \cite{ruben1954moments, campbell1965cyclical, garman1968paradox, niemi1968paradox, demeyer1970cyclical, pomeranz1970cyclical, tullock1970computer, gehrlein1976probability, fishburn1979condorcet, gehrlein1981probability, bradford1995condorcet, gehrlein1999aproximating, maassen2002weak, merlin2002likelihood, tsetlin2003impartialculture}. À part dans les modèles single-peaked, ces travaux concluent généralement que l'absence de vainqueur de Condorcet arrive avec une probabilité relativement importante. L'étude de ces probabilités dans des expériences réelles, sans être totalement nouvelle, se développe actuellement grâce à un meilleur accès à des jeux de données et semble au contraire indiquer qu'il est très fréquent d'avoir un vainqueur de Condorcet, comme notre étude le confirme.%
+}. Le taux d'existence d'un vainqueur de Condorcet résistant, quant à lui, est non négligeable (16~\%), ce qui assure que dans tous les cas concernés, tout mode de scrutin vérifiant le critère de Condorcet est non manipulable. Enfin, il y a un favori majoritaire dans 13~\% des cas: la plupart des vainqueurs de Condorcet résistants observés en pratique sont donc des favoris majoritaires, mais pas tous.
+
+%\begin{table}[H]
+%\begin{center}
+%\begin{tabular}{IlIr|r|rI}
+%\Cline{1pt}{1-4}
+%Vs (french)	Mode de scrutin & 	Minimum & 	Moyenne & 	Maximum \tabularnewline\Cline{1pt}{1-4}
+%VTI	VTI & 	0 & 	2 & 	100 \tabularnewline\hline
+%Scrutin exhaustif	Scrutin exhaustif & 	0 & 	2 & 	100 \tabularnewline\hline
+%Bucklin itéré	Bucklin itéré & 	0 & 	5 & 	100 \tabularnewline\hline
+%Uninominal à deux tours	Uninominal à deux tours & 	0 & 	5 & 	100 \tabularnewline\hline
+%Coombs	Coombs & 	0 & 	6 & 	100 \tabularnewline\hline
+%Borda	Borda & 	0 & 	7 & 	100 \tabularnewline\hline
+%Vote par notation	Vote par notation & 	0 & 	8 & 	100 \tabularnewline\hline
+%Jugement majoritaire	Jugement majoritaire & 	0 & 	9 & 	100 \tabularnewline\hline
+%Bucklin	Bucklin & 	0 & 	13 & 	100 \tabularnewline\hline
+%Assentiment	Assentiment & 	0 & 	15 & 	100 \tabularnewline\hline
+%Uninominal	Uninominal & 	0 & 	22 & 	100 \tabularnewline\hline
+%Veto	Veto & 	0 & 	31 & 	100 \tabularnewline\hline\Cline{1pt}{1-4}
+%\end{tabular}
+%\begin{tabular}{IlIrI}
+%\Cline{1pt}{1-2}
+%Mode de scrutin & 	Moyenne \tabularnewline\Cline{1pt}{1-2}
+%VTI & 	2 \tabularnewline\hline
+%Scrutin exhaustif & 	2 \tabularnewline\hline
+%Bucklin itéré & 	5 \tabularnewline\hline
+%Uninominal à deux tours & 	5 \tabularnewline\hline
+%Coombs & 	6 \tabularnewline\hline
+%Borda & 	7 \tabularnewline\hline
+%Vote par notation & 	8 \tabularnewline\hline
+%Jugement majoritaire & 	9 \tabularnewline\hline
+%Bucklin & 	13 \tabularnewline\hline
+%Assentiment & 	15 \tabularnewline\hline
+%Uninominal & 	22 \tabularnewline\hline
+%Veto & 	31 \tabularnewline\Cline{1pt}{1-2}
+%\end{tabular}
+%\end{center}
+%\caption{Probabilité de rater un vainqueur de Condorcet}
+%\end{table}
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth]{figures/mea_miss_cond.png}
+\end{center}
+\caption{Méta-analyse: taux de violation du critère de Condorcet}\label{fig:mea_violate_cond}
+\end{figure}
+
+\medskip
+Comme dans l'expérience Algotel, les partisans du critère de Condorcet estimeront, par conséquent, qu'il existe la plupart du temps un vainqueur canonique qui devrait être élu. On peut donc se demander dans quelle mesure chaque mode de scrutin est susceptible de violer le critère de Condorcet. La figure~\ref{fig:mea_violate_cond} montre la probabilité qu'un vainqueur de Condorcet existe mais qu'il ne soit pas élu par un mode de scrutin donné (en vote <<\,sincère\,>>). Comme ce taux de violation du critère de Condorcet est nécessairement nul pour les modes de scrutin Condorcet, ceux-ci ne sont pas représentés.
+
+Parmi les modes de scrutin non Condorcet, on notera que VTI (équivalent à SE en vote sincère) présente les meilleures performances: sur le jeu de données utilisé, il viole le critère de Condorcet dans seulement 2~\% des cas. Il est suivi par~BI et l'uninominal à deux tours (5~\%). Les moins bonnes performances sont atteintes par le vote par assentiment (15~\%), l'uninominal (22~\%) et Veto (31~\%).
+
+Pour tous les modes de scrutin présentés ici sauf Veto, chaque cas de violation du critère de Condorcet est aussi un cas de manipulabilité triviale en faveur du vainqueur de Condorcet: ainsi, on sait par exemple, d'ores et déjà, que le taux de MT d'uninominal est au moins de 22~\%, ne serait-ce que pour cette raison.
+
+
+
+\vspace{-0.1cm}%MAGOUILLE
+\section{Manipulation par coalition}
+
+\subsection{Taux de MC moyens}
+
+\begin{figure}
+\begin{bigcenter}
+\includegraphics[width=\textwidth]{figures/algotel_CM_value.png}
+\end{bigcenter}
+\caption{Algotel: Taux de manipulabilité par coalition (MC)}\label{fig:algotel_CM_value}
+\end{figure}
+
+%\begin{table}
+%\centering
+%\begin{tabular}{|l|r|r|r|r|r|r|}
+%\hline \multicolumn{1}{|c|}{Système de vote} & \multicolumn{6}{|c|}{Taux de manipulation} \\ \hline
+% & \multicolumn{1}{c|}{Total} & \multicolumn{1}{c|}{Pour $ A $} & \multicolumn{1}{c|}{Pour $ B $}& \multicolumn{1}{c|}{Pour $ C $} & \multicolumn{1}{c|}{Pour $ D $} & \multicolumn{1}{c|}{Pour $ E $}  \\
+%\hline\hline VA & 100,0\% & 0,0\% & 100,0\% & 100,0\% & 100,0\% & 100,0\% \\ 
+%\hline VN & 100,0\% & 0,0\% & 100,0\% & 100,0\% & 100,0\% & 100,0\% \\  
+%\hline Coombs* & 100,0\% & 0,0\% & 95,5\%  & 98,1\% & 37,1\% & 80,6\%\\ 
+%\hline VN normalisé & 99,9\% & 0,0\% & 74,6\% & 99,7\% & 0,7\% & 3,6\%\\ 
+%\hline JM & 99,1\% & 0,0\% & 17,7\% & 98,9\% & 0,0\% & 0,43\% \\ 
+%\hline Uninominal & 99,0\% & 17,8\% & 77,8\% & 92,3\% & 95,1\% & 67,6\% \\ 
+%\hline Borda & 98,9\% & 0,0\% & 94,1\% & 86,8\% & 39,0\% & 19,6\% \\ 
+%\hline \textbf{Nanson}* & 72,2\% & 0,0\% & 56,4\% & 41,8\% & 31,5\% & 6,1\% \\ 
+%\hline \textbf{Kemeny}* & 72,0\% & 0,0\% & 57,3\% & 37,5\% & 22,0\% & 5,3\% \\ 
+%\hline Veto & 71,6\% & 0,0\% & 26,5\% & 54,3\% & 0,03\% & 1,1\% \\ 
+%\hline Bucklin* & 26,9\% & 0,14\% & 11,9\% & 16,8\% & 0,06\% & 0,03\% \\ 
+%\hline \textbf{Baldwin}* & 25,4\% & 0,0\% & 17,4\% & 9,4\% & 7,0\% & 0,42\% \\ 
+%\hline U2T & 23,5\% & 0,08\% & 12,1\% & 21,5\% & 13,8\% & 3,8\%\\ 
+%\hline \textbf{Maximin} & 23,3\% & 0,0\% & 16,4\% & 13,3\% & 0,9\% & 0,02\% \\ 
+%\hline \textbf{PO}* & 16,8\% & 0,0\% & 9,1\% & 9,0\% & 0,3\% & 0,0\% \\ 
+%\hline \textbf{Schulze}* & 16,0\% & 0,0\% & 8,3\% & 8,9\% & 0,1\% & 0,1\% \\ 
+%\hline  VTI & 0,14\% & 0,05\% & 0,07\% & 0,08\% & 0,01\% & 0,01\% \\
+%%\hline\hline Moyenne & 61,4\% & 1,1\% & 45,6\% & 52,2\% & 26,3\% & 22,9\% \\ 
+%\hline 
+%\end{tabular} 
+%%\vspace{-.2cm}
+%\caption{Probabilité de manipulation, en faveur d'un candidat non élu et au total. $*$ : estimation inférieure.}
+%%\vspace{-.3cm}
+%\label{tab:manipulabilite}
+%\end{table}
+
+Revenons à l'expérience Algotel. Sur la figure~\ref{fig:algotel_CM_value}, on peut lire le taux de CM pour chaque mode de scrutin. Le graphique se lit ainsi: par exemple, l'uninominal à deux tours (U2T) est manipulable dans 30~\% des réalisations. Comme nous le disions précédemment, il s'agit du taux de MC de ce mode de scrutin dans une culture qui consiste à tirer une configuration aléatoirement sur un petit voisinage autour de l'expérience réelle dans l'espace des préférences. 
+
+Comme certains algorithmes utilisés sont approchés, une barre d'erreur est indiquée pour les modes de scrutin concernés: par exemple, le taux de CM de la méthode de Schulze est compris entre 25~\% et 37~\%. Pour d'autres modes de scrutin, comme Maximin et la méthode de Borda, l'algorithme utilisé n'est pas exact en théorie\footnote{Pour ces modes de scrutin, on a utilisé l'option \mylstinline"fast" de \svvamp{}.}, mais on constate que la barre d'erreur est de taille nulle: dans le cas particulier de cette expérience, l'algorithme a permis de décider la manipulabilité pour toutes les réalisations tirées.
+
+%L'analyse est ici plus complexe que pour la manipulation triviale, en raison de cette marge d'incertitude due à des contraintes algorithmiques. Par exemple, on ne sait pas si la méthode de Schulze, dont le taux est entre 25~\% et 37~\%, est moins manipulable que l'uninominal à deux tours, qui a un taux de 30~\%. En revanche, on sait que la méthode de Schulze est moins manipulable que la méthode de Nanson, qui a un taux d'au moins 74~\%.
+
+%Pour un mode de scrutin $f$, notons $\underline{\rho_\CM(f)}$ la borne inférieure trouvée par \svvamp{} et $\overline{\rho_\CM(f)}$ la borne supérieure. Pour deux modes de scrutin distincts $f$ et $g$, si $\overline{\rho_\CM(f)} < \underline{\rho_\CM(g)}$, alors il est \emph{sûr} que $f$ a un taux de CM strictement inférieur à celui de $g$ pour cette expérience; sinon et si $\underline{\rho_\CM(f)} < \overline{\rho_\CM(g)}$, il est \emph{possible} que $f$ ait un taux de CM inférieur ou égal à celui de $g$.
+
+Pour cette expérience Algotel, on voit que CVTI, VTI et SE sont meilleurs que tous les autres modes de scrutin, avec un taux de CM inférieur à 1~\% (l'incertitude d'origine statistique). À l'inverse, les modes de scrutin présentant les pires performances avérées sont la méthode de Borda, l'uninominal, le vote par assentiment, la méthode de Coombs, le jugement majoritaire et le vote par notation, avec des taux de MC proches de 100~\%.
+
+%\begin{table}[H]
+%\begin{center}
+%\begin{tabular}{IlIr|>{~~}r@{ }l|rI}
+%\Cline{1pt}{1-5}
+%Mode de scrutin & 	Minimum & 	\multicolumn{2}{c|}{Moyenne} &		Maximum \tabularnewline\Cline{1pt}{1-5}
+%Condorcet-VTI & 	0 & 	9 & 	(9) & 	100 \tabularnewline\hline
+%VTI & 	0 & 	9 & 	\multicolumn{1}{l|}{} & 	100 \tabularnewline\hline
+%Scrutin exhaustif & 	0 & 	9 & 	\multicolumn{1}{l|}{} & 	100 \tabularnewline\hline
+%Uninominal à deux tours & 	0 & 	37 & 	\multicolumn{1}{l|}{} & 	100 \tabularnewline\hline
+%Baldwin & 	0 & 	43 & 	(84) & 	100 \tabularnewline\hline
+%VTI-D & 	0 & 	54 & 	(84) & 	100 \tabularnewline\hline
+%Paires ordonnées & 	0 & 	56 & 	(84) & 	100 \tabularnewline\hline
+%Maximin & 	0 & 	56 & 	(57) & 	100 \tabularnewline\hline
+%Schulze & 	0 & 	56 & 	(58) & 	100 \tabularnewline\hline
+%Nanson & 	0 & 	61 & 	(84) & 	100 \tabularnewline\hline
+%Condorcet Somme Défaites & 	0 & 	62 & 	(84) & 	100 \tabularnewline\hline
+%Uninominal & 	0 & 	72 & 	\multicolumn{1}{l|}{} & 	100 \tabularnewline\hline
+%Bucklin itéré & 	0 & 	75 & 	(87) & 	100 \tabularnewline\hline
+%Jugement majoritaire & 	0 & 	77 & 	\multicolumn{1}{l|}{} & 	100 \tabularnewline\hline
+%Bucklin & 	0 & 	81 & 	\multicolumn{1}{l|}{} & 	100 \tabularnewline\hline
+%Assentiment & 	0 & 	89 & 	\multicolumn{1}{l|}{} & 	100 \tabularnewline\hline
+%Vote par notation & 	0 & 	90 & 	\multicolumn{1}{l|}{} & 	100 \tabularnewline\hline
+%Borda & 	0 & 	91 & 	\multicolumn{1}{l|}{} & 	100 \tabularnewline\hline
+%Coombs & 	0 & 	94 & 	\multicolumn{1}{l|}{} & 	100 \tabularnewline\hline
+%Veto & 	0 & 	96 & 	\multicolumn{1}{l|}{} & 	100 \tabularnewline\Cline{1pt}{1-5}
+%\end{tabular}
+%\begin{tabular}{IlI>{~~}r@{ }lI}
+%\Cline{1pt}{1-3}
+%Mode de scrutin & 	\multicolumn{2}{cI}{Moyenne}	\tabularnewline\Cline{1pt}{1-3}
+%Condorcet-VTI & 	9 & 	(9) \tabularnewline\hline
+%VTI & 	9 & 	\multicolumn{1}{lI}{} \tabularnewline\hline
+%Scrutin exhaustif & 	9 & 	\multicolumn{1}{lI}{} \tabularnewline\hline
+%Uninominal à deux tours & 	37 & 	\multicolumn{1}{lI}{} \tabularnewline\hline
+%Baldwin & 	43 & 	(84) \tabularnewline\hline
+%VTI-D & 	54 & 	(84) \tabularnewline\hline
+%Paires ordonnées & 	56 & 	(84) \tabularnewline\hline
+%Maximin & 	56 & 	(57) \tabularnewline\hline
+%Schulze & 	56 & 	(58) \tabularnewline\hline
+%Nanson & 	61 & 	(84) \tabularnewline\hline
+%Condorcet Somme Défaites & 	62 & 	(84) \tabularnewline\hline
+%Uninominal & 	72 & 	\multicolumn{1}{lI}{} \tabularnewline\hline
+%Bucklin itéré & 	75 & 	(87) \tabularnewline\hline
+%Jugement majoritaire & 	77 & 	\multicolumn{1}{lI}{} \tabularnewline\hline
+%Bucklin & 	81 & 	\multicolumn{1}{lI}{} \tabularnewline\hline
+%Assentiment & 	89 & 	\multicolumn{1}{lI}{} \tabularnewline\hline
+%Vote par notation & 	90 & 	\multicolumn{1}{lI}{} \tabularnewline\hline
+%Borda & 	91 & 	\multicolumn{1}{lI}{} \tabularnewline\hline
+%Coombs & 	94 & 	\multicolumn{1}{lI}{} \tabularnewline\hline
+%Veto & 	96 & 	\multicolumn{1}{lI}{} \tabularnewline\Cline{1pt}{1-3}
+%\end{tabular}
+%\end{center}
+%\caption{Taux de manipulation par coalition (MC), en pourcents}
+%\end{table}
+\begin{figure}
+\begin{bigcenter}
+\includegraphics[width=1\textwidth]{figures/mea_CM_value.png}
+\end{bigcenter}
+\caption{Méta-analyse: Taux de manipulabilité par coalition (MC)}\label{fig:mea_CM_value}
+\end{figure}
+
+\medskip
+Passons à présent à la méta-analyse. Les taux de MC moyens sont représentés dans la figure~\ref{fig:mea_CM_value}. Pour les modes de scrutin sans algorithme spécifique dédié (Baldwin, VTID, etc.), les bornes supérieures trouvées par \svvamp{} sont significativement inférieures à 100~\%. Pour l'expliquer, rappelons qu'il y a un vainqueur de Condorcet résistant dans 16~\% des réalisations: dans tous ces cas, \svvamp{} sait que les modes de scrutin Condorcet sont non manipulables (section~\ref{sec:archi_CM}). Pour la méthode de Bucklin itérée (BI), \svvamp{} utilise un résultat similaire avec le favori majoritaire. Remarquons que les algorithmes utilisés pour CVTI, Maximin et la méthode de Borda, bien qu'approchés en théorie, échouent à décider la manipulabilité dans moins de 1~\% des situations étudiées ici.
+
+En ce qui concerne le taux de MC moyen, on est de nouveau frappé par la bonne performance de CVTI, VTI et SE (9\%). Même si on sait, par la théorie, que CVTI est strictement moins manipulable que VTI (corolaire~\ref{thm:classical_voting_systems_not_Cond_resist} des théorèmes de condorcification), qui est lui-même strictement moins manipulable que SE (section~\ref{sec:reducation_general_vers_svbe}), la différence est inférieure à 1~\% sur ce corpus d'expériences\footnote{Sur les réalisations utilisées, \svvamp{} trouve un taux de manipulabilité moyen de $9,\!32~\%$ pour SE, $9,\!28~\%$ pour IRV et compris entre $9,\!20~\%$ et $9,\!28~\%$ pour CVTI. Les différences sont donc détectables mais leurs amplitudes, inférieures à l'incertitude statistique, ne doivent être considérées que comme indicatives.}. Ce résultat est similaire avec ce que nous avions constaté sur des populations artificielles dans les chapitres \ref{sec:simulations_spheroidal} et~\ref{sec:simulations_unidim}, hormis le fait que dans les cultures unidimensionnelles, on constatait plus souvent une légère différence entre VTI et SE.
+
+Tous les autres modes de scrutin sont nettement plus manipulables, même l'uninominal à deux tours avec un taux de MC de 37~\%. Qualitativement, cette différence est plus proche de ce qu'on constatait pour les cultures sphéroïdales ou de spectre politique multidimensionnel que pour les cultures unidimensionnelles.
+
+Les plus manipulables en moyenne, avec des taux proches de 90~\% voire supérieurs, sont le vote par assentiment, le vote par notation, la méthode de Borda, la méthode de Coombs et Veto. Ces résultats sont similaires avec ceux des chapitres \ref{sec:simulations_spheroidal} et~\ref{sec:simulations_unidim}, excepté la méthode de Coombs dont le mauvais comportement est plus proche des résultats obtenus dans les cultures sphéroïdales ou de spectre politique multidimensionnel que dans les cultures unidimensionnelles.
+
+On sait que, dans tous les modes de scrutin considérés ici sauf Veto, si le gagnant n'est pas Condorcet-admissible (soit qu'il n'y en ait pas, soit que le mode de scrutin ne l'élise pas), la situation est forcément manipulable (lemme~\ref{thm_NonAdmManip}). Cela a amené certains auteurs \citep[par exemple][]{lepelley2003homogeneity} à penser que les modes de scrutin Condorcet pourraient être moins manipulables. Si cela semble globalement se vérifier, il faut nuancer. En effet, il y une grande disparité: alors que CVTI a un taux de MC de 9\%, Maximin et la méthode de Schulze ont un taux de CM compris entre 56~\% et 58~\%,  ce qui les place significativement derrière VTI (9~\%), qui ne respecte pourtant pas le critère de Condorcet. Sur ce point également, les résultats obtenus sont plus proches de ceux des  cultures sphéroïdales et de spectre politique multidimensionnel que de ceux des cultures unidimensionnelles.
+
+
+%\begin{table}
+%\begin{bigcenter}
+%\begin{tabular}{Ic|c|cI}
+%\Cline{1pt}{1-3}
+%Expériences & Cultures sphéroïdales & Cultures unidimensionnelles \\ \Cline{1pt}{1-3}
+%\multicolumn{3}{IcI}{VA, VN, Bor. très MC} \\ \hline
+%\multicolumn{3}{IcI}{CVTI et VTI similaires} \\ \hline
+%\multicolumn{2}{Ic|}{VTI et SE similaires} & Légère différence entre SE et VTI \\ \hline
+%\multicolumn{2}{Ic|}{CVTI, VTI, SE très peu MC} & CVTI, VTI, SE assez peu MC \\ \hline
+%\multicolumn{2}{Ic|}{CVTI, VTI, SE meilleurs qu'U2T} & CVTI, VTI, SE comparables avec U2T \\ \hline
+%\multicolumn{2}{Ic|}{Max. et Sch. assez MC} & Max. et Sch. peu MC \\ \hline
+%\multicolumn{2}{Ic|}{Coo. très MC} & Coo. assez peu MC \\ \hline
+%Veto très MC & \multicolumn{2}{|cI}{Veto variable} \\\hline
+%\end{tabular}
+%\end{bigcenter}
+%\caption{Comparaison qualitative de la MC entre les expériences et les cultures artificielles}\label{table:comparaison_expes_sph_unidim}
+%\end{table}
+
+
+\subsection{MC comparée des systèmes de vote}
+\vspace{-0.2cm}%MAGOUILLE
+
+
+\begin{table}[H]
+\begin{bigcenter}\footnotesize
+\begin{tabular}{IlI*{19}{@{\minispace}>{\raggedleft}p{.85cm}@{\minispace}|}@{\minispace}>{\raggedleft}p{.85cm}@{\minispace}I}
+\Cline{1pt}{1-21}
+ & 	CVTI & 	VTI & 	SE & 	U2T & 	Max. & 	Sch. & 	Bald. & 	VTID & 	PO & 	Nan. & 	Uni. & 	CSD & 	JM & 	BI & 	Buck. & 	VA & 	Bor. & 	Veto & 	VN & 	Coo. \tabularnewline\Cline{1pt}{1-21}
+CVTI & 	--- &	0\\ (4) &	\textbf{0\\ (4)} &	\textbf{40} &	\textbf{62} &	\textbf{62} &	\textbf{49\\ (81)} &	\textbf{60\\ (81)} &	\textbf{61\\ (81)} &	\textbf{63\\ (81)} &	\textbf{70} &	\textbf{64\\ (81)} &	\textbf{76} &	\textbf{78\\ (83)} &	\textbf{80} &	\textbf{86} &	\textbf{88} &	\textbf{92} &	\textbf{86} &	\textbf{90} \tabularnewline\hline
+VTI & 	0 &	--- &	\textbf{3} &	\textbf{40} &	\textbf{62} &	\textbf{62} &	\textbf{49\\ (81)} &	\textbf{60\\ (81)} &	\textbf{61\\ (81)} &	\textbf{63\\ (81)} &	\textbf{70} &	\textbf{64\\ (81)} &	\textbf{76} &	\textbf{78\\ (83)} &	\textbf{80} &	\textbf{86} &	\textbf{88} &	\textbf{92} &	\textbf{86} &	\textbf{90} \tabularnewline\hline
+SE & 	0 &	0 &	--- &	\textbf{40} &	\textbf{62} &	\textbf{62} &	\textbf{49\\ (81)} &	\textbf{60\\ (81)} &	\textbf{61\\ (81)} &	\textbf{63\\ (81)} &	\textbf{70} &	\textbf{64\\ (81)} &	\textbf{76} &	\textbf{78\\ (83)} &	\textbf{80} &	\textbf{86} &	\textbf{88} &	\textbf{92} &	\textbf{86} &	\textbf{90} \tabularnewline\hline
+U2T & 	0 &	0 &	0 &	--- &	\textbf{35} &	\textbf{35\\ (37)} &	\textbf{18\\ (55)} &	\textbf{30\\ (55)} &	\textbf{33\\ (55)} &	\textbf{37\\ (55)} &	\textbf{45} &	\textbf{39\\ (55)} &	\textbf{50} &	\textbf{51\\ (57)} &	\textbf{55} &	\textbf{60} &	\textbf{62} &	\textbf{67} &	\textbf{60} &	\textbf{64} \tabularnewline\hline
+Max. & 	0 &	0 &	0 &	5 &	--- &	0\\ (14) &	1\\ (38) &	0\\ (38) &	1\\ (38) &	\textbf{14\\ (38)} &	\textbf{27} &	\textbf{19\\ (38)} &	\textbf{33} &	\textbf{31\\ (40)} &	\textbf{38} &	\textbf{43} &	\textbf{45} &	\textbf{49} &	\textbf{43} &	\textbf{47} \tabularnewline\hline
+Sch. & 	0 &	0 &	0 &	3\\ (5) &	0\\ (4) &	--- &	1\\ (38) &	0\\ (38) &	0\\ (38) &	\textbf{10\\ (38)} &	\textbf{26\\ (27)} &	\textbf{13\\ (38)} &	\textbf{32\\ (33)} &	\textbf{27\\ (40)} &	\textbf{33\\ (38)} &	\textbf{42\\ (43)} &	\textbf{44\\ (45)} &	\textbf{49} &	\textbf{42\\ (43)} &	\textbf{46\\ (47)} \tabularnewline\hline
+Bald. & 	0 &	0 &	0 &	1\\ (10) &	0\\ (30) &	0\\ (31) &	--- &	0\\ (50) &	0\\ (50) &	0\\ (50) &	2\\ (39) &	0\\ (50) &	4\\ (45) &	0\\ (52) &	3\\ (49) &	\textbf{16\\ (55)} &	\textbf{18\\ (57)} &	\textbf{23\\ (61)} &	\textbf{16\\ (55)} &	\textbf{20\\ (59)} \tabularnewline\hline
+VTID & 	0 &	0 &	0 &	1\\ (8) &	0\\ (17) &	0\\ (18) &	0\\ (40) &	--- &	0\\ (40) &	0\\ (40) &	2\\ (29) &	0\\ (40) &	4\\ (35) &	0\\ (42) &	3\\ (39) &	\textbf{16\\ (45)} &	\textbf{18\\ (46)} &	\textbf{23\\ (51)} &	\textbf{16\\ (45)} &	\textbf{20\\ (49)} \tabularnewline\hline
+PO & 	0 &	0 &	0 &	1\\ (7) &	0\\ (11) &	0\\ (15) &	0\\ (38) &	0\\ (38) &	--- &	0\\ (38) &	2\\ (27) &	0\\ (38) &	4\\ (33) &	0\\ (40) &	3\\ (38) &	\textbf{16\\ (43)} &	\textbf{18\\ (45)} &	\textbf{23\\ (49)} &	\textbf{16\\ (43)} &	\textbf{20\\ (47)} \tabularnewline\hline
+Nan. & 	0 &	0 &	0 &	1\\ (2) &	0\\ (5) &	0\\ (10) &	0\\ (34) &	0\\ (34) &	0\\ (34) &	--- &	2\\ (23) &	0\\ (34) &	4\\ (28) &	0\\ (36) &	3\\ (33) &	\textbf{16\\ (39)} &	\textbf{18\\ (40)} &	\textbf{23\\ (45)} &	\textbf{16\\ (39)} &	\textbf{20\\ (43)} \tabularnewline\hline
+Uni. & 	0 &	0 &	0 &	0 &	0 &	0\\ (2) &	0\\ (23) &	0\\ (23) &	0\\ (23) &	0\\ (23) &	--- &	1\\ (23) &	\textbf{15} &	13\\ (24) &	\textbf{15} &	\textbf{26} &	\textbf{29} &	\textbf{34} &	\textbf{27} &	\textbf{32} \tabularnewline\hline
+CSD & 	0 &	0 &	0 &	1 &	0 &	0\\ (6) &	0\\ (33) &	0\\ (33) &	0\\ (33) &	0\\ (33) &	2\\ (20) &	--- &	4\\ (27) &	0\\ (35) &	3\\ (31) &	\textbf{16\\ (38)} &	\textbf{17\\ (40)} &	\textbf{23\\ (45)} &	\textbf{16\\ (38)} &	\textbf{20\\ (42)} \tabularnewline\hline
+JM & 	0 &	0 &	0 &	1 &	0 &	0 &	0\\ (17) &	0\\ (17) &	0\\ (17) &	1\\ (17) &	4 &	1\\ (17) &	--- &	9\\ (19) &	\textbf{11} &	\textbf{23} &	\textbf{23} &	\textbf{27} &	\textbf{23} &	\textbf{27} \tabularnewline\hline
+BI & 	0 &	0 &	0 &	0\\ (3) &	0\\ (3) &	0\\ (7) &	0\\ (21) &	0\\ (21) &	0\\ (21) &	0\\ (21) &	0\\ (16) &	0\\ (21) &	2\\ (17) &	--- &	0\\ (19) &	\textbf{10\\ (26)} &	\textbf{8\\ (29)} &	\textbf{14\\ (33)} &	\textbf{10\\ (26)} &	\textbf{11\\ (31)} \tabularnewline\hline
+Buck. & 	0 &	0 &	0 &	1 &	0 &	0\\ (3) &	0\\ (13) &	0\\ (13) &	0\\ (13) &	1\\ (13) &	10 &	2\\ (13) &	\textbf{11} &	1\\ (15) &	--- &	\textbf{17} &	\textbf{20} &	\textbf{25} &	\textbf{18} &	\textbf{23} \tabularnewline\hline
+VA & 	0 &	0 &	0 &	1 &	0 &	0 &	0\\ (6) &	0\\ (6) &	0\\ (6) &	0\\ (6) &	3 &	0\\ (6) &	1 &	2\\ (7) &	4 &	--- &	\textbf{8} &	\textbf{11} &	\textbf{5} &	\textbf{10} \tabularnewline\hline
+Bor. & 	0 &	0 &	0 &	1 &	0 &	0 &	0\\ (1) &	0\\ (1) &	0\\ (1) &	0\\ (1) &	1 &	0\\ (2) &	2 &	0\\ (5) &	0 &	5 &	--- &	\textbf{10} &	\textbf{4} &	\textbf{9} \tabularnewline\hline
+Veto & 	0 &	0 &	0 &	2 &	4 &	4 &	3\\ (8) &	4\\ (8) &	4\\ (8) &	5\\ (8) &	5 &	4\\ (8) &	8 &	5\\ (8) &	5 &	10 &	9 &	--- &	\textbf{10} &	\textbf{10} \tabularnewline\hline
+VN & 	0 &	0 &	0 &	1 &	0 &	0 &	0\\ (2) &	0\\ (2) &	0\\ (2) &	0\\ (2) &	2 &	0\\ (2) &	1 &	1\\ (3) &	1 &	2 &	\textbf{4} &	8 &	--- &	\textbf{6} \tabularnewline\hline
+Coo. & 	0 &	0 &	0 &	0 &	0 &	0 &	0\\ (1) &	0\\ (1) &	0\\ (1) &	0\\ (1) &	0 &	0\\ (1) &	1 &	0\\ (3) &	1 &	5 &	1 &	7 &	4 &	--- \tabularnewline\Cline{1pt}{1-21}
+\end{tabular}
+\end{bigcenter}
+\caption{Méta-analyse: Comparaison de la MC par paire de modes de scrutin (en pourcents)}\label{table:comparison_pair_CM}
+\end{table}
+
+\vspace{-0.2cm}%MAGOUILLE
+Comme nous l'avons fait dans les méta-analyses des chapitres \ref{sec:simulations_spheroidal} et~\ref{sec:simulations_unidim}, nous allons, à présent, comparer les modes de scrutin par paire sur le corpus d'expériences. Comme il est difficile de donner des résultats détaillés pour toutes les expériences, contrairement aux chapitres précédents où des courbes permettaient de visualiser les résultats comparés des différents modes de scrutin, nous fournissons la table~\ref{table:comparison_pair_CM} qui permet d'établir le graphe de méta-analyse.
+
+Cette table se lit de la façon suivante. Dans la cellule (U2T, Sch.) par exemple, le premier chiffre signifie qu'on est \emph{sûr} qu'U2T a un taux de MC strictement inférieur à celui de la méthode de Schulze dans 35~\% des expériences (au sens où la borne supérieure pour le premier est strictement inférieure à la borne inférieure pour le second). Le chiffre indiqué entre parenthèses signifie qu'il est \emph{possible} que ce soit le cas dans 37~\% des expériences (au sens où la borne inférieure pour le premier est strictement inférieure à la borne supérieure pour le second).
+
+À l'inverse, dans la cellule (Sch., U2T) de la table, on lit qu'il est sûr que la méthode de Schulze ait un taux de CM inférieur ou égal à celui d'U2T dans 3~\% des expériences, et que c'est possible dans 5~\% des expériences.
+
+Avec une pondération uniforme sur les 168~expériences, on peut conclure que ce match est gagné pour U2T. En effet, même dans l'hypothèse la plus défavorable pour U2T, celui-ci a un taux de MC strictement inférieur à celui de la méthode de Schulze dans 35~\% des expériences; alors que la méthode de Schulze a un taux strictement inférieur à U2T dans 5~\% des expériences. À titre indicatif, de telles victoires basées sur une pondération uniforme sont indiquées en caractères gras dans le tableau. En raison de l'incertitude sur certains modes de scrutin, nous ne sommes pas en mesure de fournir les résultats de tous les matchs et nous complèterons nos résultats par une méta-analyse de la~MT. 
+
+%Les résultats de ces matchs entre modes de scrutin sont représentés dans la figure~\ref{fig:mea_MC_comparison}, qui est tracée avec les mêmes conventions que la figure~\ref{fig:mea_TM_comparison}. Dans le tableau~\ref{table:comparison_pair_CM}, il y a deux égalités que nous avons choisi de ne pas représenter pour ne pas alourdir la figure: entre le jugement majoritaire et la méthode de Bucklin, et entre la méthode de Borda et le vote par notation. On remarquera d'ailleurs que cette seconde égalité viole la transivitié de la relation de victoire. Sur cette figure, on observe de nouveau les bonnes performances de CVTI suivi de VTI, SE et l'uninominal à deux tours. À l'inverse, les plus mauvaises performances atteintes pour le vote par assentiment, la méthode de Borda, Veto, le vote par notation et la méthode de Coombs.
+
+\medskip
+Comme nous l'avions fait dans les chapitres précédents, nous présentons en figure~\ref{fig:mea_CM_comparison_killbears} le graphe de méta-analyse, qui se base sur des victoires dans la totalité des expériences: une flèche d'un mode de scrutin $f$ vers un mode de scrutin $g$ signifie qu'il est sûr que $g$ n'a un taux strictement inférieur à celui de $f$ dans aucune expérience. Cette propriété est donc indépendante de la pondération choisie sur les 168~expériences. 
+
+La conclusion la plus frappante est que CVTI domine VTI, qui domine SE (ce que nous savions déjà par la théorie), et que ce dernier domine tous les autres modes de scrutin étudiés dans la totalité des expériences. Maximin et la méthode de Schulze, dont les algorithmes approchés permettent une incertitude limitée, fournissent un bon point de comparaison avec les autres modes de scrutin. On constate notamment que les performances les plus médiocres sont atteintes par les méthodes de Coombs et Borda, CSD, le jugement majoritaire, le vote par assentiment et le vote par notation. Les mauvaises performances de la méthode de Borda, du jugement majoritaire, du vote par assentiment et du vote par notation sont similaires à ceux des chapitres \ref{sec:simulations_spheroidal} et~\ref{sec:simulations_unidim}. Les points suivants sont plus proches des comportements constatés dans les cultures sphéroïdales ou de spectre politique multidimensionnel: la suprématie de CVTI, VTI et SE; les performances intermédiaires de Maximin et la méthode de Schulze (alors qu'elles sont assez bonnes en culture unidimensionnelle); et les performances médiocres de la méthode de Coombs et de CSD (alors qu'elles sont correctes en culture unidimensionnelle).
+
+%\begin{figure}
+%\begin{bigcenter}
+%\begin{tikzpicture}[->,>=latex,shorten >=1pt,auto,node distance=3cm,
+%  thick,main node/.style={fill=blue!20,draw},yscale=1]
+%
+%  \node[main node,minimum width=1.2cm] (CVTI) at (0,0) {\strut CVTI};
+%  \node[main node,minimum width=1.2cm] (VTI) at (0,-1) {\strut VTI};
+%  \node[main node,minimum width=1.2cm] (SE) at (0,-2) {\strut SE};
+%  \node[main node,minimum width=1.2cm] (U2T) at (0,-3) {\strut U2T};
+%  \begin{scope}[xshift=0cm]
+%  \node[main node,minimum width=1.2cm] (Max) at (-3.2,-5) {\strut Max.};
+%  \node[main node,minimum width=1.2cm] (Sch) at (-1.6,-5) {\strut Sch.};
+%  \end{scope}
+%  \begin{scope}[xshift=2.6cm,yshift=-2.5cm]
+%  \node[main node,minimum width=1.2cm] (Bald) at (0,-5) {\strut Bald.};
+%  \node[main node,minimum width=1.2cm] (VTID) at (1.6,-5) {\strut VTID};
+%  \node[main node,minimum width=1.2cm] (PO) at (3.2,-5) {\strut PO};
+%  \end{scope}
+%  \begin{scope}[xshift=-2.2cm,yshift=-0.5cm]
+%  \node[main node,minimum width=1.2cm] (JM) at (-3.6,-7.5) {\strut JM};
+%  \node[main node,minimum width=1.2cm] (Uni) at (-2.6,-6.5) {\strut Uni.};
+%  \node[main node,minimum width=1.2cm] (Buck) at (-1.6,-7.5) {\strut Buck.};
+%  \node[main node,minimum width=1.2cm] (Nan) at (0,-7) {\strut Nan.};
+%  \node[main node,minimum width=1.2cm] (CSD) at (1.6,-7) {\strut CSD};
+%  \node[main node,minimum width=1.2cm] (BI) at (3.2,-7) {\strut BI};
+%  \end{scope}
+%  \begin{scope}[xshift=0cm,yshift=-1cm]
+%  \node[main node,minimum width=1.2cm] (VA) at (0,-9) {\strut VA};
+%  \end{scope}
+%  \begin{scope}[xshift=0cm,yshift=-1cm]
+%  \node[main node,minimum width=1.2cm] (Bor) at (0,-10) {\strut Bor.};
+%  \node[main node,minimum width=1.2cm] (Veto) at (0,-11) {\strut Veto};
+%  \node[main node,minimum width=1.2cm] (VN) at (0,-12) {\strut VN};
+%  \end{scope}
+%  \begin{scope}[xshift=0cm,yshift=-1cm]
+%  \node[main node,minimum width=1.2cm] (Coo) at (0,-13) {\strut Coo.};
+%  \end{scope}
+%
+%  \path
+%    (CVTI) edge (VTI)
+%    (VTI) edge (SE)
+%    (SE) edge (U2T)
+%    (U2T) edge (Max.north)
+%    (U2T) edge (Sch.north)
+%    (U2T) edge (Bald.north)
+%    (U2T) edge (VTID.north)
+%    (U2T) edge (PO.north)
+%    (Max.south) edge (Nan.north)
+%    (Max.south) edge (Uni.north)
+%    (Max.south) edge (CSD.north)
+%    (Max.south) edge (BI.north)
+%    (Sch.south) edge (Nan.north)
+%    (Sch.south) edge (Uni.north)
+%    (Sch.south) edge (CSD.north)
+%    (Sch.south) edge (BI.north)
+%    (Bald.south) edge (VA)
+%    (VTID.south) edge (VA)
+%    (PO.south) edge (VA)
+%    (Nan.south) edge (VA)
+%    (Uni) edge (JM)
+%    (Uni) edge (Buck)
+%    (CSD.south) edge (VA)
+%    (JM.south) edge (VA)
+%%    (JM) edge (Buck)
+%%    (Buck) edge (JM)
+%    (BI.south) edge (VA)
+%    (Buck.south) edge (VA)
+%    (VA) edge (Bor)
+%    (Bor) edge (Veto)
+%    (Veto) edge (VN)
+%    (VN) edge (Coo)
+%%    (VN) edge[bend right] (Bor)
+%%    (Bor) edge[bend left] (VN)
+%;
+%\end{tikzpicture}
+%\end{bigcenter}
+%\caption{Méta-analyse: Comparaison de la MC par paire de modes de scrutin (victoires certaines dans la majorité des expériences)}\label{fig:mea_MC_comparison}
+%\end{figure}
+
+\begin{figure}
+\begin{bigcenter}
+\begin{tikzpicture}[->,>=latex,shorten >=1pt,auto,node distance=3cm,
+  thick,main node/.style={fill=blue!20,draw},yscale=1]
+
+  \node[main node,minimum width=1.2cm] (CVTI) at (0,0) {\strut CVTI};
+  \node[main node,minimum width=1.2cm] (VTI) at (0,-1) {\strut VTI};
+  \node[main node,minimum width=1.2cm] (SE) at (0,-2) {\strut SE};
+  \begin{scope}[xshift=0cm]
+  \node[main node,minimum width=1.2cm] (U2T) at (-6.4,-4) {\strut U2T};
+  \node[main node,minimum width=1.2cm] (Max) at (-4.8,-4) {\strut Max.};
+  \node[main node,minimum width=1.2cm] (Sch) at (-3.2,-4) {\strut Sch.};
+  \end{scope}
+  \begin{scope}[xshift=0cm,yshift=2cm]
+  \node[main node,minimum width=1.2cm] (Bald) at (-1.6,-6) {\strut Bald.};
+  \node[main node,minimum width=1.2cm] (VTID) at (0,-6) {\strut VTID};
+  \node[main node,minimum width=1.2cm] (PO) at (1.6,-6) {\strut PO};
+  \node[main node,minimum width=1.2cm] (Nan) at (3.2,-6) {\strut Nan.};
+  \node[main node,minimum width=1.2cm] (BI) at (4.8,-6) {\strut BI};
+  \node[main node,minimum width=1.2cm] (Veto) at (6.4,-6) {\strut Veto};
+  \end{scope}
+  \begin{scope}[xshift=0cm,yshift=2cm]
+  \node[main node,minimum width=1.2cm] (Buck) at (-4.8,-8) {\strut Buck.};
+  \node[main node,minimum width=1.2cm] (Uni) at (-6.4,-8) {\strut Uni.};
+  \end{scope}
+  \begin{scope}[xshift=4.0cm,yshift=2cm]
+  \node[main node,minimum width=1.2cm] (Coo) at (-8.0,-10) {\strut Coo.};
+  \node[main node,minimum width=1.2cm] (Bor) at (-6.4,-10) {\strut Bor.};
+  \node[main node,minimum width=1.2cm] (CSD) at (-4.8,-10) {\strut CSD};
+  \node[main node,minimum width=1.2cm] (JM) at (-3.2,-10) {\strut JM};
+  \node[main node,minimum width=1.2cm] (VA) at (-1.6,-10) {\strut VA};
+  \node[main node,minimum width=1.2cm] (VN) at (0,-10) {\strut VN};
+  \end{scope}
+
+  \path
+    (CVTI) edge (VTI)
+    (VTI) edge (SE)
+    (SE.south) edge (U2T.north)
+    (SE.south) edge (Max.north)
+    (SE.south) edge (Sch.north)
+    (SE.south) edge (Bald.north)
+    (SE.south) edge (VTID.north)
+    (SE.south) edge (PO.north)
+    (SE.south) edge (Nan.north)
+    (SE.south) edge (BI.north)
+    (SE.south) edge (Veto.north)
+	(U2T.south) edge (Uni.north)
+	(Max.south) edge (Uni.north)
+	(Max.south) edge (CSD.north)
+	(Max.south) edge (JM.north)
+	(Max.south) edge (Buck.north)
+	(Max.south) edge (VA.north)
+	(Max.south) edge (VN.north)
+	(Sch.south) edge (JM.north)
+	(Sch.south) edge (VA.north)
+	(Sch.south) edge (Bor.north)
+	(Sch.south) edge (VN.north)
+	(Sch.south) edge (Coo.north)
+	(Uni.south) edge (Coo.north)
+	(Buck.south) edge (Bor.north)
+;
+\end{tikzpicture}
+\end{bigcenter}
+\caption{Méta-analyse de MC dans les expériences.}\label{fig:mea_CM_comparison_killbears}
+\end{figure}
+
+\vspace{-0.2cm}%MAGOUILLE
+\subsection{MC par candidat}
+\vspace{-0.2cm}%MAGOUILLE
+
+\begin{figure}
+\begin{bigcenter}
+\includegraphics[width=1\textwidth]{figures/algotel_CM_value_candidats.png}
+\end{bigcenter}
+\caption{Algotel: Taux de MC en faveur de chaque candidat}\label{fig:algotel_CM_value_candidats}
+\end{figure}
+
+Pour terminer cette étude de la MC, nous allons nous intéresser à la manipulabilité par candidat pour l'expérience Algotel. En figure~\ref{fig:algotel_CM_value_candidats}, on représente le taux de manipulabilité en faveur de chaque candidat.
+
+%Nous voyons dans la table \ref{tab:majoritaire} que $ A $ est classé en tête en moyenne par $ 16,5 $ personnes. Cela veut également dire qu'en moyenne $ 40,5 $ personnes auraient préféré un autre vainqueur. Plus précisément, on peut lire sur la matrice majoritaire combien de personnes auraient préféré que chaque autre candidat gagne: $ 21,5 $ pour $ B $ ; $21,0$ pour $ C $ ; $20,5$ pour $ D $ ; $18,0$ pour $ E $. Nous avons testé pour chaque réalisation si elle était manipulable, et si oui en faveur de quel(s) candidat(s). Les résultats en termes de taux de manipulabilité sont présentés dans la table \ref{tab:manipulabilite}. Lorsque nous ne donnons pas la réponse exacte, \svvamp{} teste la manipulabilité à l'aide de quelques heuristiques simples, notamment la manipulation triviale, ce qui nous fournit une borne inférieure de la manipulabilité réelle (lignes indiquées par le symbole étoile dans la table~\ref{tab:manipulabilite}).
+
+Sans nous livrer à une analyse exhaustive, un certain nombre d'observations nous semblent pertinentes sur ce graphique. Tout d'abord, la faible manipulabilité pour $ A $ exprime juste le fait que $ A $ est quasiment toujours le vainqueur sincère et que ses partisans n'ont rien à faire. Les cas de manipulabilité pour~$ A $, notamment en uninominal, correspondent aux cas où $ B $, voire $ C $ est le vainqueur sincère. Il existe alors toujours une manipulation qui élit $ A $.
+
+Les pires résultats sont obtenus pour deux modes de scrutin relativement naturels, le vote par assentiment et le vote par notation, qui sont manipulables en faveur des quatre rivaux de $ A $ dans toutes les réalisations! Le jugement majoritaire, la méthode de Borda, l'uninominal et la méthode de Coombs présentent également un risque de manipulation fréquente pour une variété de candidats.
+
+
+
+\section{Manipulation triviale}
+
+Comme nous l'avons souvent évoqué, la manipulabilité triviale (MT) est un critère intéressant à double titre. D'une part, elle ne conserve que les cas où la manipulation est relativement facile à identifier et à coordonner, ce qui rend son occurrence plus crédible en pratique. D'autre part, sa simplicité algorithmique autorise des calculs exacts pour tous les modes de scrutin étudiés ici et permet donc de compléter la comparaison entre les modes de scrutin basée sur la~MC.
+
+\subsection{Taux de MT moyens}
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth]{figures/algotel_TM_value.png}
+\end{center}
+\caption{Algotel: Taux de manipulabilité triviale (MT)}\label{fig:algotel_TM_value}
+\end{figure}
+
+
+%\begin{table}[H]
+%\begin{center}
+%\begin{tabular}{IlIr|r|rI}
+%\Cline{1pt}{1-4}
+%Mode de scrutin & 	Minimum & 	Moyenne & 	Maximum \tabularnewline\Cline{1pt}{1-4}
+%Condorcet-VTI & 	0 & 	3 & 	100 \tabularnewline\hline
+%VTI & 	0 & 	5 & 	100 \tabularnewline\hline
+%Scrutin exhaustif & 	0 & 	5 & 	100 \tabularnewline\hline
+%Uninominal à deux tours & 	0 & 	8 & 	100 \tabularnewline\hline
+%Veto & 	0 & 	17 & 	100 \tabularnewline\hline
+%Baldwin & 	0 & 	43 & 	100 \tabularnewline\hline
+%VTI-D & 	0 & 	54 & 	100 \tabularnewline\hline
+%Maximin & 	0 & 	56 & 	100 \tabularnewline\hline
+%Paires ordonnées & 	0 & 	56 & 	100 \tabularnewline\hline
+%Schulze & 	0 & 	56 & 	100 \tabularnewline\hline
+%Nanson & 	0 & 	61 & 	100 \tabularnewline\hline
+%Condorcet Somme Défaites & 	0 & 	62 & 	100 \tabularnewline\hline
+%Uninominal & 	0 & 	72 & 	100 \tabularnewline\hline
+%Bucklin itéré & 	0 & 	75 & 	100 \tabularnewline\hline
+%Bucklin & 	0 & 	76 & 	100 \tabularnewline\hline
+%Jugement majoritaire & 	0 & 	77 & 	100 \tabularnewline\hline
+%Assentiment & 	0 & 	89 & 	100 \tabularnewline\hline
+%Vote par notation & 	0 & 	90 & 	100 \tabularnewline\hline
+%Borda & 	0 & 	90 & 	100 \tabularnewline\hline
+%Coombs & 	0 & 	94 & 	100 \tabularnewline\Cline{1pt}{1-4}
+%\end{tabular}
+%\begin{tabular}{IlIrI}
+%\Cline{1pt}{1-2}
+%Mode de scrutin & 	Moyenne \tabularnewline\Cline{1pt}{1-2}
+%Condorcet-VTI & 	3 \tabularnewline\hline
+%VTI & 	5 \tabularnewline\hline
+%Scrutin exhaustif & 	5 \tabularnewline\hline
+%Uninominal à deux tours & 	8 \tabularnewline\hline
+%Veto & 	17 \tabularnewline\hline
+%Baldwin & 	43 \tabularnewline\hline
+%VTI-D & 	54 \tabularnewline\hline
+%Maximin & 	56 \tabularnewline\hline
+%Paires ordonnées & 	56 \tabularnewline\hline
+%Schulze & 	56 \tabularnewline\hline
+%Nanson & 	61 \tabularnewline\hline
+%Condorcet Somme Défaites & 	62 \tabularnewline\hline
+%Uninominal & 	72 \tabularnewline\hline
+%Bucklin itéré & 	75 \tabularnewline\hline
+%Bucklin & 	76 \tabularnewline\hline
+%Jugement majoritaire & 	77 \tabularnewline\hline
+%Assentiment & 	89 \tabularnewline\hline
+%Vote par notation & 	90 \tabularnewline\hline
+%Borda & 	90 \tabularnewline\hline
+%Coombs & 	94 \tabularnewline\Cline{1pt}{1-2}
+%\end{tabular}
+%\end{center}
+%\caption{Taux de manipulation triviale (MT)}
+%\end{table}
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth]{figures/mea_TM_value.png}
+\end{center}
+\caption{Méta-analyse: Taux de manipulabilité triviale (MT)}\label{fig:mea_TM_value}
+\end{figure}
+
+Sur la figure~\ref{fig:algotel_TM_value}, on a représenté le taux de MT pour chaque mode de scrutin dans l'expérience Algotel. Comme les conclusions des figures~\ref{fig:algotel_TM_value} et~\ref{fig:mea_TM_value} sont qualitativement similaires, nous allons directement commenter la méta-analyse de la figure~\ref{fig:mea_TM_value}. Quatre modes de scrutin se distinguent nettement par des taux moyens inférieurs à 10~\%: CVTI (3~\%), VTI et SE\footnote{Rappelons que VTI et SE sont équivalents du point de vue de la manipulation triviale.} (5~\%) et l'uninominal à deux tours (8~\%). Ensuite viennent Veto (17~\%) et la méthode de Baldwin (43~\%), puis un grand nombre de modes de scrutin entre 50~\% et 80~\%. Enfin, quatre modes de scrutin ont un taux de MT qui avoisine ou dépasse 90~\%: le vote par assentiment, le vote par notation, les méthodes de Borda et de Coombs.
+
+
+Comme nous l'avons déjà remarqué et expliqué en section~\ref{sec:simus_methodo}, Veto est le seul mode de scrutin pour lequel le taux de MT (17\%) est très différent du taux de MC (96~\%).
+
+
+\subsection{MT comparée des systèmes de vote}
+
+%À ce stade, on peut donc en conclure que CVTI, VTI, SE et U2T sont moins sensibles à la MT que les autres modes de scrutin en moyenne, en tout cas en accordant un poids égal au 168~expériences considérées. Cependant, cela ne prouve pas que ces modes de scrutin soient moins manipulables que les autres dans la totalité des expériences, ni même dans la majorité d'entre elles. En effet, on pourrait imaginer que VTI, par exemple, ne soit moins manipulable qu'un certain mode de scrutin X que dans une minorité d'expériences, mais avec un fort écart de taux qui permettrait à VTI d'afficher un taux moyen moins élevé que X en méta-analyse.
+
+%À ce stade, il semble que CVTI, VTI, SE et U2T soient nettement moins sensibles à la manipulation triviale que les autres modes de scrutin. Cependant, il est possible qu'un mode de scrutin $f$ ait un meilleur taux moyen qu'un mode de scrutin $g$ en méta-analyse, mais que $g$ soit ait un meilleur taux sur la majorité des expériences: il suffit que l'écart de taux soit faible quand $g$ est meilleur, et important quand $f$ est meilleur. 
+
+%Pour contrôler ce possible biais d'analyse, on a recours à la table~\ref{table:comparison_pair_TM}, qui est construite selon la méthode suivante. Considérons deux modes de scrutin distincts, par exemple CVTI et Veto. Pour chacune des 168~expériences, on calcule leurs taux de MT sur la base de 100~réalisations.
+%Dans la cellule (CVTI, Veto), on indique la proportion des 168~expériences pour lesquelles CVTI à un taux de MT strictement inférieur à celui de Veto: en l'occurrence, 38~\%. À l'inverse, dans la cellule (Veto, CVTI), on indique que Veto a un taux de TM inférieur ou égal à celui de CVTI dans 5~\% des expériences. Au passage, on en déduit immédiatement que CVTI et Veto ont le même taux de MT dans 57~\% des expériences\footnote{En pratique, quand deux modes de scrutin aux mécaniques très différentes présentent le même taux de MT pour une expérience, celui-ci est généralement égal à 0 ou~100~\%.}.
+
+%En lisant la table, on a donc accès à la relation large, c'est-à-dire la proportion d'expériences où un mode de scrutin possède un taux de MT inférieur ou égal à un autre. Mais il est immédiat d'en déduire la relation stricte: par exemple, puisque Veto a un taux de TM inférieur ou égal à celui de CVTI dans 63~\% des expériences, on sait que CVTI a un taux de TM strictement inférieur à celui de Veto dans 37~\% des expériences.
+%%Nous avons choisi de représenter la proportion des expériences où un mode de scrutin possède un taux de TM inférieur ou égal à un autre (par exemple 95~\% pour CVTI contre Veto), et non inférieur strict (37~\% pour CVTI contre Veto). 
+%L'avantage pratique de représenter la relation large est le suivant: quand la donnée d'une cellule est 100~\%, on sait immédiatement que le mode de scrutin de la ligne peut sans dommage être préféré à celui de la colonne du point de vue de la manipulation triviale. 
+
+%Quand un mode de scrutin $f$ a un taux de TM strictement inférieur à celui de $g$ dans plus d'expériences que l'inverse, le chiffre de la cellule $(f, g)$ est écrit en caractères gras: il s'agit d'une victoire pour $f$ dans cette matrice de comparaison par paires de modes de scrutin. Afin de rendre le tableau plus lisible, les modes de scrutin sont classés par nombre de victoires décroissant.
+
+%Le premier résultat frappant de ce tableau est qu'il existe un ordre total sur les modes de scrutin pour le corpus d'expériences considérées. Plus frappant encore, il existe de nombreuses paires $(f, g)$ pour lesquelles le score est 0~\%, ce qui signifie que $f$ ne possède un taux de TM strictement inférieur à celui de $g$ dans aucune des expériences considérées: cette propriété est donc indépendante de la pondération choisie sur les 168~expériences.
+
+\begin{table}[H]
+\begin{bigcenter}\footnotesize
+%\begin{tabular}{IlI@{}*{19}{>{\raggedleft}p{.9cm}@{}|@{}}p{.9cm}@{}I}
+\begin{tabular}{IlI*{19}{@{\minispace}>{\raggedleft}p{.85cm}@{\minispace}|}@{\minispace}>{\raggedleft}p{.85cm}@{\minispace}I}
+\Cline{1pt}{1-21}
+ & 	CVTI & 	VTI & 	SE & 	U2T & 	Veto & 	Bald. & 	VTID & 	PO & 	Max. & 	Sch. & 	Nan. & 	CSD & 	BI & 	Uni. & 	Buck. & 	JM & 	VA & 	Bor. & 	Coo. & 	VN \tabularnewline\Cline{1pt}{1-21}
+CVTI & 	--- & 	\textbf{14} & 	\textbf{14} & 	\textbf{16} & 	\textbf{38} & 	\textbf{53} & 	\textbf{64} & 	\textbf{65} & 	\textbf{66} & 	\textbf{66} & 	\textbf{67} & 	\textbf{68} & 	\textbf{82} & 	\textbf{74} & 	\textbf{82} & 	\textbf{80} & 	\textbf{90} & 	\textbf{92} & 	\textbf{94} & 	\textbf{90} \tabularnewline\hline
+VTI & 	0 & 	--- & 	\textbf{0} & 	\textbf{12} & 	\textbf{38} & 	\textbf{51} & 	\textbf{63} & 	\textbf{64} & 	\textbf{64} & 	\textbf{64} & 	\textbf{65} & 	\textbf{67} & 	\textbf{80} & 	\textbf{73} & 	\textbf{80} & 	\textbf{78} & 	\textbf{88} & 	\textbf{90} & 	\textbf{92} & 	\textbf{88} \tabularnewline\hline
+SE & 	0 & 	\textbf{0} & 	--- & 	\textbf{12} & 	\textbf{38} & 	\textbf{51} & 	\textbf{63} & 	\textbf{64} & 	\textbf{64} & 	\textbf{64} & 	\textbf{65} & 	\textbf{67} & 	\textbf{80} & 	\textbf{73} & 	\textbf{80} & 	\textbf{78} & 	\textbf{88} & 	\textbf{90} & 	\textbf{92} & 	\textbf{88} \tabularnewline\hline
+U2T & 	0 & 	1 & 	1 & 	--- & 	\textbf{36} & 	\textbf{50} & 	\textbf{61} & 	\textbf{63} & 	\textbf{63} & 	\textbf{63} & 	\textbf{64} & 	\textbf{65} & 	\textbf{79} & 	\textbf{71} & 	\textbf{79} & 	\textbf{77} & 	\textbf{87} & 	\textbf{89} & 	\textbf{91} & 	\textbf{87} \tabularnewline\hline
+Veto & 	5 & 	8 & 	8 & 	10 & 	--- & 	\textbf{46} & 	\textbf{57} & 	\textbf{57} & 	\textbf{58} & 	\textbf{58} & 	\textbf{60} & 	\textbf{61} & 	\textbf{73} & 	\textbf{68} & 	\textbf{73} & 	\textbf{73} & 	\textbf{80} & 	\textbf{81} & 	\textbf{84} & 	\textbf{80} \tabularnewline\hline
+Bald. & 	0 & 	0 & 	0 & 	0 & 	30 & 	--- & 	\textbf{25} & 	\textbf{28} & 	\textbf{29} & 	\textbf{29} & 	\textbf{32} & 	\textbf{33} & 	\textbf{46} & 	\textbf{39} & 	\textbf{47} & 	\textbf{45} & 	\textbf{55} & 	\textbf{57} & 	\textbf{59} & 	\textbf{55} \tabularnewline\hline
+VTID & 	0 & 	0 & 	0 & 	1 & 	25 & 	5 & 	--- & 	\textbf{15} & 	\textbf{16} & 	\textbf{16} & 	\textbf{20} & 	\textbf{21} & 	\textbf{37} & 	\textbf{29} & 	\textbf{38} & 	\textbf{35} & 	\textbf{45} & 	\textbf{46} & 	\textbf{49} & 	\textbf{45} \tabularnewline\hline
+PO & 	0 & 	0 & 	0 & 	1 & 	25 & 	1 & 	3 & 	--- & 	\textbf{8} & 	\textbf{8} & 	\textbf{18} & 	\textbf{20} & 	\textbf{34} & 	\textbf{27} & 	\textbf{36} & 	\textbf{33} & 	\textbf{43} & 	\textbf{45} & 	\textbf{47} & 	\textbf{43} \tabularnewline\hline
+Max. & 	0 & 	0 & 	0 & 	1 & 	24 & 	2 & 	1 & 	5 & 	--- & 	\textbf{2} & 	\textbf{19} & 	\textbf{20} & 	\textbf{35} & 	\textbf{28} & 	\textbf{37} & 	\textbf{34} & 	\textbf{44} & 	\textbf{46} & 	\textbf{48} & 	\textbf{44} \tabularnewline\hline
+Sch. & 	0 & 	0 & 	0 & 	1 & 	24 & 	2 & 	1 & 	4 & 	0 & 	--- & 	\textbf{18} & 	\textbf{19} & 	\textbf{34} & 	\textbf{27} & 	\textbf{36} & 	\textbf{33} & 	\textbf{43} & 	\textbf{45} & 	\textbf{47} & 	\textbf{43} \tabularnewline\hline
+Nan. & 	0 & 	0 & 	0 & 	0 & 	23 & 	0 & 	1 & 	0 & 	2 & 	2 & 	--- & 	\textbf{14} & 	\textbf{24} & 	\textbf{23} & 	\textbf{30} & 	\textbf{28} & 	\textbf{39} & 	\textbf{40} & 	\textbf{43} & 	\textbf{39} \tabularnewline\hline
+CSD & 	0 & 	0 & 	0 & 	0 & 	23 & 	0 & 	0 & 	0 & 	0 & 	0 & 	2 & 	--- & 	\textbf{23} & 	\textbf{20} & 	\textbf{27} & 	\textbf{27} & 	\textbf{38} & 	\textbf{40} & 	\textbf{42} & 	\textbf{38} \tabularnewline\hline
+BI & 	0 & 	0 & 	0 & 	1 & 	17 & 	1 & 	0 & 	1 & 	1 & 	1 & 	7 & 	8 & 	--- & 	\textbf{16} & 	\textbf{17} & 	\textbf{17} & 	\textbf{26} & 	\textbf{29} & 	\textbf{31} & 	\textbf{26} \tabularnewline\hline
+Uni. & 	0 & 	0 & 	0 & 	0 & 	20 & 	0 & 	0 & 	0 & 	0 & 	0 & 	0 & 	1 & 	13 & 	--- & 	\textbf{13} & 	\textbf{15} & 	\textbf{26} & 	\textbf{29} & 	\textbf{31} & 	\textbf{27} \tabularnewline\hline
+Buck. & 	0 & 	0 & 	0 & 	0 & 	17 & 	1 & 	1 & 	1 & 	1 & 	1 & 	2 & 	5 & 	7 & 	11 & 	--- & 	\textbf{13} & 	\textbf{21} & 	\textbf{24} & 	\textbf{27} & 	\textbf{23} \tabularnewline\hline
+JM & 	0 & 	0 & 	0 & 	0 & 	17 & 	0 & 	0 & 	0 & 	0 & 	0 & 	1 & 	1 & 	9 & 	4 & 	8 & 	--- & 	\textbf{23} & 	\textbf{23} & 	\textbf{25} & 	\textbf{23} \tabularnewline\hline
+VA & 	0 & 	0 & 	0 & 	0 & 	5 & 	0 & 	0 & 	0 & 	0 & 	0 & 	0 & 	0 & 	2 & 	3 & 	2 & 	1 & 	--- & 	\textbf{8} & 	\textbf{10} & 	\textbf{5} \tabularnewline\hline
+Bor. & 	0 & 	0 & 	0 & 	0 & 	7 & 	0 & 	0 & 	0 & 	0 & 	0 & 	0 & 	0 & 	0 & 	1 & 	0 & 	2 & 	6 & 	--- & 	\textbf{8} & 	\textbf{5} \tabularnewline\hline
+Coo. & 	0 & 	0 & 	0 & 	0 & 	7 & 	0 & 	0 & 	0 & 	0 & 	0 & 	0 & 	0 & 	0 & 	0 & 	1 & 	1 & 	8 & 	5 & 	--- & 	\textbf{7} \tabularnewline\hline
+VN & 	0 & 	0 & 	0 & 	0 & 	5 & 	0 & 	0 & 	0 & 	0 & 	0 & 	0 & 	0 & 	1 & 	2 & 	0 & 	1 & 	2 & 	4 & 	6 & 	--- \tabularnewline\Cline{1pt}{1-21}
+\end{tabular}
+\end{bigcenter}
+\caption{Méta-analyse: Comparaison de la MT par paire de modes de scrutin (en pourcents)}\label{table:comparison_pair_TM}
+\end{table}
+
+De même que pour la MC, nous fournissons la table~\ref{table:comparison_pair_TM} de méta-analyse pour MT. Cette fois, il n'y a plus d'incertitude algorithmique, ce qui facilite la lecture de la table et fournit des résultats plus précis.
+
+En particulier, le mode de scrutin le plus performant, CVTI, n'est jamais devancé par aucun autre mode de scrutin, hormis Veto. VTI et SE présentent des performances similaires, quoique devancés par l'uninominal à deux tours dans 1~\% des expériences (ils sont cependant meilleurs dans 12~\% des cas). Parmi les autres modes de scrutin, l'uninominal à deux tours est celui qui affiche les meilleurs résultats. Bien qu'il soit strictement moins bon que CVTI (du point de vue de~MT) dans 16~\% des expériences et strictement moins bon que VTI ou SE dans 12~\% des expériences (contre 1~\% pour l'inverse), il est strictement meilleur que Veto dans 36~\% des expériences (contre 10~\% pour l'inverse) et contre tout autre mode de scrutin étudié, il n'est devancé que dans 0 à 1~\% des expériences.
+
+%\begin{figure}
+%\begin{bigcenter}
+%\begin{tikzpicture}[->,>=latex,shorten >=1pt,auto,node distance=3cm,
+%  thick,main node/.style={fill=blue!20,draw},yscale=1]
+%
+%  \node[main node,minimum width=1.2cm] (CVTI) at (-0.4,-0) {\strut CVTI};
+%  \node[main node,minimum width=1.2cm] (VTI) at (1.4,-0.2) {\strut VTI, SE};
+%  \node[main node,minimum width=1.2cm] (U2T) at (3.2,-0.4) {\strut U2T};
+%  \node[main node,minimum width=1.2cm] (Veto) at (4.8,-0.6) {\strut Veto};
+%  \node[main node,minimum width=1.2cm] (Bald) at (6.4,-0.8) {\strut Bald.};
+%  \node[main node,minimum width=1.2cm] (VTID) at (8.0,-1.2) {\strut VTID};
+%  \node[main node,minimum width=1.2cm] (PO) at (9.6,-1.6) {\strut PO};
+%  \node[main node,minimum width=1.2cm] (Max) at (8.0,-2.0) {\strut Max.};
+%  \node[main node,minimum width=1.2cm] (Sch) at (6.4,-2.2) {\strut Sch.};
+%  \node[main node,minimum width=1.2cm] (Nan) at (4.8,-2.4) {\strut Nan.};
+%  \node[main node,minimum width=1.2cm] (CSD) at (3.2,-2.6) {\strut CSD};
+%  \node[main node,minimum width=1.2cm] (BI) at (1.6,-3.0) {\strut BI};
+%  \node[main node,minimum width=1.2cm] (Uni) at (0,-3.4) {\strut Uni.};
+%\begin{scope}[xshift=-3.2cm,yshift=-1.2cm]
+%  \node[main node,minimum width=1.2cm] (Buck) at (4.8,-2.6) {\strut Buck.};
+%  \node[main node,minimum width=1.2cm] (JM) at (6.4,-2.8) {\strut JM};
+%  \node[main node,minimum width=1.2cm] (VA) at (8.0,-3.0) {\strut VA};
+%  \node[main node,minimum width=1.2cm] (Bor) at (9.6,-3.2) {\strut Bor.};
+%  \node[main node,minimum width=1.2cm] (Coo) at (11.2,-3.4) {\strut Coo.};
+%  \node[main node,minimum width=1.2cm] (VN) at (12.8,-3.6) {\strut VN};
+%\end{scope}
+%
+%  \path
+%  	(CVTI) edge (VTI)
+%    (VTI) edge (U2T)
+%    (U2T) edge (Veto)
+%    (Veto) edge (Bald)
+%    (Bald) edge (VTID)
+%    (VTID) edge (PO)
+%    (PO) edge (Max)
+%    (Max) edge (Sch)
+%    (Sch) edge (Nan)
+%    (Nan) edge (CSD)
+%    (CSD) edge (BI)
+%    (BI) edge (Uni)
+%    (Uni) edge (Buck)
+%    (Buck) edge (JM)
+%    (JM) edge (VA)
+%    (VA) edge (Bor)
+%    (Bor) edge (Coo)
+%    (Coo) edge (VN)
+%%    (abs) edge[ultra thick] (rel)
+%%    (rel) edge [bend left=10] node[below] {ac} (abs)
+%%    (rel) edge[ultra thick] (weak)
+%%    (weak) edge [bend left=10] node[below] {aci} (rel)
+%%    (weak) edge[ultra thick, blue] node[above] {a} (adm)
+%%    (adm) edge [bend left=10] node[below] {c} (weak)
+%%    (abs) edge[ultra thick, bend left] (weak)
+%%    (weak) edge[bend right=25] node[below] {aci} (abs)
+%%    (rel) edge[ultra thick, blue,bend right] node[below] {a} (adm)
+%%    (adm) edge [bend left=25] node[above] {ci} (rel)
+%%    (abs.60) edge[ultra thick, bend left=33] (adm.120)
+%%    (adm.135) edge [bend right=30] node[below] {ci} (abs.45)
+%;
+%\end{tikzpicture}
+%\end{bigcenter}
+%\caption{Méta-analyse: Comparaison de la MT par paire de modes de scrutin (victoires dans la majorité des expériences)}\label{fig:mea_TM_comparison}
+%\end{figure}
+
+
+\begin{figure}
+\begin{bigcenter}
+\begin{tikzpicture}[->,>=latex,shorten >=1pt,auto,node distance=3cm,
+  thick,main node/.style={fill=blue!20,draw},yscale=1]
+
+  \node[main node,minimum width=1.2cm] (CVTI) at (0,1) {\strut CVTI};
+  \node[main node,minimum width=1.2cm] (VTI) at (0,-0.5) {\strut VTI, SE};
+  \begin{scope}[xshift=-0.75cm]
+  \node[main node,minimum width=1.2cm] (U2T) at (-3.6,-2) {\strut U2T};
+  \node[main node,minimum width=1.2cm] (Bald) at (-1.6,-2) {\strut Bald.};
+  \node[main node,minimum width=1.2cm] (VTID) at (0,-2) {\strut VTID};
+  \node[main node,minimum width=1.2cm] (PO) at (1.6,-2) {\strut PO};
+  \node[main node,minimum width=1.2cm] (Max) at (3.2,-2) {\strut Max.};
+  \node[main node,minimum width=1.2cm] (Sch) at (4.8,-2) {\strut Sch.};
+  \node[main node,minimum width=1.2cm] (Veto) at (7,-2) {\strut Veto};
+  \end{scope}
+  \begin{scope}[xshift=-0.2cm,yshift=4cm]
+  \node[main node,minimum width=1.2cm] (Buck) at (-3.2,-8) {\strut Buck.};
+  \node[main node,minimum width=1.2cm] (Nan) at (-1.6,-8) {\strut Nan.};
+  \node[main node,minimum width=1.2cm] (Uni) at (0,-8) {\strut Uni.};
+  \node[main node,minimum width=1.2cm] (CSD) at (1.6,-8) {\strut CSD};
+  \node[main node,minimum width=1.2cm] (BI) at (3.2,-8) {\strut BI};
+  \node[main node,minimum width=1.2cm] (JM) at (4.8,-8) {\strut JM};
+  \end{scope}
+  \begin{scope}[xshift=-0.75cm,yshift=1cm]
+  \node[main node,minimum width=1.2cm] (VA) at (-1.6,-7) {\strut VA};
+  \node[main node,minimum width=1.2cm] (Bor) at (0,-7) {\strut Bor.};
+  \node[main node,minimum width=1.2cm] (Coo) at (1.6,-7) {\strut Coo.};
+  \node[main node,minimum width=1.2cm] (VN) at (3.2,-7) {\strut VN};
+  \end{scope}
+
+  \draw[-] (CVTI) --(CVTI-|U2T);
+  \path (CVTI-|U2T) edge (U2T);
+  \draw[-] (VTI) --(VTI-|Buck);
+  \path (VTI-|Buck) edge (Buck);
+  \path
+    (CVTI) edge (VTI)
+%    (CVTI) edge (U2T)
+    (VTI) edge (Bald)
+    (VTI) edge (VTID)
+    (VTI) edge (PO)
+    (VTI) edge (Max)
+%    (VTI) edge (Buck)
+    (U2T) edge (Bald)
+    (U2T) edge (Buck)
+    (Bald.south) edge (Nan.north)
+    (Bald.south) edge (CSD.north)
+    (Bald.south) edge (JM.north)
+    (VTID.south) edge (CSD.north)
+    (VTID.south) edge (BI.north)
+    (VTID.south) edge (Uni.north)
+    (VTID.south) edge (JM.north)
+    (PO.south) edge (Nan.north)
+    (PO.south) edge (CSD.north)
+    (PO.south) edge (JM.north)
+    (Max) edge (Sch)
+    (Sch.south) edge (CSD.north)
+    (Sch.south) edge (Uni.north)
+    (Sch.south) edge (JM.north)
+
+    (Nan) edge (Uni)
+
+    (Nan.south) edge (VA.north)
+    (CSD.south) edge (VA.north)
+    (Nan.south) edge (Bor.north)
+    (CSD.south) edge (Bor.north)
+    (BI.south) edge (Bor.north)
+    (Buck.south) edge (Bor.north)
+    (CSD.south) edge (Coo.north)
+    (BI.south) edge (Coo.north)
+	(Uni.south) edge (Coo.north)
+    (Nan.south) edge (VN.north)
+    (CSD.south) edge (VN.north)
+    (Buck.south) edge (VN.north)
+
+;
+\end{tikzpicture}
+\end{bigcenter}
+\caption{Méta-analyse de MT dans les expériences.}\label{fig:mea_TM_comparison_killbears}
+\end{figure}
+
+\medskip
+Comme précédemment, le graphe de méta-analyse de la figure~\ref{fig:mea_TM_comparison_killbears} est basé sur des suprématies dans la totalité des expériences et il est donc indépendant de toute pondération. On retiendra notamment que, sur le corpus d'expériences considéré, CVTI est strictement meilleur que tous les autres modes de scrutin étudiés, à l'exception de Veto qui constitue, à lui seul, une composante connexe isolée. En particulier, VTI, SE et U2T sont plus manipulables que CVTI. Ensuite, on peut, à titre indicatif, distinguer trois groupes, par ordre croissant de MT.
+\begin{enumerate}
+\item La méthode de Baldwin, VTID, PO, Maximin et la méthode de Schulze. De nouveau, ces deux derniers présentent des performances très similaires (avec toutefois un léger avantage pour Maximin).
+\item Les méthodes de Bucklin et Nanson, l'uninominal, CSD, BI et le jugement majoritaire. Parmi eux, Nanson est moins MT que l'uninominal.
+\item Le vote par assentiment, les méthodes de Borda et Coombs et le vote par notation.
+\end{enumerate}
+
+
+\subsection{MT par candidat}
+
+\begin{figure}
+\begin{bigcenter}
+\includegraphics[width=1\textwidth]{figures/algotel_TM_value_candidats.png}
+\end{bigcenter}
+\caption{Algotel: Taux de MT en faveur de chaque candidat}\label{fig:algotel_TM_value_candidats}
+\end{figure}
+
+\medskip
+Comme pour la MC, nous examinons dans la figure~\ref{fig:algotel_TM_value_candidats} la manipulabilité par candidat pour l'expérience Algotel. Globalement, les résultats sont similaires à ceux obtenus pour la MC dans la figure~\ref{fig:algotel_CM_value_candidats}, en particulier la supériorité de CVTI, VTI et~SE. On constate toutefois les différences suivantes.
+
+Alors qu'U2T pouvait être parfois MC pour une variété de candidats, il n'est MT (et très rarement) qu'en faveur du candidat~C. Ainsi, les manipulations en uninominal à deux tours demandent, en général, des stratégies relativement élaborées.
+
+Veto est beaucoup moins MT que MC, ce que nous avons déjà remarqué et expliqué, puisque la stratégie triviale est très sous-optimale dans ce mode de scrutin.
+
+Sans surprise, les résultats sont les mêmes en MC et en MT pour le jugement majoritaire, l'uninominal, le vote par assentiment et le vote par notation: pour ces modes de scrutin, la stratégie triviale est optimale au sens où si une manipulation est possible, alors cette stratégie permet de la réaliser. Comme nous l'avons discuté dès l'introduction de cette thèse, ceci peut être vu comme un défaut ou comme une qualité de ces systèmes de vote: le fait que la manipulation soit simple à réaliser permet de rechercher des équilibres avec un échange limité d'information. Cependant, la propriété d'être non manipulable nous semble encore plus intéressante (ce qui est le cas de CVTI, VTI et SE dans l'expérience Algotel, cf.~figure~\ref{fig:algotel_CM_value_candidats} par exemple), puisqu'elle permet d'atteindre un équilibre avec un échange d'information nul, comme nous l'avons notamment discuté dans le chapitre~\ref{sec:criteres_majoritaires}.
+
+\newpage%MAGOUILLE
+
+
+
+\section{Synthèse des résultats}
+
+Dans ce chapitre, nous avons analysé les résultats de 168~expériences issues du monde réel, en ajoutant un bruit aléatoire qui permet d'explorer l'espace des préférences au voisinage de chaque expérience.
+
+\medskip
+Nous avons pu établir qu'il y a presque toujours un candidat Condorcet-admissible, très souvent un vainqueur de Condorcet et que la présence d'un ordre strict total de Condorcet, qui est pourtant une propriété très structurante pour une population, est, en fait, un phénomène relativement fréquent. 
+
+Parmi les modes de scrutin non Condorcet, VTI et SE sont ceux qui violent le moins souvent le critère de Condorcet, suivis de BI et de l'uninominal à deux tours. Ceux qui le violent le plus souvent sont le vote par assentiment, l'uninominal et Veto. Malgré ces différences, on constate que même les modes de scrutin non Condorcet élisent l'éventuel vainqueur de Condorcet dans une majorité des cas (de taille très variable en fonction du système utilisé).
+
+\medskip
+Nous avons constaté que la manipulabilité n'est pas qu'un concept théorique, mais une réalité concrète susceptible d'apparaître même dans un contexte où le résultat semble \emph{a priori} évident: en effet, une part importante des modes de scrutin étudiés sont manipulables dans une proportion importante des expériences.
+
+Même si les différents modes de scrutin désignent relativement souvent le même vainqueur en vote <<\,sincère\,>> (le vainqueur de Condorcet quand il existe, même pour les modes de scrutin non Condorcet), le choix du mode de scrutin est donc également crucial pour une autre raison: les taux de MC observés vont de moins de 10~\% à plus de 90~\% en fonction du système utilisé.
+
+CVTI, VTI et SE sont les moins manipulables. Par la théorie, on sait CVTI est strictement moins manipulable que VTI, qui est lui-même strictement moins manipulable que SE; mais en pratique, la différence est très faible. Pour des cas pratiques, il est donc très envisageable de préférer VTI à CVTI, car le dépouillement de VTI est plus aisé si on ne dispose pas de moyens informatiques.
+Parmi les autres modes de scrutin, l'uninominal à deux tours est généralement le moins manipulable.
+Les modes de scrutin les plus manipulables sont le vote par assentiment, la méthode de Borda, la méthode de Coombs, le vote par notation et Veto.
+
+\medskip
+Les résultats observés sont globalement plus proches de ceux obtenus dans les cultures sphéroïdales du chapitre~\ref{sec:simulations_spheroidal} ou dans les cultures de spectre politique multidimensionnel du chapitre~\ref{sec:simulations_unidim} que dans les cultures unidimensionnelles (chapitre~\ref{sec:simulations_unidim} également), malgré le fait que notre corpus d'expériences inclut des élections issues du monde politique, où l'hypothèse de \emph{single-peakedness} paraîtrait \emph{a priori}, sinon réaliste, en tout cas une première approximation intéressante de la réalité. Sans valider totalement les modèles sphéroïdaux et les modèles de spectre politique multidimensionnel, cette conclusion encourage, en tout cas, à poursuivre leur étude dans des travaux futurs.
+
+
+
+
+
+
+

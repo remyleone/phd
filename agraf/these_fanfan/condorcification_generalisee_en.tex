@@ -1,0 +1,1300 @@
+% !TeX spellcheck = en_US
+\mychapter{Generalized Condorcification}\label{sec:condorcification_generalisee}
+
+Until now, we have focused on voting systems meeting \cminf, which is a criterion connected to the notion of majority. As we discussed in the introduction of this memoir, the majoritarian principle comes from the simple majority vote and, as formalized by May's theorem \citep{may1952plurality}, it comes directly form principles of anonymity and neutrality.
+
+However there are practical applications where a voting system violates the anonymity, the neutrality or both, for reasons that can be seen as legitimate. For example, a meeting of part owners in a building of an assembly of shareholders in a business company are generally not symmetric between voters. When the French Constitution is revised, the new version must get two thirds of the votes, which generates an asymmetry between candidates: indeed, the other candidate is the old version of the Constitution, which needs only strictly more than one third of the votes.
+
+In the general case, criteria such as \cminf{} are not necessarily met by the voting system and we can not use the weak Condorcification theorem~\ref{thm_Condorcifie_aussi_bon}: so, we have no guarantee not to increase manipulability with the usual Condorcification, based on the notion of majority. However, we can hope that a similar theorem is valid with a notion inspired by Condorcification. For that purpose, we use an approach that is inspired by the theory of \emph{simple games} and we define the \emph{generalized Condorcification}, then we explore its connections with manipulability.
+
+\medskip
+In section~\ref{sec:famille}, we define the notion of \emph{family}, which is key for this chapter. To each candidate~$c$, a family~$\ens{M}$ associates a set $\ens{M}_c$ of coalitions. Later, this kind of object will describe, for each candidate~$c$, a set of coalitions having the power to make $c$ win, in a specific sense that we will choose (i.e., either in an ignorant or informed way). We use this notion to extend the notions of Condorcet winner, Condorcet-admissible candidate and majority favorite.
+
+In section~\ref{sec:criteres_associes_a_une_famille}, we extend some majority criteria, limiting ourselves to those that will be useful for the theorems of this chapter; in particular, we extend $\cminf$ to a criterion denoted \mcinf{}. Moreover, we define two brand new criteria, \mcinfa{} and \mcigna{}, which demand that a coalition belonging to~$\ens{M}_c$ (resp. ignorant or informed) can not only make candidate~$c$ win, but can also do so while ensuring that $c$ is \emph{admissible} in the sense of the family $\ens{M}$ under consideration. Later, these technical criteria will allow us to compose generalized Condorcifications using different families. By the way, like we did for majoritarian criteria, we establish relations of implication between the criteria under study.
+
+In section~\ref{sec:thm_condorcification_generalisee}, we naturally define the $\ens{M}$-Condorcification of a voting system~$f$, which we note $f^\ens{M}$. Then, it is easy to adapt the proof of the weak Condorcification theorem~\ref{thm_Condorcifie_aussi_bon} to show that, if a voting system meets \mcinf{}, then $f^\ens{M}$ is at most as manipulable as~$f$: it is the \emph{generalized Condorcification theorem}~\ref{thm_condorcification_generalisee}. 
+
+For the sake of conciseness, we do not go further in the correspondence with chapter~\ref{sec:condorcification}: in particular, we do not generalize the notion of resistant Condorcet winner and the strong Condorcification theorem~\ref{thm:cond_strictement_meilleur}. Instead, we prefer focusing of the new possibilities that are offered by the generalized Condorcification.
+
+In particular, it opens a possibility of choice for the family $\ens{M}$ that we use to define~$f^\ens{M}$. In section~\ref{sec:thm_condorcification_comparee}, we compare Condorcifications obtained by the means of two families $\ens{M}$ and $\ens{M}'$ and we introduce the \emph{compared Condorcification theorem}~\ref{thm:condorcification_comparee} which makes it possible to prove, under certain assumptions, that $f^{\ens{M}'}$ is at most as manipulable as $f^{\ens{M}}$.
+
+In section~\ref{sec:thm_condorcification_maximale}, we address the following natural question: among the families $\ens{M}$ that make it possible to benefit from the generalized Condorcification theorem~\ref{thm_condorcification_generalisee}, is there one of them that diminished manipulability most?
+For that purpose, we define the \emph{maximal family} of $f$: for each candidate $c$, we consider all coalitions that have the ability to make~$c$ when they are informed of the ballots emitted by the other voters. We call \emph{maximal Condorcification} of~$f$ the system $f^{\ens{M}'}$, where $\ens{M}'$ is the maximal family. Then we prove the \emph{maximal Condorcification theorem}~\ref{thm:condorcification_maximale} which states, under certain assumptions, that among the Condorcifications meeting the assumptions of theorem~\ref{thm_condorcification_generalisee}, the maximal Condorcification is the least manipulable.
+
+In section~\ref{sec:condorcification_generalisee_exemples}, we investigate several examples of applications for the generalized Condorcification. For classic voting systems meeting \cminf{}, we show that the maximal Condorcification is the usual Condorcification, i.e. the majoritarian one (section~\ref{sec:condorcification_generalisee_exemple_cminf}). Then, we study the maximal Condorcification for Veto. Lastly, we study generalized Condorcification for several voting systems violating anonymity, neutrality or both.
+%\ref{sec:condorcification_generalisee_exemple_cminf}
+%\ref{sec:condorcification_generalisee_exemple_veto}
+%\ref{sec:condorcification_generalisee_exemple_vote_loi}
+%\ref{sec:condorcification_generalisee_uni_imposition}
+%\ref{sec:condorcification_generalisee_uni_rejet}
+%\ref{sec:condorcification_generalisee_onu}
+%\ref{sec:condorcification_generalisee_parite}
+
+
+\section{Family of collections of coalitions}\label{sec:famille}
+
+As a reminder, the theory of \emph{simple games} is used to study some cooperative games in a framework that is abstract and relatively simplified. We have a subset of players who, in our case, are voters. A \emph{simple game} is defined by a set of coalitions $\ens{M}$, i.e. of subsets of voters. If a coalition $M$ belongs to $\ens{M}$, we say that $M$ is a \emph{winning} coalition; otherwise, we say that it is a \emph{losing} coalition.
+
+The spirit of this model is that, if members of a winning coalition~$M$ manage to coordinate (according to some kind of modality), then they win the game, generally for the disadvantage of other players. Depending on the set of coalitions $\ens{M}$ defining the simple game under study, one can address a variety of question, such as the respective powers of the players and the way rewards can be shared between the winners (which leads to define notions like the \emph{Shapley value}).
+
+In the case of voting systems, coalitions that have the ability to make a given candidate~$c$ win depend on~$c$ \emph{a priori}: in the example of changing the French Constitution, one third of voters is enough to keep the old version, but two thirds are necessary to switch to the new version. These observations lead to define the notion of \emph{famille}, which is the key object of this chapter.
+
+\vspace{0.3cm}%MAGOUILLE
+\subsection{Definition of a family and basic properties}
+\vspace{0.3cm}%MAGOUILLE
+
+\begin{definition}[family of subsets of coalitions]
+We call \emph{family of subsets of coalitions}, or \emph{family}, a function:
+$$
+\mathcal{M}:
+\begin{array}{|ccl}
+\mathcal{C} & \to & \mathcal{P}(\mathcal{P}(\mathcal{V})) \\
+c & \to & \mathcal{M}_c.
+\end{array}
+$$
+\end{definition}
+
+Intuitively, we suggest to see a family as an object giving the following information: for each candidate~$c$, it describes what coalitions of voters can make~$c$ win, in several senses that we will give later. So, for a coalition of voters $M \in \ens{P}(\ens{V})$, we will say that $M$ is an \emph{$\ens{M}$-winning coalition for $c$} \ssi $M \in \ens{M}_c$. For the moment, it is only a convention of language; we will see why it is convenient in the following.
+
+\vspace{0.3cm}%MAGOUILLE
+\begin{definition}[basic properties of a family]
+We say that $\mathcal{M}$ is \emph{monotone} %
+%\footnote{C'est un raccourci de langage: précisément, pour tout candidat $c$, $\mathcal{M}_c$ est une fonction croissante, en identifiant $\mathcal{M}_c$ à sa fonction indicatrice $\mathcal{P}(\mathcal{V}) \to \{0,1\}$ et en considérant l'ordre de l'inclusion dans $\mathcal{P}(\mathcal{V})$.} %
+iff $\forall c \in \mathcal{C}, \forall (M,M') \in \mathcal{P}(\mathcal{V})^2$:
+$$
+M \in \mathcal{M}_c \text{ and } M \subseteq M'  
+\Rightarrow M' \in \mathcal{M}_c.
+$$
+
+We say that $\mathcal{M}$ is \emph{exclusive} iff $\forall (c,d) \in {\mathcal{C}}^2, \forall (M,M') \in \mathcal{P}(\mathcal{V})^2$, if $c \neq d$ then:
+$$
+M \in \mathcal{M}_c \text{\;and\;}
+M' \in \mathcal{M}_d
+\Rightarrow M \cap M' \neq \varnothing.
+$$
+
+We say that $\ens{M}$ is \emph{neutral} \ssi $\forall (c, d) \in \ens{C}^2, \ens{M}_c = \ens{M}_d$.
+
+We say that $\ens{M}$ is \emph{anonymous} \ssi $\forall c \in \ens{C}, \forall \sigma \in \perm_{\ens{V}}, \forall M \in \ens{P}(\ens{V}): M \in \ens{M}_c \Leftrightarrow \sigma(M) \in \ens{M}_c$, where $\sigma(M)$ denoted the coalition we obtain by considering the images of the members of coalition $M$ by a permutation $\sigma$ of the voters.
+\end{definition}
+
+\vspace{0.2cm}%MAGOUILLE
+Monotony means that if $M$ is a winning coalition for $c$, then any coalition $M'$ containing $M$ is a winning coalition for $c$. With the interpretation we gave, it is a quite natural assumption.
+
+Exclusivity means that, if two coalitions $M$ and $M'$ are disjoint, then they cannot be winning, respectively, for two distinct candidates $c$ and $d$. This notion is similar to the notion of \emph{proper} simple game, which demands that a coalition and its complement cannot be both winning. If we assume that voters in $M$ and those in $M'$ have the same powers, then it is natural to consider that both coalitions cannot make $c$ and $d$ win simultaneously, which is the case for an ignorant manipulation. In contract, if we talk about informed manipulation, then exclusivity is not obvious: indeed, an informed coalition might manipulate for some candidate~$a$; then a disjoint informed coalition, knowing these ballots, might change their own ballots to make another candidate~$b$ win; but then, the first coalition, knowing these new ballots, might change their ballots to make~$a$ win again, etc. We will see an example of this phenomenon with parity voting.
+
+Finally, the meaning of anonymity and neutrality is obvious. About anonymity, it is clearly equivalent to say that for a coalition $M$, belonging to $\ens{M}_c$ depends only on its cardinal.
+
+\medskip
+In order to have a convenient example for the following, we will define a simple particular case: \emph{threshold families}.
+
+\begin{definition}[threshold family]\label{def:famille_a_seuil}
+For $\alpha \in [0, V]$, we call \emph{family of threshold $\alpha$} the neutral family consisting of all coalitions with strictly more than $\alpha$ voters. Formally:
+$$
+\mathcal{M}:
+\begin{array}{|ccl}
+\mathcal{C} & \to & \mathcal{P}(\mathcal{P}(\mathcal{V})) \\
+c & \to & \{M \in \ens{P}(\ens{V}) \tq \card(M) > \alpha\}.
+\end{array}
+$$
+
+For $x \in [0, 100]$, we will also say \emph{family of $x$~\%} to designate the family of threshold $V \cdot x~\%$.
+
+We call \emph{majoritarian family} the family of 50~\%, i.e. the one consisting of all coalitions having strictly more than half of the voters.
+\end{definition}
+
+It is easy to see that threshold families are the only neutral, anonymous and monotone families.
+By the way, the majoritarian family is exclusive; among threshold families, it is the maximal exclusive family (maximal in the sense of inclusion, i.e. with the minimal threshold). For example, the family of 90~\% (which is also exclusive) does not contain a coalition of 70~\% of the voters, whereas the majoritarian family does.
+
+%\begin{remark}
+%On pourrait revoir cette définition avec le complémentaire? À arbitrer (dans ce cas, il faudrait utiliser le terme <<\,propre\,>> comme pour les simple games). Pour le moment, j'ai l'impression que je n'utilise cette notion que pour la condorcification maximale (où la famille est croissante de toute façon, donc la définition pourrait être simplifiée... et déplacée à cet endroit du document?).
+%\end{remark}
+
+\subsection{Victories and generalized Condorcet notions}
+
+Now, we will quickly follow the same step as in previous chapters, where we were focusing on the majoritarian family.
+Having authorized preferences that can fail to be antisymmetric lead us, in that particular case, to adopt already definitions that are quite general and can be easily generalized to any family.
+
+We have seen in chapter \ref{sec:condorcification}, and especially in section~\ref{sec:condorcification_variantes}, that the notion of absolute victory~$\textrm{P}_{\abs}$ is the one naturally leading to Condorcification theorems, unlike relation~$\text{P}_{\rel}$. So, we will focus on generalizing relation~$\textrm{P}_{\abs}$.
+
+\begin{definition}[$\mathcal{M}$-victory, $\mathcal{M}$-defeat]
+For $\omega \in \Omega$, we note $\Plusquefull[\mathcal{M}]{\omega}$, or in short $\Plusque[\mathcal{M}]{\omega}$, the binary relation on candidates defined by $\forall (c,d) \in {\mathcal{C}}^2$:
+$$
+c \Plusque[\mathcal{M}]{\omega} d \Leftrightarrow \{v \in \mathcal{V} \tq c \Plusque{\omega_v} d\} \in \mathcal{M}_c.
+$$
+In other words, this relation means that the set of voters preferring $c$ to $d$ are a winning coalition for~$c$ (in the sense of family~$\ens{M}$).
+
+When this relation is met, we say that $c$ has an \emph{$\mathcal{M}$-victory} against $d$ in $\omega$, or that $d$ has an \emph{$\mathcal{M}$-defeat} against $c$ in $\omega$.
+
+We say that $c$ has a \emph{strict $\mathcal{M}$-victory} (resp. \emph{strict $\mathcal{M}$-defeat}) against $d$ in $\omega$ ssi she has an $\mathcal{M}$-victory and no $\mathcal{M}$-defeat (resp. an $\mathcal{M}$-defeat and no $\mathcal{M}$-victory) against $d$.
+\end{definition}
+
+In the case of the majoritarian family, we have seen (as a consequence of proposition~\ref{thm:points_totaux_dun_duel}) that if preferences are antisymmetric, then the relation of victory also is. This is not necessarily the case in general. Indeed, consider the family of 40~\% and the following profile:
+$$
+\begin{array}{c|c|c}
+45 & 10 & 45 \\ \hline
+c	& c, d & d \\
+d & & c \\
+\end{array}
+$$
+Then $c$ has a $\ens{M}$-victory against~$d$ but it is not strict, since $d$ has also an $\ens{M}$-victory against~$c$. However, it is easy to give a sufficient condition such that the relation of victory is antisymmetric.
+
+\begin{prop}%[préférences antisymétriques et $\mathcal{M}$-victoire]%
+\label{thm:pref_antisym_et_M_victoire}
+Let $\omega \in \Omega$. We assume that:
+\begin{itemize}
+\item Family $\mathcal{M}$ is exclusive;
+\item Relations $\Plusque{\omega_v}$ are antisymmetric.
+\end{itemize}
+
+Then relation $\Plusque[\mathcal{M}]{\omega}$ is antisymmetric. In other words, between two distinct candidates $c$ and $d$, there cannot be mutual $\mathcal{M}$-victories.
+\end{prop}
+
+\begin{proof}
+If two distinct candidates $c$ and $d$ have mutual $\mathcal{M}$-victories, then by definition:
+$$
+\left\{\begin{array}{l}
+\{v \in \mathcal{V} \tq c \Plusque{\omega_v} d\} \in \mathcal{M}_c, \\
+\{v \in \mathcal{V} \tq d \Plusque{\omega_v} c\} \in \mathcal{M}_d.
+\end{array}\right.
+$$
+Hence, by exclusivity, $\{v \in \mathcal{V} \tq c \Plusque{\omega_v} d\} \cap \{v \in \mathcal{V} \tq d \Plusque{\omega_v} c\} \neq \varnothing$, which contradicts the antisymmetry of relations $\Plusque{}$.
+\end{proof}
+
+For the majoritarian family, we have already noticed that the relation of victory is not necessarily complete. On one hand, with an even number of voters, it can be the case that exactly half of the voters prefer $c$ to $d$ and the other half prefer $d$ to $c$ (even if preferences meet quite strong assumption, such as being strict total orders). On the other hand, if preferences are strict weak orders, for example, it is possible that 45~\% of voters prefer $c$ to $d$ and that the same number of voters have the opposite opinion: then, none of the two candidates has a victory against the other. The following proposition gives a sufficient condition such that the relation of victory is complete.
+
+\begin{prop}%[préférences complètes et $\mathcal{M}$-victoire]%
+\label{thm:pref_completes_et_M_victoire}
+Let $\omega \in \Omega$. We assume that:
+\begin{itemize}
+\item Family $\mathcal{M}$ is such that for any pair $(c,d)$ of distinct candidates and for any pair $(M,M') \in \mathcal{P}(\mathcal{V})^2$, if $M \cup M' = \mathcal{V}$, then $M \in \mathcal{M}_c$ or $M' \in \mathcal{M}_d$;
+\item Relations $\Plusque{\omega_v}$ are complete.
+\end{itemize}
+
+Then relation $\Plusque[\mathcal{M}]{\omega}$ is complete; in other words, between two distinct candidates $c$ and $d$, there cannot be an absence of $\mathcal{M}$-victory.
+\end{prop}
+
+In this proposition, the assumption on family $\ens{M}$ is in the same spirit as the notion of \emph{strong} simple game, which impose that between a coalition and its complement, at least of them must be winning.
+
+\begin{proof}
+Let $c$ and $d$ be two distinct candidates. Let us note $M = \{v \in \mathcal{V} \textrm{\;s.t.\;} c \Plusque{\omega_v} d\}$ and $M' = \{v \in \mathcal{V} \textrm{\;s.t.\;} d \Plusque{\omega_v} c\}$. Since relations $\Plusque{\omega_v}$ are complete, we have $M \cup M' = \mathcal{V}$. So, from the assumption on $\mathcal{M}$, we have $M \in \mathcal{M}_c$ or $M' \in \mathcal{M}_d$.
+\end{proof}
+
+From proposition~\ref{thm:pref_completes_et_M_victoire}, we  have that for any family containing the majoritarian family, then the relation of victory $\Plusque[\mathcal{M}]{}$ is complete. But it is not necessarily antisymmetric. For example, for the family of 30~\%, if preferences are complete, then in any duel, at least one candidate has a victory against the other, but it is possible that the converse is simultaneously true.
+
+\medskip
+Since we have extended the notion of victory, it is immediate to do so with the Condorcet winner and Condorcet-admissible candidates.
+
+\begin{definition}[$\mathcal{M}$-Condorcet, $\mathcal{M}$-admissible]\label{def:M_condorcet}\label{def:M_admissible}
+Let $\omega \in \Omega$ and $c \in \mathcal{C}$.
+
+We say that $c$ is \emph{$\mathcal{M}$-Condorcet} in $\omega$ iff $c$ has an $\mathcal{M}$-strict victory against any candidate $d$, i.e.:
+\begin{empheq}[left={\forall d \in \mathcal{C} \setminus \{c\},\empheqlbrace}]{align}
+&\{v \in \mathcal{V} \tq c \Plusque{\omega_v} d\} \in \mathcal{M}_c,\label{eq:M_cond_victoire} \\
+&\{v \in \mathcal{V} \tq d \Plusque{\omega_v} c\} \notin \mathcal{M}_d.\label{eq:M_cond_no_defaite}
+\end{empheq}
+
+We say that $c$ is \emph{$\mathcal{M}$-admissible} in $\omega$ iff $c$ has no $\mathcal{M}$-defeat, i.e.:
+$$
+\forall d \in \mathcal{C} \setminus \{c\}, \{v \in \mathcal{V} \tq d \Plusque{\omega_v} c \} \notin \mathcal{M}_d.
+$$
+\end{definition}
+
+If family $\mathcal{M}$ is exclusive and if relations $\Plusque{\omega_v}$ are antisymmetric, then any victory is strict (proposition \ref{thm:pref_antisym_et_M_victoire}) hence condition \ref{eq:M_cond_no_defaite} may be omitted: it is implied by condition \ref{eq:M_cond_victoire}. In the particular case of the majoritarian family, we had already noticed this simplification in the definition~\ref{def:vainqueur_de_condorcet_absolu} of the Condorcet winner.
+
+\medskip
+The following proposition extends proposition~\ref{thm_CondUnique}, and its proof is immediate from the definitions.
+
+\begin{prop}%[unicité du candidat $\mathcal{M}$-Condorcet]%
+\label{thm_M_CondUnique}
+Soit $\omega \in \Omega$. If a candidate is $\mathcal{M}$-Condorcet in $\omega$, then:
+\begin{itemize}
+	\item She is $\mathcal{M}$-admissible;
+	\item No other candidate is $\mathcal{M}$-admissible.
+\end{itemize}  
+
+In particular, if there is an $\mathcal{M}$-Condorcet candidate, she is unique.
+\end{prop}
+
+Actually, the motivation of condition~\eqref{eq:M_cond_no_defaite} in definition~\ref{def:M_condorcet} is precisely to ensure that in the general case, on one hand, any $\ens{M}$-Condorcet candidate is also $\ens{M}$-admissible, and on the other hand, that the $\ens{M}$-Condorcet candidate, where she exists, is unique.
+
+%\begin{proof}
+%C'est trivial.
+%\end{proof}
+
+\subsection{$\ens{M}$-favorite candidate}
+
+Now, we extend the notion of majority favorite. It will not be directly used in the generalized Condorcification theorem~\ref{thm_condorcification_generalisee} but it will be a convenient tool to establish a connection between generalized Condorcet notions and manipulation. We will see that this notion requires additional caution, compared to the particular case of the majority favorite.
+
+\begin{definition}[$\mathcal{M}$-favorite]
+For $\omega \in \Omega$ and $c \in \mathcal{C}$, we say that $c$ is \emph{$\mathcal{M}$-favorite} in $\omega$ iff:
+$$
+\{v \in \mathcal{V} \tq \forall d \in \mathcal{C} \setminus \{c\}, c \PPlusque{\omega_v} d \} \in \mathcal{M}_c.
+$$
+\end{definition}
+
+If we consider the family of 40~\%, then it is clear that the $\ens{M}$-favorite is not always unique: indeed, 45~\% of the voters may have a given candidate $c$ as most liked, and as many voters may have another candidate~$d$ as most liked. The following proposition gives a sufficient condition so that the $\ens{M}$-favorite is unique and shows that, under quite natural assumption, this condition is necessary.
+
+\begin{prop}%[exclusivité de $\mathcal{M}$ et unicité du $\mathcal{M}$-favorite]%
+\label{thm:unicite_M_favori}
+%On suppose que l'espace électoral permet d'avoir tout candidat comme favori et que $\mathcal{M}$ est croissante.
+
+We consider the following conditions.
+\begin{enumerate}
+\item\label{enumi:M_exclusive} $\mathcal{M}$ is exclusive.
+\item\label{enumi:M_favori_unique} In any situation with an $\mathcal{M}$-favorite candidate, she is unique.
+\end{enumerate}
+
+We have \ref{enumi:M_exclusive} $\Rightarrow$ \ref{enumi:M_favori_unique}.
+
+If we assume that the electoral space allows any candidate as most liked and that $\mathcal{M}$ is monotone, then \ref{enumi:M_favori_unique} $\Rightarrow$ \ref{enumi:M_exclusive}.
+\end{prop}
+
+\begin{proof}
+Implication \ref{enumi:M_exclusive} $\Rightarrow$ \ref{enumi:M_favori_unique} being easy, we shall only prove not \ref{enumi:M_exclusive} $\Rightarrow$ not \ref{enumi:M_favori_unique}.
+
+Let us suppose that $\mathcal{M}$ is not exclusive. Then there are two distinct candidate $c$ and $d$, two disjoint coalitions $M$ and $M'$, such that $M \in \mathcal{M}_c$ and $M' \in \mathcal{M}_d$. Since $\mathcal{M}$ is monotone, we have $\mathcal{V} \setminus M \in \mathcal{M}_d$. Since the electoral space allows any candidate as most liked, there exists a situation where members of $M$ claim that $c$ is their favorite and members of $\mathcal{V} \setminus M$ claim that $d$ is their favorite. Then, candidate $c$ and $d$ are both $\mathcal{M}$-favorite.
+\end{proof}
+
+As we have already mentioned in previous chapters, it is cleat that a majority favorite is necessarily a Condorcet winner. The following proposition, whose proof is immediate from the definitions, extends this observation if the family under consideration is monotone and exclusive, as is the majoritarian family.
+
+\begin{prop}%[$\mathcal{M}$-favori et $\mathcal{M}$-Condorcet]%
+\label{thm:M_favori_est_M_Condorcet}
+We assume that $\mathcal{M}$ is monotone and exclusive.
+
+Pour $\omega \in \Omega$ et $c \in \mathcal{C}$, if $c$ is $\mathcal{M}$-favorite in $\omega$, then $c$ is $\mathcal{M}$-Condorcet in $\omega$.
+\end{prop}
+
+%\begin{proof}
+%C'est trivial.
+%\end{proof}
+
+
+
+\section{Criteria associated to a family}\label{sec:criteres_associes_a_une_famille}
+
+\subsection{Definitions}
+
+We will extend criteria \cond{}, \favmaj{}, \cmign{} and \cminf{}, which we had defined in the particular case of the majoritarian family. In addition, we will define two brand new criteria, \mcigna{} et \mcinfa{}. Later, we will show that they make it possible to combine and compare generalized Condorcifications achieved with different families $\ens{M}$ and $\ens{M}'$ for one given voting system. For the sake of conciseness, we will note mention the generalization of other majoritarian criteria.
+
+%Comme d'habitude, on considère un SVBE $f$ sur l'espace électoral $\Omega$ et une famille $\ens{M}$.
+
+\begin{definition}[criteria associated to a family $\ens{M}$]
+We say that $f$ \emph{meets the $\mathcal{M}$-Condorcet criterion} (\mcond{}) iff, for any $\omega \in \Omega$ and $c \in \mathcal{C}$, if $c$ is $\mathcal{M}$-Condorcet in $\omega$, then $f(\omega) = c$.
+
+We say that $f$ \emph{meets the $\mathcal{M}$-favorite criterion} (\mfav{}) iff, for any $\omega \in \Omega$ and $c \in \mathcal{C}$, if $c$ is $\mathcal{M}$-favorite in $\omega$, then $f(\omega) = c$.
+
+We say that $f$ \emph{meets the ignorant $\mathcal{M}$-coalition criterion} (\mcign{}) iff $\forall c \in \mathcal{C}, \forall M \in \mathcal{M}_c, \exists \omega_M \in \Omega_M$ s.t.:
+$$
+\forall \omega_{\mathcal{V}\setminus M} \in \Omega_{\mathcal{V}\setminus M}, f(\omega_M,\omega_{\mathcal{V}\setminus M}) = c.
+$$
+
+We say that $f$ \emph{meets the admissible ignorant $\mathcal{M}$-coalition criterion} (\mcigna{}) iff $\forall c \in \mathcal{C}, \forall M \in \mathcal{M}_c, \exists \omega_M \in \Omega_M$ s.t.:
+$$
+\forall \omega_{\mathcal{V}\setminus M} \in \Omega_{\mathcal{V}\setminus M},
+\left\{\begin{array}{l}
+f(\omega_M,\omega_{\mathcal{V}\setminus M}) = c, \\
+c \text{\;is $\mathcal{M}$-admissible in\;} (\omega_M,\omega_{\mathcal{V}\setminus M}).
+\end{array}\right.
+$$
+
+We say that $f$ \emph{meets the informed $\mathcal{M}$-coalition criterion} (\mcinf{}) iff $\forall c \in \mathcal{C}, \forall M \in \mathcal{M}_c, \forall \omega_{\mathcal{V}\setminus M} \in \Omega_{\mathcal{V}\setminus M}$:
+$$
+\exists \omega_M \in \Omega_M \tq f(\omega_M,\omega_{\mathcal{V}\setminus M}) = c
+$$
+
+We say that $f$ \emph{meets the admissible informed $\mathcal{M}$-coalition criterion} (\mcinfa{}) ssi $\forall c \in \mathcal{C}, \forall M \in \mathcal{M}_c, \forall \omega_{\mathcal{V}\setminus M} \in \Omega_{\mathcal{V}\setminus M}$:
+$$
+\exists \omega_M \in \Omega_M \tq
+\left\{\begin{array}{l}
+f(\omega_M,\omega_{\mathcal{V}\setminus M}) = c, \\
+c \text{\;is $\mathcal{M}$-admissible in\;} (\omega_M,\omega_{\mathcal{V}\setminus M}).
+\end{array}\right.
+$$
+\end{definition}
+
+Criteria \mcond{}, \mfav{}, \mcign{} and \mcinf{} extend quite naturally the corresponding criteria for the majoritarian family. Criterion \mcinfa{} (resp. \mcigna{}) is a strengthening of \mcinf{} (resp. \mcign{}) demanding that the informed (resp. ignorant) coalition, in addition to succeeding in making a given candidate~$c$ win, is able to ensure that $c$ appears as $\ens{M}$-admissible. For usual voting systems, it is a natural condition: with the same notations as in the definition, if members of $M$ can make~$c$ win, they can generally do so while using a ballot where $c$ is strictly preferred to all other candidates; in that case, $c$ is $\ens{M}$-favorite in the configuration we obtain and, under the common assumption that $\ens{M}$ is monotone and exclusive, it implies that $c$ is $\ens{M}$-Condorcet (proposition~\ref{thm:M_favori_est_M_Condorcet}) and \emph{a fortiori} $\ens{M}$-admissible.
+
+ 
+
+
+%\begin{prop}%[le critère du $\mathcal{M}$-favori nécessite l'exclusivité de $\mathcal{M}$]%
+%\label{thm:critere_M_favori_implique_exclusivite}
+%On suppose que l'espace électoral autorise tout candidat comme favori et que la famille $\mathcal{M}$ est monotone.
+%
+%Si $f$ vérifie le critère du $\mathcal{M}$-favori, alors $\mathcal{M}$ est exclusive.
+%\end{prop}
+%
+%\begin{proof}
+%Il est nécessaire que le candidat $\mathcal{M}$-favori, quand il existe, soit toujours unique, donc que $\mathcal{M}$ soit exclusive (proposition \ref{thm:unicite_M_favori}).
+%\end{proof}
+
+
+\medskip
+As we have already noticed informally, the exclusivity assumption is natural when it comes to ignorant manipulation. The following proposition precises this observation.
+
+\begin{prop}\label{thm:critere_M_CIgn_implique_exclusivite}
+If a voting system meets \mcign{}, then family $\ens{M}$ is exclusive.
+\end{prop}
+
+\begin{proof}
+If two disjoint coalitions have the respective power to make two distinct candidates $c$ et $d$ win in an ignorant way, then they can make $c$ and $d$ simultaneously, which contradict the uniqueness of the output of~$f$.
+\end{proof}
+
+In contrast, the exclusivity assumption is not obvious when it comes to informed manipulation: when a voting system meets \mcinf{}, it may be the case that $\ens{M}$ is not exclusive.
+
+Indeed, let us consider parity voting: if there are an odd (resp. even) of black balls, then candidate~$a$ (resp. $b$) is declared the winner. Let us consider the neutral family $\ens{M}$ consisting of all non-empty coalitions: the parity voting meets \mcinf{}. Denoting $v$ and $v'$ two distinct voters (we assume $V \geq 2$), coalitions $\{v\}$ and $\{v'\}$ are distinct and both of them are winner, hence the family is not exclusive.
+
+In this voting system, if voter~$v$ votes last and knows the other ballots, then she can choose the output; and so does voter~$v'$. So, the non-exclusivity is not contradictory with the uniqueness of the output.
+
+
+
+
+
+
+
+\subsection{Implications between the criteria associated to a family}
+
+\begin{figure}
+\begin{bigcenter}
+\begin{tikzpicture}[->,>=latex,shorten >=1pt,auto,node distance=3cm,
+  thick,main node/.style={fill=blue!20,draw}]
+
+  \node[main node,minimum width=1.8cm] (mcond) at (0,0) {\strut\mcond{}};
+  \node[main node,minimum width=1.8cm] (mfav) at (3.5,0) {\strut\mfav{}};
+  \node[main node,minimum width=1.8cm] (mcigna) at (7,0) {\strut\mcigna{}};
+  \node[main node,minimum width=1.8cm] (mcign) at (7,-1.5) {\strut\mcign{}};
+  \node[main node,minimum width=1.8cm] (mcinfa) at (10.5,0) {\strut\mcinfa{}};
+  \node[main node,minimum width=1.8cm] (mcinf) at (10.5,-1.5) {\strut\mcinf{}};
+
+  \path
+	(mcond) edge node[above] {me} (mfav)
+	(mfav) edge node[above] {mp} (mcigna)
+	(mcigna) edge[ultra thick] (mcign)
+	(mcigna) edge[ultra thick] (mcinfa)
+	(mcign) edge[ultra thick] (mcinf)
+	(mcinfa) edge[ultra thick] (mcinf)
+%    (abs) edge[ultra thick] (rel)
+%    (rel) edge [bend left=10] node[below] {ac} (abs)
+%    (rel) edge[ultra thick] (weak)
+%    (weak) edge [bend left=10] node[below] {aci} (rel)
+%    (weak) edge[ultra thick, blue] node[above] {a} (adm)
+%    (adm) edge [bend left=10] node[below] {c} (weak)
+%    (abs) edge[ultra thick, bend left] (weak)
+%    (weak) edge[bend right=25] node[below] {aci} (abs)
+%    (rel) edge[ultra thick, blue,bend right] node[below] {a} (adm)
+%    (adm) edge [bend left=25] node[above] {ci} (rel)
+%    (abs.60) edge[ultra thick, bend left=33] (adm.120)
+%    (adm.135) edge [bend right=30] node[below] {ci} (abs.45)
+;
+\end{tikzpicture}
+\end{bigcenter}
+\caption{Implications between criteria associated to a family $\ens{M}$ (m: monotone family, e: exclusive family, a: the electoral space allows any candidate as most liked).}\label{fig:implications_m_criteres}
+\end{figure}
+
+The following proposition gives the relations of implications between the different criteria, i.e. inclusions between the corresponding sets of voting systems. All these results are summed up in the implication graph in figure~\ref{fig:implications_m_criteres}.
+
+\begin{prop}%[implications entre les $\ens{M}$-critères]
+\label{thm:implications_M_criteres}
+If $\mathcal{M}$ is monotone and exclusive, then $\mcond{} \subseteq \mfav{}$.
+
+If $\mathcal{M}$ is monotone and if the electoral space allows any candidate as most liked, then  $\mfav{} \subseteq \mcigna{}$.
+
+We have the following inclusions:
+\begin{itemize}
+\item $\mcigna{} \subseteq \mcign{}$,
+\item $\mcigna{} \subseteq \mcinfa{}$
+\item $\mcign{} \subseteq \mcinf{}$,
+\item $\mcinfa{} \subseteq \mcinf{}$.
+\end{itemize}
+
+However, in general, we have neither one of the two following inclusions:
+\begin{itemize}
+\item $\mcign{} \subseteq \mcinfa{}$,
+\item $\mcinfa{} \subseteq \mcign{}$.
+\end{itemize}
+\end{prop}
+
+\begin{proof}
+$\mcond{} \subseteq \mfav{}$: Assume that a voting system meets \mcond{}. If $c$ is $\mathcal{M}$-favorite in $\omega$, then since $\mathcal{M}$ is monotone and exclusive, $c$ is $\mathcal{M}$-Condorcet in~$\omega$ (proposition \ref{thm:M_favori_est_M_Condorcet}) hence she is elected.
+
+$\mfav{} \subseteq \mcigna{}$: Assume that a voting system meets \mfav{}. Let $c \in \mathcal{C}$ and $M \in \mathcal{M}_c$. It is sufficient that members of~$M$ claim that they strictly prefer~$c$ to all other candidates, which is possible because the electoral space allows any candidate as most liked. Whatever the other voters do, the set of voters claiming that $c$ is their most liked candidate contains $M$, so it belongs to $\mathcal{M}_c$ (by monotony), hence $c$ is $\mathcal{M}$-favorite and gets elected. This proves, in the same time, that the system meets \mcign{}, hence (proposition~\ref{thm:critere_M_CIgn_implique_exclusivite}) family~$\ens{M}$ is exclusive.
+
+Let us continue our manipulation for $c$: she is $\mathcal{M}$-favorite, we know now that family $\mathcal{M}$ is exclusive and it is also monotone by assumption, so $c$ is $\mathcal{M}$-Condorcet (proposition \ref{thm:M_favori_est_M_Condorcet}) and, \emph{a fortiori}, $\mathcal{M}$-admissible. Therefore, the system meets \mcigna{}.
+
+\medskip
+The other implications are immediately deduced from the definitions.
+%\ref{enumi:M_igno_adm} $\Rightarrow$ \ref{enumi:M_igno}: c'est évident.
+%
+%\ref{enumi:M_igno_adm} $\Rightarrow$ \ref{enumi:M_info_adm}: c'est évident.
+%
+%\ref{enumi:M_info_adm} $\Rightarrow$ \ref{enumi:M_info}: c'est évident.
+%
+%\ref{enumi:M_igno} $\Rightarrow$ \ref{enumi:M_info}: c'est évident.
+
+\medskip
+To show that in general, we have neither $\mcign{} \subseteq \mcinfa{}$ nor $\mcinfa{} \subseteq \mcign{}$, let us consider the majoritarian family.
+
+In corollary~\ref{thm:pptes_borda} of proposition~\ref{thm:pptes_rps} about PSR, we have already shown that Borda's method meets \mcinf{}. But in the proof, ballots emitted by the manipulators put always candidate~$c$ on top of their ballots, hence Borda's method meets \mcinfa{}. However, corollary~\ref{thm:pptes_borda} also states that in general, it does not meet \mcign{}.
+
+Lastly, in the electoral space of strict total orders, with $C = 2$ and $V$ odd, consider the following voting system: the inversed majority vote. Each voter communicates an order of preference, but candidate~$a$ wins iff $b$ is on top of a majority of ballots (and vice versa). If a majority coalition wants to make a candidate win, it is sufficient that they put always this candidate on the bottom of their ballots; but, by definition of this weird voting system, a winning candidate never appears as a Condorcet-admissible candidate.
+\end{proof}
+
+
+
+
+\section{Generalized Condorcification theorem}\label{sec:thm_condorcification_generalisee}
+
+Now, we will generalize the weak Condorcification theorem~\ref{thm_Condorcifie_aussi_bon} in our general framework using families of collections of coalitions. The approach is essentially the same, so we will give only short explanations.
+
+\medskip
+The following lemma generalizes lemma~\ref{thm_cNonCond}. As in the initial lemma, no assumption is made on the possible criteria that $f$ meets.
+
+\begin{lem}%[pas de manipulation de $\mathcal{M}$-admissible vers $\mathcal{M}$-Condorcet]%
+\label{thm_cNonM_Cond}
+Let $(\omega,\psi) \in \Omega^2$. We note $\winner = f(\omega)$ and $c = f(\psi)$ and we assume that $f$ is manipulable in $\omega$ toward $\psi$.
+
+We assume that $\mathcal{M}$ is monotone.
+
+If $\winner$ is $\mathcal{M}$-admissible in $\omega$, then $c$ cannot have an $\mathcal{M}$-victory against $\winner$ in $\psi$; in particular, $c$ is not $\mathcal{M}$-Condorcet in $\psi$.
+\end{lem}
+
+\begin{proof}
+Since $\winner$ is $\mathcal{M}$-admissible in $\omega$, we have: $\{v \in \mathcal{V}, c \Plusquefull{\omega_v} \winner \} \notin \mathcal{M}_c$. But, by definition of manipulability, $\{v \in \mathcal{V}, c \Plusquefull{\psi_v} \winner \} \subseteq \{v \in \mathcal{V}, c \Plusquefull{\omega_v} \winner \}$. Hence, since family $\mathcal{M}$ is monotone, $\{v \in \mathcal{V}, c \Plusquefull{\psi_v} \winner \} \notin \mathcal{M}_c$.
+\end{proof}
+
+By the way, lemma~\ref{thm_cNonM_Cond} leads to extending lemma~\ref{thm:cond_non_manip_vers_cond}: if family $\mathcal{M}$ is monotone and if the voting system meets the $\mathcal{M}$-Condorcet criterion, then a configuration with a $\mathcal{M}$-Condorcet candidate cannot be manipulable to another configuration with an $\mathcal{M}$-Condorcet candidate.
+
+\medskip
+The following lemma extends lemma~\ref{thm_NonAdmManip}.
+
+\begin{lem}%[non $\mathcal{M}$-admissible implique manipulable]%
+\label{thm_NonM_AdmManip}
+Let $\omega \in \Omega$. We assume that $f$ meets \mcinf{}.
+
+If $f(\omega)$ is not $\mathcal{M}$-admissible in $\omega$, then $f$ is manipulable in $\omega$.
+\end{lem}
+
+\begin{proof}
+Let us note $\winner = f(\omega)$. Since $\winner$ is not $\mathcal{M}$-admissible, then there exists another candidate~$c$ with a victory against $\winner$:
+$$
+\exists c \in \mathcal{C} \setminus \{\winner\} \tq \{v \in \mathcal{V} \tq c \Plusque{\omega_v} \winner\} \in \mathcal{M}_c.
+$$
+
+Let us note $M = \Manip{c}{\winner}$ the coalition for $c$ against $\winner$. Using \mcinf{}, we have:
+$$
+\exists \psi_M \in \Omega_M \tq f(\omega_{\mathcal{V}\setminus M},\psi_M) = c.
+$$
+
+Hence, $f$ is manipulable in $\omega$ (in favor of candidate $c$).
+\end{proof}
+
+As with lemma~\ref{thm_NonAdmManip}, we can deduce that, if a configuration~$\omega$ is not $\ens{M}$-admissible, then any voting system meeting \mcinf{} is manipulable in~$\omega$.
+
+%\begin{prop}%[une configuration sans candidat $\mathcal{M}$-admissible est manipulable]%
+%\label{thm:no_M_adm_implique_manip}
+%Soit $\omega \in \Omega$. On suppose que $f$ vérifie \mcinf{}.
+%
+%Si $\omega$ n'a pas de candidat $\mathcal{M}$-admissible, alors $f$ est manipulable en $\omega$.
+%\end{prop}
+
+\medskip
+Now, we can extend the definition~\ref{def:condorcification} of Condorcification.
+
+\begin{definition}[$\mathcal{M}$-Condorcification]
+We call \emph{$\mathcal{M}$-Condorcification of $f$} the SBVS:
+$$
+f^\mathcal{M}:
+\begin{array}{|cll}
+\Omega & \to & \mathcal{C} \\
+\omega & \to & 
+\begin{array}{|l}
+\textrm{if\;} \omega \textrm{\;has an $\mathcal{M}$-Condorcet candidate\;} c, \textrm{then\;} c,  \\
+\textrm{otherwise}, f(\omega).
+\end{array} 
+\end{array}
+$$
+\end{definition}
+
+By definition, the $\mathcal{M}$-Condorcification of $f$ meets the $\mathcal{M}$-Condorcet criterion. In particular, if family $\mathcal{M}$ is monotone and exclusive and if the electoral space allows any candidate as most liked, then it meets \mcinf{} (proposition~\ref{thm:implications_M_criteres}).
+
+In the context of this chapter, we will call \emph{majoritarian Condorcification} the usual Condorcification~$f^*$ (definition~\ref{def:condorcification}), i.e. based on the majoritarian family.
+
+\medskip
+Now, we have all the tools needed to extend the weak Condorcification theorem~\ref{thm_Condorcifie_aussi_bon}.
+
+\begin{thm}[generalized Condorcification]\label{thm_condorcification_generalisee}
+Let $f$ be an SBVS and $\mathcal{M}$ a family. We assume that:
+\begin{itemize}
+\item $\mathcal{M}$ is monotone;
+\item $f$ meets \mcinf{}.
+\end{itemize}
+
+Then $f^\mathcal{M}$ is at most as manipulable as~$f$:
+$$
+\MC_{f^\ens{M}} \subseteq \MC_{f}.
+$$
+\end{thm}
+
+\begin{proof}
+Let us assume that $f^\mathcal{M}$ is manipulable in $\omega$ toward $\psi$, but that $f$ is not manipulable in $\omega$. 
+
+Since $f$ is not manipulable in $\omega$, lemma~\ref{thm_NonM_AdmManip} ensures that $f(\omega)$ is $\mathcal{M}$-admissible in $\omega$. If she is $\mathcal{M}$-Condorcet in $\omega$, then $f^\mathcal{M}(\omega) = f(\omega)$; otherwise, there is no $\mathcal{M}$-Condorcet candidate in $\omega$ (proposition~\ref{thm_M_CondUnique}) hence, by definition of $f^\mathcal{M}$, we also have $f^\mathcal{M}(\omega) = f(\omega)$.
+
+Let us note $\winner = f^\mathcal{M}(\omega) = f(\omega)$ and $c = f^\mathcal{M}(\psi)$. Since $\winner$ is $\mathcal{M}$-admissible in $\omega$, lemma~\ref{thm_cNonM_Cond} (applied to $f^\mathcal{M}$) ensures that $\winner$ is not $\mathcal{M}$-Condorcet in $\psi$. Hence, by definition of $f^\mathcal{M}$, we have $f^\mathcal{M}(\psi) = f(\psi)$.
+
+Therefore, we have $f(\omega) = f^\mathcal{M}(\omega)$ and $f(\psi) = f^\mathcal{M}(\psi)$, so $f$ is manipulable en~$\omega$: this contradicts the assumptions.
+\end{proof}
+
+
+\section{Compared Condorcification theorem}\label{sec:thm_condorcification_comparee}
+
+Like we have just extended the weak Condorcification theorem~\ref{thm_Condorcifie_aussi_bon}, we could also extend the strong Condorcification theorem~\ref{thm:cond_strictement_meilleur} by defining a notion of resistant $\ens{M}$-Condorcet candidate that would extend the notion of resistant Condorcet winner (definition~\ref{def:resistant_Condorcet}). For the sake of conciseness, we will not discuss this point further. Instead, we will focus on an issue that is specific to generalized Condorcification: choosing the family $\ens{M}$ we use to condorcify.
+
+Indeed, it is generally possible that a voting system meets \mcinf{} for several possible choices of family~$\ens{M}$. In this case, we can think of using the generalized Condorcification theorem~\ref{thm_condorcification_generalisee} with one family or another. Then, natural questions arise: under what conditions can we ``condorcify a Condorcification'' while going on diminishing (in the large sense) manipulability? Does one Condorcification diminish manipulability more than (or at least as much as) another one? Finally, is there a family that makes it possible to diminish manipulability more than (or at least as much as) all the others?
+
+\medskip
+Unless otherwise stated, $\mathcal{M}$ and $\mathcal{M}'$ will denote two family, with no specific assumption \emph{a priori}.
+
+\begin{definition}[more condorcifying family]
+We say that $\mathcal{M}'$ is \emph{more condocifying} than $\mathcal{M}$ (in the large sense) iff an $\mathcal{M}$-Condorcet candidate is always also $\mathcal{M}'$-Condorcet, i.e.:
+$$
+\forall \omega \in \Omega, \forall c \in \mathcal{C}: c \text{\;is $\mathcal{M}$-Condorcet in $\omega \Rightarrow$ $c$ is $\mathcal{M}'$-Condorcet in $\omega$.}
+$$
+\end{definition}
+
+This notion leads to a particular case for composing two Condorcifications: if $\mathcal{M}'$ is more condorcifying than $\mathcal{M}$, then we have $(f^\mathcal{M})^{\mathcal{M}'} = f^{\mathcal{M}'}$. Indeed, for configurations where $f^\mathcal{M}$ and $f$ have distinct winners, there is an $\mathcal{M}$-Condorcet candidate, who therefore is $\mathcal{M}'$-Condorcet; hence, when we condorcify with family $\mathcal{M}'$, the winner is that candidate, whatever the initial system is.
+
+\medskip
+The following lemma will make it possible that the first Condorcification, achieved with family~$\ens{M}$, meets the assumptions that will allow it to benefit from the second Condorcificaiton, achieved with family~$\ens{M}'$. This lemma is actually the main motivation for defining criterion~\mcinfa.
+
+\begin{lem}[of the admissible informed coalition]\label{thm:lem_M_coal_inf_adm}
+We assume that:
+\begin{itemize}
+\item $\mathcal{M}'$ is more condorcifying than $\mathcal{M}$;
+\item $f$ meets \mpcinfa{}.
+\end{itemize}
+
+Then $f^\mathcal{M}$ meets \mpcinfa{}.
+\end{lem}
+
+Let us interpret this lemma: we assume that $f$ meets a good property (\mpcinfa{}) for $\ens{M}'$, i.e. the second family we will use, and we conclude that $f^\ens{M}$ meets the same property (\mpcinfa{}), still for this second family $\ens{M}'$. Intuitively, the motivation is the following: later, we will consider a fixed family $\ens{M}'$, that is very condorcifying, and we will just have to check that $f$ meets \mpcinfa{} for this fixed family, that is, once and for all. Afterward, we will choose for~$\ens{M}$ any family that is less condorcifying than $\ens{M}'$: this lemma will allow us to show that, in all cases, $f^\ens{M}$ meets the property which makes it possible to continue with $\ens{M}'$-Condorcification while going on diminishing manipulability; and we will not need to test conditions depending on $\ens{M}$ for each family $\ens{M}$ we might consider. Actually, it would be sufficient that $f^\ens{M}$ meets $\mpcinf{}$ as a conclusion of the lemma for the following application; the fact that $f^\ens{M}$ meets also $\mpcinfa$ is a bonus gift.
+
+\begin{proof}
+Let $\omega \in \Omega, c \in \mathcal{C}, M \in \mathcal{M}'_c$. Since $f$ meets \mpcinfa{}, there exists a ballot $\psi_M \in \Omega_M$ for the coalition such that:
+$$
+\left\{\begin{array}{l}
+f(\omega_{\mathcal{V}\setminus M},\psi_M) = c, \\
+c \text{\;is $\mathcal{M}'$-admissible in\;} (\omega_{\mathcal{V}\setminus M},\psi_M).
+\end{array}\right.
+$$
+
+Let us denote $d = f^\mathcal{M}(\omega_{\mathcal{V}\setminus M},\psi_M)$. If $d$ is $\mathcal{M}$-Condorcet in $(\omega_{\mathcal{V}\setminus M},\psi_M)$, then since $\ens{M}'$ is more condorcifying than $\ens{M}$, candidate~$d$ is also $\mathcal{M}'$-Condorcet, hence she is the only $\mathcal{M}'$-admissible candidate (proposition~\ref{thm_M_CondUnique}), so $d = c$. Alternately, if $d$ is not $\mathcal{M}$-Condorcet in $(\omega_{\mathcal{V}\setminus M},\psi_M)$, then by definition of $f^\mathcal{M}$, we also have $d = c$. As a consequence, $M$ can make $c$ win in an informed way in system $f^\mathcal{M}$, while guarantying that $c$~is $\ens{M}'$-admissible. So, $f^\mathcal{M}$ meets \mpcinfa.
+\end{proof}
+
+
+%\begin{thm}[condorcification géneralisée comparée]\label{thm_condorcification_comparee}
+%Let $\Omega$ be an ES, $\mathcal{M}$ et $\mathcal{M}'$ deux familles et $f: \Omega \to \mathcal{C}$ un système de vote réduit.
+%
+%On suppose que:
+%\begin{enumerate}
+%\item $\mathcal{M}$ et $\mathcal{M}'$ sont croissantes;
+%\item $\mathcal{M}'$ est plus condorcifiante que $\mathcal{M}$;
+%\item $f$ vérifie le $\mathcal{M}$-critère de la coalition informée;
+%\item $f$ vérifie le $\mathcal{M}'$-critère de la coalition informée admissible.
+%\end{enumerate}
+%
+%Alors $f^{\mathcal{M}'}$ est au plus aussi manipulable que $f^\mathcal{M}$, qui est au plus aussi manipulable que $f$:
+%\begin{align*}
+%& \{ \omega \in \Omega \text{\;t.q\;} \omega \textrm{\;est\;} f^{\mathcal{M}'}\textrm{-manipulable} \} \\
+%\subseteq & 
+%\{ \omega \in \Omega \text{\;t.q\;} \omega \textrm{\;est\;} f^\mathcal{M}\textrm{-manipulable} \} \\
+%\subseteq & 
+%\{ \omega \in \Omega \text{\;t.q\;} \omega \textrm{\;est\;} f\textrm{-manipulable} \}.
+%\end{align*}
+%\end{thm}
+%
+%\begin{proof}
+%Par le lemme, on sait que $f^\mathcal{M}$ vérifie le critère de la $\mathcal{M}'$-coalition informée. Par le théorème de condorcification généralisée (appliqué à $f^\mathcal{M}$ et $\mathcal{M}'$), on sait donc que $(f^\mathcal{M})^{\mathcal{M}'} = f^{\mathcal{M}'}$ est au plus aussi manipulable que $f^\mathcal{M}$.
+%
+%Par ailleurs, en appliquant le théorème à $f$ et $\mathcal{M}$, on sait que $f^\mathcal{M}$ est au plus aussi manipulable que $f$.
+%\end{proof}
+
+The examples we will see in section~\ref{sec:condorcification_generalisee_exemples} will show that the assumptions of lemma~\ref{thm:lem_M_coal_inf_adm} are actually quite commonly met. With these assumptions, we can now compare the Condorcifications we obtain by using families $\ens{M}$ and $\ens{M}'$. This is the subject of the \emph{compared Condorcification theorem}.
+
+\begin{thm}[compared Condorcification]\label{thm:condorcification_comparee}
+Let $f$ be an SBVS, $\mathcal{M}$ and $\mathcal{M}'$ two families.
+
+We assume that:
+\begin{itemize}
+\item $\mathcal{M}'$ is monotone;
+\item $\mathcal{M}'$ is more condorcifying than $\mathcal{M}$;
+\item $f$ meets \mpcinfa{}.
+\end{itemize}
+
+Then $f^{\mathcal{M}'}$ is at most as manipulable as $f^\mathcal{M}$:
+$$
+\MC_{f^{\ens{M}'}} \subseteq \MC_{f^\ens{M}}.
+$$
+\end{thm}
+
+\begin{proof}
+By lemma \ref{thm:lem_M_coal_inf_adm}, we know that $f^\mathcal{M}$ meets \mpcinf{}. Then, it is sufficient to apply generalized Condorcification theorem~\ref{thm_condorcification_generalisee} to $f^\mathcal{M}$ and $\mathcal{M}'$, remembering that $(f^\mathcal{M})^{\mathcal{M}'} = f^{\mathcal{M}'}$.
+\end{proof}
+
+While it is not obvious at first glance, this theorem implicitly contains the fact that $f^{\ens{M}'}$ is less manipulable than $f$ (which we already know, by generalized Condorcification theorem~\ref{thm_condorcification_generalisee}). Indeed, let us consider the particular case of family $\mathcal{M}$ such that for any candidate $c$, $\mathcal{M}_c = \varnothing$. Then, a candidate is always $\mathcal{M}$-admissible and never $\mathcal{M}$-Condorcet. In particular, any family is more condorcifying than $\ens{M}$ and we have $f^{\ens{M}} = f$. Hence, the conclusion of the theorem becomes: $\MC_{f^{\ens{M}'}} \subseteq \MC_{f}$.
+
+\medskip
+With only the assumptions of this theorem, we are not guaranteed that $f^\mathcal{M}$ is less manipulable than $f$: indeed, we have not assumed that $\mathcal{M}$ meets the assumptions of generalized Condorcification theorem~\ref{thm_condorcification_generalisee}. That being said, we know the most important: $f^{\mathcal{M}'}$ is at most as manipulable as $f$ and as any system $f^\mathcal{M}$, where $\mathcal{M}$ is less condorcifying than $\mathcal{M}'$.
+
+\medskip
+When reading this theorem, a question naturally arises: is the conclusion still true if we assume only that $f$ meets \mpcinf{} instead of \mpcinfa{}? We will see that it is not the case.
+
+Let us consider the electoral space of strict total orders with $V = 3$ voters and $C = 3$ candidates named $a$, $b$ and $c$. We use the following voting system~$f$.
+\begin{enumerate}
+\item\label{enumi:contrex_cond_comp_c} If all voters put the same candidate on top of their ballot, then $c$ wins.
+\item\label{enumi:contrex_cond_comp_a} If at least one voter puts $a$ on top and at least one voter puts~$c$ on top, then $a$ wins.
+\item\label{enumi:contrex_cond_comp_b} In all other cases, $b$ wins.
+\end{enumerate}
+
+We note $\ens{M}$ the \emph{unanimous} family, i.e. the family of coalitions comprising all voters, and $\ens{M}'$ the majoritarian family. Since $\ens{M}'$ is a threshold family, it is monotone, and it is easily checked that it is more condorcifying than~$\ens{M}$: indeed, a candidate who is $\ens{M}$-Condorcet is preferred by all voters, hence she is Condorcer winner, i.e. $\ens{M}'$-Condorcet.
+
+Let us show that $f$ meets \mpcinf.
+\begin{itemize}
+\item To make~$c$ win, it is sufficient that 2~manipulators vote like the third voter (whether the later is sincere or not)
+\item To make~$a$ win, it is sufficient that a manipulator puts $a$ on top and that another manipulator puts $c$ on top.
+\item To make~$b$ win, if the sincere winner puts $b$ on top, it is sufficient that manipulators put $a$ and $b$ on top; and if the sincere voter puts $a$ or $c$ on top, it is sufficient that manipulations both put $b$ on top.
+\end{itemize}
+It should be noticed that the manipulations we proposed are not admissible. By the way, the manipulation for~$c$ necessarily generates a unanimous favorite (i.e. apparently most liked by all voters) and it is not possible to choose that it is~$c$: in particular, we can not always ensure that $c$ is Condorcet-admissible, so $f$ does not meet \mpcinfa.
+
+Consider the following profile~$\omega$, which we know well: it is a minimal example of Condorcet paradox.
+$$
+\begin{array}{c|c|c}
+a & b & c \\
+b & c & a \\
+c & a & b 
+\end{array}
+$$
+In $f$, candidate~$a$ win by virtue of rule~\ref{enumi:contrex_cond_comp_a}. Since there is neither $\ens{M}$-Condorcet (unanimously preferred candidate) nor $\ens{M}'$-Condorcet (usual Condorcet winner), candidate~$a$ wins also in~$f^{\ens{M}}$ and in~$f^{\ens{M}'}$.
+
+In $f^\ens{M'}$, i.e. the usual majoritarian Condorcification of $f$, configuration~$\omega$ is clearly manipulable because it is not admissible (lemma~\ref{thm_NonAdmManip}). By the way, it can be noticed that the manipulation for~$c$ is not done in the same way in $f$ and $f^\ens{M'}$. In $f$, manipulators need to put~$a$ on top to benefit from rule~\ref{enumi:contrex_cond_comp_c}. In $f^\ens{M'}$, they must put~$c$ on top so that~$c$ is Condorcet winner.
+
+On the opposite, in $f^\ens{M}$ (using the unanimous family), we will show that the configuration is not manipulable.
+\begin{itemize}
+\item To manipulate for $c$, the two last voters need that $c$ in on top of all ballots, which they cannot achieve.
+\item To manipulate for $b$, only the second voter is interested. For her to succeed, it is necessary that either 1) $b$ is on top of all ballots in the final configuration (to benefit from $\ens{M}$-Condorcification), or 2) there are not two ballots with respectively $a$ and $c$ on top (to benefit from the original rule~$f$ by avoiding the case~\ref{enumi:contrex_cond_comp_a}); but both are impossible.
+\end{itemize}
+
+Let us sum up: all the assumptions of the theorem are meet, except that instead of meeting \mpcinfa{}, system $f$ meets only \mpcinf{}. And we have exhibited a configuration where $f^{\ens{M}'}$ is manipulable but where $f^{\ens{M}}$ is not manipulable. So, the conclusion of the theorem is not valid anymore if we only assume that $f$ meets \mpcinf. This counter-example motivates the use of assumption \mpcinfa.
+
+
+
+
+\section{Maximal Condorcification theorem}\label{sec:thm_condorcification_maximale}
+
+Now, we want to know if there exists a ``best'' family to apply Condorcification with, i.e. to diminish manipulability with generalized Condorcification theorem~\ref{thm_condorcification_generalisee}. The natural idea is to use the family that, to each candidate~$c$, associates all coalition having the ability to make $c$ win when they are informed of the ballots emitted by the other voters: that is what we will call the \emph{maximal family} of a voting system. In this section, we examine under what assumptions this family leads to a generalized Condorcificaiton that, in some sense, is optimal.
+
+\begin{definition}[maximal family of informed winning coalitions]
+We call \emph{maximal family of informed winning coalitions} of $f$, or \emph{maximal family} of $f$, the largest family $\mathcal{M}'$ (in the sense of inclusion) such that $f$ meets \mpcinf, i.e. such that $\forall c \in \mathcal{C}, \forall M \in \mathcal{P}(\mathcal{V})$:
+$$
+M \in \mathcal{M}'_c \Leftrightarrow \left[\forall \omega_{\mathcal{V}\setminus M} \in \Omega_{\mathcal{V}\setminus M}, \exists \omega_M \in \Omega_M \tq
+f(\omega_M,\omega_{\mathcal{V}\setminus M}) = c\right].
+$$
+
+With this notation, the voting system $f^{\ens{M}'}$ is called the \emph{maximal Condorcification} of $f$.
+\end{definition}
+
+By definition, the maximal family is the largest family making it possible to apply generalized Condorcification theorem~\ref{thm_condorcification_generalisee}. So, we can wonder whether it is the one that diminishes most manipulability by generalized Condorcification.
+
+Another possible convention would be to call maximal family the largest family $\ens{M}'$ such that $f$ meets \mpcinfa{}, which is, by definition, included in the maximal family in the above sense. As we will see, maximal Condorcification theorem~\ref{thm:condorcification_maximale} will deal with reasonable voting system, where these two notions are the same. But in practice, it is easier to identify the maximal family~$\ens{M}'$ (in the sense above) then to check that $f$ meets also \mpcinfa, rather than identifying the largest family such that $f$ meets \mpcigna{}, then checking that it is also maximal for the notion \mpcinf{}.
+
+\medskip
+The following proposition is immediate from the definition: indeed, if an informed coalition is always able to make~$c$ win, then any larger coalition (in the sense of inclusion) can also make~$c$ win.
+
+\begin{prop}%[la famille maximale est monotone]
+\label{thm:famille_maximale_est_croissante}
+The maximal family of $f$ is monotone.
+\end{prop}
+
+As a consequence, we can apply generalized Condorcification theorem~\ref{thm_condorcification_generalisee} to the maximal family $\ens{M}'$, which proves that $f^{\ens{M}'}$ is less manipulable than $f$. We will show that, under certain assumptions, the maximal Condorcification $f^{\ens{M}'}$ is the least manipulable of all $f^\ens{M}$, where $\ens{M}$ is a family such that $f$ meets \mcinf{}.
+
+\medskip
+By proposition~\ref{thm:famille_maximale_est_croissante}, we know that the maximal family is monotone. But it is not necessarily exclusive. Indeed, for parity voting (with $V \geq 2$), it is easy to show that the maximal family is the one comprising all non-empty coalitions; but we have already noticed that it is not exclusive.
+
+\medskip
+In order to apply comparted Condorcification theorem~\ref{thm:condorcification_comparee}, we will show in the following proposition that, under certain assumptions, any other family $\ens{M}$ that can benefit from generalized Condorcification theorem~\ref{thm_condorcification_generalisee} is less condorcifying than the maximal family~$\ens{M}'$.
+
+
+\begin{prop}\label{thm:f_verifie_mcinf_alors_m_moins_condorcifiante}
+Let $\mathcal{M}'$ be the maximal family of $f$ and $\mathcal{M}$ a family.
+
+We assume that:
+\begin{itemize}
+\item Relations $\Plusque{\omega_v}$ are always antisymmetric;
+\item $\mathcal{M}'$ is exclusive.
+\end{itemize}
+
+If $f$ meets \mcinf{}, then $\mathcal{M}'$ is more condorcifying than $\mathcal{M}$.
+\end{prop}
+
+\begin{proof}
+Let $\phi \in \Omega$ and $c \in \mathcal{C}$. Assume that $c$ is $\mathcal{M}$-Condorcet in $\phi$ and let us show that she is also $\mathcal{M}'$-Condorcet, i.e. in the sense of the maximal family of~$f$.
+
+For any $d \in \mathcal{C} \setminus \{c\}$, candidate $c$ has an $\mathcal{M}$-victory against $d$:
+$$
+M = \{v \in \mathcal{V} \tq c \Plusque{\phi_v} d\} \in \mathcal{M}_c.
+$$
+Since $M \in \mathcal{M}_c$ and $f$ meets \mcinf{}, we have:
+$$
+\forall \omega_{\mathcal{V}\setminus M} \in \Omega_{\mathcal{V}\setminus M}, \exists \omega_M \in \Omega_M \tq
+f(\omega_M,\omega_{\mathcal{V}\setminus M}) = c.
+$$ 
+By definition of the maximal family $\mathcal{M}'$ of $f$, this implies that $M \in \mathcal{M}'_c$. So, $c$ has an $\mathcal{M}'$-victory against $d$.
+
+Since $\mathcal{M}'$ is exclusive and since preferences are antisymmetric, proposition \ref{thm:pref_antisym_et_M_victoire} ensures that this $\mathcal{M}'$-victory is strict.
+\end{proof}
+
+In practice, we often consider antisymmetric preferences, so the assumption of proposition~\ref{thm:f_verifie_mcinf_alors_m_moins_condorcifiante} that has more chances not to be satisfied is the exclusivity of the maximal family $\ens{M}'$. Let us show that, in that case, the conclusion of proposition~\ref{thm:f_verifie_mcinf_alors_m_moins_condorcifiante} is not met.
+
+For that purpose, consider parity voting (black and white balls). It is easy to see that the maximal family $\ens{M}'$ is neutral and contains all non-empty coalitions. This family is not exclusive (assuming $V \geq 2$) because two singletons of distinct voters are winning coalitions for candidates $a$ and $b$ respectively. In order for the candidate~$a$ to be $\ens{M}'$-Condorcet, it is necessary and sufficient that she has a victory, i.e. that at least one voter prefers her to~$b$, and that she has no defeat, i.e. that no voter prefers~$b$ to~$a$; in other words (assuming that preferences are strict total orders), it is necessary and sufficient that $a$ is the most liked candidate for each voter. Now, if we consider the majoritarian family~$\ens{M}$, in order for $a$ to be $\ens{M}$-Condorcet, it is necessary and sufficient that she is preferred by a strict majority of voters, which is a less demanding condition. So, it is false that $\ens{M}'$ is more condorcifying than $\ens{M}$. In this example, it is even the opposite: $\ens{M}$ is more condorcifying than~$\ens{M}'$.
+
+
+\medskip
+Now, we just have to gather the properties we know for the maximal family in the following theorem.
+
+\begin{thm}[maximal Condorcification]\label{thm:condorcification_maximale}
+Let $f$ be an SBVS and $\mathcal{M}'$ its maximal family.
+
+We assume that $f$ meets \mpcinfa.
+
+%Alors, pour toute famille $\mathcal{M}$ telle que $f$ vérifie le $\mathcal{M}$-critère de la coalition informée, $f^{\mathcal{M}'}$ est au plus aussi manipulable que $f^\mathcal{M}$:
+\begin{enumerate}
+\item\label{condorcification_maximale_simple} The maximal Condorcification $f^{\ens{M}'}$ is at most as manipulable as~$f$:
+$$
+\MC_{f^{\mathcal{M}'}} \subseteq \MC_{f}.
+$$
+\item\label{condorcification_maximale_cond} For any family $\mathcal{M}$ that is less condorcifying than $\mathcal{M}'$ (in the large sense), the maximal Condorcification $f^{\mathcal{M}'}$ is at most as manipulable as $f^\mathcal{M}$:
+$$
+\MC_{f^{\mathcal{M}'}} \subseteq \MC_{f^\ens{M}}.
+$$
+\item\label{condorcification_maximale_cinf} We assume that moreover, preferences $\textrm{P}_v$ are always antisymmetric and that the maximal family $\ens{M}'$ is exclusive. Then, for any family $\mathcal{M}$ such that $f$ meets \mcinf{}, the maximal Condorcification $f^{\mathcal{M}'}$ is at most as manipulable as $f^\mathcal{M}$:
+$$
+\MC_{f^{\mathcal{M}'}} \subseteq \MC_{f^\ens{M}}.
+$$
+\end{enumerate}
+\end{thm}
+
+\begin{proof}
+\ref{condorcification_maximale_simple}. By proposition~\ref{thm:famille_maximale_est_croissante}, we know that the maximal family $\mathcal{M}'$ is monotone. And since $f$ meets \mpcinfa, il meets \emph{a fortiori} \mpcinf{} (proposition~\ref{thm:implications_M_criteres}). So, we can use generalized Condorcification theorem~\ref{thm_condorcification_generalisee}.
+
+\ref{condorcification_maximale_cond}. Since the maximal family $\mathcal{M}'$ is monotone, we can use compared Condorcification theorem~\ref{thm:condorcification_comparee}.
+
+\ref{condorcification_maximale_cinf}. By proposition~\ref{thm:f_verifie_mcinf_alors_m_moins_condorcifiante}, family~$\ens{M}'$ is less condorcifying $\ens{M}$ hence we can use point \ref{condorcification_maximale_cond} of this very theorem.
+\end{proof}
+
+%\begin{remark}
+%Supposons que:
+%\begin{itemize}
+%\item Les relations $\Plusque{\omega_v}$ sont antisymétriques;
+%\item $\mathcal{M}'$ est exclusive.
+%\end{itemize}
+%
+%Grâce à la proposition précédente, la conclusion du théorème est vraie, en particulier, si $\mathcal{M}$ est l'une des familles telles que $f$ vérifie \mcinf{}, et \emph{a fortiori} l'une de celles qui sont aussi monotones, c'est-à-dire celles pour lesquelles on pourrait utiliser la $\mathcal{M}$-condorcification pour diminuer la manipulabilité en utilisant le théorème \ref{thm_condorcification_generalisee}.
+%\end{remark}
+
+%\begin{remark}
+%Ce théorème signifie que, d'une certaine façon, $f^{\mathcal{M}'}$ est une condorcification <<\,optimale\,>> de $f$.
+%\end{remark}
+
+%\begin{remark}
+%Si on enlève l'hypothèse d'antisymétrie, que se passe-t-il? Par exemple pour Plurality (avec un nombre d'électeurs impair).
+%
+%La famille maximale est claire: il faut une grosse majorité d'électeurs (clairement ça suffit; et sinon, les autres peuvent choisir le résultat). On peut donc vouloir comparer la condorcification classique et la condorcification à 70\%.
+%
+%La question est: est-ce qu'un 70\%-Condorcet est toujours un Condorcet classique?
+%
+%Il a ses victoires à 70\%, certes, mais un candidat $c$ peut avoir 60\% contre lui. Donc effectivement, il n'y a pas l'implication.
+%\end{remark}
+
+
+
+\section{Examples of generalized Condorcification}\label{sec:condorcification_generalisee_exemples}
+
+Now, we will apply generalized Condorcification several voting systems in order to show how this notion behaves in practice.
+
+
+\subsection{Usual voting systems meeting \cminf}\label{sec:condorcification_generalisee_exemple_cminf}
+
+In the case of usual voting systems meeting \cminf{}, we already know that they can benefit from the majoritarian Condorcification (theorem~\ref{thm_Condorcifie_aussi_bon}). The objective of this section is to examine whether it is their maximal Condorcification.
+
+\medskip
+First of all, let us notice that most usual voting systems meet \mcign{} and even \mcigna{} for the majoritarian family. Indeed, in these reasonable voting systems, if some manipulators (in particular, those belonging to an ignorant majority coalition) can make some candidate~$c$ win, then they can do so while putting~$c$ on top of their ballots.
+
+To deal with these voting systems, the following proposition will be useful. It key point is conclusion~\ref{enumi:mcigna_famille_max}, which establishes an implication between $\mpcigna$ and the maximality of $\ens{M}'$ in the case of the majoritarian family. Conclusions~\ref{enumi:mcigna_condorcification_fonctionne}, \ref{enumi:mcigna_condorcification_maximale} and \ref{enumi:mcigna_condorcification_max_cinf} simply reword the conclusions from the maximal Condorcification theorem in this particular case.
+
+\begin{prop}\label{thm:mcigna_condorcification_maximale}
+Let $f$ be an SBVS. We assume that:
+\begin{itemize}
+\item Relations $\Plusque{}$ are always antisymmetric;
+\item The number of voters $V$ is odd;
+\item $f$ meets the admissible ignorant majority coalition criterion.
+\end{itemize}
+
+\begin{enumerate}
+\item\label{enumi:mcigna_famille_max} Then, the maximal family $\mathcal{M}'$ of $f$ is the majoritarian family.
+\item\label{enumi:mcigna_condorcification_fonctionne}  The majoritarian coalition $f^{\ens{M}'} = f^*$ is at most as manipulable as~$f$:
+$$
+\MC_{f^*} \subseteq \MC_{f}.
+$$
+\item\label{enumi:mcigna_condorcification_maximale} For any family $\mathcal{M}$ that is less condorcifying than the majoritarian family~$\ens{M}'$ (in the large sense), the majoritarian Condorcification $f^*$ is at most as manipulable as $f^\mathcal{M}$:
+$$
+\MC_{f^*} \subseteq \MC_{f^\ens{M}}.
+$$
+
+\item\label{enumi:mcigna_condorcification_max_cinf} For any family $\mathcal{M}$ such that $f$ meets \mcinf{}, the majoritarian Condorcification $f^*$ is at most as manipulable as $f^\mathcal{M}$:
+$$
+\MC_{f^*} \subseteq \MC_{f^\ens{M}}.
+$$
+\end{enumerate}
+\end{prop}
+
+\begin{proof}
+Since $f$ meets the ignorant majority coalition criterion, it is easy to see that its maximal family is the majoritarian one: with more than a majority, a coalition can always choose the winner; with less, other voters can always do so (because $V$ is odd, so they have a strict majority). This proves point~\ref{enumi:mcigna_famille_max}.
+
+Since $f$ meets \mpcigna{} by assumption, it meets also \mpcinfa{} (proposition~\ref{thm:implications_M_criteres}), hence we can use maximal Condorcification theorem~\ref{thm:condorcification_maximale}. Then, we can conclude immediately for points \ref{enumi:mcigna_condorcification_fonctionne} and~\ref{enumi:mcigna_condorcification_maximale}.
+
+Since preferences are always antisymmetric by assumption and since the majoritarian family~$\ens{M}'$ is exclusive (definition~\ref{def:famille_a_seuil}), maximal Condorcification theorem~\ref{thm:condorcification_maximale} proves also point \ref{enumi:mcigna_condorcification_max_cinf}.
+\end{proof}
+
+%\begin{remark}[pas de généralisation]
+%Il n'y a pas de généralisation intéressante de cette proposition à une famille $\mathcal{M}'$ quelconque (au lieu de majoritaire). En effet, les conditions deviendraient:
+%\begin{itemize}
+%\item les relations $R_i(\omega_i)$ sont antisymétriques;
+%\item $\mathcal{M}'$ est exclusive;
+%\item $f$ vérifie le critère de la $\mathcal{M}'$-coalition ignorante admissible;
+%\item si $M \notin \mathcal{M}'_v$, alors $\mathcal{V} \setminus M$ permet d'empêcher $v$ de gagner, ce qui est une simple reformulation du fait que $\mathcal{M}'$ est la famille maximale de $f$.
+%\end{itemize}
+%\end{remark}
+%
+%Cette proposition est une particularité de la famille majoritaire $\ens{M}'$ pour $V$~impair: en effet, le point~\ref{enumi:mcigna_famille_max} repose essentiellement sur le fait que si $f$ vérifie \mpcign{}, alors cette même famille est la famille maximale de $f$, ce qui n'est \emph{a priori} pas vrai pour une famille~$\ens{M}'$ quelconque.
+ 
+
+
+\begin{cor}\label{thm:condorcification_maximale_mds_classiques}
+We assume that relations $\Plusque{}$ are always antisymmetric and that $V$ is odd.
+
+Then the conclusions of proposition~\ref{thm:mcigna_condorcification_maximale} are true for 
+approval voting, Baldwin, Borda, Bucklin, Condorcet-Borda (Black's method), Coombs, CSD, Dodgson, IB, IRV, IRVD, IRVA, ITR, Kemeny, the majority judgment, Maximin, Nanson, Plurality, range voting, RP and Schulze's method.
+\end{cor}
+
+\begin{proof}
+All the systems mentioned here, except Borda's method, meet the admissible ignorant majority coalition criterion. For those ones, proposition~\ref{thm:mcigna_condorcification_maximale} does the job.
+
+If system $f$ is Borda's method, we cannot apply proposition~\ref{thm:mcigna_condorcification_maximale} because this voting system does not meet \cmign{} in general (corollary~\ref{thm:pptes_borda} of proposition~\ref{thm:pptes_rps}). However, we will see that the result remains true, as a corollary of the maximal Condorcification theorem~\ref{thm:condorcification_maximale}.
+
+Indeed, $f$ meets the admissible informed majority coalition criterion. Let us show that the majoritarian family is maximal: if a coalition is not majoritarian, then the other voters have a strict majority (because $V$ is odd); if they put some candidate~$d$ first and $c$ last in their ballots, then $c$ cannot be elected, whatever the manipulators in the minority coalition do.
+So, we can apply maximal Condorcification theorem~\ref{thm:condorcification_maximale}.
+\end{proof}
+
+For all systems meeting the Condorcet criterion, Condorcification obviously does not modify the voting system. Proposition~\ref{thm:mcigna_condorcification_maximale} and corollary~\ref{thm:condorcification_maximale_mds_classiques} mean that, even in their original state, we cannot hope to diminish their manipulability by applying generalized Condorcification theorem~\ref{thm_condorcification_generalisee}. In other words, they are their own maximal Condorcification.
+
+
+\subsection{Veto}\label{sec:condorcification_generalisee_exemple_veto}
+
+The system Veto, which does not meet \cminf, cannot benefit from the weak (majoritarian) Condorcification theorem~\ref{thm_Condorcifie_aussi_bon}. Now, we can determine its maximal family and apply the maximal Condorcification theorem~\ref{thm:condorcification_maximale}.
+
+\begin{prop}\label{thm:condorcification_maximale_veto}
+The voting system $f$ under study is Veto. We assume that preferences are always antisymmetric.
+
+We assume $\modulo(V, C) = C - 1$.
+
+%On note $\alpha = (C-1) \left\lceil \frac{V}{C} \right\rceil$. %On suppose $\alpha \leq V$, ce qui est garanti, par exemple, si $V \geq C (C-1)$.
+
+\begin{enumerate}
+\item\label{enumi:veto_famille_max} Then the maximal family $\ens{M}'$ of Veto is the threshold family whose coalitions have a cardinal greater or equal to $(C-1) \left\lceil \frac{V}{C} \right\rceil$.
+\item\label{enumi:veto_mpcigna} Veto meets \mpcigna{}.
+\item\label{enumi:veto_exclu} The maximal family $\ens{M}'$ is exclusive.
+\end{enumerate}
+
+So, all the conclusions of the maximal Condorcification theorem~\ref{thm:condorcification_maximale} are met.
+\end{prop}
+
+Just like we assumed an odd number of voters in proposition~\ref{thm:mcigna_condorcification_maximale} and corollary~\ref{thm:condorcification_maximale_mds_classiques} to avoid questions of ties in voting system that are linked to the notion of majority, proposition~\ref{thm:condorcification_maximale_veto} uses a modulo assumption in order to simplify the question: $\modulo(V, C) = C - 1$. We can remark that for $C = 2$, Veto becomes equivalent to simple majority vote; then, this equation simply means that $V$ is odd.
+
+In the limit where $V$ is large compared to~$C$, we can consider in first approximation that the maximal family of Veto is the one of the $\left(1 - \frac{1}{C}\right) V$, up to questions of ties and rounding. In other words, to choose the winner in Veto, a large coalition is necessary, larger when $C$ is larger.
+
+\begin{proof}
+Let us note $\alpha = (C-1) \left\lceil \frac{V}{C} \right\rceil$ and $\ens{M}'$ the threshold family whose coalitions have a cardinal greater or equal to $\alpha$. We will show that $\ens{M}'$ meets the above properties and, especially, that it is the maximal family of $f$. During all the beginning of this proof, we will not need the assumption $\modulo(V, C) = C - 1$ but only the weaker assumption that $C$ does not divide~$V$.
+
+\ref{enumi:veto_exclu}. This weaker assumption is sufficient to have $\alpha > (C-1) \frac{V}{C} \geq \frac{V}{2}$. Hence, family $\ens{M}'$ is exclusive.
+
+\ref{enumi:veto_mpcigna}. If a coalition of cardinal $(C-1) \left\lceil \frac{V}{C} \right\rceil$ wants to make some candidate~$c$ win, it is sufficient that $\left\lceil \frac{V}{C} \right\rceil$ members of the coalition vote against each other candidate. Then, since $C$ does not divide $V$, each of these opponent candidates receives a number of vetos that is stricly greater than the average number of vetos, hence only $c$ can be elected. Therefore, Veto meets \mpcign.
+
+Members of the coalition can achieve this manipulation while putting $c$ on top of their ballors. Since family $\ens{M}'$ is exclusive, this ensures that $c$ appears as an $\ens{M}'$-admissible candidate (as for any other candidate~$d$, she cannot have a position that is better than $c$ in $\alpha$ ballots, hence she cannot have an $\ens{M}'$-victory against~$c$). So, Veto meets \mpcigna.
+
+\ref{enumi:veto_famille_max}. Since Veto meets \mpcigna{}, we already know that it meets \mpcinfa{} (proposition~\ref{thm:implications_M_criteres}). To show that $\ens{M}'$ is maximal, we just have to show that a coalition that does not belong to $\ens{M}'$ does not have the ability to choose the winner (in an informed way). This is the moment where we use the assumption $\modulo(V, C) = C - 1$. Noticing that in the general case:
+$$
+\left\lceil \frac{V}{C} \right\rceil = \frac{V + (C - \modulo(V, C))}{C},
+$$
+we deduce $\alpha = \frac{(C-1)(V+1)}{C}$.
+
+Let us consider a coalition that does not belong to $\ens{M}'$, i.e. whose size is strictly lower than~$\alpha$. Then the cardinal of its complement is at least:
+$$
+V + 1 - \alpha = \frac{V+1}{C} > \frac{V}{C}.
+$$
+So, if all voters in the complement vote against candidate~$c$, then she has a number of vetos that is greater than the average, so she cannot be elected. Hence, the considered coalition is not always able to make~$c$ win (in an informed way), which proves that $\ens{M}'$ is the maximal family of Veto.
+\end{proof}
+
+We will see that the maximal Condorcification of Veto can be strictly less manipulable than Veto. For that purpose, consider $V = 7$ voters and $C = 4$ candidates. We have $\mod(V, C) = C - 1$, hence the assumptions of proposition~\ref{thm:condorcification_maximale_veto} are met and the maximal family $\ens{M}'$ is the one of coalitions with 6~voters or more. Let us examine the following configuration~$\omega$.
+\begin{center}
+\begin{tabular}{lcl}
+$
+\begin{array}{c|c|c}
+3 & 3 & 1 \\\hline
+c & c & a \\
+a & a & b \\
+b & d & d \\
+d & b & c \\
+\end{array}
+$ 
+& &
+\begin{tabular}{IcIc|c|c|cI}
+\Cline{1pt}{1-5}
+\multicolumn{1}{IcI}{$D(\omega)$} & $a$ & $b$ & $c$ & $d$ \\ \Cline{1pt}{1-5}
+$a$                     &  -- & 7 & 1 & 7 \\ \hline
+$b$                     & 0 & --  & 1 & 4 \\ \hline
+$c$                     & 6 & 6 & --  & 6 \\ \hline
+$d$                     & 0 & 3 & 1 & -- \\ \Cline{1pt}{1-5}
+\end{tabular}
+\end{tabular}
+\end{center}
+In Veto, candidate~$a$ is elected and the configuration is manipulable for~$c$: it is sufficient that the 6~manipulators emit 2~vetos against each of candidates $a$, $b$ and~$d$. In the maximal Condorcification of Veto, candidate~$c$ is elected and it is easy to see that it is not manipulable: indeed, $c$ is not only $\ens{M}'$-Condorcet but she is even $\ens{M}'$-favorite; as a consequence, voters putting~$c$ on top, and therefore never manipulate, are sufficient to ensure that she is $\ens{M}'$-Condorcet. 
+
+
+\medskip
+For the sake of curiosity, we can also show that the usual majoritarian Condorcification of Veto does not work, in the sense that it can be manipulable in some configurations where Veto is not. For that purpose, consider the following configuration~$\omega$, again with $V = 7$ voters and $C = 4$ candidates.
+\begin{center}
+\begin{tabular}{lcl}
+$
+\begin{array}{c|c|c|c|c}
+1 & 2 & 1 & 1 & 2 \\\hline
+c & c & d & a & a \\
+a & a & c & b & b \\
+d & b & a & c & d \\
+b & d & b & d & c \\
+\end{array}
+$ 
+& &
+\begin{tabular}{IcIc|c|c|cI}
+\Cline{1pt}{1-5}
+\multicolumn{1}{IcI}{$D(\omega)$} & $a$ & $b$ & $c$ & $d$ \\ \Cline{1pt}{1-5}
+$a$                     &  -- & 7 & 3 & 6 \\ \hline
+$b$                     & 0 & --  & 3 & 5 \\ \hline
+$c$                     & 4 & 4 & --  & 4 \\ \hline
+$d$                     & 1 & 2 & 3 & -- \\ \Cline{1pt}{1-5}
+\end{tabular}
+\end{tabular}
+\end{center}
+Candidate~$a$ is the only one without veto, so she is declared the winner. Let us show that Veto is not manipulable in~$\omega$. No voter prefer $b$ to $a$. Candidates~$c$ and $d$ receive 2~vetos each, which is more than the average number of vetos $\frac{V}{C} = \frac{7}{4}$, hence it is impossible to manipulate for them. As a consequence, Veto is not manipulable in~$\omega$.
+
+Now, let us examine the majoritarian Condorcification of Veto. Candidate~$c$ is Condorcet winner in~$\omega$, hence she is elected. Let us consider the following configuration~$\psi$, which is an attempt of manipulation for~$a$.
+\begin{center}
+\begin{tabular}{lcl}
+$
+\begin{array}{c|c|c|c|c}
+1 & 2 & 1 & 1 & 2 \\\hline
+c & c & d & a & a \\
+a & a & c & b & b \\
+d & b & a & \mathbf{d} & d \\
+b & d & b & \mathbf{c} & c \\
+\end{array}
+$ 
+& &
+\begin{tabular}{IcIc|c|c|cI}
+\Cline{1pt}{1-5}
+\multicolumn{1}{IcI}{$D(\psi)$} & $a$ & $b$ & $c$ & $d$ \\ \Cline{1pt}{1-5}
+$a$                     &  -- & 7 & 3 & 6 \\ \hline
+$b$                     & 0 & --  & 3 & 5 \\ \hline
+$c$                     & 4 & 4 & --  & 3 \\ \hline
+$d$                     & 1 & 2 & 4 & -- \\ \Cline{1pt}{1-5}
+\end{tabular}
+\end{tabular}
+\end{center}
+Then, there is no Condorcet winner anymore so ~$a$ is elected. Hence, the majoritarian Condorcification of Veto is manipulable in~$\omega$ toward~$\psi$ in favor of~$a$, whereas Veto is not manipulable in~$\omega$.
+
+
+
+
+\subsection{Parity voting}\label{sec:condorcification_generalisee_parite}
+
+Now, we will examine a case where it is not possible to use the maximal Condorcification theorem~\ref{thm:condorcification_maximale}. Let us consider parity voting: if there is a odd (resp. even) number of black balls, then candidate~$a$ (resp. $b$) is declared the winner. In addition to her ball, each voters communicates also her order of preference, but it has no impact on the outcome.
+
+\medskip
+We have already noticed that the maximal family of this system is the one of all non-empty coalitions and that this family is not exclusive. So, it is not possible to use the maximal Condorcification theorem~\ref{thm:condorcification_maximale}.
+
+However, we can notice that any monotone family~$\mathcal{M}$ such that $f$ meets \mcinf{}, $f$ meets also \mcinfa{}. By compared Condorcification theorem~\ref{thm:condorcification_comparee}, if one of these families $\ens{M}'$ is more condorcifying than another of these families $\ens{M}'$, then $f^{\ens{M}'}$ is at most as manipulable as $f^{\ens{M}}$.
+
+The relation ``be more condorcifying'' is clearly a (partial) order, in particular over the set of monotones families $\mathcal{M}$ such that $f$ meets \mcinf{}. The maximal elements of this order lead to optimal Condorcifications (in terms of manipulability), but we do not know, \emph{a priori}, how to compare between them from the point of view of manipulability.
+
+Let us examine two examples.
+
+Assuming $V$ odd, let us consider the majoritarian family. Then, the generalized Condorcification is the simple majority vote, which is not manipulable.
+
+Now, let $\ens{M}_a$ be the set of coalitions with strictly more than a third of the voters and $\ens{M}_b$ the set of coalition with at least two thirds of the voters. In the generalized Condorcification, $b$ wins if she has at least two thirds of the votes; otherwise, it is~$a$. In that case also, the generalized Condorcificaiton is not manipulable.
+
+Both these Condorcifications are ways to diminish manipulability, obtained with two families that are not comparable, i.e. such that none of them is more condorcifying than the other.
+
+\medskip
+By the way, we can examine the Condorcifications of parity voting that use threshold families (i.e. neutral, anonymous and monotone).
+
+First of all, let us notice that for generalized Condorcet, using for example the family of 30~\% or the one of 70~\% is equivalent (assuming that $V$ is not divisible by 10 to avoid distinction between strict and large inequalities). Indeed, in the family of 30~\%, some candidate~$c$ has a strict absolute victory against some~$d$ \ssi more than 30~\% prefer $c$ to~$d$ (victory) and less than 30~\% prefer $d$ to $c$ (no defeat); since preferences are strict total orders, this amounts to saying that more than 70~\% of voters prefer $c$ to $d$, i.e. that $c$ has a strict absolute victory against~$d$ in the sense of the family of~70~\%. 
+
+Still with the assumption that binary relations are strict total orders, we observe that the majoritarian family is, among threshold families, the one accepting most victories (since even in the family of 30~\%, it is necessary to have victories with more than 50~\% of voters). So, it is the most condorcifying of monotone, neutral and anonymous families.
+
+As a consequence, we can retrieve the simple majority vote as the optimal Condorcification of parity voting among those obtained with monotone, anonymous and neutral families.
+
+\medskip
+To illustrate the above points, consider the following configuration $\omega$, where all voters use a white ball.
+$$
+\begin{array}{c|c}
+60 & 39 \\ \hline
+a & b \\
+b & a \\
+\end{array}
+$$
+Since there is an even number of black balls (equal to~0), candidate~$b$ is elected. If we use the family $\ens{M}$ of 70~\%, then there is no $\ens{M}$-Condorcet candidate: no candidate has a victory against the other. If we use the family of 30~\%, then there is no $\ens{M}$-Condorcet candidate either: candidates $a$ and $b$ have mutual victories against each other (so, they are not even $\ens{M}$-admissible). In both these systems, it is sufficient that a candidate preferring~$a$ replaces her white ball with a black ball, without modifying her order of preference, to manipulate in favor of~$a$.
+
+In contract, if we use the majoritarian family, then the Condorcification of parity voting is simply the simple majority vote: $a$ is elected and this system is never manipulable (sincere voting, consisting of voting for one's most liked candidate, is a dominant strategy).
+
+
+%$$
+%\begin{array}{r@{~:~}l|r@{~:~}l|r@{~:~}l}
+%\multicolumn{2}{c|}{2} & \multicolumn{2}{c|}{3} & \multicolumn{2}{c}{4} \\ \hline
+%a & 1    & a & 1 & c & 1 \\
+%b & 0    & b, c & 0 & b & 1 \\
+%c & 0    & \multicolumn{2}{c|}{} & a & 0    \\
+%\end{array}
+%$$
+
+
+
+
+\subsection{Vote of a law}\label{sec:condorcification_generalisee_exemple_vote_loi}
+
+Now, we will focus on voting systems violating anonymity, neutrality or both. In all the rest of this chapter, we note $\ens{M}'$ the maximal family of the system $f$ under study. To simplify, we assume that binary relations of preference are strict total orders.
+
+We will often use implicitly proposition~\ref{thm:critere_M_CIgn_implique_exclusivite}: if a system meets \mcign{}, then $\ens{M}$ is exclusive.  Since preferences are antisymmetric, we recall that the definition~\ref{def:M_condorcet} of an $\ens{M}$-Condorcet candidate amounts to relation~\eqref{eq:M_cond_victoire} only: it is sufficient to check that the candidate has a victory against any other candidate, and it is not need to check that no other candidate has a victory against her.
+
+\medskip
+Let us examine a first system that can be used to vote a new law. One can think of revising the French Constitution, for example. Three options are the candidates: two versions $a$ and $b$ of the law project, and $\varnothing$ which represents the status quo, i.e. the fact that none of the versions is chosen. The voting system is the following:
+\begin{enumerate}
+\item Voters vote between $a$ and $\varnothing$. If $a$ receives at least two thirds of the votes, then $a$ is declared the winner and the process is over.
+\item Otherwise, voters vote between $b$ and $\varnothing$. If $b$ receives at last two thirds of the votes, then $b$ is declared the winner; otherwise, $\varnothing$ wins. 
+\end{enumerate}
+
+It is a \emph{general voting sytem} in several rounds (section~\ref{sec:systemes_de_vote_generaux}). The \emph{game form} that is uses leads to a question, \emph{a priori}, to define the sincerity function\footnote{This example is very similar to the one of the \emph{non-alcoholic party} by \cite{gibbard1973manipulation}, which is precisely conceived to illustrate the issue of defining sincere voting.}: if a voter has the order of preference $(b \plusque a \plusque \varnothing)$, it is not clear what her ballot should be during the first round because actually, the choice is not between $a$ and $\varnothing$ but rather between $a$ and the fact of doing an election between $b$ and $\varnothing$. The \emph{voting system} we will study uses the sincerity function implied by our initial wording: for the first round, sincere voting consists of voting for~$a$ \ssi she prefers $a$ to $\varnothing$.
+
+First of all, we consider instead the state-based version of this system, which is at most as manipulable (proposition~\ref{sec:reducation_general_vers_svbe}): each voters communicates her order of preference, then the original system is emulated.
+
+\medskip
+Now, let us examine its maximal family.
+
+For any coalition $M$, we have:
+$$
+M \in \ens{M}'_{\varnothing} \Leftrightarrow \card(M) > \frac{V}{3}.
+$$
+
+For any coalition $M$ and any candidate $c \neq \varnothing$, we have:
+$$
+M \in \ens{M}'_{c} \Leftrightarrow \card(M) \geq \frac{2 V}{3}.
+$$
+
+It is easy to check that the voting system meets \mpcigna{}. So, the maximal family $\ens{M}'$ is exclusive.
+
+\medskip
+To compare the manipulability of $f$ and $f^{\ens{M}'}$, let us consider the following profile~$\omega$.
+$$
+\begin{array}{c|c}
+70 & 30 \\ \hline
+b           & a \\
+a           & b \\
+\varnothing & \varnothing \\
+\end{array}
+$$
+
+In the original system (or its state-based version), candidate~$a$ wins during the first round, at least if voters are sincere. But the configuration is manipulable in favor of $b$: indeed, its proponents can exchange $a$ and $\varnothing$ in their order of preference; then, the project of law~$a$ is rejected, then $b$ is accepted.
+
+In the maximal Condorcification, $b$ is $\ens{M}'$-Condorcet, so she is elected and it is not manipulable: indeed, candidate~$b$ is $\ens{M}'$-favorite, hence voters having $b$ as most liked ensure, on their own, that $b$ is $\ens{M}'$-Condorcet.
+
+In this example, the maximal Condorcification leads to a voting system that is strictly less manipulable than the original system.
+
+
+\subsection{Plurality with an imposition power}\label{sec:condorcification_generalisee_uni_imposition}
+
+Renaud\footnote{Translator's note (i.e. author's note): Renaud is a popular anarchist French singer. Among his songs, in ``Tu vas au bal?'', he narrates a humorous conversation with a friend where they consider going to the ball, to the church or to the prostitutes, but mostly stay in the same place, talking about it for hours. Finally, he ends up dancing in the church with the prostitutes. In other songs, he mentions recurring characters named Germaine (in the song of the same name and in ``Mon H.L.M.'') and the Pépette (in ``Près des auto-tamponneuses'' and ``Le Retour de la Pépette'').} and his friends consider going to the ball ($b$), to the temple ($t$), to visit Germaine ($g$) or the Pépette ($p$), or staying in the same place and just discussing~($\varnothing$). Plurality is used, with the following exception. Renaud, who owns the car, has the right to impose candidate~$\varnothing$: if he votes for~$\varnothing$, then this candidate is automatically elected.
+
+For any coalition $M$, we have:
+$$
+M \in \ens{M}'_{\varnothing} \Leftrightarrow \text{Renaud} \in M \ou \card(M) > \frac{V}{2}.
+$$
+
+For any coalition $M$ and any candidate $c \neq \varnothing$, we have:
+$$
+M \in \ens{M}'_{c} \Leftrightarrow \text{Renaud} \in M \et \card(M) > \frac{V}{2}.
+$$
+
+It is easy to check that the voting system meets \mpcigna{}. Hence, the maximal family $\ens{M}'$ is exclusive.
+
+Let us examine the following profile $\omega$, with $V = 9$ voters.
+\begin{bigcenter}
+\begin{tabular}{lcl}
+$
+\begin{array}{c|c|c|c|c|c|c|c|c}
+\text{1 (Renaud)} & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\\hline
+g			  & \varnothing & b & b & b & p & p & t & t \\
+\varnothing	  & g & \varnothing & \varnothing & t & \varnothing & \varnothing & \varnothing & \varnothing \\
+t 		      & t & g & t & \varnothing & g & g & g & g \\
+p             & p & p & g & g & t & t & b & b \\ 
+b             & b & t & p & p & b & b & p & p \\
+\end{array}
+$ 
+& &
+\begin{tabular}{IcIc|c|c|c|cI}
+\Cline{1pt}{1-6}
+\multicolumn{1}{IcI}{$D(\omega)$} & $\varnothing$ & $b$ & $t$ & $g$ & $p$ \\ \Cline{1pt}{1-6}
+$\varnothing$                     &  -- & 6* & 6* & 8 & 7* \\ \hline
+$b$                               & 3 & --  & 3 & 3 & 5 \\ \hline
+$t$                               & 3 & 6* & --  & 4 & 6* \\ \hline
+$g$                               & 1* & 6* & 5* & --  & 7* \\ \hline
+$p$                               & 2 & 4* & 3 & 2 & --  \\ \Cline{1pt}{1-6}
+\end{tabular}
+\end{tabular}
+\end{bigcenter}
+%\begin{tabular}{IcIc|c|c|c|cI}
+%\Cline{1pt}{1-6}
+%\multicolumn{1}{IcI}{$D(\omega)$} & $\varnothing$ & $b$ & $e$ & $g$ & $p$ \\ \Cline{1pt}{1-6}
+%$\varnothing$                     &  -- &  &  &  &  \\ \hline
+%$b$                               &  & --  &  &  &  \\ \hline
+%$e$                               &  &  & --  &  &  \\ \hline
+%$g$                               &  &  &  & --  &  \\ \hline
+%$p$                               &  &  &  &  & --  \\ \Cline{1pt}{1-6}
+%\end{tabular}
+
+In the matrix of duels above, we conventionally mark with a star each set of voters containing Renaud.
+
+In the original voting system, we have $f(\omega) = b$, but Renaud can manipulate in favor of $\varnothing$ by using his imposition power.
+
+If we use the majoritarian Condorcification~$f^*$, then the sincere winner is $\varnothing$ because it is the Condorcet winner. But the profile remains manipulable: indeed, let us consider the following configuration $\psi$, which is an attempt to manipulate for~$b$.
+\begin{bigcenter}
+\begin{tabular}{lcl}
+$
+\begin{array}{c|c|c|c|c|c|c|c|c}
+	\text{1 (Renaud)} &      1      &        1        &        1        &      1      &      1      &      1      &      1      &      1      \\ \hline
+	        g         & \varnothing &        b        &        b        &      b      &      p      &      p      &      t      &      t      \\
+	   \varnothing    &      g      &   \mathbf{g}    &   \mathbf{t}    &      t      & \varnothing & \varnothing & \varnothing & \varnothing \\
+	        t         &      t      &   \mathbf{t}    & \boldvarnothing & \varnothing &      g      &      g      &      g      &      g      \\
+	        p         &      p      & \boldvarnothing &        g        &      g      &      t      &      t      &      b      &      b      \\
+	        b         &      b      &   \mathbf{p}    &        p        &      p      &      b      &      b      &      p      &      p      \\
+\end{array}
+$ 
+& &
+\begin{tabular}{IcIc|c|c|c|cI}
+\Cline{1pt}{1-6}
+\multicolumn{1}{IcI}{$D(\psi)$} & $\varnothing$ & $b$ & $t$ & $g$ & $p$ \\ \Cline{1pt}{1-6}
+$\varnothing$                     &  -- & 6* & 4* & 6 & 7* \\ \hline
+$b$                               & 3 & --  & 3 & 3 & 5 \\ \hline
+$t$                               & 5 & 6* & --  & 4 & 7* \\ \hline
+$g$                               & 3* & 6* & 5* & --  & 7* \\ \hline
+$p$                               & 2 & 4* & 2 & 2 & --  \\ \Cline{1pt}{1-6}
+\end{tabular}
+\end{tabular}
+\end{bigcenter}
+There is no Condorcet winner and $b$ wins, hence the majoritarian Condorcification~$f^*$ is manipulable in $\omega$ toward~$\psi$ in favor of~$b$.
+
+Lastly, if we use the maximal Condorcification, then the sincere winner in $\omega$ is also~$\varnothing$ because it is $\ens{M}'$-Condorcet. If we wish to manipulate in favor of $g$, then only Renaud is interested, but he can not avoid that $\varnothing$ stays $\ens{M}'$-Condorcet because it will still have a strict majority against any other candidate; so, manipulation fails. If we wish to manipulate in favor of a candidate distinct from~$g$, then Renaud does not participate to the manipulation hence his vote, by itself, ensures that $\varnothing$ keeps an $\ens{M}'$-victory against $t$, $p$ and~$b$. The only hope for the manilators is to prevent $\varnothing$ from having an $\ens{M}'$-victory against~$g$. If we consider a manipulation for~$b$ (resp. $t$, $p$), then we can read in the matrix of duels that there are 3~manipulators (resp. 3, 2), hence the number of votes for $\varnothing$ against $g$, which is~8 in sincere voting, will be, after the manipulation, greater or equal to $8 - 3 = 5$ (resp. 5, 6), hence $\varnothing$ keeps a victory against~$g$ and manipulation fails. There, $f^{\ens{M}'}$ is not manipulable in $\omega$, whereas $f$ and $f^*$ are.
+
+
+
+%\subsection{Uninominal avec un pouvoir de rejet}\label{sec:condorcification_generalisee_uni_rejet}
+%
+%À présent, supposons qu'on a trois options seulement:  $\varnothing$, $b$ et $e$. On utilise l'uninominal mais cette fois, Renaud possède un pouvoir de refus sur l'option $\varnothing$: s'il place cette option en dernier sur son bulletin, elle est éliminée et c'est l'option possédant le plus de voix parmi les autres qui est élue.
+%
+%Pour toute coalition $M$, on a:
+%$$
+%M \in \ens{M}'_{\varnothing} \Leftrightarrow \text{Renaud} \in M \et \card(M) > \frac{V}{2}.
+%$$
+%
+%Pour toute coalition $M$ et tout candidat $c \neq \varnothing$, on a:
+%$$
+%M \in \ens{M}'_{c} \Leftrightarrow \et \card(M) > \frac{V}{2}.
+%$$
+%
+%Il est facile de vérifier que le système de vote vérifie \mpcign{}, donc la famille maximale $\ens{M}'$ est exclusive. 
+%
+%Examinons le profil $\omega$ suivant.
+%$$
+%\begin{array}{c|c|c|c|c|c|c}
+%\text{1 (Renaud)} & 1 & 1 & 1 & 1 & 1 & 1 \\\hline
+%\varnothing & \varnothing & e & e & e & b & b \\
+%b & b & \varnothing & \varnothing & \varnothing & \varnothing & \varnothing \\
+%e & e & b & b & b & e & e \\
+%\end{array}
+%$$
+%
+%Dans le système original, c'est $e$ qui gagne et c'est manipulable en faveur de~$b$. Dans $f^{\ens{M}'}$, c'est $\varnothing$ qui gagne: on remarquera d'ailleurs que pour que $\varnothing$ soit $\ens{M}'$-Condorcet, il est nécessaire que ce soit le candidat préféré de Renaud. La configuration n'est alors manipulable ni pour $e$ (ses partisans ne peuvent empêcher qu'il y a un $\ens{M}'$-Condorcet distinct de $e$) ni pour $b$ (si ses partisans empêchent $\varnothing$ d'apparaître comme $\ens{M}'$-Condorcet, c'est $e$ qui gagne).
+
+
+\subsection{Election of Secretary-General of the United Nations}\label{sec:condorcification_generalisee_onu}
+
+Now, we will study an example that is a bit more complex but coming from international politics. We will only give the maximal family, with discussing in details the voting system that is obtained by maximal Condorcification.
+
+The election of the Secretary-General of the United Nations can be modeled in the following way. It uses range voting, where authorized grades are $-1$, 0 and~1; but each nation that is a member of the Security Council, a subset of $\ens{V}$ denoted~$\text{CS}$, has a power of reject about any person who is a candidate. So, there are actually as many candidates as persons aspiring to the position, plus one special candidate~$\varnothing$ meaning: ``no physical person is elected'' (which has several consequences in practice).
+
+So, each member of SC has a right of reject over any candidate, except the special candidate~$\varnothing$. This is a stronger power that Renaud's power of imposition seen in section~\ref{sec:condorcification_generalisee_uni_imposition}: indeed, a member of the SC can not only impose candidate~$\varnothing$ as winner (as Renaud can), but she can also, in a more nuanced way, choose to put her veto over some of the candidates but not all of them. For example, she can put her veto over all candidates except a given physical person~$c$ and the special candidate~$\varnothing$, which restricts the choice of other voters to these two candidates: Renaud does not have such a power.
+
+For any coalition $M$, we have:
+$$
+M \in \ens{M}'_{\varnothing} \Leftrightarrow \exists v \in \text{CS} \tq v \in M.
+$$
+
+For any coalition $M$ and any candidate $c \neq \varnothing$, we have:
+$$
+M \in \ens{M}'_{c} \Leftrightarrow \text{CS} \subseteq M \et \card(M) > \frac{V}{2}.
+$$
+
+It is easy to check that the voting system meets \mpcigna{}, hence the maximal family $\ens{M}'$ is exclusive. 
+
+So, we can use the maximal Condorcification theorem~\ref{thm:condorcification_maximale}. For the sake of conciseness, we will give no example of application this time. We notice that, in order for a physical candidate to be $\ens{M}'$-Condorcet, she must not only be Condorcet winner in the usual majoritarian sense but also the most liked candidate for each member of the Security Council. So, for physical candidates, being $\ens{M}'$-Condorcet is a very demanding condition. On the opposite, in order for the special candidate~$\varnothing$ to be $\ens{M}'$-Condorcet, it is sufficient that for any physical candidate~$c$, there exists a member of the Security Council who prefers $\varnothing$ to~$c$, which is an especially weak condition. Analyzing the maximal family shows that, in such a system, the special outcome~$\varnothing$ is much easier to obtain than any physical candidate, in the initial system and in its maximal Condorcification as well.
+
+If the actors involved have diverse other reasons to avoid the special outcome~$\varnothing$, we can imagine, and that is what happens in real life, that there exists processes that are external to the voting system and taht allow to pre-select the candidate in order not to have a deadlock during the vote itself. As it happens, members of the Security Council lead preliminary negotiations in order to identify a candidate who is consensual enough and then, they submit this candidate to the vote of the General Assembly (whose they are members also). To the best of our knowledge, during each election of the Secretary-General of the United Nations until now, the Security Council pre-selected one candidate, and only one, for the final election with all members of the General Assembly.
+
+
+
+
+
+%En fait, il n'est même pas nécessaire de supposer que le critère admissible est toujours vérifié: il suffit qu'il le soit pour toutes les familles maximales.
+
+%\begin{remark}
+%À faire: application des divers critères aux mds positionnels.
+%\end{remark}
+
+%\begin{remark}
+%Parler des vainqueurs $\mathcal{M}$-résistants?
+%\end{remark}
+
+%\begin{remark}
+%Écrire $V^\mathcal{M}(\omega)$ avec un indice? Du coup, idem pour $f^\mathcal{M}$ et $f^c$?
+%\end{remark}
+
+
+
+%\begin{remark}
+%Une plus jolie propriété de la <<\,meilleure\,>> condorcification?
+%\end{remark}
+
+
+%Regarder les cas où n est pair (Innocent ? Doyen ? Autres cas ?)
+
+%TODO (un jour?) Quitte à reettiqueter les bulletins, est-il possible de transformer un mds vérifiant le crit informé en mds vérifiant le crit informé admissible ?
+
+

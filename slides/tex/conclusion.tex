@@ -2,39 +2,80 @@
 
 \begin{frame}\frametitle{Conclusion}
 
-  \begin{alertblock}{Contributions}
+  \begin{block}{À retenir}
     \begin{itemize}
-      \item Les passerelles peuvent héberger des fonctionnalités réseau avancées
-      \item La supervision passive peut fournir des estimations de consommation énergétique de manière transparente
-      \item Un cache adaptatif peut adapter la quantité de requêtes entrantes dans un réseau contraint
-      % \item La recherche reproductible et des cycles de développement courts sont possibles dans ce champ d'étude
+      \item Compromis consommation / QoS
+      % \item Réguler requetes LLN $\implies$ économies d'énergie
+      \item Originalité: attaquer le problème au niveau de la passerelle
+        \end{itemize}    
+  \end{block}
+  
+
+  \begin{block}{Supervision peu intrusive}
+      \begin{itemize}
+        % \item La connaissance de la topologie améliore la précision
+        % \item Calibration par strobing validée mais insuffisante
+        % \item Mesures actives nécessaires pour cette configuration
+        \item Connaitre le routage améliore l'estimation
+        \item Mesure passive pour économiser de l'énergie
+        \item Mesure active pour recalibrer
+      \end{itemize}
+  \end{block}
+
+  \begin{block}{Cache}
+
+    \begin{itemize}
+
+      %[Pourquoi]
+      \item Impact du cache sur la durée de vie
+      \item Compromis réglable entre fraicheur et consommation
+
     \end{itemize}
-  \end{alertblock}
+
+  \end{block}
+
 
 \end{frame}
 
 \begin{frame}{Ouvertures}
+  
   \begin{block}{Mesure implicite}
     \begin{itemize}
-        \item Expérimentation sur une couche MAC plus fiable et déterministe (TSCH)
-        \item Modèle de déduction plus fin des protocoles réseau
+      \item Autres topologies
+      \item Modélisation plus fine des protocoles de routage (RPL)
+      \item Apprentissage du biais et adaptation de la fréquence des mesures actives
     \end{itemize}
   \end{block}
 
-  \begin{block}{Optimisation des ressources}
+
+  \begin{block}{Cache}
     \begin{itemize}
-      \item Maximisation de l'utilité du réseau sous plusieurs critères (délai, redonance, consommation énergétique)
-      \item Reconfiguration dynamique
+      % \item Autres résolutions du problème multi-objectifs 
+      \item Optimisations supplémentaires: latence, popularité d'une requete
+      \item Autres mesures de satisfaction
+      % \item Prise en compte du délai de réponse
     \end{itemize}
   \end{block}
 
-  \begin{alertblock}{Fonctionnalités supplémentaire des passerelles}
+\begin{block}{Autres améliorations}
     \begin{itemize}
-      \item Interopérabilité logicielle
-      \item Ajout de services
-      \item Aggrégation et découverte de services
+        \item Adapter le modèle aux couches MAC synchrones (ex: TSCH)
     \end{itemize}
-  \end{alertblock}
+  \end{block}
+
+  % \begin{block}{Approche dynamique}
+  %   \begin{itemize}
+  %     \item Reconfiguration dynamique
+  %   \end{itemize}
+  % \end{block}
+
+  % \begin{alertblock}{Fonctionnalités supplémentaire des passerelles}
+  %   \begin{itemize}
+  %     \item Interopérabilité logicielle
+  %     \item Ajout de services
+  %     \item Aggrégation et découverte de services
+  %   \end{itemize}
+  % \end{alertblock}
 
   \pnote{
     Modèle déductif plus efficaces sur les protocoles de routage.
@@ -49,38 +90,50 @@
     - On fournit autant de services généralistes que l'on peut avant d'aller vers le particulier.
   }
 \end{frame}
+%
+\begin{frame}[allowframebreaks]{Publications}
+  % \begin{block}{Supervision}
+    % \begin{itemize}
+  %     \item \textit{Tee: Traffic-based energy estimators for duty-cycled Wireless Sensor Networks} Léone, Leguay, Medagliani, Chaudet. IEEE International Conference on Communication (ICC)
+  % %   \end{itemize}
+  % % \end{block}
+  % % \begin{block}{Cache adaptatif}
+  % %   \begin{itemize}
+  %     \item \textit{Optimizing QoS in Wireless Sensors Networks using a Caching Platform}, Leone, Medagliani, Leguay. Sensornets 2013
+  %     \item \textit{Optimisation de la qualité de service par l'utilisation de mémoire cache}, Leone, Medagliani, Leguay. Algotel 2013
 
-\begin{frame}{Publications}
-  \begin{block}{Supervision}
-    \begin{itemize}
-      \item \textit{Tee: Traffic-based energy estimators for duty-cycled Wireless Sensor Networks. Léone, Leguay, Medagliani, Chaudet. IEEE International Conference on Communication (ICC)}
-    \end{itemize}
-  \end{block}
-  \begin{block}{Cache adaptatif}
-    \begin{itemize}
-      \item \textit{Optimizing QoS in Wireless Sensors Networks using a Caching Platform. Leone, Medagliani, Leguay. Sensornets 2013}
-      \item \textit{Optimisation de la qualité de service par l'utilisation de mémoire cache. Leone, Medagliani, Leguay.
-      Algotel}
-      \item Proxy inverse disponible par le projet Calipso (\href{https://github.com/sics-iot/calipso}{link})
-    \end{itemize}
-  \end{block}
+  %     \item \textit{A scalable and self-configuring architecture for service discovery in the internet of things} Cirani, Davoli, Ferrari, L{\'e}one, Medagliani, Picone, Veltri (IEEE Internet of Things Journal)
+
+% \tiny{
+% \item R{\'e}my Leone, Paolo Medagliani, and J{\'e}r{\'e}mie Leguay.
+% \newblock Optimizing qos in wireless sensors networks using a caching platform.
+% \newblock In {\em Sensornets 2013}, page~56, 2013.
+  
+% }
+
+  \bibliography{mine}
+  \bibliographystyle{ieeetr}
+
+    \nocite{*}
+
+    % \end{itemize}
+  % \end{block}
 \end{frame}
 
 \begin{frame}{Autres contributions}
   
-  \begin{block}{Interconnexions de passerelles en pair à pair pour la découverte de services}
-    \begin{itemize}
-      \item \textit{{Cirani, Davoli, Ferrari, L{\'e}one, Medagliani, Picone, Veltri} A scalable and self-configuring architecture for service discovery in
-        the internet of things. (IEEE Internet of Things Journal)}
-    \end{itemize}
-  \end{block}
+  % \begin{block}{Interconnexions de passerelles en pair à pair pour la découverte de services}
+  %   \begin{itemize}
+  %   \end{itemize}
+  % \end{block}
 
   \begin{block}{Contributions open source}
     \begin{itemize}
-      \item Mise en place de l'intégration continue au sein du projet Contiki (\href{https://contiki-os.blogspot.fr/2012/12/contiki-regression-tests-9-hardware.html}{link})
-      \item Documentation et automatisation d'expériences reproductibles sur les LLNs (Makesense) (\href{https://github.com/sieben/makesense}{link})
-      \item \textit{L{\'e}one, Leguay, Medagliani, Chaudet. Makesense: Automating WSN experiments and simulations.
-              EWSN, 2015.}
+      \item Proxy inverse disponible par le projet Calipso (Smart Parking) % (\href{https://github.com/sics-iot/calipso}{link})
+      \item Mise en place de l'intégration continue au sein du projet Contiki %(\href{https://contiki-os.blogspot.fr/2012/12/contiki-regression-tests-9-hardware.html}{link})
+      \item Documentation et automatisation d'expériences reproductibles sur les LLNs (Makesense) % (\href{https://github.com/sieben/makesense}{link})
+      % \item \textit{L{\'e}one, Leguay, Medagliani, Chaudet. Makesense: Automating WSN experiments and simulations.
+      %         EWSN, 2015.}
     \end{itemize}
   \end{block}
 
@@ -104,5 +157,5 @@
   \pnote{
     - Remerciements
   }
+  \label{slide:end}
 }
-

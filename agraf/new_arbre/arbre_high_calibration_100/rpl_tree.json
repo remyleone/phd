@@ -1,0 +1,18 @@
+{
+    "directed": true, 
+    "graph": [
+        [
+            "root", 
+            8
+        ]
+    ], 
+    "links": [], 
+    "multigraph": false, 
+    "nodes": [
+        {
+            "depth": 0, 
+            "id": 8, 
+            "root": true
+        }
+    ]
+}

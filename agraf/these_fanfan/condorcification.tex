@@ -1,0 +1,1297 @@
+% !TeX spellcheck = fr_FR
+\mychapter{Condorcification}\label{sec:condorcification}
+
+Certains auteurs, comme \cite{chamberlin1984observed}, \cite{smith1999measures}, \cite{favardin2002bordacopeland}, \cite{lepelley2003homogeneity}, \cite{favardin2006further} ou \cite{tideman2006collective} ont émis l'intuition que les modes de scrutin qui vérifient le critère de Condorcet ont une tendance générale à être moins manipulables que les autres. Dans ce chapitre, nous examinons cet aspect et nous montrons qu'à condition d'être précisée, cette intuition est justifiée. Nous reprenons et développons ici les travaux présentés par \cite{durand2012manipulability,  durand2014condorcification, durand2014poster}.
+
+\medskip
+Tout d'abord (section~\ref{sec:cminf_definition}), nous définissons le \emph{critère de la coalition majoritaire informée} (\cminf{}), qui sera utilisé comme hypothèse pour les principaux théorèmes de ce chapitre. Comme ce critère est vérifié par la plupart des modes de scrutin classiques, à l'exception notable de Veto, ceci donnera une certaine généralité à nos résultats. 
+
+Dans la section~\ref{sec:lemmes_duels_manip}, nous présentons une série de lemmes simples que nous utiliserons souvent par la suite, notamment pour prouver les théorèmes de ce chapitre. Ils permettent d'établir des liens entre la manipulabilité et les résultats des duels électoraux, avant et après la manipulation. Ces résultats sont bien connus dans la littérature dédiée à la manipulation; nous les adaptons simplement au cas général où les relations binaires de préférence sont quelconques.
+
+Ensuite, nous définissons la \emph{condorcification} d'un mode de scrutin (section~\ref{sec:condorcification_definition}): dans le nouveau système, on ajoute simplement un test préliminaire sur l'existence d'un vainqueur de Condorcet et, dans ce cas, il est déclaré vainqueur; sinon, on utilise le mode de scrutin original. Nous systématisons ainsi le procédé utilisé pour définir la méthode de \cite{black1958theory} à partir de celle de Borda.
+
+%Nous prouvons qu'en partant d'un mode de scrutin vérifiant \cminf{}, on peut définir facilement un mode de scrutin modifié qui est au plus aussi manipulable (au sens de l'inclusion des situations manipulables). La transformation utilisée est la \emph{condorcification}: 
+
+Ce système hybride pourrait être vu comme une construction artificielle et, en tant que telle, il n'est pas évident, \emph{a priori}, qu'il possède de bonnes propriétés. Mais, de façon assez surprenante, nous montrons en section~~\ref{sec:condorcifie_aussi_bon} que, si un système de vote vérifie le critère courant \cminf{}, alors sa condorcification est au plus aussi manipulable que le système original: c'est l'objet du \emph{théorème faible de condorcification} (théorème~\ref{thm_Condorcifie_aussi_bon}).
+
+Dans le cas général, ce théorème suppose que la condorcification d'un système de vote est réalisée en utilisant la notion de vainqueur de Condorcet absolu. Nous examinons ce qu'il en est avec des notions moins exigeantes, comme le vainqueur de Condorcet relatif (section~\ref{sec:condorcification_variantes}). Nous montrons que, même si ces variantes de condorcification ne permettent pas de diminuer la manipulabilité dans le cas général, celle basée sur le vainqueur de Condorcet relatif permet de diminuer la manipulabilité pour l'uninominal et U2TI, mais pas pour VTI ou le vote par assentiment par exemple.
+
+Notre but, ensuite, est d'examiner si la condorcification permet de réduire \emph{strictement} la manipulabilité. Pour cela, nous définissons la notion de \emph{vainqueur de Condorcet résistant}, un candidat qui, pour toute paire d'autres candidats, dispose d'une majorité d'électeurs qui le préfèrent simultanément aux deux membres de la paire (section~\ref{sec:vainqueur_de_condorcet_resistant}). Nous montrons que cette définition est équivalente à la propriété suivante: dans tout mode de scrutin respectant le critère de Condorcet, ce candidat est élu et la configuration est non manipulable.
+
+À l'aide de la notion de vainqueur de Condorcet résistant, nous montrons en section~\ref{sec:theoreme_fort_condorcification} que pour tous les modes de scrutin classiques sauf Veto, leur condorcification est \emph{strictement} moins manipulable que le mode de scrutin original: c'est l'objet du \emph{théorème fort de condorcification} (théorème~\ref{thm:cond_strictement_meilleur}).
+
+En section~\ref{sec:borne_sup_manip_pour_les_cond}, nous exploitons la notion de vainqueur de Condorcet résistant pour donner une borne supérieure de manipulabilité pour les systèmes Condorcet, et nous montrons que, dans l'espace électoral des ordres stricts totaux avec $C \geq 6$, cette borne supérieure est atteinte.
+
+Enfin, en section~\ref{sec:condorcification_et_systems_optimaux}, nous soulignons une conséquence importante des théorèmes de condorcification: la recherche d'un mode de scrutin de manipulabilité minimale (au sein de \cminf) peut être restreinte aux systèmes Condorcet.
+
+\medskip
+Indépendamment de nos recherches, \cite{green2014statistical} ont également introduit, dans un rapport de recherche disponible en ligne, le critère de la coalition majoritaire informée sous le nom de \emph{conditional majority determination} (CMD) et énoncé une version du théorème faible de condorcification. Cependant, d'une part, nous nous permettons de revendiquer l'antériorité \citep{durand2012manipulability}. D'autre part, leur preuve n'est pas correcte si les relations de préférence ne sont pas des ordres stricts, hypothèse qui est pourtant absente de leur formulation. En outre, quand les préférences ne sont pas des ordres stricts, il n'est pas évident de savoir quelle notion de vainqueur de Condorcet ils utilisent; l'interprétation la plus naturelle consiste à comprendre qu'il s'agit du vainqueur de Condorcet relatif\footnote{Leur définition est la suivante: <<\,A `Condorcet winner' is a candidate who, according to the ballot data, would win a two-person race against any other candidate\,>>. C'est-à-dire: <<\,Un \emph{vainqueur de Condorcet} est un candidat qui, selon les données des bulletins, remporterait un duel électoral contre tout autre candidat\,>>.}, mais on verra en section~\ref{sec:condorcification_variantes} que le résultat est alors erroné. À la décharge des auteurs, l'objet central de leur rapport n'est pas la condorcification mais l'étude par simulation de la manipulabilité de divers systèmes de vote pour $C = 3$ candidats. Nous avons eu de cordiaux et enrichissants échanges avec les auteurs de ce rapport en juin~2014; mais, à notre connaissance, la version de leur rapport qui est en ligne à l'heure où nous écrivons ce mémoire n'a pas encore inclus ces corrections et la référence à notre travail. Enfin, nous allons plus loin que ce résultat dans la section~\ref{sec:condorcification_variantes} et les suivantes, notamment en examinant les variantes de condorcification et en prouvant la version forte du théorème. 
+
+%Combining both ideas, \cite{green2014statistical} introduce an alteration of IRV that meets the Condorcet criterion. Then they prove, independently of us \citep{durand2012manipulability}, that for a large class of voting systems, making them meet the Condorcet criterion cannot worsen their manipulability. The main difference between their approach and ours is that \cite{green2014statistical} do not make perfectly clear what assumptions are made about the preferences of voters, despite the fact that their proof is valid only when preferences are strict total orders, whereas we provide the result in a wider framework that encompasses all kinds of profiles. We also improve this result by proving that for a large class of voting systems, making them meet the Condorcet criterion \emph{strictly} reduces their manipulability.
+
+
+
+%We show that, to the best of our knowledge, all classical voting systems that meet the informed majority coalition criterion but not the Condorcet criterion may fail to elect the resistant Condorcet winner when there is one, thus proving that their Condorcification is \emph{strictly} less manipulable.
+
+%So, instead of a given voting system $f$, it may be suggested to use its Condorcification $f^*$; but it is not the main message of this paper. Above all, our results prove that in order to find a minimally manipulable voting system (among reasonable ones), investigation can be restricted to Condorcet voting systems.
+%But the main message of this paper is not to suggest replacing the use of a voting system $f$ by its Condorcification $f^*$. Above all, our results prove that in order to find a minimally manipulable voting system (among ``reasonable'' ones), investigation can be restricted to Condorcet voting systems.
+
+%The ultimate goal of finding such a voting system is not necessarily to use it in practice, but to use its manipulability rate as a benchmark for other voting systems: if a voting system has a manipulability rate that is close to minimal (among reasonable ones), but other interesting properties, then it is ok for manipulability.
+
+
+%Insister sur le fait que le théorème n'est pas dur, mais d'une part, à condition de bien définir les objets (espace électoral, vainqueur de Condorcet, etc.) et d'autre part, Green-Armytage et compagnie arrivent quand même à se gaufrer dans le cas général où les préférences ne sont pas des ordres stricts totaux.
+
+\section{Critère de la coalition majoritaire informée (\textbf{CMInf})}\label{sec:cminf_definition}
+
+Nous avons déjà présenté le critère de Condorcet (définition~\ref{def:critere_de_condorcet}). Nous allons maintenant présenter un critère plus faible, le \emph{critère de la coalition majoritaire informée} (\cminf{}).
+
+\begin{definition}[critère de la coalition majoritaire informée]\label{def:cminf}
+Soit $f$ un SVBE.
+
+On dit que $f$ vérifie le \emph{critère de la coalition majoritaire informée} (\cminf{}) \ssi toute coalition majoritaire et informée de ce que font les autres électeurs peut décider du résultat\footnote{Cette notion est basée sur la même idée que ce que \cite{peleg1984game} appelle le \emph{troisième jeu simple} associé à un système de vote.}. Formellement, $\forall M \in \mathcal{P}(\mathcal{V})$, si $\textrm{card}(M) > \frac{V}{2}$, alors: $\forall c \in \mathcal{C}$, $\forall \omega_{\mathcal{V} \setminus M} \in \Omega_{\mathcal{V} \setminus M}$, $\exists \omega_M \in \Omega_M$ t.q. $f(\omega_M,\omega_{\mathcal{V} \setminus M}) = c$.
+
+Comme pour le critère de Condorcet, la notation \cminf{} désigne indifféremment le critère lui-même ou l'ensemble des SVBE (sur $\Omega$) qui le vérifient.
+\end{definition}
+
+\begin{prop}\label{thm:cond_implique_cminf}
+Si l'espace électoral autorise tout candidat comme préféré (ce qui est une hypothèse courante, cf. définition~\ref{def:ES_richness}), alors $\cond \subseteq \cminf$.
+\end{prop}
+
+\begin{proof}
+Si un mode de scrutin vérifie le critère de Condorcet, il suffit à une coalition majoritaire de prétendre préférer un candidat~$c$ à tous les autres candidats pour que $c$ apparaisse comme un vainqueur de Condorcet et soit élu. %Autrement dit, \cminf{} est un critère plus faible (moins exigeant) que \cond{}.
+\end{proof}
+
+Il est facile d'étendre les définitions de \cminf{} et de \cond{} à un système de vote général (section~\ref{sec:systemes_de_vote_generaux}). Dans ce cas, on verrait que \cminf{} est une propriété du \emph{mode de scrutin}, exprimant le pouvoir accordé par la règle de dépouillement à une majorité stricte d'électeurs, alors que \cond{} est une propriété du \emph{système de vote} puisqu'elle relie les préférences et le vainqueur du vote sincère. Par conséquent, on peut dire qu'un mode de scrutin vérifie \cminf{} sans qu'il soit crucial de préciser l'espace électoral utilisé; mais, pour définir $\cond{}$, il est nécessaire d'expliciter l'espace électoral et les fonctions de sincérité.
+
+\begin{prop}\label{thm:classical_meet_cminf}
+Les systèmes de vote suivants vérifient \cminf{}: BI, le jugement majoritaire, l'uninominal, U2TI, VTI, VTIM, le vote par assentiment, le vote par notation et les méthodes de Borda, Bucklin et Coombs, ainsi que tous les systèmes Condorcet.
+\end{prop}
+
+Cette propriété n'est pas difficile à démontrer mais nous attendrons le chapitre~\ref{sec:criteres_majoritaires} afin d'inclure ce résultat dans des propositions plus détaillées sur chacun de ces modes de scrutin.
+
+Nous verrons aussi dans le chapitre~\ref{sec:criteres_majoritaires} que Veto est l'un des rares systèmes de vote souvent étudiés ne vérifiant pas \cminf{}; cependant, il n'est guère utilisé en pratique.
+
+Parmi les systèmes de vote courants, il est intéressant de constater que même ceux dont les arguments habituels ne reposent pas sur la notion de majorité (VA, VN ou JM par exemple) vérifient \cminf{}, qui est clairement une propriété majoritaire.
+
+En pratique, ces observations donnent une large gamme d'applications aux résultats de ce chapitre. D'un point de vue théorique, on peut se demander s'il y a une raison profonde pour laquelle la plupart des systèmes de vote classiques vérifient \cminf{}\footnote{Au moins, c'est le cas pour les systèmes de vote utilisés en pratique qui traitent les électeurs et les candidats de façon symétrique, aux cas d'égalité près. Nous évoquerons certains modes de scrutin délibérément asymétriques dans le chapitre~\ref{sec:condorcification_generalisee}.}. Il nous semble que cette question est une problématique intéressante pour de futurs travaux, que ce soit avec une approche de sciences dures ou de sciences humaines. Nous y reviendrons également dans le chapitre~\ref{sec:criteres_majoritaires}, où nous étudierons de manière plus générale des critères liés à la notion de majorité.
+
+
+\section{Liens entre manipulation et résultats des duels électoraux}\label{sec:lemmes_duels_manip}
+
+À présent, nous présentons une série de lemmes très simples qui permettent d'établir des liens entre la manipulabilité et le résultat des duels électoraux, avant et après la manipulation. Les démonstrations découlent immédiatement des définitions et sont omises. Tous ces résultats font partie d'une gymnastique habituelle dans la littérature sur la manipulation; nous les adaptons simplement au cas général où les relations binaires de préférence ne sont pas forcément des ordres stricts totaux.
+
+\begin{lem}\label{thm_cNonCond}
+Soit $(\omega,\psi) \in \Omega^2$. On note $\winner = f(\omega)$ et $c = f(\psi)$ et on suppose que $f$ est manipulable en $\omega$ vers $\psi$.
+
+Le résultat du duel de $c$ contre $\winner$ ne peut pas être meilleur dans $\psi$ que dans~$\omega$, c'est-à-dire qu'on a: 
+$$D_{c\winner}(\psi) \leq D_{c\winner}(\omega).$$
+
+Par conséquent, si $\winner$ est Condorcet-admissible en $\omega$, alors $c$ ne peut pas avoir une victoire contre $\winner$ dans $\psi$; en particulier, $c$ n'est pas vainqueur de Condorcet en $\psi$.
+\end{lem}
+
+On remarquera que pour le lemme~\ref{thm_cNonCond}, aucune hypothèse n'est faite sur le système de vote~$f$: en particulier, il n'est pas nécessaire qu'il vérifie \cminf{} ou \cond{}. Par ailleurs, ce lemme entraîne immédiatement le suivant.
+
+\begin{lem}\label{thm:cond_non_manip_vers_cond}
+Si le système de vote vérifie le critère de Condorcet, alors une configuration Condorcet ne peut pas être manipulable vers une autre configuration Condorcet.
+\end{lem}
+
+En revanche, une configuration admissible $\omega$ peut être manipulable vers une configuration Condorcet $\psi$, mais seulement si un candidat non-admissible est élu en $\omega$.
+
+Les lemmes~\ref{thm_cNonCond} et \ref{thm:cond_non_manip_vers_cond} généralisent un résultat classique de \citet[chapitre~I, théorème~1]{moulin1978strategie}.  Contrairement à ce qu'on peut lire parfois, ce résultat n'empêche absolument pas une configuration Condorcet d'être manipulable. 
+
+\medskip
+Dans le même esprit, on dispose du lemme suivant, qui s'applique lorsque les préférences sont antisymétriques (ce qui est une hypothèse courante) et qui se concentre sur le résultat $D_{\winner c}$ du duel de $\winner$ contre $c$ (au lieu de $D_{c\winner}$ dans le lemme~\ref{thm_cNonCond}).
+
+Ce résultat ne sera pas nécessaire pour prouver les théorèmes de condorcification (théorèmes \ref{thm_Condorcifie_aussi_bon} et \ref{thm:cond_strictement_meilleur}), mais il aurait été dommage d'énoncer le lemme~\ref{thm_cNonCond} sans en profiter pour mentionner le lemme~\ref{thm_cNonAdm}, qui est extrêmement similaire et que nous utiliserons également à plusieurs occasions.
+
+\begin{lem}\label{thm_cNonAdm}
+Soit $(\omega,\psi) \in \Omega^2$. On note $\winner = f(\omega)$ et $c = f(\psi)$ et on suppose que $f$ est manipulable en $\omega$ vers $\psi$. On suppose, en outre, que les relations binaires de préférence sont antisymétriques dans $\omega$.
+
+Le résultat du duel de $\winner$ contre $c$ ne peut pas être moins bon dans $\psi$ que dans $\omega$, c'est-à-dire qu'on a:
+$$D_{\winner c}(\psi) \geq D_{\winner c}(\omega).$$
+
+Par conséquent, si $\winner$ est vainqueur de Condorcet en $\omega$, alors $c$ conserve une défaite contre $\winner$ en $\psi$; en particulier, $c$ n'est pas Condorcet-admissible en $\psi$.
+\end{lem}
+
+
+%Pour prouver les théorèmes principaux de ce chapitre (théorèmes \ref{thm_Condorcifie_aussi_bon} et \ref{thm:cond_strictement_meilleur}), nous n'aurons besoin que du point~\ref{enumi:Dcw_devient_moins_bon} du lemme, mais il aurait été dommage de ne pas en profiter pour prouver le point~\ref{enumi:Dwc_devient_meilleur}, qui est extrêmement similaire et que nous utiliserons également à plusieurs occasions.
+
+Enfin, voici l'autre lemme qui sera utilisé pour prouver les théorèmes de condorcification. Sa preuve est tout aussi immédiate.
+
+\begin{lem}\label{thm_NonAdmManip}
+%Let $\Omega$ be an ES, $f$ an SBVS and 
+Soit $\omega \in \Omega$. 
+On suppose que $f$ vérifie {\normalfont\cminf{}}.
+
+Si $f(\omega)$ n'est pas Condorcet-admissible en $\omega$, alors $f$ est manipulable en $\omega$.
+\end{lem}
+
+Une conséquence immédiate de ce lemme est que, si une configuration $\omega$ est non admissible, alors tout système de vote~$f$ vérifiant \cminf{} est manipulable en~$\omega$.
+
+\section{Définition de la condorcification}\label{sec:condorcification_definition}
+
+L'idée de la \emph{condorcification} remonte à \cite{black1958theory}, qui l'a appliquée à la méthode de Borda pour définir la méthode qui porte désormais son nom. Cependant, il semble que, depuis, ce principe n'ait été ni exploité pour d'autres modes de scrutin ni étudié en général avant les travaux de \cite{green2014statistical} et ceux de \cite{durand2012manipulability}. Il nous semble que cela s'explique par le fait que ce procédé, produisant des modes de scrutin hybrides qui semblent artificiels et manquent peut-être d'élégance mathématique, ne possédait pas de bonne propriété connue jusqu'à présent. Nous espérons remédier à ce fait dans le présent chapitre.
+
+\begin{definition}[condorcification]\label{def:condorcification}
+On appelle \emph{condorcification absolue de~$f$}, ou simplement \emph{condorcification de~$f$}, le SVBE suivant:
+$$
+f^*:
+\begin{array}{|cll}
+\Omega & \to & \mathcal{C} \\
+\omega & \to & 
+\begin{array}{|l}
+\textrm{si\;} \omega \textrm{\;a un vainqueur de Condorcet (absolu)\;} c, \textrm{alors\;} c,  \\
+\textrm{sinon}, f(\omega).
+\end{array} 
+\end{array}
+$$
+\end{definition}
+
+%\begin{remark}[the Condorcification meets the Condorcet criterion]
+Par définition, $f^*$ vérifie le critère de Condorcet. Par conséquent, si on fait l'hypothèse courante que l'espace électoral autorise tout candidat comme préféré, alors $f^*$ vérifie \cminf{} (proposition~\ref{thm:cond_implique_cminf}).
+%\end{remark}
+
+\medskip
+Afin de comprendre comment cette définition s'applique dans le cas d'un mode de scrutin cardinal, examinons la condorcification du vote par notation, dans l'espace électoral de référence où $\omega_v = (p_v,u_v,a_v)$.
+\begin{itemize}
+\item Chaque électeur communique un état.
+\item S'il y a un vainqueur de Condorcet (calculé avec les relations $p_v$ communiquées), alors il est élu.
+\item Sinon, le candidat avec la note moyenne maximale (calculée avec les vecteurs de notes $u_v$ communiqués) est élu.
+\end{itemize}
+
+Pour implanter ce système en pratique, il est maintenant nécessaire d'inclure les notes (comme pour le vote par notation original, voir les sections~\ref{sec:svbe_definition} et~\ref{sec:implantation_canonique}) mais aussi les ordres de préférence dans les bulletins. Cependant, si le planificateur social a adopté l'hypothèse que $c \mathrel{p_v} d \Leftrightarrow u_v(c) > u_v(d)$ (que nous avions mentionnée dans la section~\ref{sec:espace_electoral_definition}), alors il est suffisant de demander les notes, puisque les ordres de préférence s'en déduisent immédiatement.
+
+%Doing so is logically equivalent to forbidding ballots with grades and binary relations that the social planner considers as inconsistent and, for this reason, supposedly not sincere, as is developed in appendix \ref{sec:append_GVS}.
+
+\medskip
+Pour chaque mode de scrutin, nous préfixerons son nom par <<\,Condorcet\,>> et son abréviation par la lettre C pour désigner sa condorcification. Par exemple, la condorcification de la méthode de Bucklin sera appelée Condorcet-Bucklin et abrégée en CBuck. Nous étudierons également de manière approfondie la condorcification de VTI, notée CVTI. 
+
+En fait, nous avons déjà utilisé implicitement ce procédé pour définir le système Condorcet-doyen à partir d'un mode de scrutin au résultat constant (qui élit toujours le même candidat appelé \emph{doyen}) et pour définir le système Condorcet-dictature à partir d'un mode de scrutin dictatorial.
+
+
+
+
+
+
+
+\section{Théorème faible de condorcification}\label{sec:condorcifie_aussi_bon}
+
+
+Le théorème suivant montre un avantage important de la condorcification: pour un système vérifiant \cminf, sa condorcification est au plus aussi manipulable que le système original.
+
+
+\begin{thm}[théorème faible de condorcification]\label{thm_Condorcifie_aussi_bon}
+Soit $f$ un SVBE. On suppose que $f$ vérifie {\normalfont\cminf{}}.
+
+Alors sa condorcification $f^*$ est au plus aussi manipulable que $f$:
+$$\MC_{f^*} \subseteq \MC_f.$$
+%$$
+%\{ \omega \in \Omega \text{\;s.t.\;} f^* \textrm{\;is manipulable in } \omega \}
+%\subseteq
+%\{ \omega \in \Omega \text{\;s.t.\;} f \textrm{\;is manipulable in } \omega \}.
+%$$
+\end{thm}
+
+%Nous aurons besoin des deux lemmes suivants, dont les preuves sont immédiates.
+%À présent, nous pouvons prouver le théorème~\ref{thm_Condorcifie_aussi_bon}.
+
+
+Pour donner l'intuition de la preuve, rappelons que les configurations~$\omega$ sont de trois types.
+\begin{description}
+	\item[Condorcet] Il y a un vainqueur de Condorcet.
+	\item[Semi-Condorcet] Il y a au moins un candidat Condorcet-admissible mais pas de vainqueur de Condorcet.
+	\item[Non admissible] Aucun candidat n'est Condorcet-admissible.
+\end{description}
+
+Si le système de vote vérifie \cminf{}, nous allons prouver que, lorsqu'une configuration est Condorcet, alors on ne peut pas empirer la manipulabilité du système en choisissant celui-ci comme vainqueur de l'élection. En effet, d'une part, nous verrons que cela ne peut pas empirer la manipulabilité de la configuration considérée elle-même: si le vainqueur était différent dans le système original, alors la configuration était manipulable en faveur du vainqueur de Condorcet (ce sera une conséquence du lemme~\ref{thm_NonAdmManip}), donc on ne peut pas empirer la situation. D'autre part, cela ne peut pas rendre une autre configuration Condorcet manipulable (lemme~\ref{thm:cond_non_manip_vers_cond}, qui découle du lemme~\ref{thm_cNonCond}); ça ne peut amener une configuration semi-Condorcet à être manipulable que si elle l'était déjà au départ (lemme~\ref{thm_cNonCond}); et les configurations non admissibles sont condamnées à être manipulables de toute façon (lemme~\ref{thm_NonAdmManip}).
+
+\begin{proof}
+Supposons que $f^*$ soit manipulable en $\omega$ vers $\psi$, mais que $f$ n'est pas manipulable en $\omega$. 
+
+Puisque $f$ n'est pas manipulable en $\omega$, le lemme \ref{thm_NonAdmManip} assure que $f(\omega)$ est Condorcet-admissible en $\omega$. S'il est vainqueur de Condorcet en $\omega$, alors $f^*(\omega) = f(\omega)$; sinon, il n'y a pas de vainqueur de Condorcet en $\omega$ (proposition \ref{thm_CondUnique}) donc, par définition de $f^*$, on a aussi $f^*(\omega) = f(\omega)$.
+
+À présent, notons $\winner = f^*(\omega) = f(\omega)$ et $c = f^*(\psi)$. Comme $\winner$ est Condorcet-admissible en $\omega$, le lemme \ref{thm_cNonCond} (appliqué à $f^*$) assure que $c$ n'est pas vainqueur de Condorcet en $\psi$. Donc, par définition de $f^*$, on a $f^*(\psi) = f(\psi)$.
+
+Par conséquent, on a $f(\omega) = f^*(\omega)$ et $f(\psi) = f^*(\psi)$, donc $f$ est manipulable en $\omega$: c'est absurde!
+\end{proof}
+
+%At this stage, we have shown that, in an electoral that allows any candidate as most liked, if one adopts the informed majority coalition criterion and looks for a voting system that is as little manipulable as possible, this search can be restricted\footnote{Without assuming that the electoral space allows any candidate as favorite, it would not be correct to use the word ``restrict'', because systems that meet Condorcet criterion do not always meet informed majority coalition criterion. That said, Condorcification theorem still holds anyway.} to voting systems $f$ of the following form, where a label has been added to mention that $f$ meets Condorcet criterion.
+%
+%\begin{center}
+%\begin{tikzpicture}
+%\node (E1) at (0,0.6) {$\omega_1 \in \Omega$};
+%\node (Ei) at (0,0.1) {$\vdots$};
+%\node (En) at (0,-0.6) {$\omega_n \in \Omega$};
+%\node (S1) at (3,0.6) {$\omega_1 \in \Omega$};
+%\node (Si) at (3,0.1) {$\vdots$};
+%\node (Sn) at (3,-0.6) {$\omega_n \in \Omega$};
+%\node (z) at (6,0) {$z \in \mathcal{C}$};
+%\draw[>=latex,->] (S1) -- (4.5,0.6);
+%\draw[>=latex,->] (Sn) -- (4.5,-0.6);
+%\draw[>=latex,->] (4.5,0) -- (z);
+%\filldraw[fill=white,draw=black] (4.2,1.1) rectangle (4.8,-1.1) node[midway] {$f$};
+%\node[above] at (4.5,1.1) {Condorcet};
+%\draw[>=latex,->] (E1) -- (S1) node[midway,above] {Id};
+%\draw[>=latex,->] (En) -- (Sn) node[midway,above] {Id};
+%\end{tikzpicture}
+%\end{center}
+
+%For example, we have just proved that if $f$ is Range voting, then its Condorcification $f^*$ is at most as manipulable as $f$ (in the sense of inclusion). In particular, for any culture $\proba$, we have $\tau_\proba(f^*) \leq \tau_\proba(f)$.
+
+La démonstration de~\cite{green2014statistical} est articulée en 5~points numérotés. À la fin du point~2, les auteurs établissent qu'il n'existe aucun candidat $B$ tel qu'une majorité absolue stricte d'électeurs préfère $B$ à un certain candidat $A$;  c'est-à-dire que le candidat $A$ est Condorcet-admissible, dans notre terminologie. Au point~3, ils en déduisent qu'aucun candidat $B$ distinct de $A$ ne peut être vainqueur de Condorcet (apparemment relatif). 
+
+Cependant, en général, cette implication n'est pas correcte: en effet, un candidat $B$ peut être vainqueur de Condorcet relatif en étant préféré à $A$ par 45~\% des électeurs pendant que $A$ est préféré à $B$ par 40~\% des électeurs. Pour que leur démonstration soit correcte, il faut donc, soit la limiter à des ordres stricts totaux (ce qui semble implicitement être leur cas), soit utiliser la notion de vainqueur de Condorcet absolu.
+
+En fait, nous montrerons dans la section~\ref{sec:condorcification_variantes} que, si on effectue la condorcification en utilisant la notion de vainqueur de Condorcet relatif, alors non seulement leur démonstration devient incorrecte, mais le théorème de condorcification lui-même devient faux dans le cas général: pour certains modes de scrutin, il est possible de rendre certaines configurations manipulables alors qu'elles ne l'étaient pas.
+
+%\begin{remark}[no generalization to Condorcet-admissible candidates]\label{thm:no_generalization_to_Cond_adm}
+%Dans la section~\ref{sec:condorcification_variantes}, nous montrerons que ce théorème est bien ajusté, dans le sens suivant: il ne se généralise pas quand on utilise une version étendue de la condorcification impliquant des vainqueurs de Condorcet relatifs, faibles ou des candidats Condorcet-admissibles. 
+%We could think of a more advanced form of Condorcification: if there is at least one Condorcet-admissible candidate, choose one arbitrarily; otherwise, use the original processing rule. Unfortunately, theorem \ref{thm_Condorcifie_aussi_bon} cannot be generalized in that case, as shown in appendix \ref{sec:no_generalization_to_Cond_adm}.
+%\end{remark}
+
+\medskip
+Par ailleurs, une objection classique aux systèmes de vote Condorcet est qu'ils souffrent tous du \emph{no-show paradox} \citep{moulin1988noshow,perez2001noshow}: il existe au moins une configuration où un électeur peut manipuler par abstention.  Cependant, le théorème faible de condorcification~\ref{thm_Condorcifie_aussi_bon} nuance cette critique: lorsque l'on compare un système $f$ et sa condorcification $f^*$, si on est dans une configuration où les manipulateurs peuvent exploiter l'abstention stratégique dans $f^*$, cela signifie que le système de vote original $f$ est manipulable de toute façon (pas forcément par abstention). Pour le voir, il suffit de considérer un espace électoral où l'abstention est un état sincère possible et par conséquent un bulletin disponible dans un SVBE.
+
+
+\section{Variantes de condorcification}\label{sec:condorcification_variantes}
+
+%Condorcet absolu (A > 0,5 V) => Cond absolu aux abstentions près (A > 0,5 V') => Condorcet relatif (A > B) => weak Condorcet (A >= B) => C-adm aux abstentions près (B <= 0,5 V') => C-adm (B <= 0,5 V).
+%Plus : C-adm / weak Cond unique ou non.
+
+À présent, nous montrons que le théorème faible de condorcification~\ref{thm_Condorcifie_aussi_bon} est bien ajusté, dans le sens suivant: il ne se généralise pas quand on utilise une version étendue de la condorcification impliquant des vainqueurs de Condorcet relatifs, faibles ou des candidats Condorcet-admissibles. 
+
+\subsection{Définition des variantes de condorcification}
+
+Depuis le début de ce chapitre, nous nous sommes concentrés sur la notion de vainqueur de Condorcet absolu, qui est basée sur des victoires absolues: dans le duel d'un tel candidat~$c$ contre tout adversaire~$d$, on a $\voterset{c \Plusque{\omega_v} d} > \frac{V}{2}$ et $\voterset{d \Plusque{\omega_v} c} \leq \frac{V}{2}$, ces deux conditions se résumant à la première quand les préférences sont antisymétriques (ce qui est une hypothèse courante).
+
+À la place, nous aurions pu considérer les variantes plus faibles de cette notion, dont on peut rappeler informellement les définitions.
+\begin{description}
+\item[Vainqueur de Condorcet relatif]$\voterset{c \Plusque{\omega_v} d} > \voterset{d \Plusque{\omega_v} c}$.
+\item[Vainqueur de Condorcet faible] $\voterset{c \Plusque{\omega_v} d} \geq \voterset{d \Plusque{\omega_v} c}$.
+\item[Candidat Condorcet-admissible] $\voterset{d \Plusque{\omega_v} c} \leq \frac{V}{2}$.
+\end{description}
+
+\medskip
+Pour tout SVBE~$f$, de la même façon qu'on a défini sa condorcification~$f^*$, on définit les systèmes de vote suivants.
+\begin{description}
+\item[$f^{\text{\normalfont rel}}$]: s'il y a un vainqueur de Condorcet relatif, il est élu, sinon on applique~$f$. Ce système sera appelé la \emph{condorcification relative} de $f$.
+\item[$f^{!\text{\normalfont faible}}$]: s'il y a un unique vainqueur de Condorcet faible, il est élu, sinon on applique~$f$.
+\item[$f^{\text{\normalfont faible}}$]: s'il y a au moins un vainqueur de Condorcet faible, on en choisit un arbitrairement, sinon on applique~$f$.
+\item[$f^{!\text{\normalfont adm}}$]: s'il y a un unique candidat Condorcet-admissible, il est élu, sinon on applique~$f$.
+\item[$f^{\text{\normalfont adm}}$]: s'il y a au moins un candidat Condorcet-admissible, on en choisit un arbitrairement, sinon on applique~$f$.
+\end{description}
+Dans le cas de $f^{\text{faible}}$ ou $f^{\text{adm}}$, ceci ne définit pas un SVBE à proprement parler mais plutôt une classe de SVBE, puisque la définition laisse des choix arbitraires à faire. Ce raccourci de notation ne posera pas de problème en pratique car les résultats que nous prouverons seront vrais pour tout SVBE répondant à cette définition, quels que soient les choix opérés.
+
+Nous allons examiner si l'une ou l'autre de ces notions permet d'obtenir un résultat similaire au théorème faible de condorcification~\ref{thm_Condorcifie_aussi_bon}. Cependant, nous allons voir que ce n'est pas le cas.
+
+\medskip
+À tout moment de cette section, on se place dans un espace électoral où l'ensemble des relations binaires de préférence possibles pour chaque électeur est égal à l'ensemble des ordres stricts faibles (pour éviter, notamment, que les notions de vainqueur de Condorcet absolu ou relatif ne soient confondues, ce qui ne nous permettrait pas de voir quelle est la notion qui rend le théorème valide). En particulier, on se place dans un cas favorable où les relations binaires de préférence sont antisymétriques, ce qui permet de simplifier les raisonnements (alors qu'on se souviendra que cette hypothèse n'est pas nécessaire pour le théorème faible de condorcification~\ref{thm_Condorcifie_aussi_bon}).
+
+\subsection{Variantes de condorcification: résultat général}
+
+Commençons par l'exemple d'un mode de scrutin qui est, certes, un peu artificiel mais qui va nous permettre de prouver de façon assez concise qu'aucune des notions ci-dessus ne permet de généraliser le théorème faible de condorcification~\ref{thm_Condorcifie_aussi_bon}.
+
+\begin{prop}
+Le SVBE~$f$ considéré est Condorcet-doyen.
+
+Il existe au moins une valeur de $(V, C)$ telle que pour tout système $g$ choisi parmi les variantes $f^{\text{rel}}$, $f^{!\text{faible}}$, $f^{\text{faible}}$, $f^{!\text{adm}}$ ou $f^{\text{adm}}$, on n'a pas $\MC_{g} \subseteq \MC_{f}$.
+\end{prop}
+
+\begin{proof}
+Considérons $V=5$ électeurs, $C=3$ candidats notés $a, b, c$. Le doyen est~$a$. Considérons la configuration $\omega$ suivante et sa matrice des duels $D(\omega)$.
+\begin{center}
+\begin{tabular}{lcl}
+%Preferences: & \hspace{1cm} & Matrix of duels:\\
+$
+\begin{array}{c|c|c|c|c}
+\,\;a\;\, & a,c & b   & b & c \\
+b & b   & a,c & c & \,\;a\;\, \\
+c &     &     & \,\;a\;\, & b \\
+\end{array}
+$ 
+& &
+\begin{tabular}{IcIc|c|cI}
+\Cline{1pt}{1-4}
+\multicolumn{1}{IcI}{$D(\omega)$} & $a$ & $b$ & $c$ \\ \Cline{1pt}{1-4}
+$a$                     &  -- & 3 & 1  \\ \hline
+$b$                     & 2 & --  & 3  \\ \hline
+$c$                     & 2 & 2 & --   \\ \Cline{1pt}{1-4}
+\end{tabular}
+\end{tabular}
+\end{center}
+
+Il n'y a pas de vainqueur de Condorcet absolu: en effet, il faudrait qu'un candidat ait au moins 3~points dans chaque duel de sa ligne de $D(\omega)$, ce qui n'est pas le cas. Donc le doyen est élu: $f(\omega) = a$. Il est facile de voir que~$f$ n'est pas manipulable en $\omega$: si c'était le cas, d'après le lemme~\ref{thm:cond_non_manip_vers_cond}, ce serait vers une configuration sans vainqueur de Condorcet. Mais, dans toutes les configurations de ce type, c'est $a$ qui est élu, donc la manipulation échoue.
+
+Les candidats $b$ et $c$ ne sont même pas Condorcet-admissibles (ils ont chacun une défaite absolue dans leur colonne). Par conséquent, quelle que soit la variante~$g$ étudiée, on a $g(\omega) = a$.
+
+Considérons maintenant la configuration suivante $\psi$, où les deux derniers électeurs tentent de faire gagner~$c$ au lieu de~$a$.
+\begin{center}
+\begin{tabular}{lcl}
+%Preferences: & \hspace{1cm} & Matrix of duels:\\
+$
+\begin{array}{c|c|c|c|c}
+\,\;a\;\, & a,c & b   & \mathbf{c} & c \\
+b & b   & a,c & \textbf{b} & \textbf{b} \\
+c &     &     & \,\;a\;\, & \,\;\textbf{a}\;\, \\
+\end{array}
+$ & &
+\begin{tabular}{IcIc|c|cI}
+\Cline{1pt}{1-4}
+\multicolumn{1}{IcI}{$D(\psi)$} & $a$ & $b$ & $c$ \\ \Cline{1pt}{1-4}
+$a$                     &  -- & 2 & 1  \\ \hline
+$b$                     & 3 & --  & 2  \\ \hline
+$c$                     & 2 & 3 & --   \\ \Cline{1pt}{1-4}
+\end{tabular}
+\end{tabular}
+\end{center}
+À présent, $c$ est un vainqueur de Condorcet relatif, donc également un vainqueur de Condorcet faible et un candidat Condorcet-admissible. Les candidats $a$ et $b$ ne sont même pas Condorcet-admissibles (ils ont chacun une défaite dans leur colonne). Par conséquent, quelle que soit la variante~$g$ utilisée, on a $g(\psi) = c$.
+
+En conclusion, $g$ est manipulable en $\omega$ vers $\psi$ en faveur de~$c$, alors que $f$ n'est pas manipulable en $\omega$.
+\end{proof}
+
+Cette proposition montre pourquoi la condorcification que nous avons utilisée dans le théorème faible de condorcification~\ref{thm_Condorcifie_aussi_bon} repose sur la notion de vainqueur de Condorcet absolu. En effet, si on conserve la même hypothèse $f \in \cminf$ (qui est trivialement vérifiée par Condorcet-doyen), le théorème n'est pas généralisable aux vainqueurs de Condorcet relatifs, faibles ou aux candidats Condorcet-admissibles.
+
+\medskip
+Une autre possibilité, pour généraliser le théorème en utilisant la notion de vainqueur de Condorcet relatif, de vainqueur de Condorcet faible ou de candidat Condorcet-admissible, consisterait à remplacer l'hypothèse $f \in \cminf{}$ par une autre hypothèse. Ceci dit, pour que le théorème obtenu ait un domaine de validité aussi intéressant que le théorème~\ref{thm_Condorcifie_aussi_bon}, il faudrait qu'il soit au moins applicable à des systèmes de vote usuels, comme l'uninominal, U2TI, VTI ou le vote par assentiment. 
+
+Nous allons donc examiner ces systèmes de vote particuliers. Nous verrons qu'en général, on ne peut avoir une telle généralisation du théorème~\ref{thm_Condorcifie_aussi_bon}; mais que pour certains de ces systèmes, la condorcification relative~$f^\text{rel}$ peut être moins manipulable que le système original~$f$, et même que sa condorcification~$f^*$.
+
+\vspace{-0.2cm}%MAGOUILLE
+\subsection{Variantes de condorcification pour l'uninominal}
+\vspace{-0.1cm}%MAGOUILLE
+
+Tout d'abord, précisons comment nous généralisons l'uninominal, U2TI et VTI si les électeurs peuvent avoir des ordres stricts faibles de préférence. Nous allons considérer les deux règles que nous avons présentées dans la section~\ref{sec:rps_definition}: si un électeur a plusieurs candidats préférés à égalité (parmi les candidats non éliminés), on peut décider que sa voix est divisée également entre eux, ou n'est pas comptée du tout. Nos résultats seront valables dans les deux cas.
+
+\begin{prop}\label{thm:plurality_cond_rel}
+Le SVBE~$f$ considéré est l'uninominal.
+
+\begin{enumerate}
+\item\label{enumi:plurality_rel_good} On a: $\MC_{f^{\text{rel}}} \subseteq \MC_{f^*}$.
+\item\label{enumi:plurality_rel_strict_good} Il existe $(V, C)$ t.q. l'inclusion précédente est stricte.
+\item\label{enumi:plurality_adm_bad} Il existe $(V, C)$ t.q. pour tout système $g$ choisi parmi les variantes $f^{!\text{faible}}$, $f^{\text{faible}}$, $f^{!\text{adm}}$ ou $f^{\text{adm}}$, on n'a pas $\MC_{g} \subseteq \MC_{f}$.
+\end{enumerate}
+\end{prop}
+
+Afin de démontrer le point~\ref{enumi:plurality_rel_good}, nous allons d'abord prouver le lemme suivant, que nous appliquerons ensuite à $h = f^*$.
+
+\begin{lem}
+Soit $h$ un SVBE. On suppose que, pour toute configuration~$\omega$ et tout candidat $d \neq h(\omega)$, si $h(\omega)$ a une défaite relative contre~$d$, alors $h$ est manipulable en $\omega$.
+
+Alors $\MC_{h^\text{rel}} \subseteq \MC_{h}$.
+\end{lem}
+
+\begin{proof}
+Supposons qu'il existe une configuration~$\omega$ où $h$ n'est pas manipulable mais où $h^\text{rel}$ est manipulable vers une certaine configuration~$\psi$.
+
+Notons $c = h(\omega)$. Comme $h$ n'est pas manipulable en~$\omega$, l'hypothèse du lemme implique que $c$ n'a pas de défaite relative, donc aucun autre candidat ne peut être vainqueur de Condorcet relatif. Par conséquent, $h^\text{rel}(\omega) = c$.
+
+Notons $d = h^\text{rel}(\psi)$. Comme le résultat relatif du duel de $d$ contre $c$ ne peut pas avoir été amélioré par la manipulation (lemmes \ref{thm_cNonCond} et~\ref{thm_cNonAdm}), $d$ n'a toujours pas de victoire relative contre~$c$, donc il n'est pas vainqueur de Condorcet relatif. Par définition de $h^\text{rel}$, on en déduit que $h(\psi) = d$.
+
+Ainsi, $h(\omega) = h^\text{rel}(\omega) = c$ et $h(\psi) = h^\text{rel}(\psi) = d$ donc $h$ est manipulable en $\omega$ vers $\psi$: c'est absurde!
+\end{proof}
+
+Nous pouvons maintenant prouver la proposition~\ref{thm:plurality_cond_rel}.
+
+\begin{proof} %Rappelons que $f$ désigne l'uninominal. 
+
+\ref{enumi:plurality_rel_good}. On envisage d'appliquer le lemme à $h = f^*$ et $h^\text{rel} = (f^*)^\text{rel} = f^\text{rel}$. Il suffit de montrer que $h = f^*$ vérifie l'hypothèse du lemme pour en conclure que $\MC_{f^{\text{rel}}} \subseteq \MC_{f^*}$.
+
+Soit $\omega$ une configuration, $c = f^*(\omega)$ et $d$ un autre candidat. Supposons que $c$ a une défaite relative contre $d$ et montrons que $f^*$ est manipulable. Comme $c$ a une défaite relative, il n'est pas vainqueur de Condorcet absolu. Et puisqu'il est vainqueur par $f^*$, aucun autre candidat non plus n'est vainqueur de Condorcet absolu dans $\omega$.
+
+Définissons $\psi$ ainsi: tous les électeurs qui préféraient $d$ à $c$ affirment maintenant préférer $d$ à tous les autres candidats, sans modifier leurs autres préférences.
+
+Alors, à présent, $d$ est vainqueur en uninominal. En effet, on peut raisonner en excluant les électeurs qui placent $c$ et $d$ en tête à égalité: selon la généralisation d'uninominal choisie, ils répartissent leurs voix également entre $c$ et $d$ ou ne leur en donnent aucune. À ces électeurs près, on a $\score(d) = \voterset{d \Plusque{} c} > \voterset{c \Plusque{} d} \geq \score(c)$. Or le score de $c$ n'a pas diminué par rapport au vote sincère, donc $f(\omega) = d$.
+
+De plus, les seuls duels dont le résultat s'est amélioré sont ceux de~$d$, donc aucun autre candidat ne peut être vainqueur de Condorcet absolu. Donc $f^*(\psi) = d$. Par conséquent, $f^*$ est manipulable en $\omega$ vers $\psi$ en faveur de $d$.
+
+
+\ref{enumi:plurality_rel_strict_good}. Nous allons exhiber une configuration où $f^\text{rel}$ n'est pas manipulable mais où $f^*$ l'est. Considérons la configuration~$\omega$ suivante.
+$$
+\begin{array}{c|c|c|c|c}
+24 & 19 & 19 & 19 & 19 \\ \hline
+a & d_1 & d_2 & d_3 & d_4 \\
+c & c   & c   & a,c & a,c \\
+\text{Autres} & \text{Autres} & \text{Autres} & \text{Autres} & \text{Autres} \\
+\end{array}
+$$
+
+En uninominal, on a $f(\omega) = a$. Par ailleurs, $c$ a une victoire relative contre~$a$ (38~voix contre~24) et une victoire absolue contre chaque $d_i$ (81~voix contre~19), donc il est vainqueur de Condorcet relatif mais pas absolu. Par conséquent, $f^*(\omega) = a$ et $f^\text{rel}(\omega) = c$.
+
+Montrons que $f^\text{rel}$ n'est pas manipulable en $\omega$. Il est impossible que le nouveau vainqueur soit vainqueur de Condorcet relatif (car il ne peut améliorer son duel contre~$c$), donc il faut qu'il soit vainqueur en uninominal et qu'il n'y ait plus de vainqueur de Condorcet relatif. Seul~$a$ peut devenir (en fait, rester) vainqueur en uninominal. Mais, en cas de manipulation pour~$a$, on ne peut éviter que~$c$ reste vainqueur de Condorcet relatif, donc la manipulation échoue.
+
+Reste à montrer que $f^*$ est manipulable en $\omega$. Considérons la configuration suivante~$\psi$, qui est une tentative de manipulation en faveur de~$c$.
+$$
+\begin{array}{c|c|c|c|c}
+24 & 19 & 19 & 19 & 19 \\ \hline
+a & \mathbf{c} & \mathbf{c} & d_3 & d_4 \\
+c &    &    & a,c & a,c \\
+\text{Autres} & \text{Autres} & \text{Autres} & \text{Autres} & \text{Autres} \\
+\end{array}
+$$
+En uninominal, on a $f(\omega) = c$. Par ailleurs, $c$ est toujours vainqueur de Condorcet relatif, donc aucun autre candidat n'est vainqueur de Condorcet absolu et on a $f^*(\omega) = c$. Ainsi, $f^*$ est manipulable en $\omega$ vers $\psi$ en faveur de $c$.
+
+\ref{enumi:plurality_adm_bad}.
+Montrons, tout d'abord, que pour $g = f^{!\text{adm}}$ ou $g = f^{\text{adm}}$, on peut exhiber une configuration où $g$ est manipulable, mais où $f$ ne l'est pas. Considérons la configuration~$\omega$ suivante.
+\begin{center}
+\begin{tabular}{lcl}
+$
+\begin{array}{c|c|c}
+4         & 3   & 2   \\ \hline
+\,\;a\;\, & b   & d   \\
+d         & a,c & c   \\
+c         & d   & a,b \\
+b         &     &     \\
+\end{array}
+$ 
+& &
+\begin{tabular}{IcIc|c|c|cI}
+\Cline{1pt}{1-5}
+\multicolumn{1}{IcI}{$D(\omega)$} & $a$ & $b$ & $c$ & $d$ \\ \Cline{1pt}{1-5}
+$a$                     &  -- & 4 & 4 & 7 \\ \hline
+$b$                     & 3 & --  & 3 & 3 \\ \hline
+$c$                     & 2 & 6 & --  & 3 \\ \hline
+$d$                     & 2 & 6 & 6 & -- \\ \Cline{1pt}{1-5}
+\end{tabular}
+\end{tabular}
+\end{center}
+En uninominal, le candidat~$a$ est élu et il est facile de voir que ce n'est pas manipulable. Par ailleurs, comme $a$ est vainqueur de Condorcet relatif, il reste élu quelle que soit la variante~$g$ utilisée.
+
+Considérons maintenant la situation~$\psi$ suivante, où les 2~derniers électeurs ont changé leur bulletin dans le but de faire gagner~$c$.
+\begin{center}
+\begin{tabular}{lcl}
+$
+\begin{array}{c|c|c}
+4         & 3   & 2   \\ \hline
+\,\;a\;\, & b   & \mathbf{c}   \\
+d         & a,c & \mathbf{d}   \\
+c         & d   & \mathbf{b}   \\
+b         &     & \,\;\mathbf{a}\;\,   \\
+\end{array}
+$ 
+& &
+\begin{tabular}{IcIc|c|c|cI}
+\Cline{1pt}{1-5}
+\multicolumn{1}{IcI}{$D(\omega)$} & $a$ & $b$ & $c$ & $d$ \\ \Cline{1pt}{1-5}
+$a$                     &  -- & 4 & 4 & 7 \\ \hline
+$b$                     & 5 & --  & 3 & 3 \\ \hline
+$c$                     & 2 & 6 & --  & 5 \\ \hline
+$d$                     & 2 & 6 & 4 & -- \\ \Cline{1pt}{1-5}
+\end{tabular}
+\end{tabular}
+\end{center}
+À présent, $c$ est le seul candidat Condorcet-admissible (chaque autre candidat a une défaite absolue dans sa colonne), donc a $g(\psi) = c$, aussi bien pour $g = f^{!\text{adm}}$ que pour $g = f^{\text{adm}}$.
+
+Par conséquent, $f^{\text{adm}}$ et $f^{!\text{adm}}$ sont manipulables en~$\omega$ vers $\psi$ en faveur de~$c$, alors que $f$ n'est pas manipulable en $\omega$.
+
+Afin de montrer le résultat pour $f^{!\text{faible}}$ et $f^{\text{faible}}$, comme nous allons utiliser des égalités, nous devons préciser la règle de départage\footnote{C'est un mal nécessaire ici. En effet, en toute généralité, on veut exhiber une configuration~$\omega$ où $f$ n'est pas manipulable mais où $g$ est manipulable vers une certaine configuration~$\psi$. Notons $a = f(\omega)$.
+
+Si un candidat $b \neq a$ est vainqueur de Condorcet faible, considérons la configuration $\phi$ où ses partisans utilisent la stratégie triviale ($b$ en tête): alors $b$ reçoit au moins autant de voix que $a$. Mais comme $f$ est supposée non manipulable en $\omega$, ceci nécessite de préciser la règle de départage (favorable à $a$ en $\phi$).
+
+À l'inverse, supposons qu'aucun candidat différent de $a$ ne soit vainqueur de Condorcet faible. Alors $g(\omega) = a$. Pour que le contre-exemple fonctionne, il faut donc qu'en notant $c = g(\psi)$, on ait $c \neq f(\psi)$. Donc $c$ est vainqueur de Condorcet faible dans $\psi$. Comme la manipulation ne peut avoir amélioré son duel contre $a$, il avait déjà une non-défaite relative contre $a$ dans $\omega$. Considérons à présent la situation $\chi$ où les électeurs préférant $c$ à $a$ utilisent la stratégie triviale ($c$ en tête). Alors $c$ a au moins autant de voix que $a$ dans $f$. Mais comme $f$ est supposée non manipulable en $\omega$, ceci nécessite de préciser la règle de départage (favorable à $a$ en~$\chi$).}. On peut décider, par exemple, qu'en cas d'égalité dans $f$, les candidats sont départagés par ordre alphabétique; ou par l'ordre donné par le bulletin d'un électeur choisi à l'avance, quitte à utiliser une règle complémentaire si son bulletin est un ordre faible.
+
+Redéfinissons les configurations $\omega$ et $\psi$ précédentes avec 3~électeurs dans chaque groupe. Si on a choisi de départager par un électeur privilégié, on considère le cas où il fait partie du premier groupe, c'est-à-dire les partisans de $a$. Si on a choisi de départager les candidats par ordre alphabétique, aucune précaution n'est nécessaire, puisque $a$ est favorisé de toute façon. Par le même raisonnement que précédemment, on a $f(\omega) = a$ et ce n'est pas manipulable. Mais $g(\omega) = a$ et $g(\psi) = c$ (car $c$ est le seul vainqueur de Condorcet faible dans $\psi$) donc $g$ est manipulable en $\omega$.
+\end{proof}
+
+Pour l'uninominal, nous avons donc vu qu'on ne peut pas généraliser le théorème faible de condorcification~\ref{thm_Condorcifie_aussi_bon} aux vainqueurs de Condorcet faibles ou aux candidats Condorcet-admissible. En revanche, cela fonctionne pour le vainqueur de Condorcet relatif, et la condorcification relative est même moins manipulable que la condorcification absolue.
+
+\subsection{Variantes de condorcification pour U2TI}
+
+Comme la condorcification relative fonctionne pour l'uninominal, on peut se demander si l'uninominal à deux tours instantanés (U2TI) est à même de nous fournir un contre-exemple pour une éventuelle généralisation du théorème~\ref{thm_Condorcifie_aussi_bon} reposant sur la notion de vainqueur de Condorcet relatif. Mais nous allons voir que ce n'est pas le cas: en effet, la condorcification relative fonctionne également pour U2TI.
+
+\begin{prop}
+Le SVBE~$f$ considéré est U2TI.
+
+\begin{enumerate}
+\item\label{enumi:itr_rel_good} On a: $\MC_{f^{\text{rel}}} \subseteq \MC_{f^*}$.
+\item\label{enumi:itr_rel_strict_good} Il existe $(V, C)$ t.q. l'inclusion précédente est stricte.
+\item\label{enumi:itr_adm_bad} Il existe $(V, C)$ t.q. pour tout système $g$ choisi parmi les variantes $f^{!\text{faible}}$, $f^{\text{faible}}$, $f^{!\text{adm}}$ ou $f^{\text{adm}}$, on n'a pas $\MC_{g} \subseteq \MC_{f}$.
+\end{enumerate}
+\end{prop}
+
+%QUESTION: dans le mail, on disait qu'on utilisait un tie-breaking lexico (pour le mds lui-même). Est-ce important?
+
+\begin{proof}
+%\ref{enumi:itr_rel_good}. Supposons qu'il existe une configuration~$\omega$ telle que $f$ n'est pas manipulable en~$\omega$, mais telle que $f^{\text{rel}}$ est manipulable en $\omega$ vers une certaine configuration~$\psi$. Notons $a = f(\omega)$ et $b$ l'adversaire de $a$ au second tour (dans la configuration~$\omega$).
+%
+%\begin{lem}
+%Si un candidat~$c$ distinct de $a$ et $b$ possède une victoire relative contre $a$, alors:
+%\begin{itemize}
+%\item Si les électeurs qui préfèrent $c$ à $a$ utilisent la stratégie triviale (mettre $c$ en première position, sans changer le reste de leur bulletin), alors $c$ est sélectionné pour le second tour et perd contre $b$.
+%\item Dans $\omega$, le candidat~$c$ n'a pas de victoire relative contre~$b$.
+%\end{itemize}
+%\end{lem}
+%
+%\begin{proof}
+%En utilisant la stratégie triviale:
+%\begin{itemize}
+%\item Au premier tour, le score de~$a$ reste le même que dans $\omega$. Celui de $x$ devient strictement meilleur que celui de $a$: en effet, \voterset{toto}
+%\end{itemize}
+%\end{proof}
+%
+%Terminons la preuve de la proposition.
+
+\ref{enumi:itr_rel_good}. Supposons qu'il existe une configuration $\omega$ où $f^*$ est non manipulable mais où $f^\text{rel}$ est manipulable vers une certaine configuration~$\psi$. Notons $a = f^*(\omega)$. %Comme $f^*$ n'est pas manipulable en $\omega$, le candidat $a$ est Condorcet-admissible (lemme \ref{thm_NonAdmManip}), donc aucun autre candidat ne peut être vainqueur de Condorcet absolu (proposition \ref{thm_CondUnique}). 
+
+\paragraph{Cas 1} On suppose qu'on a $f(\omega) \neq a$.
+
+Par définition de $f^*$, ceci signifie que~$a$ est un vainqueur de Condorcet absolu, donc un vainqueur de Condorcet relatif (proposition~\ref{thm:condorcet_notions_implications}), ce qui entraîne $f^\text{rel}(\omega) = f^*(\omega) = a$. Notons $d = f^\text{rel}(\psi)$. Il est nécessaire que $d \neq f^*(\psi)$, sinon $f^*$ serait aussi manipulable en~$\omega$. Par conséquent, $d$ est vainqueur de Condorcet relatif (mais pas absolu) dans $\psi$. Or $a$ était vainqueur de Condorcet relatif dans~$\omega$ et la manipulation ne peut avoir amélioré le résultat du duel de $d$ contre $a$: c'est absurde! On pourra d'ailleurs remarquer que ce cas~1 n'utilise aucune propriété particulière d'U2TI: il s'applique de la même façon à tout système de vote~$f$.
+
+\paragraph{Cas 2} On suppose qu'on a $f(\omega) = a$.
+
+Pour montrer qu'on a aussi $f^\text{rel}(\omega) = a$, il nous suffit de montrer qu'aucun autre candidat ne peut être vainqueur de Condorcet relatif. Notons $b$ l'adversaire de $a$ au second tour (dans $f$). On sait qu'il n'est pas vainqueur de Condorcet relatif, sinon il gagnerait le second tour contre $a$. Supposons qu'un candidat~$c \notin \{a, b\}$ soit vainqueur de Condorcet relatif en $\omega$. Considérons alors la situation $\phi$ où chaque électeur préférant $c$ à $a$ tente de manipuler pour $c$ en utilisant la \emph{stratégie de compromis} (mettre $c$ en première position, sans changer le reste de son bulletin).
+\begin{itemize}
+\item Si on utilise $f$, le candidat $c$ est sélectionné pour le second tour. En effet, on peut raisonner en excluant les électeurs qui placent $a$ et $c$ en tête à égalité: selon la généralisation d'U2TI choisie, ils répartissent leurs voix également entre $a$ et $c$ ou ne leur en donnent aucune. À ces électeurs près, on a $\score(c) = \voterset{c \Plusque{} a} > \voterset{a \Plusque{} c} \geq \score(a)$. Or le score de $a$ n'a pas diminué par rapport au vote sincère, donc $c$ est sélectionné pour le second tour. 
+\item Seuls les duels de $c$ ont été améliorés par rapport à la configuration $\omega$, donc $c$ reste vainqueur de Condorcet relatif. Par conséquent, il gagne le second tour donc on a $f(\phi) = c$. De plus, aucun autre candidat ne peut être vainqueur de Condorcet absolu, donc $f^*(\phi) = c$.
+\item Donc $f^*$ est manipulable en $\omega$ vers $\phi$ en faveur de $c$, ce qui est exclu.
+\end{itemize}
+
+Ainsi, on a: $a = f(\omega) = f^*(\omega) = f^\text{rel}(\omega)$.
+
+Notons $d = f^\text{rel}(\psi)$. Il est nécessaire que $d \neq f^*(\psi)$, sinon $f^*$ serait aussi manipulable en $\omega$ (cf. cas~1). Par conséquent, $d$ est vainqueur de Condorcet relatif (mais pas absolu) en $\psi$. On en déduit que $d$ possédait une victoire relative contre $a$ dans $\omega$: en effet, la manipulation ne peut avoir amélioré le résultat de ce duel.
+
+Considérons, à présent, la configuration~$\chi$ où les électeurs qui préfèrent $d$ à $a$ utilisent la stratégie de compromis (mettre $d$ en tête, sans changer le reste de leur bulletin). Par le même raisonnement que ci-dessus, on a $\score(d) = \voterset{d \Plusque{} a} > \voterset{a \Plusque{} d} \geq \score(a)$, donc $d$ est sélectionné pour le second tour. Or, dans $\chi$, le candidat~$d$ apparaît comme un vainqueur de Condorcet relatif: en effet, tous ses duels sont au moins aussi bons que dans~$\psi$. Donc il gagne le second tour et on a $f(\chi) = d$. Comme $d$ est vainqueur de Condorcet relatif, aucun autre candidat ne peut être vainqueur de Condorcet absolu et on a $f^*(\chi) = d$. Donc $f^*$ est manipulable en $\omega$ vers $\chi$ en faveur de $d$: c'est absurde!
+
+\ref{enumi:itr_rel_strict_good}. Considérons la configuration~$\omega$ suivante.
+$$
+\begin{array}{c|c|c|c|c}
+23 & 20  & 19  & 19  & 19  \\ \hline
+a  & d_1 & d_2 & d_3 & d_4 \\
+c  & c   & c   & a,c & a,c \\
+   & a   & a   &     &     \\
+\text{Autres} & \text{Autres} & \text{Autres} & \text{Autres} & \text{Autres} \\
+\end{array}
+$$
+
+Au second tour, $a$ affronte $d_1$ et gagne (80 voix contre 20): on a $f(\omega) = a$.
+
+Le candidat $c$ a une victoire relative contre $a$ (39 voix contre 23) et une victoire absolue contre tout candidat $d_i$ (par 80 ou 81 voix). Donc $c$ est vainqueur de Condorcet relatif, mais pas absolu. On a donc $f^*(\omega) = a$ et $f^\text{rel}(\omega) = c$.
+
+Montrons que $f^\text{rel}$ n'est pas manipulable en $\omega$.
+\begin{itemize}
+\item En faveur de $a$: le candidat $c$ reste vainqueur de Condorcet relatif, donc la manipulation échoue.
+\item En faveur d'un $d_i$: il est facile de voir qu'aucun d'entre eux ne peut gagner en U2TI. En effet, même en manipulant, seul $d_1$ peut être sélectionné pour le second tour, mais il perd alors contre~$a$. Par ailleurs, aucun $d_i$ ne peut devenir vainqueur de Condorcet relatif, car il aura toujours une défaite relative (et même absolue) contre $c$.
+\end{itemize}
+
+À présent, considérons la configuration $\psi$ suivante, qui est une tentative pour manipuler $f^*$ en faveur de~$c$.
+$$
+\begin{array}{c|c|c|c|c}
+23 & 20  & 19  & 19  & 19  \\ \hline
+a  & \mathbf{c}   & \mathbf{c}   & d_3 & d_4 \\
+c  & \mathbf{d_1} & \mathbf{d_2} & a,c & a,c \\
+   & a   & a   &     &     \\
+\text{Autres} & \text{Autres} & \text{Autres} & \text{Autres} & \text{Autres} \\
+\end{array}
+$$
+En uninominal à deux tours, il est facile de voir qu'on a $f(\psi) = c$. De plus, comme les duels de $c$ n'ont été qu'améliorés, il reste vainqueur de Condorcet relatif et aucun autre candidat n'est vainqueur de Condorcet absolu. Donc $f^*(\psi) = c$. 
+
+Ainsi, $f^*$ est manipulable en $\omega$ vers $\psi$ en faveur de $c$, alors que $f^\text{rel}$ n'est pas manipulable en $\omega$.
+
+\ref{enumi:itr_adm_bad}. On peut utiliser le même exemple que pour le point~\ref{enumi:plurality_adm_bad} de la proposition~\ref{thm:plurality_cond_rel}. Pour $f^{!\text{faible}}$ ou $f^{\text{faible}}$, là encore, on considère 3 électeurs par groupe et il est nécessaire de préciser la règle de départage, par exemple alphabétique sur les candidats.
+\end{proof}
+
+Ainsi, si $f$ est l'uninominal à deux tours instantané (U2TI), on a le même résultat que pour l'uninominal: le système de vote $f^\text{rel}$ est moins manipulable que $f$, et même que la condorcification $f^*$.
+
+\subsection{Condorcification relative pour VTI}
+
+À ce stade, on pourrait presque se demander si l'échec de la condorcification relative n'est pas limitée à des modes de scrutin exotiques comme Condorcet-doyen, puisqu'elle fonctionne pour l'uninominal et U2TI. Mais VTI va nous arrêter dans notre élan: dans ce cas, la condorcification relative n'est pas moins manipulable que le mode de scrutin original.
+
+\begin{prop}
+Le SVBE~$f$ considéré est VTI.
+
+Il existe $(V, C)$ t.q. on n'a pas $\MC_{f^{\text{rel}}} \subseteq \MC_{f}$.
+\end{prop}
+
+\begin{proof}
+Considérons la configuration~$\omega$ suivante.
+\begin{center}
+\begin{tabular}{lcl}
+$
+\begin{array}{c|c|c|c|c|c}
+12        & 11        & 25  & 12        & 12        & 28 \\ \hline
+\,\;a\;\, & \,\;a\;\, & b   & b         & c         & d \\
+b         & d         & a,c & c         & \,\;a\;\, & a,c \\
+c         & c         & d   & \,\;a\;\, & d         & b \\
+d         & b         &     & d         & b         & \\
+\end{array}
+$ 
+& &
+\begin{tabular}{IcIc|c|c|cI}
+\Cline{1pt}{1-5}
+\multicolumn{1}{IcI}{$D(\omega)$} & $a$ & $b$ & $c$ & $d$ \\ \Cline{1pt}{1-5}
+$a$                     &  -- & 63 & 23 & 72 \\ \hline
+$b$                     & 37 & --  & 49 & 49 \\ \hline
+$c$                     & 24 & 51 & --  & 61 \\ \hline
+$d$                     & 28 & 51 & 39 & -- \\ \Cline{1pt}{1-5}
+\end{tabular}
+\end{tabular}
+\end{center}
+
+En VTI, les candidats $c$, $d$ puis $b$ sont successivement éliminés donc $f(\omega) = a$. Montrons tout d'abord que $f$ n'est pas manipulable en~$\omega$.
+\begin{itemize}
+\item En faveur de $b$: même si $b$ parvenait au dernier tour, il perdrait contre tout autre candidat (par 63 ou 51 voix).
+\item En faveur de $c$: les quatrième et cinquième groupes sont intéressés ($12 + 12$ électeurs). Pour que $c$ ne soit pas éliminé au premier tour, il faut que 23 ou 24 manipulateurs mettent $c$ en tête de bulletin et que $a$ soit éliminé (il n'est pas possible d'éliminer $b$ ou~$d$). Au deuxième tour, comme $b$ et $d$ ont chacun plus du tiers des voix (37 et 39 respectivement), $c$ est éliminé.
+\item En faveur de $d$: seul le sixième groupe (28 électeurs) est intéressé. Au premier tour, il ne peuvent à la fois sauver $c$ et $d$: en effet, comme $a$ reçoit 23 voix, il faudrait que les manipulateurs et les électeurs qui votent sincèrement pour $c$ et~$d$ totalisent au moins $2 \times 23 = 46$ voix, mais ils n'en ont que $12 + 28 = 40$. Comme $d$ doit rester en lice, c'est donc $c$ qui doit être éliminé au premier tour. Au second tour, $a$ et $b$ ont chacun plus du tiers des voix (35 et 37 respectivement), donc $d$ est éliminé.
+\end{itemize}
+
+Comme $c$ est vainqueur de Condorcet relatif, on a $f^{\text{rel}}(\omega) = c$. Considérons la configuration $\psi$ suivante, qui est une tentative de manipuler en faveur de $a$.
+\begin{center}
+\begin{tabular}{lcl}
+$
+\begin{array}{c|c|c|c|c|c}
+12        & 11        & 25  & 12        & 12        & 28 \\ \hline
+\,\;a\;\, & \,\;a\;\, & b   & b         & c         & d \\
+b         & d         & a,c & c         & \,\;a\;\, & a,c \\
+\mathbf{d}& \mathbf{b}& d   & \,\;a\;\, & d         & b \\
+\mathbf{c}& \mathbf{c}&     & d         & b         & \\
+\end{array}
+$ 
+& &
+\begin{tabular}{IcIc|c|c|cI}
+\Cline{1pt}{1-5}
+\multicolumn{1}{IcI}{$D(\omega)$} & $a$ & $b$ & $c$ & $d$ \\ \Cline{1pt}{1-5}
+$a$                     &  -- & 63 & 23 & 72 \\ \hline
+$b$                     & 37 & --  & 60 & 49 \\ \hline
+$c$                     & 24 & 40 & --  & 49 \\ \hline
+$d$                     & 28 & 51 & 51 & -- \\ \Cline{1pt}{1-5}
+\end{tabular}
+\end{tabular}
+\end{center}
+Du point de vue de VTI, le dépouillement se déroule de la même façon et on a $f(\psi) = a$. Et comme les autres candidats ne sont même pas Condorcet-admissibles (ils ont tous une défaite dans leur colonne), on a aussi $f^{\text{rel}}(\psi) = a$. Donc $f^{\text{rel}}$ est manipulable en $\omega$ vers $\psi$ en faveur de $a$.
+\end{proof}
+
+\subsection{Condorcification relative pour les systèmes cardinaux}
+
+Nous allons, à présent, voir que le résultat que nous venons de montrer pour VTI est également valable pour le vote par assentiment, le vote par notation et le jugement majoritaire: pour ces systèmes, la condorcification relative ne permet pas de diminuer la manipulabilité. Dans les trois cas, les notes extrêmes autorisées seront 0 et 1 par convention.
+
+Dans une configuration où toutes les notes sont 0 et~1 (même si d'autres notes sont autorisées), on remarquera que ces trois modes de scrutin renvoient le même vainqueur, c'est-à-dire le candidat qui a la note~1 dans le plus grand nombre de bulletins (voir section~\ref{sec:zoologie_cardinaux}). Ceci va nous permettre de traiter ces trois systèmes en une seule démonstration.
+
+\begin{prop}
+Le SVBE~$f$ considéré est le vote par assentiment, le vote par notation ou le jugement majoritaire.
+
+Il existe $(V, C)$ t.q. on n'a pas $\MC_{f^{\text{rel}}} \subseteq \MC_{f}$.
+\end{prop}
+
+\begin{proof}
+Considérons la configuration~$\omega$ suivante.
+\begin{center}
+\begin{tabular}{lcl}
+$
+\begin{array}{r@{~:~}l|r@{~:~}l|r@{~:~}l}
+\multicolumn{2}{c|}{2} & \multicolumn{2}{c|}{3} & \multicolumn{2}{c}{4} \\ \hline
+a & 1    & c & 1 & b & 1 \\
+c & 0    & a & 1 & a, c & 0 \\
+b & 0    & b & 0 &   \multicolumn{2}{c}{}  \\
+\end{array}
+$ & &
+\begin{tabular}{IcIc|c|cI}
+\Cline{1pt}{1-4}
+\multicolumn{1}{IcI}{$D(\omega)$} & $a$ & $b$ & $c$ \\ \Cline{1pt}{1-4}
+$a$                     &  -- & 5 & 2  \\ \hline
+$b$                     & 4 & --  & 4  \\ \hline
+$c$                     & 3 & 5 & --   \\ \Cline{1pt}{1-4}
+\end{tabular}
+\end{tabular}
+\end{center}
+
+On a $\score(a) = 5,$ $\score(b) = 4$ et $\score(c) = 3$, donc $f(\omega) = a$. En cas de tentative de manipulation pour $c$, les électeurs intéressés (second groupe) ne peuvent faire mieux que descendre la note de $a$ à 0, mais dans ce cas c'est $b$ qui gagne. Quant à une manipulation pour~$b$, les électeurs intéressés (troisième groupe) ne peuvent faire mieux que leur bulletin actuel. Donc $f$ n'est pas manipulable en~$\omega$.
+
+Le candidat $c$ est vainqueur de Condorcet relatif, donc $f^{\text{rel}}(\omega) = c$. Considérons maintenant la configuration $\psi$ suivante, où le premier groupe d'électeurs tente de faire gagner~$a$.
+\begin{center}
+\begin{tabular}{lcl}
+$
+\begin{array}{r@{~:~}l|r@{~:~}l|r@{~:~}l}
+\multicolumn{2}{c|}{2} & \multicolumn{2}{c|}{3} & \multicolumn{2}{c}{4} \\ \hline
+a & 1    & c & 1 & b & 1 \\
+\mathbf{b} & 0    & a & 1 & a, c & 0 \\
+\mathbf{c} & 0    & b & 0 &   \multicolumn{2}{c}{}  \\
+\end{array}
+$ & &
+\begin{tabular}{IcIc|c|cI}
+\Cline{1pt}{1-4}
+\multicolumn{1}{IcI}{$D(\omega)$} & $a$ & $b$ & $c$ \\ \Cline{1pt}{1-4}
+$a$                     &  -- & 5 & 2  \\ \hline
+$b$                     & 4 & --  & 6  \\ \hline
+$c$                     & 3 & 3 & --   \\ \Cline{1pt}{1-4}
+\end{tabular}
+\end{tabular}
+\end{center}
+On a $f(\psi) = a$ et les autres candidats ne sont même pas Condorcet-admissibles (ils ont tous une défaite dans leur colonne), donc $f^{\text{rel}}(\omega) = a$. Donc $f^{\text{rel}}$ est manipulable en $\omega$ vers $\psi$ en faveur de $a$, alors que $f$ n'est pas manipulable en~$\omega$.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Vainqueur de Condorcet résistant}\label{sec:vainqueur_de_condorcet_resistant}
+
+
+\setcounter{equation}{0}
+
+Le théorème faible de condorcification~\ref{thm_Condorcifie_aussi_bon} énonce que la condorcification~$f^*$ est au plus aussi manipulable que le système original~$f$ (si celui-ci vérifie \cminf). Dans le théorème fort de condorcification~\ref{thm:cond_strictement_meilleur}, nous montrerons qu'en fait, cette diminution de manipulabilité est stricte pour de nombreux systèmes de vote. Afin de nous donner les outils pour le démontrer, nous allons à présent définir la notion originale de \emph{vainqueur de Condorcet résistant} et nous allons prouver qu'un tel candidat est caractérisé par une forme d'immunité à la manipulation.
+
+\medskip
+Voici l'intuition amenant à la notion de \emph{vainqueur de Condorcet résistant}. Si $f$ vérifie le critère de Condorcet et s'il y a un vainqueur de Condorcet~$c$, alors les manipulateurs en faveur de $d$ ont besoin d'empêcher $c$ d'apparaître comme un vainqueur de Condorcet. Par conséquent, ils doivent empêcher une victoire stricte de $c$ contre un certain candidat $e \neq c$. Cependant, ce plan est voué à l'échec si les électeurs sincères (ceux qui ne préfèrent pas $d$ à $c$) assurent déjà: $(1)$~une victoire de $c$ contre $e$; et $(2)$~une non-victoire de $e$ contre $c$. Cette observation conduit à la définition suivante.
+
+\begin{definition}[vainqueur de Condorcet résistant]\label{def:resistant_Condorcet}
+Soit $\omega \in \Omega$ et $c \in \mathcal{C}$.
+
+On dit que $c$ est \emph{vainqueur de Condorcet résistant} en $\omega$ \ssi $\forall (d,e) \in (\mathcal{C} \setminus \{c\})^2$:
+\begin{empheq}[left=\empheqlbrace]{align}
+  &\voterset{ \textrm{non}(d \Plusque{\omega_v} c) \textrm{\;et\;} c \Plusque{\omega_v} e } > \frac{V}{2},\label{eq:cond_resist_non_oui} \\
+  &\voterset{ \textrm{non}(d \Plusque{\omega_v} c) \textrm{\;et\;} \textrm{non}(e \Plusque{\omega_v} c) } \geq \frac{V}{2},\label{eq:cond_resist_non_non}
+\end{empheq}
+
+Nous dirons qu'une configuration~$\omega$ est \emph{résistante} ssi elle possède un vainqueur de Condorcet résistant.
+\end{definition}
+
+%\begin{remark}[resistant Condorcet winner: special cases]\label{thm:resist_cas_part}\label{thm:favmaj_condrest_cond}
+Si toutes les relations binaires $\Plusque{\omega_v}$ sont antisymétriques (ce qui est une hypothèse courante), alors la condition \eqref{eq:cond_resist_non_non} devient redondante. Dans ce cadre, $c$ est vainqueur de Condorcet résistant \ssi $\forall (d,e) \in (\mathcal{C} \setminus \{c\})^2$:
+$$
+\voterset{ \textrm{non}(d \Plusque{\omega_v} c) \textrm{\;et\;} c \Plusque{\omega_v} e } > \frac{V}{2}.
+$$
+
+Si, en outre, toutes les relations binaires $\Plusque{\omega_v}$ sont complètes, alors la définition est encore plus simple puisque la relation ci-dessus devient symétrique par rapport à $d$ et $e$%, because it becomes symmetrical between $d$ and $e$. Indeed, with these assumptions, candidate $c$ is a resistant Condorcet winner if and only $\forall (d,e) \in (\mathcal{C} \setminus \{c\})^2$
+:
+%\begin{align}\label{eq:cond_resist_antisym_tot}
+$$
+ \voterset{ c \Plusque{\omega_v} d \textrm{\;et\;} c \Plusque{\omega_v} e } > \frac{V}{2}.
+$$
+%\end{align}
+%\end{remark}
+Autrement dit, pour toute paire d'autres candidats $(d,e)$, il y a une majorité stricte d'électeurs qui préfèrent simultanément $c$ à $d$ et $c$ à $e$.
+
+%\begin{proof}
+%It is trivial.
+%Let us suppose that binary relations $R_v(\omega_v)$ are antisymmetric and that condition \eqref{eq:cond_resist_non_oui} is met for any couple $(c,d)$ of distinct candidates. Since relations are antisymmetric, we have $z \Plusque{\omega_v} d \Rightarrow \textrm{not}(d \Plusque{\omega_v} z)$  hence:
+%\begin{align*}
+%\textrm{card}&\{i \in \mathcal{V} \textrm{\;s.t.\;} \textrm{not}(c \Plusque{\omega_v} z) \textrm{\;and\;} \textrm{not}(d \Plusque{\omega_v} z)\} \\
+%&\geq \textrm{card}\{i \in \mathcal{V} \textrm{\;s.t.\;} \textrm{not}(c \Plusque{\omega_v} z) \textrm{\;and\;} z \Plusque{\omega_v} d\} 
+%> \frac{V}{2},
+%\end{align*}
+%which proves \eqref{eq:cond_resist_non_non}.
+%
+%By the way, \eqref{eq:cond_resist_non_oui} implies \emph{a fortiori} that $\textrm{card}\{i \in \mathcal{V} \textrm{\;s.t.\;} z \Plusque{\omega_v} d\} > \frac{V}{2}$. And, since relations are antisymmetric, $z \Plusque{\omega_v} d \Rightarrow \textrm{not}(d \Plusque{\omega_v} z)$. So:
+%$$
+%  \textrm{card}\{i \in \mathcal{V} \textrm{\;s.t.\;} \textrm{not}(d \Plusque{\omega_v} z) \textrm{\;and\;} z \Plusque{\omega_v} d\} > \frac{V}{2},
+%$$
+%which proves \eqref{eq:cond_resist_c_c}.
+%
+%Now, let us assume that binary relations $R_v(\omega_v)$ are antisymmetric and complete. Then $\textrm{not}(c \Plusque{\omega_v} z) \Leftrightarrow z \Plusque{\omega_v} c$, which allows to translate \eqref{eq:cond_resist_non_oui} to~\eqref{eq:cond_resist_antisym_tot}.
+%\end{proof}
+
+
+%\begin{remark}[implications between majority favorite, resistant Condorcet winner and Condorcet winner]\label{thm:favmaj_condrest_cond}
+Clairement, un vainqueur de Condorcet résistant est également vainqueur de Condorcet.
+%\begin{itemize}
+%\item If $z$ is a majority favorite, then $z$ is a resistant Condorcet winner;
+%\item If $z$ is a resistant Condorcet winner, then $z$ is a Condorcet winner.
+%\end{itemize}
+Par conséquent, s'il existe un vainqueur de Condorcet résistant, il est unique.
+%\end{remark}
+
+%\begin{proof}
+%It is trivial (for the last assertion, using remark \ref{thm_CondUnique}).
+%\end{proof}
+
+
+\medskip
+Ainsi, nous avons choisi de définir le \emph{vainqueur de Condorcet résistant} en terme de préférences des électeurs dans la configuration~$\omega$. Le théorème suivant reprend formellement la propriété d'immunité à la manipulation que nous avons mentionnée pour introduire la notion et montre que cette propriété est caractéristique (c'est-à-dire qu'elle n'est vérifiée que par un vainqueur de Condorcet résistant), sous l'hypothèse courante où l'espace électoral comprend tous les ordres stricts totaux.
+
+\begin{thm}[caractérisation du vainqueur de Condorcet résistant]\label{thm:Condorcet_resistant_caracterisation}
+Soit $\omega \in \Omega$ et $c \in \mathcal{C}$. On considère les conditions suivantes.
+\begin{enumerate}
+	\item\label{enumi:resistant} Le candidat $c$ est vainqueur de Condorcet résistant en $\omega$.
+  \item\label{enumi:non_manip} Pour tout SVBE $f$ respectant le critère de Condorcet, $c$ est élu par le vote sincère et $f$ n'est pas manipulable en $\omega$.
+\end{enumerate}
+
+On a l'implication \ref{enumi:resistant} $\Rightarrow$ \ref{enumi:non_manip}.
+
+Si l'espace électoral comprend tous les ordres stricts totaux (ce qui est une hypothèse courante, cf. définition~\ref{def:ES_richness}), alors la réciproque \ref{enumi:non_manip} $\Rightarrow$ \ref{enumi:resistant} est vraie.
+\end{thm}
+
+
+\begin{proof}
+\ref{enumi:resistant} $\Rightarrow$ \ref{enumi:non_manip}: puisque $c$ est vainqueur de Condorcet résistant, même après une tentative de manipulation en faveur d'un autre candidat~$d$, les électeurs sincères assurent que $c$ a encore une victoire stricte contre tout candidat $e \neq c$; par conséquent, $c$ apparaît toujours comme un vainqueur de Condorcet et il est élu.
+
+\medskip
+À présent, nous allons montrer la réciproque \ref{enumi:non_manip} $\Rightarrow$ \ref{enumi:resistant}. Supposons que $c$ n'est pas vainqueur de Condorcet résistant. Si $c$ n'est pas vainqueur de Condorcet, c'est immédiat: on a nécessairement $C \geq 2$ (car il existe un candidat $d \neq c$ tel que $c$ n'ait pas une victoire stricte contre~$d$) et il existe donc un système Condorcet où $c$ n'est pas vainqueur du vote sincère. Nous pouvons donc nous concentrer sur le cas où $c$ est vainqueur de Condorcet (mais pas résistant). Nous allons alors prouver qu'il existe un SVBE $f$ respectant le critère de Condorcet et manipulable en $\omega$.
+
+Puisque $c$ n'est pas vainqueur de Condorcet résistant, au moins l'une des conditions \eqref{eq:cond_resist_non_oui} ou \eqref{eq:cond_resist_non_non} de la définition \ref{def:resistant_Condorcet} n'est pas vérifiée. Nous distinguons trois cas: la condition \eqref{eq:cond_resist_non_oui} n'est pas vérifiée pour un certain $e=d$; la condition \eqref{eq:cond_resist_non_non} n'est pas vérifiée; ou la condition \eqref{eq:cond_resist_non_oui} n'est pas vérifiée avec $e \neq d$.
+
+Dans chacun des trois cas, le principe de la preuve est le même: on exhibe une configuration $\psi$ qui n'a pas de vainqueur de Condorcet et qui diffère de $\omega$ seulement par des électeurs qui préfèrent $d$ à $c$. Par conséquent, il est possible de choisir un SVBE $f$ qui vérifie le critère de Condorcet et tel que $f(\psi) = d$. On en déduit que $f$ est manipulable en $\omega$ vers $\psi$ en faveur du candidat $d$.
+
+%If relations $\Plusque{\omega_v}$ are antisymmetric and complete, then conditions \eqref{eq:cond_resist_non_oui} and \eqref{eq:cond_resist_non_non} from definition \ref{def:resistant_Condorcet} are equivalent, so the proof is reduced to the following case 2 only. Je ne comprends plus cette phrase...
+
+\paragraph{Cas 1}
+Si la condition \eqref{eq:cond_resist_non_oui} n'est pas vérifiée pour un certain $e=d$, cela signifie que $\voterset{ \textrm{non}(d \Plusque{\omega_v} c) \textrm{\;et\;} c \Plusque{\omega_v} d } \leq \frac{V}{2}$. Soit $\unordre$ un ordre strict total de la forme: $(d \plusque c \plusque$ autres candidats).
+%where $d$ is preferred to $c$, who is preferred to all other candidates. 
+Puisque l'espace électoral comprend tous les ordres stricts totaux, pour chaque manipulateur $v \in \Manip{d}{c}$, on peut choisir un bulletin $\psi_v$ tel que $\Plusquefull{\psi_v} = \unordre$. Pour chaque électeur sincère $v \in \Sinc{d}{c}$, on pose $\psi_v = \omega_v$. Dans la nouvelle configuration $\psi$, le candidat $c$ ne peut apparaître comme un vainqueur de Condorcet car $\voterset{ c \Plusquefull{\psi_v} d } = \voterset{ \textrm{non}(d \Plusquefull{\omega_v} c) \textrm{\;et\;} c \Plusquefull{\omega_v} d } \leq \frac{V}{2}$. Le candidat $d$ ne peut apparaître comme un vainqueur de Condorcet (lemme \ref{thm_cNonCond}) et aucun autre candidat non plus, car le nombre d'électeurs qui affirment leur préférer $c$ n'a pas diminué.
+
+\paragraph{Cas 2}
+Si la condition \eqref{eq:cond_resist_non_non} n'est pas vérifiée pour un certain $d$ et un certain $e$, cela signifie que $\voterset{ \textrm{non}(d \Plusque{\omega_v} c) \textrm{\;et\;} \textrm{non}(e \Plusque{\omega_v} c) } < \frac{V}{2}$. Remarquons que $e \neq d$, car sinon $c$ ne serait pas vainqueur de Condorcet. Quitte à échanger les rôles entre $d$ et $e$, on peut supposer que $e$ n'a pas de victoire stricte contre $d$. Soit $\unordre$ un ordre strict total de la forme: ($d \plusque e \plusque c \plusque $ autres candidats). Pour chaque manipulateur $v \in \Manip{d}{c}$, on peut choisir un bulletin $\psi_v$ tel que $\Plusquefull{\psi_v} = \unordre$. Pour chaque électeur sincère $v \in \Sinc{d}{c}$, on pose $\psi_v = \omega_v$. Dans la nouvelle configuration $\psi$, le candidat $c$ ne peut apparaître comme vainqueur de Condorcet car il a une défaite contre $e$: en effet, $\voterset{ \text{non}(e \Plusquefull{\psi_v} c) } = \voterset{ \textrm{non}(d \Plusquefull{\omega_v} c) \textrm{\;et\;} \text{non}(e \Plusquefull{\omega_v} c) } < \frac{V}{2}$. Le candidat $d$ ne peut apparaître comme vainqueur de Condorcet (lemme \ref{thm_cNonCond}), le candidat $e$ non plus parce qu'il n'a toujours pas de victoire stricte contre $d$ et aucun autre candidat non plus, car le nombre d'électeurs qui affirment leur préférer $c$ n'a pas diminué.
+
+\paragraph{Cas 3}
+Reste le cas où la condition \eqref{eq:cond_resist_non_oui} n'est pas vérifiée, avec $e\neq d$. En notant $\bicoal_{de} = \voterset{ \textrm{non}(d \Plusque{\omega_v} c) \textrm{\;et\;} c \Plusque{\omega_v} e }$, cela signifie que $B_{de} \leq \frac{V}{2}$. En utilisant le cas précédent, on peut supposer, cependant, que la condition \eqref{eq:cond_resist_non_non} est vérifiée. 
+
+Nous allons voir que dans la configuration finale $\psi$, on peut assurer qu'il n'y ait ni une victoire de $c$ contre $e$, ni une victoire de $e$ contre $c$.
+
+Soit $\unordre$ un ordre strict total de la forme: ($d \plusque e \plusque c \plusque $ autres candidats).
+
+Soit $\unordre'$ un ordre strict total de la forme: ($d \plusque c \plusque e \plusque $ autres candidats). 
+
+Comme $c$ est un vainqueur de Condorcet, on a $\voterset{ c \Plusque{\omega_v} e } > \frac{V}{2}$ donc: $$\voterset{ d \Plusque{\omega_v} c \text{\;et\;} c \Plusque{\omega_v} e } > \frac{V}{2} - \bicoal_{de} \geq 0.$$
+%\begin{align*}
+%\voterset{ c \Plusque{\omega_v} e } &> \frac{V}{2},\\
+%%\text{card}&\{i \in \mathcal{V} \text{\;s.t.\;} c \Plusque{\omega_v} z \text{\;and\;} z \Plusque{\omega_v} d\} \\
+%%&+ \text{card}\{i \in \mathcal{V} \text{\;s.t.\;} \text{not}(c \Plusque{\omega_v} z) \text{\;and\;} z \Plusque{\omega_v} d\}> \frac{V}{2}, \\
+%\voterset{ d \Plusque{\omega_v} c \text{\;and\;} c \Plusque{\omega_v} e } &> \frac{V}{2} - \bicoal_{de}.
+%\end{align*}
+Par conséquent, on peut choisir $\lfloor \frac{V}{2}\rfloor - \bicoal_{de}$ électeurs parmi les manipulateurs (les électeurs qui préfèrent $d$ à $c$); pour chacun d'entre eux, noté $v$, choisissons $\psi_v$ tel que $\Plusquefull{\psi_v} = \unordre'$. Pour chaque autre manipulateur $v$, choisissons $\psi_v$ tel que $\Plusquefull{\psi_v} = \unordre$. Enfin, pour chaque électeur sincère $v \in \Sinc{d}{c}$, notons $\psi_v = \omega_v$.
+
+On a alors:
+\begin{align*}
+D_{ce}(\psi) &= \bicoal_{de} + \left(\left\lfloor \frac{V}{2}\right\rfloor - \bicoal_{de}\right) = \left\lfloor \frac{V}{2}\right\rfloor,
+\end{align*}
+donc $c$ n'a pas de victoire contre $e$.
+
+Par ailleurs, la condition \eqref{eq:cond_resist_non_oui} n'est pas vérifiée pour cette paire $(d,e)$ mais la condition \eqref{eq:cond_resist_non_non} est vérifiée. Donc on a:
+$$
+\left\{\begin{alignedat}{2}
+&\voterset{ \text{non}(d \Plusque{\omega_v} c) \text{\;et\;} c \PPlusque{\omega_v} e } + \voterset{ \text{non}(d \Plusque{\omega_v} c) \text{\;et\;} c \Plusmoins{\omega_v} e} &{}\leq \left\lfloor \frac{V}{2}\right\rfloor, \\
+&\voterset{ \text{non}(d \Plusque{\omega_v} c) \text{\;et\;} c \PPlusque{\omega_v} e } + \voterset{ \text{non}(d \Plusque{\omega_v} c) \text{\;et\;} c \NC{\omega_v} e } &\geq \left\lceil \frac{V}{2}\right\rceil,
+\end{alignedat}\right.
+$$
+donc, par soustraction:
+\begin{align*}
+\voterset{ \text{non}(d \Plusque{\omega_v} c) \text{\;et\;} c \Plusmoins{\omega_v} e } - \voterset{ \text{non}(d \Plusque{\omega_v} c) \text{\;et\;} c \NC{\omega_v} e } &\leq \left\lfloor \frac{V}{2}\right\rfloor - \left\lceil \frac{V}{2}\right\rceil.
+\end{align*}
+En utilisant la proposition \ref{thm:points_totaux_dun_duel}, on en déduit:
+\begin{align*}
+D_{ec}(\psi) &= V + \voterset{ c \Plusmoinsfull{\psi_v} e } - \voterset{ c \NCfull{\psi_v} e } - D_{ce}(\psi), \\
+ &\leq V + \left\lfloor \frac{V}{2}\right\rfloor - \left\lceil \frac{V}{2}\right\rceil - \left\lfloor \frac{V}{2}\right\rfloor = \left\lfloor \frac{V}{2}\right\rfloor,
+\end{align*}
+donc $e$ n'a pas de victoire contre $c$.
+
+En résumé, ni $c$ ni $e$ ne peut être vainqueur de Condorcet. Pour les mêmes raisons que dans les cas précédents, $d$ et les autres candidats non plus.
+\end{proof}
+
+%\begin{remark}[a trivial case of resistance to manipulation]
+%If, for any state-based voting system $f$ meeting Condorcet criterion, configuration $\omega$ is not $f$-manipulable, there still may be no resistant Condorcet winner. From lemma \ref{thm_NonAdmManip}, we deduce that in that case, all candidates must be Condorcet-admissible in $\omega$. For example, if all voters judge all candidates incomparable, then there is no resistant Condorcet winner but configuration $\omega$ is obviously not manipulable, whatever the voting system.
+%
+%That said, if we demand not only that for any state-based voting system $f$ meeting Condorcet criterion, configuration $\omega$ is not manipulable, but also that the winner is always the same candidate $z$, then $z$ must be Condorcet winner so, according to previous proposition, she must be resistant Condorcet winner.
+%\end{remark}
+
+Dans la condition \ref{enumi:non_manip}, il est nécessaire d'exiger que tous les systèmes de vote Condorcet $f$ aient le même résultat $c$ ou, de façon équivalente, que $c$ est vainqueur de Condorcet. Sinon, la réciproque \ref{enumi:non_manip} $\Rightarrow$ \ref{enumi:resistant} n'est pas vraie. En effet, considérons une configuration où chaque électeur est indifférent entre tous les candidats: alors tout système de vote est non manipulable, mais il n'y a pas de vainqueur de Condorcet résistant.
+
+Par ailleurs, si on suppose que les préférences sont complètes et antisymétriques (en particulier si ce sont des ordres stricts totaux), alors la démonstration est simplifiée: les conditions \eqref{eq:cond_resist_non_oui} et \eqref{eq:cond_resist_non_non} de la définition \ref{def:resistant_Condorcet} sont équivalentes, donc la démonstration se limite au cas~2.
+
+\begin{definition}[critère de Condorcet-résistant\footnotemark]\footnotetext{Nous écrivons cette expression avec un trait d'union pour insister sur le fait que l'adjectif \emph{résistant} s'applique à la notion de vainqueur de Condorcet et non au substantif \emph{critère}.}\label{def:critere_rcond}
+On dit que $f$ vérifie le \emph{critère de Condorcet-résistant} (\rcond) \ssi, pour toute configuration $\omega \in \Omega$ et tout candidat $c \in \mathcal{C}$, si $c$ est vainqueur de Condorcet résistant en $\omega$, alors $f(\omega) = c$.
+\end{definition}
+
+Il est clair que vérifier le critère de Condorcet implique de vérifier le critère de Condorcet-résistant.
+
+\begin{prop}\label{thm:classical_voting_systems_not_rCond}
+On considère un espace électoral qui comprend tous les ordres stricts totaux.
+Pour chaque système de vote dans la liste suivante, il existe des valeurs de $\,V\!$ et~$C$ pour lesquelles le système ne vérifie pas le critère de Condorcet-résistant: BI, le jugement majoritaire, l'uninominal, U2TI, Veto, VTI, VTIM, le vote par assentiment, le vote par notation et les méthodes de Borda, Bucklin, Coombs et Kim-Roush.
+\end{prop}
+
+\begin{proof}Nous allons donner un seul contre-exemple qui permet de couvrir tous ces systèmes de vote sauf BI.
+
+%\paragraph{Countre-exemple 1}
+%$$
+%\begin{array}{c|c|c|c|c}
+%20\% & 20\% & 20\% & 20\% & 20\% \\\hline
+%d_1 & d_2 & d_3 & d_4 & d_5 \\
+%c & c & c & c & c \\
+%\text{Autres} & \text{Autres} & \text{Autres} & \text{Autres} & \text{Autres} \\
+%\end{array}
+%$$
+%
+%\begin{center}
+%\begin{tabular}{IcIc|c|c|c|cI}
+%\Cline{1pt}{2-6}
+%\multicolumn{1}{cI}{} & \multicolumn{5}{cI}{Group of voters} \\ \cline{2-6}
+%\multicolumn{1}{cI}{} & 1 & 2 & 3 & 4 & 5 \\ \Cline{1pt}{1-6}
+%\multirow{4}{*}{\myrotate{Preferences\;}} & $d_1$ & $d_2$ & $d_3$ & $d_4$ & $d_5$ \\ 
+%& c & c & c & c & c \\ 
+%& Others & Others & Others & Others & Others \\
+%& $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ \\ \Cline{1pt}{1-6}
+%\end{tabular}
+%\end{center}
+%
+%Le candidat $c$ est préféré à toute paire de candidats distincts $(d_i,d_j)$ par 60\% des électeurs, donc il est vainqueur de Condorcet résistant% (cf. remark \ref{thm:resist_cas_part})%
+%.
+%Cependant, il n'est élu ni par VTI, ni par uninominal, ni par IRT. Pour les systèmes de vote utilisant des notes (y compris assentiment), considérons le cas où l'opinion sincère de chaque électeur consiste à attribuer la note maximale à son candidat préféré et la note minimale à tous les autres; alors $c$ n'est élu ni par assentiment, ni par le vote par notation, ni par le jugement majoritaire.
+
+%\paragraph{Contre-exemple 2}
+$$
+\begin{array}{c|c|c|c|c|c|c}
+17 & 13 & 14 & 14 & 14 & 14 & 14 \\\hline
+a    & c    & d_1  & d_2  & d_4  & d_7  & d_{11} \\
+     & a    & c    & d_3  & d_5  & d_8  & d_{12} \\ 
+     &      & a    & c    & d_6  & d_9  & d_{13} \\ 
+     &      &      & a    & c    & d_{10} & d_{14} \\ 
+     &      &      &      & a    & c    & d_{15} \\ 
+     &      &      &      &      & a    & c \\ 
+\text{Autres} & \text{Autres} & \text{Autres} & \text{Autres} & \text{Autres} & \text{Autres} & \text{Autres} \\ 
+%%\vdots & \vdots & \vdots & \vdots & \vdots \\ 
+c    & d_1  & d_2  & d_4  & d_7 & d_{11} & a    \\ 
+\end{array}
+$$
+%\newlength{\templength}
+%\settowidth{\templength}{Others}
+%\begin{bigcenter}
+%\begin{tabular}{IcI>{\centering}p{\templength}|c|c|c|c|c|cI}
+%\Cline{1pt}{2-8}
+%\multicolumn{1}{cI}{} & \multicolumn{7}{cI}{Group of voters} \\\cline{2-8}
+%\multicolumn{1}{cI}{} & 0 & 1 & 2 & 3 & 4 & 5 & 6 \\ \Cline{1pt}{1-8}
+%\multirow{7}{*}{\myrotate{Preferences\;}} & $d_1$ & $d_1$ & $d_2$ & $d_3$ & $d_4$ & $d_5$ & $d_6$ \\ 
+%& $d_2$ & $c$ & $c$ & $c$ & $c$ & $c$ & $c$ \\ 
+%& $d_3$ & Others & $d_1$ & $d_1$ & $d_1$ & $d_1$ & $d_1$ \\ 
+%& $d_4$ & & Others & Others & Others & Others & Others \\ 
+%& $d_5$ & \multirow{2}{*}{$\vdots$} & \multirow{2}{*}{$\vdots$} & \multirow{2}{*}{$\vdots$} & \multirow{2}{*}{$\vdots$} & \multirow{2}{*}{$\vdots$} & \multirow{2}{*}{$\vdots$} \\ 
+%& $d_6$ & & & & & & \\ 
+%& $c$ & $d_2$ & $d_3$ & $d_4$ & $d_5$ & $d_6$ & $d_1$ \\ \Cline{1pt}{1-8}
+%\end{tabular}
+%\end{bigcenter}
+
+Le candidat $c$ est préféré à toute paire de candidats $(a, d_i)$ par 69~électeurs (sur~100) et à toute paire de candidats $(d_i, d_j)$ par au moins 55~électeurs, donc $c$ est vainqueur de Condorcet résistant. 
+
+En jugement majoritaire, en vote par assentiment ou en vote par notation, il suffit de considérer le cas où le vote sincère de chaque électeur consiste à attribuer la note maximale à son candidat favori et la note minimale aux autres candidats. Alors c'est $a$ qui est élu (comme en uninominal).
+
+Dans une RPS de vecteur de poids $\mathbf{x}$, on a $\score(a) - \score(c) = 3 (x_1 - x_C) + 1 (x_1 - x_2) > 0$, donc $c$ ne peut pas être élu. En particulier, c'est le cas pour l'uninominal, Veto et la méthode de Borda.
+
+En U2TI, en VTI ou en VTIM, $c$ est éliminé au premier tour.
+
+En méthode de Bucklin, on a $\score(a) = (4\:;\,58)$ et $\score(c) = (4\:;\,55)$ donc $c$ ne peut être élu.
+
+En méthode de Coombs ou de Kim-Roush, $c$ est éliminé au premier tour.
+%
+%\paragraph{Counterexample 3} The candidates are $\{ a, c, d_1, d_2, e_1, \ldots, e_8 \}$. The size of each group of voters is given in proportion of the whole population.
+%
+%\begin{center}
+%\begin{tabular}{IcIc|c|c|c|c|c|cI}
+%\Cline{1pt}{2-8}
+%\multicolumn{1}{cI}{} & \multicolumn{7}{cI}{Size of the group of voters} \\\cline{2-8}
+%\multicolumn{1}{cI}{} & 10\% & 10\% & 40\% & 10\% & 10\% & 10\% & 10\% \\ \Cline{1pt}{1-8}
+%\multirow{4}{*}{\myrotate{Preferences}} & $a$	& $a$	& $c$ & $e_1$ & $e_3$ & $e_5$ & $e_7$ \\
+%& $d_1$ & $d_2$ & $a$ & $e_2$ & $e_4$ & $e_6$ & $e_8$ \\
+%& $c$ & $c$	& Others & $c$ & $c$ & $c$ & $c$ \\
+%& Others & Others & & Others & Others & Others & Others \\ \Cline{1pt}{1-8}
+%\end{tabular}
+%\end{center}
+%
+%Candidate $c$ is preferred to any pair $\{a,e_i\}$ by 70\% of the voters, to any pair $\{a,d_i\}$ by 80\% of the voters, to any pair $\{d_i,e_j\}$ by 80\% of the voters, to $\{d_1,d_2\}$ by 80\% of the voters and to any pair $\{e_i,e_j\}$ by at least 80\% of the voters. So $c$ is a resistant Condorcet winner.
+%Candidate $c$ is preferred to any pair $\{a,e_i\}$ by 70\% of the voters and to any other pair of candidates by at least 80\% of the voters, hence she is a resistant Condorcet winner. Candidate $a$ has a median ranking of 2 and $c$ has a median ranking of 3, hence $c$ cannot be elected by the Bucklin method.
+%
+%If we use the Bucklin method, processing stops in the second round: at this stage, candidate $a$ has 60\% of ballots, $c$ has 40\% and each other candidate has 10\% (we may check that the total is 200\%). So $a$ is elected.
+
+Dans le chapitre~\ref{sec:criteres_majoritaires}, nous verrons des résultats plus détaillés pour chacun de ces systèmes de vote en fonction du nombre de candidats. Nous prouverons également qu'en général, BI ne vérifie pas \rcond{}, que la seule RPSI-ES qui vérifie \rcond{} est la méthode de Baldwin, et que la seule RPSI-EM qui vérifie \rcond{} est la méthode de Nanson.
+\end{proof}
+
+%\begin{remark}[implications between Condorcet criterion, resistant-Condorcet criterion and majority favorite criterion]
+%%
+À notre connaissance, il n'y a pas de système de vote classique (dans la littérature ou les applications pratiques) qui vérifie le critère de Condorcet-résistant mais pas le critère de Condorcet. Il est facile de définir des contre-exemples artificiels, comme le système \emph{Résistant-Doyen} (RDoy.): on élit le vainqueur de Condorcet résistant quand il existe, et un candidat fixé à l'avance dans le cas contraire. Mais cette observation tend à montrer qu'un système de vote qui n'a pas été conçu pour élire tous les vainqueurs de Condorcet n'a généralement aucune raison <<\,naturelle\,>> d'élire ceux qui sont résistants.
+%\end{remark}
+
+
+
+\section{Théorème fort de condorcification}\label{sec:theoreme_fort_condorcification}
+
+Grâce à la notion de vainqueur de Condorcet résistant, nous disposons de l'outil nécessaire pour montrer que, pour de nombreux systèmes de vote, la condorcification~$f^*$ est \emph{strictement} moins manipulable que le système de vote original~$f$.
+
+
+\begin{thm}[théorème fort de condorcification]\label{thm:cond_strictement_meilleur}
+Soit $\Omega$ un espace électoral et $f$ un SVBE. On suppose que $f$ vérifie {\normalfont\cminf{}} mais pas {\normalfont\rcond}.
+
+Alors sa condorcification $f^*$ est strictement moins manipulable que $f$:
+$$
+\MC_{f^*} \subsetneqq \MC_f.
+$$
+%$$
+%\left\{\omega \in \Omega \text{\;s.t.\;} f^* \textrm{\;is manipulable in } \omega \right\}
+%\subsetneq \left\{\omega \in \Omega \text{\;s.t.\;} f \textrm{\;is manipulable in } \omega \right\}. 
+%$$
+\end{thm}
+
+\begin{proof}
+Le théorème de condorcification \ref{thm_Condorcifie_aussi_bon} garantit l'inclusion.
+
+Puisque $f$ ne vérifie pas \rcond, il existe une configuration $\omega \in \Omega$ et un candidat $c \in \mathcal{C}$, vainqueur de Condorcet résistant dans $\omega$, tel que $f(\omega) \neq c$. Par la proposition \ref{thm_CondUnique}, on sait que $f(\omega)$ n'est pas Condorcet-admissible en $\omega$, donc le lemme \ref{thm_NonAdmManip} assure que $f$ est manipulable en $\omega$. Mais le théorème~\ref{thm:Condorcet_resistant_caracterisation} assure que $f^*$ n'est pas manipulable en $\omega$. Par conséquent, l'inclusion est stricte.
+\end{proof}
+
+\begin{cor}\label{thm:classical_voting_systems_not_Cond_resist}
+On considère un espace électoral qui comprend tous les ordres stricts totaux.
+Pour chaque système de vote $f$ dans la liste suivante, il existe des valeurs de $\,V\!$ et $C$ telles que la condorcification $f^*$ est strictement moins manipulable que~$f$: BI, le jugement majoritaire, l'uninominal, U2TI, VTI, VTIM, le vote par assentiment, le vote par notation et les méthodes de Borda, Bucklin et Coombs.
+\end{cor}
+
+\begin{proof}
+Comme ces systèmes vérifient \cminf{} (proposition~\ref{thm:classical_meet_cminf}) mais pas \rcond{} (proposition~\ref{thm:classical_voting_systems_not_rCond}), on peut leur appliquer le théorème fort de condorcification~\ref{thm:cond_strictement_meilleur}.
+\end{proof}
+
+
+\section{Borne supérieure de manipulabilité pour les systèmes Condorcet}\label{sec:borne_sup_manip_pour_les_cond}
+
+Puisque tout SVBE Condorcet est non-manipulable dans les configurations résistantes, ceci nous fournit une borne supérieure de manipulabilité. Plus précisément, notons $\tau_\text{CR}^\pi$ la probabilité qu'une configuration soit résistante dans la culture~$\pi$. Alors, pour tout SVBE~$f$ vérifiant le critère de Condorcet, on a:
+$$
+\tau_\MC^\pi(f) \leq 1 - \tau_\text{CR}^\pi.
+$$
+On peut donc se demander si cette borne supérieure est ajustée, c'est-à-dire s'il existe un système de vote Condorcet qui est manipulable dans toutes les configurations non résistantes. Nous allons voir que, dans une importante classe d'espaces électoraux, un tel système existe.
+
+\medskip
+Considérons l'espace électoral des ordres stricts totaux pour $C \geq 6$ et $V$ quelconque%\footnote{Nous prenons $V$ impair pour simplifier: de cette façon, nous n'avons pas besoin de considérer des configurations semi-Condorcet, c'est-à-dire avec au moins un candidat Condorcet-admissible mais pas de vainqueur de Condorcet. Cependant, on peut montrer le même résultat avec $V$ pair.}
+.
+Le système de vote~$f$ est défini de la façon suivante. Au préalable, on choisit une bijection arbitraire entre les permutations de $C-3$ éléments et les entiers de l'intervalle $\intent{1}{(C-3)!}$. Puis les électeurs fournissent leurs bulletin et on calcule le résultat de la façon suivante.
+\begin{itemize}
+\item S'il y a un vainqueur de Condorcet, alors il est élu.
+\item Sinon, pour chaque électeur~$v$, on note~$x_v$ l'entier associé à son ordre de préférence sur les $C - 3$ derniers candidats de son bulletin. On déclare vainqueur le candidat $\sum x_v$, en comptant modulo~$C$ pour le ramener dans l'intervalle~$\intent{1}{C}$.
+\end{itemize}
+
+Considérons une configuration non résistante~$\omega$  et montrons qu'elle est manipulable. Soit~$\winner = f(\omega)$ le vainqueur sincère.
+
+\paragraph{Cas 1} Si $\winner$ est vainqueur de Condorcet mais pas vainqueur de Condorcet résistant, alors il existe deux candidats distincts $d$ et $e$ tels que les électeurs préférant simultanément~$\winner$ à $d$ et $e$ ne forment pas une majorité stricte (en effet, $\winner$ ne peut pas violer la définition de vainqueur de Condorcet résistant pour $d = e$, sinon il ne serait pas vainqueur de Condorcet). Quitte à échanger les rôles de $d$ et $e$, on peut supposer que $d$ a une victoire contre $e$. Nous allons construire une manipulation en faveur de $d$. 
+
+Tous les manipulateurs (les électeurs préférant $d$ à $c$) mettent~$d$ en tête de bulletin, puis $e$, puis $c$. Ceci assure qu'aucun candidat n'est vainqueur de Condorcet (comme dans le cas~2 de la preuve du théorème \ref{thm:Condorcet_resistant_caracterisation}, on utilise le fait que $e$ n'a pas de victoire contre~$d$). Tous les manipulateurs, sauf un, mettent les autres candidats en bas de leur bulletin dans un ordre arbitraire. Pour le dernier manipulateur~$v$, en choisissant de façon adéquate l'ordre de ses trois derniers candidats, il peut rendre sa valeur~$x_v$ égale à n'importe quel entier de l'intervalle $\intent{1}{(C-3)!}$ et puisque $(C-3)! \geq C$, il peut choisir n'importe quel vainqueur, en particulier~$d$.
+
+\paragraph{Cas 2} Si $\winner$ est Condorcet-admissible mais pas vainqueur de Condorcet, le processus est similaire. Il existe un candidat~$c$ tel que $\voterset{c \Plusque{} \winner} = \frac{V}{2}$. On construit une manipulation en faveur de $c$. Les manipulateurs placent~$c$ en tête, ce qui assure qu'aucun autre candidat n'est vainqueur de Condorcet (et $c$ lui-même non plus puisqu'il n'a toujours pas de victoire contre~$\winner$). Puis tous les manipulateurs choisissent de façon arbitraire l'ordre dans lequel ils placent les autres candidats, sauf le dernier manipulateur~$v$ dont le choix de $x_v$ permet de choisir n'importe quel vainqueur, en particulier~$c$.
+
+\paragraph{Cas 3} Enfin, si $\winner$ n'est pas Condorcet-admissible, alors on sait que $\omega$ est manipulable (lemme~\ref{thm_NonAdmManip}).
+
+
+\medskip
+Par conséquent, le système de vote~$f$ est aussi manipulable que possible pour un système de Condorcet: en effet, il est non-manipulable seulement dans les configurations résistantes! Ainsi, dans toute culture~$\pi$, il atteint la borne supérieure de manipulabilité que nous avons donnée: $\tau_\MC^\pi(f) = 1 - \tau_\text{CR}$.
+
+Nous verrons cependant qu'exhiber un système de vote Condorcet qui est manipulable dans toutes les configurations non-résistantes n'est pas possible pour toutes les valeurs de $(V, C)$: dans l'espace électoral des ordres stricts totaux avec $V = 3$~électeurs et $C = 3$~candidats, la section~\ref{sec:opti33} révèlera qu'un tel système n'existe pas.
+
+\section{Condorcification et systèmes optimaux}\label{sec:condorcification_et_systems_optimaux}
+
+Jusqu'à présent, nous considérions généralement un système de vote $f$ donné et nous comparions l'ensemble des configurations manipulables pour $f$ et pour sa condorcification $f^*$. Nous avons montré que, sous certaines hypothèses, $f^*$ était au plus aussi manipulable que~$f$ (théorème faible de condorcification~\ref{thm_Condorcifie_aussi_bon}), voire strictement moins manipulable (théorème fort de condorcification~\ref{thm:cond_strictement_meilleur}). Ces résultats pourraient suggérer d'utiliser des systèmes comme la condorcification de l'uninominal, de VTI, etc. 
+
+Si on ne se concentre pas sur un système de vote particulier, les théorèmes de condorcification ont également des conséquences profondes qui concernent tout planificateur social qui souhaiterait trouver un système de vote acceptable dont la manipulabilité soit minimale.
+
+\begin{cor}\label{thm:minimum_set}
+Considérons la fonction:
+%$$
+%M: 
+%\left|\begin{array}{ccl}
+%\textrm{\normalfont\cminf{}} & \to & \mathcal{P}(\Omega) \\
+%f & \to & \{\omega \in \Omega \textrm{ s.t. $f$ is manipulable in } \omega \},
+%\end{array}\right.
+%$$
+$$
+\MC: 
+\left|\begin{array}{ccl}
+\textrm{\normalfont\cminf{}} & \to & \mathcal{P}(\Omega) \\
+f & \to & \MC_f,
+\end{array}\right.
+$$
+qui renvoie, pour chaque SVBE~$f$ vérifiant \cminf, l'ensemble de ses configurations manipulables.
+%We investigate voting systems $f$ that reach a minimal value of $M$, i.e. such that no other $f'$ is less manipulable in the sense of inclusion.
+
+Soit $A \in \mathcal{P}(\Omega)$ une valeur minimale de $\MC$ (s'il en existe), c'est-à-dire un sous-ensemble de $\Omega$ tel qu'au moins un système~$f \in \cminf$ vérifie $\MC_f = A$, mais aucun système~$f \in \cminf{}$ ne vérifie $\MC_f \subsetneqq A$. Alors:
+\begin{itemize}
+\item Tout système $f \in \cminf{}$ vérifiant $\MC_f = A$ vérifie \rcond;
+\item Il existe $f \in \cond{}$ t.q. $\MC_f = A$.
+\end{itemize}
+\end{cor}
+
+Pour bien comprendre la portée de ce corollaire, il faut remarquer que la fonction $\MC$ peut avoir plusieurs minima qui sont non comparables, puisque la relation d'inclusion sur $\ens{P}(\Omega)$ n'est pas un ordre total. Il peut ainsi exister deux systèmes $f$ et $g$ tels qu'aucun système n'est moins manipulable que $f$ ou $g$, mais dont les ensembles de configurations manipulables sont non inclus l'un dans l'autre.
+
+Le corollaire~\ref{thm:minimum_set} peut être résumé de la façon suivante: si on cherche un système de vote vérifiant \cminf{} et dont la manipulabilité est minimale (au sens ensembliste), alors l'étude \emph{doit} être restreinte à \textbf{rCond} et \emph{peut} être restreinte à \cond{}. 
+
+\vspace{2cm}%MAGOUILLE
+\medskip
+De même, les théorèmes de condorcification entraînent le corollaire suivant.
+
+\begin{cor}\label{thm:minimum_manip_cond}
+Pour une culture donnée $\pi$, considérons la fonction:
+%$$
+%M: 
+%\left|\begin{array}{ccl}
+%\textrm{\normalfont\cminf{}} & \to & \mathcal{P}(\Omega) \\
+%f & \to & \{\omega \in \Omega \textrm{ s.t. $f$ is manipulable in } \omega \},
+%\end{array}\right.
+%$$
+$$
+\tau_\MC^\pi: 
+\left|\begin{array}{ccl}
+\textrm{\normalfont\cminf{}} & \to & [0, 1] \\
+f & \to & \tau_\MC^\pi(f).
+\end{array}\right.
+$$
+%We investigate voting systems $f$ that reach a minimal value of $M$, i.e. such that no other $f'$ is less manipulable in the sense of inclusion.
+
+Soit $\tau_0$ la borne inférieure de $\tau_\MC^\pi$. Si elle est atteinte, alors il existe $f \in \cond{}$ t.q. $\tau_\MC^\pi(f) = \tau_0$.
+\end{cor}
+
+Contrairement à ce qui se passe dans le corollaire~\ref{thm:minimum_set}, il n'est \emph{a priori} pas nécessaire qu'un système de manipulabilité minimale (au sens probabiliste) vérifie \rcond{}: en effet, si certaines configurations résistantes sont de mesure nulle, alors elles peuvent être manipulables sans altérer le taux de manipulabilité. Cependant, pour tout système de taux de manipulabilité minimal (au sein de \cminf), on peut le condorcifier pour obtenir un optimum qui vérifie \cond{} et \emph{a fortiori} \rcond{}.
+
+Le corollaire~\ref{thm:minimum_manip_cond} peut être résumé de la façon suivante: si on cherche un système de vote vérifiant \cminf{} et dont le taux de manipulabilité soit minimal, alors l'étude peut être restreinte à \cond{}. 
+
+\medskip
+Dans les deux corollaires~\ref{thm:minimum_set} et \ref{thm:minimum_manip_cond}, on peut se demander si un optimum tel que celui mentionné existe. Si on considère un espace électoral fini (en particulier un espace électoral ordinal, comme celui des ordres stricts totaux ou celui des ordres stricts faibles), alors il existe un nombre fini de SVBE possibles, \emph{a fortiori} si on exige qu'ils vérifient \cminf, donc il existe un optimum.
+
+À l'inverse, si on considère un espace électoral infini (donc nécessairement non limité à l'aspect ordinal, comme l'espace électoral de référence), alors l'existence d'un optimum n'est pas garantie \emph{a priori}. Dans le chapitre~\ref{sec:slicing} consacré à l'étude des systèmes non ordinaux, nous nous intéresserons à cette question pour le taux de manipulabilité: nous donnerons une condition suffisante pour qu'il existe un SVBE qui (au sein de la classe \cminf) minimise le taux de manipulabilité dans une culture donnée.
+%Pour contourner cette difficulté, nous donnerons dans le chapitre~\ref{sec:slicing} une condition suffisante pour qu'il existe un SVBE qui (dans \cminf) minimise non pas l'ensemble des configurations manipulables, mais le taux de manipulabilité dans une culture donnée.
+
+% mais nous en donneront une condition suffisante dans le chapitre~\ref{sec:slicing}.
+
+
+
+%If $f \in \arg\min(M)$, then $f$ meets the resistant Condorcet criterion.
+
+%If $f$ is optimal, then there exists $f'$, meeting the Condorcet criterion, such that $M(f) = M(f')$.
+
+%For any minimal value $A \in \mathcal{P}(\Omega)$ of $M$, there exists a SBVS $f$ meeting the Condorcet criterion such that $M(f) = A$.
+
+%If $A \in \min(M)$, then there exists $f$ meeting the Condorcet criterion such that $M(f) = A$.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%\section{Condorcification up to abstentions}
+%
+%\paragraph{Condorcet absolu aux abstentions près}
+%
+%Ce qu'on sait : les théorèmes marchent toujours.
+%
+%À explorer : comment reformuler l'article autour de tout ça...
+%
+%
+%\begin{remark}[abstention]
+%The framework of electoral spaces allows to take sincere as well as tactical abstention into account.
+%
+%For example, in an electoral space with all binary relations, let us consider plurality system with abstention. Each voter's set of strategies is $\mathcal{C} \cup \{0\}$, where 0 stands for an abstention. A possible sincerity function is: if voter $i$ strictly prefers $c$ to all other candidates $d$, then she is supposed to vote for $c$; otherwise, she is supposed to abstain\footnote{This could be discussed, but the sincerity function is always the result of a choice. In other words, another sincerity function would lead to study another \emph{voting system} based on the same \emph{game form}.}.
+%
+%When considering the state-based version of this voting system, then its Condorcification, at least three cases of abstention are of interest.
+%\begin{enumerate}
+%\item Voters with an empty binary relation abstained in the original voting system, and continue to abstain in the Condorcification.
+%\item Some voters (with a non-empty binary relation, but with no most liked candidate) were abstaining because their binary relation was not ``compatible'' with the voting system. In the Condorcification, they are taken into account for computing the Condorcet winner; when there is none, they still abstain for computing the plurality winner. 
+%\item Tactical abstention is possible: a voter may pretend to have an empty binary relation, even if it is not true.
+%\end{enumerate}
+%
+%Concerning this last case, a classical objection \cite{moulin1988noshow,perez2001noshow} to voting systems meeting the Condorcet criterion is that they all suffer from the \emph{no-show paradox}: a voter may manipulate by abstention.
+%However, Condorcification theorem mitigates this criticism: when manipulators can exploit abstention, it is a configuration where the original voting system was manipulable anyway (not necessarily by abstention)\footnote{It should be noticed that \cite{moulin1988noshow} uses a slightly different definition of Condorcet winner: in \cite{moulin1988noshow}, in order to have a victory in the matrix of duels, it is enough to have a majority of non-abstaining voters, whereas we demand a majority over all the registered voters. We do not know whether, for some values of $(n,m)$, no-show paradox occurs in any system meeting our version of the Condorcet criterion.}.
+%\end{remark}
+%
+%In each $\Omega_v$, there is a subset of states called \emph{abstentions} such that, if $\omega_v$ is an abstention, then $\Plusque{\omega_v}$ is a empty binary relation.
+%
+%When $\omega \in \Omega$, we note $V_\omega$ the number of voters whose state is not an abstention.
+%
+%\begin{definition}
+%We say that $c$ is an \emph{absolute Condorcet winner up to abstentions (ACWA)} iff she has a strict absolute victory, up to abstentions, against any other candidate $d$; that is:
+%\begin{empheq}[left={\forall d \in \mathcal{C} \setminus \{c\}, \empheqlbrace}]{align}
+%&\voterset{ c \Plusque{\omega_v} d } > \frac{V_\omega}{2},\label{eq:cond_victoire_AVWA} \\
+%&\voterset{ d \Plusque{\omega_v} c } \leq \frac{V_\omega}{2}.\label{eq:cond_no_defaite_ACWA}
+%\end{empheq}
+%
+%We say that $c$ is \emph{Condorcet-admissible up to abstentions (CAA)} in $\omega$ \ssi $c$ has no absolute defeat, up to abstentions; that is:
+%$$
+%\forall d \in \mathcal{C} \setminus \{c\}, \voterset{ d \Plusque{\omega_v} c } \leq \frac{V_\omega}{2}.
+%$$
+%
+%\end{definition}
+%
+%
+%\begin{prop}
+%We have: $c$ is ACWA $\Rightarrow$ $c$ is RCW, $c$ is RCW $\Rightarrow$ $c$ is WCW, $c$ is CAA $\Rightarrow$ $c$ is CA.
+%
+%If binary relations $\Plusque{\omega_v}$ are antisymmetric (which is a common assumption), we have also: $c$ is ACW $\Rightarrow$ $c$ is ACWA, $c$ is WCW $\Rightarrow$ $c$ is CAA.
+%\end{prop}
+%
+%\begin{prop}
+%When exists, the ACW, ACWA and RCW is unique.
+%
+%WCW, CAA and CA may not be unique.
+%\end{prop}
+%
+%\begin{definition}[Condorcifications]
+%Let $\Omega$ be an ES and $f$ an SBVS.
+%
+%We call \emph{absolute Condorcification of $f$} the state-based voting system:
+%$$
+%f^{ACW}:
+%\begin{array}{|cll}
+%\Omega & \to & \mathcal{C} \\
+%\omega & \to & 
+%\begin{array}{|l}
+%\textrm{if\;} \omega \textrm{\;has an ACW\;} c, \textrm{then\;} c,  \\
+%\textrm{otherwise}, f(\omega).
+%\end{array} 
+%\end{array}
+%$$
+%
+%In a similar way, we define $f^{ACWA}$ the absolute Condorcification of $f$ up to abstentions and $f^{RCW}$ the relative Condorcification of $f$. 
+%\end{definition}
+%
+%\begin{definition}
+%Let $\Omega$ be an ES and $f$ a SBVS.
+%
+%We say that $f$ meets the \emph{informed majority coalition criterion, up to abstentions (InfMCA)} iff any majority coalition (up to abstentions), that is informed of what the other voters do, may decide of the outcome. That is, $\forall \mathcal{M} \in \mathcal{P}(\mathcal{V})$, $\forall c \in \mathcal{C}$, $\forall \omega_{\mathcal{V} \setminus \mathcal{M}} \in \Omega_{\mathcal{V} \setminus \mathcal{M}}$, if $\textrm{card}(\mathcal{M}) > \textrm{card}(v \in \mathcal{V} \setminus \mathcal{M} \text{ s.t. } \omega_v \text{ is not an abstention})$, then $\exists \omega_\mathcal{M} \in \Omega_\mathcal{M}$ s.t. $f(\omega_\mathcal{M},\omega_{\mathcal{V} \setminus \mathcal{M}}) = c$.
+%\end{definition}
+%
+%Remark: if $f$ meets InfMCA, then $f$ meets InfMC.
+%
+%\begin{prop}
+%The following voting systems meet InfMCA: maximin, Tideman method (ranked pairs), Schulze method, Kemeny-Young method, Dodgson method, Baldwin method, Nanson method, plurality, two-round system, VTI, Bucklin method, Coombs method, Borda method.
+%
+%approval voting, range voting with average, range voting with median,
+%\end{prop}
+%
+%\begin{proof}
+%For ordinal voting systems, we call abstention any ballot with an empty binary relation. Using any of these systems in a situation with absentions amounts to using it with a lower value of $V$. Since they meet InfMC for any value of $V$, we have the result.
+%
+%For range voting (resp. approval), we call abstention any ballot with an empty binary relation and the same grade (resp. approval value) for each candidate. Clearly, these voting systems meet InfMCA.
+%\end{proof}
+%
+%\begin{thm}[Condorcification]\label{thm_Condorcifie_aussi_bon_abstention}
+%Let $\Omega$ be an ES and $f$ an SBVS. We assume that $f$ meets InfMCA.
+%
+%Then $f^{ACWA}$ is at most as manipulable as $f$:
+%$$
+%\{ \omega \in \Omega \text{\;s.t.\;} f^{ACWA} \textrm{\;is manipulable in } \omega \}
+%\subseteq
+%\{ \omega \in \Omega \text{\;s.t.\;} f \textrm{\;is manipulable in } \omega \}.
+%$$
+%\end{thm}
+%
+%The proof is the same as for the usual theorem. For all usual non-Condorcet voting systems, the improvement is strict. Cf. examples in the original paper: since there is no abstention in these examples, they work not only for $f^{ACW}$ (as intended in the original paper) but also for $f^{ACWA}$.
+%
+%Question: prove that $f^{ACWA}$ is at most as manipulable as $f^{ACW}$. Let us note that $(f^{ACW})^{ACWA} = f^{ACWA}$. So it would be sufficient to prove that $f^{ACW}$ meets InfMCA.
+%
+%\begin{proof}
+%Let us suppose that $f$ meets InfMCA (and that preferences are always antisymmetric, the ES comprises all strict total orders\ldots).
+%
+%Let $\mathcal{M} \in \mathcal{P}(\mathcal{V})$, $c \in \mathcal{C}$ and $\omega_{\mathcal{V} \setminus \mathcal{M}} \in \Omega_{\mathcal{V} \setminus \mathcal{M}}$. Let us suppose that $\textrm{card}(\mathcal{M}) > \textrm{card}(v \in \mathcal{V} \setminus \mathcal{M} \text{ s.t. } \omega_v \text{ is not an abstention})$. Members of $\mathcal{M}$ may cast their ballots $\omega_\mathcal{M} \in \Omega_\mathcal{M}$ s.t. $f(\omega_\mathcal{M},\omega_{\mathcal{V} \setminus \mathcal{M}}) = c$.
+%
+%If $c$ is ACW or if no candidate is ACW, then $f^{ACW}(\omega_\mathcal{M},\omega_{\mathcal{V} \setminus \mathcal{M}}) = c$ and it is ok.
+%
+%Problem is, another candidate might be ACW...
+%\end{proof}
+%
+%Remark: if we suppose that $f$ meets InfMCAbis, where members of the coalition may make $c$ win while claiming that they strictly prefer $c$ to all other candidates, then it works. In practice, it is the case for all usual voting systems meeting InfMCA. In these common cases, absolute Condorcification up to abstention is at most as manipulable as (i.e. ``better than'') the usual absolute Condorcification.
+
+
+
+
+
+

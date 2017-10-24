@@ -1,0 +1,1077 @@
+% !TeX spellcheck = fr_FR
+\mychapter{Tranchage}\label{sec:slicing}
+
+Dans les chapitres~\ref{sec:condorcification} et \ref{sec:criteres_majoritaires}, nous avons examiné les liens des notions majoritaires (en particulier le vainqueur de Condorcet absolu) avec la manipulabilité et, plus généralement, avec la capacité à trouver des équilibres de Nash forts. Dans le chapitre~\ref{sec:condorcification_generalisee}, nous avons étendu les résultats de condorcification afin de diminuer (au sens large) la manipulabilité pour des systèmes où la notion de majorité ne joue pas de rôle particulier.
+
+Dans ce chapitre, nous étudions le lien entre l'ordinalité d'un système de vote et la manipulabilité. Pour rappel, nous disons qu'un système de vote est \emph{ordinal} si le résultat ne dépend que du \emph{profil}, c'est-à-dire des relations binaires de préférence des électeurs, même si ce ne sont pas des ordres. Parmi les systèmes non-ordinaux, on utilise informellement le qualificatif \emph{cardinal} pour des systèmes qui utilisent une note numérique, comme le vote par assentiment, le vote par notation et le jugement majoritaire. D'autres systèmes ne sont pas ordinaux, comme le vote de parité qui utilise des boules noires et boules n'ayant pas de signification ordinale ou cardinale particulière.
+
+Concernant les systèmes cardinaux, on peut émettre l'intuition qu'ils ont une tendance à être plus manipulables que les systèmes ordinaux: en effet, non seulement un électeur peut mentir sur les positions relatives des candidats dans ses préférences (aspect ordinal), mais il dispose aussi d'un degré de liberté supplémentaire qui consiste à exagérer ses notes, vers le haut ou vers le bas (aspect cardinal). 
+
+Dans ce chapitre, nous allons voir qu'il est effectivement possible de donner un sens précis à cette intuition et de la généraliser à tous les types de systèmes qui ne sont pas ordinaux. Pour l'essentiel, ces travaux sont présentés par \cite{durand2014slicing, durand2014poster}.
+
+\medskip
+Dans la section~\ref{sec:tranches_definition}, nous définissons les \emph{tranches} d'un système de vote~$f$, chacune d'elles étant un système de vote ordinal. Intuitivement, chaque tranche est de la forme suivante: considérant le profil $\text{P}$ des préférences ordinales des électeurs, on le complète d'une manière arbitraire en un état de préférence fictif~$\omega'$ et on applique le système original~$f$ à l'état obtenu. Par exemple, la méthode de Borda est une tranche du vote par notation, parmi l'infinité de ses tranches possibles: elle consiste à <<\,plaquer\,>> arbitrairement les notes $C-1, C-2, \ldots, 0$ sur l'ordre de préférence de chaque électeur.
+
+Une illustration intuitive de la métaphore de la \emph{tranche} est donnée dans la figure~\ref{fig:slicing_analogie}. En général, si on dispose d'une fonction réelle à deux variables $(x,y) \to f(x, y)$, on peut la représenter dans un espace à 3~dimensions (où elle définit une surface). Fixer $y$ revient à considérer une tranche à 2~dimensions de cet espace (dans laquelle la fonction $x \to f(x, y)$ définit une courbe). Dans cette analogie, $x$ correspond au profil~$\text{P}$ des préférences ordinales et $y$ est l'information complémentaire qui permet de reconstituer une configuration complète (par exemple la liste des notes). De façon informelle, une tranche du système de vote peut être vue comme une fonction $\text{P} \to f(\textrm{P}, y)$, où l'information complémentaire~$y$ est fixée arbitrairement.
+
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}
+   \begin{axis}[samples=10, xlabel=$y$, ylabel=$x$, zlabel={$f$}]
+      \addplot3[surf, domain=-2:2] {x^2-y^2};
+      \addplot3[black,domain=-2:2, ultra thick] (2,y,4-y^2);
+	  \addplot3[dashed] coordinates {(2,2,0) (2,2,0) (2,-2,0) (2,-2,0)};
+   \end{axis}
+\end{tikzpicture}
+\end{center}
+\caption{En trait noir épais: tranche $y = 2$ d'une fonction réelle~$f$ à deux variables.}\label{fig:slicing_analogie}
+\end{figure}
+
+Dans la section~\ref{sec:espace_decomposable_definition}, nous introduisons la notion d'espace électoral probabilisé (EEP) \emph{décomposable}, qui servira ensuite d'hypothèse au théorème de tranchage~\ref{thm_slicing}. Intuitivement, l'état d'un électeur est caractérisé par deux informations: ses préférences ordinales et une <<\,information complémentaire\,>> sur son état, par exemple une liste de notes (sans leur correspondance avec les candidats). Si on dispose des deux informations, alors on connaît son état complet. L'idée initiale de la décomposabilité consiste à demander que les deux informations soient indépendantes au sens probabiliste. Mais nous verrons que quitte à définir astucieusement l'espace des informations complémentaires, on peut étendre cette notion à une plus large variété de cas. En particulier, nous montrons que si les électeurs sont indépendants les uns des autres, alors l'espace est toujours décomposable: ceci n'est pas évident, puisque cette propriété est vérifiée même si, pour chaque électeur, ses préférences ordinales et les autres informations sur son état ne semblent pas du tout indépendantes à première vue. Nous montrons également que l'indépendance des électeurs n'est pas nécessaire et nous exhibons une classe plus large de modèles qui sont décomposables.
+
+Dans la section~\ref{sec:thm_slicing}, nous prouvons le résultat central de ce chapitre, le \emph{théorème de tranchage}~\ref{thm_slicing}: si l'espace électoral est décomposable, alors il existe une tranche de~$f$ dont le taux de manipulabilité est inférieur ou égal à celui de~$f$. La tranche concernée est, par définition, un système ordinal. 
+
+Le fait que ce système soit une tranche de~$f$ permettra d'assurer qu'elle conserve certaines propriétés de $f$. En particulier, nous verrons en section~\ref{sec:condorci_slicing} si $f$ vérifie le critère de Condorcet, alors toute tranche de~$f$ le vérifie également. Par conséquent, on peut combiner le théorème de tranchage~\ref{thm_slicing} avec les théorèmes de condorcification. En partant d'un système de vote~$f$, on peut considérer sa condorcification puis trancher celle-ci pour obtenir un système au plus aussi manipulable (au sens probabiliste).
+
+En particulier, ceci nous amène en section~\ref{sec:theoreme_optimalite_general} au \emph{théorème d'optimalité}~\ref{thm:general_optimality}, qu'on peut voir comme la conclusion de ces cinq premiers chapitres théoriques: dans la classe \cminf{}, si l'espace électoral est décomposable, alors il existe un système de vote ordinal et vérifiant le critère de Condorcet dont le taux de manipulabilité soit minimal.
+
+\medskip
+Les sections \ref{sec:decompo_general} et~\ref{sec:slicing_discussion_hypotheses} peuvent être considérées comme des annexes techniques de ce chapitre. Dans la section~\ref{sec:decompo_general}, nous élargissons la notion de décomposabilité à un espace probabilisé qui n'est pas nécessairement un espace électoral et nous prouvons certains résultats techniques qui n'étaient que mentionnés dans la section~\ref{sec:espace_decomposable_definition}.
+
+Dans la section~\ref{sec:slicing_discussion_hypotheses}, nous discutons les hypothèses du théorème de tranchage~\ref{thm_slicing} et nous montrons en quel sens le théorème est bien ajusté. En particulier, nous montrons qu'on ne peut espérer diminuer la manipulabilité qu'au sens probabiliste et non au sens ensembliste. Nous montrons aussi qu'il n'est pas possible de supprimer l'hypothèse de décomposabilité purement et simplement, c'est-à-dire sans la remplacer par une autre hypothèse éventuellement plus faible. En revanche, nous ignorons s'il est possible de la remplacer par une condition plus faible. Trouver une condition nécessaire et suffisante pour que tout système admette une tranche moins manipulable (au sens probabiliste) est laissé comme question ouverte.
+
+
+
+
+
+
+%In an electoral space, each voter $v$ is described by her state $\omega_v$; an aspect of this state is her binary relation of preference $p_v = \Plusque{\omega_v}$. If we know only $p_v$, we generally lack some information about her state $\omega_v$. Let us imagine that there exists a space $\mathcal{Y}_v$ that allows to express this additional piece of information: then, voter $v$'s state could be expressed as the pair $\omega_v = (p_v,y_v)$.
+
+%In that case, we may consider $y_v$ as a function from the space of binary relations $\mathcal{R}_\mathcal{C}$ to the space $\omega_v$ of her possible states: if one knows $p_v$, then $y_v$ allows to reconstitute state $\omega_v$ in its whole.
+
+%For any state-based voting system $f$ and for any $y = (y_1,\ldots,y_V)$, we can define $f_y$, the \emph{slice} of $f$ by $y$, in the following way: take only into account the binary relations of preference $(r_1,\ldots,r_n)$ that are communicated by the voters, do as if their complementary information was $(y_1,\ldots,y_V)$ and use $f$ to compute the result. By design, this voting system $f_y$ depends only on binary relations of preference.
+
+%Let us imagine, moreover, that random variables $r = (r_1,\ldots,r_n)$ and $y = (y_1,\ldots,y_V)$ are independent: this would allow to express the PES $\Omega$ as the product of probabilized sets $\mathcal{R}$ and $\mathcal{Y}$. As we will see, it would be a considerable asset to show that at least one slice $f_y$ is at most as manipulable as $f$.
+%
+%The construction that we will consider is a generalization of this notion of complementary information. 
+%%Indeed, we have a very important freedom: we can choose the set $\mathcal{Y}_v$. 
+%For the sake of generality, we will always choose $\mathcal{Y}_v = {\omega_v}^{\mathcal{R}_\mathcal{C}}$, the set of functions from $\mathcal{R}_\mathcal{C}$ to $\omega_v$: it is the general framework so that giving an $p_v$ an a $y_v$ perfectly defines a state $\omega_v$.
+
+%Le fait qu'un état $\omega_v$ puisse aussi être représenté par $(p_v,y_v)$ mais aussi par une autre paire $(p_v,y_v')$ n'est pas un problème: cela signifie simplement que le même état $\omega_v$ peut être <<\,codé\,>> de deux façons différentes (avec cependant le même $p_v = \Plusque{\omega_v}$).
+
+\section{Tranches d'un mode de scrutin}\label{sec:tranches_definition}
+
+%In an electoral space, each voter $v$ is described by her state $\omega_v$. Her binary relation of preference $p_v = \Plusque{\omega_v}$ is only a partial information about her state: if we know only $p_v$, we generally lack some information about $\omega_v$. We will call \emph{complementary information} a function $y_v: \mathcal{R}_\mathcal{C} \to \omega_v$: indeed, a pair $(p_v,y_v)$ defines a unique state $\omega_v = y_v(p_v)$. 
+
+
+%\bigskip
+Dans l'introduction de ce chapitre, nous avons donné une première intuition du tranchage. De façon plus détaillée, chaque électeur~$v$ communique sa relation binaire de préférence $p_v = \textrm{P}_v(\omega_v)$. Puis on utilise une méthode définie à l'avance, notée~$y_v$, pour reconstituer un état fictif~$\omega_v'$ qui est cohérent avec~$p_v$. Enfin, on applique~$f$ à la configuration fictive $(\omega_1',\ldots,\omega_V')$. L'ensemble de ce processus définit un système de vote~$f_y$ qui est \emph{ordinal}: il ne dépend que des relations binaires de préférence.
+
+\medskip
+Par exemple, dans l'espace électoral de référence où $\omega_v = (p_v,u_v,a_v)$, considérons $y_v(p_v) = (p_v,u_v',a_v')$, où $u_v'$ est le vecteur de scores de Borda\footnote{Score de Borda du candidat~$c$ pour l'électeur~$v$ (rappel): $c$ reçoit un point pour chaque candidat~$d$ tel que $v$ préfère $c$ à $d$, et un demi-point pour chaque candidat que $v$ juge incomparable ou mutuellement préférable à $c$. Dans cet exemple, on divise ensuite ce score par~$C-1$ pour obtenir une valeur dans l'intervalle~$[0, 1]$.} associé à $p_v$ et $a_v'$ est un vecteur d'assentiment avec $1$ pour chaque candidat. Dans ce cas particulier, les fonctions~$y_v$ sont les mêmes pour chaque électeur~$v$, mais ce n'est pas obligatoire en général.
+
+Examinons la \emph{tranche} du vote par notation par $y = (y_1,\ldots,y_V)$. Une fois que les électeurs ont communiqué des relations binaires de préférence $p = (p_1,\ldots,p_V)$, on utilise~$y$ afin de reconstituer des états fictifs $\omega_v'$: en particulier, chaque $u_v'$ est, à présent, un vecteur de scores de Borda. Enfin, on applique le vote par notation à cette configuration fictive: le candidat avec le plus grand score total est déclaré élu. Pour résumer, la \emph{tranche} du vote par notation par~$y$ est la méthode de Borda. Une infinité d'autres tranches peuvent être définies, en fonction du choix de~$y$.
+
+Plus généralement, toute RPS peut être obtenue comme une tranche du vote par notation\footnote{En toute rigueur, cette affirmation est vraie si on a fait l'hypothèse que l'espace électoral autorise qu'un électeur attribue la même note à deux candidats tout en préférant l'un à l'autre. Sinon, il faut se limiter aux vecteurs de poids~$\vecteur{x}$ strictement décroissants.}. En revanche, l'inverse n'est pas vrai: dans une tranche du vote par notation, il est possible de compléter l'état d'un électeur avec des scores d'uninominal (1 pour le meilleur candidat, 0 pour les autres) et l'état d'un autre électeur avec des scores de Borda. Dans ce cas, la tranche obtenue n'est pas une RPS. On remarquera au passage que le tranchage ne préserve pas l'anonymat éventuel du mode de scrutin initial, mais nous verrons qu'il préserve tout de même un certaine balance des pouvoirs dans la section~\ref{sec:condorci_slicing}.
+
+\medskip
+Nous pouvons maintenant donner les définitions formelles de tout cela.
+
+\begin{notations}[espace $\mathcal{Y}$]\label{def:space_Y}
+Pour chaque électeur~$v$, on note:
+$$
+\mathcal{Y}_v = \{y_v: \textrm{P}_v(\Omega_v) \to \Omega_v \textrm{ t.q. } \textrm{P}_v \circ y_v = \textrm{Id} \}.
+$$
+Il s'agit de l'ensemble des fonctions~$y_v$ qui, à chaque~$p_v$ possible, associent un état fictif~$\omega_v' = y_v(p_v)$ qui est cohérent avec~$p_v$, c'est-à-dire tel que $\textrm{P}_v(\omega_v') = p_v$. Mathématiquement, c'est l'ensemble des inverses à droite de $\textrm{P}_v$ (corestreint à son image), c'est-à-dire les fonctions qui choisissent un élément $\omega_v'$ dans $(\Plusque{})^{-1}(p_v)$.
+
+Intuitivement, $\ens{Y}_v$ est l'ensemble des <<\,informations complémentaires\,>> possibles pour l'électeur~$v$.
+
+On note $\mathcal{Y} = \prod_{v=1}^V \mathcal{Y}_v$. Une fonction $y = (y_1,\ldots,y_V) \in \mathcal{Y}$ définit une information complémentaire pour chaque électeur, c'est-à-dire une méthode de tranchage\footnote{Par raccourci d'écriture, on associe un $V$-uplet de fonctions à la fonction multivariée correspondante.}: à chaque profil possible $p = (p_1,\ldots,p_V) \in \prod_{v \in \mathcal{V}} \Plusquefull{\Omega_v}$, elle associe une configuration $\omega' = y(p) = (y_1(p_1),\ldots,y_V(p_V))$ qui est cohérente avec $p$.
+\end{notations}
+
+\begin{definition}[tranche]
+Pour un SVBE $f$ et $y \in \mathcal{Y}$, on appelle \emph{tranche de $f$ par $y$} le système de vote $f_{y}$ défini par:
+$$
+f_{y} : 
+\begin{array}{|cll}
+\Omega & \to & \mathcal{C} \\
+\omega & \to & f(y(\textrm{P}(\omega))).
+\end{array}
+$$
+\end{definition}
+
+À présent, nous présentons un lemme qui donne une idée centrale pour le théorème de tranchage~\ref{thm_slicing}: quand on est dans une configuration $y(p)$, les systèmes de vote $f$ et $f_y$ renvoient le même résultat; mais pour les manipulateurs, leurs possibilités d'expression dans~$f_y$ sont incluses dans celles qu'ils ont dans~$f$, donc ils ont moins de pouvoir.
+
+%However, we insist that we do not say that the slice $f_y$ is always less manipulable than $f$: the lemma only states this for configurations of type $y(r)$. 
+Par exemple, considérons une configuration~$\omega$ très particulière où pour chaque électeur~$v$, son vecteur de notes sincère~$u_v$ est égal au vecteur de scores de Borda associés à la relation binaire~$p_v$. Manifestement, si les électeurs votent sincèrement, alors le vote par notation et la méthode de Borda renvoient le même résultat. Nous remarquons simplement que si la méthode de Borda est manipulable en~$\omega$, alors le vote par notation l'est aussi: les manipulateurs peuvent utiliser les mêmes stratégies que celles qu'ils utiliseraient en méthode de Borda.
+
+%in a configuration where the sincere vector of grades $u_v$ have the form of Borda scores, then if the Borda method is manipulable, then Range voting also is.
+%, not for configurations like $y'(r)$, with $y' \neq y$.
+
+\begin{lem}\label{thm_sliceMoinsManip}
+Pour tout profil $p \in \textrm{\normalfont P}(\Omega)$ et toute méthode de tranchage $y \in \mathcal{Y}$, si $f_y$ est manipulable en $y(p)$, alors $f$ est manipulable en $y(p)$. Autrement dit, en utilisant l'indicatrice de manipulabilité, on a toujours:%, $(\mu\times\nu)$-almost surely for $(r,y) \in \mathcal{R} \times \mathcal{Y}$:
+$$
+\MC_{f_y}(y(p)) \leq \MC_{f}(y(p)).
+$$ 
+\end{lem}
+
+%\begin{remark}[manipulability indicator of the slice]
+%\end{remark}
+
+\begin{proof}
+Supposons que la tranche $f_y$ est manipulable dans la configuration $\omega = y(p)$. Par définition, il existe des bulletins $\psi \in \Omega$ tels que $f_y(\psi) \neq f_y(\omega)$ et:
+$$
+\forall v \in \Sinc{f_y(\psi)}{f_y(\omega)}, \psi_v = \omega_v.
+$$
+
+La tranche et le système de vote original ont le même résultat sincère en~$\omega$: en effet, en développant la définition de $f_{y}(\omega)$ et en utilisant la relation $\textrm{P} \circ y = \textrm{Id}$, on a $f_y(\omega) = f(y(\textrm{P}(y(p)))) = f(y(p)) = f(\omega)$.
+
+Notons $\phi = y(\textrm{P}(\psi))$: il s'agit des bulletins qui sont effectivement pris en compte par~$f_y$ (dans notre exemple, la conversion des bulletins stratégiques~$\psi$ en format Borda). Par simple réécriture, on a:
+$$
+\forall v \in \Sinc{f(\phi)}{f(\omega)}, \psi_v = \omega_v.
+$$
+
+Si $\psi_v = \omega_v$, alors $\phi_v = y_v(\textrm{P}_v(\psi_v)) = y_v(\Plusquefull{\omega_v}) = y_v(\textrm{P}_v(y_v(p_v))) = y_v(p_v) = \omega_v$. Donc:
+$$
+\forall v \in \Sinc{f(\phi)}{f(\omega)}, \phi_v = \omega_v.
+$$
+
+Or on a vu que $f(\phi) = f_y(\psi) \neq f_y(\omega) = f(\omega)$. Donc $f$ est manipulable en $\omega$ vers $\phi$.
+\end{proof}
+
+\section{Espace électoral décomposable}\label{sec:espace_decomposable_definition}
+
+En choisissant un couple $(p,y)$ approprié, toute configuration~$\omega$ peut être exprimée par $\omega = y(p)$. Par exemple, si le véritable état~$\omega_v$ de chaque électeur~$v$ correspond à des scores de Borda, alors il peut être représenté par sa relation binaire de préférence sincère~$p_v$ et la méthode de tranchage~$y_v$ donnée en exemple précédemment. Par conséquent, dans cette configuration~$\omega = y(p)$, le lemme~\ref{thm_sliceMoinsManip} permet de comparer la manipulabilité de $f$ et celle de $f_y$.
+
+L'idée de la décomposabilité est la suivante: en tirant indépendamment~$p$ et~$y$ avec des distributions bien choisies, on souhaiterait reconstituer une configuration~$\omega$ avec la bonne mesure de probabilité~$\proba$. Si c'est possible, alors nous verrons (en prouvant le théorème de tranchage~\ref{thm_slicing}) que le taux de manipulabilité de~$f$ peut être comparé à une certaine moyenne de ceux de toutes les tranches possibles~$f_y$.
+
+\medskip
+Nous allons, d'abord, donner la définition formelle de la décomposabilité, puis une interprétation et un exemple. Rappelons que~$\mu$ désigne la loi de~$\textrm{P}$ (en culture~$\proba$).
+
+\begin{definition}[décomposabilité]\label{def:decomposability}
+On dit que l'EEP $(\Omega,\proba)$ est P-\emph{décomposable}, ou juste \emph{décomposable}, \ssi il existe une loi de probabilité $\nu$ sur $\mathcal{Y}$ telle que pour tout événement $A$ sur $\Omega$:
+$$
+%\left\{\begin{array}{l}
+\proba (\omega \in A) = (\mu \times \nu)\big( y(p) \in A \big).%, \\
+%\text{$\nu$-almost surely, $y$ is faithful}.
+%\end{array}\right.
+$$
+
+Dans ce qui suit, quand $(\Omega,\proba )$ est décomposable, on notera toujours~$\nu$ une mesure arbitraire sur~$\mathcal{Y}$, parmi celles qui vérifient cette propriété.
+%In that case, we will say that $(V,C,\Omega,\Sigma_{\Omega},R,\proba ,\nu)$ (or just $\Omega$) is a \emph{decomposed electoral space}.
+\end{definition}
+
+Cette définition exige que $\pi$ soit la mesure image de $\mu\times\nu$ par l'opérateur qui, à $p$ et~$y$, associe~$y(p)$. Autrement dit, en tirant indépendamment $p$ et $y$ (avec les mesures $\mu$ et $\nu$ respectivement), puis en considérant $\omega = y(p)$, on tire $\omega$ avec la mesure de probabilité correcte~$\pi$. La décomposabilité est liée à la notion d'information complémentaire sur les états des électeurs: cette idée est davantage développée dans la section~\ref{sec:decompo_general}.
+
+Par commodité de langage, quand l'EEP~$(\Omega, \pi)$ est décomposable, nous dirons parfois que l'espace électoral~$\Omega$ ou que la culture~$\pi$ est décomposable.
+
+\begin{exemple}\label{ex:decomp_jaune_bleu}
+Considérons $V = 2$ électeurs et $C = 2$ candidats nommés $a$ et $b$. Supposons que l'état d'un électeur est un couple constitué d'un ordre strict total de préférence sur les candidats et d'une information complémentaire, <<\,ananas\,>> ou <<\,banane\,>>. Dans un cas d'étude réel, ces deux valeurs pourraient avoir une signification non alimentaire, comme <<\,préfère passionnément\,>> et <<\,préfère un peu\,>>, mais cela n'a pas d'importance pour notre exemple.
+
+Soit~$\proba$ la culture qui tire équiprobablement l'une des deux configurations suivantes:
+\begin{enumerate}
+	\item Chaque électeur est dans l'état $\mathcal{A} = (a \plusque b, \text{ananas})$;
+	\item Chaque électeur est dans l'état $\mathcal{B} = (b \plusque a, \text{banane})$.
+\end{enumerate}
+
+Pour montrer que cet EEP est décomposable, considérons la mesure~$\nu$ qui tire, de façon certaine, deux fonctions identiques $y_1$ et $y_2$ telles que pour tout électeur~$v$, $y_v(a \plusque b) = \mathcal{A}$ et $y_v(b \plusque a) = \mathcal{B}$. 
+
+En tirant le profil $p$ avec la loi $\mu$, on a de façon équiprobable $p = (a \plusque b, a \plusque b)$ ou $p = (b \plusque a, b \plusque a)$. Puis, en tirant $y$ avec la loi (déterministe)~$\nu$, on a de façon équiprobable $y(p) = (\mathcal{A},\mathcal{A})$ ou $y(p) = (\mathcal{B},\mathcal{B})$, ce qui est exactement la culture $\proba $.
+
+En bref, cet EEP $(\Omega,\proba )$ peut être émulé en tirant le profil $p = (p_1, p_2)$ avec la loi $\mu$ (qui est directement définie par la culture $\proba$), en tirant $y = (y_1, y_2)$ avec la loi $\nu$ (que nous avons exhibée), puis en considérant $\omega = y(p)$. Donc il est décomposable.
+\end{exemple}
+
+En général, il n'est pas trivial de déterminer si un espace électoral donné est décomposable ou pas. Pour cette raison, nous allons donner quelques conditions suffisantes ou nécessaires.
+
+\begin{prop}\label{thm:sufficient_condition_one}
+Si les électeurs $(\omega_1,\ldots,\omega_V)$ sont indépendants, alors $(\Omega,\proba )$ est décomposable.
+\end{prop}
+
+Nous n'allons pas prouver la proposition~\ref{thm:sufficient_condition_one} pour l'instant. C'est une conséquence de la proposition \ref{thm:indep_donc_decomp_general}, que nous verrons en section~\ref{sec:decompo_general} dans un cadre plus général.
+
+Toutefois, l'indépendance n'est pas une condition nécessaire. En effet, dans l'exemple~\ref{ex:decomp_jaune_bleu}, les électeurs ne sont pas indépendants: ou bien ils sont tous les deux dans l'état~$\mathcal{A}$, ou bien dans l'état~$\mathcal{B}$. Cependant, l'EEP est décomposable.  
+
+\medskip
+Une autre condition suffisante est vérifiée par une classe importante de modèles%
+%: when each space $\Omega_v$ is, by definition, constructed as a product $\mathcal{P}_v \times \mathcal{I}_v$ (where $\mathcal{P}_v \subset \mathcal{R}_\mathcal{C}$), with random variables $\textrm{P}$ and $I$ that are independent%
+.
+%\begin{exemple}[independent orders and approval numbers]
+Par exemple, considérons un espace électoral où l'état de chaque électeur~$v$ est constitué d'un ordre strict total de préférence~$p_v$ et d'un entier $k_v \in \intent{0}{C}$. Cet entier peut avoir la signification suivante: l'électeur~$v$ <<\,approuve\,>> les $k_v$ premiers candidats de son ordre de préférence (quel que soit le sens exact de ce terme).
+
+La culture~$\pi$ considérée est la suivante. On tire $(p_1,\ldots,p_V)$ selon une certaine loi de probabilité~$\mu$ sur $(\permc)^V$. Indépendamment, on tire $(k_1,\ldots,k_V)$ selon une certaine loi de probabilité $\xi$ sur $\intent{0}{C}^V$.
+
+Remarquons que, aussi bien pour~$\mu$ que pour $\xi$, les électeurs peuvent ne pas être indépendants entre eux. Mais les tirages par $\mu$ et $\xi$ sont indépendants par hypothèse. La proposition suivante prouve qu'un tel EEP est décomposable.
+%\end{exemple}
+
+\begin{prop}\label{thm:sufficient_condition_two}
+Pour tout $v \in \mathcal{V}$, soit $\mathcal{P}_v$ une partie non vide de $\mathcal{R}_\mathcal{C}$, soit $\mathcal{K}_v$ un ensemble mesurable non vide et soit $\Omega_v = \mathcal{P}_v \times \mathcal{K}_v$% (endowed with the product sigma-algebra denoted $\Sigma_{\omega_v}$)%
+. Soit $\textrm{\normalfont P}_v$ la fonction définie par $\textrm{\normalfont P}_v(p_v,k_v) = p_v$ et $K_v$ la fonction définie par $K_v(p_v,k_v) = k_v$.
+%$$
+%\textrm{\normalfont P}_v:
+%\begin{array}{|ccl}
+%\mathcal{P}_v \times \mathcal{I}_v & \rightarrow & \mathcal{R}_\mathcal{C} \\
+%(p_v,I_v) & \rightarrow & p_v.
+%\end{array}
+%$$
+
+Soit $\proba $ une culture sur $\Omega = \prod_{v\in\mathcal{V}} \Omega_v$.
+
+Si les deux variables aléatoires $\textrm{\normalfont P} = (\textrm{\normalfont P}_1,\ldots,\textrm{\normalfont P}_V)$ et $K = (K_1,\ldots,K_V)$ sont indépendantes, alors $(\Omega,\proba )$ est décomposable.
+\end{prop}
+
+\begin{proof}
+À $k_v \in \mathcal{K}_v$, on associe la fonction $\textrm{concat}_v(k_v) \in \mathcal{Y}_v$ qui consiste à concaténer $p_v$ et $k_v$ de façon à reconstituer un état~$\omega_v$:
+$$
+\textrm{concat}_v(k_v):
+\begin{array}{|ccl}
+\textrm{\normalfont P}_v(\Omega_v) & \rightarrow & \Omega_v \\
+p_v  & \rightarrow & \big(\textrm{concat}_v(k_v)\big)(p_v) = (p_v,k_v).
+\end{array}
+$$
+
+À $k \in \mathcal{K}$, on associe $\textrm{concat}(k) = (\textrm{concat}_1(k_1),\ldots,\textrm{concat}_V(k_V)) \in \mathcal{Y}$: à chaque profil $p$, cette fonction se contente de juxtaposer le vecteur $k$ de façon à renvoyer une configuration.
+
+Alors, en notant $\xi$ la loi de $K$, la mesure image $\nu$ de $\xi$ par $\textrm{concat}$ est clairement convenable pour prouver la décomposabilité.
+\end{proof}
+
+La condition de la proposition~\ref{thm:sufficient_condition_two} est suffisante pour assurer la décomposabilité mais elle n'est pas nécessaire: quand chaque ensemble $\Omega_v$ est défini comme un produit cartésien $\mathcal{P}_v \times \mathcal{K}_v$ (où $\mathcal{P}_v \subseteq \mathcal{R}_\mathcal{C}$), il est possible que les variables aléatoires $\textrm{P}$ et $K$ ne soient pas indépendantes mais que l'espace électoral soit décomposable quand même.
+En effet, dans l'exemple~\ref{ex:decomp_jaune_bleu}, si $\textrm{P} = (a \plusque b, a \plusque b)$, alors on sait de façon certaine que $K = (\text{ananas},\text{ananas})$, alors que si $\textrm{P} = (b \plusque a, b \plusque a)$, alors $K = (\text{banane},\text{banane})$; par conséquent, $\textrm{P}$ et $K$ ne sont pas indépendants. Cependant, comme nous l'avons vu, cet EEP est décomposable.
+%
+%Ceci est possible parce qu'on n'a pas imposé d'utiliser l'espace $\mathcal{I}$ pour la décomposition: c'est en ce sens que notre définition est plus générale que le cas évoqué en préliminaire.
+
+\medskip
+%\begin{exemple}[weak orders and vectors of grades]
+Comme l'exemple didactique et fruitier~\ref{ex:decomp_jaune_bleu}, l'exemple suivant montre que, même sans vérifier les conditions suffisantes des propositions \ref{thm:sufficient_condition_one} et \ref{thm:sufficient_condition_two}, l'EEP peut être décomposable. Mais cette fois, on utilise un modèle plus élaboré et plus susceptible d'être utilisé en pratique.
+
+On tire $(p_1,\ldots,p_V)$ selon une loi $\mu$ sur $(\wc)^V$. Pour chaque électeur~$v$, soit $k_v$ le nombre de classes d'indifférence dans son ordre strict faible de préférence~$p_v$; par exemple, si l'électeur n'a pas d'égalité, le nombre de ses classes d'indifférence est simplement égal au nombre de candidats. On tire $k_v$ notes selon une certaine loi $\xi_v(k_v)$ sur $[0,1]^{k_v}$. Cette loi $\xi_v(k_v)$ est choisie de telle sorte que les $k_v$ notes sont presque sûrement toutes distinctes.
+
+Étant donné un ordre strict faible~$p_v$ et un vecteur de notes $(u_1,\ldots,u_{k_v})$, on construit un état $\omega_v$ en attribuant les notes aux candidats dans l'ordre de $p_v$.
+
+Par exemple, si $p_v = (1 \pareilque 2 \plusque 3 \plusque 4)$, alors il y a $k_v = 3$ classes d'équivalence: $\{1,2\}$, $\{3\}$ et $\{4\}$. Donc on utilise la loi $\xi_v(3)$ pour tirer 3 notes, par exemple $(0,\!1\;;\, 0,\!8\;;\, 0,\!2)$. Finalement, on a $\omega_v = (1 \pareilque 2 \plusque 3 \plusque 4, (0,\!8\;;\, 0,\!8\;;\, 0,\!2\;;\, 0,\!1))$.
+
+Pour prouver que cet EEP est décomposable, construisons une mesure~$\nu$ convenable. Simultanément pour chaque entier $k_v \in \intent{1}{C}$, tirons $k_v$ notes selon $\xi_v(k_v)$. Ceci définit parfaitement $y_v$, une transformation qui associe à chaque $p_v$ un état~$\omega_v$. Par définition, en tirant $p$ avec la loi $\mu$ et $y$ de cette façon, $\omega = y(p)$ est tirée avec la mesure de probabilité voulue.
+
+\medskip
+Pour terminer, voici une condition nécessaire pour que l'EEP soit décomposable.
+
+\begin{prop}\label{thm:CN_decomposabilite_ES}
+Si $(\Omega,\proba )$ est décomposable, alors pour tout sous-ensemble des électeurs $\mathcal{V}'$, pour tout événement $A$ sur $\prod_{v \in \mathcal{V}'} \Omega_v$ (c'est-à-dire concernant seulement les électeurs de $\mathcal{V}'$), pour tout profil $p = (p_1,\ldots,p_V) \in \mathcal{R}$ de probabilité non nulle:
+%$$
+%\proba \big( ( \forall v \in V, \omega_v \in A_v ) \mid \textrm{\normalfont P} = p \big) = \proba \big( (\forall v \in V, \omega_v \in A_v) \mid \forall v \in V, \textrm{\normalfont P}_v = p_v \big).
+%$$
+%$$
+%\proba \big( \omega_{\mathcal{V}'} \in A \mid \textrm{\normalfont P}_{\mathcal{V}'} = p_{\mathcal{V}'} \big) =
+%\proba \big( \omega_{\mathcal{V}'} \in A \mid \textrm{\normalfont P} = p \big).
+%$$
+\begin{align}\label{eq:cn_decompos_ES}
+%\proba \big( ( \forall v \in \mathcal{V}', \omega_v \in A_v ) \mid X = x \big) = \proba \big( (\forall v \in \mathcal{V}', \omega_v \in A_v) \mid \forall v \in \mathcal{V}', X_v = x_v \big).
+\proba \big( \omega_{\mathcal{V}'} \in A \mid P_{\mathcal{V}'} = p_{\mathcal{V}'} \big)
+=
+\proba \big( \omega_{\mathcal{V}'} \in A \mid P = p \big) 
+.
+\end{align}
+\end{prop}
+
+%\begin{proof}
+C'est une conséquence de la proposition~\ref{thm:decomp_donc_N_general}, que nous verrons en section~\ref{sec:decompo_general} dans un cadre plus général.
+%\end{proof}
+%
+%\begin{remark}[interpretation]
+%The intuitive interpretation is that the process of reconstituting states $\omega_v$ of a subset of voters $\mathcal{V}'$ from the only knowledge of their relations $p_v$ must be doable independently of relations $p_w$ belonging to the other voters% (but not necessarily independently of their states $\omega_j$!)%
+%.
+%\end{remark}
+L'interprétation intuitive est que, si on connaît les préférences ordinales~$p_v$ pour un sous-ensemble d'électeurs $\mathcal{V}'$ et si on souhaite reconstituer leurs états $\omega_v$ de façon probabiliste, alors connaître les relations~$p_v$ des autres électeurs ne fournit pas d'information. On notera qu'il n'est pas exclu, en revanche, que connaître les états complets~$\omega_v$ des autres électeurs (et pas seulement leurs relations~$p_v$) donne une information utile pour reconstituer les états des électeurs de~$\mathcal{V}'$ à partir de leurs préférences ordinales.
+
+%the process of reconstituting states $\omega_v$ of a subset of voters $\mathcal{V}'$ from the only knowledge of their relations $p_v$ must be doable independently of relations $p_w$ belonging to the other voters
+
+
+
+%\begin{remark}[this condition is not sufficient]
+L'avantage de cette condition est qu'en pratique, elle est plus commode à tester que la décomposabilité. Dans la section~\ref{sec:decompo_general}, nous montrerons que malheureusement, elle n'est pas suffisante pour assurer la décomposabilité.
+%proposition \ref{thm:N_pas_suffisante_general} (in appendix).
+%\end{remark}
+
+%\begin{remark}[passage au quotient des états équivalents]
+%Pour ce qui suit, avant de décomposer, on peut quotienter chaque $\omega_v$ par la relation d'équivalence définie ainsi: $\omega_v$ et $\omega_v'$ sont équivalents si et seulement s'ils sont indistinguables pour $\textrm{P}_v$ et pour le système de vote considéré. Cela peut ramener à un espace décomposable, même si celui de départ ne l'est pas. 
+%\end{remark}
+
+\section{Théorème de tranchage}\label{sec:thm_slicing}
+
+Nous disposons, à présent, de tous les éléments pour démontrer le \emph{théorème de tranchage}.
+%: if the probabilized electoral space is decomposable, then there exists one slice that is at most as manipulable as the original voting system. 
+%If that was the last word, it could be uninteresting: this slice could be a dictatorial system! But we will also show that, when the original system meets Condorcet criterion, then we can choose a slice that meets it also, which protect us from this danger.
+
+
+
+
+
+
+
+%\begin{remark}[informations complémentaires individuelles]
+%Le lecteur aura peut-être remarqué que dans la définition d'un espace électoral décomposable, nous avons exigé d'avoir des informations complémentaires $y_v$ individuelles pour chaque électeur qui permettent de déduire $\omega_v$ de $p_v$; et non simplement une information complémentaire globale $y$ qui permettrait de déduire $\omega$ de $r$, comme on l'obtiendrait sans condition en utilisant le lemme de la variable aléatoire complémentaire (lemme \ref{thm:donnee_alea_sup} en annexe).
+% 
+%La motivation d'une telle définition apparaît dans la démonstration ci-dessus: nous disposons d'une configuration $\psi$ vers laquelle on manipule $f_y$. Nous savons que $f_y(\psi)$ donne le même résultat que $f_y(\phi)$, donc que $f(\phi)$, ce qui fait de $\phi$ une bonne idée de configuration vers laquelle manipuler $f$. Mais pour qu'il y ait manipulation, il faut que les électeurs sincères continuent de voter de la même façon en $\phi$ qu'en $\omega$, c'est-à-dire comme en $\psi$. Et pour garantir cela, nous utilisons le fait les informations complémentaires $y_v$ sont individuelles.
+%
+%Imaginons qu'on ait seulement eu une information complémentaire globale $y$, c'est-à-dire une fonction quelconque de $\mathcal{R}$ dans $\Omega$. Prenons un exemple avec deux candidats A et B. L'état d'un électeur est constitué de son candidat préféré A ou B et d'une couleur, blanc ou noir. Considérons un certain $y$ qui donne en particulier:
+%\begin{align*}
+%&(\text{A},\text{A}) \to (\text{A},\textrm{blanc},\text{A},\textrm{blanc}) \\
+%&(\text{A},\text{B}) \to (\text{A},\textrm{noir},\text{A},\textrm{blanc}).
+%\end{align*}
+%Supposons que:
+%\begin{itemize}
+%	\item (configuration $\omega$) $f(\text{A},\textrm{noir},\text{B},\textrm{blanc}) = \text{A}$;
+%	\item (configuration $\psi$) $f(\text{A},\textrm{noir},\text{A},\textrm{blanc}) = \text{A}$;
+%	\item (configuration $\phi$) $f(\text{A},\textrm{blanc},\text{A},\textrm{blanc}) = \text{B}$;
+%\end{itemize}
+%Alors on a (configuration $\psi$) $f_y(\text{A},\textrm{noir},\text{A},\textrm{blanc}) = f(y(\text{A},\text{A})) = f(\text{A},\textrm{blanc},\text{A},\textrm{blanc}) = \text{B}$. Et entre la configuration $\omega$ et $\psi$, seul l'électeur qui préférait B a changé, donc $f_y$ est manipulable en $\omega$ vers $\psi$, comme dans le lemme. En revanche, $f$ n'est manipulable en $\omega$ ni vers $\psi$ (car le résultat reste A) ni vers $\phi$ (car l'électeur satisfait qui préfère A devrait changer son vote).
+%\end{remark}
+
+%Nous l'avons dit, le lemme précédent ne nous assure rien sur la manipulabilité d'une configuration quelconque $z(r)$ pour le système de vote $f_y$ si $z \neq y$. Au lieu d'avoir, comme pour le théorème de condorcification, une inclusion des cas manipulables de $f_y$ dans ceux de $f$, nous allons nous contenter de prouver l'existence d'une tranche $f_y$ dont les cas manipulables sont moins probables que ceux de $f$. L'idée de la preuve est de montrer que si l'espace électoral est décomposable, alors le taux de manipulabilité de $f$ est supérieur ou égal à une certaine moyenne des taux de manipulabilité des $f_y$.
+
+
+\begin{thm}[tranchage]\label{thm_slicing}
+Soit $(\Omega,\proba)$ un EEP et $f$ un SVBE dont le taux de manipulabilité est bien défini (c'est-à-dire que $\MC_f$ est mesurable, voir annexe~\ref{sec:mesurabilite}).
+
+%Then there exists $f'$ such that:
+%\begin{itemize}
+%\item $\tau_\proba (f') \leq \tau_\proba (f).$
+%\item $f'$ depends only on the binary relations of preference of the voters; and for any possible $V$-tuple $r$, the output of $f'$ is taken from the outputs of $f$ for the corresponding configurations. Formally, $
+%\forall r \in R(\Omega), \exists y(r) \in R^{-1}(r) \text{ s.t. } \forall \omega \in R^{-1}(r), f'(\omega) = f(y(r)).
+%$
+%\end{itemize}
+
+Si $(\Omega,\proba)$ est décomposable, alors il existe une méthode de tranchage $y \in \mathcal{Y}$ telle que la tranche de $f$ par $y$ a un taux de manipulabilité inférieur ou égal à celui de~$f$:
+$$
+\tau_\MC (f_y) \leq \tau_\MC (f).
+$$
+%\begin{enumerate}
+%\item $\tau_\proba (f_y) \leq \tau_\proba (f)$;\label{enumi:slice_decrease_manip}
+%\item For any voter $v \in \mathcal{V}$, for any possible binary relation of preference $p_v \in \Plusque{\omega_v}$, the state $y_v(p_v)$ (used to compute $f_y$) belongs to ${\textrm{P}_v}^{-1}(p_v)$.\label{enumi:slice_real_slice}
+%\end{enumerate}
+
+%$y \in \mathcal{Y}$ such that:
+%$$\tau_\proba (f_y) \leq \tau_\proba (f).$$
+%
+%$$
+%\forall r \in R(\Omega), \exists y(r) \in R^{-1}(r) \text{ s.t. } \forall \omega \in R^{-1}(r), f'(\omega) = f(y(r)).
+%$$
+
+%If, moreover, $f$ meets the Condorcet criterion, then there exists $y \in \mathcal{Y}$ such that $\tau_\proba (f_y) \leq \tau_\proba (f)$ and $f_y$ also meets the Condorcet criterion.
+\end{thm}
+
+%It should be noticed that:
+%\begin{itemize}
+%\item $f_y$ depends only on binary relations of preference;
+%\item Since $y$ is faithful, if $f$ meets the Condorcet criterion, then so does $f_y$.
+%\end{itemize}
+
+\begin{proof}
+%We will show that there exists $y \in \mathcal{Y}$ such that $f' = f_y$ meets the conditions.
+
+Premièrement, montrons que le taux de manipulabilité de toute tranche~$f_y$ peut être exprimée en considérant un espace électoral ordinal (où chaque électeur est décrit uniquement par sa relation binaire de préférence), muni de la loi de probabilité~$\mu$. En effet, par définition:
+$$
+\tau_\MC (f_y) = \int_{\omega\in\Omega} \MC_{f_y}(\omega) \proba (\diff\omega).
+$$
+Comme $\MC_{f_y}(\omega)$ dépend seulement du profil $\textrm{P}(\omega)$ et comme $\omega$ et $y(\textrm{P}(\omega))$ ont le même profil, on a:
+$$
+\tau_\MC (f_y) = \int_{\omega\in\Omega} \MC_{f_y}(y(\textrm{P}(\omega))) \proba (\diff\omega).
+$$
+D'où, par changement de variable:
+$$
+\tau_\MC (f_y) = \int_{p\in \textrm{P}(\Omega)} \MC_{f_y}(y(p)) \mu(\diff p).
+$$
+
+Deuxièmement, étudions la manipulabilité de $f$. 
+%$$
+%\tau_\proba (f) = \int_{\omega\in\Omega} M_{f}(\omega) \proba(\diff\omega).
+%$$
+En utilisant la décomposabilité, on a par changement de variable:
+$$
+\tau_\MC (f) = \int_{(p,y)\in\textrm{P}(\Omega)\times\mathcal{Y}} \MC_{f}(y(p)) (\mu\times\nu)(\diff p,\diff y).
+$$
+Le théorème de Fubini-Tonelli donne:
+$$
+\tau_\MC (f) = \int_{y\in\mathcal{Y}} \left( \int_{p\in \textrm{P}(\Omega)} \MC_{f}(y(p)) \mu(\diff p) \right) \nu(\diff y).
+$$
+Le lemme \ref{thm_sliceMoinsManip} assure que $\MC_{f}(y(p)) \geq \MC_{f_y}(y(p))$, ce qui conduit à:
+\begin{align*}
+\tau_\MC (f) &\geq \int_{y\in\mathcal{Y}} \left( \int_{p\in \textrm{P}(\Omega)} \MC_{f_y}(y(p)) \mu(\diff p) \right) \nu(\diff y) \\
+ &\geq \int_{y\in\mathcal{Y}} \tau_\MC (f_y) \nu(\diff y).
+\end{align*}
+
+Ainsi, le taux de manipulabilité de $f$ est supérieur ou égal à la moyenne (avec la pondération~$\nu$) des taux de manipulabilité des tranches~$f_y$. Par conséquent, il existe au moins une tranche~$f_y$ telle que $\tau_\MC (f_y) \leq \tau_\MC (f)$.
+\end{proof}
+
+Dans la section~\ref{sec:slicing_discussion_hypotheses}, nous discuterons si l'hypothèse de décomposabilité est nécessaire pour que ce théorème soit valide et si on peut espérer une conclusion plus forte, à savoir la diminution de manipulabilité au sens ensembliste et non seulement probabiliste.% that this theorem is not true when removing the decomposability condition (without another assumption to replace it).
+
+Dans l'immédiat, nous allons plutôt nous concentrer sur les conséquences du théorème de tranchage. En le combinant avec la proposition~\ref{thm:sufficient_condition_one}, on obtient le corollaire suivant.
+
+\begin{cor}\label{thm:slicing_independent}
+%Let $(\Omega,\proba )$ be a PES and $f$ an SBVS whose manipulability rate is well defined (i.e. $M_f$ is measurable).
+
+Si les électeurs $(\omega_1,\ldots,\omega_V)$ sont indépendants, alors il existe $y \in \mathcal{Y}$ telle que $\tau_\MC (f_y) \leq \tau_\MC (f)$.
+
+%In particular, if $f$ meets the Condorcet criterion, then so does $f_y$.
+\end{cor}
+
+À ce stade, nous n'avons pas une idée précise de ce à quoi pourrait bien ressembler le système de vote~$f_y$ dont l'existence est garantie par le théorème \ref{thm_slicing} ou son corollaire \ref{thm:slicing_independent}: nous savons seulement que c'est une tranche de~$f$. Mais il pourrait avoir des propriétés indésirables: par exemple, il n'est pas explicitement exclu qu'il soit dictatorial, ce qui serait une façon particulièrement triviale et inintéressante de diminuer le taux de manipulabilité. Pour éviter ce type d'écueil, nous allons voir, à présent, que ces résultats de tranchage sont particulièrement pertinents quand on les combine avec les théorèmes de condorcification.
+
+
+\vspace{0.3cm}%MAGOUILLE
+\section{Condorcification et tranchage}\label{sec:condorci_slicing}
+\vspace{0.2cm}%MAGOUILLE
+
+Il est évident, mais essentiel, que si $f$ vérifie le critère de Condorcet, alors il en est de même pour toute tranche~$f_y$. En effet, s'il y a un vainqueur de Condorcet en~$\omega$, alors il l'est aussi dans $\omega' = y(\textrm{P}(\omega))$, puisque le profil est le même dans les deux configurations $\omega$ et $\omega'$. Ceci conduit à un autre corollaire du théorème~\ref{thm_slicing}.
+
+\begin{cor}\label{thm:slicing_for_cond}
+Si $(\Omega,\proba)$ est décomposable et si $f$ vérifie le critère de Condorcet, alors il existe un SVBE ordinal~$f'$, vérifiant le critère de Condorcet, tel que:
+$$
+\tau_\MC (f') \leq \tau_\MC (f).
+$$
+\end{cor}
+
+En effet, il suffit de considérer une tranche $f' = f_y$ dont le taux de manipulabilité est inférieur ou égal à celui de~$f$. Son existence est garantie par le théorème de tranchage~\ref{thm_slicing}.
+
+%\begin{proof}
+%Simply consider a slice $f' = f_y$ such that $\tau_\proba (f') \leq \tau_\proba (f)$. %By definition, it depends only on the binary relations of preference, and we have already remarked that slicing preserves the Condorcet criterion.
+%\end{proof}
+
+En combinant le théorème faible de condorcification~\ref{thm_Condorcifie_aussi_bon} et le corollaire~\ref{thm:slicing_for_cond} du théorème de tranchage~\ref{thm_slicing}, on obtient le théorème suivant.
+
+\begin{thm}[condorcification et tranchage]\label{thm_condorce_et_slice}
+Soit $(\Omega,\proba )$ un EEP et $f$ un SVBE (tel que $\MC_f$ et $\MC_{f^*}$ soient mesurables, voir annexe~\ref{sec:mesurabilite}).
+
+On suppose que:
+\begin{itemize}
+  	\item $(\Omega,\proba )$ est décomposable;
+	\item $f$ vérifie {\normalfont\cminf{}}.
+\end{itemize}
+
+Alors il existe un SVBE ordinal~$f'$, vérifiant le critère de Condorcet, tel que:
+$$
+\tau_\MC (f') \leq \tau_\MC (f).
+$$
+\end{thm}
+
+\begin{proof}
+%Immediate consequence of Condorcification theorem \ref{thm_Condorcifie_aussi_bon} and slicing corollary \ref{thm:slicing_for_cond}.
+
+Par le théorème de Condorcification~\ref{thm_Condorcifie_aussi_bon}, on sait que $\tau_\MC (f^*) \leq \tau_\MC (f)$. En appliquant le corollaire~\ref{thm:slicing_for_cond} à~$f^*$, on obtient un système de vote $f'$ convenable.
+%
+%Applying slicing theorem \ref{thm_slicing} to $f^*$, there exists $y \in \mathcal{Y}$ such that $f' = (f^*)_y$ meets the Condorcet criterion and $\tau_\proba (f') \leq \tau_\proba (f^*)$. And, by definition of the slice, $f'(\omega)$ depends only on $R(\omega)$.
+\end{proof}
+
+Par exemple, considérons de nouveau le vote par notation. Nous venons de prouver que dans toute culture décomposable, il existe un système de vote~$f'$ qui n'utilise pas des notes mais seulement des relations binaires de préférence, qui vérifie le critère de Condorcet et qui est au plus aussi manipulable que le vote par notation (au sens probabiliste).
+
+La puissance du formalisme des espaces électoraux réside dans le fait que ce résultat ne se limite pas, par exemple, au vote par notation: il s'applique aux systèmes de vote dont les bulletins sont des notes, des valeurs d'approbation, des notes multicritères, des ananas, des bananes ou n'importe quel autre type d'objet (voir la section~\ref{sec:espaces_electoraux_exemples} pour divers exemples d'espaces électoraux). De plus, il n'y a absolument aucune hypothèse sur les relations binaires de préférence: elles peuvent violer la transitivité et même l'antisymétrie.
+
+\section{Théorème d'optimalité}\label{sec:theoreme_optimalite_general}
+
+La preuve du théorème de tranchage~\ref{thm_slicing} n'est pas constructive: par conséquent, dans le théorème de condorcification et tranchage~\ref{thm_condorce_et_slice}, nous ne savons malheureusement pas exhiber un système de vote~$f'$ qui soit ordinal, Condorcet et dont le taux de manipulabilité soit inférieur à celui du système original~$f$.
+
+Ceci dit, nous pensons que les résultats précédents ont des implications plus profondes. En effet, si l'espace électoral est décomposable et si on cherche un système de vote dans \cminf{} qui soit aussi peu manipulable que possible, alors ces résultats signifient qu'on peut restreindre l'investigation aux systèmes de vote ordinaux Condorcet.
+
+De plus, puisqu'il existe un nombre fini de tels systèmes de vote (pour une valeur donnée de $V$ et~$C$), cette observation garantit l'existence d'un système de vote dont le taux de manipulabilité est minimal dans~\cminf{}.
+Nous allons, à présent, formaliser ces constatations.
+
+%\begin{center}
+%\begin{tikzpicture}
+%\node (E1) at (0,0.6) {$\omega_1 \in \Omega_1$};
+%\node (Ei) at (0,0.1) {$\vdots$};
+%\node (En) at (0,-0.6) {$\omega_V \in \Omega_n$};
+%\node (S1) at (3,0.6) {$r_1 \in \mathcal{R}_\mathcal{C}$};
+%\node (Si) at (3,0.1) {$\vdots$};
+%\node (Sn) at (3,-0.6) {$r_n \in \mathcal{R}_\mathcal{C}$};
+%\node (z) at (6,0) {$z \in \mathcal{C}$};
+%\draw[>=latex,->] (S1) -- (4.5,0.6);
+%\draw[>=latex,->] (Sn) -- (4.5,-0.6);
+%\draw[>=latex,->] (4.5,0) -- (z);
+%\filldraw[fill=white,draw=black] (4.2,1.1) rectangle (4.8,-1.1) node[midway] {$f$};
+%\node[above] at (4.5,1.1) {Condorcet};
+%\draw[>=latex,->] (E1) -- (S1) node[midway,above] {$R_1$};
+%\draw[>=latex,->] (En) -- (Sn) node[midway,above] {$R_n$};
+%\end{tikzpicture}
+%\end{center}
+
+
+\begin{definition}[image ordinale d'un EEP]\label{def:image_ordinale}
+Pour un EEP $(V, C, \Omega, \text{P}, \pi)$, son \emph{image ordinale} est l'EEP $(V, C, \Omega', \text{P}', \mu)$, où:
+\begin{itemize}
+\item Pour chaque électeur~$v$, son espace d'états $\Omega_v'$ est constitué des préférences ordinales autorisées dans $\Omega_v$: on a $\Omega_v' = \text{P}_v(\Omega_v) \subseteq \rc$.
+\item Pour chaque électeur~$v$, la fonction $\text{P}_v'$ est la fonction identité.
+\item La loi $\mu$ est la loi de la variable~$\text{P}$ dans l'EEP original $(V, C, \Omega, \text{P}, \pi)$.
+\end{itemize}
+\end{definition}
+
+\begin{prop}\label{thm_existence_MC_optimal}
+On considère un espace électoral $(V, C, \Omega', \text{P}')$ \emph{ordinal}: pour tout électeur~$v$, on a $\Omega_v' \subseteq \rc$ et $P_v'$ est la fonction identité. Soit $\mu$ une culture sur $\Omega'$. 
+
+Alors il existe un SVBE Condorcet $g$ qui est le moins manipulable au sens probabiliste:
+%\begin{itemize}
+%	\item $g$ meets the Condorcet criterion;
+%	\item 
+%	$$\tau_\MC^\mu(g) = \min \{ \tau_\MC^\mu(g'),\;g'\textrm{\normalfont\ meets the Condorcet criterion}\}.$$
+	$$\tau_\MC^\mu(g) = \min_{\cond(\Omega')}  (\tau_\MC^\mu).$$
+%	\item And for any SBVS $g'$ meeting the Condorcet criterion, $\tau_\mu(g) \leq \tau_\mu(g')$.
+%\end{itemize}
+
+On dit que $g$ est \emph{$\tau_\MC^\mu$-optimal parmi les systèmes de vote Condorcet de~$\Omega'$}.
+\end{prop}
+
+%\begin{remark}[no problem of measurability]
+%Since $\Omega$ is endowed with its discrete sigma-algebra, there is no problem of measurability. Hence, $\tau_\mu(g)$ and $\tau_\mu(g')$ are well defined.
+%\end{remark}
+
+\begin{proof}
+Il existe un nombre fini de fonctions $g: \Omega \to \mathcal{C}$, \emph{a fortiori} si nous exigeons qu'elles vérifient le critère de Condorcet. Par conséquent, au moins l'une d'entre elles minimise $\tau_\MC^\mu(g)$.
+\end{proof}
+
+
+\begin{thm}[optimalité]\label{thm:general_optimality}
+Soit $(\Omega, \proba )$ un EEP. Soit $g$ un système $\tau_\MC^\mu$-optimal parmi les systèmes de vote Condorcet de l'image ordinale de $(\Omega, \pi)$.
+
+%Comme d'habitude, on note $\mu$ la loi de $\textrm{\normalfont P}$.
+%Let us note {\normalfont\cminf{}} the set of SBVS $f$ over $\Omega$ that meet the informed majority coalition criterion (and such that $M_{f}$ and $M_{f^*}$ are measurable).
+
+%Dans l'espace électoral des relations binaires pour $V$ et $C$, soit $g: (\rc)^V \to \mathcal{C}$ un SVBE qui est $\tau_\MC^\mu$-optimal parmi les systèmes de votes ordinaux Condorcet.
+
+Si $(\Omega,\proba )$ est décomposable, alors:
+$$
+%\tau_\MC^\proba (g \circ \textrm{\normalfont P}) = \min\{ \tau_\MC^\proba (f),\;f \in \textrm{\normalfont\cminf{}}\}.
+\tau_\MC^\proba (g \circ \textrm{\normalfont P}) = \min_{\cminf(\Omega)}  (\tau_\MC^\proba).
+$$
+\end{thm}
+
+Autrement dit, $g$ est optimal, non seulement parmi les systèmes de vote ordinaux Condorcet, mais parmi la classe plus large \cminf{} de tous les systèmes de vote qui vérifient le critère de la coalition majoritaire informée et qui peuvent ne pas être ordinaux. Comme nous l'avons vu, ceci inclut une part importante des systèmes de vote usuels de la littérature et de la vie réelle.
+
+\begin{proof}
+Soit $f \in \textrm{\normalfont\cminf{}}$. Par le théorème de condorcification et tranchage~\ref{thm_condorce_et_slice}, il existe un SVBE ordinal $f'$ (défini formellement sur~$\Omega$, mais ne dépendant que du profil~$\mathrm{P}$) qui vérifie le critère de Condorcet et tel que $\tau_\MC^\proba (f') \leq \tau_\MC^\proba (f)$.
+Et puisque $g$ est $\tau_\MC^\mu$-optimal, $\tau_\MC^\proba (g \circ \textrm{P}) \leq \tau_\MC^\proba (f') \leq \tau_\MC^\proba (f)$.
+\end{proof}
+
+%Finally, when the electoral space is decomposable, there exists one voting system or more that minimize the manipulability rate in \cminf{}. Among these, there exists at least one that is only based on binary relations of preference and that meets the Condorcet criterion.
+
+Par conséquent, dans l'optique de trouver un système de vote qui minimise le taux de manipulabilité dans \cminf{}, on peut restreindre l'investigation aux systèmes de vote ordinaux Condorcet, qui existent en nombre fini. Nous exploiterons intensivement cette propriété dans le chapitre~\ref{sec:mds_optimaux}, dédié à la recherche de systèmes de vote qui sont optimaux en ce sens.
+
+
+
+
+\section{Décomposabilité d'un ensemble probabilisé quelconque}\label{sec:decompo_general}
+
+Dans la section~\ref{sec:espace_decomposable_definition}, nous avons défini un espace électoral décomposable et nous avons énoncé quelques propositions sans démonstration, afin de donner une vue d'ensemble de ces propriétés et de parvenir rapidement au théorème de tranchage~\ref{thm_slicing} sans trop nous attarder sur des aspects techniques.
+
+Dans cette section, nous généralisons la notion de décomposabilité à des ensembles probabilisés qui ne sont pas nécessairement des espaces électoraux et nous prouvons quelques résultats liés à cette notion dans ce cadre général.
+
+\subsection{Cas unidimensionnel: le lemme de la variable aléatoire complémentaire}
+
+Avant de définir un espace décomposable en toute généralité, nous allons examiner le cas particulier où il y a une seule dimension, ce qui correspond à un seul électeur pour l'application à un espace électoral. Pour cela, nous allons prouver ce que nous appelons le lemme de la \emph{variable aléatoire complémentaire}, qui montre que dans ce cas, il existe toujours une mesure $\nu$ vérifiant une condition similaire à celle de la définition \ref{def:decomposability} de la décomposabilité. Ceci nous permettra, par la suite, de traiter le cas où il y a plusieurs électeurs mais où ceux-ci sont indépendants.
+
+\medskip
+Considérons un espace probabilisé $(\Omega,\proba )$ %(not necessarily an electoral space)
+et une variable aléatoire~$X$ à valeurs dans un ensemble mesurable fini $\mathcal{X}$ muni de la tribu discrète (voir annexe~\ref{sec:mesurabilite}). On note $\mu$ la loi de $X$. Afin d'établir le parallèle avec les espaces électoraux, le lecteur peut se représenter $\omega \in \Omega$ comme l'état de l'unique électeur et $X$ comme sa relation binaire de préférence.
+
+Quand l'expérience aléatoire est réalisée, l'état du système obtenu est décrit par l'objet mathématique~$\omega$. La valeur $x = X(\omega)$ est une information partielle sur cet état: si on connaît seulement $x$, il manque généralement de l'information pour connaître parfaitement $\omega$. Imaginons qu'il existe un espace $\mathcal{Y}$ qui permette d'exprimer cette information complémentaire: cela signifie que le couple $(x,y)$ représente $\omega$ sans ambiguïté.
+
+Imaginons, de plus, que les variables aléatoires $x$ et $y$ soient indépendantes:
+% this would allow to express the universe $\Omega$ as the product of probabilized sets $\mathcal{X}$ and $\mathcal{Y}$. I
+généralement, c'est une propriété puissante, puisqu'elle permet de traiter les deux variables séparément.
+%as we have seen in the proof of slicing theorem~\ref{thm_slicing}.
+%Here, independence will be ensured because formally, $x$ and $y$ will not even be defined in the same universe.
+%In that case, we may consider $y$ as a function from $\mathcal{X}$ to $\Omega$: if one knows $x$, then $y$ allows to reconstitute state $\omega$ in its whole.
+En particulier, c'est une telle propriété d'indépendance, généralisée au cas de plusieurs électeurs, qui nous a permis de démontrer le théorème de tranchage~\ref{thm_slicing}.
+
+\medskip
+La construction que nous allons considérer est une généralisation de cette notion d'information complémentaire.
+En effet, nous avons une liberté très importante: nous pouvons choisir l'ensemble $\mathcal{Y}$. 
+Pour traiter la question en toute généralité, nous choisirons toujours l'ensemble des fonctions $y: X(\Omega) \to \Omega$ qui sont cohérentes avec $X$, au sens où $X \circ y = \textrm{Id}$. En effet, c'est le cadre général pour que la donnée d'un $x$ et d'un $y$ définisse parfaitement un état $\omega$ qui soit cohérent avec $x$. 
+
+Le lemme suivant montre alors qu'il est toujours possible de choisir $y \in \ens{Y}$ qui vérifie les propriétés souhaitées. En pratique, on va anticiper chaque valeur de $x$ possible et lui attribuer une des valeurs de $\omega$ cohérentes avec ce~$x$, comme nous l'avons fait dans l'exemple fruitier~\ref{ex:decomp_jaune_bleu}. Comme les différentes valeurs de~$x$ ne sont jamais atteintes en même temps (l'électeur a toujours une valeur de~$x$ bien déterminée), nous allons voir qu'on peut les traiter de manière indépendante.
+
+%\paragraph{$\Omega$ comme produit cartésien}
+%Pour toute fonction mesurable $g$ définie sur $\Omega$, on a classiquement:
+%$$
+%\int g(\omega) \proba (\diff\omega) = \int_{(x,\omega) \in \mathcal{X}\times\Omega} g(\omega) \mu(dx) \proba _x(\diff\omega),
+%$$
+%où $\proba _x$ désigne la mesure conditionnelle sachant $X = x$ (définie à un ensemble de mesure nulle près).
+%
+%Imaginons à présent qu'on puisse écrire $(\Omega,\Sigma_\Omega,\proba )$ comme le produit cartésien de $(\mathcal{X},\Sigma_\mathcal{X},\mu)$ et d'un certain espace probabilisé $(\mathcal{Y},\Sigma_\mathcal{Y},\nu)$. On a alors:
+%\begin{align*}
+%\int g(\omega) \proba (\diff\omega) 
+%&= \int_{(x,y) \in \mathcal{X} \times \mathcal{Y}} g(x,y) \mu(dx) \nu(dy).
+%\end{align*}
+%Un point intéressant est qu'à présent, la mesure utilisée pour la seconde variable ne dépend pas de la valeur de $x$. On a ainsi, notamment:
+%\begin{align*}
+%\int g(\omega) \proba (\diff\omega) 
+%&= \int \nu(dy) \int g(x,y) \mu(dx) \\
+%&= \int \nu(dy) \int g(X(\omega),y) \proba (\diff\omega)\\
+%&= \int \nu(dy) \int g_y(\omega) \proba (\diff\omega),
+%\end{align*}
+%où $g_y: \omega \to g(X(\omega),y)$. On peut donc voir l'intégrale de $g$ comme une certaine moyenne d'intégrales de fonctions $g_y$ qui ne dépendent chacune que de $X(\omega)$ et qui partagent certaines propriétés avec $g$. Plus précisément, sur chaque <<\,face\,>> $X^{-1}(x)$, où $x \in \mathcal{X}$, chaque fonction $g_y$ est constante et coïncide au moins en un point avec $g$.
+%
+%%On peut faire une analogie avec la notion de sous-espace complémentaire en algèbre linéaire: on voudrait décrire tout point $\omega$ par deux composantes $x$ et $y$ qui évoluent chacune dans un espace ayant le même type de structure que l'espace de départ (espace vectoriel ou espace probabilisé). Le fait que $\proba $ soit la mesure produit de $\mu$ et $\nu$ doit être vu comme une condition d'indépendance probabiliste sur les variables $X$ et $Y$, de la même façon qu'en algèbre linéaire, on demande que les deux composantes $x$ et $y$ soient linéairement indépendantes.
+%
+%\paragraph{$\Omega$ comme image d'un produit cartésien}
+%Exprimer $(\Omega,\Sigma_\Omega,\proba )$ comme un tel produit cartésien n'est pas toujours possible, ne serait-ce que quand $\Omega$ possède un cardinal fini et non multiple de celui de $\mathcal{X}$. Mais ce n'est pas un véritable problème: pour avoir un tel résultat sur les intégrales, il n'est pas nécessaire que $(\Omega,\Sigma_\Omega,\proba )$ soit un produit cartésien. Il suffit de pouvoir l'exprimer comme l'image d'un tel produit cartésien par une certaine fonction $\pi$.
+%
+%Plus précisément, il suffirait qu'on sache construire un espace probabilisé $(\mathcal{Y},\Sigma_\mathcal{Y},\nu)$ et une fonction:
+%$$
+%\pi:
+%\begin{array}{|cll}
+%\mathcal{X} \times \mathcal{Y} & \to & \Omega \\
+%(x,y) & \to & \pi(x,y)
+%\end{array}
+%$$
+%tels que:
+%$$
+%\left\{\begin{array}{l}
+%\forall A \in \Sigma_{\Omega}, \proba (A) = (\mu \times \nu)(\pi^{-1}(A)), \\
+%\big(\forall x \in X(\Omega), X(\pi(x,y)) = x\big), \;\;\nu\textrm{-presque sûrement pour } y.
+%\end{array}\right.
+%$$
+%
+%La première condition est simplement la définition que $\proba $ soit la mesure image de $\mu \times \nu$ par $\pi$. Elle assurerait que:
+%$$
+%\int g(\omega) \proba (\diff\omega) = \int \nu(dy) \int g_y(\omega) \proba (\diff\omega),
+%$$
+%avec $g_y: \omega \to g(\pi(X(\omega),y))$.
+%
+%La seconde condition représente le souhait que $(x,y)$ soit envoyé sur un point $\omega$ tel que $X(\omega) = x$ (chaque fois que c'est possible): l'expression de $\Omega$ comme image d'un produit de $\mathcal{X}$ par un autre ensemble respecterait donc la fonction $X$ préexistante. Elle permettrait que les $g_y$ partagent certaines propriétés avec $g$.
+%
+%De façon imagée, on possède une machine aléatoire qui a la capacité de tirer des $x$ selon la loi $\mu$ de $X$. On voudrait construire, d'une part, une autre machine aléatoire qui fabrique des objets $y$ d'une nature quelconque et, d'autre part, un convertisseur $\pi$ qui prend un $x$ et un $y$ et qui renvoie un $\omega$ possédant cette valeur particulière de $x$, tels que les $\omega$ produits par ce procédé suivent la loi de probabilité $\proba $%
+%%\footnote{Notre analogie avec les espaces complémentaires en algèbre linéaire s'arrête là: à un $\omega$ donné, nous n'exigeons pas qu'il corresponde une seule valeur $y$. En revanche, $x$ et $y$ déterminent parfaitement $\omega$.}%
+%.
+%
+%\paragraph{Restriction du problème}
+%Mais alors, la nature exacte de $y$ et de $\pi$ nous importent peu. En effet, on n'accède à $y$ que via la fonction:
+%$$
+%\pi(\bullet,y):
+%\begin{array}{|cll}
+%\mathcal{X} & \to & \Omega \\
+%x & \to & \pi(x,y).
+%\end{array}
+%$$
+%Seules nous importent donc cette fonction $\pi(\bullet,y)$ et la loi avec laquelle elle est tirée, qui est induite par la loi $\nu$ via la fonction $\pi$.
+%
+%Par conséquent, on peut prendre un nouveau $y'$ qui est directement cette fonction $\pi(\bullet,y)$ de $\mathcal{X}$ dans $\Omega$ et une nouvelle fonction de conversion $\pi'$ telle que $\pi'(x,y')$ est simplement l'image de $x$ par la fonction $y'$.
+%
+%Formalisons cela. Supposons qu'une construction $(\mathcal{Y},\Sigma_\mathcal{Y},\nu,\pi)$ comme celle du paragraphe précédent soit possible. Définissons alors $(\mathcal{Y}',\Sigma_{\mathcal{Y}'},\nu',\pi')$ de la façon suivante.
+%\begin{itemize}
+%	\item $\mathcal{Y}' = \Omega^\mathcal{X}$ est l'ensemble des fonctions de $\mathcal{X}$ dans $\Omega$.
+%	\item Comme $\mathcal{X}$ est fini, on peut munir $\mathcal{Y}' = \Omega^\mathcal{X}$ de la mesure produit  $\Sigma_\Omega \times \ldots \times \Sigma_\Omega$, avec autant de facteurs que le cardinal (fini) de $\mathcal{X}$: notons $\Sigma_{\mathcal{Y}'}$ cette mesure.
+%	\item Notons $\nu'$ la mesure (sur $\mathcal{Y}'$) image de $\nu$ par la fonction qui à $y$ associe $\pi(\bullet,y)$.
+%	\item Soit $\pi':
+%\begin{array}{|cll}
+%\mathcal{X} \times \Omega^\mathcal{X} & \to & \Omega \\
+%(x,y') & \to & y'(x).
+%\end{array}
+%$
+%\end{itemize}
+%Alors il est clair que $(\mathcal{Y}',\Sigma_{\mathcal{Y}'},\nu',\pi')$ possède également les propriétés souhaitées.
+%
+%Par conséquent, pour réaliser notre objectif du paragraphe précédent, il est nécessaire et suffisant de trouver une mesure $\nu$ sur $\Omega^\mathcal{X}$ muni de la tribu $\Sigma_\Omega \times \ldots \times \Sigma_\Omega$ telle que:
+%$$
+%\left\{\begin{array}{l}
+%\forall A \in \Sigma_{\Omega}, \proba (A) = (\mu \times \nu)\{ (x,y) \text{\;t.q.\;} y(x) \in A\}, \\
+%\big(\forall x \in X(\Omega), X(y(x)) = x\big), \;\;\nu\textrm{-presque sûrement pour } y.
+%\end{array}\right.
+%$$
+%Ainsi, on aura pour toute fonction mesurable $g$ définie sur $\Omega$:
+%\begin{align*}
+%\int g(\omega) \proba (\diff\omega) 
+%%&= \int \nu(dy) \int g(y(x)) \mu(dx) \\
+%%&= \int \nu(dy) \int g(y(X(\omega))) \proba (\diff\omega)\\
+%&= \int \nu(dy) \int g_y(\omega) \proba (\diff\omega),
+%\end{align*}
+%où chaque $g_y: \omega \to g(y(X(\omega)))$ est une fonction qui partage certaines propriétés avec $g$.
+
+%Nous allons voir qu'un tel objectif est toujours réalisable.
+
+
+
+\begin{lem}[variable aléatoire complémentaire]\label{thm:donnee_alea_sup}
+Soit $(\Omega,\proba )$ un ensemble probabilisé, $X$ une variable aléatoire à valeurs dans un ensemble fini $\mathcal{X}$ muni de la tribu discrète, $\mu$ la loi de~$X$ et
+%
+%On note $\mu$ la loi de $X$, c'est-à-dire: $\forall B \in \Sigma_{\mathcal{X}}, \mu(B) = \proba (X^{-1}(B))$. 
+%
+$\mathcal{Y} = \{y: X(\Omega) \to \Omega \textrm{ t.q. } X \circ y = \textrm{Id} \}.$
+
+Alors il existe une mesure $\nu$ sur  $\mathcal{Y}$ telle que pour tout événement $A$ sur $\Omega$:
+$$
+%\left\{\begin{array}{l}
+\proba (\omega \in A) = (\mu \times \nu)\big( y(x) \in A \big).%, \\
+%X \circ y = Id, \;\;\nu\textrm{-almost surely for } y.
+%\end{array}\right.
+$$
+\end{lem}
+
+Pour donner l'idée de la preuve, imaginons par exemple que nous ayons trois états possibles et deux valeurs de $X$ correspondantes:
+\begin{center}
+\begin{tabular}{IcIc|cI}
+\Cline{1pt}{1-3}
+Probabilité & $\omega$ & $X$ \\ \Cline{1pt}{1-3}
+$\proba^\ssss{1}$ & $\omega^\ssss{1}$ & $x^\ssss{a}$ \\ \hline
+$\proba^\ssss{2}$ & $\omega^\ssss{2}$ & \multirow{2}{*}{$x^\ssss{b}$} \\ \cline{1-2}
+$\proba^\ssss{3}$ & $\omega^\ssss{3}$ &   \\ \Cline{1pt}{1-3}
+\end{tabular}
+\end{center}
+Pour reconstruire un $\omega$ à partir d'un $X$, le plus simple est que $y$ soit une fonction de $\mathcal{X}$ dans $\Omega$. Il nous suffit de trouver une bonne façon de tirer aléatoirement les valeurs de cette fonction en $x^\ssss{a}$ et en $x^\ssss{b}$. Quand $X$ vaut $x^\ssss{a}$, c'est facile: on sait alors que $\omega = \omega^\ssss{1}$. On peut donc décider que pour tout $y$, on aura $y(x^\ssss{a}) = \omega^\ssss{1}$. Quand $X$ vaut $x^\ssss{b}$, on a $\omega = \omega^\ssss{2}$ avec une probabilité $\frac{\proba^\ssss{2}}{\proba^\ssss{2} + \proba^\ssss{3}}$ et $\omega = \omega^\ssss{3}$ le reste du temps. On va donc choisir $y(x^\ssss{b}) = \omega^\ssss{2}$ avec une probabilité $\frac{\proba^\ssss{2}}{\proba^\ssss{2} + \proba^\ssss{3}}$ et $y(x^\ssss{b}) = \omega^\ssss{3}$ le reste du temps. En résumé, on peut écrire informellement:
+$$
+y:
+\begin{array}{|l}
+x^\ssss{a} \rightarrow \omega^\ssss{1} \\
+x^\ssss{b} \rightarrow 
+\begin{array}{|l}
+\omega^\ssss{2} \textrm{ avec probabilité } \frac{\proba^\ssss{2}}{\proba^\ssss{2} + \proba^\ssss{3}} \\
+\omega^\ssss{3} \textrm{ avec probabilité } \frac{\proba^\ssss{3}}{\proba^\ssss{2} + \proba^\ssss{3}}. \\
+\end{array}
+\end{array}
+$$
+Le tirage (ici certain) de $y(x^\ssss{a})$ et celui (ici incertain) de $y(x^\ssss{b})$ permet de tirer une fonction $y$ qui correspond aux conditions exigées.
+
+S'il y avait une autre valeur image $x^\ssss{c}$, on tirerait la valeur de $y(x^\ssss{c})$, indépendamment des valeurs $y(x^\ssss{a})$ et $y(x^\ssss{b})$, parmi les antécédents possibles de $x^\ssss{c}$, avec la loi de probabilité conditionnelle au fait que $X = x^\ssss{c}$.
+
+Généralisons et formalisons cela. 
+
+\begin{proof}
+Pour tout $x \in X(\Omega)$:
+\begin{itemize}
+	\item Si $\proba (X = x) > 0$, on note $\proba _x$ la mesure de probabilité conditionnelle sachant $X = x$ (restreinte à $X^{-1}(x)$)%
+%	, i.e. $\forall A \in \Sigma_{\Omega}, \proba _x(A) = \proba (A \mid X = x)$
+;
+	\item Si $\proba (X = x) = 0$, on choisit un $\omega_x \in X^{-1}(x)$ arbitrairement\footnote{Il n'y a pas de problème avec l'axiome du choix car il s'agit de faire un nombre fini de choix.} et on note $\proba _x$ la mesure de probabilité qui renvoie $\omega_x$ de façon sûre.
+\end{itemize}
+
+En identifiant toute fonction $y \in \mathcal{Y}$ à la liste de ses valeurs pour chaque argument possible~$x$, on définit $\nu$ comme la mesure produit de toutes les~$\proba _x$.
+
+%Then, firstly, $\nu$-almost surely for $y$, we have $\forall x \in X(\Omega), X(y(x)) = x$.
+
+Alors, pour tout événement $A$ sur $\Omega$:
+\begin{align*}
+(\mu \times \nu)\big( y(x) \in A \big)
+&=\sum_{x\in X(\Omega)}\mu(\{x\}) \cdot \nu(y(x)\in A) \\
+&= \sum_{\proba (X = x) > 0}\proba (X = x) \cdot \proba (\omega \in A \mid X = x) \\
+&= \proba (\omega \in A).
+\end{align*}
+
+Nous remercions Anne-Laure Basdevant et Arvind Singh pour de fructueuses discussions à propos de ce lemme.
+\end{proof}
+
+
+\subsection{Cas multidimensionnel: la décomposabilité dans le cas général}
+
+À présent, nous traitons la décomposabilité dans le cas général multidimensionnel, qui correspond au cas avec plusieurs électeurs dans l'application aux espaces électoraux.
+
+\medskip
+%\begin{notations}[product universe and random variables]\label{notations_decomp}
+Soit $V \in \N \setminus \{0\}$. Pour chaque $v \in \intent{1}{V}$, soit $\Omega_v$ un ensemble mesurable et $X_v: \Omega_v \to \mathcal{X}_v$ une fonction mesurable, où $\mathcal{X}_v$ est un ensemble fini muni de la tribu discrète.
+
+Soit $\proba$ une mesure de probabilité sur l'univers $\Omega = \prod_{v=1}^V \Omega_v$. On note $X = (X_1,\ldots,X_V)$ et $\mu$ la loi de $X$. %It should be noticed that in general, the $\omega_v$'s are not independent; neither are the $X_v$'s.
+
+Pour chaque $v$, on note $\mathcal{Y}_v = \{y_v: X_v(\Omega_v) \to \Omega_v \textrm{ t.q. } X_v \circ y_v = \textrm{Id} \}$. On note $\mathcal{Y} = \prod_{v=1}^V \mathcal{Y}_v$. Pour $(x,y) \in X(\Omega) \times \mathcal{Y}$, on note $y(x) = (y_1(x_1),\ldots,y_V(x_V))$.
+%\end{notations}
+
+\begin{definition}[décomposabilité dans le cas général]
+On dit que $(\Omega,\proba )$ est $X$-\emph{décomposable} \ssi il existe une mesure $\nu$ sur $\mathcal{Y}$ telle que pour tout événement $A$ sur $\Omega$:
+$$
+%\left\{\begin{array}{l}
+\proba (\omega \in A) = (\mu \times \nu)\big( y(x) \in A \big).%, \\
+%\big(\forall x \in X(\Omega), X(y(x)) = x\big), \;\;\nu\textrm{-almost surely for } y.
+%\end{array}\right.
+$$
+\end{definition}
+
+%\begin{remark}[rewriting decomposability]
+%The reader may notice that the second assertion may be rewritten as:
+%$$
+%\big(\forall i \in \intent{1}{V}, \forall x_v \in X_v(\omega_v), X_v(y_v(x_v)) = x_v\big), \;\;\nu\textrm{-almost surely}.
+%$$
+%\end{remark}
+
+%\medskip
+%\begin{remark}[individual supplementary random variables]
+La difficulté provient de notre exigence que les variables aléatoires complémentaires $y_v$ soient \emph{individuelles}: $y$ ne peut pas être une fonction quelconque de $X(\Omega)$ vers $\Omega$, mais doit être un $V$-uplet de fonctions, où chaque $y_v$ est définie de $X_v(\Omega_v)$ vers $\Omega_v$. En effet, dans la preuve du lemme~\ref{thm_sliceMoinsManip}, qui est la pierre angulaire du théorème de tranchage~\ref{thm_slicing}, nous avons besoin de variables aléatoires individuelles (pour traiter les électeurs sincères).
+Si nous demandions une variable aléatoire \emph{collective} $y$ qui, à partir de $x$, permet de reconstituer l'état $\omega$ avec la loi de probabilité voulue, ce serait toujours possible, par une application directe du lemme \ref{thm:donnee_alea_sup} de la variable aléatoire complémentaire. 
+%\end{remark}
+
+\medskip
+Nous pouvons à présent généraliser et démontrer la proposition~\ref{thm:sufficient_condition_one}: celle-ci énonçait que si les électeurs sont indépendants, alors l'espace électoral est décomposable.
+
+\begin{prop}\label{thm:indep_donc_decomp_general}
+Si les variables aléatoires $(\omega_1,\ldots,\omega_V)$ sont indépendantes, alors $(\Omega,\proba )$ est $X$-décomposable.
+\end{prop}
+
+\begin{proof}
+Il suffit d'appliquer le lemme \ref{thm:donnee_alea_sup} pour chaque $v \in \intent{1}{V}$, ce qui définit une mesure $\nu_v$ sur chaque ensemble $\mathcal{Y}_v$. Ensuite, on définit $\nu$ comme la mesure produit des $\nu_v$.
+\end{proof}
+
+La proposition suivante généralise et prouve la proposition~\ref{thm:CN_decomposabilite_ES}, qui donne une condition nécessaire de décomposabilité.
+
+%\setcounter{equation}{0}
+\begin{prop}\label{thm:decomp_donc_N_general}
+%We use assumptions and notations \ref{notations_decomp}.
+%
+Si $(\Omega,\proba )$ est $X$-décomposable alors, pour chaque sous-ensemble $\mathcal{V}'$ de $\intent{1}{V}$, pour chaque événement $A$ sur $\prod_{v\in \mathcal{V}'} \Omega_v$, pour chaque $x = (x_1,\ldots,x_V)$ de probabilité non nulle:
+\begin{align}\label{eq:cn_decompos_general}
+%\proba \big( ( \forall v \in \mathcal{V}', \omega_v \in A_v ) \mid X = x \big) = \proba \big( (\forall v \in \mathcal{V}', \omega_v \in A_v) \mid \forall v \in \mathcal{V}', X_v = x_v \big).
+\proba \big( \omega_{\mathcal{V}'} \in A \mid X_{\mathcal{V}'} = x_{\mathcal{V}'} \big)
+=
+\proba \big( \omega_{\mathcal{V}'} \in A \mid X = x \big) 
+.
+\end{align}
+\end{prop}
+
+\begin{proof}
+D'une part:
+\begin{align*}
+\proba \big( \omega_{\mathcal{V}'} \in A \mid X = x \big)
+%
+%\proba \big( (\forall i \in V, \omega_v \in A_v) \mid X = x \big)
+&= (\mu \times \nu) \big( y_{\mathcal{V}'}(x_{\mathcal{V}'}) \in A \mid X=x \big) \\
+%&= \dfrac{(\mu \times \nu) \big( (\forall i \in V, Y_v(x_v) \in A_v ) \land  X=x \big)}{(\mu \times \nu)(X=x)} \\
+%&= \dfrac{\mu(X=x) \cdot \nu ( \forall i \in V, Y_v(x_v) \in A_v)}{\mu(X=x)}\\
+&= \nu \big( y_{\mathcal{V}'}(x_{\mathcal{V}'}) \in A\big).
+\end{align*}
+
+D'autre part, on obtient de manière similaire:
+$$
+\proba \big( \omega_{\mathcal{V}'} \in A \mid X_{\mathcal{V}'} = x_{\mathcal{V}'} \big)
+%\proba \big( (\forall i \in V, \omega_v \in A_v) \mid \forall i \in V, X_v = x_v \big)
+%&= (\mu \times \nu)\big( ( \forall i \in V, Y_v(x_v) \in A_v ) \mid \forall i \in V, X_v=x_v \big) \\
+%&= \dfrac{(\mu \times \nu) \big( (\forall i \in V, Y_v(x_v) \in A_v) \land  \forall i \in V, X_v=x_v\big)}{(\mu \times \nu)(\forall i \in V, X_v=x_v)} \\
+%&= \dfrac{\mu(\forall i \in V, X_v=x_v) \cdot \nu (\forall i \in V, Y_v(x_v) \in A_v)}{\mu(X_v=x_v)}\\
+= \nu \big( y_{\mathcal{V}'}(x_{\mathcal{V}'}) \in A\big).
+$$
+\end{proof}
+
+%\begin{prop}[previous condition is not sufficient]\label{thm:N_pas_suffisante_general}
+Cependant, la condition \eqref{eq:cn_decompos_general} n'assure pas que $(\Omega,\proba )$ soit $X$-décomposable. %
+%\end{prop}
+%
+%\begin{proof}
+Comme contre-exemple, prenons $V = 2$. L'état $\omega_v$ (avec $v=1$ ou $v=2$) peut prendre 4 valeurs, notées de $\omega_v^{\ssss{1}}$ à $\omega_v^{\ssss{4}}$. La variable $X_v$ peut prendre 2 valeurs, $x_v^{\ssss{a}}$ et~$x_v^{\ssss{b}}$. La table suivante définit la correspondance entre les états $\omega_v$ et les variables~$x_v$, ainsi que la mesure~$\proba $.
+
+\begin{center}
+\begin{tabular}{IcIc|cIc|cI}
+\Cline{1pt}{1-5}
+\rule[-0.6em]{0pt}{1.9em}$\proba $ & $\omega_1^{\ssss{1}} \rightarrow x_1^{\ssss{a}}$ & $\omega_1^{\ssss{2}} \rightarrow x_1^{\ssss{a}}$ & $\omega_1^{\ssss{3}} \rightarrow x_1^{\ssss{b}}$ & $\omega_1^{\ssss{4}} \rightarrow x_1^{\ssss{b}}$ \\ \Cline{1pt}{1-5}
+\rule[-0.6em]{0pt}{1.9em}$\omega_2^{\ssss{1}} \rightarrow x_2^{\ssss{a}}$ & $\frac{1}{16}$ & $\frac{1}{16}$ & $\frac{1}{8}$ & $0$ \\ \hline
+\rule[-0.6em]{0pt}{1.9em}$\omega_2^{\ssss{2}} \rightarrow x_2^{\ssss{a}}$ & $\frac{1}{16}$ & $\frac{1}{16}$ & $0$ & $\frac{1}{8}$ \\ \Cline{1pt}{1-5}
+\rule[-0.6em]{0pt}{1.9em}$\omega_2^{\ssss{3}} \rightarrow x_2^{\ssss{b}}$ & $\frac{1}{8}$ & $0$ & $0$ & $\frac{1}{8}$ \\ \hline
+\rule[-0.6em]{0pt}{1.9em}$\omega_2^{\ssss{4}} \rightarrow x_2^{\ssss{b}}$ & $0$ & $\frac{1}{8}$ & $\frac{1}{8}$ & $0$ \\ \Cline{1pt}{1-5}
+\end{tabular}
+\end{center}
+%\begin{center}
+%\begin{tikzpicture}[xscale=2.2,yscale=0.8]
+%% Filets horizontaux
+%\draw[line width=1pt,line cap=rect] (-0.5,0.5) -- (4.5,0.5);
+%\draw[line width=1pt] (-0.5,-0.5) -- (4.5,-0.5);
+%\draw (-0.5,-1.5) -- (4.5,-1.5);
+%\draw[line width=1pt] (-0.5,-2.5) -- (4.5,-2.5);
+%\draw (-0.5,-3.5) -- (4.5,-3.5);
+%\draw[line width=1pt,line cap=rect] (-0.5,-4.5) -- (4.5,-4.5);
+%
+%% Filets verticaux
+%\draw[line width=1pt,line cap=rect] (-0.5,0.5) -- (-0.5,-4.5);
+%\draw[line width=1pt] (0.5,0.5) -- (0.5,-4.5);
+%\draw (1.5,0.5) -- (1.5,-4.5);
+%\draw[line width=1pt] (2.5,0.5) -- (2.5,-4.5);
+%\draw (3.5,0.5) -- (3.5,-4.5);
+%\draw[line width=1pt,line cap=rect] (4.5,0.5) -- (4.5,-4.5);
+%
+%\node at (0,0) {\strut $\proba $};
+%\node at (1,0) {\strut $\omega_1^{\ssss{1}} \rightarrow x_1^{\ssss{a}}$};
+%\node at (2,0) {\strut $\omega_1^{\ssss{2}} \rightarrow x_1^{\ssss{a}}$};
+%\node at (3,0) {\strut $\omega_1^{\ssss{3}} \rightarrow x_1^{\ssss{b}}$};
+%\node at (4,0) {\strut $\omega_1^{\ssss{4}} \rightarrow x_1^{\ssss{b}}$};
+%
+%\node at (0,-1) {\strut $\omega_2^{\ssss{1}} \rightarrow x_2^{\ssss{a}}$};
+%\node at (1,-1) {\strut $\frac{1}{16}$};
+%\node at (2,-1) {\strut $\frac{1}{16}$};
+%\node at (3,-1) {\strut $\frac{1}{8}$};
+%\node at (4,-1) {\strut $0$};
+%
+%\node at (0,-2) {\strut $\omega_2^{\ssss{2}} \rightarrow x_2^{\ssss{a}}$};
+%\node at (1,-2) {\strut $\frac{1}{16}$};
+%\node at (2,-2) {\strut $\frac{1}{16}$};
+%\node at (3,-2) {\strut $0$};
+%\node at (4,-2) {\strut $\frac{1}{8}$};
+%
+%\node at (0,-3) {\strut $\omega_2^{\ssss{3}} \rightarrow x_2^{\ssss{b}}$};
+%\node at (1,-3) {\strut $\frac{1}{8}$};
+%\node at (2,-3) {\strut $0$};
+%\node at (3,-3) {\strut $0$};
+%\node at (4,-3) {\strut $\frac{1}{8}$};
+%
+%\node at (0,-4) {\strut $\omega_2^{\ssss{4}} \rightarrow x_2^{\ssss{b}}$};
+%\node at (1,-4) {\strut $0$};
+%\node at (2,-4) {\strut $\frac{1}{8}$};
+%\node at (3,-4) {\strut $\frac{1}{8}$};
+%\node at (4,-4) {\strut $0$};
+%\end{tikzpicture}
+%\end{center}
+
+Cette table se lit de la façon suivante: dans l'en-tête de la première colonne de données, on lit que si $\omega_1 = \omega_1^{\ssss{1}}$, alors $x_1 = x_1^{\ssss{a}}$; de même, dans l'en-tête de la première ligne de données, on lit que si $\omega_2 = \omega_2^{\ssss{1}}$, alors $x_2 = x_2^{\ssss{a}}$. À l'intersection de cette colonne et de cette ligne, on voit que la probabilité de l'état $(\omega_1^{\ssss{1}}, \omega_2^{\ssss{1}})$ est~$\frac{1}{16}$.
+
+Il est fastidieux mais facile de vérifier que la condition \eqref{eq:cn_decompos_general} est vérifiée. En effet, par exemple:
+$$
+\proba (\omega_1^{\ssss{1}} \mid x_1^{\ssss{a}} \land x_2^{\ssss{a}}) = \frac{1}{2} = \proba (\omega_1^{\ssss{1}} \mid x_1^{\ssss{a}} ).
+$$
+
+À présent, supposons que $(\Omega,\proba )$ est $X$-décomposable. Soit $\nu$ une mesure convenable pour cette décomposition. Pour $(\alpha,\beta,\gamma,\delta) \in \{1,2\}\times\{3,4\}\times\{1,2\}\times\{3,4\}$, adoptons le raccourci de notation suivant:
+\begin{align*}
+\nu(\alpha,\beta,\gamma,\delta) = \nu\Big( 
+& y_1(x_1^{\ssss{a}}) = \omega_1^{\ssss{\alpha}} \;\land\;  y_1(x_1^{\ssss{b}}) = \omega_1^{\ssss{\beta}} \;\land\; y_2(x_2^{\ssss{a}}) = \omega_2^{\ssss{\gamma}} \;\land\;  y_2(x_2^{\ssss{b}}) = \omega_2^{\ssss{\delta}} \Big).
+\end{align*}
+Par exemple, $\nu(\textbf{1},\textbf{4},\textbf{2},\textbf{4})$ représente la probabilité que, lorsqu'on tire $y$ avec la mesure de probabilité $\nu$, on ait $y_1(x_1^{\ssss{a}}) = \omega_1^{\ssss{\textbf{1}}}$ et  $y_1(x_1^{\ssss{b}}) = \omega_1^{\ssss{\textbf{4}}}$ et $y_2(x_2^{\ssss{a}}) = \omega_2^{\ssss{\textbf{2}}}$ et $y_2(x_2^{\ssss{b}}) = \omega_2^{\ssss{\textbf{4}}}$: cette valeur de $y$ correspond au choix des colonnes \textbf{1} et \textbf{4} et des lignes \textbf{2} et \textbf{4} dans la table.
+
+On note les faits suivants.
+\begin{itemize}
+	\item $0 = \proba (\omega_1^{\ssss{3}} \land  \omega_2^{\ssss{3}} \mid x_1^{\ssss{b}} \land  x_2^{\ssss{b}}) = \sum_{(\alpha,\gamma)} \nu(\alpha,3,\gamma,3)$. Comme tous les termes de cette somme sont positifs ou nuls, ils sont tous nuls et on a en particulier $\nu(1,3,1,3) = 0$.
+	\item $0 = \proba (\omega_1^{\ssss{1}} \land  \omega_2^{\ssss{4}} \mid x_1^{\ssss{a}} \land  x_2^{\ssss{b}}) = \sum_{(\beta,\gamma)} \nu(1,\beta,\gamma,4)$ donc $\nu(1,3,1,4) = 0$ et $\nu(1,4,1,4) = 0$.
+	\item $0 = \proba (\omega_1^{\ssss{4}} \land  \omega_2^{\ssss{1}} \mid x_1^{\ssss{b}} \land  x_2^{\ssss{a}}) = \sum_{(\alpha,\delta)} \nu(\alpha,4,1,\delta)$ donc $\nu(1,4,1,3) = 0$.
+\end{itemize}
+
+Par conséquent, $\frac{1}{4} = \proba (\omega_1^{\ssss{1}} \land  \omega_2^{\ssss{1}} \mid x_1^{\ssss{a}} \land  x_2^{\ssss{a}}) = \sum_{(\beta,\delta)} \nu(1,\beta,1,\delta) = \nu(1,3,1,3) + \nu(1,3,1,4) + \nu(1,4,1,3) + \nu(1,4,1,4) = 0$: cette contradiction prouve que $(\Omega,\proba )$ n'est pas décomposable.
+%\end{proof}
+Ainsi, la condition \eqref{eq:cn_decompos_general} est nécessaire mais pas suffisante pour que $(\Omega,\proba )$ soit $X$-décomposable.
+
+Dans le contre-exemple ci-dessus, on peut montrer qu'il existe une \emph{mesure signée}~$\nu$ qui vérifie la relation définissant la décomposabilité. Malheureusement, nous avons besoin d'une mesure au sens habituel, c'est-à-dire une mesure positive: en effet, la preuve du théorème de tranchage~\ref{thm_slicing} utilise la propriété de croissance de l'intégrale, qui est elle-même basée sur sa propriété de positivité.
+
+
+\section{Discussion des hypothèses et des conclusions du théorème de tranchage}\label{sec:slicing_discussion_hypotheses}
+
+Dans cette section, nous allons examiner si le théorème de tranchage~\ref{thm_slicing} est bien ajusté ou s'il est possible de le généraliser, soit en renforçant les conclusions, soit en affaiblissant les hypothèses.
+
+\subsection{Diminution de la manipulabilité au sens probabiliste ou ensembliste?}\label{sec:slicing_discussion_ensembliste}
+
+Dans le théorème de tranchage~\ref{thm_slicing}, on conclut à l'existence d'une tranche~$f_y$ qui est moins manipulable que le système original~$f$ au sens probabiliste, c'est-à-dire telle que $\tau_\MC^\pi (f_y) \leq \tau_\MC^\pi (f)$ pour une culture $\proba $ donnée.
+
+La conclusion serait plus forte si, comme pour les théorèmes de condorcification \ref{thm_Condorcifie_aussi_bon} et~\ref{thm:cond_strictement_meilleur}, le système de vote obtenu était moins manipulable que~$f$ au sens ensembliste, c'est-à-dire si on avait $\MC_{f_y} \subseteq \MC_f$.
+%$$\{ \omega \in \Omega \text{\;s.t.\;} f' \textrm{\;is manipulable in\;} \omega \}
+%\subseteq
+%\{ \omega \in \Omega \text{\;s.t.\;} f \textrm{\;is manipulable in\;} \omega \}.$$
+%Indeed, this would lead to decrease the manipulability rate for any culture $\proba $.
+%En effet, cela impliquerait que $f_y$ a un taux de manipulabilité inférieur ou égal à celui de~$f$ pour toute culture~$\pi$. 
+Avec cette conclusion plus forte, le théorème~\ref{thm_slicing} prendrait la forme du <<\,proto-théorème\,>>~\ref{thmfaux:slicing_ensembliste} ci-dessous.
+
+\begin{thmfaux}[tranchage, avec diminution de la manipulabilité au sens ensembliste]\label{thmfaux:slicing_ensembliste}
+Soit $(\Omega,\proba)$ un EEP et $f$ un SVBE dont le taux de manipulabilité est bien défini (c'est-à-dire que $\MC_f$ est mesurable, voir annexe~\ref{sec:mesurabilite}).
+
+Si $(\Omega,\proba)$ est décomposable, alors il existe une méthode de tranchage $y \in \mathcal{Y}$ telle que la tranche de $f$ par $y$ est au plus aussi manipulable que~$f$:
+$$
+\MC_{f_y} \subseteq \MC_{f}.
+$$
+\end{thmfaux}
+
+Dans ce proto-théorème, il est vraisemblable que les hypothèses de mesurabilité et de décomposabilité ne servent à rien, puisque la conclusion n'a rien de probabiliste, mais nous allons les conserver au cas (\emph{a priori} peu crédible) où elles seraient d'une quelconque utilité. Si ce proto-théorème était vrai, alors on aurait immédiatement le corollaire suivant, qui est obtenu de la même façon que le théorème de condorcification et tranchage~\ref{thm_condorce_et_slice}.
+
+\begin{thmfaux}[condorcification et tranchage, avec diminution de la manipulabilité au sens ensembliste]\label{thmfaux:condorce_et_slice_ensembliste}
+Soit $(\Omega,\proba )$ un EEP et $f$ un SVBE (tel que $\MC_f$ et $\MC_{f^*}$ soient mesurables, voir annexe~\ref{sec:mesurabilite}).
+
+On suppose que:
+\begin{itemize}
+  	\item $(\Omega,\proba )$ est décomposable;
+	\item $f$ vérifie {\normalfont\cminf{}}.
+\end{itemize}
+
+Alors il existe un SVBE ordinal~$f'$, vérifiant le critère de Condorcet, tel que:
+$$
+\MC_{f'} \subseteq \MC_{f}.
+$$
+\end{thmfaux}
+
+Nous allons montrer que le proto-théorème~\ref{thmfaux:condorce_et_slice_ensembliste} est faux et, par conséquent, que le proto-théorème~\ref{thmfaux:slicing_ensembliste} l'est également.
+
+%Comme cette généralisation ensembliste paraît difficile (et nous verrons qu'elle est fausse), nous allons modérer nos demandes en renforçant les hypothèses et en affaiblissant les autres exigences du théorème~\ref{thm_condorce_et_slice}, qui est une conséquence du théorème de tranchage~\ref{thm_slicing}.
+%\begin{itemize}
+%\item On suppose que $f$ vérifie le critère de Condorcet (au lieu de se vérifier seulement \cminf{} \emph{a priori}).
+%\item On exige toujours que $f'$ ne dépende que des relations binaires de préférence.
+%\item On exige seulement que $f'$ vérifie \cminf{} (au lieu du critère de Condorcet).
+%\end{itemize}
+%%
+%%
+%%\medskip
+%Tout d'abord, on remarque que si un tel système $f'$ existe, alors par le théorème faible de condorcification~\ref{thm_Condorcifie_aussi_bon}, on peut exiger qu'il vérifie le critère de Condorcet.
+%
+%Prouvons que cette généralisation est fausse.
+
+
+\medskip
+Considérons l'espace électoral suivant. On considère $V=3$ électeurs et $C=3$ candidats $a, b, c$. L'état de chaque électeur est donné par un ordre strict total de préférence et un bit dont la valeur est 0 ou 1. Cet espace électoral est similaire au générateur aléatoire décentralisé de l'exemple~\ref{ex:generateur_aleatoire_decentralise}. Afin d'éviter les problèmes de mesurabilité, on munit l'espace électoral de la tribu discrète (cf. annexe~\ref{sec:mesurabilite}), ce qui assure que toute fonction est mesurable. Définissons la culture~$\pi$: pour chaque électeur indépendamment, on tire son état de façon uniforme. D'après la proposition~\ref{thm:sufficient_condition_one}, ceci assure que l'EEP $(\Omega, \pi)$ est décomposable.
+
+Voici le SVBE $f$ que nous considérons.
+\begin{enumerate}
+	\item S'il y a un vainqueur de Condorcet, il est élu.
+	\item Si la configuration est non Condorcet et si au moins deux bits valent 1, alors $c$ est élu.
+	\item Si la configuration est non Condorcet et si au moins deux bits valent 0, alors $b$ est élu.
+\end{enumerate}
+Comme $f$ vérifie le critère de Condorcet, il vérifie aussi \cminf{}. Donc les hypothèses du proto-théorème~\ref{thmfaux:condorce_et_slice_ensembliste} sont bien toutes réunies. Nous allons voir que cependant, la conclusion n'est pas vérifiée.
+
+Considérons les trois configurations suivantes $\omega$, $\phi$ et $\psi$.
+\newcommand{\tripl}[3]{\begin{array}{c}#1\\#2\\#3\end{array}} % WARNING: à faire moins moche
+\begin{center}
+\begin{tabular}{IcIc|c|cIcI}
+\Cline{1pt}{1-5}
+\multirow{2}{*}{Configuration} & \multicolumn{3}{cI}{Électeur} & \multirow{2}{*}{Vainqueur de Condorcet} \\ \cline{2-4}
+					& 1 									& 2										& 3 									&  \\ \Cline{1pt}{1-5}
+$\omega$	& $\tripl{a}{c}{b},\;0$	& $\tripl{b}{c}{a},\;1$	& $\tripl{c}{a}{b},\;1$ & $c$ \\ \hline
+$\phi$		& $\tripl{a}{b}{c},\;1$	& $\tripl{b}{a}{c},\;0$	& $\tripl{c}{a}{b},\;1$ & $a$ \\ \hline
+$\psi$		& $\tripl{a}{b}{c},\;0$	& $\tripl{b}{c}{a},\;0$	& $\tripl{c}{b}{a},\;1$ & $b$ \\ \Cline{1pt}{1-5}
+\end{tabular}
+\end{center}
+
+$f$ n'est pas manipulable en $\omega$. En effet, d'une part, pour manipuler en faveur de~$b$, l'unique électeur intéressé ne peut pas empêcher que $a$ ou $c$ soit vainqueur de Condorcet. D'autre part, pour manipuler en faveur de~$a$, l'unique électeur intéressé ne peut rendre $a$ vainqueur de Condorcet car il aura toujours une victoire contre~$c$, et il n'existe pas d'autre façon de faire gagner~$a$.
+
+De même, on peut montrer que $f$ n'est manipulable ni en $\phi$ ni en $\psi$.
+
+Considérons un système $f'$ ordinal vérifiant le critère de Condorcet, et la famille suivante de configurations $\chi$ (les bits des électeurs n'ont pas d'importance pour $f'$).
+\settowidth{\templength}{$\tripl{a}{c}{b},\;0$}
+\begin{center}
+\begin{tabular}{IcI>{\centering}p{\templength}|>{\centering}p{\templength}|>{\centering}p{\templength}IcI}
+\Cline{1pt}{1-5}
+\multirow{2}{*}{Configuration} & \multicolumn{3}{cI}{Électeur} & \multirow{2}{*}{Vainqueur de Condorcet} \\ \cline{2-4}
+					& 1 									& 2										& 3 									&  \\ \Cline{1pt}{1-5}
+$\chi$	& $\tripl{a}{b}{c}$	& $\tripl{b}{c}{a}$	& $\tripl{c}{a}{b}$ & Aucun \\ \Cline{1pt}{1-5}
+\end{tabular}
+\end{center}
+Si $f'(\chi) = a$ (resp. $b$, $c$), alors $f'$ est manipulable en $\omega$ (resp. $\phi$, $\psi$)  vers $\chi$. Par conséquent, $f'$ est nécessairement manipulable en au moins une des trois configurations $\omega$, $\phi$, $\psi$, et il est donc impossible d'avoir $\MC_{f'} \subseteq \MC_f$. Par conséquent, le proto-théorème~\ref{thmfaux:condorce_et_slice_ensembliste} est faux, ce qui entraîne que le proto-théorème~\ref{thmfaux:slicing_ensembliste} l'est également.
+
+Ainsi, dans le théorème de tranchage~\ref{thm_slicing} et le théorème de condorcification et tranchage~\ref{thm_condorce_et_slice}, on ne peut pas renforcer la conclusion en exigeant que le système de vote obtenu soit au plus aussi manipulable que le système original~$f$ au sens ensembliste. On doit se contenter d'obtenir un système qui est au plus aussi manipulable que~$f$ au sens probabiliste.
+
+\subsection{Hypothèse de décomposabilité}\label{sec:slicing_discussion_decompo}
+
+Dans la section précédente, nous avons vu qu'on ne pouvait pas renforcer la conclusion des théorèmes~\ref{thm_slicing} et~\ref{thm_condorce_et_slice} en exigeant une diminution de manipulabilité au sens ensembliste. À présent, examinons s'il est possible de généraliser ces théorèmes d'une autre façon: en affaiblissant les hypothèses, et en particulier en supprimant l'hypothèse centrale qu'est la décomposabilité de l'EEP $(\Omega, \pi)$. Sans cette hypothèse, le théorème de tranchage~\ref{thm_slicing} prend alors la forme du proto-théorème~\ref{thmfaux:slicing_sans_decompo} ci-dessous.
+
+\begin{thmfaux}[tranchage, sans la décomposabilité]\label{thmfaux:slicing_sans_decompo}
+Soit $(\Omega,\proba)$ un EEP et $f$ un SVBE dont le taux de manipulabilité est bien défini (c'est-à-dire que $\MC_f$ est mesurable, voir annexe~\ref{sec:mesurabilite}).
+
+Alors il existe une méthode de tranchage $y \in \mathcal{Y}$ telle que la tranche de $f$ par $y$ a un taux de manipulabilité inférieur ou égal à celui de~$f$:
+$$
+\tau_\MC (f_y) \leq \tau_\MC (f).
+$$
+\end{thmfaux}
+
+Si ce proto-théorème était vrai, alors on pourrait immédiatement généraliser le théorème de condorcification et tranchage~\ref{thm_condorce_et_slice} sous la forme du proto-théorème suivant.
+
+\begin{thmfaux}[condorcification et tranchage, sans la décomposabilité]]\label{thmfaux:condorce_et_slice_sans_decompo}
+Soit $(\Omega,\proba )$ un EEP et $f$ un SVBE (tel que $\MC_f$ et $\MC_{f^*}$ soient mesurables, voir annexe~\ref{sec:mesurabilite}).
+
+On suppose que $f$ vérifie {\normalfont\cminf{}}.
+
+Alors il existe un SVBE ordinal~$f'$, vérifiant le critère de Condorcet, tel que:
+$$
+\tau_\MC (f') \leq \tau_\MC (f).
+$$
+\end{thmfaux}
+
+Pour prouver que ce résultat est faux, reprenons le contre-exemple de la section~\ref{sec:slicing_discussion_ensembliste}. Mais définissons, à présent, la culture $\pi$ par $\proba (\omega) = \proba (\phi) = \proba (\psi) = \frac{1}{3}$. Alors les hypothèses du proto-théorème~\ref{thmfaux:condorce_et_slice_sans_decompo} sont toutes vérifiées.
+
+Le système de vote initial $f$ a un taux de manipulabilité nul: bien qu'il soit manipulable dans certaines configurations, il est presque sûrement non manipulable car toute la probabilité est concentrée sur les configurations $\omega$, $\phi$ et $\psi$, qui sont non manipulables. Cependant, nous avons vu que dans tout système $f'$ ordinal Condorcet, au moins l'une de ces configurations est manipulable, donc $f'$ a un taux de manipulabilité d'au moins $\frac{1}{3}$. Ceci prouve que la conclusion du proto-théorème~\ref{thmfaux:condorce_et_slice_sans_decompo} n'est pas vraie.
+
+Par conséquent, le proto-théorème~\ref{thmfaux:condorce_et_slice_sans_decompo} est faux, ce qui prouve que le proto-théorème~\ref{thmfaux:slicing_sans_decompo} l'est également.
+
+\medskip
+Ainsi, le théorème de tranchage~\ref{thm_slicing} et sa séquelle, le théorème de condorcification et tranchage~\ref{thm_condorce_et_slice}, ne sont plus valides si on enlève l'hypothèse de décomposabilité purement et simplement, c'est-à-dire sans la remplacer par une autre hypothèse éventuellement plus faible.
+
+Il reste cependant une question naturelle: est-ce que les théorèmes \ref{thm_slicing} et~\ref{thm_condorce_et_slice} restent vrais avec une hypothèse plus faible que la décomposabilité, par exemple la condition nécessaire~\eqref{eq:cn_decompos_ES} présentée dans la proposition~\ref{thm:CN_decomposabilite_ES}? Nous laissons cette question ouverte pour de futurs travaux.%We were neither able to prove it nor to find a counterexample, and that is an exciting lead for future work.
+

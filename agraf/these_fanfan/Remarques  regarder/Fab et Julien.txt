@@ -1,0 +1,28 @@
+Introduction Objectifs principaux trop impersonnels (pas assez de nous)
+
+
+
+
+Tiens, au passage :
+http://www.interieur.gouv.fr/Elections/Les-elections-en-France/Les-modalites-d-elections/Les-differents-modes-de-scrutins
+Si tu as envie d'étoffer le concept de vote sincère :
+<<
+Le principe du scrutin majoritaire est simple. Le ou les candidats qui
+obtiennent la majorité des suffrages exprimés sont élus. Il s'agit
+donc de confier le soin de représenter l'ensemble d'une
+circonscription aux candidats qui arrivent en tête sans tenir compte
+des suffrages recueillis par ses concurrents.
+
+Le scrutin peut être uninominal s'il y a un siège à pourvoir par
+circonscription. Les électeurs votent alors pour un seul candidat. Le
+territoire national est divisé en autant de circonscriptions qu'il y a
+de sièges à pourvoir.
+>>
+
+Le point clé est que les textes donnent le fonctionnement, mais ne
+précise pas le vote sincère. Il n'est écrit nulle part (en tout cas
+j'ai pas trouvé dans les textes officiels) qu'il faut voter pour son
+candidat préféré. En France, on a donc un mode de scrutin mais pas de
+système de vote (à moins que ce ne soit l'inverse, moi et les
+définitions...).
+

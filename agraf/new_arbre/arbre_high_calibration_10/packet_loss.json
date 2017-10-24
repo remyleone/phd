@@ -1,0 +1,76 @@
+{
+    "1": {
+        "first_message": 40.901463, 
+        "received": 74, 
+        "sent": 80
+    }, 
+    "10": {
+        "first_message": 8.407577, 
+        "received": 95, 
+        "sent": 97
+    }, 
+    "11": {
+        "first_message": 38.582944, 
+        "received": 77, 
+        "sent": 81
+    }, 
+    "12": {
+        "first_message": 14.75299, 
+        "received": 91, 
+        "sent": 98
+    }, 
+    "13": {
+        "first_message": 37.963467, 
+        "received": 79, 
+        "sent": 82
+    }, 
+    "14": {
+        "first_message": 11.907038, 
+        "received": 91, 
+        "sent": 98
+    }, 
+    "15": {
+        "first_message": 38.784547, 
+        "received": 80, 
+        "sent": 81
+    }, 
+    "2": {
+        "first_message": 7.666832, 
+        "received": 96, 
+        "sent": 97
+    }, 
+    "3": {
+        "first_message": 40.524759, 
+        "received": 78, 
+        "sent": 80
+    }, 
+    "4": {
+        "first_message": 8.456671, 
+        "received": 95, 
+        "sent": 96
+    }, 
+    "5": {
+        "first_message": 40.123997, 
+        "received": 79, 
+        "sent": 81
+    }, 
+    "6": {
+        "first_message": 11.935428, 
+        "received": 86, 
+        "sent": 97
+    }, 
+    "7": {
+        "first_message": 39.53365, 
+        "received": 79, 
+        "sent": 81
+    }, 
+    "9": {
+        "first_message": 39.418299, 
+        "received": 77, 
+        "sent": 81
+    }, 
+    "global": {
+        "received": 1177, 
+        "sent": 1230
+    }
+}

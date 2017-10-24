@@ -1,0 +1,126 @@
+% !TeX spellcheck = fr_FR
+\chapter{Introduction}\label{sec:introduction}
+
+For example, the French presidential election of 2002 was held with the two-round system. In the first round, Jacques Chirac (right) received 19.9\% of votes, Jean-Marie Le Pen (far right) 16.9\%, Lionel Jospin (left) 16.2\% and 13 miscellaneous candidates shared the rest. In the second round, Chirac won by 82.2\% against Le Pen. However, according to some opinion surveys, Jospin would have won the second round against any contender.
+
+So, there may have been a possibility of manipulation: if all voters who preferred Jospin to Chirac had voted for Jospin in the first round, then the second round might have been held between Jospin and Chirac, leading to a possible election of Jospin. But voters did not perform this manipulation, an essential observation which we will discuss.
+
+\medskip
+%Despite the negative connotation of the word ``manipulation'', time-honored in scientific literature to designate tactical voting, w
+
+%Is \emph{manipulation} really bad, as suggested by the negative moral connotation of this word? We will rather argue that this way of playing the game of vote, also known as \emph{tactical voting}, is not intrinsically better or worse than \emph{sincere voting}; but that \textit{manipulability}, which is the discrepancy between the results of the two, certainly is an undesirable property for a voting system.
+
+It should be noticed that the term \emph{manipulation}, widely employed in the academic community of social choice, must be taken in a neutral, technical sense, disregarding its negative moral connotation. In our opinion, \emph{manipulation} (or \emph{tactical voting}) is not intrinsically better or worse than \emph{sincere voting}; but \textit{manipulability}, which is the discrepancy between the results of the two, certainly is an undesirable property for a voting system.
+
+%We will argue that \textit{manipulation}, despite the negative moral connotation of this word, is not necessarily bad compared to \emph{sincere voting}; but \textit{manipulability}, which is the discrepancy between the results of the two, certainly is a bad property for a voting system.%emit any moral judgment about voters participating to a manipulation, but we will argue that manipulability is an undesirable property for a voting system.
+
+%Despite the negative connotation of the word ``manipulation'', time-honored in scientific literature to designate tactical voting, we will argue that \textit{manipulation} is not necessarily bad compared to sincere behavior, but that \textit{manipulability} (the discrepancy between the results of the two) certainly is a bad property.%emit any moral judgment about voters participating to a manipulation, but we will argue that manipulability is an undesirable property for a voting system.
+
+Firstly, it challenges the outcome of the election. If we estimate that the result of sincere voting best represents the opinions of the voters, then manipulability is undesirable because it may lead to another outcome. On the contrary, if we estimate that a manipulated outcome may be better in terms of collective welfare, then manipulation itself is not undesirable\footnote{About the French presidential election of 2002, proponents of Condorcet efficiency would argue that manipulation would have had a desirable effect, the victory of the presumed Condorcet winner.}, but manipulability still is: indeed, it makes this ``better'' outcome difficult to identify and produce. For example, if the whole population votes sincerely, it will not be achieved.
+
+Secondly, manipulability leads to several problems for voters. Before the election, they face a dilemma: vote sincerely or try to vote tactically? In the later case, they need information about what the others will vote, which gives a questionable power to polling organizations. After the election, some sincere voters may experience regrets about the choice of their ballots, and also a feeling of injustice: since insincere ballots would have better defended their views, they may estimate that their sincere ballots did not have the impact they deserved.
+
+% Censored by Fabien
+%Thirdly, in practice, the choice of the winning candidate is not the only outcome of an election, especially in a political context: for example, the detailed results of losing candidates may have consequences on the public funding for their political party. Also, the election provides a picture of the public opinion, which will be analyzed, commented and may legitimately influence the policies actually implemented by the candidate who is finally elected. But if the ballots are distorted by manipulation attempts, then the democratic soundness of all these processes is also in jeopardy.
+
+%It may be a core mechanism leading to Duverger's law: in some voting system, after a while, only two political parties survive (cf. Myersson).
+
+%Lastly, since it is hard to know whether the outcome will be the sincere winner or one of the candidates who may benefit from a manipulation, it makes other classical properties of voting systems hard to interpret. For example, independence of irrelevant alternatives demands that when removing a non-winning candidate, the winner should stay the same. But what winner is really relevant in practice: the sincere one, or an outcome reached after a game of tactical voting? The answer is obvious only when the voting system is not manipulable.
+
+%Indeed, most of these properties relate opinions, sincere ballots and sincere winner. But if ballots are not sincere and the outcome is not the sincere winner, then these properties are questionable.
+
+Finally, it may be argued that resistance to manipulation is a prerequisite for the other desirable properties of a voting system. Indeed, most of such classical properties\footnote{\cite{tideman2006collective} provides an overview of such classical desirable properties, such as independence of irrelevant alternatives, consistency, etc.} relate ballots and candidates; but if ballots do not reflect the true opinions of voters, then these properties become hard to interpret. On the opposite, when there is no possibility of manipulation, the practical relevance of other properties is perfectly clear.
+
+
+Unfortunately, \cite{gibbard1973manipulation} proved that any non-dictatorial voting system with three eligible candidates or more is manipulable. Although this result is frequently cited under the form of Gibbard-Satterthwaite theorem \citep{satterthwaite1975strategyproofness}, which deals only with \emph{ordinal} voting systems (i.e. whose ballots are orders of preferences), it is worth remembering that Gibbard's fundamental theorem applies to any \emph{game form}, where available strategies may be objects of any kind, including grades for example.
+
+Once this negative result is known, the only hope is to limit the damage, by investigating in what extent classical voting systems are manipulable, and by identifying processes to design less manipulable voting systems.
+
+To quantify the degree of coalitional manipulability of a voting system, several indicators have been defined and studied, for example by \cite{lepelley1987proportion}, \cite{saari1990susceptibility}, \cite{lepelley1999kimroush}, \cite{slinko2004large}, \cite{favardin2006further}, \cite{pritchard2006averagesize}, \cite{tideman2006collective} and \cite{reyhani2009anewmeasure}. A very common one is the \emph{manipulability rate}, which is the probability that a configuration is coalitionaly manipulable, under a given assumption on the probabilistic structure of the population (or \emph{culture}). It is an important indicator because it is an upper bound for the others: if we could identify reasonable voting systems with close-to-zero manipulability rates in realistic cultures, then the practical impact of manipulability would be negligible.
+
+Several authors have used a theoretical approach \citep{lepelley1987proportion,lepelley1994vulnerability,kim1996manipulability,lepelley1999kimroush, huang2000analytical,favardin2002bordacopeland,lepelley2003homogeneity,favardin2006further,pritchard2007exact,lepelley2008ehrhart}, computer simulations \citep{lepelley1987proportion,pritchard2007exact,reyhani2009anewmeasure,green2011four,green2014strategic,green2014statistical} or experimental results \citep{chamberlin1984observed,tideman2006collective,green2014strategic,green2014statistical} to evaluate the manipulability rates of several voting systems, according to various assumptions about the structure of the population. 
+
+Among the studies above, some, like those of \cite{chamberlin1984observed}, \cite{lepelley1994vulnerability}, \cite{lepelley2003homogeneity} or \cite{green2011four,green2014strategic} suggest that Instant-Runoff Voting (IRV) is one of the least manipulable voting systems known. On the other hand, authors like \cite{chamberlin1984observed}, \cite{smith1999measures}, \cite{favardin2002bordacopeland}, \cite{lepelley2003homogeneity}, \cite{favardin2006further} or \cite{tideman2006collective} emit the intuition that voting systems meeting the Condorcet criterion have a general trend to be less manipulable than others.
+
+Combining both ideas, \cite{green2014statistical} introduce an alteration of IRV that meets the Condorcet criterion. Then they prove, independently of us \citep{durand2012manipulability}, that for a large class of voting systems, making them meet the Condorcet criterion cannot worsen their manipulability. The main difference between their approach and ours is that \cite{green2014statistical} do not make perfectly clear what assumptions are made about the preferences of voters, despite the fact that their proof is valid only when preferences are strict total orders, whereas we provide the result in a wider framework that encompasses all kinds of profiles. We also improve this result by proving that for a large class of voting systems, making them meet the Condorcet criterion \emph{strictly} reduces their manipulability.
+
+Although most studies use an ordinal framework, some voting systems are not ordinal, especially Approval voting, Range voting and variants such as Majority Judgment. According to \cite{balinski2010majority}, one of the motivations for the latter is resistance to manipulation. However, simulations results by \cite{durand2014newsimulation} suggest that non-ordinal voting systems perform quite badly in terms of manipulation. In this paper, we will investigate this question from a theoretical point of view: given a non-ordinal voting system, is it always outperformed by a well-chosen ordinal voting system?
+
+%Some authors circumvent this problem, for example by studying Approval voting with a fixed number of approvals \citep{chamberlin1984observed}, but doing so does not take into account the very specificities of such a voting system.
+
+\medskip
+When studying manipulability rates, one problem is that we do not know the minimal manipulability rate achievable in a given class of voting systems (for the moment, let us say ``reasonable'' ones). So, we can compare voting systems with one another, but we are not able to tell whether a manipulability rate is far from minimal\footnote{Whenever we mention minimal manipulability, it is always in a given class of ``reasonable'' voting systems, which we will define in the following. Indeed, if we considered all voting systems, the question would be trivial, since dictatorship is not manipulable at all.}. 
+Ideally, it would be very interesting to identify a minimally manipulable voting system: even if it was too intricate to be used in practice, it could be used as a theoretical benchmark to evaluate the manipulability rates of other voting systems. The Condorcification and slicing theorems presented in this paper are a first step in this direction.
+
+%Another promising lead was to investigate algorithmic complexity as a barrier to plan manipulation \citep{bartholdi1991stv,elkind2005hybrid} but recent results suggest that polynomial manipulation heuristics perform well in the average case \citep{procaccia2007tractability,faliszewski2009shield,faliszewski2010AIwar}. So, our main hope remains to decrease the manipulability itself.
+
+%By definition, all experimental and simulation results have been published for some particular values of the parameters. And, to the best of our knowledge, most of previous theoretical results on the manipulability rate are applicable only to some particular values of the number of voters, the number of candidates, or both. So, it would be interesting to derive theoretical results allowing to decrease the manipulability rate in the general case.
+
+%Projet de minimiser la manipulabilité (whatever that means) \cite{saari1990susceptibility} (p.22): peu d'avancée depuis Gibbard
+%
+%- réputation du mds: si réputé peu manipulable, peut-etre que les électeurs n'essaieront pas. À l'inverse, si réputé manip, peut-être que les électeurs essaieront même quand ce n'est pas le cas
+
+%Un argument pour minimiser le problème de la manipulation par coalition (de taille arbitraire): difficulté de coordination; cf. par exemple \cite{saari1990susceptibility}. Mais dans les cas réels (cf. uninominal à un ou deux tours), en réalité, les électeurs n'ont pas vraiment besoin de se coordonner pour ``voter utile''.
+
+%Approval avec un nombre fixe d'assentiments: \cite{chamberlin1984observed}, aleskerov 1999
+%
+%Approval avec un nombre libre d'assentiments, mais pas de notion de bulletin sincère: \cite{saari1990susceptibility}.
+
+
+%\medskip
+%A classical argument against a high manipulability rate is that it threatens the sincere outcome and may lead to an ``incorrect'' result for the election.
+%
+%However, this is debatable. First, it presupposes an identity between the sincere outcome and a ``correct'' outcome%, which is not obvious
+%. Secondly, it assumes that manipulating coalitions benefit from infinite information, computational power, communication, coordination and mutual trust.
+%%no barrier of information, computation, communication or coordination. However,
+%%in practice, a configuration may occur where the voting system is manipulable, but no coalition has the ability to find a manipulation, by lack of information or computational power; or to implement it, by lack of communication or mutual trust.
+%
+%Both these objections can be bypassed by considering the manipulability rate as a worst-case indicator: if we could identify voting systems where manipulable configurations are very unlikely, then the practical impact of manipulability would be negligible, \emph{a fortiori} with coalitions having limited powers.
+%
+%\medskip
+%Besides this, there is a totally different point of view against manipulability that should be emphasized. It seems natural, and it has been extensively discussed, that strong Nash equilibria have many desirable properties: for example, after the election, voters will have no regrets about the ballots they chose, even when seeing themselves as elements belonging to socio-cultural, political or any other kind of groups or communities. The outcome is also more acceptable, because no part of the population can contest it with great legitimacy. 
+%
+%As a consequence, manipulation, which is a first step in the search for strong Nash equilibria, should not necessarily be considered as a dishonest behavior, and the outcome of the manipulation might finally seem more consensual and legitimate than the sincere result would have been. However, manipulation has an important informational cost, and it is far from sure that a strong Nash equilibrium will be found, even if it exists.
+%
+%%In short, and in a deliberately provocative wording: the main problem with manipulability is precisely that voters may fail to find the manipulation!
+%
+%\medskip
+%%The main problem of manipulability (= sincere voting is not a SNE) is that voters may not find the manipulation: they are more likely to miss the SNE.
+%
+%On the opposite, a non-manipulable configuration has a very interesting property: it precisely means that without any dependence on the sources of information, any computational barrier, any communication process, any coordination issue, voters can find a strong Nash equilibrium, simply by voting sincerely.
+%
+%This link between non-manipulability and voting without prior communication is also discussed in appendix \ref{sec:append_GVS}.
+
+%Our motivation: voters without information before the vote (or with dubious information), or with limited communication, coordination, etc. Then sincere voting is the only option (cf. appendix for discussion of that).
+%But with information after the vote. Problems of regrets, etc. SNE are good (legitimacy, no regret even as part of a group).
+
+%Inequality of power between voters having good and bad information about others. 
+
+A classical argument against a high manipulability rate is that it threatens the sincere outcome and may lead to an ``incorrect'' result for the election.
+
+However, this is debatable. First, it presupposes an identity between the sincere outcome and a ``correct'' outcome%, which is not obvious
+. Secondly, it assumes that manipulating coalitions benefit from infinite information, computational power, communication, coordination and mutual trust.
+%no barrier of information, computation, communication or coordination. However,
+%in practice, a situation may occur where the voting system is manipulable, but no coalition has the ability to find a manipulation, by lack of information or computational power; or to implement it, by lack of communication or mutual trust.
+
+Both these objections can be bypassed by considering the manipulability rate as a worst-case indicator: if we could identify voting systems where manipulable situations are very unlikely, then the practical impact of manipulability would be negligible, \emph{a fortiori} with coalitions having limited powers.
+
+\medskip
+Besides this, there is a totally different point of view against manipulability that should be emphasized. It seems natural, and it has been extensively discussed, that strong Nash equilibria have many desirable properties: for example, after the election, voters will have no regrets about the ballots they chose, even when seeing themselves as elements belonging to socio-cultural, political or any other kind of groups or communities. The outcome is also more acceptable, because no part of the population can contest it with great legitimacy. 
+
+As a consequence, manipulation, which is a first step in the search for strong Nash equilibria, should not necessarily be considered as a dishonest behavior, and the outcome of the manipulation might finally seem more consensual and legitimate than the sincere result would have been. However, manipulation has an important informational cost, and it is far from sure that a strong Nash equilibrium will be found, even if it exists.
+
+%In short, and in a deliberately provocative wording: the main problem with manipulability is precisely that voters may fail to find the manipulation!
+
+\medskip
+%The main problem of manipulability (= sincere voting is not a SNE) is that voters may not find the manipulation: they are more likely to miss the SNE.
+
+On the opposite, a non-manipulable situation has a very interesting property: it precisely means that without any dependence on the sources of information, any computational barrier, any communication process, any coordination issue, voters can find a strong Nash equilibrium, simply by voting sincerely.
+
+This link between non-manipulability and voting without prior communication is also discussed in appendix \ref{sec:append_GVS}.
+
+\section{Contributions}
+
+
+
+

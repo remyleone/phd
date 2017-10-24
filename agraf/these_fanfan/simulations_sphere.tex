@@ -1,0 +1,912 @@
+% !TeX spellcheck = fr_FR
+\mychapter{Étude de cultures sphéroïdales}\label{sec:simulations_spheroidal}
+
+Dans ce chapitre et les deux suivants, nous étudions deux problématiques qui étaient au c\oe ur de notre motivation pour développer \svvamp{}.
+\begin{enumerate}
+\item Alors que la manipulabilité est une nécessité théorique par le théorème de \cite{gibbard1973manipulation} et \cite{satterthwaite1975strategyproofness}, est-elle un phénomène courant en pratique? 
+\item Quelles sont les performances comparées des différents systèmes de vote à cet égard?
+\end{enumerate}
+Il s'agit des motivations principales pour ce chapitre et les deux suivants. Une motivation secondaire est d'illustrer les possibilités offertes par \svvamp{}.
+
+En général, nous concentrons notre attention sur la manipulabilité par coalition (MC), qui est l'objet d'étude central de ce mémoire et que appelons aussi \emph{manipulabilité} sans plus de précisions. Cependant, comme \svvamp{} ne dispose pas d'algorithmes exacts spécifiques pour la MC de chaque système de vote, nous utiliserons également la manipulation triviale (MT) comme point de comparaison entre les différents systèmes. Comme nous l'avons discuté dans la section~\ref{sec:variants-of-coalitional-manipulation}, celle-ci présente l'avantage d'être facile à calculer (en temps polynomial, à temps de détermination du vainqueur près). En outre, quand la manipulation est possible, elle donne une mesure indicative des cas où celle-ci est relativement peu coûteuse à implanter en termes de communication.
+
+Étant donné la variété des cultures étudiées, la lecture de ces chapitres \ref{sec:simulations_spheroidal} et~\ref{sec:simulations_unidim} pourrait s'avérer fastidieuse pour le lecteur impatient, mais c'est un défaut que nous n'avons pas réussi à éviter. Pour une lecture plus rapide, nous suggérons de lire la section~\ref{sec:presentation_cultures_spheroidales} qui définit les cultures utilisées dans ce chapitre, la section~\ref{sec:simus_methodo} qui présente notre scénario de référence, la section~\ref{sec:sphere_C} qui permet de se familiariser avec les conventions utilisées pour tracer les courbes, la section~\ref{sec:comparison_vs} qui conclut ce chapitre, l'introduction du chapitre~\ref{sec:simulations_unidim} et les sections \ref{sec:comparison_vs_gauss} et~\ref{sec:comparison_vs_synthese} qui concluent celui-ci, avant de passer au chapitre~\ref{sec:simulations_expe} qui analyse des données issues d'élections réelles.
+
+\section{Présentation des cultures sphéroïdales}\label{sec:presentation_cultures_spheroidales}
+
+En théorie du vote, il est classique de considérer la culture impartiale (définition~\ref{def:culture_impartiale}), qui est définie pour des préférences qui sont des ordres stricts totaux. Comme nous souhaitons étudier à la fois des systèmes ordinaux et cardinaux, la première question qui se pose est la façon dont on peut étendre ce modèle à des électeurs caractérisés par leurs utilités pour les candidats. Dans cette section, nous décrivons brièvement la démarche utilisée, qui est détaillée et présentée de façon plus formelle dans l'annexe~\ref{sec:sphere} et dans l'article de \cite{durand2015sphere}.
+
+\medskip
+Sans adopter toutes les hypothèses du modèle des utilités espérées de \cite{vonneumann1944games}, nous allons toutefois nous en inspirer. Nous ne supposons pas nécessairement que les préférences des électeurs soient caractérisées par des utilités espérées, puisqu'il n'y a pas d'élément aléatoire une fois la population fixée: les systèmes de vote étudiés calculent le vainqueur de façon déterministe et les manipulateurs n'utilisent que des stratégies pures, et non des stratégies mixtes.
+
+Cependant, nous conservons une propriété importante de ce modèle: dans un premier temps, le vecteur d'utilité $\vecteur{u}_v \in \R^C$ d'un électeur pour les différents candidats est défini à une constante additive et à une constante multiplicative strictement positive près, c'est-à-dire que le vecteur $\vecteur{u}_v$ représente les mêmes préférences qu'un vecteur $\alpha \vecteur{u}_v + \beta \vecteur{1}$, où $\alpha$ est un réel positif, $\beta$ un réel quelconque et où $\vecteur{1}$ désigne le vecteur dont toutes les coordonnées sont égales à~1. Ce choix est motivé par le fait que chaque électeur ne possède aucune méthode canonique, ni pour fixer son point~0 d'utilité, ni pour choisir <<\,l'unité de mesure\,>> employée afin d'évaluer ses valeurs d'utilité: il est simplement capable de mesurer leurs intensités respectives.
+
+Dans un second temps, afin d'avoir un modèle complet pour le vote par assentiment, nous ajoutons l'hypothèse que l'utilité~0 est une \emph{limite d'approbation} (voir section~\ref{sec:ellipse_bigsection}): un électeur approuve les candidats qui ont une utilité positive et désapprouve les candidats qui ont une utilité strictement négative. Avec cette hypothèse supplémentaire, le vecteur d'utilité d'un électeur n'est plus défini qu'à une constante multiplicative~$\alpha$ strictement positive près. L'espace des utilités est donc celui des demi-droites de~$\R^C$ et tous les vecteurs d'une même demi-droite représentent les mêmes préférences en pratique, de façon indistinguable par l'expérience, même pour l'électeur concerné.
+
+Intuitivement, une façon naturelle de représenter cet espace consiste à normaliser chaque vecteur d'utilité pour qu'il ait une norme euclidienne égale à~1. L'espace des utilités, c'est-à-dire l'ensemble des demi-droites, est alors représenté par la sphère unité de~$\R^C$. Dans l'annexe~\ref{sec:sphere}, nous prouvons, par des arguments de géométrie projective et de géométrie différentielle, que cette représentation est essentiellement la seule qui possède de bonnes propriétés\footnote{Plus exactement, dans le modèle avec limite d'approbation, les modèles convenables sont des ellipsoïdes qui sont l'image de la sphère unité par une dilatation le long de l'axe $\vecteur{1}$, qui constituent donc une famille à un paramètre réel. Le choix de ce paramètre n'a d'influence que pour le vote par assentiment: aux valeurs extrêmes du facteur de dilatation, on privilégie soit les vecteurs d'utilité qui ont beaucoup de composantes de même signe, soit ceux dont la somme des composantes est nulle et qui ont donc toujours des composantes des deux signes. Pour simplifier, nous considérons toujours le modèle sphérique qui est intermédiaire entre ces deux cas extrêmes.}.
+
+On dispose alors d'une façon canonique de généraliser la culture impartiale: elle consiste à tirer un vecteur sur la surface de la sphère unité de~$\R^C$ avec une loi de probabilité uniforme (au sens de la mesure euclidienne usuelle) : c'est ce que nous appelons la \emph{culture sphérique}. Chaque électeur possède presque sûrement un ordre strict total de préférence, les électeurs sont indépendants et la culture est neutre: par conséquent, l'image ordinale de cette culture (définition~\ref{def:image_ordinale}) est bien la culture impartiale. Ainsi, pour les systèmes de vote ordinaux, cette culture est tout simplement équivalente à la culture impartiale; en outre, elle permet d'étudier les systèmes ordinaux et cardinaux dans un cadre commun naturel.
+
+\medskip
+Par la suite, il est intéressant d'enrichir ce modèle en introduisant une corrélation entre les électeurs. Pour cela, nous utilisons le modèle de Von Mises-Fisher ou VMF \citep{downs1966vonmises}. Ce type de culture permet de modéliser des populations qui tendent à avoir des préférences similaires mais avec une certaine dispersion. Tout d'abord, on fixe un vecteur unitaire $\pole$, appelé le \emph{pôle} de la distribution. Ensuite, indépendamment pour chaque électeur, on tire un vecteur unité $\vecteur{u}$ dans $\R^C$ selon une distribution de VMF:
+$$
+p(\vecteur{u}) = X_\kappa e^{\kappa \bracket{\vecteur{u}}{\pole}},
+$$
+où $\pole$ est le pôle de la distribution, $\kappa$ la concentration, $X_\kappa$ une constante de normalisation et où $\bracket{\vecteur{u}}{\pole}$ désigne le produit scalaire canonique.
+
+Qualitativement, le modèle de VMF est similaire au modèle de \cite{mallows1957nonnull}, qui est utilisé pour des préférences ordinales. Outre le fait que le premier est mieux adapté aux préférences cardinales que le second, il possède d'autres avantages qui sont discutés dans la section~\ref{sec:pratique_sphere}.
+
+Il s'agit bien d'une généralisation de la culture sphérique: en effet, pour $\kappa = 0$, le modèle de VMF est équivalent à la culture sphérique. Pour $\kappa = + \infty$, on obtient l'autre cas dégénéré de culture de VMF: un pic de Dirac sur le pôle~$\pole$. 
+
+Nous regroupons le modèle de VMF et la culture sphérique, qui en est un cas particulier, sous le nom de \emph{sphéroïdales}, en raison du modèle sphérique sous-jacent employé pour l'espace des utilités.
+
+%\medskip
+%Dans la section~\ref{sec:simus_methodo}, nous présentons notre méthodologie pour ce chapitre et le suivant, ainsi que notre scénario de référence: il s'agit de la culture sphérique avec $V = 33$ électeurs et $C = 5$ candidats. Nous expliquons les raisons de ce choix: loin d'être motivé par des contraintes techniques, comme nous le verrons par la suite, il est lié au fait que pour ces valeurs des paramètres, les taux de manipulabilité observés sont relativement éloignés de~1, ce qui permet d'observer les différences entre les systèmes de vote étudiés.
+%
+%Dans les sections \ref{sec:sphere_C} et \ref{sec:sphere_V}, nous étudions la culture sphérique, c'est-à-dire le cas dégénéré de modèle de VMF avec une concentration nulle. Il n'y a alors que deux paramètres libres: $C$ et~$V$.
+%
+%Dans la section~\ref{sec:sphere_C}, nous étudions l'effet du nombre de candidats~$C$. Nous observons que les taux de manipulabilité sont généralement croissants et semblent tendre vers~1 quand $C \to +\infty$. Nous démontrons cette dernière affirmation pour les systèmes vérifiant \cminf{}, dans le cas où le nombre d'électeurs~$V$ est impair. 
+%
+%Dans la section~\ref{sec:sphere_V}, nous faisons varier le nombre d'électeurs~$V$. Tout d'abord, nous observons l'allure générale des courbes: les taux de manipulabilité semblent globalement croître et tendre vers~1 quand $V \to +\infty$, sauf pour Veto ainsi que pour SE, VTI et CVTI. Nous rappelons les résultats théoriques connus sur la question et nous en conjecturons une généralisation. Dans un second temps, nous étudions l'effet de la parité de $V$ sur des phénomènes oscillatoires du taux de manipulabilité.
+%
+%Dans les sections \ref{sec:vmf_concentration} et~\ref{sec:vmf_position_pole}, nous étudions le modèle de VMF non dégénéré, c'est-à-dire avec une concentration non nulle. 
+%
+%Dans la section \ref{sec:vmf_concentration}, nous étudions l'effet de la concentration~$\kappa$. De manière peu surprenante, on constate que la manipulabilité décroît généralement quand croît la concentration, c'est-à-dire l'accord au sein de la population. Le phénomène plus subtil observé est que certains systèmes de vote réagissent bien moins rapidement à cet accord croissant, c'est-à-dire que leur manipulabilité reste élevée pour davantage de valeurs de~$\kappa$. Nous montrons que les taux de manipulabilité tendent vers~0 quand $\kappa \to +\infty$, hormis celui de Veto, pour lequel nous déterminons la valeur limite.
+%
+%Dans la section~\ref{sec:vmf_position_pole}, nous étudions l'effet de la position du pôle de la distribution et nous montrons qu'il peut avoir une influence importante sur la manipulabilité, que nous discutons.
+%
+%Dans les sections \ref{sec:vmf_nombre_de_poles} et~\ref{sec:vmf_positions_des_poles}, nous généralisons le modèle de VMF au cas où il y a plusieurs groupes sociaux d'électeurs qui possèdent chacun un certain pôle et une certaine concentration.
+%
+%Dans la section~\ref{sec:vmf_nombre_de_poles}, nous étudions l'effet du nombre de pôles. Plus celui-ci est élevé et plus la manipulabilité croît. Quand il est infini, nous montrons que la culture tend vers la culture impartiale.
+%
+%Dans la section~\ref{sec:vmf_positions_des_poles}, nous étudions l'effet des positions relatives entre les pôles. Pour cela, nous choisissons le modèle le plus simple possible, avec deux pôles seulement. De manière peu surprenante, quand les pôles s'éloignent, la manipulabilité croît. Mais là encore, ce sont les comportements comparés des différents systèmes de vote qui retiennent l'attention: certains deviennent rapidement très manipulables, alors que d'autres conservent une manipulabilité relativement faible.
+%
+%Dans la section~\ref{sec:comparison_vs}, nous effectuons une \emph{méta-analyse} des cas précédents en comparant les différents systèmes de vote entre eux. On voit ainsi que dans presque toutes les cultures étudiées, certains systèmes sont toujours moins manipulables que tous les autres hormis Veto: il s'agit, par ordre croissant de manipulabilité, de CVTI, VTI, SE et l'uninominal à deux tours. À l'inverse, le vote par notation, le jugement majoritaire, le vote par assentiment et les méthodes de Borda et de Coombs sont généralement très manipulables. Le système Veto est non comparable aux autres, confirmant sa place à part dans notre zoologie des modes de scrutin dits classiques.
+
+
+
+%\bigskip
+%\bigskip
+%\todo{Intro à rédiger}
+
+%Mettre plus de TM?
+%
+%Il faudra éventuellement alléger un peu 6.1 en fonction de ce qu'on vient de dire dans le chapitre précédent sur \svvamp{}.
+
+%En utilisant \svvamp, nous présentons de nouveaux résultats sur la manipulation par coalition pour 22 systèmes de vote, en utilisant des modèles aléatoires pour la génération de populations, avec différents jeux de paramètres. Nos observations mènent à plusieurs conjectures qualitatives, pour lesquelles pour avançons des explications intuitives.
+
+%La principale conclusion est que VTI et ses variantes sont généralement les systèmes les plus résistants à la manipulation en culture sphérique / VMF.
+
+%Une motivation secondaire de ce chapitre et des deux suivants est d'illustrer les possibilités offertes par \svvamp{}.
+%
+%Étant donné l'espace à explorer, la lecture de ce chapitre pourrait s'avérer fastidieuse pour le lecteur impatient, mais c'est un défaut que nous n'avons pas réussi à éviter. Une lecture possible pour aller vite: Méthodologie; Conclusion provisoire sphère et VMF; Conclusion spectre politique.
+
+%La culture sphérique généralise la Culture Impartiale aux populations caractérisées par des utilités. Formellement, on tire au le vecteur d'utilité de chaque électeur indépendamment et uniformément sur la sphère unité de $\R^C$. Rappelons que pour les modes de scrutin ordinaux, ce modèle est équivalent à la Culture Impartiale. \todo{Réf sphère dans le mémoire + biblio ADT.}
+
+
+
+%\section{Condorcet-efficience}
+
+%Et cohérence entre les modes de scrutin? Bof
+
+\section{Scénario de référence}\label{sec:simus_methodo}
+
+Dans cette section, nous présentons notre méthodologie et notre scénario de référence. Il s'agit de la culture sphérique avec $V = 33$ électeurs et $C = 5$ candidats. Pour ce cas de base, on choisit un nombre d'électeurs impair pour éviter certaines questions d'égalité, par exemple les subtilités entre les différentes notions Condorcet: en particulier, les notions de vainqueur de Condorcet et de candidat Condorcet-admissible sont alors équivalentes. Pour choisir la valeur de $V$ et de~$C$, nous avons exploré les valeurs de $V = 2^k + 1$ pour $k \in \intent{1}{10}$ (donc pour $V$ entre 3 et~1025) et les valeurs de $C \in \intent{3}{15}$. Dans les sections \ref{sec:sphere_C} et~\ref{sec:sphere_V}, nous verrons que, pour la plupart des systèmes de vote, en culture sphérique, le taux de manipulabilité semble croître et tendre vers~1 quand l'un ou l'autre de ces paramètres augmente. Notre choix de $V = 33$ et $C = 5$ permet d'avoir des taux de manipulabilité raisonnablement éloignés de~1 et donc de faciliter la comparaison entre les différents systèmes de vote étudiés.
+
+\begin{figure*}
+\begin{bigcenter}
+\includegraphics[width=1.1\textwidth]{fig_simu/TM.png}
+\end{bigcenter}
+\vspace{-0.5cm}\caption{Manipulation par coalition (MC) et variantes. Culture sphérique, $V=33$, $C=5$.}\label{fig:MT}
+\end{figure*}
+
+\medskip
+Dans la figure~\ref{fig:MT}, on illustre les performances des divers systèmes de vote dans ce scénario de référence. On peut visualiser MC et ses variantes MT, MU et MCI. Pour cette figure, on a tiré 10\,000 populations aléatoires avec la culture considérée. 
+
+La proportion de configurations MC (resp. MT, MU, MCI) pour un système de vote sur ces 10\,000 tirages aléatoires fournit un estimateur du taux de MC (resp. MT, MU, MCI) pour la culture considérée. Ceci induit une incertitude que nous appellerons \emph{statistique} de l'ordre de $\frac{1}{\sqrt{10\,000}} = 1\%$ sur le taux de MC (resp. MT, MU, MCI). Par convention, cette part de l'incertitude n'est représentée ni sur la figure~\ref{fig:MT} ni sur les suivantes.
+
+Par ailleurs, pour certains systèmes de vote, l'algorithme utilisé pour déterminer MC n'est pas exact. Les histogrammes de la figure~\ref{fig:MT} représentent une borne inférieure de la proportion de configurations manipulables, qui est donnée par les cas où \svvamp a été capable de prouver MC. La barre d'incertitude (par exemple pour la méthode de Baldwin) indique une borne supérieure de cette proportion, qui est fournie par les cas où \svvamp a été capable de prouver que MC est impossible. Nous appellerons la différence entre ces deux bornes \emph{l'incertitude d'origine algorithmique}.
+
+\medskip
+Profitons-en pour examiner les performances des algorithmes implantés dans \svvamp{} pour MC.
+
+Pour Maximin et les méthodes de Schulze et Borda, nous utilisons un algorithme approché mais il semble que la plupart du temps, \svvamp est en pratique capable de décider si ces systèmes sont manipulables ou pas: sur la figure~\ref{fig:MT}, l'incertitude d'origine algorithmique est de 1,8~\% pour la méthode de Schulze et elle est nulle pour Maximin et la méthode de Borda.
+
+Pour Baldwin, VTID, PO, la méthode de Nanson, CSD, la méthode de Kemeny et BI\footnote{Dans ce chapitre et les suivants, nous n'incluons pas la méthode de Kim-Roush et VTIM, qui ont été implantés dans \svvamp{} après la réalisation de ces simulations et qui utilisent, eux aussi, les algorithmes génériques de manipulation. Pour des raisons de temps de calcul et pour éviter d'ajouter des coquilles de dernière minute, nous avons jugé plus sage de nous en tenir là, et nous prions le lecteur de nous en excuser. Ceci dit, d'après les premiers tests effectués, les performances de la méthode de Kim-Roush en matière de manipulabilité semblent assez médiocres. En ce qui concerne VTIM, les résultats sont au contraire prometteurs et nous y reviendrons en conclusion de ce mémoire.}, \svvamp utilise seulement ses méthodes de manipulation génériques, essentiellement constituées de tests préliminaires et de MT. Dans ce cas, on a essentiellement une borne inférieure de manipulabilité, qui suffira cependant à prouver que ces systèmes sont plus manipulables que d'autres dans certains cas. En l'occurrence, dans le scénario de référence de la figure~\ref{fig:MT}, on a l'assurance que ces systèmes sont plus manipulables que CVTI et VTI par exemple.
+
+Pour SE, nous utiliserons toujours l'algorithme exact. Pour VTI, nous utilisons l'algorithme exact également, sauf dans la section~\ref{sec:sphere_C} où nous le remplaçons par l'option lente (section~\ref{sec:algos_vti}) quand le nombre de candidats est supérieur ou égal à~9 afin de limiter le temps de calcul. Pour CVTI, nous employons l'heuristique présentée en section~\ref{sec:algos_cvti}: bien qu'il ne s'agisse pas d'un algorithme exact, on constate dans le cas particulier de la figure~\ref{fig:MT} que l'incertitude d'origine algorithmique est nulle. Ceci signifie également qu'en pratique, CVTI a un taux de manipulabilité très proche de celui de VTI, même si nous savons qu'il est, en général, strictement inférieur par le théorème fort de condorcification~\ref{thm:cond_strictement_meilleur}.
+
+\medskip
+Sur la figure~\ref{fig:MT}, on peut cependant noter une différence non négligeable: CVTI est sensiblement moins vulnérable à MCI, MT et MU que VTI, même si son taux de MC est très proche. Ainsi, la manipulation semble plus difficile en CVTI qu'en VTI. 
+
+En revanche, VTI et SE présentent des performances très similaires, même si l'exemple de la table~\ref{table:u2t_manip_not_u2ti} (section~\ref{sec:reducation_general_vers_svbe}) montre que SE est strictement plus manipulable que VTI (l'un et l'autre étant respectivement équivalents à U2T et U2TI dans cet exemple à 3~candidats).
+
+\medskip
+Veto est le seul mode de scrutin pour lequel le taux de MT (3\%) est très différent du taux de MC (91~\%). Ceci s'explique par le fait que la stratégie triviale est très mauvaise en Veto: certes, elle est optimale pour éviter une victoire du vainqueur sincère~$\winner$, mais les manipulateurs abandonnent tout contrôle sur le candidat vainqueur. Au contraire, la stratégie optimale consiste à se coordonner pour équilibrer le total de voix négatives sur tous les candidats, à part celui qu'on souhaite faire gagner.
+
+\medskip
+Enfin, on constate que VTID est nettement plus manipulable que CVTI, VTI et SE. Pourtant, en apparence, il s'agit d'un système de vote dont le principe est similaire. On peut essayer d'en comprendre la raison avec un exemple à 3~candidats (éventuellement après que d'autres éliminations aient eu lieu). Si le vainqueur sincère~$\winner$ n'est pas vainqueur de Condorcet, alors le profil est, de toute façon, manipulable dans tout système vérifiant \cminf, donc l'exemple intéressant est celui où $\winner$ est vainqueur de Condorcet. Notons~$c$ le candidat pour lequel on souhaite manipuler et $d$ le troisième candidat.
+
+Dans VTID, $c$ ne doit jamais affronter $\winner$ en duel, sinon il en sort perdant. Voici donc le seul scénario possible: $\winner$ affronte $d$ et perd, puis $c$ affronte $d$ et gagne. Ainsi, il faut que les candidats sélectionnés pour le premier duel électoral soient $\winner$ et $d$: pour cela, la meilleure stratégie est de défendre~$c$ en le plaçant en tête de bulletin. Par ailleurs, il faut que $\winner$ perde contre $d$: pour cela, la meilleure stratégie est d'attaquer $\winner$ en le plaçant en bas de bulletin. %Si cela fonctionne, alors le duel suivant se déroule entre $c$ et $d$ et la stratégie des manipulateurs est déjà optimale, puisque nous avons vu qu'ils placent~$c$ en tête, suivi de $d$. 
+Ainsi, les différents impératifs, à savoir la défense de $c$ et l'attaque du candidat dangereux~$\winner$, sont parfaitement compatibles.
+
+À présent, examinons la situation en SE ou en VTI. À chaque tour d'élimination, certains manipulateurs doivent défendre~$c$ pour l'empêcher d'être éliminé. De plus, tant que $\winner$ n'est pas éliminé, aucun électeur sincère ne vote pour~$c$: les manipulateurs ne peuvent donc compter que sur eux-mêmes pour cela. Par ailleurs, les manipulateurs doivent éviter un dernier tour entre $c$ et $\winner$, pour les mêmes raisons que précédemment. Il leur faut donc attaquer~$\winner$ pour l'éliminer immédiatement. Mais pour cela, ils peuvent avoir besoin de répartir leurs voix entre $c$ et $d$, ce qui est \emph{a priori} plus difficile qu'en VTID où il suffisait de défendre~$c$. 
+
+\medskip
+Ceci amène une autre remarque: bien que VTI soit la RPSI-ES de l'uninominal, il présente une similitude avec Veto (et, à l'inverse, la méthode de Coombs présente des similitudes avec l'uninominal). En effet, le choix du candidat éliminé en VTI se fait en Veto: chaque électeur, en votant pour un candidat, émet un veto contre son élimination et le candidat qui a le moins de vetos contre son élimination (c'est-à-dire possédant le moins de voix) est désigné (c'est-à-dire éliminé). Or nous avons vu que la famille maximale de Veto est, aux égalités près, la famille de seuil $V \frac{C-1}{C}$ (proposition~\ref{thm:condorcification_maximale_veto}): il est donc particulièrement difficile de choisir le candidat éliminé en VTI, ce qui peut expliquer la faible manipulabilité de ce mode de scrutin, malgré le fait qu'il vérifie \cminf{} si on considère le système dans sa globalité et non chaque tour séparément.
+
+
+
+\section{Culture sphérique: nombre de candidats $C$}\label{sec:sphere_C}
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[width=\relativewidth\textwidth]{fig_simu/spherec.eps}
+\end{center}
+\spacebeforecaption\caption{Taux de MC en fonction du nombre de candidats $C$. Culture sphérique, $V = 33$.}\label{fig:sphere_C}
+\end{figure}
+
+Dans cette section et les suivantes, nous allons considérer des variantes du scénario de référence, en faisant varier à chaque fois un paramètre particulier. Pour commencer, nous conservons la culture sphérique du scénario de référence, c'est-à-dire le cas particulier où la concentration~$\kappa$ est nulle, nous laissons constant le nombre d'électeurs $V = 33$ et nous représentons en figure~\ref{fig:sphere_C} le taux de MC trouvé en fonction du nombre de candidats~$C$.
+
+\medskip
+Ces premières courbes sont l'occasion de préciser nos conventions graphiques pour la suite de ce chapitre et le suivant. Quand le nom d'un mode de scrutin est accompagné d'une astérisque dans la légende, cela signifie que, pour certains points de la courbe, l'algorithme approché utilisé par \svvamp{} a trouvé un écart entre la borne inférieure et la borne supérieure plus grand que 1~\%. Dans ce cas, étant donné le nombre de systèmes de vote que nous considérons, nous traçons uniquement le taux de MC trouvé par \svvamp{}, c'est-à-dire la borne inférieure. Par exemple, c'est le cas de la méthode de Baldwin dans la figure~\ref{fig:sphere_C}.
+
+Quand il n'y a pas d'astérisque dans la légende, cela ne signifie pas nécessairement que l'algorithme utilisé est exact mais que, pour chaque point de la courbe, \svvamp{} a trouvé une différence inférieure à 1~\% entre la borne inférieure et la borne supérieure. Ainsi, pour CVTI ou Maximin, bien que les algorithmes utilisés soient approchés, l'incertitude d'origine algorithmique est inférieure à 1~\% pour chaque point de la figure~\ref{fig:sphere_C}.
+%Étant donné le nombre de système de vote et de paramètres que nous souhaitons considérer, nous traçons uniquement le taux de MC trouvé par \svvamp{}, c'est-à-dire une borne inférieure du taux de MC. Pour chaque système de vote, quand la différence entre la borne inférieure et la borne supérieure de MC est supérieure à 1~\%, le nom du système de vote est signalé par une astérisque (*) dans la légende. Par exemple, dans la figure~\ref{fig:sphere_C}, la courbe de la méthode de Baldwin ne fournit qu'une borne inférieure du taux de MC; en revanche, pour CVTI, l'incertitude d'origine algorithmique est inférieure à 1~\%.
+
+Pour faciliter la comparaison des systèmes de vote entre les différentes figures, on assigne à chaque système de vote un unique style de courbe. Ces styles sont regroupés par famille: les systèmes de vote basés sur des notes utilisent des tons de rouge avec des marqueurs en losange; les RPS, des tons de vert avec des marqueurs en cercle; les systèmes de Condorcet <<\,naturels\,>>, des tons de brun avec des marqueurs en croix; les systèmes de la famille VTI, des tons de bleu sans marqueur de point; les autres systèmes, des tons de mauve et rose avec des marqueurs en gros points.
+
+Afin de faciliter la correspondance avec les courbes, la légende affiche les systèmes de vote par ordre décroissant du taux de manipulabilité trouvé (en moyenne sur les points de la courbe).
+
+À titre de référence, on représente la proportion de configurations non résistantes (c.à.d. où il n'existe pas de vainqueur de Condorcet résistant), en noir avec des triangles pointés vers le bas; d'après le théorème~\ref{thm:Condorcet_resistant_caracterisation}, elle fournit une borne supérieure de manipulabilité pour tous les systèmes de vote qui respectent le critère de Condorcet. De même, on représente la proportion de configurations non admissibles (c.à.d. où il n'existe pas de candidat Condorcet-admissible), en noir avec des triangles pointés vers le haut, qui donne une borne inférieure de manipulabilité pour tous les modes de scrutin qui vérifient \cminf{} (lemme~\ref{thm_NonAdmManip}). 
+
+Quand le nombre d'électeurs est pair, on représentera aussi la proportion de situations non Condorcet (c.à.d. où il n'existe pas de vainqueur de Condorcet), en trait pointillé noir avec le même marqueur triangulaire. Cependant, quand le nombre de candidats est impair, comme dans la figure~\ref{fig:sphere_C} et la plupart des suivantes, il est inutile de tracer cette courbe: comme nous considérons des cultures où les préférences sont presque sûrement des ordres stricts totaux, les notions de candidat Condorcet-admissible et de vainqueur de Condorcet sont alors équivalentes, ce qui n'est pas le cas pour un nombre pair d'électeurs.
+
+\medskip
+La première observation issue de la figure~\ref{fig:sphere_C} est la conjecture suivante.
+
+\begin{conj}\label{conj:sph_MC_croit_avec_C}
+En culture sphérique, pour $V \geq 3$, le taux de manipulabilité de chaque mode de scrutin considéré ici est une fonction croissante du nombre de candidats~C.
+\end{conj}
+
+Pour comprendre qualitativement ce fait, observons également que la probabilité d'avoir une configuration non admissible, c'est-à-dire non Condorcet puisque $V$ est impair, semble croître avec le nombre de candidats. 
+
+\cite{kelly1974voting} a conjecturé que, pour $V = 3$ ou $V \geq 5$ électeurs, la probabilité qu'il existe un vainqueur de Condorcet faible (i.e. un candidat Condorcet-admissible) est une fonction décroissante de~$C$; ceci a été prouvé par \cite{fishburn1979condorcet} pour $V = 3$~électeurs. De même, \cite{kelly1974voting} a conjecturé que, pour $V \geq 3$, la probabilité qu'il existe un vainqueur de Condorcet décroît; ceci est prouvé pour $V \to +\infty$ \citep{gehrlein2006condorcet}. À notre connaissance, les autres cas restent des conjectures.  Dans le même ordre d'idées, la figure~\ref{fig:sphere_C} nous amène à formuler la conjecture et la proposition suivante. 
+
+\begin{conj}\label{conj:sph_resist_decroit_avec_C}
+En culture sphérique, pour $V \geq 3$, la probabilité qu'il existe un vainqueur de Condorcet résistant est une fonction décroissante du nombre de candidats~C.
+\end{conj}
+
+\begin{prop}\label{conj:sph_resist_tend_vers_zero_avec_C}
+En culture sphérique, pour $V \geq 3$ et $C \to +\infty$, la probabilité qu'il existe un vainqueur de Condorcet résistant tend vers~0.
+\end{prop}
+
+Il est facile de prouver cette proposition à partir d'un résultat antérieur: en effet, en culture impartiale et à nombre d'électeurs fixé, la probabilité qu'il existe un vainqueur de Condorcet tend vers 0 quand $C$ tend vers $+\infty$~\citep{may1971paradox}. Il en est donc de même pour le vainqueur de Condorcet résistant.
+
+\medskip
+Sur la figure~\ref{fig:sphere_C}, on observe aussi le phénomène suivant, que nous allons pouvoir démontrer en partie.
+
+\begin{conj}\label{conj:sph_MC_limite_C_infini}
+En culture sphérique, pour $V \geq 3$ et $C \rightarrow +\infty$, le taux de manipulabilité de tout mode de scrutin vérifiant \cminf{} tend vers $1$. 
+\end{conj}
+
+L'hypothèse \cminf{} concerne tous les modes de scrutin considérés ici, sauf Veto, sur lequel nous reviendrons dans un instant. Il est facile de démontrer la conjecture~\ref{conj:sph_MC_limite_C_infini} pour un nombre d'électeurs impair. En effet, en culture impartiale et à nombre d'électeurs fixé, nous avons déjà rappelé que la probabilité qu'il existe un vainqueur de Condorcet tend vers 0 quand $C$ tend vers $+\infty$~\citep{may1971paradox}. Or, pour $V$ impair, les notions de vainqueur de Condorcet et de candidat Condorcet-admissible sont équivalentes. Donc le vainqueur sincère $\winner$ n'est pas Condorcet-admissible avec forte probabilité. Pour un système de vote vérifiant \cminf{}, le lemme~\ref{thm_NonAdmManip} permet alors de conclure que la configuration est manipulable.
+
+Pour un nombre pair d'électeurs, à notre connaissance, il n'est pas prouvé que la probabilité d'avoir un candidat Condorcet-admissible (c'est-à-dire un vainqueur de Condorcet faible, vu les hypothèses) tende vers 0 quand $C$ tend vers $+\infty$. Si c'est vrai, alors notre preuve de la conjecture \ref{conj:sph_MC_limite_C_infini} pour tout système de vote vérifiant \cminf{} est également valide pour un nombre pair d'électeurs.
+
+\medskip
+En revanche, bien que le taux de MC de Veto semble également tendre vers~1 sur la figure~\ref{fig:sphere_C}, on peut montrer que ce comportement limite n'est pas vrai pour Veto quand il est muni de la règle de départage utilisée dans \svvamp{}.
+
+\begin{prop}\label{thm:veto_limite_C_infini_culture_impartiale}
+En culture impartiale, pour $V$ fixé et $C \rightarrow +\infty$, le taux de manipulabilité de Veto (muni de la règle de départage par ordre d'indices sur les candidats) ne tend par vers~$1$. 
+\end{prop}
+
+\begin{proof}
+Pour $C > V$, considérons la restriction de la culture impartiale pour~$C$ aux $V + 1$ candidats de plus petit indice: il s'agit également de la culture impartiale. Par conséquent, avec une probabilité égale à $\frac{1}{((V+1)!)^V}$, tous les électeurs ont l'ordre de préférence suivant sur les $V + 1$ premiers candidats: $(1 \plusque 2 \plusque \ldots \plusque V+1)$. Leur relation de préférence sur les autres candidats n'a pas d'importance pour notre démonstration.
+
+Avec de telles préférences, aucun électeur ne vote contre le candidat~1 donc celui-ci est élu. Il n'y a pas de manipulation possible pour les candidats 2, \ldots, $V + 1$ car aucun électeur n'est intéressé. Enfin, en raison de la règle de départage, aucun des candidats $V+2, \ldots, C$ ne peut être vainqueur: même si chacun des $V$ premiers candidats reçoit un veto, c'est le candidat~$V+1$ qui est élu. Ainsi, la manipulation est impossible.
+
+Par conséquent, avec une probabilité au moins égale à $\frac{1}{((V+1)!)^V}$, on obtient un profil non manipulable.
+\end{proof}
+
+Sur la figure~\ref{fig:sphere_C}, on constate aussi que CVTI, VTI et SE sont significativement moins manipulables que les autres systèmes de vote et que l'uninominal à deux tours présente des performances intermédiaires entre ces trois variantes de VTI et les autres modes de scrutin, sauf pour de grandes valeurs de~$C$. En effet, les résultats théoriques ci-dessus prouvent qu'U2T est (légèrement) plus manipulable que Veto pour un nombre de candidats suffisamment élevé.
+
+On observe également que les courbes de CVTI, VTI et SE sont presque confondues. La différence de manipulabilité entre CVTI et VTI est indétectable sur cette figure: la différence de proportions manipulables observées est toujours nulle. Quant à celle entre VTI et SE, \svvamp{} trouve légèrement moins de manipulation pour VTI à partir de $C = 9$: cela correspond à la valeur à partir de laquelle on a utilisé l'algorithme approché pour VTI, alors qu'on a continué d'utiliser l'algorithme exact pour SE. L'incertitude d'origine algorithmique pour VTI, de l'ordre de 1~\%, correspond précisément à la différence entre les courbes de VTI et SE. Il ne faut pas sur-interpréter cette différence: l'écart observé est une combinaison, dans des proportions inconnues, d'une (faible) différence de manipulabilité entre VTI et SE et d'une (légère) baisse de performance de l'algorithme approché de VTI quand le nombre de candidats croît.
+
+Ainsi, même s'il est prouvé théoriquement que CVTI est strictement moins manipulable que VTI (par le corolaire~\ref{thm:classical_voting_systems_not_Cond_resist} des théorèmes de condorcification) et que VTI est lui-même strictement moins manipulable que SE (section~\ref{sec:reducation_general_vers_svbe}), ces différences de manipulabilité sont, en fait, très faibles, notamment quand on les compare avec les autres modes de scrutin étudiés ici.
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[width=\relativewidth\textwidth]{fig_simu/spherec_sur_adm.eps}
+\end{center}
+\spacebeforecaption\caption{Taux de MC normalisé (rapporté aux situations admissibles) en fonction du nombre de candidats $C$. Culture sphérique, $V = 33$.}\label{fig:sphere_C_sur_adm}
+\end{figure}
+
+\medskip
+Pour expliquer tous ces phénomènes, on peut avancer l'explication qu'ils sont essentiellement liés à la dégradation de la <<\,qualité\,>> de la population, à sa désunion croissante. En particulier, pour les modes de scrutin vérifiant \cminf{} (tous ceux étudiés ici sauf Veto), on sait, par le lemme~\ref{thm_NonAdmManip}, que les situations non admissibles sont condamnées à être manipulables. On peut donc se demander si l'augmentation du taux de configurations non admissibles est le seul facteur expliquant la croissance des taux de manipulabilité. Pour tester cette hypothèse, nous avons donc indiqué en figure~\ref{fig:sphere_C_sur_adm} le \emph{taux de MC normalisé}, c'est-à-dire rapporté à la proportion de configurations non admissibles. Pour les modes de scrutin vérifiant \cminf{}, il s'agit de leur taux de manipulabilité pour la restriction de la culture impartiale aux situations admissibles. La constatation intéressante est que, même ainsi, les phénomènes mentionnés précédemment restent vrais, ce qui nous amène à la conjecture suivante.
+
+\begin{conj}\label{conj:sph_MC_comportement_C_sur_adm}
+On considère la culture sphérique avec $V \geq 3$.
+
+Le taux de manipulabilité normalisé de chaque mode de scrutin considéré ici est une fonction croissante du nombre de candidats~C.
+
+Pour $C \rightarrow +\infty$, le taux de manipulabilité normalisé de chaque mode de scrutin considéré ici, hormis Veto, tend vers $1$. 
+\end{conj}
+
+Cette conjecture n'invalide pas notre explication intuitive concernant la croissance de la manipulabilité. Le fait qu'il y ait de moins en moins souvent de candidat Condorcet-admissible n'est, à notre avis, qu'un symptôme d'un phénomène plus général de désaccord croissant, qui donne une image intuitive expliquant que des modes de scrutin qui ne vérifient pas \cminf{}, comme Veto, soient également touchés. %Par exemple, on constate sur la figure~\ref{fig:sphere_C_sur_adm} que la probabilité d'existence d'un vainqueur de Condorcet résistant, même conditionnée au fait que la configuration soit admissible, décroît et tend vers~0, ce qui fournit un autre indicateur signifiant que la désunion de la population s'aggrave, même en se restreignant aux configurations admissibles.
+
+
+
+
+
+\section{Culture sphérique: nombre d'électeurs~$V$}\label{sec:sphere_V}
+
+\subsection{Nombre d'électeurs $V$ impair}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\relativewidth\textwidth]{fig_simu/spherevbig.eps}
+\caption{Taux de MC en fonction du nombre d'électeurs $V$. Culture sphérique, $C=5$, grandes valeurs impaires de $V$.}\label{fig:sphere_V_big}
+\end{figure}
+
+Dans la figure~\ref{fig:sphere_V_big}, on trace les taux de MC pour des nombres d'électeurs~$V$ impairs. La parité du nombre d'électeurs peut créer des phénomènes particuliers que nous examinerons dans la section~\ref{sec:simus_sphere_V_parite}.
+
+\medskip
+Pour la plupart des systèmes de vote, le taux de MC semble être une fonction croissante du nombre d'électeurs~$V$  (sur l'ensemble des valeurs impaires). Dans le cas particulier de SE, la non-monotonie apparente entre $V = 9$ et $V = 13$ est inférieure à l'incertitude statistique de 1~\%, donc même dans ce cas, il n'est pas exclu que le taux de MC soit une fonction croissante du nombre d'électeurs.
+
+\medskip
+Pour CVTI, VTI et SE, on observe sur la figure~\ref{fig:sphere_V_big} que les taux de MC sont, de nouveau, nettement plus faibles que pour les autres modes de scrutin et que les écarts entre ces trois modes de scrutin sont minimes. Cette fois, on a utilisé l'algorithme exact pour VTI. Comme on sait que VTI est au plus aussi manipulable que SE au sens ensembliste (section~\ref{sec:reducation_general_vers_svbe}), la légère différence entre VTI et SE (au maximum légèrement supérieure à 1~\%) n'est due qu'à une réelle différence de manipulabilité, c'est-à-dire à des profils où SE est manipulable mais où VTI ne l'est pas. Cet écart semble tendre vers~0 quand le nombre d'électeurs tend vers~$+\infty$. Quant à la différence entre CVTI et VTI, elle est de nouveau extrêmement faible\footnote{Notre algorithme approché pour CVTI n'a pas pu décider la manipulabilité pour 2 cas sur 10\,000 pour $V = 5$ et 1 cas sur 10\,000 pour $V = 13$ et $V = 17$. Dans tous les autres cas, la manipulabilité, vraie ou fausse, a pu être décidée et elle est égale à celle de VTI.}. 
+
+Ces modes de scrutin mis à part, l'uninominal à deux tours se comporte mieux que les autres modes de scrutin, sauf à partir d'une centaine d'électeurs où Veto devient moins manipulable.
+
+
+
+\medskip
+Pour tous les systèmes de vote hormis CVTI, VTI, SE et Veto, le taux de MC semble tendre vers 1 quand le nombre d'électeurs~$V$ tend vers~$+\infty$. Mais contrairement au cas $C \rightarrow +\infty$, la probabilité d'existence d'un vainqueur de Condorcet ne tend pas vers 0 quand $V$ tend vers $+ \infty$ \citep{gehrlein2006condorcet}, donc on ne peut pas prouver cette observation par le même moyen. Il existe cependant des résultats théoriques sur la question. D'une part, \cite{kim1996manipulability} montrent les résultats suivant.
+\begin{itemize}
+\item Pour Veto, si $C = 3$ et $V \rightarrow +\infty$, le taux de MC tend vers $\frac{1}{2}$.
+\item Pour Veto, si $C > 3$ et $V \rightarrow +\infty$, le taux de MC tend vers une limite strictement comprise entre 0 et 1.
+\item Pour toutes les RPS sauf Veto, si $C \geq 3$ et $V \rightarrow +\infty$, le taux de MC tend vers $1$.
+\item Pour Maximin, si $C \geq 3$ et $V \rightarrow +\infty$, le taux de MC tend vers $1$.
+\item Pour la méthode de Coombs, si $C = 3$ et $V \rightarrow +\infty$, le taux de MC tend vers $1$.
+\end{itemize}
+D'autre part, \cite{lepelley1999kimroush} montrent que pour SE, si $C = 3$ et $V \rightarrow +\infty$, le taux de MC tend vers $0,\!16887$ (valeur approchée): en particulier, c'est une valeur strictement comprise entre 0 et~1.
+
+À la lumière de ces résultats théoriques et des courbes de la figure~\ref{fig:sphere_V_big}, nous formulons les conjectures suivantes.
+
+\begin{conj}\label{conj:V_infini_MC_tend_vers_1}
+En culture impartiale, pour $C \geq 3$ et $V \rightarrow +\infty$, le taux de MC tend vers~1 pour la méthode de Coombs, la méthode de Bucklin, CSD, la méthode de Kemeny, la méthode de Bucklin itérée, la méthode de Schulze, la méthode de Nanson, la méthode par paires ordonnées, VTID, la méthode de Baldwin et l'uninominal à deux tours.
+
+En culture sphérique, il en est de même pour le vote par notation, le vote par assentiment et le jugement majoritaire.
+\end{conj}
+
+Rappelons qu'un tel résultat est prouvé pour Maximin et pour toutes les RPS hormis Veto.
+
+\begin{conj}\label{conj:V_infini_MC_tend_pas_vers_1}
+En culture impartiale, pour $C \geq 3$ et $V \rightarrow +\infty$, le taux de MC tend vers une limite strictement comprise entre 0 et 1 pour CVTI, VTI et SE. 
+\end{conj}
+
+Rappelons qu'un tel résultat est déjà prouvé pour Veto.
+
+\medskip
+En culture sphérique, il semblerait donc que CVTI, VTI, SE et Veto soient les seuls modes de scrutin, parmi ceux étudiés ici, dont le taux de manipulabilité ne tende pas vers~1 quand le nombre d'électeurs~$V$ tend vers $+\infty$.
+
+
+
+\subsection{Influence de la parité de $V$}\label{sec:simus_sphere_V_parite}
+
+
+%\begin{figure}[ht]
+%\centering
+%\includegraphics[width=\relativewidth\textwidth]{fig_simu/spherevsmall.eps}
+%\spacebeforecaption\caption{Taux de MC en fonction du nombre d'électeurs $V$. Culture sphérique, $C=5$, petites valeurs de $V$.}\label{fig:sphere_V_small}
+%\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\relativewidth\textwidth]{fig_simu/spherevsmallrestricted.eps}
+\spacebeforecaption\caption{Taux de MC en fonction du nombre d'électeurs $V$ pour les modes de scrutin présentant une oscillation. Culture sphérique, $C=5$, petites valeurs de~$V$.}\label{fig:sphere_V_small_restricted}
+\end{figure}
+
+%On observe une fois encore les performances de CVTI, VTI et SE, bien meilleures que celles des autres modes de scrutin et similaires entre elles. 
+%Enfin, on observe que l'uninominal à deux tours présente de nouveau des taux de manipulabilité intermédiaires entre ces trois variantes de VTI et les autres modes de scrutin, lesquels sont nettement plus manipulables.
+
+Si on utilise des valeurs de $V$ paires et impaires, on observe des phénomènes de non-monotonie pour le taux de MC de certains modes de scrutin. Dans la figure~\ref{fig:sphere_V_small_restricted}, on considère toutes les valeurs du nombre d'électeurs de 3 à 33 et on représente le taux de MC des modes de scrutin concernés; les autres sont omis afin de ne pas alourdir la figure.
+
+\medskip
+Tout d'abord, examinons le jugement majoritaire ou la méthode de Bucklin, pour lesquels le taux de MC présente des oscillations sans incertitude algorithmique entre les valeurs paires et impaires de~$V$. 
+
+Ce comportement oscillatoire pourrait être lié au fait que les probabilités d'existence d'un vainqueur de Condorcet et d'un candidat Condorcet-admissible oscillent également entre les valeurs paires et impaires de $V$. Cependant, comme \cite{gehrlein2006condorcet} le prouve par des arguments théoriques, ces oscillations sont en opposition de phase. Quand $V$ est impair, les deux notions sont équivalentes. Quand $V$ passe d'une valeur impaire à une valeur paire adjacente, la probabilité d'avoir un candidat Condorcet-admissible augmente, alors que la probabilité d'avoir un vainqueur de Condorcet diminue. Sur ces courbes obtenues par simulation informatique, on constate qu'il y a aussi des oscillations pour la probabilité d'existence d'un vainqueur de Condorcet résistant, en phase avec le vainqueur de Condorcet\footnote{On sait également \citep{gehrlein2006condorcet} qu'à parité fixée, la probabilité d'existence d'un vainqueur de Condorcet est monotone. En apparence, ceci ne semble pas vérifié dans la figure~\ref{fig:sphere_V_small_restricted} entre $V = 28$, $V = 30$ et $V = 32$. Cependant, la différence constatée entre $V = 30$ et $V = 32$ est inférieure à 2~\% et elle est uniquement d'origine statistique. Souvenons-nous que cette incertitude, qui est de l'ordre de 1~\% pour une valeur et de $\sqrt{2} \times 1$~\% pour la différence entre deux valeurs, n'est qu'un ordre de grandeur qui peut, parfois, être dépassé.}. Or, nous l'avons vu, la probabilité d'existence d'un candidat Condorcet-admissible, d'un vainqueur de Condorcet (ce qui était équivalent dans les courbes précédentes) ou d'un vainqueur de Condorcet résistant sont des indicateurs qui ont un impact sur la manipulabilité.
+
+Cependant, si cette explication est correcte, il est surprenant que les autres systèmes de vote vérifiant \cminf{} ne présentent pas le même type de comportement oscillatoire. On peut formuler l'hypothèse qu'il y a deux effets concurrents: la probabilité plus forte d'avoir un candidat Condorcet-admissible protège mieux contre la manipulation pour $V$ pair, mais celle d'avoir un vainqueur de Condorcet voire un vainqueur de Condorcet résistant protège mieux contre la manipulation pour $V$ impair. Ainsi, il est possible que les deux effets s'annulent en partie, ce qui pourrait expliquer que peu de modes de scrutin présentent des oscillations. On verra que ce phénomène oscillatoire est beaucoup plus répandu en culture de puits gaussien et nous expliquerons pourquoi (section~\ref{sec:simus_gauss_V_parite}).
+
+Cette explication soulève une question supplémentaire. Pour les modes de scrutin vérifiant \cminf{}, la borne inférieure habituelle sur le taux de manipulabilité est donnée par la proportion de configurations non admissibles; donc on pourrait penser que les oscillations de ces courbes seront en phase. Or c'est le contraire qui se produit: les oscillations du jugement majoritaire et de la méthode de Bucklin sont en phase avec la proportion de configurations Condorcet.
+
+%\begin{figure}[ht]
+%\centering
+%\includegraphics[width=\relativewidth\textwidth]{fig_simu/spherevsmall_cond.eps}
+%\spacebeforecaption\caption{Taux d'existence d'un candidat spécial en fonction du nombre d'électeurs $V$. Culture sphérique, $C=5$, petites valeurs de $V$.}\label{fig:sphere_V_small_cond}
+%\end{figure}
+
+
+\medskip
+Pour ces raisons, nous proposons une autre piste d'explication, qui n'est pas exclusive de la précédente. Le jugement majoritaire et la méthode de Bucklin  reposent sur la notion de médiane, qui a une définition légèrement différente selon que le nombre d'électeurs est pair ou impair. Plus précisément, examinons ce qui peut se passer avec un nombre pair d'électeurs, s'il y a exactement $\frac{V}{2}$ électeurs préférant un certain candidat~$c$ au vainqueur sincère $\winner$. En général, l'électeur sincère typique ne donnera à $\winner$ ni le rang ni le score maximal; et il ne donnera à $c$ ni le rang ni le score minimal. Après manipulation, on aboutit au type de profil représenté de façon simplifiée dans la table~\ref{table:exemple_JM_Buck}.
+\begin{table}\label{table:exemple_JM_Buck}
+$$
+\begin{array}{r@{~:~}l|r@{~:~}l}
+\multicolumn{2}{c|}{\frac{V}{2} \text{ (sincères)}} & \multicolumn{2}{c}{\frac{V}{2} \text{ (manipulateurs)}} \\ \hline
+\text{Divers}  & 1     & c & 1 \phantom{\vdots} \\
+\winner & 0,\!9 & \multicolumn{2}{c}{\vdots} \\
+\text{Divers}  & 0,\!5 & \text{Divers} & 0,\!5 \phantom{\vdots} \\
+c       & 0,\!2 & \multicolumn{2}{c}{\vdots} \\
+\text{Divers}  & 0     & \winner & 0 \phantom{\vdots} \\
+\end{array}
+$$
+\caption{Exemple explicatif pour le jugement majoritaire et la méthode de Bucklin.}
+\end{table}
+
+En jugement majoritaire ou en méthode de Bucklin, par convention, on utilise la médiane défavorable, c'est-à-dire la note médiane inférieure en jugement majoritaire et le rang médian supérieur en méthode de Bucklin. Ainsi, la note médiane prise en compte par le jugement majoritaire (resp. le rang médian pris en compte par la méthode de Bucklin) pour $\winner$ est 0 (resp. $C$), alors que la note médiane (resp. le rang médian) de $c$ est 0,2 (resp. $C-1$ par exemple). Ainsi, une coalition formée d'un majorité d'électeurs, au sens large, peut généralement manipuler. En revanche, si on prend un type de profil comme l'exemple simplifié ci-dessus mais avec un nombre impair d'électeurs, il faut une majorité stricte d'électeurs pour faire gagner~$c$. On peut ainsi expliquer que le taux de manipulabilité est plus élevé pour un nombre d'électeurs pair.
+
+\medskip
+Pour CSD, le phénomène oscillatoire observé est à confirmer, puisque la courbe tracée n'est qu'une borne inférieure du taux de MC (en pratique, il s'agit du taux de MT). On peut tout de même remarquer que la règle de CSD présente un comportement qui dépend de la parité de~$V$: en effet, la pénalité pour une défaite de $c$ contre $d$ est $1 + D_{dc} - \frac{V}{2}$ quand $V$ est pair, mais seulement $\frac{1}{2} + D_{dc} - \frac{V}{2}$ quand $V$ est impair.
+
+Pour CVTI, VTI et SE, on observe aussi des effets de non-monotonie, dont l'amplitude est supérieure à la marge d'erreur. Cependant, ils ne semblent pas avoir de pseudo-période évidente. Vu la façon dont ces systèmes de vote sont dépouillés, on peut formuler l'hypothèse que plusieurs effets concurrents se combinent, dépendant du modulo de $V$ par tous les entiers de $2$ à $C$.
+
+Pour BI, comme pour CSD, la courbe ne fournit qu'une borne inférieure, mais elle peut être commentée en tant que courbe du taux de MT. Cette fois, il semble y avoir une transition autour de $V = 8$ ou $V = 9$: les oscillations demeurent mais la phase de la courbe s'inverse! Pour des plus petites valeurs de $V$, la manipulabilité est plus grande pour $V$ pair (que pour les valeurs impaires adjacentes); pour de plus grandes valeurs, elle est plus grande pour $V$ impair. Comme c'est un mode de scrutin à plusieurs tours, on peut imaginer des effets de modulo comme pour CVTI, VTI et SE et des effets de parité dus à l'utilisation de la médiane comme pour la méthode de Bucklin. En tout cas, le fonctionnement complexe de ce mode de scrutin éloigne la perspective d'une explication simple.
+
+\medskip
+Enfin, on remarque les phénomènes de non-monotonie observés diminuent en amplitude quand le nombre d'électeurs~$V$ croît. On peut aisément l'expliquer: quand le nombre d'électeurs est grand, les phénomènes d'égalité impliquant une exacte moitié des électeurs sont plus rares. De manière plaisante, on peut résumer cette observation par l'adage: <<\,l'infini est impair\,>>. Ou encore: <<\,quand l'infini est pair, il ne s'en aperçoit pas\,>>.
+
+
+\section{Culture monopolaire: concentration $\kappa$}\label{sec:vmf_concentration}
+
+Nous considérons maintenant des cultures de VMF non dégénérées, c'est-à-dire avec une concentration~$\kappa$ non nulle. Rappelons qu'on fixe un vecteur unitaire $\pole$, appelé le \emph{pôle} de la distribution. Ensuite, indépendamment pour chaque électeur, on tire un vecteur unité $\vecteur{u}$ dans $\R^C$ selon une distribution de VMF:
+$$
+p(\vecteur{u}) = X_\kappa e^{\kappa \bracket{\vecteur{u}}{\pole}},
+$$
+où $X_\kappa$ une constante de normalisation.
+
+%Qualitativement, le modèle de VMF est similaire au modèle de Mallows, qui est utilisé pour des préférences ordinales \citep{mallows1957nonnull}. Outre le fait que le premier est mieux adapté aux préférences cardinales que le second, il possède d'autres avantages qui sont discutés dans la section~\ref{sec:pratique_sphere}.
+%
+%Les cas dégénérés de culture de VMF sont la culture sphérique pour $\kappa = 0$ et un pic de Dirac sur le pôle pour $\kappa = + \infty$. 
+
+Maintenant que nous avons étudié l'impact du nombre de candidats ou du nombre d'électeurs, nous allons étudier l'effet de la concentration et de la position du pôle. Puis nous élargirons le modèle à plusieurs pôles afin de représenter plusieurs groupes sociaux possédant chacun une opinion typique.
+
+% Note: il s'agit de VMF à C-1 dimensions ici.
+
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\relativewidth\textwidth]{fig_simu/vmfconcentration.eps}
+\spacebeforecaption\caption{Taux de MC en fonction de la concentration $\kappa$. Culture de VMF, $V=33$, $C=5$, un pôle de position aléatoire.}\label{fig:vmf_kappa}
+\end{figure}
+
+Dans la figure \ref{fig:vmf_kappa}, pour chaque population, le pôle $\pole$ est tiré au hasard, puis les électeurs sont tirés avec une certaine concentration $\kappa$. 
+On remarquera que les électeurs ne sont pas indépendants. Plus précisément, une fois que le pôle est fixé, ils sont indépendants; mais, sur tout l'ensemble des populations possibles (avec toutes les positions possibles du pôle), les électeurs ne sont pas indépendants. En effet, \emph{a priori}, un électeur a une probabilité uniforme sur la sphère unité de $\R^C$; mais si on sait, par exemple, que les $V - 1$ premiers électeurs sont proches d'un certain point de l'espace des utilités, alors le dernier électeur a une probabilité plus élevée d'être proche de ce point.
+
+Comme on pouvait s'y attendre, plus la concentration~$\kappa$ est élevée, plus les taux de MC sont faibles, en tout cas pour la plupart des modes de scrutin. Dans le cas dégénéré $\kappa = +\infty$, tous les électeurs ont toujours le même vecteur d'utilité, donc aucun système de vote unanime (section \ref{sec:unanimite}) n'est manipulable: c'est le cas de tous les modes de scrutin étudiés ici, hormis Veto (voir ci-dessous).
+
+Cependant, certains systèmes de vote semblent significativement moins réactifs que les autres à une augmentation de la concentration~$\kappa$: Veto, le vote par assentiment, la méthode de Borda, le vote par notation et, dans une moindre mesure, la méthode de Coombs. Cela signifie que, même quand les électeurs ont des opinions relativement similaires, ces modes de scrutin conservent une manipulabilité élevée.
+
+Pour Veto, le taux de MC n'est même pas monotone. Et nous allons montrer qu'il ne tend pas vers~0, contrairement à ce qui se passe pour les modes de scrutin unanimes.
+
+\begin{prop}
+On considère le mode de scrutin Veto, muni d'une règle de départage qui n'utilise aucune information sur les préférences autre que le candidat contre lequel vote chaque électeur.
+
+On suppose $V \geq C - 1$.
+
+En culture de VMF avec un pôle tiré uniformément, quand $\kappa \rightarrow +\infty$, le taux de manipulabilité tend vers $1 - \dfrac{1}{C-1}$.
+\end{prop}
+
+L'hypothèse faite sur la règle de départage est en particulier vraie quand les candidats ex aequo sont départagés par ordre alphabétique ou par ordre d'indice, comme c'est le cas dans \svvamp{}. Par ailleurs, sur la figure~\ref{fig:vmf_kappa}, comme $C = 5$, le taux limite est $\dfrac{3}{4}$; mais il est loin d'être atteint: la convergence est donc relativement lente.
+
+\begin{proof}
+Dans la limite où tous les électeurs ont le même ordre de préférence, ils votent tous contre le même candidat et c'est seulement la règle de départage qui désigne le vainqueur parmi les autres candidats. Comme le pôle est tiré de façon neutre, il y a une chance sur $C - 1$ que le candidat élu soit celui préféré par les électeurs. Dans tous les autres cas, la totalité des électeurs peut former une coalition et manipuler pour faire gagner leur candidat préféré: en effet, comme $V \geq C - 1$, il est possible qu'au moins un électeur vote contre chaque autre candidat.
+\end{proof}
+
+Encore une fois, on remarque les taux de MC faibles et extrêmement similaires de CVTI, VTI et SE, suivi des performances intermédiaires de l'uninominal à deux tours, lui-même moins manipulable que les autres modes de scrutin.
+
+\section{Culture monopolaire: position du pôle}\label{sec:vmf_position_pole}
+
+À présent, nous allons travailler avec une concentration~$\kappa$ constante et faire varier la localisation des électeurs. Nous conservons le même ordre de préférence sur les candidats $1 \plusque 2 \plusque \ldots \plusque 5$ mais nous faisons varier la forme de l'opinion de l'électeur typique (c'est-à-dire situé exactement au pôle de la distribution). Tout d'abord, nous considérons le cas limite où l'électeur typique préfère le candidat~1 et où il est indifférent entre les autres candidats; et nous effectuons une transition vers un état relativement régulier où ses utilités sont les scores de Borda (figure~\ref{fig:vmf_pole_position}). Enfin, nous déplaçons l'électeur typique d'un état de type Borda vers un autre cas limite où il déteste le candidat~5 et où il est indifférent entre les autres candidats (figure~\ref{fig:vmf_pole_position_hate}).
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\relativewidth\textwidth]{fig_simu/vmfpoleposition.eps}
+\spacebeforecaption\caption{Taux de MC en fonction de la position du pôle $\pole$. Culture de VMF, $V=33$, $C=5$, un pôle de concentration $\kappa = 2$. Pour $\theta = 0$, on a $\pole = \pole_0 = \frac{1}{\sqrt{20}} (4, -1, -1, -1, -1)$. Pour $\theta = \theta_{\max}$, on a $\pole = \pole_1 = \frac{1}{\sqrt{10}} (2, 1, 0, -1, -2)$.}\label{fig:vmf_pole_position}
+\end{figure}
+
+Dans la figure~\ref{fig:vmf_pole_position}, la concentration $\kappa = 2$ est ainsi constante, mais la position du pôle $\pole$ est imposée et non plus tirée au hasard. Considérons deux vecteurs d'utilité unitaires $\pole_0 = \frac{1}{\sqrt{20}} (4, -1, -1, -1, -1)$ et $\pole_1 = \frac{1}{\sqrt{10}} (2, 1, 0, -1, -2)$. En notant $\theta_{\max}$ l'angle entre $\pole_0$ et $\pole_1$, on a $\theta_{\max} = 45\degree$. On explore la géodésique de la sphère unité allant de $\pole_0$ à $\pole_1$, en prenant comme paramètre l'angle polaire~$\theta$ parcouru depuis $\pole_0$. Quand $\theta = 0$, on a $\pole = \pole_0$: l'électeur typique préfère le candidat~1 et il est indifférent entre les autres candidats. Quand $\theta = \theta_{\max}$, on a $\pole = \pole_1$: l'électeur typique a un ordre de préférence bien établi $1 \plusque 2 \plusque 3 \plusque 4 \plusque 5$, avec des utilités qui sont les scores de Borda à normalisation près. 
+
+On observe que tous les systèmes de vote deviennent plus manipulables quand le pôle de la distribution s'approche de $\pole_1$ (avec des amplitudes très différentes pour ce phénomène selon le système de vote). Nous proposons l'explication suivante. Avec une même valeur de $\kappa$, quand le pôle est $\pole_0$, la population est fortement polarisée en faveur du candidat~1, donc il est assez improbable qu'un électeur préfère un autre candidat au candidat~1; mais, quand le pôle est $\pole_1$, il est plus proche de points de l'hypersphère où les électeurs préfèrent le candidat~2 au candidat~1. Par conséquent, les coalitions en faveur du candidat~2 ont plus de membres et ont plus de chances de réussir une manipulation.
+
+Comme précédemment, on note les bonnes performances de CVTI, VTI et SE, suivies de celles de l'uninominal à deux tours.
+
+\medskip
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\relativewidth\textwidth]{fig_simu/vmfpolepositionhate.eps}
+\spacebeforecaption\caption{Taux de MC en fonction de la position du pôle $\pole$ (suite). Culture de VMF, $V=33$, $C=5$, un pôle de concentration $\kappa = 2$. Pour $\theta' = 0$, on a $\pole = \pole_1 = \frac{1}{\sqrt{10}} (2, 1, 0, -1, -2)$. Pour $\theta' = \theta'_{\max}$, on a $\pole = \pole_2 = \frac{1}{\sqrt{20}} (1, 1, 1, 1, -4)$.}\label{fig:vmf_pole_position_hate}
+\end{figure}
+
+Dans la figure~\ref{fig:vmf_pole_position_hate}, on poursuit l'investigation en se dirigeant vers le pôle~$\pole_2 = \frac{1}{\sqrt{20}} (1, 1, 1, 1, -4)$. En notant $\theta'_{\max}$ l'angle entre $\pole_1$ et $\pole_2$, on a de nouveau $\theta'_{max} = 45\degree$. On prend comme paramètre $\theta'$, l'angle polaire parcouru depuis~$\pole_1$. Pour $\theta' = 0$, on a $\pole = \pole_1$: l'électeur typique a un ordre de préférence bien établi $1 \plusque 2 \plusque 3 \plusque 4 \plusque 5$. Pour $\theta' = \theta'_{max}$, on a $\pole = \pole_2$: l'électeur typique a une aversion pour le candidat~5 et il est indifférent entre les autres candidats.
+
+On remarquera que le trajet parcouru de $\pole_0$ vers $\pole_1$ puis de $\pole_1$ vers $\pole_2$ n'est pas une géodésique de la sphère\footnote{À titre indicatif, si on poursuit l'arc de cercle de $\pole_0$ vers $\pole_1$ jusqu'à $\theta = 90\degree$, on obtient $\pole = \frac{1}{\sqrt{20}} (0, 3, 1, -1, -3)$, ce qui ne représente pas le même ordre de préférence.}: en effet, comme on le montre dans l'annexe~\ref{sec:sphere}, les géodésiques de l'espace des utilités sont les zones d'unanimité. Or en $\pole_0$ et $\pole_2$, l'électeur typique est indifférent entre les candidats 2, 3 et 4, alors que ce n'est pas le cas en $\pole_1$. Le trajet parcouru par le pôle~$\pole$ sur la sphère entre la figure~\ref{fig:vmf_pole_position} et la figure~\ref{fig:vmf_pole_position_hate} est donc une ligne brisée de $\pole_0$ vers $\pole_1$ puis de $\pole_1$ vers~$\pole_2$.
+
+Sur la figure~\ref{fig:vmf_pole_position_hate}, on constate que les taux de MC, de configurations non admissibles et de configurations non résistantes continuent d'augmenter. La culture devient semblable à une culture uniforme sur les quatre candidats crédibles (tous sauf le candidat~5), hormis le fait qu'il y a un candidat supplémentaire moins apprécié par les électeurs. Celui-ci n'a aucune chance de gagner dans tous les modes de scrutin raisonnables (même Veto) mais il peut perturber les modes de scrutin les plus sensibles à l'ajout d'un candidat non pertinent, par exemple la méthode de Borda: pour un manipulateur, ce candidat permet d'ajouter un point à la différence de score entre le candidat souhaité~$c$ et le vainqueur du vote sincère~$\winner$, donc il augmente la possibilité de manipulation par rapport à une culture uniforme sur 4~candidats.
+
+
+
+\section{Culture multipolaire: nombre de pôles}\label{sec:vmf_nombre_de_poles}
+
+Jusqu'à présent, nous avons considéré des cultures avec un seul pôle~$\pole$. Cependant, en pratique, une population d'agents n'a pas toujours des préférences centrées autour d'une opinion typique. On peut notamment envisager qu'il existe plusieurs groupes sociaux qui possèdent, chacun, une certaine cohésion. Nous employons ici l'expression \emph{groupe social} dans une acception très large: par exemple, dans une élection politique, il peut s'agir d'une classe socio-professionnelle ou d'une communauté d'intérêt; pour une élection dans d'autres contextes, comme une organisation professionnelle ou associative par exemple, il peut s'agir d'un groupe d'individus possédant une certaine cohésion, qu'elle soit fondée sur des bases idéologiques, personnelles ou autres.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\relativewidth\textwidth]{fig_simu/vmfnumberpole.eps}
+\spacebeforecaption\caption{Taux de MC en fonction du nombre de pôles. Culture de VMF, $V=33$, $C=5$, pôles équiprobables de positions aléatoires, $\kappa = 2$.}\label{fig:vmf_number_poles}
+\end{figure}
+
+Dans la figure~\ref{fig:vmf_number_poles}, on élargit donc le modèle de VMF en considérant une culture multipolaire représentant une population constituée de plusieurs groupes sociaux. Formellement, on prend comme paramètre $k$, qui représente le nombre de groupes. Voici comment se déroule le tirage aléatoire d'une configuration. Tout d'abord, on tire $k$ vecteurs unitaires $\pole_1, \ldots, \pole_k$ indépendamment et uniformément qui seront les pôles de la distribution, c'est-à-dire le vecteur d'utilité de l'électeur typique de chaque groupe social. Ensuite, pour chaque électeur indépendamment, on tire un entier $i$ entre $1$ et $k$ de façon équiprobable qui représente son groupe social, puis on tire son vecteur d'utilité selon une distribution de VMF de pôle $\pole_i$ et de concentration~$\kappa$. Afin de simplifier l'étude, on considère donc que les groupes sociaux sont de taille comparables (puisque $i$ est tiré de façon équiprobable) et de même concentration constante~$\kappa$, même si \svvamp{} permet de faire également varier ces paramètres.
+
+Comme on pouvait s'y attendre, on constate sur la figure~\ref{fig:vmf_number_poles} que les taux de MC croissent avec le nombre de pôles (sauf pour Veto).
+
+Avec $V$ et $C$ fixés, quand le nombre de pôles $k$ tend vers $+\infty$, la probabilité qu'il existe une paire d'électeurs qui sont dans le même groupe social tend vers~0, donc la distribution devient uniforme sur l'hypersphère: ainsi, la distribution limite est tout simplement la culture sphérique. Les courbes permettent de confirmer cette remarque théorique: pour $C = 16$, les taux de MC sont certes plus faibles mais déjà comparables à ceux observés pour une culture sphérique avec $V = 33$ et $C = 5$ (cf. figure~\ref{fig:sphere_C} par exemple).
+
+\section{Culture multipolaire: positions relatives des pôles}\label{sec:vmf_positions_des_poles}
+
+Pour terminer, nous allons nous pencher sur la position relative des groupes sociaux dans l'espace des utilités. L'exemple le plus simple pour étudier ce phénomène consiste à considérer deux groupes sociaux de taille semblable (chaque électeur est équiprobablement dans l'un ou l'autre) et de même concentration~$\kappa$.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\relativewidth\textwidth]{fig_simu/vmfangle.eps}
+\spacebeforecaption\caption{Taux de MC en fonction de l'angle entre les pôles. Culture de VMF, $V=33$, $C=5$, deux pôles équiprobables, $\kappa = 2$. Le premier pôle est $\pole_0 = \frac{1}{\sqrt{20}} (4, -1, -1, -1, -1)$. Pour $\theta = 0$, le second pôle est identique au premier. Pour $\theta = \theta_{max}$, le second pôle est $\pole_1 = \frac{1}{\sqrt{20}} (-1, 4, -1, -1, -1)$.}\label{fig:vmf_angle}
+\end{figure}
+
+Considérons les deux vecteurs d'utilité $\pole_0 = \frac{1}{\sqrt{20}} (4, -1, -1, -1, -1)$ et $\pole_1 = \frac{1}{\sqrt{20}} (-1, 4, -1, -1, -1)$. En notant $\theta_{\max}$ l'angle entre $\pole_0$ et $\pole_1$, on a $\cos(\theta_{\max}) = - \frac{1}{4}$ donc $\theta_{max} \simeq 104\degree$.
+
+
+Le premier pôle que nous prenons est toujours $\pole_0$. Le second pôle explore la portion du cercle unité de $\pole_0$ à $\pole_1$, en utilisant l'angle $\theta$ comme paramètre. Quand $\theta = 0$, les deux pôles coïncident en $\pole_0$: l'électeur typique préfère le candidat~1 et il est indifférent entre les autres candidats. Quand $\theta = \theta_{\max}$, le second pôle est $\pole_1$; l'électeur typique du second groupe social préfère le candidat~2 et il est indifférent entre les autres candidats.
+
+On observe sur la figure~\ref{fig:vmf_angle} que le taux de MC croît pour tous les systèmes de vote considérés quand $\theta$ croît. Ce n'est pas surprenant: quand le désaccord croît dans la population, la motivation pour manipuler croît également.
+
+Encore une fois, on notera les performances remarquables de CVTI, VTI et SE, suivies de celles de l'uninominal à deux tours.
+
+
+\section{Méta-analyse dans les cultures sphéroïdales}\label{sec:comparison_vs}
+
+
+
+
+
+
+
+
+%\begin{itemize}
+%\item Coombs, VA, Borda et VN,
+%\item JM, uninominal et Bucklin,
+%\item BI, CSD et Kemeny,
+%\item Nanson, Maximin et Schulze,
+%\item PO, VTI-D, Baldwin, U2T, SE, VTI et C-VTI.
+%\end{itemize}
+%
+%\begin{figure}
+%\begin{bigcenter}
+%\begin{tikzpicture}[->,>=latex,shorten >=1pt,auto,node distance=3cm,
+%  thick,main node/.style={fill=blue!20,draw},yscale=1]
+%
+%  \node[main node,minimum width=1.2cm] (CVTI) at (0,-0) {\strut CVTI};
+%  \node[main node,minimum width=1.2cm] (VTI) at (0,-1) {\strut VTI};
+%  \node[main node,minimum width=1.2cm] (SE) at (0,-2) {\strut SE};
+%  \node[main node,minimum width=1.2cm] (U2T) at (0,-3) {\strut U2T};
+%  \node[main node,minimum width=1.2cm] (Bald) at (0,-4) {\strut Bald.*, VTID*, PO*};
+%  \node[main node,minimum width=1.2cm] (Sch) at (1,-5) {\strut Sch.*, Max., Nan.*};
+%  \node[main node,minimum width=1.2cm] (Kem) at (2,-6) {\strut Kem.*, CSD*, BI*};
+%  \node[main node,minimum width=1.2cm] (Buck) at (3,-7) {\strut Buck., JM, Uni.};
+%  \node[main node,minimum width=1.2cm] (VN) at (3,-8) {\strut VN, Bor., VA, Coo.};
+%  \node[main node,minimum width=1.2cm] (Veto) at (-3,-5.5) {\strut Veto};
+%
+%  \path
+%  	(CVTI) edge (VTI)
+%    (VTI) edge (SE)
+%    (SE) edge (U2T)
+%    (SE) edge[bend right=37] (Veto)
+%    (U2T) edge (Bald)
+%    (U2T) edge[bend left=35] (Sch.15)
+%    (U2T) edge[bend left=40] (Kem.15)
+%    (U2T) edge[bend left=45] (Buck.15)
+%%    (Bald) edge (Sch)
+%%    (Sch) edge (Kem)
+%%    (Kem) edge (Buck)
+%    (Buck) edge (VN)
+%;
+%\end{tikzpicture}
+%\end{bigcenter}
+%\caption{Comparaison de la MC pour les cultures sphériques et VMF}\label{fig:sph_vmf_MC_comparison}
+%\end{figure}
+
+Afin de ne pas alourdir davantage cette étude, nous épargnons au lecteur méritant la variation d'autres paramètres: ainsi, on ne fera pas varier les tailles relatives typiques des groupes sociaux (c'est-à-dire les probabilités relatives qu'un électeur donné appartiennent à chacun d'entre eux) et on n'étudiera pas le cas où les concentrations~$\kappa$ sont différentes d'un groupe social à l'autre.  Les résultats trouvés sont similaires et chacun peut reproduire de telles expériences en utilisant \svvamp{}.
+
+De toutes les courbes précédentes, il semble se dégager une tendance générale. Certains modes de scrutin sont presque toujours moins manipulables que les autres: CVTI, VTI et SE. La seule exception a été obtenue pour $V = 3$ électeurs (figure~\ref{fig:sphere_V_big}), où la borne inférieure trouvée pour certains modes de scrutin est plus faible que le taux trouvé pour CVTI, VTI et SE. Cependant, on remarquera qu'avec 3~électeurs, la règle de départage joue un rôle si important qu'il est difficile d'en tirer des conclusions définitives. Nous choisirons donc d'ignorer le cas particulier $V = 3$ dans la suite de cette section.
+
+Dans ce chapitre et les suivants, nous recourrons souvent à une \emph{méta-analyse}, qui permet de présenter de façon compacte les résultats obtenus pour un ensemble de cultures qui peut être hétérogène et d'examiner les performances comparées des différents modes de scrutin.
+
+\subsection{Méta-analyse de MC dans les cultures sphéroïdales}
+
+\begin{figure}
+\begin{bigcenter}
+%\begin{tikzpicture}[->,>=latex,shorten >=1pt,auto,node distance=3cm,
+%  thick,main node/.style={fill=blue!20,draw},yscale=1] % Avec tolérance 2~\%
+%
+%  \node[main node,minimum width=1.2cm] (CVTI) at (0,2.5) {\strut CVTI};
+%  \node[main node,minimum width=1.2cm] (VTI) at (0,1.5) {\strut VTI};
+%  \node[main node,minimum width=1.2cm] (SE) at (0,0.5) {\strut SE};
+%  \node[main node,minimum width=1.2cm] (U2T) at (0,-0.5) {\strut U2T};
+%  \begin{scope}[xshift=-2.4cm]
+%	  \begin{scope}[xshift=-0.2cm]
+%  \node[main node,minimum width=1.2cm] (Bald) at (-3.2,-2) {\strut Bald.};
+%  \node[main node,minimum width=1.2cm] (VTID) at (-1.6,-2) {\strut VTID};
+%  \node[main node,minimum width=1.2cm] (PO) at (0,-2) {\strut PO};
+%  \node[main node,minimum width=1.2cm] (Nan) at (1.6,-2) {\strut Nan.};
+%  \node[main node,minimum width=1.2cm] (Sch) at (3.2,-2) {\strut Sch.};
+%	  \end{scope}
+%	  \begin{scope}[xshift=0.2cm]
+%  \node[main node,minimum width=1.2cm] (Max) at (4.8,-2) {\strut Max.};
+%  \node[main node,minimum width=1.2cm] (BI) at (6.4,-2) {\strut BI};
+%	  \end{scope}
+%  \end{scope}
+%  \begin{scope}[xshift=0cm,yshift=4cm]
+%  \node[main node,minimum width=1.2cm] (Uni) at (-1.6,-8) {\strut Uni.};
+%  \node[main node,minimum width=1.2cm] (CSD) at (0,-8) {\strut CSD};
+%  \node[main node,minimum width=1.2cm] (JM) at (1.6,-8) {\strut JM};
+%  \node[main node,minimum width=1.2cm] (Buck) at (3.2,-8) {\strut Buck.};
+%  \end{scope}
+%  \begin{scope}[xshift=0cm,yshift=1cm]
+%  \node[main node,minimum width=1.2cm] (Bor) at (-1.6,-7) {\strut Bor.};
+%  \node[main node,minimum width=1.2cm] (VN) at (0,-7) {\strut VN};
+%  \node[main node,minimum width=1.2cm] (VA) at (1.6,-7) {\strut VA};
+%  \node[main node,minimum width=1.2cm] (Coo) at (3.2,-7) {\strut Coo.};
+%  \node[main node,minimum width=1.2cm] (Veto) at (5.6,-7) {\strut Veto};
+%  \end{scope}
+%
+%  \draw[->] (SE) -| (Veto);
+%  \path
+%    (CVTI) edge (VTI)
+%    (VTI) edge (SE)
+%	(SE) edge (U2T)
+%    (U2T.south) edge (Bald.north)
+%    (U2T.south) edge (VTID.north)
+%    (U2T.south) edge (PO.north)
+%    (U2T.south) edge (Nan.north)
+%    (U2T.south) edge (Sch.north)
+%    (U2T.south) edge (Max.north)
+%    (U2T.south) edge (BI.north)
+%	(Sch.south) edge (Uni.north)
+%	(Sch.south) edge (CSD.north)
+%	(Sch.south) edge (JM.north)
+%	(Sch.south) edge (Buck.north)
+%	(Max.south) edge (Uni.north)
+%	(Max.south) edge (CSD.north)
+%	(Max.south) edge (JM.north)
+%	(Max.south) edge (Buck.north)
+%	(Uni.south) edge (Bor.north)
+%	(Uni.south) edge (VN.north)
+%	(Uni.south) edge (VA.north)
+%	(Uni.south) edge (Coo.north)
+%	(JM.south) edge (Bor.north)
+%	(JM.south) edge (VN.north)
+%	(JM.south) edge (VA.north)
+%	(JM.south) edge (Coo.north)
+%	(Buck.south) edge (VA.north)
+%	(Buck.south) edge (Coo.north)
+%%    (SE) edge[bend left=37] (Veto)
+%;
+%  \draw[<->] (Max) -- (Sch);
+%\end{tikzpicture}
+\begin{tikzpicture}[->,>=latex,shorten >=1pt,auto,node distance=3cm,
+  thick,main node/.style={fill=blue!20,draw},yscale=1]
+
+  \node[main node,minimum width=1.2cm] (CVTI) at (0,2) {\strut CVTI};
+  \node[main node,minimum width=1.2cm] (VTI) at (0,1) {\strut VTI};
+  \node[main node,minimum width=1.2cm] (SE) at (0,0) {\strut SE};
+  \begin{scope}[xshift=0cm]
+  \node[main node,minimum width=1.2cm] (U2T) at (-4.8,-2) {\strut U2T};
+  \node[main node,minimum width=1.2cm] (Nan) at (-4.8,-3.5) {\strut Nan.};
+  \node[main node,minimum width=1.2cm] (Bald) at (-3.2,-2) {\strut Bald.};
+  \node[main node,minimum width=1.2cm] (VTID) at (-1.6,-2) {\strut VTID};
+  \node[main node,minimum width=1.2cm] (PO) at (0,-2) {\strut PO};
+  \node[main node,minimum width=1.2cm] (BI) at (1.6,-2) {\strut BI};
+  \node[main node,minimum width=1.2cm] (Sch) at (3.2,-2) {\strut Sch.};
+  \node[main node,minimum width=1.2cm] (Max) at (4.8,-2) {\strut Max.};
+  \end{scope}
+  \begin{scope}[xshift=-0.8cm,yshift=4cm]
+  \node[main node,minimum width=1.2cm] (CSD) at (-1.6,-8) {\strut CSD};
+  \node[main node,minimum width=1.2cm] (JM) at (0,-8) {\strut JM};
+  \node[main node,minimum width=1.2cm] (Uni) at (1.6,-8) {\strut Uni.};
+  \node[main node,minimum width=1.2cm] (Buck) at (3.2,-8) {\strut Buck.};
+  \end{scope}
+  \begin{scope}[xshift=0cm,yshift=1cm]
+  \node[main node,minimum width=1.2cm] (Bor) at (-1.6,-7) {\strut Bor.};
+  \node[main node,minimum width=1.2cm] (VN) at (0,-7) {\strut VN};
+  \node[main node,minimum width=1.2cm] (Coo) at (1.6,-7) {\strut Coo.};
+  \node[main node,minimum width=1.2cm] (VA) at (3.2,-7) {\strut VA};
+  \node[main node,minimum width=1.2cm] (Veto) at (5.6,-7) {\strut Veto};
+  \end{scope}
+
+  \draw[->] (SE) -| (Veto);
+  \path
+    (CVTI) edge (VTI)
+    (VTI) edge (SE)
+	(SE.south) edge (U2T.north)
+    (SE.south) edge (Bald.north)
+    (SE.south) edge (VTID.north)
+    (SE.south) edge (PO.north)
+    (U2T.south) edge (Nan.north)
+    (SE.south) edge (Sch.north)
+    (SE.south) edge (Max.north)
+	(U2T.south) edge (Uni.north)
+	(Sch.south) edge (Uni.north)
+	(Max.south) edge (Uni.north)
+	(U2T.south) edge (CSD.north)
+	(Sch.south) edge (CSD.north)
+	(Max.south) edge (CSD.north)
+    (SE.south) edge (BI.north)
+	(U2T.south) edge (JM.north)
+	(Sch.south) edge (JM.north)
+	(Max.south) edge (JM.north)
+	(U2T.south) edge (Buck.north)
+	(JM.south) edge (Bor.north)
+	(Uni.south) edge (VN.north)
+	(JM.south) edge (VN.north)
+	(Sch.south) edge (VA.north)
+	(Max.south) edge (VA.north)
+	(Buck.south) edge (VA.north)
+	(Uni.south) edge (Coo.north)
+	(Buck.south) edge (Coo.north)
+%%    (SE) edge[bend left=37] (Veto)
+;
+\end{tikzpicture}
+\end{bigcenter}
+\caption{Méta-analyse de MC dans les cultures sphéroïdales étudiées (sauf $V = 3$).}\label{fig:sph_vmf_MC_comparison}
+\end{figure}
+
+Le graphe de la figure~\ref{fig:sph_vmf_MC_comparison} illustre cette méthode pour le taux de MC. Chaque sommet représente un mode de scrutin. Une arête d'un mode de scrutin~$f$ vers un mode de scrutin~$g$ signifie que, pour toutes les cultures observées dans ce chapitre (hormis $V = 3$), c'est-à-dire pour chaque point de chaque courbe de ce chapitre, le mode de scrutin~$f$ est prouvé au plus aussi manipulable que $g$. %On accepte comme différence l'incertitude d'origine statistique (faible) mais on exclut l'incertitude d'origine algorithmique liée à l'utilisation éventuelle d'algorithmes approchés (potentiellement importante).
+
+Plus précisément, pour un mode de scrutin $f$ et une culture donnée (c'est-à-dire avec un jeu de paramètres fixé), notons $\underline{\tau_\CM(f)}$ la borne inférieure trouvée par \svvamp{} et $\overline{\tau_\CM(f)}$ la borne supérieure. Pour deux modes de scrutin distincts $f$ et $g$, on trace une arête de $f$ vers $g$ ssi on a toujours $\overline{\tau_\CM(f)} \leq \underline{\tau_\CM(g)}$. 
+
+Dans toutes nos méta-analyses, nous excluons l'incertitude statistique, c'est-à-dire que nous considérons la \emph{proportion de configurations manipulables} sur chaque tirage de 10\,000 expériences, et non le \emph{taux de manipulabilité} exact sur la culture sous-jacente. La motivation en est la suivante. Imaginons qu'un mode de scrutin soit généralement beaucoup moins manipulable qu'un autre; mais que pour une culture donnée, les deux modes de scrutin aient un taux de MC proche de 100~\%. En raison de ce dernier cas, comme il y une incertitude statistique de l'ordre de 1~\%, il est impossible de conclure que le premier mode de scrutin a toujours un taux de manipulabilité inférieur au second sur les cultures considérées. Or ce cas est assez courant, donc nous ne pourrions pas conclure pour une part importante des paires de modes de scrutin. En considérant la proportion de configurations manipulables dans les tirages effectués, il est plus souvent possible de conclure. Il faudra donc être conscient que la méta-analyse fournit des résultats sur un ensemble d'expériences aléatoires, et non sur un ensemble de cultures. Malgré cette limitation, elle fournit une présentation synthétique des résultats qui fournit une indication qualitative de ce qui se passe dans les cultures étudiées.
+
+L'autre avantage d'ignorer l'incertitude statistique est que le graphe de méta-analyse obtenu est nécessairement transitif (sinon, on pourrait avoir une relation binaire du même type que dans l'exemple~\ref{ex:interval_graph}). Dans un but de lisibilité, nous ne représentons que l'ensemble minimal d'arêtes qui permet de déduire l'ensemble du graphe par transitivité.
+
+Pour certains modes de scrutin, comme la méthode de Baldwin, l'algorithme approché fournit essentiellement une borne inférieure de manipulabilité, donc il n'est pas possible d'établir que le mode de scrutin est au plus aussi manipulable qu'un autre. En revanche, il est possible de montrer qu'il est plus manipulable: c'est pour cette raison que la méthode de Baldwin, par exemple, possède des arêtes entrantes mais pas d'arête sortante, malgré le fait que la borne inférieure du taux de manipulabilité, représentée dans les courbes, soit généralement relativement faible. Pour Maximin et les méthodes de Schulze et Borda, la borne supérieure trouvée est suffisamment précise pour qu'on soit capable d'établir leur supériorité par rapport à certains autres modes de scrutin, même si le cas n'est pas observé en pratique pour la méthode de Borda.
+
+\medskip
+La principale conclusion de la figure~\ref{fig:sph_vmf_MC_comparison} est que CVTI, VTI et SE sont généralement moins manipulables que les autres modes de scrutin. Bien qu'on sache, par des arguments théoriques, que CVTI est strictement moins manipulable que VTI, lui-même strictement moins manipulable que SE, les différences constatées sont généralement très faibles: pour chaque tirage de 10\,000 expériences effectué pour les courbes de ce chapitre, la différence dans les proportions de profils manipulables est au maximum 0,02~\% entre CVTI et VTI et 1,3~\% entre CVTI et~SE.
+
+Dans les simulations effectuées, ces modes de scrutin sont suivis de l'uninominal à deux tours, qui est généralement (mais pas toujours) moins manipulable que les autres modes de scrutin étudiés. Par exemple, la différence de manipulabilité en faveur de VTID contre l'uninominal à deux tours
+%\footnote{Il s'agit donc de $\overline{\rho_\CM(U2T)}} - \underline{\rho_\CM(VTID)$} 
+n'est jamais supérieure à 1,3~\%; inversement, la différence de manipulabilité en faveur de l'uninominal à deux tours par rapport à VTID peut dépasser 57~\%%\footnote{$\underline{\rho_\CM(VTID) - \overline{\rho_\CM(U2T)}}$}
+. L'uninominal à deux tours ne peut être nettement dominé que par Veto, et seulement pour un nombre d'électeurs élevé. On peut ensuite distinguer informellement plusieurs groupes, regroupés par ligne dans la figure. 
+
+Pour la méthode de Baldwin, VTID, PO et BI, les manipulabilités trouvées sont en général assez comparables, mais il ne s'agit que de bornes inférieures qui ne permettent que d'établir leurs défaites face à SE et leur quasi-infériorité face à l'uninominal à deux tours. Quant à la méthode de Nanson, elle est toujours plus manipulable que l'uninominal à deux tours dans les courbes de ce chapitre. Maximin et la méthode de Schulze ont des performances très similaires (les différences constatées sont toujours inférieures à 1~\%) et meilleures que celles de l'uninominal, de CSD et du jugement majoritaire. Elles sont également souvent meilleures que la méthode de Bucklin (l'écart de manipulabilité, quand il est en faveur de celle-ci, n'excède jamais 1~\%).
+
+L'algorithme approché utilisé pour CSD ne permet pas d'établir s'il est moins manipulable que les modes de scrutin du groupe inférieur; on remarque simplement qu'il n'a pas été prouvé plus manipulable que l'uninominal, le jugement majoritaire ou la méthode de Bucklin, d'où sa position indicative dans la figure.
+
+Les modes de scrutin présentant les pires performances sont la méthode de Borda (plus manipulable que le jugement majoritaire), le vote par notation (plus manipulable que le jugement majoritaire ou l'uninominal), la méthode de Coombs (plus manipulable que l'uninominal ou la méthode de Bucklin) et le vote par assentiment (plus manipulable que la méthode de Bucklin). Dans de nombreuses figures de ce chapitre, les courbes de manipulabilité de ces quatre modes de scrutin sont au-dessus de la proportion de configurations non résistantes: pour les cas concernés, cela signifie que tout mode de scrutin respectant le critère de Condorcet est moins manipulable.
+
+Veto peut être considéré comme un groupe en lui-même, puisqu'il se comporte de façon très différente selon les cas d'étude. D'un côté, il a un avantage rare: en culture impartiale, son taux de manipulabilité ne tend pas vers 1 quand le nombre d'électeurs~$V$ tend vers~$+\infty$, contrairement à toutes les autres RPS et à Maximin. Sur la base des simulations effectuées, nous conjecturons même que, parmi les modes de scrutin étudiés ici, les seuls à partager cette propriété souhaitable sont CVTI, VTI et SE. De l'autre côté, Veto a un inconvénient très regrettable: dans une population où tous les électeurs ont les mêmes préférences, son taux de manipulabilité ne tend pas vers 0, contrairement à tous les modes de scrutin étudiés ici et plus généralement à tous ceux qui sont unanimes.
+
+%De toutes les courbes précédentes, il semble se dégager une tendance générale: en fonction du taux de MC avéré (c.à.d. de la borne inférieure trouvée par \svvamp{}), on peut grossièrement classifier les systèmes de vote en plusieurs groupes représentés dans la figure \ref{fig:sph_vmf_MC_comparison}. Dans ce graphe, une flèche d'un mode de scrutin vers un autre signifie que le premier est généralement moins manipulable que le second. 
+
+%Dans l'ensemble, il ne faut pas sur-interpréter cette figure: il ne s'agit pas ici d'établir une vérité absolue mais simplement de dégager des comportements généraux afin d'avoir une base de comparaison pour les expériences futures. \todo{Il faut détailler comment on décide une flèche.}
+
+%Pour les modes de scrutin représentés avec une astérisque, ces constatations se basent sur des bornes inférieures: elles permettent de montrer que ces modes de scrutin sont plus manipulables que certains autres, mais pas qu'ils le sont moins: c'est pourquoi ils n'ont pas de flèche sortante dans le graphe.
+
+%La principale conclusion, jusqu'à présent, est que CVTI, VTI et SE sont généralement moins manipulables que les autres modes de scrutin. Ensuite, l'uninominal à deux tours est généralement moins manipulable que tous les autres modes de scrutin (hormis Veto dans certains cas). Les courbes précédentes permettent également d'établir, sur les cultures étudiées, que la méthode de Bucklin, le jugement majoritaire et l'uninominal sont moins manipulables que le vote par notation, la méthode de Borda, le vote par assentiment et la méthode de Coombs.
+
+%Sur la base des bornes inférieures trouvées, on peut conjecturer que la méthode de Baldwin, VTID et PO sont généralement moins manipulables que la méthode de Schulze, Maximin et la méthode de Nanson, eux-mêmes généralement moins manipulables que la méthode de Kemeny, CSD et BI, eux-mêmes généralement moins manipulables que la méthode de Bucklin, le jugement majoritaire et l'uninominal. Mais il ne s'agit que de conjectures. \todo{D'où les positions relatives haut/bas mais l'absence de flèche dans la figure.}
+
+
+\subsection{Méta-analyse de MT dans les cultures sphéroïdales}
+
+La figure~\ref{fig:sph_vmf_MC_comparison} présente l'avantage de traiter la MC en toute généralité, mais avec l'inconvénient de ne pas pouvoir apporter de conclusions complètes concernant certains modes de scrutin pour lesquels on utilise un algorithme approché. Afin d'avoir une indication de manipulabilité complémentaire pour tous les modes de scrutin, on représente un graphe similaire pour la MT en figure~\ref{fig:sph_vmf_MT_comparison}. En outre, la MT fournit une mesure indicative des manipulations réalistes, qu'il est possible de réaliser avec un échange limité d'information. Pour la MT, nous faisons grâce au lecteur des courbes détaillées et nous passons directement à la méta-analyse.
+
+\begin{figure}
+\begin{bigcenter}
+%\begin{tikzpicture}[->,>=latex,shorten >=1pt,auto,node distance=3cm,
+%  thick,main node/.style={fill=blue!20,draw},yscale=1] % Avec tolérance = 2~\%
+%
+%  \node[main node,minimum width=1.2cm] (CVTI) at (0,2.5) {\strut CVTI};
+%  \node[main node,minimum width=1.2cm] (VTI) at (0,1.5) {\strut VTI};
+%  \node[main node,minimum width=1.2cm] (SE) at (0,0.5) {\strut SE};
+%  \node[main node,minimum width=1.2cm] (U2T) at (0,-0.5) {\strut U2T};
+%  \node[main node,minimum width=1.2cm] (Veto) at (4.0,0) {\strut Veto};
+%  \begin{scope}[xshift=0cm,yshift=-2cm]
+%  \node[main node,minimum width=1.2cm] (Bald) at (-0.8,0) {\strut Bald.};
+%  \node[main node,minimum width=1.2cm] (VTID) at (0.8,0) {\strut VTID};
+%  \end{scope}
+%  \begin{scope}[xshift=0.8cm,yshift=-4cm]
+%  \node[main node,minimum width=1.2cm] (Max) at (-3.2,0) {\strut Max.};
+%  	\begin{scope}[xshift=0.4cm]
+%  \node[main node,minimum width=1.2cm] (Sch) at (-1.6,0) {\strut Sch.};
+%  \node[main node,minimum width=1.2cm] (PO) at (0,0) {\strut PO};
+%  \node[main node,minimum width=1.2cm] (Nan) at (1.6,0) {\strut Nan.};
+%	  \end{scope}
+%  \end{scope}
+%  \begin{scope}[xshift=0cm,yshift=-6cm]
+%  \node[main node,minimum width=1.2cm] (Buck) at (-3.2,0) {\strut Buck.};
+%  \node[main node,minimum width=1.2cm] (CSD) at (-1.6,0) {\strut CSD};
+%  \node[main node,minimum width=1.2cm] (Uni) at (0,0) {\strut Uni.};
+%  \node[main node,minimum width=1.2cm] (BI) at (1.6,0) {\strut BI};
+%  \end{scope}
+%  \begin{scope}[xshift=0cm,yshift=-8cm]
+%  \node[main node,minimum width=1.2cm] (VN) at (-3.2,-0.2) {\strut VN};
+%  \node[main node,minimum width=1.2cm] (JM) at (-1.6,0) {\strut JM};
+%  \node[main node,minimum width=1.2cm] (VA) at (0,-0.2) {\strut VA};
+%  \node[main node,minimum width=1.2cm] (Bor) at (1.6,0) {\strut Bor.};
+%  \node[main node,minimum width=1.2cm] (Coo) at (3.2,0) {\strut Coo.};
+%%  \end{scope}
+%%  \begin{scope}[xshift=-0.8cm,yshift=-10cm]
+%  \end{scope}
+%
+%  \draw[->] (U2T) -| (Buck);
+%  \path
+%    (CVTI) edge (VTI)
+%    (VTI) edge (SE)
+%	(SE) edge (U2T)
+%    (U2T.south) edge (Bald.north)
+%    (U2T.south) edge (VTID.north)
+%	(VTID.south) edge (Max.north)
+%	(Bald.south) edge (Max.north)
+%	(VTID.south) edge (Sch.north)
+%	(Bald.south) edge (Sch.north)
+%	(VTID.south) edge (PO.north)
+%	(Bald.south) edge (PO.north)
+%	(Bald.south) edge (Nan.north)
+%	(Max.south) edge (CSD.north)
+%	(Sch.south) edge (CSD.north)
+%	(PO.south) edge (CSD.north)
+%	(Nan.south) edge (CSD.north)
+%	(Max.south) edge (Uni.north)
+%	(Sch.south) edge (Uni.north)
+%	(PO.south) edge (Uni.north)
+%	(Nan.south) edge (Uni.north)
+%	(PO.south) edge (BI.north)
+%	(Nan.south) edge (BI.north)
+%	(CSD.south) edge (JM.north)
+%	(Buck.south) edge (Bor.north)
+%	(CSD.south) edge (Bor.north)
+%	(Uni.south) edge (Bor.north)
+%	(Buck.south) edge (VN.north)
+%	(Uni.south) edge (VN.north)
+%	(JM) edge (VN)
+%	(Buck.south) edge (VA.north)
+%	(Uni.south) edge (VA.north)
+%	(BI.south) edge (VA.north)
+%	(JM) edge (VA)
+%	(CSD.south) edge (Coo.north)
+%	(Uni.south) edge (Coo.north)
+%	(BI.south) edge (Coo.north)
+%;
+%  \draw[<->] (Max) -- (Sch);
+%\end{tikzpicture}
+\begin{tikzpicture}[->,>=latex,shorten >=1pt,auto,node distance=3cm,
+  thick,main node/.style={fill=blue!20,draw},yscale=1]
+
+  \node[main node,minimum width=1.2cm] (CVTI) at (0,2.5) {\strut CVTI};
+  \node[main node,minimum width=1.2cm] (VTI) at (0,1.5) {\strut VTI};
+  \node[main node,minimum width=1.2cm] (SE) at (0,0.5) {\strut SE};
+  \node[main node,minimum width=1.2cm] (U2T) at (0,-0.5) {\strut U2T};
+  \node[main node,minimum width=1.2cm] (Veto) at (4.0,0.5) {\strut Veto};
+  \begin{scope}[xshift=-1.6cm,yshift=-2.5cm]
+  \node[main node,minimum width=1.2cm] (Max) at (0,0.5) {\strut Max.};
+  \node[main node,minimum width=1.2cm] (Sch) at (0,-0.5) {\strut Sch.};
+  \node[main node,minimum width=1.2cm] (PO) at (1.6,0) {\strut PO};
+  \node[main node,minimum width=1.2cm] (Bald) at (3.2,0) {\strut Bald.};
+  \end{scope}
+  \begin{scope}[xshift=-0.8cm,yshift=-4.5cm]
+  \node[main node,minimum width=1.2cm] (Buck) at (-3.2,0) {\strut Buck.};
+  \node[main node,minimum width=1.2cm] (CSD) at (-1.6,0) {\strut CSD};
+  \node[main node,minimum width=1.2cm] (BI) at (0,0) {\strut BI};
+  \node[main node,minimum width=1.2cm] (Nan) at (1.6,0) {\strut Nan.};
+  \node[main node,minimum width=1.2cm] (Uni) at (3.2,0) {\strut Uni.};
+  \node[main node,minimum width=1.2cm] (VTID) at (4.8,0) {\strut VTID};
+  \end{scope}
+  \begin{scope}[xshift=0cm,yshift=-6.5cm]
+  \node[main node,minimum width=1.2cm] (VN) at (-3.2,0) {\strut VN};
+  \node[main node,minimum width=1.2cm] (JM) at (-1.6,0) {\strut JM};
+  \node[main node,minimum width=1.2cm] (VA) at (0,0) {\strut VA};
+  \node[main node,minimum width=1.2cm] (Bor) at (1.6,0) {\strut Bor.};
+  \node[main node,minimum width=1.2cm] (Coo) at (3.2,0) {\strut Coo.};
+%  \end{scope}
+%  \begin{scope}[xshift=-0.8cm,yshift=-10cm]
+  \end{scope}
+
+  \draw[->] (U2T) -| (Buck);
+  \draw[->] (U2T) -| (VTID);
+  \path
+    (CVTI) edge (VTI)
+    (VTI) edge (SE)
+	(SE) edge (U2T)
+    (U2T.south) edge (Bald.north)
+%    (U2T.south) edge (VTID.north)
+	(U2T.south) edge (Max.north)
+	(Max) edge (Sch)
+	(U2T.south) edge (PO.north)
+	(Bald.south) edge (Nan.north)
+	(Bald.south) edge (CSD.north)
+	(Sch.south) edge (CSD.north)
+	(PO.south) edge (CSD.north)
+	(VTID) edge (Uni)
+	(Sch.south) edge (Uni.north)
+	(PO.south) edge (Uni.north)
+	(Nan) edge (Uni)
+	(Bald.south) edge (BI.north)
+	(VTID.south) edge (JM.north)
+	(Nan.south) edge (JM.north)
+	(CSD.south) edge (JM.north)
+	(Buck.south) edge (Bor.north)
+	(VTID.south) edge (Bor.north)
+	(Nan.south) edge (Bor.north)
+	(CSD.south) edge (Bor.north)
+	(Buck.south) edge (VN.north)
+	(Uni.south) edge (VN.north)
+	(JM) edge (VN)
+	(Buck.south) edge (VA.north)
+	(VTID.south) edge (VA.north)
+	(Nan.south) edge (VA.north)
+	(CSD.south) edge (VA.north)
+	(BI.south) edge (VA.north)
+	(Buck.south) edge (Coo.north)
+	(VTID.south) edge (Coo.north)
+	(Nan.south) edge (Coo.north)
+	(CSD.south) edge (Coo.north)
+	(BI.south) edge (Coo.north)
+;
+%  \draw[<->] (Max) -- (Sch);
+\end{tikzpicture}\vspace{-0.5cm}%MAGOUILLE
+\end{bigcenter}
+\caption{Méta-analyse de MT dans les cultures sphéroïdales étudiées (sauf $V = 3$).}\label{fig:sph_vmf_MT_comparison}
+\end{figure}
+
+Commençons par remarquer que la plupart des arêtes de la figure~\ref{fig:sph_vmf_MC_comparison} (représentées graphiquement ou sous-entendues par transitivité) sont incluses dans celles de la figure~\ref{fig:sph_vmf_MT_comparison}: ainsi, la MT fournit un indicateur raisonnable sur la hiérarchie de manipulabilité entre les modes de scrutin.
+
+On observe que Veto forme une composante connexe isolée: il est parfois plus MT, parfois moins MT que tout autre mode de scrutin.
+
+Pour la MT comme pour la MC, les modes de scrutin CVTI, VTI, SE, dans cet ordre, sont toujours moins manipulables que tous les autres modes de scrutin étudiés, hormis Veto. Ils sont toujours suivis de l'uninominal à deux tours, qui présente des performances intermédiaires. Ensuite, on peut, à titre indicatif, distinguer trois groupes, par MT croissante:
+\begin{itemize}
+\item Maximin et la méthode de Schulze (avec des performances très similaires), PO et la méthode de Baldwin;
+\item CSD, BI, la méthode de Nanson et l'uninominal (même si la méthode de Nanson est moins MT que celui-ci);
+\item le vote par notation, le jugement majoritaire, le vote par assentiment, la méthode de Borda et la méthode de Coombs (tout en notant que le jugement majoritaire est moins MT que le vote par notation).
+\end{itemize}
+La méthode de Bucklin est un peu à part dans la figure: elle est toujours plus MT que l'uninominal à deux tours et toujours moins que le vote par notation, mais elle n'est comparable à aucun mode de scrutin des groupes intermédiaires. Le cas de VTID est similaire: toujours plus MT que l'uninominal à deux tours, moins MT que l'uninominal et que tous les modes de scrutin du dernier groupe, mais non comparable aux autres.
+
+
+%\section{Conclusion}\label{sec:conclusion_simus_sphere}
+%
+%\todo{Conclusion à rédiger}
+%
+%Nous avons étudié la manipulabilité par coalition de 22 systèmes de vote dans le modèle de Von-Mises Fisher, dont le modèle sphérique est un cas dégénéré.
+%
+%Nous avons étudié l'effet de varier divers paramètres, ce qui nous a mené à d'intéressantes conjectures sur le lien entre la culture et le taux de manipulabilité. Nous avons aussi vu qu'en Culture Impartiale, pour tous les systèmes de vote vérifiant \cminf{}, le taux de manipulabilité tends vers 1 quand le nombre de candidat~$C$ tend vers $+\infty$, ce que nous avons pu prouver théoriquement pour un nombre impair d'électeurs. D'autres conjectures fournissent des défis théoriques intéressants pour de travaux futurs.
+%
+%\begin{itemize}
+%\item Le taux de manipulabilité croît avec le nombre de candidats~$C$.
+%\item Pour tous les modes de scrutin étudiés ici, en culture sphérique, il semble tendre vers 1 quand $V \rightarrow +\infty$ (nous l'avons prouvé pour les modes de scrutin vérifiant \cminf{}, avec $V$ impair). 
+%\item Les taux de manipulabilité de certains modes de scrutin présentent des phénomènes oscillatoires en fonction de la parité du nombre d'électeurs. 
+%\item Le taux de manipulabilité croît avec le nombre d'électeurs (à parité fixée de celui-ci). En culture sphérique, il semble tendre vers 1 sauf pour CVTI, VTI, SE et Veto. 
+%\item Quand l'accord au sein de la population augmente (VMF avec concentration infinie), la manipulabilité décroît et tend vers 0 pour les modes de scrutin unanime. Elle tend vers $1 - \frac{1}{C-1}$ pour Veto (en supposant $V \geq C - 1$).
+%\item Inversement, quand le désaccord au sein de la population augmente (VMF à deux pôles ou davantage), la manipulabilité augmente.
+%\item CVTI, VTI et SE sont généralement moins manipulables que l'uninominal à deux tours, qui est généralement moins manipulable que les autres modes de scrutin présentés ici.
+%\item Alors qu'on sait que CVTI est strictement moins manipulable que VTI, qui est strictement moins manipulable que SE, l'écart est assez faible en pratique, notamment quand on le compare à l'écart généralement assez grand entre VTI et les autres modes de scrutin.
+%\item Le vote par notation, la méthode de Borda et le vote par assentiment ont les performances avérées les plus médiocres. En culture sphérique ou VMF, c'est également le cas de la méthode de Coombs.
+%\item Systèmes Condorcet meilleurs (cf. théorèmes \ref{thm_Condorcifie_aussi_bon}, \ref{thm:cond_strictement_meilleur})? Conclusion à nuancer.
+%\item Systèmes ordinaux meilleurs (cf. théorème~\ref{thm_slicing})? Assez vrai en pratique.
+%\end{itemize}
+%
+%Cependant, il est possible que la classification indicative des figures~\ref{fig:sph_vmf_MC_comparison} et \ref{fig:sph_vmf_MT_comparison} repose sur les hypothèses faites sur la culture. Pour cette raison, nous allons explorer un autre type de population, basé sur un modèle très différent utilisant un spectre politique.
+
+
+
+
+

@@ -1,0 +1,814 @@
+Voting system,Criterion,Algorithm parameters,Computation time,Rate (lower bound),Rate (upper bound),Number of populations,V,C,Culture type,Culture parameter 1,Culture parameter 1 value,Culture parameter 2,Culture parameter 2 value,Culture parameter 3,Culture parameter 3 value,Culture parameter 4,Culture parameter 4 value
+Population,exists_condorcet_admissible,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Population,exists_weak_condorcet_winner,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Population,exists_condorcet_winner_rk_ctb,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Population,exists_condorcet_winner_rk,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Population,exists_condorcet_winner_ut_rel_ctb,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Population,exists_condorcet_winner_ut_rel,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Population,exists_condorcet_winner_ut_abs_ctb,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Population,exists_condorcet_winner_ut_abs,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Population,exists_resistant_condorcet_winner,,,0.0037,0.0037,10000,33.0,5.0,Spheroid,Stretching,1
+Population,exists_condorcet_order_rk_ctb,,,0.5341,0.5341,10000,33.0,5.0,Spheroid,Stretching,1
+Population,exists_condorcet_order_rk,,,0.5341,0.5341,10000,33.0,5.0,Spheroid,Stretching,1
+Population,exists_condorcet_order_ut_rel_ctb,,,0.5341,0.5341,10000,33.0,5.0,Spheroid,Stretching,1
+Population,exists_condorcet_order_ut_rel,,,0.5341,0.5341,10000,33.0,5.0,Spheroid,Stretching,1
+Population,exists_condorcet_order_ut_abs_ctb,,,0.5341,0.5341,10000,33.0,5.0,Spheroid,Stretching,1
+Population,exists_condorcet_order_ut_abs,,,0.5341,0.5341,10000,33.0,5.0,Spheroid,Stretching,1
+Population,exists_majority_favorite_rk_ctb,,,0.0004,0.0004,10000,33.0,5.0,Spheroid,Stretching,1
+Population,exists_majority_favorite_rk,,,0.0004,0.0004,10000,33.0,5.0,Spheroid,Stretching,1
+Population,exists_majority_favorite_ut_ctb,,,0.0004,0.0004,10000,33.0,5.0,Spheroid,Stretching,1
+Population,exists_majority_favorite_ut,,,0.0004,0.0004,10000,33.0,5.0,Spheroid,Stretching,1
+Population,not_exists_condorcet_admissible,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Population,not_exists_weak_condorcet_winner,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Population,not_exists_condorcet_winner_rk_ctb,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Population,not_exists_condorcet_winner_rk,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Population,not_exists_condorcet_winner_ut_rel_ctb,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Population,not_exists_condorcet_winner_ut_rel,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Population,not_exists_condorcet_winner_ut_abs_ctb,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Population,not_exists_condorcet_winner_ut_abs,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Population,not_exists_resistant_condorcet_winner,,,0.9963,0.9963,10000,33.0,5.0,Spheroid,Stretching,1
+Population,not_exists_condorcet_order_rk_ctb,,,0.4659,0.4659,10000,33.0,5.0,Spheroid,Stretching,1
+Population,not_exists_condorcet_order_rk,,,0.4659,0.4659,10000,33.0,5.0,Spheroid,Stretching,1
+Population,not_exists_condorcet_order_ut_rel_ctb,,,0.4659,0.4659,10000,33.0,5.0,Spheroid,Stretching,1
+Population,not_exists_condorcet_order_ut_rel,,,0.4659,0.4659,10000,33.0,5.0,Spheroid,Stretching,1
+Population,not_exists_condorcet_order_ut_abs_ctb,,,0.4659,0.4659,10000,33.0,5.0,Spheroid,Stretching,1
+Population,not_exists_condorcet_order_ut_abs,,,0.4659,0.4659,10000,33.0,5.0,Spheroid,Stretching,1
+Population,not_exists_majority_favorite_rk_ctb,,,0.9996,0.9996,10000,33.0,5.0,Spheroid,Stretching,1
+Population,not_exists_majority_favorite_rk,,,0.9996,0.9996,10000,33.0,5.0,Spheroid,Stretching,1
+Population,not_exists_majority_favorite_ut_ctb,,,0.9996,0.9996,10000,33.0,5.0,Spheroid,Stretching,1
+Population,not_exists_majority_favorite_ut,,,0.9996,0.9996,10000,33.0,5.0,Spheroid,Stretching,1
+Approval,w_is_condorcet_admissible,,,0.4645,0.4645,10000,33.0,5.0,Spheroid,Stretching,1
+Approval,w_is_not_condorcet_admissible,,,0.5355,0.5355,10000,33.0,5.0,Spheroid,Stretching,1
+Approval,w_missed_condorcet_admissible,,,0.2899,0.2899,10000,33.0,5.0,Spheroid,Stretching,1
+Approval,w_is_weak_condorcet_winner,,,0.4645,0.4645,10000,33.0,5.0,Spheroid,Stretching,1
+Approval,w_is_not_weak_condorcet_winner,,,0.5355,0.5355,10000,33.0,5.0,Spheroid,Stretching,1
+Approval,w_missed_weak_condorcet_winner,,,0.2899,0.2899,10000,33.0,5.0,Spheroid,Stretching,1
+Approval,w_is_condorcet_winner_rk_ctb,,,0.4645,0.4645,10000,33.0,5.0,Spheroid,Stretching,1
+Approval,w_is_not_condorcet_winner_rk_ctb,,,0.5355,0.5355,10000,33.0,5.0,Spheroid,Stretching,1
+Approval,w_missed_condorcet_winner_rk_ctb,,,0.2899,0.2899,10000,33.0,5.0,Spheroid,Stretching,1
+Approval,w_is_condorcet_winner_rk,,,0.4645,0.4645,10000,33.0,5.0,Spheroid,Stretching,1
+Approval,w_is_not_condorcet_winner_rk,,,0.5355,0.5355,10000,33.0,5.0,Spheroid,Stretching,1
+Approval,w_missed_condorcet_winner_rk,,,0.2899,0.2899,10000,33.0,5.0,Spheroid,Stretching,1
+Approval,w_is_condorcet_winner_ut_rel_ctb,,,0.4645,0.4645,10000,33.0,5.0,Spheroid,Stretching,1
+Approval,w_is_not_condorcet_winner_ut_rel_ctb,,,0.5355,0.5355,10000,33.0,5.0,Spheroid,Stretching,1
+Approval,w_missed_condorcet_winner_ut_rel_ctb,,,0.2899,0.2899,10000,33.0,5.0,Spheroid,Stretching,1
+Approval,w_is_condorcet_winner_ut_rel,,,0.4645,0.4645,10000,33.0,5.0,Spheroid,Stretching,1
+Approval,w_is_not_condorcet_winner_ut_rel,,,0.5355,0.5355,10000,33.0,5.0,Spheroid,Stretching,1
+Approval,w_missed_condorcet_winner_ut_rel,,,0.2899,0.2899,10000,33.0,5.0,Spheroid,Stretching,1
+Approval,w_is_condorcet_winner_ut_abs_ctb,,,0.4645,0.4645,10000,33.0,5.0,Spheroid,Stretching,1
+Approval,w_is_not_condorcet_winner_ut_abs_ctb,,,0.5355,0.5355,10000,33.0,5.0,Spheroid,Stretching,1
+Approval,w_missed_condorcet_winner_ut_abs_ctb,,,0.2899,0.2899,10000,33.0,5.0,Spheroid,Stretching,1
+Approval,w_is_condorcet_winner_ut_abs,,,0.4645,0.4645,10000,33.0,5.0,Spheroid,Stretching,1
+Approval,w_is_not_condorcet_winner_ut_abs,,,0.5355,0.5355,10000,33.0,5.0,Spheroid,Stretching,1
+Approval,w_missed_condorcet_winner_ut_abs,,,0.2899,0.2899,10000,33.0,5.0,Spheroid,Stretching,1
+Approval,w_is_resistant_condorcet_winner,,,0.0036,0.0036,10000,33.0,5.0,Spheroid,Stretching,1
+Approval,w_is_not_resistant_condorcet_winner,,,0.9964,0.9964,10000,33.0,5.0,Spheroid,Stretching,1
+Approval,w_missed_resistant_condorcet_winner,,,0.0001,0.0001,10000,33.0,5.0,Spheroid,Stretching,1
+Approval,TM,CM_option = exact,2.8631956577301025,0.9956,0.9956,10000,33.0,5.0,Spheroid,Stretching,1
+Approval,UM,CM_option = exact,0.24501419067382812,0.9956,0.9956,10000,33.0,5.0,Spheroid,Stretching,1
+Approval,ICM,ICM_option = exact,0.9300599098205566,0.5355,0.5355,10000,33.0,5.0,Spheroid,Stretching,1
+Approval,CM,CM_option = exact,0.22701621055603027,0.9956,0.9956,10000,33.0,5.0,Spheroid,Stretching,1
+Baldwin,w_is_condorcet_admissible,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Baldwin,w_is_not_condorcet_admissible,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Baldwin,w_missed_condorcet_admissible,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Baldwin,w_is_weak_condorcet_winner,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Baldwin,w_is_not_weak_condorcet_winner,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Baldwin,w_missed_weak_condorcet_winner,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Baldwin,w_is_condorcet_winner_rk_ctb,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Baldwin,w_is_not_condorcet_winner_rk_ctb,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Baldwin,w_missed_condorcet_winner_rk_ctb,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Baldwin,w_is_condorcet_winner_rk,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Baldwin,w_is_not_condorcet_winner_rk,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Baldwin,w_missed_condorcet_winner_rk,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Baldwin,w_is_condorcet_winner_ut_rel_ctb,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Baldwin,w_is_not_condorcet_winner_ut_rel_ctb,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Baldwin,w_missed_condorcet_winner_ut_rel_ctb,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Baldwin,w_is_condorcet_winner_ut_rel,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Baldwin,w_is_not_condorcet_winner_ut_rel,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Baldwin,w_missed_condorcet_winner_ut_rel,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Baldwin,w_is_condorcet_winner_ut_abs_ctb,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Baldwin,w_is_not_condorcet_winner_ut_abs_ctb,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Baldwin,w_missed_condorcet_winner_ut_abs_ctb,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Baldwin,w_is_condorcet_winner_ut_abs,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Baldwin,w_is_not_condorcet_winner_ut_abs,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Baldwin,w_missed_condorcet_winner_ut_abs,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Baldwin,w_is_resistant_condorcet_winner,,,0.0037,0.0037,10000,33.0,5.0,Spheroid,Stretching,1
+Baldwin,w_is_not_resistant_condorcet_winner,,,0.9963,0.9963,10000,33.0,5.0,Spheroid,Stretching,1
+Baldwin,w_missed_resistant_condorcet_winner,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Baldwin,TM,TM_option = exact,19.753718614578247,0.8705,0.8705,10000,33.0,5.0,Spheroid,Stretching,1
+Baldwin,UM,UM_option = exact,823.6270444393158,0.8658,0.8658,10000,33.0,5.0,Spheroid,Stretching,1
+Baldwin,ICM,ICM_option = exact,0.9120562076568604,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Baldwin,CM,"CM_option = lazy, UM_option = exact, TM_option = exact",2.8666698932647705,0.8828,0.9963,10000,33.0,5.0,Spheroid,Stretching,1
+Borda,w_is_condorcet_admissible,,,0.6444,0.6444,10000,33.0,5.0,Spheroid,Stretching,1
+Borda,w_is_not_condorcet_admissible,,,0.3556,0.3556,10000,33.0,5.0,Spheroid,Stretching,1
+Borda,w_missed_condorcet_admissible,,,0.11,0.11,10000,33.0,5.0,Spheroid,Stretching,1
+Borda,w_is_weak_condorcet_winner,,,0.6444,0.6444,10000,33.0,5.0,Spheroid,Stretching,1
+Borda,w_is_not_weak_condorcet_winner,,,0.3556,0.3556,10000,33.0,5.0,Spheroid,Stretching,1
+Borda,w_missed_weak_condorcet_winner,,,0.11,0.11,10000,33.0,5.0,Spheroid,Stretching,1
+Borda,w_is_condorcet_winner_rk_ctb,,,0.6444,0.6444,10000,33.0,5.0,Spheroid,Stretching,1
+Borda,w_is_not_condorcet_winner_rk_ctb,,,0.3556,0.3556,10000,33.0,5.0,Spheroid,Stretching,1
+Borda,w_missed_condorcet_winner_rk_ctb,,,0.11,0.11,10000,33.0,5.0,Spheroid,Stretching,1
+Borda,w_is_condorcet_winner_rk,,,0.6444,0.6444,10000,33.0,5.0,Spheroid,Stretching,1
+Borda,w_is_not_condorcet_winner_rk,,,0.3556,0.3556,10000,33.0,5.0,Spheroid,Stretching,1
+Borda,w_missed_condorcet_winner_rk,,,0.11,0.11,10000,33.0,5.0,Spheroid,Stretching,1
+Borda,w_is_condorcet_winner_ut_rel_ctb,,,0.6444,0.6444,10000,33.0,5.0,Spheroid,Stretching,1
+Borda,w_is_not_condorcet_winner_ut_rel_ctb,,,0.3556,0.3556,10000,33.0,5.0,Spheroid,Stretching,1
+Borda,w_missed_condorcet_winner_ut_rel_ctb,,,0.11,0.11,10000,33.0,5.0,Spheroid,Stretching,1
+Borda,w_is_condorcet_winner_ut_rel,,,0.6444,0.6444,10000,33.0,5.0,Spheroid,Stretching,1
+Borda,w_is_not_condorcet_winner_ut_rel,,,0.3556,0.3556,10000,33.0,5.0,Spheroid,Stretching,1
+Borda,w_missed_condorcet_winner_ut_rel,,,0.11,0.11,10000,33.0,5.0,Spheroid,Stretching,1
+Borda,w_is_condorcet_winner_ut_abs_ctb,,,0.6444,0.6444,10000,33.0,5.0,Spheroid,Stretching,1
+Borda,w_is_not_condorcet_winner_ut_abs_ctb,,,0.3556,0.3556,10000,33.0,5.0,Spheroid,Stretching,1
+Borda,w_missed_condorcet_winner_ut_abs_ctb,,,0.11,0.11,10000,33.0,5.0,Spheroid,Stretching,1
+Borda,w_is_condorcet_winner_ut_abs,,,0.6444,0.6444,10000,33.0,5.0,Spheroid,Stretching,1
+Borda,w_is_not_condorcet_winner_ut_abs,,,0.3556,0.3556,10000,33.0,5.0,Spheroid,Stretching,1
+Borda,w_missed_condorcet_winner_ut_abs,,,0.11,0.11,10000,33.0,5.0,Spheroid,Stretching,1
+Borda,w_is_resistant_condorcet_winner,,,0.0037,0.0037,10000,33.0,5.0,Spheroid,Stretching,1
+Borda,w_is_not_resistant_condorcet_winner,,,0.9963,0.9963,10000,33.0,5.0,Spheroid,Stretching,1
+Borda,w_missed_resistant_condorcet_winner,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Borda,TM,TM_option = exact,15.964473009109497,0.997,0.997,10000,33.0,5.0,Spheroid,Stretching,1
+Borda,UM,UM_option = exact,2.7371644973754883,0.9908,0.9908,10000,33.0,5.0,Spheroid,Stretching,1
+Borda,ICM,ICM_option = fast,2.6867048740386963,0.0003,0.0003,10000,33.0,5.0,Spheroid,Stretching,1
+Borda,CM,"CM_option = fast, UM_option = exact, TM_option = exact",1.2415707111358643,0.997,0.997,10000,33.0,5.0,Spheroid,Stretching,1
+Bucklin,w_is_condorcet_admissible,,,0.5495,0.5495,10000,33.0,5.0,Spheroid,Stretching,1
+Bucklin,w_is_not_condorcet_admissible,,,0.4505,0.4505,10000,33.0,5.0,Spheroid,Stretching,1
+Bucklin,w_missed_condorcet_admissible,,,0.2049,0.2049,10000,33.0,5.0,Spheroid,Stretching,1
+Bucklin,w_is_weak_condorcet_winner,,,0.5495,0.5495,10000,33.0,5.0,Spheroid,Stretching,1
+Bucklin,w_is_not_weak_condorcet_winner,,,0.4505,0.4505,10000,33.0,5.0,Spheroid,Stretching,1
+Bucklin,w_missed_weak_condorcet_winner,,,0.2049,0.2049,10000,33.0,5.0,Spheroid,Stretching,1
+Bucklin,w_is_condorcet_winner_rk_ctb,,,0.5495,0.5495,10000,33.0,5.0,Spheroid,Stretching,1
+Bucklin,w_is_not_condorcet_winner_rk_ctb,,,0.4505,0.4505,10000,33.0,5.0,Spheroid,Stretching,1
+Bucklin,w_missed_condorcet_winner_rk_ctb,,,0.2049,0.2049,10000,33.0,5.0,Spheroid,Stretching,1
+Bucklin,w_is_condorcet_winner_rk,,,0.5495,0.5495,10000,33.0,5.0,Spheroid,Stretching,1
+Bucklin,w_is_not_condorcet_winner_rk,,,0.4505,0.4505,10000,33.0,5.0,Spheroid,Stretching,1
+Bucklin,w_missed_condorcet_winner_rk,,,0.2049,0.2049,10000,33.0,5.0,Spheroid,Stretching,1
+Bucklin,w_is_condorcet_winner_ut_rel_ctb,,,0.5495,0.5495,10000,33.0,5.0,Spheroid,Stretching,1
+Bucklin,w_is_not_condorcet_winner_ut_rel_ctb,,,0.4505,0.4505,10000,33.0,5.0,Spheroid,Stretching,1
+Bucklin,w_missed_condorcet_winner_ut_rel_ctb,,,0.2049,0.2049,10000,33.0,5.0,Spheroid,Stretching,1
+Bucklin,w_is_condorcet_winner_ut_rel,,,0.5495,0.5495,10000,33.0,5.0,Spheroid,Stretching,1
+Bucklin,w_is_not_condorcet_winner_ut_rel,,,0.4505,0.4505,10000,33.0,5.0,Spheroid,Stretching,1
+Bucklin,w_missed_condorcet_winner_ut_rel,,,0.2049,0.2049,10000,33.0,5.0,Spheroid,Stretching,1
+Bucklin,w_is_condorcet_winner_ut_abs_ctb,,,0.5495,0.5495,10000,33.0,5.0,Spheroid,Stretching,1
+Bucklin,w_is_not_condorcet_winner_ut_abs_ctb,,,0.4505,0.4505,10000,33.0,5.0,Spheroid,Stretching,1
+Bucklin,w_missed_condorcet_winner_ut_abs_ctb,,,0.2049,0.2049,10000,33.0,5.0,Spheroid,Stretching,1
+Bucklin,w_is_condorcet_winner_ut_abs,,,0.5495,0.5495,10000,33.0,5.0,Spheroid,Stretching,1
+Bucklin,w_is_not_condorcet_winner_ut_abs,,,0.4505,0.4505,10000,33.0,5.0,Spheroid,Stretching,1
+Bucklin,w_missed_condorcet_winner_ut_abs,,,0.2049,0.2049,10000,33.0,5.0,Spheroid,Stretching,1
+Bucklin,w_is_resistant_condorcet_winner,,,0.0037,0.0037,10000,33.0,5.0,Spheroid,Stretching,1
+Bucklin,w_is_not_resistant_condorcet_winner,,,0.9963,0.9963,10000,33.0,5.0,Spheroid,Stretching,1
+Bucklin,w_missed_resistant_condorcet_winner,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Bucklin,TM,TM_option = exact,16.14096450805664,0.9357,0.9357,10000,33.0,5.0,Spheroid,Stretching,1
+Bucklin,UM,UM_option = exact,3.711239814758301,0.931,0.931,10000,33.0,5.0,Spheroid,Stretching,1
+Bucklin,ICM,ICM_option = exact,0.9535691738128662,0.4505,0.4505,10000,33.0,5.0,Spheroid,Stretching,1
+Bucklin,CM,CM_option = exact,2.0386152267456055,0.9716,0.9716,10000,33.0,5.0,Spheroid,Stretching,1
+Condorcet Sum Defeats,w_is_condorcet_admissible,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Condorcet Sum Defeats,w_is_not_condorcet_admissible,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Condorcet Sum Defeats,w_missed_condorcet_admissible,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Condorcet Sum Defeats,w_is_weak_condorcet_winner,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Condorcet Sum Defeats,w_is_not_weak_condorcet_winner,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Condorcet Sum Defeats,w_missed_weak_condorcet_winner,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Condorcet Sum Defeats,w_is_condorcet_winner_rk_ctb,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Condorcet Sum Defeats,w_is_not_condorcet_winner_rk_ctb,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Condorcet Sum Defeats,w_missed_condorcet_winner_rk_ctb,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Condorcet Sum Defeats,w_is_condorcet_winner_rk,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Condorcet Sum Defeats,w_is_not_condorcet_winner_rk,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Condorcet Sum Defeats,w_missed_condorcet_winner_rk,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Condorcet Sum Defeats,w_is_condorcet_winner_ut_rel_ctb,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Condorcet Sum Defeats,w_is_not_condorcet_winner_ut_rel_ctb,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Condorcet Sum Defeats,w_missed_condorcet_winner_ut_rel_ctb,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Condorcet Sum Defeats,w_is_condorcet_winner_ut_rel,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Condorcet Sum Defeats,w_is_not_condorcet_winner_ut_rel,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Condorcet Sum Defeats,w_missed_condorcet_winner_ut_rel,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Condorcet Sum Defeats,w_is_condorcet_winner_ut_abs_ctb,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Condorcet Sum Defeats,w_is_not_condorcet_winner_ut_abs_ctb,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Condorcet Sum Defeats,w_missed_condorcet_winner_ut_abs_ctb,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Condorcet Sum Defeats,w_is_condorcet_winner_ut_abs,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Condorcet Sum Defeats,w_is_not_condorcet_winner_ut_abs,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Condorcet Sum Defeats,w_missed_condorcet_winner_ut_abs,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Condorcet Sum Defeats,w_is_resistant_condorcet_winner,,,0.0037,0.0037,10000,33.0,5.0,Spheroid,Stretching,1
+Condorcet Sum Defeats,w_is_not_resistant_condorcet_winner,,,0.9963,0.9963,10000,33.0,5.0,Spheroid,Stretching,1
+Condorcet Sum Defeats,w_missed_resistant_condorcet_winner,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Condorcet Sum Defeats,TM,TM_option = exact,13.772828817367554,0.9582,0.9582,10000,33.0,5.0,Spheroid,Stretching,1
+Condorcet Sum Defeats,UM,UM_option = exact,125.73972082138062,0.971,0.971,10000,33.0,5.0,Spheroid,Stretching,1
+Condorcet Sum Defeats,ICM,ICM_option = lazy,0.9190459251403809,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Condorcet Sum Defeats,CM,"CM_option = lazy, UM_option = exact, TM_option = exact",1.7720990180969238,0.971,0.9963,10000,33.0,5.0,Spheroid,Stretching,1
+Coombs,w_is_condorcet_admissible,,,0.6784,0.6784,10000,33.0,5.0,Spheroid,Stretching,1
+Coombs,w_is_not_condorcet_admissible,,,0.3216,0.3216,10000,33.0,5.0,Spheroid,Stretching,1
+Coombs,w_missed_condorcet_admissible,,,0.076,0.076,10000,33.0,5.0,Spheroid,Stretching,1
+Coombs,w_is_weak_condorcet_winner,,,0.6784,0.6784,10000,33.0,5.0,Spheroid,Stretching,1
+Coombs,w_is_not_weak_condorcet_winner,,,0.3216,0.3216,10000,33.0,5.0,Spheroid,Stretching,1
+Coombs,w_missed_weak_condorcet_winner,,,0.076,0.076,10000,33.0,5.0,Spheroid,Stretching,1
+Coombs,w_is_condorcet_winner_rk_ctb,,,0.6784,0.6784,10000,33.0,5.0,Spheroid,Stretching,1
+Coombs,w_is_not_condorcet_winner_rk_ctb,,,0.3216,0.3216,10000,33.0,5.0,Spheroid,Stretching,1
+Coombs,w_missed_condorcet_winner_rk_ctb,,,0.076,0.076,10000,33.0,5.0,Spheroid,Stretching,1
+Coombs,w_is_condorcet_winner_rk,,,0.6784,0.6784,10000,33.0,5.0,Spheroid,Stretching,1
+Coombs,w_is_not_condorcet_winner_rk,,,0.3216,0.3216,10000,33.0,5.0,Spheroid,Stretching,1
+Coombs,w_missed_condorcet_winner_rk,,,0.076,0.076,10000,33.0,5.0,Spheroid,Stretching,1
+Coombs,w_is_condorcet_winner_ut_rel_ctb,,,0.6784,0.6784,10000,33.0,5.0,Spheroid,Stretching,1
+Coombs,w_is_not_condorcet_winner_ut_rel_ctb,,,0.3216,0.3216,10000,33.0,5.0,Spheroid,Stretching,1
+Coombs,w_missed_condorcet_winner_ut_rel_ctb,,,0.076,0.076,10000,33.0,5.0,Spheroid,Stretching,1
+Coombs,w_is_condorcet_winner_ut_rel,,,0.6784,0.6784,10000,33.0,5.0,Spheroid,Stretching,1
+Coombs,w_is_not_condorcet_winner_ut_rel,,,0.3216,0.3216,10000,33.0,5.0,Spheroid,Stretching,1
+Coombs,w_missed_condorcet_winner_ut_rel,,,0.076,0.076,10000,33.0,5.0,Spheroid,Stretching,1
+Coombs,w_is_condorcet_winner_ut_abs_ctb,,,0.6784,0.6784,10000,33.0,5.0,Spheroid,Stretching,1
+Coombs,w_is_not_condorcet_winner_ut_abs_ctb,,,0.3216,0.3216,10000,33.0,5.0,Spheroid,Stretching,1
+Coombs,w_missed_condorcet_winner_ut_abs_ctb,,,0.076,0.076,10000,33.0,5.0,Spheroid,Stretching,1
+Coombs,w_is_condorcet_winner_ut_abs,,,0.6784,0.6784,10000,33.0,5.0,Spheroid,Stretching,1
+Coombs,w_is_not_condorcet_winner_ut_abs,,,0.3216,0.3216,10000,33.0,5.0,Spheroid,Stretching,1
+Coombs,w_missed_condorcet_winner_ut_abs,,,0.076,0.076,10000,33.0,5.0,Spheroid,Stretching,1
+Coombs,w_is_resistant_condorcet_winner,,,0.0037,0.0037,10000,33.0,5.0,Spheroid,Stretching,1
+Coombs,w_is_not_resistant_condorcet_winner,,,0.9963,0.9963,10000,33.0,5.0,Spheroid,Stretching,1
+Coombs,w_missed_resistant_condorcet_winner,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Coombs,TM,TM_option = exact,11.410630941390991,0.9999,0.9999,10000,33.0,5.0,Spheroid,Stretching,1
+Coombs,UM,CM_option = exact,1.2430825233459473,1.0,1.0,10000,33.0,5.0,Spheroid,Stretching,1
+Coombs,ICM,ICM_option = exact,0.9030563831329346,0.3216,0.3216,10000,33.0,5.0,Spheroid,Stretching,1
+Coombs,CM,CM_option = exact,0.25551557540893555,1.0,1.0,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Average,w_is_condorcet_admissible,,,0.648,0.648,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Average,w_is_not_condorcet_admissible,,,0.352,0.352,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Average,w_missed_condorcet_admissible,,,0.1064,0.1064,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Average,w_is_weak_condorcet_winner,,,0.648,0.648,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Average,w_is_not_weak_condorcet_winner,,,0.352,0.352,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Average,w_missed_weak_condorcet_winner,,,0.1064,0.1064,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Average,w_is_condorcet_winner_rk_ctb,,,0.648,0.648,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Average,w_is_not_condorcet_winner_rk_ctb,,,0.352,0.352,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Average,w_missed_condorcet_winner_rk_ctb,,,0.1064,0.1064,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Average,w_is_condorcet_winner_rk,,,0.648,0.648,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Average,w_is_not_condorcet_winner_rk,,,0.352,0.352,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Average,w_missed_condorcet_winner_rk,,,0.1064,0.1064,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Average,w_is_condorcet_winner_ut_rel_ctb,,,0.648,0.648,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Average,w_is_not_condorcet_winner_ut_rel_ctb,,,0.352,0.352,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Average,w_missed_condorcet_winner_ut_rel_ctb,,,0.1064,0.1064,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Average,w_is_condorcet_winner_ut_rel,,,0.648,0.648,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Average,w_is_not_condorcet_winner_ut_rel,,,0.352,0.352,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Average,w_missed_condorcet_winner_ut_rel,,,0.1064,0.1064,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Average,w_is_condorcet_winner_ut_abs_ctb,,,0.648,0.648,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Average,w_is_not_condorcet_winner_ut_abs_ctb,,,0.352,0.352,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Average,w_missed_condorcet_winner_ut_abs_ctb,,,0.1064,0.1064,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Average,w_is_condorcet_winner_ut_abs,,,0.648,0.648,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Average,w_is_not_condorcet_winner_ut_abs,,,0.352,0.352,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Average,w_missed_condorcet_winner_ut_abs,,,0.1064,0.1064,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Average,w_is_resistant_condorcet_winner,,,0.0037,0.0037,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Average,w_is_not_resistant_condorcet_winner,,,0.9963,0.9963,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Average,w_missed_resistant_condorcet_winner,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Average,TM,TM_option = exact,21.988875150680542,0.36,0.36,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Average,UM,UM_option = exact,1476.9400098323822,0.36,0.36,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Average,ICM,ICM_option = lazy,0.9350521564483643,0.352,0.352,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Average,CM,"CM_option = lazy, UM_option = exact, ICM_option = lazy, TM_option = exact",11.577677249908447,0.36,0.9996,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Duels,w_is_condorcet_admissible,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Duels,w_is_not_condorcet_admissible,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Duels,w_missed_condorcet_admissible,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Duels,w_is_weak_condorcet_winner,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Duels,w_is_not_weak_condorcet_winner,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Duels,w_missed_weak_condorcet_winner,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Duels,w_is_condorcet_winner_rk_ctb,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Duels,w_is_not_condorcet_winner_rk_ctb,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Duels,w_missed_condorcet_winner_rk_ctb,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Duels,w_is_condorcet_winner_rk,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Duels,w_is_not_condorcet_winner_rk,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Duels,w_missed_condorcet_winner_rk,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Duels,w_is_condorcet_winner_ut_rel_ctb,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Duels,w_is_not_condorcet_winner_ut_rel_ctb,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Duels,w_missed_condorcet_winner_ut_rel_ctb,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Duels,w_is_condorcet_winner_ut_rel,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Duels,w_is_not_condorcet_winner_ut_rel,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Duels,w_missed_condorcet_winner_ut_rel,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Duels,w_is_condorcet_winner_ut_abs_ctb,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Duels,w_is_not_condorcet_winner_ut_abs_ctb,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Duels,w_missed_condorcet_winner_ut_abs_ctb,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Duels,w_is_condorcet_winner_ut_abs,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Duels,w_is_not_condorcet_winner_ut_abs,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Duels,w_missed_condorcet_winner_ut_abs,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Duels,w_is_resistant_condorcet_winner,,,0.0037,0.0037,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Duels,w_is_not_resistant_condorcet_winner,,,0.9963,0.9963,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Duels,w_missed_resistant_condorcet_winner,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Duels,TM,TM_option = exact,22.987403631210327,0.897,0.897,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Duels,UM,UM_option = exact,461.6179075241089,0.9316,0.9316,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Duels,ICM,ICM_option = exact,0.9110469818115234,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+IRV Duels,CM,"CM_option = lazy, UM_option = exact, TM_option = exact",2.2961373329162598,0.9316,0.9963,10000,33.0,5.0,Spheroid,Stretching,1
+Iterated Bucklin,w_is_condorcet_admissible,,,0.706,0.706,10000,33.0,5.0,Spheroid,Stretching,1
+Iterated Bucklin,w_is_not_condorcet_admissible,,,0.294,0.294,10000,33.0,5.0,Spheroid,Stretching,1
+Iterated Bucklin,w_missed_condorcet_admissible,,,0.0484,0.0484,10000,33.0,5.0,Spheroid,Stretching,1
+Iterated Bucklin,w_is_weak_condorcet_winner,,,0.706,0.706,10000,33.0,5.0,Spheroid,Stretching,1
+Iterated Bucklin,w_is_not_weak_condorcet_winner,,,0.294,0.294,10000,33.0,5.0,Spheroid,Stretching,1
+Iterated Bucklin,w_missed_weak_condorcet_winner,,,0.0484,0.0484,10000,33.0,5.0,Spheroid,Stretching,1
+Iterated Bucklin,w_is_condorcet_winner_rk_ctb,,,0.706,0.706,10000,33.0,5.0,Spheroid,Stretching,1
+Iterated Bucklin,w_is_not_condorcet_winner_rk_ctb,,,0.294,0.294,10000,33.0,5.0,Spheroid,Stretching,1
+Iterated Bucklin,w_missed_condorcet_winner_rk_ctb,,,0.0484,0.0484,10000,33.0,5.0,Spheroid,Stretching,1
+Iterated Bucklin,w_is_condorcet_winner_rk,,,0.706,0.706,10000,33.0,5.0,Spheroid,Stretching,1
+Iterated Bucklin,w_is_not_condorcet_winner_rk,,,0.294,0.294,10000,33.0,5.0,Spheroid,Stretching,1
+Iterated Bucklin,w_missed_condorcet_winner_rk,,,0.0484,0.0484,10000,33.0,5.0,Spheroid,Stretching,1
+Iterated Bucklin,w_is_condorcet_winner_ut_rel_ctb,,,0.706,0.706,10000,33.0,5.0,Spheroid,Stretching,1
+Iterated Bucklin,w_is_not_condorcet_winner_ut_rel_ctb,,,0.294,0.294,10000,33.0,5.0,Spheroid,Stretching,1
+Iterated Bucklin,w_missed_condorcet_winner_ut_rel_ctb,,,0.0484,0.0484,10000,33.0,5.0,Spheroid,Stretching,1
+Iterated Bucklin,w_is_condorcet_winner_ut_rel,,,0.706,0.706,10000,33.0,5.0,Spheroid,Stretching,1
+Iterated Bucklin,w_is_not_condorcet_winner_ut_rel,,,0.294,0.294,10000,33.0,5.0,Spheroid,Stretching,1
+Iterated Bucklin,w_missed_condorcet_winner_ut_rel,,,0.0484,0.0484,10000,33.0,5.0,Spheroid,Stretching,1
+Iterated Bucklin,w_is_condorcet_winner_ut_abs_ctb,,,0.706,0.706,10000,33.0,5.0,Spheroid,Stretching,1
+Iterated Bucklin,w_is_not_condorcet_winner_ut_abs_ctb,,,0.294,0.294,10000,33.0,5.0,Spheroid,Stretching,1
+Iterated Bucklin,w_missed_condorcet_winner_ut_abs_ctb,,,0.0484,0.0484,10000,33.0,5.0,Spheroid,Stretching,1
+Iterated Bucklin,w_is_condorcet_winner_ut_abs,,,0.706,0.706,10000,33.0,5.0,Spheroid,Stretching,1
+Iterated Bucklin,w_is_not_condorcet_winner_ut_abs,,,0.294,0.294,10000,33.0,5.0,Spheroid,Stretching,1
+Iterated Bucklin,w_missed_condorcet_winner_ut_abs,,,0.0484,0.0484,10000,33.0,5.0,Spheroid,Stretching,1
+Iterated Bucklin,w_is_resistant_condorcet_winner,,,0.0037,0.0037,10000,33.0,5.0,Spheroid,Stretching,1
+Iterated Bucklin,w_is_not_resistant_condorcet_winner,,,0.9963,0.9963,10000,33.0,5.0,Spheroid,Stretching,1
+Iterated Bucklin,w_missed_resistant_condorcet_winner,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Iterated Bucklin,TM,TM_option = exact,21.58681011199951,0.9657,0.9657,10000,33.0,5.0,Spheroid,Stretching,1
+Iterated Bucklin,UM,UM_option = exact,148.39710879325867,0.9907,0.9907,10000,33.0,5.0,Spheroid,Stretching,1
+Iterated Bucklin,ICM,ICM_option = lazy,0.9425592422485352,0.294,0.294,10000,33.0,5.0,Spheroid,Stretching,1
+Iterated Bucklin,CM,"CM_option = lazy, UM_option = exact, ICM_option = lazy, TM_option = exact",1.6761000156402588,0.9908,0.9996,10000,33.0,5.0,Spheroid,Stretching,1
+Kemeny,w_is_condorcet_admissible,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Kemeny,w_is_not_condorcet_admissible,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Kemeny,w_missed_condorcet_admissible,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Kemeny,w_is_weak_condorcet_winner,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Kemeny,w_is_not_weak_condorcet_winner,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Kemeny,w_missed_weak_condorcet_winner,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Kemeny,w_is_condorcet_winner_rk_ctb,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Kemeny,w_is_not_condorcet_winner_rk_ctb,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Kemeny,w_missed_condorcet_winner_rk_ctb,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Kemeny,w_is_condorcet_winner_rk,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Kemeny,w_is_not_condorcet_winner_rk,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Kemeny,w_missed_condorcet_winner_rk,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Kemeny,w_is_condorcet_winner_ut_rel_ctb,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Kemeny,w_is_not_condorcet_winner_ut_rel_ctb,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Kemeny,w_missed_condorcet_winner_ut_rel_ctb,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Kemeny,w_is_condorcet_winner_ut_rel,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Kemeny,w_is_not_condorcet_winner_ut_rel,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Kemeny,w_missed_condorcet_winner_ut_rel,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Kemeny,w_is_condorcet_winner_ut_abs_ctb,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Kemeny,w_is_not_condorcet_winner_ut_abs_ctb,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Kemeny,w_missed_condorcet_winner_ut_abs_ctb,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Kemeny,w_is_condorcet_winner_ut_abs,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Kemeny,w_is_not_condorcet_winner_ut_abs,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Kemeny,w_missed_condorcet_winner_ut_abs,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Kemeny,w_is_resistant_condorcet_winner,,,0.0037,0.0037,10000,33.0,5.0,Spheroid,Stretching,1
+Kemeny,w_is_not_resistant_condorcet_winner,,,0.9963,0.9963,10000,33.0,5.0,Spheroid,Stretching,1
+Kemeny,w_missed_resistant_condorcet_winner,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Kemeny,TM,TM_option = exact,117.53873610496521,0.9623,0.9623,10000,33.0,5.0,Spheroid,Stretching,1
+Kemeny,UM,UM_option = exact,411.15593123435974,0.9661,0.9661,10000,33.0,5.0,Spheroid,Stretching,1
+Kemeny,ICM,ICM_option = exact,0.9730477333068848,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Kemeny,CM,"CM_option = lazy, UM_option = exact, TM_option = exact",1.86910080909729,0.9661,0.9963,10000,33.0,5.0,Spheroid,Stretching,1
+Kim-Roush,w_is_condorcet_admissible,,,0.6317,0.6317,10000,33.0,5.0,Spheroid,Stretching,1
+Kim-Roush,w_is_not_condorcet_admissible,,,0.3683,0.3683,10000,33.0,5.0,Spheroid,Stretching,1
+Kim-Roush,w_missed_condorcet_admissible,,,0.1227,0.1227,10000,33.0,5.0,Spheroid,Stretching,1
+Kim-Roush,w_is_weak_condorcet_winner,,,0.6317,0.6317,10000,33.0,5.0,Spheroid,Stretching,1
+Kim-Roush,w_is_not_weak_condorcet_winner,,,0.3683,0.3683,10000,33.0,5.0,Spheroid,Stretching,1
+Kim-Roush,w_missed_weak_condorcet_winner,,,0.1227,0.1227,10000,33.0,5.0,Spheroid,Stretching,1
+Kim-Roush,w_is_condorcet_winner_rk_ctb,,,0.6317,0.6317,10000,33.0,5.0,Spheroid,Stretching,1
+Kim-Roush,w_is_not_condorcet_winner_rk_ctb,,,0.3683,0.3683,10000,33.0,5.0,Spheroid,Stretching,1
+Kim-Roush,w_missed_condorcet_winner_rk_ctb,,,0.1227,0.1227,10000,33.0,5.0,Spheroid,Stretching,1
+Kim-Roush,w_is_condorcet_winner_rk,,,0.6317,0.6317,10000,33.0,5.0,Spheroid,Stretching,1
+Kim-Roush,w_is_not_condorcet_winner_rk,,,0.3683,0.3683,10000,33.0,5.0,Spheroid,Stretching,1
+Kim-Roush,w_missed_condorcet_winner_rk,,,0.1227,0.1227,10000,33.0,5.0,Spheroid,Stretching,1
+Kim-Roush,w_is_condorcet_winner_ut_rel_ctb,,,0.6317,0.6317,10000,33.0,5.0,Spheroid,Stretching,1
+Kim-Roush,w_is_not_condorcet_winner_ut_rel_ctb,,,0.3683,0.3683,10000,33.0,5.0,Spheroid,Stretching,1
+Kim-Roush,w_missed_condorcet_winner_ut_rel_ctb,,,0.1227,0.1227,10000,33.0,5.0,Spheroid,Stretching,1
+Kim-Roush,w_is_condorcet_winner_ut_rel,,,0.6317,0.6317,10000,33.0,5.0,Spheroid,Stretching,1
+Kim-Roush,w_is_not_condorcet_winner_ut_rel,,,0.3683,0.3683,10000,33.0,5.0,Spheroid,Stretching,1
+Kim-Roush,w_missed_condorcet_winner_ut_rel,,,0.1227,0.1227,10000,33.0,5.0,Spheroid,Stretching,1
+Kim-Roush,w_is_condorcet_winner_ut_abs_ctb,,,0.6317,0.6317,10000,33.0,5.0,Spheroid,Stretching,1
+Kim-Roush,w_is_not_condorcet_winner_ut_abs_ctb,,,0.3683,0.3683,10000,33.0,5.0,Spheroid,Stretching,1
+Kim-Roush,w_missed_condorcet_winner_ut_abs_ctb,,,0.1227,0.1227,10000,33.0,5.0,Spheroid,Stretching,1
+Kim-Roush,w_is_condorcet_winner_ut_abs,,,0.6317,0.6317,10000,33.0,5.0,Spheroid,Stretching,1
+Kim-Roush,w_is_not_condorcet_winner_ut_abs,,,0.3683,0.3683,10000,33.0,5.0,Spheroid,Stretching,1
+Kim-Roush,w_missed_condorcet_winner_ut_abs,,,0.1227,0.1227,10000,33.0,5.0,Spheroid,Stretching,1
+Kim-Roush,w_is_resistant_condorcet_winner,,,0.0036,0.0036,10000,33.0,5.0,Spheroid,Stretching,1
+Kim-Roush,w_is_not_resistant_condorcet_winner,,,0.9964,0.9964,10000,33.0,5.0,Spheroid,Stretching,1
+Kim-Roush,w_missed_resistant_condorcet_winner,,,0.0001,0.0001,10000,33.0,5.0,Spheroid,Stretching,1
+Kim-Roush,TM,TM_option = exact,16.872003316879272,0.9487,0.9487,10000,33.0,5.0,Spheroid,Stretching,1
+Kim-Roush,UM,UM_option = exact,818.8078901767731,0.9518,0.9518,10000,33.0,5.0,Spheroid,Stretching,1
+Kim-Roush,ICM,ICM_option = lazy,5.697376489639282,0.0,1.0,10000,33.0,5.0,Spheroid,Stretching,1
+Kim-Roush,CM,"CM_option = lazy, UM_option = exact, ICM_option = lazy, TM_option = exact",1.9691240787506104,0.9518,1.0,10000,33.0,5.0,Spheroid,Stretching,1
+Majority Judgment,w_is_condorcet_admissible,,,0.5003,0.5003,10000,33.0,5.0,Spheroid,Stretching,1
+Majority Judgment,w_is_not_condorcet_admissible,,,0.4997,0.4997,10000,33.0,5.0,Spheroid,Stretching,1
+Majority Judgment,w_missed_condorcet_admissible,,,0.2541,0.2541,10000,33.0,5.0,Spheroid,Stretching,1
+Majority Judgment,w_is_weak_condorcet_winner,,,0.5003,0.5003,10000,33.0,5.0,Spheroid,Stretching,1
+Majority Judgment,w_is_not_weak_condorcet_winner,,,0.4997,0.4997,10000,33.0,5.0,Spheroid,Stretching,1
+Majority Judgment,w_missed_weak_condorcet_winner,,,0.2541,0.2541,10000,33.0,5.0,Spheroid,Stretching,1
+Majority Judgment,w_is_condorcet_winner_rk_ctb,,,0.5003,0.5003,10000,33.0,5.0,Spheroid,Stretching,1
+Majority Judgment,w_is_not_condorcet_winner_rk_ctb,,,0.4997,0.4997,10000,33.0,5.0,Spheroid,Stretching,1
+Majority Judgment,w_missed_condorcet_winner_rk_ctb,,,0.2541,0.2541,10000,33.0,5.0,Spheroid,Stretching,1
+Majority Judgment,w_is_condorcet_winner_rk,,,0.5003,0.5003,10000,33.0,5.0,Spheroid,Stretching,1
+Majority Judgment,w_is_not_condorcet_winner_rk,,,0.4997,0.4997,10000,33.0,5.0,Spheroid,Stretching,1
+Majority Judgment,w_missed_condorcet_winner_rk,,,0.2541,0.2541,10000,33.0,5.0,Spheroid,Stretching,1
+Majority Judgment,w_is_condorcet_winner_ut_rel_ctb,,,0.5003,0.5003,10000,33.0,5.0,Spheroid,Stretching,1
+Majority Judgment,w_is_not_condorcet_winner_ut_rel_ctb,,,0.4997,0.4997,10000,33.0,5.0,Spheroid,Stretching,1
+Majority Judgment,w_missed_condorcet_winner_ut_rel_ctb,,,0.2541,0.2541,10000,33.0,5.0,Spheroid,Stretching,1
+Majority Judgment,w_is_condorcet_winner_ut_rel,,,0.5003,0.5003,10000,33.0,5.0,Spheroid,Stretching,1
+Majority Judgment,w_is_not_condorcet_winner_ut_rel,,,0.4997,0.4997,10000,33.0,5.0,Spheroid,Stretching,1
+Majority Judgment,w_missed_condorcet_winner_ut_rel,,,0.2541,0.2541,10000,33.0,5.0,Spheroid,Stretching,1
+Majority Judgment,w_is_condorcet_winner_ut_abs_ctb,,,0.5003,0.5003,10000,33.0,5.0,Spheroid,Stretching,1
+Majority Judgment,w_is_not_condorcet_winner_ut_abs_ctb,,,0.4997,0.4997,10000,33.0,5.0,Spheroid,Stretching,1
+Majority Judgment,w_missed_condorcet_winner_ut_abs_ctb,,,0.2541,0.2541,10000,33.0,5.0,Spheroid,Stretching,1
+Majority Judgment,w_is_condorcet_winner_ut_abs,,,0.5003,0.5003,10000,33.0,5.0,Spheroid,Stretching,1
+Majority Judgment,w_is_not_condorcet_winner_ut_abs,,,0.4997,0.4997,10000,33.0,5.0,Spheroid,Stretching,1
+Majority Judgment,w_missed_condorcet_winner_ut_abs,,,0.2541,0.2541,10000,33.0,5.0,Spheroid,Stretching,1
+Majority Judgment,w_is_resistant_condorcet_winner,,,0.0037,0.0037,10000,33.0,5.0,Spheroid,Stretching,1
+Majority Judgment,w_is_not_resistant_condorcet_winner,,,0.9963,0.9963,10000,33.0,5.0,Spheroid,Stretching,1
+Majority Judgment,w_missed_resistant_condorcet_winner,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Majority Judgment,TM,TM_option = exact,6.872440576553345,0.9845,0.9845,10000,33.0,5.0,Spheroid,Stretching,1
+Majority Judgment,UM,CM_option = exact,1.283560037612915,0.9845,0.9845,10000,33.0,5.0,Spheroid,Stretching,1
+Majority Judgment,ICM,ICM_option = exact,0.9050660133361816,0.4997,0.4997,10000,33.0,5.0,Spheroid,Stretching,1
+Majority Judgment,CM,CM_option = exact,0.23901152610778809,0.9845,0.9845,10000,33.0,5.0,Spheroid,Stretching,1
+Maximin,w_is_condorcet_admissible,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Maximin,w_is_not_condorcet_admissible,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Maximin,w_missed_condorcet_admissible,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Maximin,w_is_weak_condorcet_winner,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Maximin,w_is_not_weak_condorcet_winner,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Maximin,w_missed_weak_condorcet_winner,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Maximin,w_is_condorcet_winner_rk_ctb,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Maximin,w_is_not_condorcet_winner_rk_ctb,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Maximin,w_missed_condorcet_winner_rk_ctb,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Maximin,w_is_condorcet_winner_rk,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Maximin,w_is_not_condorcet_winner_rk,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Maximin,w_missed_condorcet_winner_rk,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Maximin,w_is_condorcet_winner_ut_rel_ctb,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Maximin,w_is_not_condorcet_winner_ut_rel_ctb,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Maximin,w_missed_condorcet_winner_ut_rel_ctb,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Maximin,w_is_condorcet_winner_ut_rel,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Maximin,w_is_not_condorcet_winner_ut_rel,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Maximin,w_missed_condorcet_winner_ut_rel,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Maximin,w_is_condorcet_winner_ut_abs_ctb,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Maximin,w_is_not_condorcet_winner_ut_abs_ctb,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Maximin,w_missed_condorcet_winner_ut_abs_ctb,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Maximin,w_is_condorcet_winner_ut_abs,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Maximin,w_is_not_condorcet_winner_ut_abs,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Maximin,w_missed_condorcet_winner_ut_abs,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Maximin,w_is_resistant_condorcet_winner,,,0.0037,0.0037,10000,33.0,5.0,Spheroid,Stretching,1
+Maximin,w_is_not_resistant_condorcet_winner,,,0.9963,0.9963,10000,33.0,5.0,Spheroid,Stretching,1
+Maximin,w_missed_resistant_condorcet_winner,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Maximin,TM,TM_option = exact,19.80073380470276,0.9127,0.9127,10000,33.0,5.0,Spheroid,Stretching,1
+Maximin,UM,UM_option = exact,11.92069935798645,0.9259,0.9259,10000,33.0,5.0,Spheroid,Stretching,1
+Maximin,ICM,ICM_option = exact,0.8545525074005127,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Maximin,CM,"CM_option = fast, UM_option = exact, TM_option = exact",3.9947574138641357,0.9308,0.9317,10000,33.0,5.0,Spheroid,Stretching,1
+Nanson,w_is_condorcet_admissible,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Nanson,w_is_not_condorcet_admissible,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Nanson,w_missed_condorcet_admissible,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Nanson,w_is_weak_condorcet_winner,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Nanson,w_is_not_weak_condorcet_winner,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Nanson,w_missed_weak_condorcet_winner,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Nanson,w_is_condorcet_winner_rk_ctb,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Nanson,w_is_not_condorcet_winner_rk_ctb,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Nanson,w_missed_condorcet_winner_rk_ctb,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Nanson,w_is_condorcet_winner_rk,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Nanson,w_is_not_condorcet_winner_rk,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Nanson,w_missed_condorcet_winner_rk,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Nanson,w_is_condorcet_winner_ut_rel_ctb,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Nanson,w_is_not_condorcet_winner_ut_rel_ctb,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Nanson,w_missed_condorcet_winner_ut_rel_ctb,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Nanson,w_is_condorcet_winner_ut_rel,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Nanson,w_is_not_condorcet_winner_ut_rel,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Nanson,w_missed_condorcet_winner_ut_rel,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Nanson,w_is_condorcet_winner_ut_abs_ctb,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Nanson,w_is_not_condorcet_winner_ut_abs_ctb,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Nanson,w_missed_condorcet_winner_ut_abs_ctb,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Nanson,w_is_condorcet_winner_ut_abs,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Nanson,w_is_not_condorcet_winner_ut_abs,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Nanson,w_missed_condorcet_winner_ut_abs,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Nanson,w_is_resistant_condorcet_winner,,,0.0037,0.0037,10000,33.0,5.0,Spheroid,Stretching,1
+Nanson,w_is_not_resistant_condorcet_winner,,,0.9963,0.9963,10000,33.0,5.0,Spheroid,Stretching,1
+Nanson,w_missed_resistant_condorcet_winner,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Nanson,TM,TM_option = exact,15.314396142959595,0.9555,0.9555,10000,33.0,5.0,Spheroid,Stretching,1
+Nanson,UM,UM_option = exact,202.4502396583557,0.9606,0.9606,10000,33.0,5.0,Spheroid,Stretching,1
+Nanson,ICM,ICM_option = exact,0.8930521011352539,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Nanson,CM,"CM_option = lazy, UM_option = exact, TM_option = exact",1.920109748840332,0.9606,0.9963,10000,33.0,5.0,Spheroid,Stretching,1
+Plurality,w_is_condorcet_admissible,,,0.4543,0.4543,10000,33.0,5.0,Spheroid,Stretching,1
+Plurality,w_is_not_condorcet_admissible,,,0.5457,0.5457,10000,33.0,5.0,Spheroid,Stretching,1
+Plurality,w_missed_condorcet_admissible,,,0.3001,0.3001,10000,33.0,5.0,Spheroid,Stretching,1
+Plurality,w_is_weak_condorcet_winner,,,0.4543,0.4543,10000,33.0,5.0,Spheroid,Stretching,1
+Plurality,w_is_not_weak_condorcet_winner,,,0.5457,0.5457,10000,33.0,5.0,Spheroid,Stretching,1
+Plurality,w_missed_weak_condorcet_winner,,,0.3001,0.3001,10000,33.0,5.0,Spheroid,Stretching,1
+Plurality,w_is_condorcet_winner_rk_ctb,,,0.4543,0.4543,10000,33.0,5.0,Spheroid,Stretching,1
+Plurality,w_is_not_condorcet_winner_rk_ctb,,,0.5457,0.5457,10000,33.0,5.0,Spheroid,Stretching,1
+Plurality,w_missed_condorcet_winner_rk_ctb,,,0.3001,0.3001,10000,33.0,5.0,Spheroid,Stretching,1
+Plurality,w_is_condorcet_winner_rk,,,0.4543,0.4543,10000,33.0,5.0,Spheroid,Stretching,1
+Plurality,w_is_not_condorcet_winner_rk,,,0.5457,0.5457,10000,33.0,5.0,Spheroid,Stretching,1
+Plurality,w_missed_condorcet_winner_rk,,,0.3001,0.3001,10000,33.0,5.0,Spheroid,Stretching,1
+Plurality,w_is_condorcet_winner_ut_rel_ctb,,,0.4543,0.4543,10000,33.0,5.0,Spheroid,Stretching,1
+Plurality,w_is_not_condorcet_winner_ut_rel_ctb,,,0.5457,0.5457,10000,33.0,5.0,Spheroid,Stretching,1
+Plurality,w_missed_condorcet_winner_ut_rel_ctb,,,0.3001,0.3001,10000,33.0,5.0,Spheroid,Stretching,1
+Plurality,w_is_condorcet_winner_ut_rel,,,0.4543,0.4543,10000,33.0,5.0,Spheroid,Stretching,1
+Plurality,w_is_not_condorcet_winner_ut_rel,,,0.5457,0.5457,10000,33.0,5.0,Spheroid,Stretching,1
+Plurality,w_missed_condorcet_winner_ut_rel,,,0.3001,0.3001,10000,33.0,5.0,Spheroid,Stretching,1
+Plurality,w_is_condorcet_winner_ut_abs_ctb,,,0.4543,0.4543,10000,33.0,5.0,Spheroid,Stretching,1
+Plurality,w_is_not_condorcet_winner_ut_abs_ctb,,,0.5457,0.5457,10000,33.0,5.0,Spheroid,Stretching,1
+Plurality,w_missed_condorcet_winner_ut_abs_ctb,,,0.3001,0.3001,10000,33.0,5.0,Spheroid,Stretching,1
+Plurality,w_is_condorcet_winner_ut_abs,,,0.4543,0.4543,10000,33.0,5.0,Spheroid,Stretching,1
+Plurality,w_is_not_condorcet_winner_ut_abs,,,0.5457,0.5457,10000,33.0,5.0,Spheroid,Stretching,1
+Plurality,w_missed_condorcet_winner_ut_abs,,,0.3001,0.3001,10000,33.0,5.0,Spheroid,Stretching,1
+Plurality,w_is_resistant_condorcet_winner,,,0.0037,0.0037,10000,33.0,5.0,Spheroid,Stretching,1
+Plurality,w_is_not_resistant_condorcet_winner,,,0.9963,0.9963,10000,33.0,5.0,Spheroid,Stretching,1
+Plurality,w_missed_resistant_condorcet_winner,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Plurality,TM,CM_option = exact,3.168696403503418,0.9856,0.9856,10000,33.0,5.0,Spheroid,Stretching,1
+Plurality,UM,CM_option = exact,0.2630152702331543,0.9856,0.9856,10000,33.0,5.0,Spheroid,Stretching,1
+Plurality,ICM,ICM_option = exact,0.9250643253326416,0.5457,0.5457,10000,33.0,5.0,Spheroid,Stretching,1
+Plurality,CM,CM_option = exact,0.2230081558227539,0.9856,0.9856,10000,33.0,5.0,Spheroid,Stretching,1
+Range voting with average,w_is_condorcet_admissible,,,0.5861,0.5861,10000,33.0,5.0,Spheroid,Stretching,1
+Range voting with average,w_is_not_condorcet_admissible,,,0.4139,0.4139,10000,33.0,5.0,Spheroid,Stretching,1
+Range voting with average,w_missed_condorcet_admissible,,,0.1683,0.1683,10000,33.0,5.0,Spheroid,Stretching,1
+Range voting with average,w_is_weak_condorcet_winner,,,0.5861,0.5861,10000,33.0,5.0,Spheroid,Stretching,1
+Range voting with average,w_is_not_weak_condorcet_winner,,,0.4139,0.4139,10000,33.0,5.0,Spheroid,Stretching,1
+Range voting with average,w_missed_weak_condorcet_winner,,,0.1683,0.1683,10000,33.0,5.0,Spheroid,Stretching,1
+Range voting with average,w_is_condorcet_winner_rk_ctb,,,0.5861,0.5861,10000,33.0,5.0,Spheroid,Stretching,1
+Range voting with average,w_is_not_condorcet_winner_rk_ctb,,,0.4139,0.4139,10000,33.0,5.0,Spheroid,Stretching,1
+Range voting with average,w_missed_condorcet_winner_rk_ctb,,,0.1683,0.1683,10000,33.0,5.0,Spheroid,Stretching,1
+Range voting with average,w_is_condorcet_winner_rk,,,0.5861,0.5861,10000,33.0,5.0,Spheroid,Stretching,1
+Range voting with average,w_is_not_condorcet_winner_rk,,,0.4139,0.4139,10000,33.0,5.0,Spheroid,Stretching,1
+Range voting with average,w_missed_condorcet_winner_rk,,,0.1683,0.1683,10000,33.0,5.0,Spheroid,Stretching,1
+Range voting with average,w_is_condorcet_winner_ut_rel_ctb,,,0.5861,0.5861,10000,33.0,5.0,Spheroid,Stretching,1
+Range voting with average,w_is_not_condorcet_winner_ut_rel_ctb,,,0.4139,0.4139,10000,33.0,5.0,Spheroid,Stretching,1
+Range voting with average,w_missed_condorcet_winner_ut_rel_ctb,,,0.1683,0.1683,10000,33.0,5.0,Spheroid,Stretching,1
+Range voting with average,w_is_condorcet_winner_ut_rel,,,0.5861,0.5861,10000,33.0,5.0,Spheroid,Stretching,1
+Range voting with average,w_is_not_condorcet_winner_ut_rel,,,0.4139,0.4139,10000,33.0,5.0,Spheroid,Stretching,1
+Range voting with average,w_missed_condorcet_winner_ut_rel,,,0.1683,0.1683,10000,33.0,5.0,Spheroid,Stretching,1
+Range voting with average,w_is_condorcet_winner_ut_abs_ctb,,,0.5861,0.5861,10000,33.0,5.0,Spheroid,Stretching,1
+Range voting with average,w_is_not_condorcet_winner_ut_abs_ctb,,,0.4139,0.4139,10000,33.0,5.0,Spheroid,Stretching,1
+Range voting with average,w_missed_condorcet_winner_ut_abs_ctb,,,0.1683,0.1683,10000,33.0,5.0,Spheroid,Stretching,1
+Range voting with average,w_is_condorcet_winner_ut_abs,,,0.5861,0.5861,10000,33.0,5.0,Spheroid,Stretching,1
+Range voting with average,w_is_not_condorcet_winner_ut_abs,,,0.4139,0.4139,10000,33.0,5.0,Spheroid,Stretching,1
+Range voting with average,w_missed_condorcet_winner_ut_abs,,,0.1683,0.1683,10000,33.0,5.0,Spheroid,Stretching,1
+Range voting with average,w_is_resistant_condorcet_winner,,,0.0037,0.0037,10000,33.0,5.0,Spheroid,Stretching,1
+Range voting with average,w_is_not_resistant_condorcet_winner,,,0.9963,0.9963,10000,33.0,5.0,Spheroid,Stretching,1
+Range voting with average,w_missed_resistant_condorcet_winner,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Range voting with average,TM,CM_option = exact,3.182685613632202,0.9968,0.9968,10000,33.0,5.0,Spheroid,Stretching,1
+Range voting with average,UM,CM_option = exact,0.24950957298278809,0.9968,0.9968,10000,33.0,5.0,Spheroid,Stretching,1
+Range voting with average,ICM,ICM_option = exact,0.8750545978546143,0.4139,0.4139,10000,33.0,5.0,Spheroid,Stretching,1
+Range voting with average,CM,CM_option = exact,0.24551153182983398,0.9968,0.9968,10000,33.0,5.0,Spheroid,Stretching,1
+Ranked Pairs,w_is_condorcet_admissible,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Ranked Pairs,w_is_not_condorcet_admissible,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Ranked Pairs,w_missed_condorcet_admissible,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Ranked Pairs,w_is_weak_condorcet_winner,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Ranked Pairs,w_is_not_weak_condorcet_winner,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Ranked Pairs,w_missed_weak_condorcet_winner,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Ranked Pairs,w_is_condorcet_winner_rk_ctb,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Ranked Pairs,w_is_not_condorcet_winner_rk_ctb,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Ranked Pairs,w_missed_condorcet_winner_rk_ctb,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Ranked Pairs,w_is_condorcet_winner_rk,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Ranked Pairs,w_is_not_condorcet_winner_rk,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Ranked Pairs,w_missed_condorcet_winner_rk,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Ranked Pairs,w_is_condorcet_winner_ut_rel_ctb,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Ranked Pairs,w_is_not_condorcet_winner_ut_rel_ctb,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Ranked Pairs,w_missed_condorcet_winner_ut_rel_ctb,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Ranked Pairs,w_is_condorcet_winner_ut_rel,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Ranked Pairs,w_is_not_condorcet_winner_ut_rel,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Ranked Pairs,w_missed_condorcet_winner_ut_rel,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Ranked Pairs,w_is_condorcet_winner_ut_abs_ctb,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Ranked Pairs,w_is_not_condorcet_winner_ut_abs_ctb,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Ranked Pairs,w_missed_condorcet_winner_ut_abs_ctb,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Ranked Pairs,w_is_condorcet_winner_ut_abs,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Ranked Pairs,w_is_not_condorcet_winner_ut_abs,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Ranked Pairs,w_missed_condorcet_winner_ut_abs,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Ranked Pairs,w_is_resistant_condorcet_winner,,,0.0037,0.0037,10000,33.0,5.0,Spheroid,Stretching,1
+Ranked Pairs,w_is_not_resistant_condorcet_winner,,,0.9963,0.9963,10000,33.0,5.0,Spheroid,Stretching,1
+Ranked Pairs,w_missed_resistant_condorcet_winner,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Ranked Pairs,TM,TM_option = exact,22.6398446559906,0.9274,0.9274,10000,33.0,5.0,Spheroid,Stretching,1
+Ranked Pairs,UM,UM_option = exact,485.6231515407562,0.9338,0.9338,10000,33.0,5.0,Spheroid,Stretching,1
+Ranked Pairs,ICM,ICM_option = exact,0.8730509281158447,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Ranked Pairs,CM,"CM_option = lazy, UM_option = exact, TM_option = exact",2.086130142211914,0.9338,0.9963,10000,33.0,5.0,Spheroid,Stretching,1
+Schulze,w_is_condorcet_admissible,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Schulze,w_is_not_condorcet_admissible,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Schulze,w_missed_condorcet_admissible,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Schulze,w_is_weak_condorcet_winner,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Schulze,w_is_not_weak_condorcet_winner,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Schulze,w_missed_weak_condorcet_winner,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Schulze,w_is_condorcet_winner_rk_ctb,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Schulze,w_is_not_condorcet_winner_rk_ctb,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Schulze,w_missed_condorcet_winner_rk_ctb,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Schulze,w_is_condorcet_winner_rk,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Schulze,w_is_not_condorcet_winner_rk,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Schulze,w_missed_condorcet_winner_rk,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Schulze,w_is_condorcet_winner_ut_rel_ctb,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Schulze,w_is_not_condorcet_winner_ut_rel_ctb,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Schulze,w_missed_condorcet_winner_ut_rel_ctb,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Schulze,w_is_condorcet_winner_ut_rel,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Schulze,w_is_not_condorcet_winner_ut_rel,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Schulze,w_missed_condorcet_winner_ut_rel,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Schulze,w_is_condorcet_winner_ut_abs_ctb,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Schulze,w_is_not_condorcet_winner_ut_abs_ctb,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Schulze,w_missed_condorcet_winner_ut_abs_ctb,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Schulze,w_is_condorcet_winner_ut_abs,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Schulze,w_is_not_condorcet_winner_ut_abs,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Schulze,w_missed_condorcet_winner_ut_abs,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Schulze,w_is_resistant_condorcet_winner,,,0.0037,0.0037,10000,33.0,5.0,Spheroid,Stretching,1
+Schulze,w_is_not_resistant_condorcet_winner,,,0.9963,0.9963,10000,33.0,5.0,Spheroid,Stretching,1
+Schulze,w_missed_resistant_condorcet_winner,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Schulze,TM,TM_option = exact,14.076372623443604,0.9147,0.9147,10000,33.0,5.0,Spheroid,Stretching,1
+Schulze,UM,UM_option = fast,43.82872462272644,0.9306,0.9487,10000,33.0,5.0,Spheroid,Stretching,1
+Schulze,ICM,ICM_option = exact,0.8875489234924316,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Schulze,CM,"CM_option = fast, TM_option = exact",0.3085160255432129,0.9306,0.9487,10000,33.0,5.0,Spheroid,Stretching,1
+Two Round,w_is_condorcet_admissible,,,0.6285,0.6285,10000,33.0,5.0,Spheroid,Stretching,1
+Two Round,w_is_not_condorcet_admissible,,,0.3715,0.3715,10000,33.0,5.0,Spheroid,Stretching,1
+Two Round,w_missed_condorcet_admissible,,,0.1259,0.1259,10000,33.0,5.0,Spheroid,Stretching,1
+Two Round,w_is_weak_condorcet_winner,,,0.6285,0.6285,10000,33.0,5.0,Spheroid,Stretching,1
+Two Round,w_is_not_weak_condorcet_winner,,,0.3715,0.3715,10000,33.0,5.0,Spheroid,Stretching,1
+Two Round,w_missed_weak_condorcet_winner,,,0.1259,0.1259,10000,33.0,5.0,Spheroid,Stretching,1
+Two Round,w_is_condorcet_winner_rk_ctb,,,0.6285,0.6285,10000,33.0,5.0,Spheroid,Stretching,1
+Two Round,w_is_not_condorcet_winner_rk_ctb,,,0.3715,0.3715,10000,33.0,5.0,Spheroid,Stretching,1
+Two Round,w_missed_condorcet_winner_rk_ctb,,,0.1259,0.1259,10000,33.0,5.0,Spheroid,Stretching,1
+Two Round,w_is_condorcet_winner_rk,,,0.6285,0.6285,10000,33.0,5.0,Spheroid,Stretching,1
+Two Round,w_is_not_condorcet_winner_rk,,,0.3715,0.3715,10000,33.0,5.0,Spheroid,Stretching,1
+Two Round,w_missed_condorcet_winner_rk,,,0.1259,0.1259,10000,33.0,5.0,Spheroid,Stretching,1
+Two Round,w_is_condorcet_winner_ut_rel_ctb,,,0.6285,0.6285,10000,33.0,5.0,Spheroid,Stretching,1
+Two Round,w_is_not_condorcet_winner_ut_rel_ctb,,,0.3715,0.3715,10000,33.0,5.0,Spheroid,Stretching,1
+Two Round,w_missed_condorcet_winner_ut_rel_ctb,,,0.1259,0.1259,10000,33.0,5.0,Spheroid,Stretching,1
+Two Round,w_is_condorcet_winner_ut_rel,,,0.6285,0.6285,10000,33.0,5.0,Spheroid,Stretching,1
+Two Round,w_is_not_condorcet_winner_ut_rel,,,0.3715,0.3715,10000,33.0,5.0,Spheroid,Stretching,1
+Two Round,w_missed_condorcet_winner_ut_rel,,,0.1259,0.1259,10000,33.0,5.0,Spheroid,Stretching,1
+Two Round,w_is_condorcet_winner_ut_abs_ctb,,,0.6285,0.6285,10000,33.0,5.0,Spheroid,Stretching,1
+Two Round,w_is_not_condorcet_winner_ut_abs_ctb,,,0.3715,0.3715,10000,33.0,5.0,Spheroid,Stretching,1
+Two Round,w_missed_condorcet_winner_ut_abs_ctb,,,0.1259,0.1259,10000,33.0,5.0,Spheroid,Stretching,1
+Two Round,w_is_condorcet_winner_ut_abs,,,0.6285,0.6285,10000,33.0,5.0,Spheroid,Stretching,1
+Two Round,w_is_not_condorcet_winner_ut_abs,,,0.3715,0.3715,10000,33.0,5.0,Spheroid,Stretching,1
+Two Round,w_missed_condorcet_winner_ut_abs,,,0.1259,0.1259,10000,33.0,5.0,Spheroid,Stretching,1
+Two Round,w_is_resistant_condorcet_winner,,,0.0037,0.0037,10000,33.0,5.0,Spheroid,Stretching,1
+Two Round,w_is_not_resistant_condorcet_winner,,,0.9963,0.9963,10000,33.0,5.0,Spheroid,Stretching,1
+Two Round,w_missed_resistant_condorcet_winner,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Two Round,TM,TM_option = exact,27.988703727722168,0.3871,0.3871,10000,33.0,5.0,Spheroid,Stretching,1
+Two Round,UM,UM_option = exact,8.022511005401611,0.3871,0.3871,10000,33.0,5.0,Spheroid,Stretching,1
+Two Round,ICM,ICM_option = exact,0.8775599002838135,0.3715,0.3715,10000,33.0,5.0,Spheroid,Stretching,1
+Two Round,CM,CM_option = exact,11.768734216690063,0.6919,0.6919,10000,33.0,5.0,Spheroid,Stretching,1
+Veto,w_is_condorcet_admissible,,,0.3767,0.3767,10000,33.0,5.0,Spheroid,Stretching,1
+Veto,w_is_not_condorcet_admissible,,,0.6233,0.6233,10000,33.0,5.0,Spheroid,Stretching,1
+Veto,w_missed_condorcet_admissible,,,0.3777,0.3777,10000,33.0,5.0,Spheroid,Stretching,1
+Veto,w_is_weak_condorcet_winner,,,0.3767,0.3767,10000,33.0,5.0,Spheroid,Stretching,1
+Veto,w_is_not_weak_condorcet_winner,,,0.6233,0.6233,10000,33.0,5.0,Spheroid,Stretching,1
+Veto,w_missed_weak_condorcet_winner,,,0.3777,0.3777,10000,33.0,5.0,Spheroid,Stretching,1
+Veto,w_is_condorcet_winner_rk_ctb,,,0.3767,0.3767,10000,33.0,5.0,Spheroid,Stretching,1
+Veto,w_is_not_condorcet_winner_rk_ctb,,,0.6233,0.6233,10000,33.0,5.0,Spheroid,Stretching,1
+Veto,w_missed_condorcet_winner_rk_ctb,,,0.3777,0.3777,10000,33.0,5.0,Spheroid,Stretching,1
+Veto,w_is_condorcet_winner_rk,,,0.3767,0.3767,10000,33.0,5.0,Spheroid,Stretching,1
+Veto,w_is_not_condorcet_winner_rk,,,0.6233,0.6233,10000,33.0,5.0,Spheroid,Stretching,1
+Veto,w_missed_condorcet_winner_rk,,,0.3777,0.3777,10000,33.0,5.0,Spheroid,Stretching,1
+Veto,w_is_condorcet_winner_ut_rel_ctb,,,0.3767,0.3767,10000,33.0,5.0,Spheroid,Stretching,1
+Veto,w_is_not_condorcet_winner_ut_rel_ctb,,,0.6233,0.6233,10000,33.0,5.0,Spheroid,Stretching,1
+Veto,w_missed_condorcet_winner_ut_rel_ctb,,,0.3777,0.3777,10000,33.0,5.0,Spheroid,Stretching,1
+Veto,w_is_condorcet_winner_ut_rel,,,0.3767,0.3767,10000,33.0,5.0,Spheroid,Stretching,1
+Veto,w_is_not_condorcet_winner_ut_rel,,,0.6233,0.6233,10000,33.0,5.0,Spheroid,Stretching,1
+Veto,w_missed_condorcet_winner_ut_rel,,,0.3777,0.3777,10000,33.0,5.0,Spheroid,Stretching,1
+Veto,w_is_condorcet_winner_ut_abs_ctb,,,0.3767,0.3767,10000,33.0,5.0,Spheroid,Stretching,1
+Veto,w_is_not_condorcet_winner_ut_abs_ctb,,,0.6233,0.6233,10000,33.0,5.0,Spheroid,Stretching,1
+Veto,w_missed_condorcet_winner_ut_abs_ctb,,,0.3777,0.3777,10000,33.0,5.0,Spheroid,Stretching,1
+Veto,w_is_condorcet_winner_ut_abs,,,0.3767,0.3767,10000,33.0,5.0,Spheroid,Stretching,1
+Veto,w_is_not_condorcet_winner_ut_abs,,,0.6233,0.6233,10000,33.0,5.0,Spheroid,Stretching,1
+Veto,w_missed_condorcet_winner_ut_abs,,,0.3777,0.3777,10000,33.0,5.0,Spheroid,Stretching,1
+Veto,w_is_resistant_condorcet_winner,,,0.0023,0.0023,10000,33.0,5.0,Spheroid,Stretching,1
+Veto,w_is_not_resistant_condorcet_winner,,,0.9977,0.9977,10000,33.0,5.0,Spheroid,Stretching,1
+Veto,w_missed_resistant_condorcet_winner,,,0.0014,0.0014,10000,33.0,5.0,Spheroid,Stretching,1
+Veto,TM,TM_option = exact,6.598920106887817,0.0344,0.0344,10000,33.0,5.0,Spheroid,Stretching,1
+Veto,UM,TM_option = exact,0.23150944709777832,0.0344,0.0344,10000,33.0,5.0,Spheroid,Stretching,1
+Veto,ICM,ICM_option = exact,5.868301630020142,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Veto,CM,CM_option = exact,4.307262897491455,0.9079,0.9079,10000,33.0,5.0,Spheroid,Stretching,1
+ICRV,w_is_condorcet_admissible,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+ICRV,w_is_not_condorcet_admissible,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+ICRV,w_missed_condorcet_admissible,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+ICRV,w_is_weak_condorcet_winner,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+ICRV,w_is_not_weak_condorcet_winner,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+ICRV,w_missed_weak_condorcet_winner,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+ICRV,w_is_condorcet_winner_rk_ctb,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+ICRV,w_is_not_condorcet_winner_rk_ctb,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+ICRV,w_missed_condorcet_winner_rk_ctb,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+ICRV,w_is_condorcet_winner_rk,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+ICRV,w_is_not_condorcet_winner_rk,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+ICRV,w_missed_condorcet_winner_rk,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+ICRV,w_is_condorcet_winner_ut_rel_ctb,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+ICRV,w_is_not_condorcet_winner_ut_rel_ctb,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+ICRV,w_missed_condorcet_winner_ut_rel_ctb,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+ICRV,w_is_condorcet_winner_ut_rel,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+ICRV,w_is_not_condorcet_winner_ut_rel,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+ICRV,w_missed_condorcet_winner_ut_rel,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+ICRV,w_is_condorcet_winner_ut_abs_ctb,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+ICRV,w_is_not_condorcet_winner_ut_abs_ctb,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+ICRV,w_missed_condorcet_winner_ut_abs_ctb,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+ICRV,w_is_condorcet_winner_ut_abs,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+ICRV,w_is_not_condorcet_winner_ut_abs,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+ICRV,w_missed_condorcet_winner_ut_abs,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+ICRV,w_is_resistant_condorcet_winner,,,0.0037,0.0037,10000,33.0,5.0,Spheroid,Stretching,1
+ICRV,w_is_not_resistant_condorcet_winner,,,0.9963,0.9963,10000,33.0,5.0,Spheroid,Stretching,1
+ICRV,w_missed_resistant_condorcet_winner,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+ICRV,TM,TM_option = exact,49.94147324562073,0.2724,0.2724,10000,33.0,5.0,Spheroid,Stretching,1
+ICRV,UM,UM_option = exact,2982.7663819789886,0.2729,0.2729,10000,33.0,5.0,Spheroid,Stretching,1
+ICRV,ICM,ICM_option = exact,0.9675784111022949,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+ICRV,CM,"CM_option = lazy, UM_option = exact, TM_option = exact",9.491088628768921,0.2729,0.9963,10000,33.0,5.0,Spheroid,Stretching,1
+Exhaustive Ballot,w_is_condorcet_admissible,,,0.6762,0.6762,10000,33.0,5.0,Spheroid,Stretching,1
+Exhaustive Ballot,w_is_not_condorcet_admissible,,,0.3238,0.3238,10000,33.0,5.0,Spheroid,Stretching,1
+Exhaustive Ballot,w_missed_condorcet_admissible,,,0.0782,0.0782,10000,33.0,5.0,Spheroid,Stretching,1
+Exhaustive Ballot,w_is_weak_condorcet_winner,,,0.6762,0.6762,10000,33.0,5.0,Spheroid,Stretching,1
+Exhaustive Ballot,w_is_not_weak_condorcet_winner,,,0.3238,0.3238,10000,33.0,5.0,Spheroid,Stretching,1
+Exhaustive Ballot,w_missed_weak_condorcet_winner,,,0.0782,0.0782,10000,33.0,5.0,Spheroid,Stretching,1
+Exhaustive Ballot,w_is_condorcet_winner_rk_ctb,,,0.6762,0.6762,10000,33.0,5.0,Spheroid,Stretching,1
+Exhaustive Ballot,w_is_not_condorcet_winner_rk_ctb,,,0.3238,0.3238,10000,33.0,5.0,Spheroid,Stretching,1
+Exhaustive Ballot,w_missed_condorcet_winner_rk_ctb,,,0.0782,0.0782,10000,33.0,5.0,Spheroid,Stretching,1
+Exhaustive Ballot,w_is_condorcet_winner_rk,,,0.6762,0.6762,10000,33.0,5.0,Spheroid,Stretching,1
+Exhaustive Ballot,w_is_not_condorcet_winner_rk,,,0.3238,0.3238,10000,33.0,5.0,Spheroid,Stretching,1
+Exhaustive Ballot,w_missed_condorcet_winner_rk,,,0.0782,0.0782,10000,33.0,5.0,Spheroid,Stretching,1
+Exhaustive Ballot,w_is_condorcet_winner_ut_rel_ctb,,,0.6762,0.6762,10000,33.0,5.0,Spheroid,Stretching,1
+Exhaustive Ballot,w_is_not_condorcet_winner_ut_rel_ctb,,,0.3238,0.3238,10000,33.0,5.0,Spheroid,Stretching,1
+Exhaustive Ballot,w_missed_condorcet_winner_ut_rel_ctb,,,0.0782,0.0782,10000,33.0,5.0,Spheroid,Stretching,1
+Exhaustive Ballot,w_is_condorcet_winner_ut_rel,,,0.6762,0.6762,10000,33.0,5.0,Spheroid,Stretching,1
+Exhaustive Ballot,w_is_not_condorcet_winner_ut_rel,,,0.3238,0.3238,10000,33.0,5.0,Spheroid,Stretching,1
+Exhaustive Ballot,w_missed_condorcet_winner_ut_rel,,,0.0782,0.0782,10000,33.0,5.0,Spheroid,Stretching,1
+Exhaustive Ballot,w_is_condorcet_winner_ut_abs_ctb,,,0.6762,0.6762,10000,33.0,5.0,Spheroid,Stretching,1
+Exhaustive Ballot,w_is_not_condorcet_winner_ut_abs_ctb,,,0.3238,0.3238,10000,33.0,5.0,Spheroid,Stretching,1
+Exhaustive Ballot,w_missed_condorcet_winner_ut_abs_ctb,,,0.0782,0.0782,10000,33.0,5.0,Spheroid,Stretching,1
+Exhaustive Ballot,w_is_condorcet_winner_ut_abs,,,0.6762,0.6762,10000,33.0,5.0,Spheroid,Stretching,1
+Exhaustive Ballot,w_is_not_condorcet_winner_ut_abs,,,0.3238,0.3238,10000,33.0,5.0,Spheroid,Stretching,1
+Exhaustive Ballot,w_missed_condorcet_winner_ut_abs,,,0.0782,0.0782,10000,33.0,5.0,Spheroid,Stretching,1
+Exhaustive Ballot,w_is_resistant_condorcet_winner,,,0.0037,0.0037,10000,33.0,5.0,Spheroid,Stretching,1
+Exhaustive Ballot,w_is_not_resistant_condorcet_winner,,,0.9963,0.9963,10000,33.0,5.0,Spheroid,Stretching,1
+Exhaustive Ballot,w_missed_resistant_condorcet_winner,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Exhaustive Ballot,TM,TM_option = exact,24.363490104675293,0.3305,0.3305,10000,33.0,5.0,Spheroid,Stretching,1
+Exhaustive Ballot,UM,UM_option = exact,55.090911626815796,0.3305,0.3305,10000,33.0,5.0,Spheroid,Stretching,1
+Exhaustive Ballot,ICM,ICM_option = exact,1.0610589981079102,0.3238,0.3238,10000,33.0,5.0,Spheroid,Stretching,1
+Exhaustive Ballot,CM,CM_option = exact,85.01359510421753,0.4403,0.4403,10000,33.0,5.0,Spheroid,Stretching,1
+IRV,w_is_condorcet_admissible,,,0.6762,0.6762,10000,33.0,5.0,Spheroid,Stretching,1
+IRV,w_is_not_condorcet_admissible,,,0.3238,0.3238,10000,33.0,5.0,Spheroid,Stretching,1
+IRV,w_missed_condorcet_admissible,,,0.0782,0.0782,10000,33.0,5.0,Spheroid,Stretching,1
+IRV,w_is_weak_condorcet_winner,,,0.6762,0.6762,10000,33.0,5.0,Spheroid,Stretching,1
+IRV,w_is_not_weak_condorcet_winner,,,0.3238,0.3238,10000,33.0,5.0,Spheroid,Stretching,1
+IRV,w_missed_weak_condorcet_winner,,,0.0782,0.0782,10000,33.0,5.0,Spheroid,Stretching,1
+IRV,w_is_condorcet_winner_rk_ctb,,,0.6762,0.6762,10000,33.0,5.0,Spheroid,Stretching,1
+IRV,w_is_not_condorcet_winner_rk_ctb,,,0.3238,0.3238,10000,33.0,5.0,Spheroid,Stretching,1
+IRV,w_missed_condorcet_winner_rk_ctb,,,0.0782,0.0782,10000,33.0,5.0,Spheroid,Stretching,1
+IRV,w_is_condorcet_winner_rk,,,0.6762,0.6762,10000,33.0,5.0,Spheroid,Stretching,1
+IRV,w_is_not_condorcet_winner_rk,,,0.3238,0.3238,10000,33.0,5.0,Spheroid,Stretching,1
+IRV,w_missed_condorcet_winner_rk,,,0.0782,0.0782,10000,33.0,5.0,Spheroid,Stretching,1
+IRV,w_is_condorcet_winner_ut_rel_ctb,,,0.6762,0.6762,10000,33.0,5.0,Spheroid,Stretching,1
+IRV,w_is_not_condorcet_winner_ut_rel_ctb,,,0.3238,0.3238,10000,33.0,5.0,Spheroid,Stretching,1
+IRV,w_missed_condorcet_winner_ut_rel_ctb,,,0.0782,0.0782,10000,33.0,5.0,Spheroid,Stretching,1
+IRV,w_is_condorcet_winner_ut_rel,,,0.6762,0.6762,10000,33.0,5.0,Spheroid,Stretching,1
+IRV,w_is_not_condorcet_winner_ut_rel,,,0.3238,0.3238,10000,33.0,5.0,Spheroid,Stretching,1
+IRV,w_missed_condorcet_winner_ut_rel,,,0.0782,0.0782,10000,33.0,5.0,Spheroid,Stretching,1
+IRV,w_is_condorcet_winner_ut_abs_ctb,,,0.6762,0.6762,10000,33.0,5.0,Spheroid,Stretching,1
+IRV,w_is_not_condorcet_winner_ut_abs_ctb,,,0.3238,0.3238,10000,33.0,5.0,Spheroid,Stretching,1
+IRV,w_missed_condorcet_winner_ut_abs_ctb,,,0.0782,0.0782,10000,33.0,5.0,Spheroid,Stretching,1
+IRV,w_is_condorcet_winner_ut_abs,,,0.6762,0.6762,10000,33.0,5.0,Spheroid,Stretching,1
+IRV,w_is_not_condorcet_winner_ut_abs,,,0.3238,0.3238,10000,33.0,5.0,Spheroid,Stretching,1
+IRV,w_missed_condorcet_winner_ut_abs,,,0.0782,0.0782,10000,33.0,5.0,Spheroid,Stretching,1
+IRV,w_is_resistant_condorcet_winner,,,0.0037,0.0037,10000,33.0,5.0,Spheroid,Stretching,1
+IRV,w_is_not_resistant_condorcet_winner,,,0.9963,0.9963,10000,33.0,5.0,Spheroid,Stretching,1
+IRV,w_missed_resistant_condorcet_winner,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+IRV,TM,TM_option = exact,0.3075218200683594,0.3305,0.3305,10000,33.0,5.0,Spheroid,Stretching,1
+IRV,UM,UM_option = exact,2.25016188621521,0.3305,0.3305,10000,33.0,5.0,Spheroid,Stretching,1
+IRV,ICM,ICM_option = exact,0.2980217933654785,0.3238,0.3238,10000,33.0,5.0,Spheroid,Stretching,1
+IRV,CM,CM_option = exact,8.489531517028809,0.4394,0.4394,10000,33.0,5.0,Spheroid,Stretching,1
+Absolute-Condorcet IRV,w_is_condorcet_admissible,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Absolute-Condorcet IRV,w_is_not_condorcet_admissible,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Absolute-Condorcet IRV,w_missed_condorcet_admissible,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Absolute-Condorcet IRV,w_is_weak_condorcet_winner,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Absolute-Condorcet IRV,w_is_not_weak_condorcet_winner,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Absolute-Condorcet IRV,w_missed_weak_condorcet_winner,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Absolute-Condorcet IRV,w_is_condorcet_winner_rk_ctb,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Absolute-Condorcet IRV,w_is_not_condorcet_winner_rk_ctb,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Absolute-Condorcet IRV,w_missed_condorcet_winner_rk_ctb,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Absolute-Condorcet IRV,w_is_condorcet_winner_rk,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Absolute-Condorcet IRV,w_is_not_condorcet_winner_rk,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Absolute-Condorcet IRV,w_missed_condorcet_winner_rk,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Absolute-Condorcet IRV,w_is_condorcet_winner_ut_rel_ctb,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Absolute-Condorcet IRV,w_is_not_condorcet_winner_ut_rel_ctb,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Absolute-Condorcet IRV,w_missed_condorcet_winner_ut_rel_ctb,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Absolute-Condorcet IRV,w_is_condorcet_winner_ut_rel,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Absolute-Condorcet IRV,w_is_not_condorcet_winner_ut_rel,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Absolute-Condorcet IRV,w_missed_condorcet_winner_ut_rel,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Absolute-Condorcet IRV,w_is_condorcet_winner_ut_abs_ctb,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Absolute-Condorcet IRV,w_is_not_condorcet_winner_ut_abs_ctb,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Absolute-Condorcet IRV,w_missed_condorcet_winner_ut_abs_ctb,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Absolute-Condorcet IRV,w_is_condorcet_winner_ut_abs,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+Absolute-Condorcet IRV,w_is_not_condorcet_winner_ut_abs,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Absolute-Condorcet IRV,w_missed_condorcet_winner_ut_abs,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Absolute-Condorcet IRV,w_is_resistant_condorcet_winner,,,0.0037,0.0037,10000,33.0,5.0,Spheroid,Stretching,1
+Absolute-Condorcet IRV,w_is_not_resistant_condorcet_winner,,,0.9963,0.9963,10000,33.0,5.0,Spheroid,Stretching,1
+Absolute-Condorcet IRV,w_missed_resistant_condorcet_winner,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+Absolute-Condorcet IRV,TM,TM_option = exact,83.1145498752594,0.2724,0.2724,10000,33.0,5.0,Spheroid,Stretching,1
+Absolute-Condorcet IRV,UM,UM_option = exact,4761.089365243912,0.2729,0.2729,10000,33.0,5.0,Spheroid,Stretching,1
+Absolute-Condorcet IRV,ICM,ICM_option = exact,0.8460497856140137,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+Absolute-Condorcet IRV,CM,"CM_option = almost_exact, TM_option = exact",4.346762418746948,0.4394,0.4394,10000,33.0,5.0,Spheroid,Stretching,1
+VTB-Condorcet IRV,w_is_condorcet_admissible,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+VTB-Condorcet IRV,w_is_not_condorcet_admissible,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+VTB-Condorcet IRV,w_missed_condorcet_admissible,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+VTB-Condorcet IRV,w_is_weak_condorcet_winner,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+VTB-Condorcet IRV,w_is_not_weak_condorcet_winner,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+VTB-Condorcet IRV,w_missed_weak_condorcet_winner,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+VTB-Condorcet IRV,w_is_condorcet_winner_rk_ctb,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+VTB-Condorcet IRV,w_is_not_condorcet_winner_rk_ctb,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+VTB-Condorcet IRV,w_missed_condorcet_winner_rk_ctb,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+VTB-Condorcet IRV,w_is_condorcet_winner_rk,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+VTB-Condorcet IRV,w_is_not_condorcet_winner_rk,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+VTB-Condorcet IRV,w_missed_condorcet_winner_rk,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+VTB-Condorcet IRV,w_is_condorcet_winner_ut_rel_ctb,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+VTB-Condorcet IRV,w_is_not_condorcet_winner_ut_rel_ctb,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+VTB-Condorcet IRV,w_missed_condorcet_winner_ut_rel_ctb,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+VTB-Condorcet IRV,w_is_condorcet_winner_ut_rel,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+VTB-Condorcet IRV,w_is_not_condorcet_winner_ut_rel,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+VTB-Condorcet IRV,w_missed_condorcet_winner_ut_rel,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+VTB-Condorcet IRV,w_is_condorcet_winner_ut_abs_ctb,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+VTB-Condorcet IRV,w_is_not_condorcet_winner_ut_abs_ctb,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+VTB-Condorcet IRV,w_missed_condorcet_winner_ut_abs_ctb,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+VTB-Condorcet IRV,w_is_condorcet_winner_ut_abs,,,0.7544,0.7544,10000,33.0,5.0,Spheroid,Stretching,1
+VTB-Condorcet IRV,w_is_not_condorcet_winner_ut_abs,,,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+VTB-Condorcet IRV,w_missed_condorcet_winner_ut_abs,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+VTB-Condorcet IRV,w_is_resistant_condorcet_winner,,,0.0037,0.0037,10000,33.0,5.0,Spheroid,Stretching,1
+VTB-Condorcet IRV,w_is_not_resistant_condorcet_winner,,,0.9963,0.9963,10000,33.0,5.0,Spheroid,Stretching,1
+VTB-Condorcet IRV,w_missed_resistant_condorcet_winner,,,0.0,0.0,10000,33.0,5.0,Spheroid,Stretching,1
+VTB-Condorcet IRV,TM,TM_option = exact,65.17950248718262,0.2724,0.2724,10000,33.0,5.0,Spheroid,Stretching,1
+VTB-Condorcet IRV,UM,UM_option = exact,3325.3509175777435,0.2729,0.2729,10000,33.0,5.0,Spheroid,Stretching,1
+VTB-Condorcet IRV,ICM,ICM_option = exact,0.8885493278503418,0.2456,0.2456,10000,33.0,5.0,Spheroid,Stretching,1
+VTB-Condorcet IRV,CM,"CM_option = almost_exact, TM_option = exact",31.269362211227417,0.4394,0.4394,10000,33.0,5.0,Spheroid,Stretching,1
